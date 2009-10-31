@@ -9,8 +9,8 @@
 	<?php $this->workLocale->setLocale($locale->locale); ?>
 	
 	<?php 
-	$localeName = $this->locale->getLanguageTranslation($this->workLocale->getLanguage());
-	if($this->workLocale->getRegion()) $localeName = ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion());	
+	$localeName = $this->locale->getTranslation($this->workLocale->getLanguage(), 'language');
+	if($this->workLocale->getRegion()) $localeName .= ", " . $this->locale->getTranslation($this->workLocale->getRegion(), 'country');	
 	?>
 	<li class="ui-tabs-nav-item"><a href="#fragment-localeOptions-<?php print $locale->locale; ?>"><span>{l:admin/options/locale/title_tab}: <?php print $localeName; ?></span></a></li>
 	<?php endforeach; ?>
@@ -45,9 +45,9 @@
 			<?php endif; ?>
 		>
 		<?php 
-		echo $this->locale->getLanguageTranslation($this->workLocale->getLanguage());
+		echo $this->locale->getTranslation($this->workLocale->getLanguage(), 'language');
 		?>
-		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion()); ?>
+		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getTranslation($this->workLocale->getRegion(), 'country'); ?>
 		</option>
 	<?php endforeach; ?>
 	</select>

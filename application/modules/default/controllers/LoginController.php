@@ -85,7 +85,7 @@ class LoginController extends Emerald_Controller_Action
 			$adminLocales = array();
 			$locale = new Zend_Locale();
 			foreach(Emerald_Server::getInstance()->getAdminLocales() as $pocale) {
-				$adminLocales[$pocale] = $locale->getLanguageTranslation($pocale, $pocale);
+				$adminLocales[$pocale] = $locale->getTranslation($pocale, 'language', $pocale);
 			}
 
 			$this->view->locale = $input->locale;

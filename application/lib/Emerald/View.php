@@ -32,6 +32,7 @@ class Emerald_View extends Zend_View
 			);
 					
 		} catch(Exception $e) {
+			
 			return (Emerald_Server::getInstance()->inProduction()) ? '' : $e->getMessage();
 		}
 		

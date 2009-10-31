@@ -15,7 +15,7 @@ class HtmlcontentController extends Emerald_Controller_Action
 			'page' => array(new Emerald_Filter_PageIdToPage()),
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional'),
+			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
 			'block_id' => array('Int', 'presence' => 'required'),
 			'onEmpty' => array(new Zend_Validate_StringLength(0, 255), 'allowEmpty' => true, 'presence' => 'optional', 'default' => ''),	
 		);

@@ -16,9 +16,9 @@
 		>
 		<?php 
 		
-		echo $this->locale->getLanguageTranslation($this->workLocale->getLanguage());
+		echo $this->locale->getTranslation($this->workLocale->getLanguage(), 'language');
 		?>
-		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion()); ?>
+		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getTranslation($this->workLocale->getRegion(), 'country'); ?>
 		</option>
 	<?php endforeach; ?>
 	</select>

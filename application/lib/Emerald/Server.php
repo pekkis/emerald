@@ -15,7 +15,7 @@ class Emerald_Server
 	 *
 	 * @var string
 	 */
-	private $_version = '1.1.0 [trunk]';
+	private $_version = '2.0.0';
 	
 	/**
 	 * Emerald server root

@@ -97,7 +97,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 			$adminLocales = array();
 			$locale = new Zend_Locale();
 			foreach(Emerald_Server::getInstance()->getAdminLocales() as $pocale) {
-				$adminLocales[$pocale] = $locale->getLanguageTranslation($pocale, $pocale);
+				$adminLocales[$pocale] = $locale->getTranslation($pocale, 'language', $pocale);
 			}
 			$this->view->availableLocales = $adminLocales;
 			
@@ -126,7 +126,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 			$adminLocales = array();
 			$locale = new Zend_Locale();
 			foreach(Emerald_Server::getInstance()->getAdminLocales() as $pocale) {
-				$adminLocales[$pocale] = $locale->getLanguageTranslation($pocale, $pocale);
+				$adminLocales[$pocale] = $locale->getTranslation($pocale, 'language', $pocale);
 			}
 			$this->view->availableLocales = $adminLocales;
 			$this->view->headScript()->appendFile("/lib/js/form.js");

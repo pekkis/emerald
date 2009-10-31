@@ -39,8 +39,8 @@ $class = (in_array($availableLocale, $this->usualLocales) || in_array($available
 
 <?php $this->workLocale->setLocale($availableLocale); ?>
 
-[<?php echo $this->locale->getLanguageTranslation($this->workLocale->getLanguage()); ?>
-<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion()); ?>]
+[<?php echo $this->locale->getTranslation($this->workLocale->getLanguage(), 'language'); ?>
+<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getTranslation($this->workLocale->getRegion(), 'country'); ?>]
 
 </td>
 </tr>
