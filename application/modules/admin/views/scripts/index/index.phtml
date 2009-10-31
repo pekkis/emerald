@@ -1,0 +1,18 @@
+<h1>{l:admin/dashboard/title}</h1>
+
+<p><strong>{l:emerald/server/version}:</strong> <?php print Emerald_Server::getInstance()->getVersion(); ?></p>
+
+<p>{l:admin/dashboard/explanation}</p>
+
+
+<?php if($this->feed): ?>
+<h2>{l:admin/dashboard/emerald_news}</h2>
+<div id="emeraldNews">
+<?php foreach($this->feed as $item): ?>
+<div class="emeraldNewsItem">
+<h3><?php print $item->title; ?></h3>
+<p><a href="<?php print $item->link; ?>"><?php print $item->description; ?></a></p>
+</div>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>

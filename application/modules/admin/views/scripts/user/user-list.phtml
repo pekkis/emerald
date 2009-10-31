@@ -1,0 +1,94 @@
+<h1>{l:user/users_and_groups_title}</h1>
+
+<nobr id="userRowMenu" style="display: none">
+<ul class="noText iconVMenu">
+	<li class="rq_exactlyOne ac_editUser"><?php echo $this->iconSmall("actions/configure", "users/edit", Array(), "{l:users/edit}") ?></li>
+</ul>
+</nobr>
+<nobr id="groupRowMenu" style="display: none">
+<ul class="noText iconVMenu">
+	<li class="rq_exactlyOne ac_editGroup"><?php echo $this->iconSmall("actions/configure", "groups/edit", Array(), "{l:groups/edit}") ?></li>
+</ul>
+</nobr>
+
+
+<div id="container-1">
+	<ul>
+		<li class="ui-tabs-nav-item"><a href="#userList"><span>{l:user/usertab/title}</span></a></li>
+		<li class="ui-tabs-nav-item"><a href="#groupList"><span>{l:user/grouptab/title}</span></a></li>
+		<!-- 
+		<li><?php echo $this->iconLarge("apps/personal", "users/view_users", Array(), "users/view_users","/admin/user/userList") ?></li>
+		<li><?php echo $this->iconLarge("apps/kdmconfig", "users/view_groups", Array(), "users/view_groups","/admin/user/groupList") ?></li>
+		 -->
+	</ul>
+	<div id="userList">
+		<table width="100%" cellspacing="0" class="entitityList">
+			<thead>
+				<tr class="columnHeadings">
+					<th>&nbsp;</th>
+					<th>{l:user/col/email}</th>
+					<th>&nbsp;</th><?php /* commands */ ?>
+					<th>{l:user/col/firstname}</th>
+					<th>{l:user/col/lastname}</th>
+				</tr>
+				<tr class="flowControls">
+					<th colspan="5">
+						<div class="paging">
+							<span class="title">{l:entititylist/paging}:</span>
+							<a href="" class="prevPage">&laquo;</a>
+							<span class="currentPage">0</span> / <span class="totalPages">0</span>
+							<a href="" class="nextPage">&raquo;</a>
+						</div>
+						<div class="selection">
+							<span class="selectionCount">0</span> 
+							<span class="title">{l:entititylist/selection_count}</span>,
+							<span class="selectNone">{l:entititylist/select_none}</span>
+							::
+							<ul class="dynamicMenu iconVMenu" id="topMenukko">
+								<li class="ac_addUser"><?php echo $this->iconSmall("actions/edit_add", "users/add", Array(), "{l:users/add}","/admin/user/viewNewUser") ?></li>
+								<li class="rq_atLeastOne rq_confirm ac_deleteUser"><?php echo $this->iconSmall("actions/editdelete", "users/delete", Array(), "{l:users/delete}") ?></li>
+							</ul>
+							<span id="activeUserCommand"></span>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	<div id="groupList">
+		
+		<table width="100%" cellspacing="0" class="entitityList">
+			<thead>
+				<tr class="columnHeadings">
+					<th></th>
+					<th>{l:group/col/name}</th>
+					<th></th> <?php /* commands */ ?>
+				</tr>
+				<tr class="flowControls">
+					<th colspan="5">
+						<div class="paging">
+							<span class="title">{l:entititylist/paging}:</span>
+							<a href="" class="prevPage">&laquo;</a>
+							<span class="currentPage">0</span> / <span class="totalPages">0</span>
+							<a href="" class="nextPage">&raquo;</a>
+						</div>
+						<div class="selection">
+							<span class="selectionCount">0</span> 
+							<span class="title">{l:entititylist/selection_count}</span>,
+							<span class="selectNone">{l:entititylist/select_none}</span>
+							::
+							<ul class="dynamicMenu iconVMenu" id="topMenukko">
+								<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "groups/add", Array(), "{l:groups/add}","/admin/user/viewNewGroup") ?></li>
+								<li class="rq_atLeastOne rq_confirm ac_deleteGroup"><?php echo $this->iconSmall("actions/editdelete", "groups/delete", Array(), "{l:groups/delete}") ?></li>
+							</ul>
+							<span id="activeGroupCommand"></span>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+</div>
+<?php /** container -1 */ ?>

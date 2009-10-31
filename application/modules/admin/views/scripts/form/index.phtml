@@ -1,0 +1,48 @@
+<div id="formController">
+
+<h1>{l:admin/form/title}</h1>
+
+
+<h2>{l:admin/form/title/create_new}</h2>
+
+<form method="post" action="/admin/form/create">
+
+<label for="name">{l:admin/form/label/name}</label>
+<input id="name" name="name" class="w13" type="text" />
+
+<label for="description">{l:admin/form/label/description}</label>
+<textarea id="description" name="description" class="w33"></textarea>
+
+
+<p>
+<button type="submit" class="submit niceButton">{l:common/create}</button>
+</p>
+
+</form>
+
+<h2>{l:admin/form/title/existing_forms}</h2>
+
+
+<table class="entitityList">
+<thead>
+	<tr>
+		<th>{l:admin/form/label/name}</th>
+		<th>{l:admin/form/label/description}</th>
+		<th>{l:common/actions}</th>
+	</tr>
+</thead>
+<tbody>
+<?php foreach($this->forms as $form): ?>
+<tr>
+	<td><?php echo $form->name; ?></td>
+	<td><?php echo $form->description; ?></td>
+	<td>
+		<a href="/admin/form/edit/id/<?php echo $form->id; ?>">{l:common/edit}</a> |
+		<a class="confirmable" href="/admin/form/delete/id/<?php echo $form->id; ?>">{l:common/delete}</a>
+	</td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+</div>

@@ -1,0 +1,69 @@
+<h1>{l:user/user_edit_title}</h1>
+
+<div id="ugContent" class="operandsCol">
+<form action="/admin/user/saveUser" method="post" id="user_edit" name="user_edit">
+<table>
+	<thead></thead>
+	<tbody>
+		<tr>
+			<th><label for="email">{l:user/col/email}</label></th>
+			<td><?php echo $this->formText('email', $this->user->email); ?></td>
+		</tr>
+		<tr>
+			<th><label for="firstname">{l:user/col/firstname}</label></th>
+			<td><?php echo $this->formText('firstname', $this->user->firstname); ?></td>
+		</tr>
+		<tr>
+			<th><label for="lastname">{l:user/col/lastname}</label></th>
+			<td><?php echo $this->formText('lastname', $this->user->lastname); ?></td>
+		</tr>
+		<tr>
+			<th><label for="password">{l:user/col/password}</label></th>
+			<td><?php echo $this->formPassword('password', ""); ?></td>
+		</tr>
+		<tr>
+			<th><label for="password_confirm">{l:user/col/password_confirm}</label></th>
+			<td><?php echo $this->formPassword('password_confirm', ""); ?></td>
+		</tr>
+		
+		<tr>
+			<th><label for="">{l:user/col/groups}</label></th>
+			<td>
+				<select name="groups[]" id="groups" multiple="multiple">
+				<?php foreach($this->groups as $grp): ?>
+					<option 
+						value="<?php echo $grp->id ?>"
+						<?php if($this->user->inGroup($grp->id)) echo 'selected="selected"' ?>
+					><?php echo $grp->name ?></option>
+				<?php endforeach; ?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="">{l:user/option/locale}</label></th>
+			<td>
+				<select name="options[locale]" id="groups">
+				<?php foreach($this->availableLocales as $locale => $translation): ?>
+					<option 
+						value="<?php echo $locale ?>"
+						<?php if($this->user->getOption("locale")==$locale) echo 'selected="selected"' ?>
+					><?php echo $translation ?></option>
+				<?php endforeach; ?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<button onclick="history.back()" class="cancel niceButton">{l:common/cancel}</button>
+				<button type="submit" class="submit niceButton">{l:common/submit}</button>
+			</td>
+			
+		</tr>
+	</tbody>
+</table>
+<input type="hidden" name="id" value="<?php echo $this->user->id ?>" />
+</form>
+</div>
+
+<div class="clearer"></div>

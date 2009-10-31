@@ -1,0 +1,25 @@
+<h1>{l:user/group_edit_title}</h1>
+
+<div id="ugContent" class="operandsCol">
+<form action="/admin/user/saveGroup" method="post" id="group_edit" name="group_edit">
+<table>
+	<thead></thead>
+	<tbody>
+		<tr>
+			<th><label for="email">{l:user/col/name}</label></th>
+			<td><?php echo $this->formText('name', $this->group->name); ?></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<button onclick="history.back()" class="cancel niceButton">{l:common/cancel}</button>
+				<button type="submit" class="submit niceButton">{l:common/submit}</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<input type="hidden" name="id" value="<?php echo $this->group->id ?>" />
+</form>
+</div>
+
+<div class="clearer"></div>

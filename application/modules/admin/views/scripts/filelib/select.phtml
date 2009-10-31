@@ -1,0 +1,30 @@
+
+<table border="1" width="100%">
+<tr>
+<td>
+
+<div id="filelibTree">
+<ul>
+<li class="<?php echo $this->active == null ? 'active' : 'nonactive'; ?>"><a href="/admin/filelib">{l:admin/filelib/rootfolder}</a>
+<?php echo $this->filelibTree($this->tree, $this->active, 'select'); ?>
+</li>
+</ul>
+</div>
+
+</td>
+
+<td>
+
+<?php foreach($this->files as $file): ?>
+
+<div>
+<a class="filelibFile" href="/file/render/id/<?php echo $file->id; ?>"><?php echo $file->name; ?></a>
+</div>
+
+<?php endforeach; ?>
+
+
+</td>
+
+</tr>
+</table>

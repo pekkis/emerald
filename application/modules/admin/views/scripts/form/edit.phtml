@@ -1,0 +1,95 @@
+<div id="formController">
+
+<h1>{l:admin/form/title/edit}</h1>
+
+<form id="createField" method="post" action="/admin/form/createField/id/<?php echo $this->form->id; ?>">
+
+<fieldset>
+	<legend>{l:admin/form/legend/create_new_field}</legend>
+	
+	<select name="type">
+	<?php foreach($this->opts as $okey => $opt): ?>
+	<option value="<?php echo $okey; ?>"><?php echo $opt; ?></option>
+	<?php endforeach; ?>
+	</select>
+	
+	<button type="submit" class="submit niceButton">{l:common/create}</button>
+		
+</fieldset>
+
+</form>
+
+<br />
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<th class="type">{l:admin/form/th/type}</th>
+<th class="title">{l:admin/form/th/title}</th>
+<th class="mandatory">{l:admin/form/th/mandatory}</th>
+<th class="options">{l:admin/form/th/options}</th>
+<th class="actions">{l:admin/form/th/actions}</th>
+</table> 
+
+
+<form id="editFields" method="post" action="/admin/form/save/form_id/<?php echo $this->form->id; ?>">
+
+<div id="sort_div">
+<?php foreach($this->form->getFields() as $key => $field): ?>
+
+<div class="sortable_div">
+
+<input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $field->id; ?>" />
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+
+<td class="type">
+<div>
+<select name="type[<?php echo $key; ?>]">
+<?php foreach($this->opts as $okey => $opt): ?>
+<option value="<?php echo $okey; ?>" <?php if($okey == $field->type): ?> selected="selected"<?php endif; ?>><?php echo $opt; ?></option>
+<?php endforeach; ?>
+</select>
+</div>
+</td>
+
+<td class="title">
+<div>
+<input name="title[<?php echo $key; ?>]" type="text" value="<?php echo $field->title; ?>" />
+</div>
+</td>
+
+<td class="mandatory">
+<div>
+<?php echo $this->formHidden("mandatory[{$key}]", 0); ?>
+<?php echo $this->formCheckbox("mandatory[{$key}]", 1, array('checked' => $field->mandatory)); ?>
+</div>
+</td>
+
+<td class="options">
+<div>
+<?php echo $this->formTextarea("options[{$key}]", $field->options, array('rows' => 3, 'cols' => 15)); ?>
+</div>
+</td>
+
+<td class="actions">
+<div>
+<a class="confirmable" href="/admin/form/deleteField/form_id/<?php echo $this->form->id; ?>/id/<?php echo $field->id; ?>">{l:common/delete}</a>
+</div>
+</td>
+
+</tr>
+</table>
+</div>
+<?php endforeach; ?>
+</div>
+
+
+<p>
+<button type="submit" class="submit niceButton">{l:common/submit}</button>
+</p>
+
+</form>
+
+</div>

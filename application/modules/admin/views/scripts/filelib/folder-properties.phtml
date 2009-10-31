@@ -1,0 +1,47 @@
+<h1>{l:admin/filelib/folder_properties}</h1>
+
+<p>
+<strong>{l:admin/filelib/folder_name}:</strong> <?php print $this->folder->name; ?>
+</p>
+
+<form method="post" action="/admin/filelib/folder-save">
+
+<?php echo $this->formHidden('id', $this->folder->id); ?>
+
+<fieldset>
+	<legend>{l:folder/permissions}</legend>
+	<table>
+		<thead>
+			<tr>
+				<th>{l:page/groupname}</th>
+								
+				<?php foreach($this->permissions as $permission): ?>
+				<th><?php echo $permission ?></th>
+				<?php endforeach; ?>
+			</tr>	
+		</thead>
+		<tbody>
+		<?php foreach($this->groups as $group): ?>
+		<tr class="highlightable">
+			<td><?php echo $group->name ?></td>
+			<?php foreach($this->permissions as $permissionId => $permission): ?>
+				<td>
+					<input	type="checkbox" 
+							name="permission[<?php echo $group->id ?>][]"
+							<?php if($this->acl->isAllowed($group, $this->folder, $permission)) echo "checked=\"checked\"" ?>
+							value="<?php echo $permissionId ?>"
+					/>
+				</td>
+			<?php endforeach; ?>
+			
+		</tr>
+		<?php endforeach; ?>
+		</tbody>	
+	</table>
+</fieldset>
+
+<p>
+<button type="submit" class="submit niceButton">{l:page/submit}</button>
+</p>
+
+</form>

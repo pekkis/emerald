@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>emerald CMS</title>
+		
+		
+		<?php		
+		$this->headScript()->prependScript('var $j = jQuery.noConflict();');
+		$this->headScript()->prependFile('/lib/js/jquery/dimensions/jquery.dimensions.min.js');
+		$this->headScript()->prependFile('/lib/js/jquery/jquery.js');
+		$this->headScript()->prependFile('/lib/js/firebug/firebugx.js');
+		
+		$this->headScript()->appendFile('/lib/js/admin/login.js');
+		
+		$this->headLink()->appendStylesheet('/lib/css/admin/login.css');
+		?>
+		
+		<?php echo $this->headLink(); ?>
+		<?php echo $this->headScript(); ?>
+	</head>
+
+	<body>
+
+
+		<div id="loginBoxContainer">
+		
+		
+		<div id="loginBox">
+		<div id="loginBoxContent">
+		
+		
+		
+		<form id="login">
+		
+		<div id="messages">
+		<noscript>{l:common/error_javascript_required}</noscript>
+		</div>
+
+		<div class="input">
+		<label for="locale">{l:common/select_language}</label>
+		<?php echo $this->formSelect('locale', $this->locale, array('disabled' => 'disabled'), $this->adminLocales); ?>
+		</div>
+	
+		<div class="input">
+		<label for="foo">{l:common/email}</label>		
+		<input disabled="disabled" id="foo" name="foo" type="text" />
+		</div>
+
+		<div class="input">
+		<label for="bar">{l:common/password}</label>
+		<input disabled="disabled" id="bar" name="bar" type="password" />
+		</div>
+				
+		<button id="submiter" disabled="disabled" type="submit">{l:common/submit}</button>
+						
+		</form>
+		</div>
+		</div>
+		</div>
+		
+	</body>
+</html>

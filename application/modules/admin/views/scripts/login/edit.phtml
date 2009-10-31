@@ -1,0 +1,18 @@
+<h1>{l:shard/login/edit}</h1>
+
+<?php $this->layout()->setLayout('admin_popup_outer'); ?>
+<?php $this->headScript()->appendFile('/lib/js/admin/login/edit.js'); ?>
+
+<form id="login_edit" method="post" action="/admin/login/save/page_id/<?php echo $this->page_id; ?>">
+
+<label for="title">{l:shard/login/redirect_page_id}</label>
+
+<select name="redirect_page_id">
+<?php echo $this->formOptionsSitemap($this->sitemap, $this->res->redirect_page_id ? $this->res->redirect_page_id : $this->page_id ); ?>
+</select>
+
+<p>
+	<button type="submit" class="submit niceButton">{l:common/save}</button>
+</p>
+
+</form>

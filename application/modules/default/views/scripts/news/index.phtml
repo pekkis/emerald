@@ -1,0 +1,64 @@
+<div class="newsChannel" id="newsChannelPage<?php echo $this->page->id; ?>">
+
+<?php if($this->writable): ?>
+	<div class="adminControl adminControlHeavy">
+	<a id="newschannel_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newschannel/edit/id/<?php echo $this->channel->id; ?>">{l:shard/news/channel/edit_channel}</a>
+	 | <a id="newsitem_add" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/add/channel_id/<?php echo $this->channel->id; ?>">{l:shard/news/channel/add_item}</a>
+	</div>
+<?php endif; ?>
+
+<?php if($this->pageCount > 1): ?>
+<p>
+<?php for($i = 1; $i <= $this->pageCount; $i++): ?>
+<a href="?page_no=<?php echo $i; ?>"><?php echo ($i == $this->pageNo) ? "<strong>{$i}</strong>" : $i; ?></a><?php if($i < $this->pageCount) echo ' | '; ?>
+<?php endfor; ?>
+</p>
+<?php endif; ?>
+
+<?php foreach($this->news as $item): ?>
+
+<?php $date = new Zend_Date($item->valid_start, Zend_Date::ISO_8601); ?>
+
+<div class="newsItem <?php if(!$item->isValid()): ?> newsItemInvalid <?php endif; ?>">
+
+	<h2>
+	<?php //echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>
+	<?php // echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?> <?php echo $item->title; ?>
+	</h2>
+	
+	<div class="newsItemContent">
+	<?php echo $item->description; ?>
+	</div>
+	
+	<p>
+		<a href="/<?php echo $this->page->iisiurl; ?>?a=view&amp;id=<?php echo $item->id; ?>"><?php echo $this->channel->link_readmore; ?></a>
+	</p>
+	
+<?php if($this->writable): ?>
+	<div class="adminControl adminControlLight">
+	<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/edit/id/<?php echo $item->id; ?>">{l:shard/news/item/edit_item}</a> | <a class="confirmable" href="#">{l:common/delete}</a>
+	</div>
+<?php endif; ?>	
+	
+</div>
+
+<?php endforeach; ?>
+
+<?php if($this->pageCount > 1): ?>
+<p>
+<?php for($i = 1; $i <= $this->pageCount; $i++): ?>
+<a href="?page_no=<?php echo $i; ?>"><?php echo ($i == $this->pageNo) ? "<strong>{$i}</strong>" : $i; ?></a><?php if($i < $this->pageCount) echo ' | '; ?>
+<?php endfor; ?>
+</p>
+<?php endif; ?>
+
+<?php if($this->channel->allow_syndication): ?>
+<p>
+<a href="/news/feed/id/<?php print $this->channel->id; ?>">
+	<img alt="{l:news/feed/rss}" title="{l:news/feed/rss}" src="/lib/gfx/feed/feed-icon-28x28.png" />
+</a>
+</p>
+<?php endif; ?>
+
+
+</div>

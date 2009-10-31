@@ -1,0 +1,18 @@
+html, body {
+	font-family: Tahoma,Verdana,sans-serif;
+	font-size: 13px;
+}
+
+a, a:link,a:visited {
+	color: #003;
+	text-decoration: none;
+	
+}
+a:hover
+{
+
+}
+
+a img {
+	border: 0;
+}

@@ -1,0 +1,173 @@
+<h1>{l:admin/filelib/title}</h1>
+
+<p>{l:admin/filelib/explanation}</p>
+
+<table cellspacing="0" class="fileBrowser">
+<tr>
+<td class="folders">
+
+
+<table id="folderList" class="entitityList">
+<thead>
+	<tr>
+		<th>{l:admin/filelib/foldername}</th>
+		<th>{l:common/actions}</th>
+	</tr>
+</thead>
+<tbody>
+<tr class="folder_level_0">
+
+<td class="name">
+
+<a href="/admin/filelib/index">
+<?php if($this->active != null): ?>
+<img src="/lib/gfx/nuvola/22x22/filesystems/folder_green_open.png" align="absmiddle" /> 
+<?php else: ?>
+<img src="/lib/gfx/nuvola/22x22/filesystems/folder_green.png" align="absmiddle" />
+<?php endif; ?>
+/
+</a>
+</td>
+
+<td class="actions">
+</td>
+
+</tr>
+
+<?php $acl = Emerald_Application::getInstance()->getAcl(); ?>
+
+<?php foreach($this->tree as $node): ?>
+
+<?php 
+
+
+if(!$acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'read')) {
+	$color = 'red';
+} elseif(!$acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'write')) {
+	$color = 'yellow';
+} else {
+	$color = 'green';
+}
+?>
+
+<tr class="hoverActivator folder_level_<?php print $this->tree->getDepth() + 1; ?>">
+<td class="name">
+
+<a href="/admin/filelib/index/id/<?php print $node->id; ?>">
+<?php if($this->active != $node->id): ?>
+<img src="/lib/gfx/nuvola/22x22/filesystems/folder_<?php print $color; ?>_open.png" align="absmiddle" /> 
+<?php else: ?>
+<img src="/lib/gfx/nuvola/22x22/filesystems/folder_<?php print $color; ?>.png" align="absmiddle" />
+<?php endif; ?>
+<?php print $node->name; ?>
+</a>
+</td>
+
+<td class="actions hoverAction">
+<?php if($acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'write')): ?>
+<?php echo $this->iconSmall("actions/configure", "common/properties", Array('popup', 'popup_small'), "", "/admin/filelib/folder-properties/id/{$node->id}"); ?>
+<?php endif; ?>
+</td>
+
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+
+
+</td>
+
+<td class="files">
+<div>
+<table class="entitityList">
+<thead>
+	<tr>
+		<th>{l:admin/filelib/filename}</th>
+		<th>{l:common/actions}</th>
+	</tr>
+</thead>
+<tbody>
+<?php if(!count($this->files)): ?>
+<tr>
+	<td>
+		<span>{l:admin/filelib/no_files}</span>
+	</td>
+</tr>
+<?php endif;?>
+<?php foreach($this->files as $file): ?>
+<tr class="hoverActivator">
+	<td>
+		<?php 
+		$mimes = explode("/", $file->mimetype);
+		if(count($mimes) == 2)
+		{
+			switch($mimes[0])
+			{
+			case "image":
+				$mimetype = "image";
+			break;
+			case "text":
+				$mimetype = "ascii";
+			break;
+			default: 
+				$mimetype = "empty";
+			}
+		}else $mimetype = "empty";
+		?>
+		<?php echo $this->iconSmall("mimetypes/".$mimetype,""); ?>
+		<a class="thickbox" rel="lightbox[dir_images]" href="/file/render/id/<?php echo $file->id; ?>" title="<?php echo $file->name; ?>"><?php echo $file->name; ?></a>
+	</td>
+	
+	<td class="hoverAction">
+		<?php if($acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'write')): ?>
+		<?php echo $this->iconSmall("actions/editdelete", "common/delete", Array('confirmable'), "", "/admin/filelib/delete/id/{$file->id}"); ?>
+		<?php endif; ?>
+	</td>
+	
+</tr>
+<?php endforeach; ?>
+
+</tbody>
+</table>
+</div>
+</td>
+
+</tr>
+</table>
+
+<?php if(($this->active === null && Emerald_Application::getInstance()->getUser()->inGroup(Emerald_Group::GROUP_ROOT)) || $acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'write')): ?>
+<form id="createFolder" method="post" action="/admin/filelib/createFolder/parent_id/<?php echo $this->active; ?>">
+
+<label for="name">{l:admin/filelib/create_folder/name}</label>
+<input id="name" name="name" type="text" class="w13" /> 
+
+<button type="submit" class="submit niceButton">{l:common/submit}</button>
+
+</form>
+<?php endif; ?>
+
+
+<?php if($this->active && $acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'write')): ?>
+
+<h2>{admin/filelib/upload_file}</h2>
+
+<div id="messagex" class="debugMessagex">
+{l:admin/filelib/progress}: <span id="messages"></span>
+</div>
+
+<form enctype="multipart/form-data" id="uploadFile" target="uploadFrame" method="POST" action="/admin/filelib/uploadFile/folder_id/<?php echo $this->active; ?>">
+
+<input type="hidden" id="APC_UPLOAD_PROGRESS" name="APC_UPLOAD_PROGRESS" value="<?php echo $this->token; ?>" />
+<input type="hidden" id="UPLOAD_IDENTIFIER" name="UPLOAD_IDENTIFIER" value="<?php echo $this->token; ?>" />
+
+<input type="file" id="theFile" name="theFile" />
+
+<button type="submit" class="submit niceButton">{l:common/submit}</button>
+</form>
+
+
+<iframe name="uploadFrame" width="500" height="500" style="display: none;">
+</iframe>
+
+<?php endif; ?>

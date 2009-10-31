@@ -1,0 +1,29 @@
+Emerald dependencies
+=========================
+
+PHP version
+------------
+
+5.2 required.
+5.3 supported, soon to be required.
+
+Libraries
+----------
+
+Zend Framework 1.9.5 (external).
+jQuery
+Prototype (refactor away 1st priority)
+
+
+OS
+===
+
+symlinks (required)
+
+Pecl Pokales
+-------------
+
+apc (required)
+memcache (recommended)
+uploadprogress (recommended)
+

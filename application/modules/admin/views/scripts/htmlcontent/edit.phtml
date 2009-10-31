@@ -1,0 +1,11 @@
+<form id="htmlcontent_edit" method="post" action="/admin/htmlcontent/save/page_id/<?php echo $this->htmlcontent->page_id; ?>/block_id/<?php echo $this->htmlcontent->block_id; ?>">
+<p>
+<?php echo $this->formTextarea('content', $this->htmlcontent->content, array('rows' => 30, 'class' => 'w100')); ?>
+</p>
+
+<p>
+	<button type="reset" class="cancel niceButton">{l:common/cancel}</button>
+	<button type="submit" class="submit niceButton">{l:common/save}</button>
+</p>
+
+</form>

@@ -1,0 +1,49 @@
+<?php print $this->doctype('XHTML1_TRANSITIONAL'); ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<?php echo $this->headMeta(); ?>
+
+<?php print $this->headTitle(); ?>
+
+<script type="text/javascript" src="/lib/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+var $j = jQuery.noConflict();
+</script>
+<script type="text/javascript" src="/lib/js/jquery/dimensions/jquery.dimensions.min.js"></script>
+	
+	<link rel="stylesheet" href="/data/css/customer.css" />
+	
+	<?php echo $this->headLink(); ?>
+	<?php echo $this->headScript(); ?>
+</head><body>
+
+<h1 class="companyName">Demosite</h1>
+<div id="bgContainer">
+<div id="bgTop">
+<div id="bgBottom">
+	<div id="pageContainer">
+	<div id="top" class="lout">
+			<div id="breadCrumb"><?php echo $this->shard($this->page, 'Breadcrumb', array('a' => 'index', 'separator' => ' &raquo; ')); ?></div>
+		</div>
+		<div id="page">
+			<div id="left">
+				<div id="navi">
+				<?php echo $this->shard($this->page, "Menu", array('a' => 'index',"extended"=>1)); ?>
+				</div>
+				<div id="newsBox" class="lout"></div>
+			</div>
+			<div id="content">
+			<?php echo $this->layout()->content; ?>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<div id="footer" class="lout">powered by <a href="http://emerald.fi">Emerald</a></div>
+	</div>
+</div>
+</div>
+</div>
+<?php print $this->googleAnalytics(); ?>
+</body>
+</html>

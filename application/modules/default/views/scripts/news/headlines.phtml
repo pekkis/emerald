@@ -1,0 +1,12 @@
+<?php foreach($this->news as $item): ?>
+<?php $date = new Zend_Date($item->valid_start, Zend_Date::ISO_8601); ?>
+<div class="item <?php if(!$item->isValid()): ?> newsItemInvalid <?php endif; ?>">
+
+	<h3>
+		<a href="/<?php echo $this->page->iisiurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
+			<?php echo $item->title; ?> &raquo;
+		</a>
+	</h3>
+
+</div>
+<?php endforeach; ?>

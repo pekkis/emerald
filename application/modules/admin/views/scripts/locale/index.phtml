@@ -1,0 +1,70 @@
+<h1>{l:admin/locale/title}</h1>
+
+<p>
+<?php print $this->translate("admin/locale/locale_usage", count($this->selectedLocales), 99); ?>
+</p>
+
+<p>
+<input id="showObscure" type="checkbox" /> {l:admin/locale/show_obscure_locale}
+</p>
+
+<form id="locales" method="post" action="/admin/locale/update">
+
+<p>
+<button type="submit" class="confirmable submit niceButton">{l:common/submit}</button> <span class="message"></span>
+</p>
+
+<table>
+<tr>
+<?php $count = 0; ?>
+
+<?php foreach($this->availableLocales as $availableLocale): ?>
+
+<?php 
+$class = (in_array($availableLocale, $this->usualLocales) || in_array($availableLocale, $this->selectedLocales)) ? 'usualLocale' : 'obscureLocale hidden';
+?>
+
+<?php if($count == 0): ?>
+<td>
+<table>
+<?php endif; ?>
+
+<?php $count++; ?>
+<?php if(!in_array($availableLocale, $this->forbiddenLocales)): ?>
+<tr class="<?php echo $class; ?>">
+<td>
+
+<?php echo $this->formHidden("locale[{$availableLocale}]", 0); ?>
+<?php echo $this->formCheckbox("locale[{$availableLocale}]", 1, array('checked' => in_array($availableLocale, $this->selectedLocales))); ?> <?php echo $availableLocale; ?>
+
+<?php $this->workLocale->setLocale($availableLocale); ?>
+
+[<?php echo $this->locale->getLanguageTranslation($this->workLocale->getLanguage()); ?>
+<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion()); ?>]
+
+</td>
+</tr>
+<?php endif; ?>
+
+<?php if($count >= 200): ?>
+</table>
+</td>
+<?php $count = 0; ?>
+<?php endif; ?>
+
+<?php endforeach; ?>
+
+<?php if($count): ?>
+</table>
+</td>
+<?php endif; ?>
+
+
+</tr>
+</table>
+
+<p>
+<button type="submit" class="confirmable submit niceButton">{l:common/submit}</button> <span class="message"></span>
+</p>
+
+</form>

@@ -1,0 +1,101 @@
+@CHARSET "UTF-8";
+/* the rough division to containers be here - only for the 'main window' */
+html, body
+{
+	margin: 0;
+	padding: 0;
+	
+	font-size: 13px;
+}
+body
+{
+	
+}
+#pageIeContainer
+{
+	text-align: center;
+}
+#pageContainer
+{
+	text-align: left;
+	width: 70em;
+	margin: 0 auto;
+	background-color: #fff;
+	
+	margin-top: 1em;
+}
+#pageHeader
+{
+	background-color: #000;
+	text-align: right;
+	color: #fff;
+	background-image: url('/lib/gfx/admin/top-rounded-left.png');
+	background-repeat: no-repeat;
+	padding-bottom: 1px;
+}
+#pageHeader .pageHeaderRight
+{
+	background-image: url('/lib/gfx/admin/top-rounded-right.png');
+	background-repeat: no-repeat;
+	background-position: top right;
+	padding: 0.3em;
+	padding-top: 0.3em;
+	padding-right: 0.5em;
+	border-bottom: 1px solid #fff;
+	
+}
+#pageHeader .userInfo
+{
+}
+#pageHeader .userName
+{
+	font-weight: bold;
+}
+#pageHeader .helpMe img
+{
+	vertical-align:middle;
+	
+}
+#pageTop
+{
+	background-image: url('/lib/gfx/admin/emerald_logo-small.png');
+	background-repeat: no-repeat;
+	background-position: 20px 10px;
+	
+	height: 5em;
+}
+
+#pageTop .adminMenu
+{
+	float: right;
+	clear: both;
+}
+#pageTop, #pageContent
+{
+	padding: 1em;
+}
+#pageContent
+{
+	margin-top: 1em;
+	background-image: url('/lib/gfx/admin/slide-vert.png');
+	background-repeat: repeat-x;
+	dpadding-right: 0;
+}
+
+
+#pageFooter
+{
+	margin-top: 1em;
+	background-color: #fff;
+	border-top: 1px solid #000;
+	color: #333;
+	padding: 0.3em;
+	text-align: center;
+}
+
+
+
+.rightFloater {
+
+}
+

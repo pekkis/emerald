@@ -1,0 +1,11 @@
+<?php if($this->writable): ?>
+<?php Emerald_Js::addAdminScripts($this); ?>
+<?php endif; ?>
+
+<?php echo $this->content; ?>
+
+<?php if($this->writable): ?>
+<div class="adminControl">
+<a id="htmlcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/htmlcontent/edit/page_id/<?php echo $this->page->id; ?>/block_id/<?php echo $this->block_id; ?>">{l:common/edit}</a>
+</div>
+<?php endif; ?>

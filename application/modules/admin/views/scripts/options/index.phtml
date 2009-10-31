@@ -1,0 +1,102 @@
+<h1>{l:admin/options/title}</h1>
+
+<div id="container-1">
+
+<ul>
+	<li class="ui-tabs-nav-item"><a href="#fragment-applicationOptions"><span>{l:admin/options/application/title}</span></a></li>
+	<?php foreach($this->locales as $locale): ?>
+	
+	<?php $this->workLocale->setLocale($locale->locale); ?>
+	
+	<?php 
+	$localeName = $this->locale->getLanguageTranslation($this->workLocale->getLanguage());
+	if($this->workLocale->getRegion()) $localeName = ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion());	
+	?>
+	<li class="ui-tabs-nav-item"><a href="#fragment-localeOptions-<?php print $locale->locale; ?>"><span>{l:admin/options/locale/title_tab}: <?php print $localeName; ?></span></a></li>
+	<?php endforeach; ?>
+</ul>
+
+<div id="fragment-applicationOptions">
+
+<h2 class="hidden">{l:admin/options/application/title}</h2>
+
+<form id="saveApplicationFrm" method="post" action="/admin/options/save-application">
+
+
+<table>
+	<thead></thead>
+	<tbody>
+		<tr>
+			<th><label for="default_locale">{l:admin/options/application/default_locale}</label></th>
+			<td>
+				
+				
+
+	<select name="default_locale">
+	<option value=""></option>
+	<?php 
+	foreach($this->locales as $wl):
+		$this->workLocale->setLocale($wl->locale);
+	?>
+		<option 
+			value="<?php echo $wl->locale ?>"
+			<?php if($wl->locale == $this->application->getOption('default_locale')): ?>
+				selected="selected"
+			<?php endif; ?>
+		>
+		<?php 
+		echo $this->locale->getLanguageTranslation($this->workLocale->getLanguage());
+		?>
+		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion()); ?>
+		</option>
+	<?php endforeach; ?>
+	</select>
+	</td>
+		</tr>
+		
+		<tr>
+			<th><label for="google_analytics_id">{l:admin/options/application/google_analytics_id}</label></th>
+			<td><?php echo $this->formText('google_analytics_id', $this->application->getOption('google_analytics_id')); ?></td>
+		</tr>
+				
+	</tbody>
+</table>
+
+<p>
+<button type="submit" class="submit niceButton">{l:common/save}</button>
+</p>
+
+</form>
+
+</div>
+
+<?php foreach($this->locales as $locale): ?>
+
+<div id="fragment-localeOptions-<?php print $locale->locale; ?>">
+
+<form id="saveLocaleFrm-<?php print $locale->locale; ?>" method="post" action="/admin/options/save-locale">
+
+<input type="hidden" name="locale" value="<?php print $locale->locale; ?>" />
+
+<table>
+	<thead></thead>
+	<tbody>
+		<tr>
+			<th><label for="title">{l:admin/options/locale/title_opt}</label></th>
+			<td><?php echo $this->formText('title', $locale->getOption('title')); ?></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>
+<button type="submit" class="submit niceButton">{l:common/save}</button>
+</p>
+
+</form>
+
+</div>
+
+
+<?php endforeach; ?>
+
+	

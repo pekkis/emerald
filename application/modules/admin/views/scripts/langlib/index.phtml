@@ -1,0 +1,55 @@
+<h1>{l:admin/langlib/title}</h1>
+
+<p>
+	<a href="/admin/langlib/dump">{l:admin/langlib/gimme_dump}</a>
+</p>
+
+<form method="post" action="/admin/langlib/create">
+
+<fieldset>
+<legend>{l:admin/langlib/create_new}</legend>
+
+<label for="path">path</label>
+<input class="w33" type="text" name="path" id="path" />
+
+<label for="fi">fi</label>
+<input class="w33" type="text" name="fi" id="fi" />
+
+<label for="en">en</label>
+<input class="w33" type="text" name="en" id="en" />
+
+<p>
+<button type="submit" class="submit niceButton">{l:common/submit}</button>
+</p>
+
+</fieldset>
+
+</form>
+
+
+<fieldset>
+<legend>{l:admin/langlib/existing}</legend>
+
+<table border="1" width="100%" cellspacing="2" cellpadding="2">
+<tr>
+	<th>path</th>
+	<th>fi</th>
+	<th>en</th>
+</tr>
+
+<?php foreach($this->entries as $entry): ?>
+<tr>
+	<td><a href="/admin/langlib/edit/id/<?php echo $entry->id; ?>"><?php echo $entry->path; ?></a></td>
+	<td><?php echo $entry->fi; ?></td>
+	<td><?php echo $entry->en; ?></td>
+</tr>
+<?php endforeach; ?>
+
+
+
+</table>
+
+
+
+
+</fieldset>

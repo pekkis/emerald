@@ -1,0 +1,70 @@
+<h1>{l:admin/sitemap/title}</h1>
+<div id="sitemapContent" class="operandsCol">
+	
+	<p>
+	<select name="" class="localeSwither">
+	<?php 
+	foreach($this->locales as $wl):
+		$this->workLocale->setLocale($wl->locale);
+	?>
+	
+		<option 
+			value="<?php echo $wl->locale ?>"
+			<?php if($this->editlocale == $this->workLocale->toString()): ?>
+				selected="selected"
+			<?php endif; ?>
+		>
+		<?php 
+		
+		echo $this->locale->getLanguageTranslation($this->workLocale->getLanguage());
+		?>
+		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getCountryTranslation($this->workLocale->getRegion()); ?>
+		</option>
+	<?php endforeach; ?>
+	</select>
+	</p>
+	
+	<nobr id="nodeMenu" style="display: none">
+	<ul class="iconVMenu noText">
+		<li class="rq_exactlyOne ac_addSubPage"><?php echo $this->iconSmall("actions/filenew", "sitemap/menu/add", Array(), "{l:sitemap/menu/add}") ?></li>
+		<li class="rq_exactlyOne ac_editProperties"><?php echo $this->iconSmall("actions/configure", "sitemap/menu/properties", Array(), "{l:sitemap/menu/properties}") ?></li>
+		<li class="rq_exactlyOne ac_editPage"><?php echo $this->iconSmall("apps/kate", "sitemap/menu/edit", Array(), "{l:sitemap/menu/edit}") ?></li>							
+		<li class="rq_exactlyOne ac_setHome"><?php echo $this->iconSmall("actions/gohome", "sitemap/menu/set_home", Array(), "{l:sitemap/menu/set_home}") ?></li>
+	</ul>
+	</nobr>
+	<table width="100%" cellspacing="0" class="entitityList">
+		<thead>
+			<tr class="columnHeadings">
+				<th>{l:sitemap/col/title}</th>
+				<th>&nbsp;</th><?php /* command column */ ?>
+				<th>&nbsp;</th><?php /* selector column */ ?>
+				<th>&nbsp;</th><?php /* home column */ ?>
+				<th>{l:sitemap/col/shard}</th>
+				<th>{l:sitemap/col/created}</th>
+			</tr>
+			<tr class="flowControls">
+				<th colspan="6">
+					<div class="paging" style="display: none">
+						<span class="title">{l:entititylist/paging}:</span>
+						<a href="" class="prevPage">&laquo;</a>
+						<span class="currentPage">0</span> / <span class="totalPages">0</span>
+						<a href="" class="nextPage">&raquo;</a>
+					</div>
+					<div class="selection">
+						<span class="selectionCount">0</span> 
+						<span class="title">{l:entititylist/selection_count}</span>,
+						<span class="selectNone">{l:entititylist/select_none}</span>
+						::
+						<ul class="iconVMenu dynamicMenu" id="topMenukko">
+							<li class="ac_addRootPage"><?php echo $this->iconSmall("actions/filenew", "sitemap/menu/add", Array(), "{l:sitemap/menu/add}") ?></li>
+							<li class="ac_reorderPages"><?php echo $this->iconSmall("actions/kaboodleloop", "sitemap/menu/reorder", Array(), "{l:sitemap/menu/reorder}") ?></li>
+							<li class="rq_atLeastOne ac_deletePage"><?php echo $this->iconSmall("actions/editdelete", "sitemap/menu/delete", Array(), "{l:sitemap/menu/delete}") ?></li>
+						</ul>
+						<span id="activeCommand"></span>
+					</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>

@@ -1,0 +1,307 @@
+@CHARSET "UTF-8";
+/* plz - just import other styles here */
+
+@import "/lib/css/admin/structure_popup.css";
+@import "/lib/css/admin/lists.css";
+@import "/lib/css/admin/generic.css";
+@import "/lib/css/admin/components.css";
+@import "/lib/css/admin/forms.css";
+/*
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, "Bitstrean Vera sans", sans-serif;
+	font-size: 12px;
+}
+
+body#popup {
+	background-image: url('/lib/gfx/emerald_bg_test.jpg');
+	background-position: 100% 0;
+	background-repeat: no-repeat;
+}
+
+
+h1, h2, h3, h4
+{
+	font-family: "Trebuchet MS";
+}
+h1, h2
+{
+	border-bottom: 1px solid #333;
+}
+.softwareName
+{
+	display: none;
+}
+#top
+{
+	height: 110px;
+	background-color: #fff;
+	background-image: url('/lib/gfx/admin/emerald_logo-medium.png');
+	background-repeat: no-repeat;
+	background-position: 20px 10px;
+	padding-right: 2em;
+}
+#top .userInfo
+{
+	width: 300px;
+	float: right;
+	margin-top: 1em;
+	font-size: small;
+	text-align: right;
+}
+#top .userInfo .userName
+{
+	background-image: url('/lib/gfx/nuvola/22x22/apps/kgpg.png');
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	padding-bottom: 5px;
+}
+#pageFooter
+{
+	padding: 0.5em 0;
+	margin-top: 2em;
+	color: #fff;
+	background-color: #050;
+	border-top: 1px solid #000;
+	text-align: center;
+	font-size: small;
+}
+#adminMenu
+{
+	width: 50em;
+	margin-top: 2em;
+	float: right;
+	clear: right;
+}
+#adminMenu ul
+{
+
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+#adminMenu ul li
+{
+	display: inline;
+}
+#adminMenu ul li a
+{
+	font-weight: bold;
+	text-decoration: none;
+	font-size: small;
+	margin: 0;
+	padding: 0;
+}
+
+#pageContainer #contentContainer
+{
+	padding: 0 2em 0 2em;
+}
+#popupContainer #contentContainer
+{
+	padding: 0 1em;
+}
+
+
+.Emerald_Icon
+{
+	border: 0;
+}*/
+
+/* GENERIC STYLE FOR TABLES WHERE HEADINGS ARE ON EACH ROW BEFORE DATACOLUMNS */
+/*
+table.horizontalData th
+{
+	text-align: right;
+	font-size: small;
+	padding-right: 1em;
+}
+table.horizontalData td
+{
+	text-align: left;
+}
+
+.paddedContent
+{
+	padding: 1em;
+}
+*/
+/* Some button graphics */
+/*
+button.submit
+{
+	background-image: url("/lib/gfx/nuvola/16x16/actions/ok.png");
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+	padding-left: 22px;
+	height: 32px;
+	font-weight: bold;
+}
+
+
+label {
+	display: block;
+	margin-top: 1em;
+}
+
+
+.messageError {
+	color: #FF0000;
+}
+
+.messageSuccess {
+	color: #009900;
+}
+
+
+label.validationError
+{
+	color: #f00;
+	font-weight: bold;
+}
+
+div.clearer
+{
+	clear: both;
+}
+*/
+/* beautifuller inputs */
+/*
+input[type=text], textarea {
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+}
+*/
+
+/* reusable input widths */
+/*
+.w100 {
+	width: 100%;
+}
+
+.w66 {
+	width: 66%;
+}
+
+.w50 {
+	width: 50%;
+}
+
+.w33 {
+	width: 33%;
+}
+*/
+
+/* basic two column layout & "sidebarmenu" */
+/*
+.operandsCol
+{
+	padding-left: 14em;
+}
+.operationsColumn
+{
+	width: 12em;
+	float: left;
+}
+.operationsColumn h3
+{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+ul.operationsMenu
+{
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0.2em;
+	float: left;
+	width: 20em;
+}
+ul.operationsMenu li
+{
+	display: block;
+	margin: 0;
+	margin-right: 1em;
+	margin-top: 0.5em;
+	padding: 0;
+}
+ul.operationsMenu li.actionDisabled
+{
+	filter:alpha(opacity=50);
+	opacity: 0.5;
+	-moz-opacity:0.5;
+ 
+}
+
+ul.operationsMenu li.actionDisabled a
+{
+	cursor: default;
+} 
+ul.operationsMenu img
+{
+	border: 0;
+	vertical-align: text-top;
+}
+ul.operationsMenu a
+{
+	text-decoration: none;
+	font-size: small;
+	color: #000;
+}
+ul.operationsMenu span
+{
+	margin-left: 1em;
+}
+*/
+
+/* generic table defaults */
+/*
+th {
+	text-align: left;
+}
+
+td {
+	vertical-align: top;
+}
+*/
+
+/* help me */
+/*
+.helpMe {
+	text-align: right;
+	float: right;
+}
+
+*/
+/* loading */
+/*
+#loading {
+	position: absolute;
+	padding: 0.33em;
+}
+*/
+/* filelib */
+/*
+#filelibTree ul {
+	margin: 0 1em;
+	padding: 0;
+	display: block;
+}
+
+#filelibTree ul li {
+	margin: 0;
+	display: block;
+}
+
+#filelibTree .active {
+	font-weight: bold;
+}
+
+#filelibTree .active .nonactive {
+	font-weight: normal;
+}
+*/

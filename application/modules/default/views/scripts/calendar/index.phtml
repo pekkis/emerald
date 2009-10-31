@@ -1,0 +1,137 @@
+<?php
+require_once 'Zend/Date.php';
+
+$date = $this->date;
+$weekDays = new Zend_Date(1, Zend_Date::WEEKDAY_DIGIT);
+$weekNro = $weekDays->toValue(Zend_Date::WEEK);
+$month = $date->toValue(Zend_Date::MONTH_SHORT);
+$monthName = $date->toString("MMMM");
+
+?>
+<script type="text/javascript">
+function toggleEvents(evt, show)
+{
+	var dayContainer = Event.element(evt);
+	if(dayContainer.nodeName != "TD") dayContainer = dayContainer.up("td");
+	if(show)
+	{
+		dayContainer.absolutize();
+		dayContainer.down("ul").show();
+	}else
+	{
+		dayContainer.down("ul").hide();
+	}
+}
+Event.observe(window,"load", function()
+{
+	$$('.hasEvent').each(function(obj)
+	{
+		obj.observe('mouseover', toggleEvents.bindAsEventListener(window,true));
+		obj.observe('mouseout', toggleEvents.bindAsEventListener(window,false));
+	});
+});
+
+</script>
+<div class="calendar">
+<div class="calHead">
+	<div class="calPrev calControl">
+		<a href="?calMon=
+		<?php $xoo = clone($date);
+		$xoo->sub(1, Zend_Date::MONTH_SHORT);
+		echo $xoo->toValue(Zend_Date::MONTH_SHORT) ?>">&lt;&lt;</a>
+	</div>
+	<div class="calCurrent"><?php echo $monthName ?></div>
+	<div class="calNext calControl">
+		<a href="?calMon=
+		<?php $xoo = clone($date);
+		$xoo->add(1, Zend_Date::MONTH_SHORT);
+		echo $xoo->toValue(Zend_Date::MONTH_SHORT) ?>">&gt;&gt;</a>
+	</div>
+</div>
+<table class="calMonth" width="100%">
+	<thead>
+		<tr>
+			<th class="calNroWeek">week</th>
+			<?php while($weekNro == $weekDays->toValue(Zend_Date::WEEK)): ?>
+			<th><?php echo $weekDays->toString("EE"); $weekDays->add(1, Zend_Date::DAY);?></th>
+			<?php endwhile; ?>
+		</tr>
+	</thead>
+	<tbody>
+	<?php 
+	while($date->toValue(Zend_Date::WEEKDAY_8601)>1) $date->sub(1, Zend_Date::DAY); // rewind the calendar to the first day of the month
+	do { // loop through all the weeks in this month
+	?>
+		<tr>
+			<td class="calNroWeek">
+			<?php 
+				echo $date->toString("w"); 
+				$currWeek = $date->toValue(Zend_Date::WEEK);
+			?>
+			</td>
+			<?php 
+			do // looping thru all weekdays
+			{ 
+				if($date->toString("M") == $month) // if day is in current month
+				{
+					$classNames = Array();
+					$classNames[] = "calDay";
+					$classNames[] = "currMonth";
+					if($date->isToday()) $classNames[] = "calToday";
+					
+					$dateEvents = Array(); // active events for the current date
+					$evCount = 0;
+					foreach($this->ev_dates as $evId => $arrDates) // check which events are "active" on the current date
+					{
+						if($date->equals($arrDates[1],Zend_Date::DATES) || $date->equals($arrDates[0],Zend_Date::DATES) || $date->isEarlier($arrDates[1]) && $date->isLater($arrDates[0]))
+						{
+							$evCount++;
+							$event = $this->events[$evId];
+							$dateEvents[$evId]=$event;
+						}
+					}
+					if($evCount > 0) $classNames[] = "hasEvent";
+					if($evCount > 1) $classNames[] = "hasEvents";
+				 
+					?>	
+					<td class="<?php echo implode(" ", $classNames); ?>">
+						<span class="calDayNro"><?php echo $date->toString("dd"); ?></span>
+						<ul style="display: none">
+							<?php foreach($dateEvents as $dayEvt): ?>
+								<li><a href=""><?php echo $dayEvt->title ?></a></li>
+							<?php endforeach; ?>
+						</ul>
+					</td>
+				<?php 
+				}
+				else
+				{ 
+				?>
+					<td class="calDay prevMonth">
+						<span></span>
+					</td>
+				<?php
+				}
+				$date->add(1, Zend_Date::DAY);
+			}while($currWeek == $date->toValue(Zend_Date::WEEK));
+			?>
+		</tr>
+	<?php } while($date->toString("M") == $month); ?>
+	</tbody>
+</table>
+<?php if($this->writable): ?>
+	<div class="adminControl adminControlHeavy">
+	<a id="calendar_edit" class="popup popup_large popup_scrollbars popup_resizable" href="/admin/calendar/edit/id/<?php echo $this->calendar->id; ?>">{l:shard/calendar/edit_calendar}</a>
+	| <a id="calendar_addevent" class="popup popup_large popup_scrollbars popup_resizable" href="/admin/calendar/editEvent/calendar_id/<?php echo $this->calendar->id; ?>">{l:shard/calendar/add_event}</a>
+	</div>
+<?php endif; ?>
+<dl>
+<?php foreach($this->events as $event): ?>
+<dt><?php echo $this->ev_dates[$event->id][0]->get(Zend_Date::DATES) ?> - <?php echo $this->ev_dates[$event->id][1]->get(Zend_Date::DATES) ?> | <?php echo $event->title; ?></dt>
+<dd>
+	<p><strong><?php echo $event->description; ?></strong></p>
+	<p><?php echo $event->content; ?></p>
+</dd>
+<?php endforeach; ?>
+</dl>
+</div>

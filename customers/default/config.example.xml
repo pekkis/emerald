@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config description="Emerald customer specific configuration">
+
+	<google>
+		<apiKey>ABQIAAAArjop5qk8pkI9ooJMmimfphRBKXRqZ56OUES3CLPajzAz2CtuVhSmEQ8fGOjMgwuimCKlwM_oBlVabA</apiKey>
+		<mapsApiKey>ABQIAAAArjop5qk8pkI9ooJMmimfphSTt_bnmXZk668Jbko7mnAumMfB2hQj1XeFtCySrCItS5RHZWtrgXqSkA</mapsApiKey>
+	</google>	
+
+	<cache>false</cache>
+
+    <db>
+       <host>localhost</host>
+       <dbname>emerald</dbname>
+       <username>root</username>
+       <password>g04753m135</password>
+    </db>
+
+	<routes>
+
+	</routes>
+
+</config>

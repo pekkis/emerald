@@ -1,0 +1,32 @@
+
+<?php if($this->form): ?>
+
+<form class="formContent" id="theForm" method="post" action="/formContent/post/id/<?php echo $this->form->id; ?>/page_id/<?php echo $this->page->id; ?>">
+
+<?php echo $this->formHidden('redirect_page_id', $this->formcontent->redirect_page_id); ?>
+
+<?php echo $this->formRenderer($this->form); ?>
+
+<p>
+<button type="submit"><?php echo $this->translate('common/submit', $this->page->getLocale()); ?></button>
+</p>
+
+</form>
+
+
+
+<?php endif; ?>
+
+
+<?php if($this->writable): ?>
+
+<?php if(!$this->form): ?>
+<p>
+{l:shard/formcontent/no_form_selected}
+</p>
+<?php endif; ?>
+
+<div class="adminControl">
+<a id="formcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/formcontent/edit/page_id/<?php echo $this->page->id; ?>">{l:shard/formcontent/edit}</a>
+</div>
+<?php endif; ?>

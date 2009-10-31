@@ -1,0 +1,94 @@
+@CHARSET "UTF-8";
+/* reusable input widths */
+.w100 {
+	width: 100%;
+}
+
+.w66 {
+	width: 66%;
+}
+
+.w50 {
+	width: 50%;
+}
+
+.w33 {
+	width: 33%;
+}
+
+
+button.niceButton.parsedButton
+{
+	background-color: transparent;
+	
+	height: 30px;
+	color: #fff;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	cursor: pointer;
+}
+button.niceButton.parsedButton span
+{
+	background-image: url("/lib/gfx/admin/emerald-btn-left.png");
+	background-repeat: no-repeat;
+	height: 30px;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+button.niceButton.parsedButton span span
+{
+	background-image: url("/lib/gfx/admin/emerald-btn-right.png");
+	background-repeat: no-repeat;
+	background-position: top right;
+	padding-right: 5px;
+}
+button.niceButton.parsedButton span span span
+{
+	background-image: none;
+	white-space: nowrap;
+	height:28px;
+	dletter-spacing:-1px;
+	line-height:28px;
+	padding:0pt 12px 0pt 10px;
+}
+
+button.niceButton.parsedButton.cancel span span span
+{
+	background-image: url('/lib/gfx/nuvola/16x16/actions/button_cancel.png');
+	background-position: 5px 7px;
+	padding-left: 25px;
+}
+button.niceButton.parsedButton.submit span span span
+{
+	background-image: url("/lib/gfx/nuvola/16x16/actions/ok.png");
+	background-position: 5px 7px;
+	padding-left: 25px;
+}
+
+label {
+	display: block;
+	margin-top: 1em;
+}
+
+th label {
+	display: inline;
+	margin: 0;
+}
+
+.messageError {
+	color: #FF0000;
+}
+
+.messageSuccess {
+	color: #009900;
+}
+
+
+label.validationError
+{
+	color: #f00;
+	font-weight: bold;
+}

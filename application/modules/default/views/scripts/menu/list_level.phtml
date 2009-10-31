@@ -1,0 +1,24 @@
+<?php if($branchCount = count($this->branch)): ?>
+
+<ul>
+	<?php foreach($this->branch as $node): ?>
+	
+	<?php if((!$this->ban || !in_array($node->id, $this->ban)) && $node->visibility): ?>
+	<?php
+		$classNames = Array();
+		if(!isset($count)) $count = 0; 
+		$count++;
+		if($count == 1) $classNames[] = "firstChild";
+		if($count == $branchCount)  $classNames[] = "lastChild";
+	?>
+	<li<?php if($this->extended) echo " class=\"".implode(" ", $classNames)."\"" ?>>
+		<a 	class="<?php if($this->activeId == $node->id) echo "active" ?>"
+			href="/<?php echo $node->iisiurl ?>"><?php echo $node->title ?></a>
+		<?php if(isset($this->childHtml[$node->id])) echo $this->childHtml[$node->id]; ?>
+	</li>
+	<?php endif; ?>
+	<?php endforeach; ?>
+</ul>
+<?php 
+endif;
+?>

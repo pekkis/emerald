@@ -1,0 +1,2 @@
+<label class="formContentLabel <?php echo ($this->field->mandatory) ? 'required' : 'optional' ; ?>" for="form_<?php echo $this->form->id; ?>_field_<?php echo $this->field->id; ?>"><?php echo $this->field->title; ?></label>
+<?php echo $this->formText("form_{$this->form->id}_field_{$this->field->id}", null, array('class' => "field_type_{$this->field->type}")); ?>

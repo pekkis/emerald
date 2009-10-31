@@ -1,0 +1,30 @@
+
+.sortable_div {
+	cursor: move;
+	margin: 0.5em 0;
+	background-color: #DDDDEE;
+	border: 1px solid #CCCCCC;
+}
+
+.sortable_div table td div {
+padding: 0.33em;
+}
+
+.type {
+	width: 11em;
+	
+}
+
+.title {
+	width: 15em;
+}
+
+.mandatory {
+	width: 15em;
+}
+
+.options {
+	width: 13em;
+}
+
+.

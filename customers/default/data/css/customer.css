@@ -1,0 +1,208 @@
+@import 'editor.css';
+@import 'map.css';
+
+html, body {
+	background-color:#FFFFFF;
+	
+	padding:0pt;
+	background-color: #0e006f;
+	margin: 0;
+	background-image: url("/data/gfx/bg_slide.png");
+	background-color: #0e006f;
+	background-repeat: repeat-x;
+}
+body {
+	
+}
+.lout {
+	background-image:url("/data/gfx/demolayout.png");
+	background-repeat:no-repeat;
+}
+#bgContainer 
+{
+	background-image: url("/data/gfx/tausta_bg.png");
+	background-repeat:repeat-y;
+	width: 1009px;
+	margin: 0px auto;
+	
+}
+#bgTop 
+{
+	background-image: url("/data/gfx/tausta_top.png");
+	background-repeat:no-repeat;
+	background-position: top left;
+}
+#bgBottom 
+{
+	background-image: url("/data/gfx/tausta_bottom.png");
+	background-repeat:no-repeat;
+	background-position: bottom left;
+	padding: 47px 0 10px 110px;
+}
+#pageContainer {
+	background-color:#FFFFFF;
+	width:800px;
+}
+#top {
+	background-position:0pt 0px;
+	height:160px;
+	position: relative;
+}
+#left {
+	float:left;
+	width:165px;
+}
+#content {
+	float:right;
+	padding-right:20px;
+	width:604px;
+}
+#page {
+	background-image:url(/data/gfx/demolayout_bg.png);
+	background-repeat:repeat-y;
+	padding:0pt 1px 1px 0pt;
+}
+#navi ul{
+	list-style-type: none;
+	margin: 0pt;
+	padding: 0pt;
+}
+#navi li {
+	display:block;
+}
+#navi li.firstChild a {
+	background-position:0pt -160px;
+}
+#navi li.firstChild li a {
+	background-position: 0pt -198px !important;
+}
+#navi li a
+{
+	color:#FFFFFF;
+	display:block;
+	font-weight:bold;
+	height:29px;
+	padding:10px 0pt 0pt 15px;
+	white-space:nowrap;
+	
+	background-position: 0pt -198px;
+	background-image: url(/data/gfx/demolayout.png);
+	background-repeat:no-repeat;
+}
+#navi li li a, #navi li.firstChild li a {
+	background-position: 0 -236px !important;
+}
+#navi li li a
+{
+	padding-left: 25px;
+}
+
+#navi li li li a, #navi li.firstChild li li a {
+	padding-left: 35px;
+	font-weight: normal;
+}
+#navi li a:hover {
+	color:#FFFFFF;
+	text-decoration:underline;
+}
+a.active
+{
+	font-style: italic;
+	text-decoration: underline;
+}
+#newsBox {
+	background-position:0pt -278px;
+	height:110px;
+}
+#footer {
+	background-position:0pt -388px;
+	color:#FFFFFF;
+	font-weight:bold;
+	height:29px;
+	padding-top:10px;
+	text-align:center;
+}
+h1.companyName {
+	display:none;
+}
+#breadCrumb
+{
+	font-size: 13px;
+	color: #fff;
+	position: absolute;
+	top: 132px;
+	left: 170px;
+	height: 10px;
+}
+#breadCrumb a
+{
+	font-size: 13px;
+	color: #fff;
+	font-weight: bold;
+}
+#first_column
+{
+	width: 380px;
+	float: left;
+}
+#second_column
+{
+	float: right;
+	width: 200px;
+}
+#second_column h1
+{
+	font-size: medium;
+}
+#second_column h2
+{
+	font-size: small;
+}
+
+
+
+/* nyys */
+.newsItemInvalid {
+	-moz-opacity: .5;
+}
+
+
+
+
+/* admin contrul */
+
+.adminControl {
+	
+}
+
+
+
+.adminControlHeavy {
+	border: 1px solid #DDDDDD;
+	background-color: #EEEEEE;
+	padding: 3px;
+}
+
+	
+	
+	.adminControl a:link, .adminControl a:visited {
+		border: none;
+		text-decoration: underline;
+	}
+	
+
+
+/* vorms */
+
+.formContent label.formContentLabel {
+	display: block;
+	margin-top: 1em;
+}
+
+.formContent label.required {
+	font-weight: bold;
+}
+
+.validationError {
+	color: #FF0000;
+}

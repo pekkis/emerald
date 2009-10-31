@@ -1,0 +1,7 @@
+<div id="inner">
+
+<?php echo $this->shard(Emerald_Page::get(5), 'News', array('a' => 'headlines', 'count' => 3)); ?>
+
+<?php echo $this->shard($this->page, 'Htmlcontent', array('a' => 'index', 'block_id' => 1)); ?>
+<?php echo $this->shard($this->page, $this->page->shard_id, array('block_id' => 2)); ?>
+</div>

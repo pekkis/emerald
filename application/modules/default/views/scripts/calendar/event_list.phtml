@@ -1,0 +1,10 @@
+<dl>
+<?php foreach($this->events as $event): ?>
+<?php $news = $this->news[$event->news_item_id] ?>
+<dt><?php echo $this->ev_dates[$event->id][0]->get(Zend_Date::DATES) ?> - <?php echo $this->ev_dates[$event->id][1]->get(Zend_Date::DATES) ?> | <?php echo $news->title; ?></dt>
+<dd>
+	<p><strong><?php echo $news->description; ?></strong></p>
+	<p><?php echo $news->article; ?></p>
+</dd>
+<?php endforeach; ?>
+</dl>

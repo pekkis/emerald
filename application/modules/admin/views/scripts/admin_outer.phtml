@@ -1,0 +1,74 @@
+<?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<?php 
+		Emerald_Js::addAdminScripts($this);
+		$this->headLink()->prependStylesheet('/lib/css/admin/emerald_admin.css');
+		?>
+		
+		<?php echo $this->headLink(); ?>
+		<?php echo $this->headScript(); ?>
+		
+		
+		<title>emerald CMS</title>
+	</head>
+
+	<body>
+	<div id="loading" style="display: none;">
+		<img src="/lib/gfx/ajax-loader.gif" class="Emerald_Icon" />
+	</div>
+	<div id="pageIeContainer">
+	<div id="pageContainer">
+		<div id="pageHeader">
+			<?php 
+				
+				// TODO: should these be assigned by the view instead of grabbing em from singeltons?
+				$usr = Emerald_Application::getInstance()->getUser(); 
+				$rq = Zend_Controller_Front::getInstance()->getRequest(); 
+				$controller = $rq->getControllerName();
+				$action = $rq->getActionName();
+			?>
+			<div class="pageHeaderRight">
+				<span class="userInfo">
+					<span class="userName"><?php echo $usr->firstname." ".$usr->lastname ?></span>
+					(<span class="userLogin"><?php echo $usr->email ?></span>)
+				</span>
+				<span class="helpMe">
+					
+					<a id="context_help" class="popup popup_large popup_scrollable" href="<?php echo "/admin/help/context/c/{$controller}/a/{$action}" ?>">
+					<?php echo $this->iconSmall("actions/help",""); ?>
+					</a>
+					
+					<?php echo $this->iconSmall("actions/no","common/logout", array(), '', '/logout'); ?>
+					
+				</span>
+			</div>
+		</div>
+		<div id="pageTop">
+			<div class="adminMenu">
+				<ul class="iconVMenu">
+					<li><?php echo $this->iconMedium("actions/gohome", "admin/menu/dashboard", Array(), "", "/admin/index") ?></li>
+					<li><?php echo $this->iconMedium("apps/kmenuedit", "admin/menu/sitemap", Array(), "", "/admin/sitemap") ?></li>
+					<li><?php echo $this->iconMedium("filesystems/folder_open", "admin/menu/filelib", Array(), "", "/admin/filelib") ?></li>
+					<li><?php echo $this->iconMedium("apps/kpager", "admin/menu/form", Array(), "", "/admin/form") ?></li>
+					<li><?php echo $this->iconMedium("apps/personal", "admin/menu/users", Array(), "", "/admin/user") ?></li>
+					<li><?php echo $this->iconMedium("apps/locale", "admin/menu/locale", Array(), "", "/admin/locale") ?></li>
+					<li><?php echo $this->iconMedium("actions/configure", "admin/menu/options", Array(), "", "/admin/options") ?></li>
+					
+				</ul>
+			</div>
+		</div>
+		
+		<div id="pageContent">
+			<?php echo $this->layout()->content; ?>
+		</div>
+		
+		<div id="pageFooter">
+			Emerald Content Management Server &copy; <a target="_blank" href="http://foolabs.fi">Foolabs</a>
+		</div>
+	</div>
+	</div>
+	</body>
+</html>
