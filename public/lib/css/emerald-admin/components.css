@@ -21,7 +21,7 @@ table.entitityList
 	border-bottom: 1px solid #666;
 }
 table.entitityList tbody{
-	background-image: url('/lib/gfx/admin/slide-vert.png');
+	background-image: url('/lib/gfx/emerald-admin/slide-vert.png');
 	background-repeat: repeat-x;
 	background-position: 0 -15px;
 	background-position-y: -15px;
@@ -107,7 +107,7 @@ table.entitityList label.branchManager
 {
 	padding: 5px;
 	padding-right: 10px;
-	background-image: url("/lib/gfx/admin/btn_expand.gif");
+	background-image: url("/lib/gfx/emerald-admin/btn_expand.gif");
 	background-repeat: no-repeat;
 	background-position: center left;
 	display: inline;
@@ -116,7 +116,7 @@ table.entitityList label.branchManager
 
 table.entitityList label.branchManager.active
 {
-	background-image: url("/lib/gfx/admin/btn_collapse.gif");
+	background-image: url("/lib/gfx/emerald-admin/btn_collapse.gif");
 }
 
 table.entitityList label.branchManager input

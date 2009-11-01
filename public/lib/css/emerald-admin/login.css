@@ -23,7 +23,7 @@ body {
 	height: 300px;
 	background-repeat: no-repeat;
 	background-position: 10px 10px;
-	background-image: url('/lib/gfx/admin/emerald_logo-medium.png');
+	background-image: url('/lib/gfx/emerald-admin/emerald_logo-medium.png');
 }
 #loginBox form
 {

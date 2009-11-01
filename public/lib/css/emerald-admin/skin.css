@@ -23,7 +23,7 @@
 #container-1 .ui-tabs-nav a, #container-1 .ui-tabs-nav a span {
     float: left; /* fixes dir=ltr problem and other quirks IE */
     padding: 0 12px;
-    background: url(/lib/gfx/admin/tabs_blue.png) no-repeat;
+    background: url(/lib/gfx/emerald-admin/tabs_blue.png) no-repeat;
 }
 #container-1 .ui-tabs-nav a {
     margin: 5px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
