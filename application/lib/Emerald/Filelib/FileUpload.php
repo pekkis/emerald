@@ -21,13 +21,14 @@ class Emerald_Filelib_FileUpload extends SplFileObject
 	public function getMimeType()
 	{
 		if(!$this->_mimeType) {
-									
-			// var_dump(Emerald_Server::getInstance()->getConfig()->magic);
 			
-			$fileinfo = new finfo(FILEINFO_MIME, Emerald_Server::getInstance()->getConfig()->magic);
+			echo PHP_VERSION;
 			
-			// var_dump($fileinfo);
-						
+			if (version_compare(PHP_VERSION, '5.3.0') !== -1) {
+				$fileinfo = new finfo(FILEINFO_MIME_TYPE);				
+			} else {
+				$fileinfo = new finfo(FILEINFO_MIME, Emerald_Server::getInstance()->getConfig()->magic);
+			}
 			return $fileinfo->file($this->getRealPath()); 
 		}
 		
