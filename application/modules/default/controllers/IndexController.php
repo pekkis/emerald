@@ -34,7 +34,7 @@ class IndexController extends Emerald_Controller_Action
 				if(!$locale) {
 					throw new Exception("Locale '{$selectedLocale}' not found.");
 				}
-			} elseif($defaultLocale = $this->_emerald->getOption('default_locale')) {
+			} elseif($defaultLocale = $this->getCustomer()->getOption('default_locale')) {
 				$locale = $localeTbl->find($defaultLocale)->current();
 			}
 					
@@ -43,10 +43,10 @@ class IndexController extends Emerald_Controller_Action
 			if(!$locale) {
 				$locale = $localeTbl->fetchAll(null, 'locale', 1, 0)->current();
 				if($locale) {
-					$this->_emerald->setOption('default_locale', $locale->locale);
+					$this->getCustomer()->setOption('default_locale', $locale->locale);
 				}
 			}
-
+									
 			// Still no locales. There simply isn't any locales in db.
 			if(!$locale) {
 				throw new Exception('No locales found.');

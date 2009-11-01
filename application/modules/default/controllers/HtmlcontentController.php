@@ -25,9 +25,9 @@ class HtmlcontentController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$input->page->assertReadable($this->_emerald->getUser());
+			$input->page->assertReadable($this->getCurrentUser());
 			
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $input->page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
 			$this->view->writable = $writable;
 						
 			$htmlcontentTbl = Emerald_Model::get('Htmlcontent');
@@ -38,6 +38,9 @@ class HtmlcontentController extends Emerald_Controller_Action
 			$this->view->page = $input->page;		
 			
 		} catch(Exception $e) {
+			
+			echo $e;
+			die();
 			
 			throw $e;
 			

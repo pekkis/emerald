@@ -27,7 +27,7 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 
 			$folder->assertWritable();
 
-			$this->view->acl = $this->_emerald->getAcl();
+			$this->view->acl = Zend_Registry::get('Emerald_Acl');
 			$this->view->folder = $folder;
 			 
 			$this->view->permissions = Emerald_Permission::getAll();
@@ -68,7 +68,7 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 
 			$folder->assertWritable();
 			
-			$acl = $this->_emerald->getAcl();
+			$acl = Zend_Registry::get('Emerald_Acl');
 			
 			$permissionTbl = Emerald_Model::get('Permission_Filelib_FolderGroup');
 			

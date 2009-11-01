@@ -13,7 +13,7 @@ class Emerald_Db_Table_Row_Filelib_File extends Zend_Db_Table_Row_Abstract
 	
 	public function getPath()
 	{
-		return Emerald_Application::getInstance()->getCustomer()->getRoot() . '/files/' .  ceil($this->id / 500) . '/' . $this->id;
+		return Zend_Registry::get('Emerald_Customer')->getRoot() . '/files/' .  ceil($this->id / 500) . '/' . $this->id;
 	}
 	
 	
@@ -121,7 +121,7 @@ class Emerald_Db_Table_Row_Filelib_File extends Zend_Db_Table_Row_Abstract
 	
 	public function createSymlink()
 	{
-		$link = Emerald_Application::getInstance()->getCustomer()->getRoot() . '/data/files/' . $this->iisiurl;
+		$link = Zend_Registry::get('Emerald_Customer')->getRoot() . '/data/files/' . $this->iisiurl;
 		
 		
 		if(!is_link($link)) {
@@ -143,7 +143,7 @@ class Emerald_Db_Table_Row_Filelib_File extends Zend_Db_Table_Row_Abstract
 	
 	public function deleteSymlink()
 	{
-		$link = Emerald_Application::getInstance()->getCustomer()->getRoot() . '/data/files/' . $this->iisiurl;
+		$link = Zend_Registry::get('Emerald_Customer')->getRoot() . '/data/files/' . $this->iisiurl;
 		if(is_link($link)) {
 			unlink($link);
 		}

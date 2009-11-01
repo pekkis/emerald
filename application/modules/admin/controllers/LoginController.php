@@ -75,7 +75,7 @@ class Admin_LoginController extends Emerald_Controller_AdminAction
 			$this->view->res = $res;
 			$this->view->page_id = $input->page_id;
 
-			$this->view->sitemap = new Emerald_Sitemap('fi', $this->_emerald->getUser()->id);
+			$this->view->sitemap = new Emerald_Sitemap('fi', $this->getCurrentUser()->id);
 			
 			
 		} catch(Exception $e) {

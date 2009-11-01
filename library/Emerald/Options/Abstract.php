@@ -73,4 +73,16 @@ abstract class Emerald_Options_Abstract
 	}
 	
 	
+	public function __get($key)
+	{
+		return $this->get($key);
+	}	
+	
+	
+	public function __set($key, $value)
+	{
+		return $this->set($key, $value);
+	}
+	
+	
 }

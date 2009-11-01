@@ -13,7 +13,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function userlistAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -28,7 +28,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
      */
 	public function loadusersAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -76,7 +76,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function viewuserAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -115,7 +115,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function viewnewuserAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -144,7 +144,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function saveuserAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -195,7 +195,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 			),
 		);
 		
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		$filtered = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 		$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 		try 
@@ -288,7 +288,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function deleteuserAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -303,7 +303,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 				'allowEmpty' => false
 			)
 		);
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		$filtered = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 		try 
 		{
@@ -344,7 +344,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 
 	public function grouplistAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -360,7 +360,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	public function loadgroupsAction()
 	{
 	
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -407,7 +407,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
      */
 	public function viewgroupAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -439,7 +439,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
      */
 	public function viewnewgroupAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -460,7 +460,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function savegroupAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -484,7 +484,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 			)
 		);
 		
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		$filtered = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 		$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 		try 
@@ -528,7 +528,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	 */
 	public function deletegroupAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -542,7 +542,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 				'allowEmpty' => false
 			)
 		);
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		$filtered = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 		try 
 		{

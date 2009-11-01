@@ -21,7 +21,8 @@ class Emerald_User extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Role_I
 	public function init()
 	{
 				
-		$acl = Emerald_Application::getInstance()->getAcl();
+		$acl = Zend_Registry::get('Emerald_Acl');
+		
 		if(!$acl->hasRole($this)) {
 			$gruppen = array();
 			$groupz = $this->findGroups();

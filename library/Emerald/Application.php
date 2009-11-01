@@ -68,7 +68,9 @@ class Emerald_Application
      */
     public static function getInstance()
     {
-        static $instance;
+        throw new Exception('Obsolete');
+    	
+    	static $instance;
         if(!$instance) {
             $instance = new self();
         }
@@ -86,83 +88,9 @@ class Emerald_Application
     public function run()
     {
     	
-        if(!$this->getCustomer()) {
-        	throw new Emerald_Exception('Customer not found');
-        }
-        
-        $db = $this->getDb();
-        if(!Emerald_Server::getInstance()->inProduction() && Emerald_Server::getInstance()->getConfig()->profiler === 'true') {
-        	$profiler = new Zend_Db_Profiler(true);
-        	$db->setProfiler($profiler);        	        	
-        }
-        
-        $db->setFetchMode(Zend_Db::FETCH_OBJ);
-        Zend_Db_Table_Abstract::setDefaultAdapter($db);
-        
-		// If we cache, we cache table metadata.
-        if($this->getConfig()->cache == 'true') {
-        	$cache = Emerald_Cache::getGeneric(); 
-        	Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
-        }        
-		
-        // Skidily kei but hey, whatchagonnado... 
-        $this->getDb()->getConnection()->exec("SET names utf8");
-    	        
-        $this->_options = new Emerald_Options_Application($this->getCustomer());
-        
-        // TODO: ACL must be cached, cached and CACHED!
-        $this->_acl = new Zend_Acl(); 
-        Emerald_Acl::initialize($this->_acl); 
-        
-        if(Zend_Session::sessionExists()) {
-        	$this->initializeSession();
-			$userId = $this->getSession()->user_id;
-        } else {
-        	$userId = Emerald_User::USER_ANONYMOUS;
-        }
-		
-		// Fetch user object and store it.
-		$userTbl = Emerald_Model::get('User');
-		$user = $userTbl->find($userId);
-		if(!$user = $user->current()) {
-			throw new Emerald_Exception('Something wrong with ur user');
-		}
-		
-		$this->_user = $user;
-		$this->setLocale($user->getOption('locale') ? $user->getOption('locale') : 'en');
-		
-		// Delete obsolete sessions
-
-		$time = new DateTime();
-		$sessionTbl = Emerald_Model::Get('Session');		
-		$time->modify('-1 hours');
-		$where = $sessionTbl->getAdapter()->quoteInto('refreshed <= ?', array($time->format('Y-m-d H:i:s')));
-		$sessionTbl->delete($where);		
-		
-    	Zend_Json::$useBuiltinEncoderDecoder = true;
-                        
-        $view = new Emerald_View(array('encoding' => 'UTF-8'));
-        $view->getHelper('headMeta')->appendName('Generator', 'Emerald Content Management Server');
-        $view->getHelper('headMeta')->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
-        $view->addHelperPath(dirname(__FILE__).'/View/Helper', 'Emerald_View_Helper');
-		$view->addHelperPath($this->getCustomer()->getRoot() . '/application/helpers', 'Emerald_View_Helper');
-                        
-        $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
-        $viewRenderer->setView($view);
-                
-        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-        
-        Zend_Layout::startMvc();	
-        Zend_layout::getMvcInstance()->disableLayout();
-        
-        $front = Zend_Controller_Front::getInstance();
-        // $front->registerPlugin(new Emerald_Controller_Plugin_Filter());
-                
-        
-        Zend_Registry::set('Zend_Translate', $this->getTranslate());
-        
-        $response = $front->dispatch();
-		return $response;
+		        
+        // $response = $front->dispatch();
+		// return $response;
         
     }
     
@@ -188,6 +116,8 @@ class Emerald_Application
      */
     public function getDb()
     {
+    	throw new Exception('Obso');
+    	
     	return $this->getCustomer()->getDb();
     }
     
@@ -247,29 +177,6 @@ class Emerald_Application
     	return $this->_user;
     }
     
-    
-    /**
-     * Returns translator
-     *
-     * @return Zend_Translate
-     */
-    public function getTranslate()
-    {
-    	if(!$this->_translate) {
-    		
-    		if(Emerald_Server::getInstance()->getConfig()->cache == 'true') {
-				Zend_Translate::setCache(Emerald_Cache::getGeneric());	
-			}		
-			$this->_translate = new Zend_Translate('Emerald_Translate_Adapter_Langlib', Emerald_Server::getInstance()->getDb(), 'en');
-			// If we have langlib cached, we don't poop languages to it.
-			if(!$this->_translate->getList()) {
-				$this->_translate->addTranslation(Emerald_Server::getInstance()->getDb(), 'fi');
-				$this->_translate->addTranslation(Emerald_Server::getInstance()->getDb(), 'en');
-			}
-    	}
-    	return $this->_translate;
-    	
-    }
     
     
     

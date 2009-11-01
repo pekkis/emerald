@@ -9,7 +9,7 @@ class Emerald_Filter_Iisiurl implements Zend_Filter_Interface
 	
 	public function filter($value)
 	{
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		
 		// We be getting de replaces
 		$regex = '/page\/view\/id\/(\d+)/';

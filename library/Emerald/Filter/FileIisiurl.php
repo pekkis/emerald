@@ -10,7 +10,7 @@ class Emerald_Filter_FileIisiurl implements Zend_Filter_Interface
 	
 	public function filter($value)
 	{
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		
 		// We be getting de replaces
 		$regex = '/file\/render\/id\/(\d+)/';
@@ -18,8 +18,6 @@ class Emerald_Filter_FileIisiurl implements Zend_Filter_Interface
 
 		if(!$matches[0])
 			return $value;
-		
-		// Zend_Debug::dump($matches);
 				
 		$ids = array_unique($matches[1]);
 						

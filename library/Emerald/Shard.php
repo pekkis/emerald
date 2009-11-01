@@ -44,7 +44,7 @@ class Emerald_Shard
 	 */
 	public static function factory($identifier)
 	{
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		
 		if(!self::$_shardIds) {
 

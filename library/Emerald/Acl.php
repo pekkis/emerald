@@ -10,10 +10,10 @@
 class Emerald_Acl
 {
 	
-	static public function initialize(Zend_Acl $acl)
+	static public function initialize(Zend_Acl $acl, Emerald_Application_Customer $customer)
 	{
 
-        $db = Emerald_Application::getInstance()->getDb();
+        // $db = $customer->getDb();
         
         $anonGroup = Emerald_Model::get('Group')->find(Emerald_Group::GROUP_ANONYMOUS)->current();
         $acl->deny($anonGroup);

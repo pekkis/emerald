@@ -92,7 +92,7 @@ class Admin_DevController extends Emerald_Controller_AdminAction
 		$fileTbl = Emerald_Model::get('Filelib_File');
 		$files = $fileTbl->fetchAll();
 		
-		$acl = Emerald_Application::getInstance()->getAcl();
+		$acl = Zend_Registry::get('Emerald_Acl');
 		
 		foreach($files as $file)
 		{

@@ -76,7 +76,7 @@ class Emerald_Filelib
 		}
 		
 		// Operation success. If anon group can read, make symlink to file's iisiurl.
-		$acl = Emerald_Application::getInstance()->getAcl();
+		$acl = Zend_Registry::get('Emerald_Acl');
 		if($acl->isAllowed('Emerald_Group_' . Emerald_Group::GROUP_ANONYMOUS, $folder, 'read')) {
 			$file->createSymlink();
 		}
@@ -94,7 +94,7 @@ class Emerald_Filelib
 		$file->getTable()->getAdapter()->beginTransaction();
 		
 		try {
-			$path = Emerald_Application::getInstance()->getCustomer()->getRoot() . '/files/' . ceil($file->id / 500) . '/' . $file->id;
+			$path = Zend_Registry::get('Emerald_Customer')->getRoot() . '/files/' . ceil($file->id / 500) . '/' . $file->id;
 	
 			$fileObj = new SplFileObject($path);
 			

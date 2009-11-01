@@ -63,7 +63,7 @@ class CalendarController extends Emerald_Controller_Action
 				#var_dump($evt->title, $evt->start_date, $evt->end_date);
 			}
 			
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $input->page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
 			$this->view->writable = $writable;
 			if($writable) {
 				Emerald_Js::addAdminScripts($this->view);			

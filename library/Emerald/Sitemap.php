@@ -35,7 +35,7 @@ class Emerald_Sitemap
 	{
 		$this->_locale = $lang;
 		$this->_viewingUser = $userId;
-		$this->_db = Emerald_Application::getInstance()->getDb();
+		$this->_db = Zend_Registry::get('Emerald_Db');
 	}
 
 	/**
@@ -83,8 +83,8 @@ class Emerald_Sitemap
 		}
 		
 		$branch = Array();
-		$acl = Emerald_Application::getInstance()->getAcl();
-		$user = Emerald_Application::getInstance()->getUser();
+		$acl = Zend_Registry::get('Emerald_Acl');
+		$user = Zend_Registry::get('Emerald_User');
 		if($res = $statement[$this->_locale]->execute(array($id)))
 		{
 			while($data = $statement[$this->_locale]->fetch(Zend_Db::FETCH_OBJ))

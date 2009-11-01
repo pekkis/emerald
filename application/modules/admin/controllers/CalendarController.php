@@ -81,7 +81,7 @@ class Admin_CalendarController extends Emerald_Controller_AdminAction
 		);
 				
 		
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		$db->beginTransaction();
 		try {
 			

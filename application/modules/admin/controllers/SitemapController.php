@@ -128,7 +128,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			throw new Emerald_Exception('Not Found', 404);
 		}
 		
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 			throw new Emerald_Exception('Forbidden', 403);
 		}
@@ -197,7 +197,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 	 */
 	public function updateorderAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 			throw new Emerald_Exception('Forbidden', 403);
 		}
@@ -206,7 +206,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$orderList = $_POST['sortList'];
 		if(!is_array($orderList)) throw new Emerald_Exception('Not Found', 404);
 		
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		$db->beginTransaction();
 		try {
 			$this->_recursiveOrderBranch($orderList);
@@ -318,7 +318,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		 
 		$this->view->permissions = Emerald_Permission::getAll();
 		$this->view->page = $page;
-		$this->view->acl = $this->_emerald->getAcl();
+		$this->view->acl = Zend_Registry::get('Emerald_Acl');
 		
 		$this->view->headScript()->appendFile("/lib/js/admin/sitemap/editpage.js");
 		$this->view->headScript()->appendFile("/lib/js/form.js");
@@ -385,7 +385,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			}
 		}
 		// creating at root level requires root
-		else if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		else if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -415,7 +415,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			
 		
 			
-		$this->view->acl = $this->_emerald->getAcl();
+		$this->view->acl = Zend_Registry::get('Emerald_Acl');
 		
 		
 		$this->view->headScript()->appendFile("/lib/js/form.js");
@@ -534,7 +534,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			$locale = $parentPage->locale;
 		}
 		// creating at root level requires root
-		else if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		else if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -555,7 +555,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			while($filtered->page_count--) $newPages[] = $dao->createRow();
 		}
 		
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		try
 		{
 			$db->beginTransaction();
@@ -687,7 +687,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		$ids = $filtered->ids;
 		$dao = Emerald_Model::get('Page');
-		$db = Emerald_Application::getInstance()->getDb();
+		$db = Zend_Registry::get('Emerald_Db');
 		try
 		{
 			$db->beginTransaction();
@@ -767,7 +767,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$this->_helper->viewRenderer->setNoRender();
 		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
 		
-		if($this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if($this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 			$id = $filtered->id;
 			if($page = Emerald_Model::get("Page")->find($id)->current())
@@ -810,7 +810,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			
 			$message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Array());
 			$dao = Emerald_Model::get('Page');
-			$db = Emerald_Application::getInstance()->getDb();
+			$db = Zend_Registry::get('Emerald_Db');
 			try
 			{
 				$db->beginTransaction();

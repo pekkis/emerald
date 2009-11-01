@@ -19,7 +19,7 @@ class BreadcrumbController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 
-			$input->page->assertReadable($this->_emerald->getUser());
+			$input->page->assertReadable($this->getCurrentUser());
 			
 			$route = $input->page->getRoute();	
 			$this->view->route = $route;

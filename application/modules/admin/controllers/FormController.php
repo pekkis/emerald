@@ -4,7 +4,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function deleteAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -40,7 +40,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function deletefieldAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -80,7 +80,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function createfieldAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -131,7 +131,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function saveAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -148,7 +148,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 		);
 
 		
-		$db = $this->_emerald->getDb();
+		$db = $this->getDb();
 		$db->beginTransaction();
 		
 		
@@ -209,7 +209,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function editAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -263,7 +263,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function indexAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -283,7 +283,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function createAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -311,7 +311,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 				$formRow->description = $input->description;
 				
 				$formRow->created = $now->format('Y-m-d H:i:s');
-				$formRow->created_by = $this->_emerald->getUser()->id;
+				$formRow->created_by = $this->getCurrentUser()->id;
 
 				$formRow->status = 1;
 				

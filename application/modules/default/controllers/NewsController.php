@@ -28,7 +28,7 @@ class NewsController extends Emerald_Controller_Action
 			if(!$channel = $channelTbl->fetchRow($where)) {
 				$channel = $channelTbl->createRow(array(), true);
 				$channel->page_id = $page->id;
-				$channel->created_by = $this->_emerald->getUser()->id;
+				$channel->created_by = $this->getCurrentUser()->id;
 				$channel->title = $this->_emerald->getTranslate()->translate('shard/news/channel/default_title', $page->getLocale()); 
 				$channel->link_readmore = $this->_emerald->getTranslate()->translate('shard/news/channel/default_link_readmore', $page->getLocale());
 				$channel->save();
@@ -36,7 +36,7 @@ class NewsController extends Emerald_Controller_Action
 	
 			$this->view->channel = $channel;
 	
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'write');
 			
 			$news = $channel->getItems(false, $input->headlines, 0);
 						
@@ -81,7 +81,7 @@ class NewsController extends Emerald_Controller_Action
 			if(!$channel = $channelTbl->fetchRow($where)) {
 				$channel = $channelTbl->createRow(array(), true);
 				$channel->page_id = $page->id;
-				$channel->created_by = $this->_emerald->getUser()->id;
+				$channel->created_by = $this->getCurrentUser()->id;
 				$channel->title = $this->_emerald->getTranslate()->translate('shard/news/channel/default_title', $page->getLocale()); 
 				$channel->link_readmore = $this->_emerald->getTranslate()->translate('shard/news/channel/default_link_readmore', $page->getLocale());
 				$channel->save();
@@ -89,7 +89,7 @@ class NewsController extends Emerald_Controller_Action
 	
 			$this->view->channel = $channel;
 	
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'write');
 					
 			$pageCount = ceil($channel->getItemCount($writable) / $channel->items_per_page);
 			$pageNo = $this->_getParam('page_no', 1);
@@ -140,7 +140,7 @@ class NewsController extends Emerald_Controller_Action
 			$page->assertReadable();
 			$this->view->page = $input->page;
 			
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $input->page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
 			$this->view->writable = $writable;
 						
 			$channelTbl = Emerald_Model::get('NewsChannel');

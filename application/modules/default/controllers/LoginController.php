@@ -24,10 +24,10 @@ class LoginController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $input->page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
 			$this->view->writable = $writable;
 			
-			$this->view->user = $this->_emerald->getUser();
+			$this->view->user = $this->getCurrentUser();
 			$this->view->page = $input->page;
 
 			$loginTbl = Emerald_Model::get('LoginRedirect');
@@ -70,7 +70,7 @@ class LoginController extends Emerald_Controller_Action
 			
 						
 			$this->view->layout()->disableLayout();
-			$this->view->user = $this->_emerald->getUser();
+			$this->view->user = $this->getCurrentUser();
 			
 			if(Zend_Locale::isLocale($input->locale) && in_array($input->locale, Emerald_Server::getInstance()->getAdminLocales()))
 				$this->_emerald->setLocale($input->locale);

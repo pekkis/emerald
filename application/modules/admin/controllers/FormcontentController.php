@@ -32,7 +32,7 @@ class Admin_FormcontentController extends Emerald_Controller_Action
 				
 				$formcontent->email_subject = $this->view->translate('shard/formcontent/default_email_subject');
 				
-				$formcontent->email_from = $formcontent->email_to = $this->_emerald->getUser()->email;
+				$formcontent->email_from = $formcontent->email_to = $this->getCurrentUser()->email;
 			}
 			
 			$formIdOptions = array('' => $this->view->translate('shard/formcontent/select_form_id'));
@@ -100,11 +100,11 @@ class Admin_FormcontentController extends Emerald_Controller_Action
 			if(!$formcontent = $formcontentTbl->find($input->page_id)->current()) {
 				$formcontent = $formcontentTbl->createRow();
 				$formcontent->page_id = $input->page_id;
-				$formcontent->created_by = $this->_emerald->getUser()->id;
+				$formcontent->created_by = $this->getCurrentUser()->id;
 				$formcontent->created = $now->format('Y-m-d H:i:s');
 
 			} else {
-				$formcontent->modified_by = $this->_emerald->getUser()->id;
+				$formcontent->modified_by = $this->getCurrentUser()->id;
 				$formcontent->modified = $now->format('Y-m-d H:i:s');
 			}
 			

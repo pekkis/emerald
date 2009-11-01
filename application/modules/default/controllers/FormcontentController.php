@@ -19,7 +19,7 @@ class FormcontentController extends Emerald_Controller_Action
 			$page = $input->page;
 			$this->view->page = $page;
 		
-			$writable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $input->page, 'write');
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
 			$this->view->writable = $writable;
 			if($writable) {
 				Emerald_Js::addAdminScripts($this->view);			

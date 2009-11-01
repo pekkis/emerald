@@ -34,7 +34,7 @@ class FileController extends Emerald_Controller_Action
 			
 			
 			$folder = $file->getFolder();
-			if(!$this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $folder, 'read')) {
+			if(!Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $folder, 'read')) {
 				throw new Emerald_Exception('Forbidden', 403);							
 			}
 						

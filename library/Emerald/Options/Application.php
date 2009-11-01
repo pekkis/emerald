@@ -12,11 +12,20 @@ class Emerald_Options_Application extends Emerald_Options_Abstract
 	 */
 	private $_optionTbl;
 	
+	private $_customer;
 	
 	public function __construct(Emerald_Application_Customer $customer)
 	{
+				
+		
 		$this->_customer = $customer;
-		$this->_optionTbl = Emerald_Model::get('Application_Option');
+		
+		try {
+			$this->_optionTbl = Emerald_Model::get('Application_Option');	
+		} catch(Exception $e) {
+			die('soo');
+		}
+		
 	}
 	
 	

@@ -5,7 +5,7 @@ class Emerald_Db_Table_Row_Filelib_Folder extends Zend_Db_Table_Row_Abstract imp
 	
 	public function init()
 	{
-		$acl = Emerald_Application::getInstance()->getAcl();
+		$acl = Zend_Registry::get('Emerald_Acl');
 		if(!$acl->has($this)) {
 			$db = $this->_getTable()->getAdapter();
 			$acl->add($this);
@@ -47,9 +47,9 @@ class Emerald_Db_Table_Row_Filelib_Folder extends Zend_Db_Table_Row_Abstract imp
 	public function assertWritable(Emerald_User $user = null)
 	{
 		if(!$user)
-			$user = Emerald_Application::getInstance()->getUser();
+			$user = Zend_Registry::get('Emerald_User');
 			
-		if(!Emerald_Application::getInstance()->getAcl()->isAllowed($user, $this, 'write'))
+		if(!Zend_Registry::get('Emerald_Acl')->isAllowed($user, $this, 'write'))
 			throw new Emerald_Acl_ForbiddenException('Forbidden', 401);
 		
 	}
@@ -58,9 +58,9 @@ class Emerald_Db_Table_Row_Filelib_Folder extends Zend_Db_Table_Row_Abstract imp
 	public function assertReadable(Emerald_User $user = null)
 	{
 		if(!$user)
-			$user = Emerald_Application::getInstance()->getUser();
+			$user = Zend_Registry::get('Emerald_User');
 		
-		if(!Emerald_Application::getInstance()->getAcl()->isAllowed($user, $this, 'read'))
+		if(!Zend_Registry::get('Emerald_Acl')->isAllowed($user, $this, 'read'))
 			throw new Emerald_Acl_ForbiddenException('Forbidden', 401);
 			
 	}

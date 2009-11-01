@@ -3,7 +3,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 {
 	public function indexAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -35,9 +35,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 						
 			
 			$this->view->locale = $this->_emerald->getLocale();
-				
-			$this->view->application = Emerald_Application::getInstance();
-			
+									
 			Emerald_Js::addjQueryUi($this->view);
 			
 			$this->view->headScript()->appendFile('/lib/js/admin/options/index.js');
@@ -57,7 +55,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 	
 	public function saveApplicationAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -75,11 +73,10 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			$input->process();
 			
 			
-			$application = Emerald_Application::getInstance();
-			
+			$application = Zend_Registry::get('Emerald_Customer');
 			$application->setOption('default_locale', $input->default_locale);
 			$application->setOption('google_analytics_id', $input->google_analytics_id);
-					
+				
 			
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'l:common/save_ok');
 			
@@ -104,7 +101,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 	
 	public function saveLocaleAction()
 	{
-		if(!$this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}

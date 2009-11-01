@@ -25,7 +25,7 @@
 			<?php 
 				
 				// TODO: should these be assigned by the view instead of grabbing em from singeltons?
-				$usr = Emerald_Application::getInstance()->getUser(); 
+				$usr = Zend_Registry::get('Emerald_User'); 
 				$rq = Zend_Controller_Front::getInstance()->getRequest(); 
 				$controller = $rq->getControllerName();
 				$action = $rq->getActionName();

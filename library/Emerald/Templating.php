@@ -6,13 +6,13 @@ class Emerald_Templating
 {
 	public function getTemplates()
 	{
-		$templatePath = Emerald_Application::getInstance()->getCustomer()->getRoot('templates');
+		$templatePath = Zend_Registry::get('Emerald_Customer')->getRoot('templates');
 		return $this->_getFiles($templatePath);
 	}
 	
 	public function getInnertemplates()
 	{
-		$innerTemplatePath = Emerald_Application::getInstance()->getCustomer()->getRoot('innertemplates');
+		$innerTemplatePath = Zend_Registry::get('Emerald_Customer')->getRoot('innertemplates');
 		return $this->_getFiles($innerTemplatePath);
 	}
 	private function _getFiles($path)

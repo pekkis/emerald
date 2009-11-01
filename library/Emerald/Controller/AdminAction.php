@@ -22,7 +22,7 @@ class Emerald_Controller_AdminAction extends Emerald_Controller_Action
 		// Sets the default layout to be the admin_outer (backwards compat)
 		$this->_helper->layout->setLayout('admin_outer');
 		
-		if($this->_emerald->getUser()->inGroup(Emerald_Group::GROUP_ANONYMOUS))
+		if($this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ANONYMOUS))
 		{
 			$this->_forward("index", "login","default");
 		}
@@ -34,6 +34,6 @@ class Emerald_Controller_AdminAction extends Emerald_Controller_Action
 
 	protected function _isUserAllowed($target, $permission)
 	{
-		return $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $target, $permission);
+		return Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $target, $permission);
 	}
 }

@@ -26,7 +26,7 @@ class PageController extends Emerald_Controller_Action
 					
 			if($page) {
 				
-				$readable = $this->_emerald->getAcl()->isAllowed($this->_emerald->getUser(), $page, 'read');
+				$readable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'read');
 								
 				if(!$readable) {
 
@@ -75,6 +75,7 @@ class PageController extends Emerald_Controller_Action
 			}
 			
 		} catch(Exception $e) {
+			
 			throw new Emerald_Exception($e->getMessage(), $e->getHttpResponseCode() ? $e->getHttpResponseCode() : 404);
 		}
 				
