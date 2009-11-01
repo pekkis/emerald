@@ -1,10 +1,8 @@
-<?php print $this->doctype('XHTML1_TRANSITIONAL'); ?>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 <?php echo $this->headMeta(); ?>
-
 <?php print $this->headTitle(); ?>
 
 <script type="text/javascript" src="/lib/js/jquery/jquery.js"></script>
@@ -17,33 +15,44 @@ var $j = jQuery.noConflict();
 	
 	<?php echo $this->headLink(); ?>
 	<?php echo $this->headScript(); ?>
-</head><body>
 
-<h1 class="companyName">Demosite</h1>
-<div id="bgContainer">
-<div id="bgTop">
-<div id="bgBottom">
-	<div id="pageContainer">
-	<div id="top" class="lout">
-			<div id="breadCrumb"><?php echo $this->shard($this->page, 'Breadcrumb', array('a' => 'index', 'separator' => ' &raquo; ')); ?></div>
+</head>
+<body>
+<div id="wrapper">
+	<div id="header" class="container">
+		<div id="logo">
+			<h1><a href="http://drkobros.com/emerald-cms">Emerald CMS</a></h1>
+			<p>
+			A <a href="http://drkobros.com/">Dr. Kobros</a> project
+			</p>
 		</div>
-		<div id="page">
-			<div id="left">
-				<div id="navi">
-				<?php echo $this->shard($this->page, "Menu", array('a' => 'index',"extended"=>1)); ?>
-				</div>
-				<div id="newsBox" class="lout"></div>
+		<div id="banner"><img src="/file/render/id/75" width="667" height="118" alt="" /></div>
+	</div>
+	
+	<div id="menu" class="container">
+	<?php echo $this->shard($this->page, "Menu", array('a' => 'index',"extended"=>1)); ?>
+	</div>
+	
+	<div id="top-bar" class="container">
+		<div class="bar">
+			<div class="text">Aliquam sit amet veroeros dolore sed tempus nullam</div>
+			<div id="search">
+				<form method="get" action="">
+					<fieldset>
+						<input type="text" name="query" value="" class="input-text" />
+						<input type="submit" value="Search" class="input-submit" />
+					</fieldset>
+				</form>
 			</div>
-			<div id="content">
-			<?php echo $this->layout()->content; ?>
-			</div>
-			<div style="clear: both;"></div>
 		</div>
-		<div id="footer" class="lout">powered by <a href="http://emerald.fi">Emerald</a></div>
+	</div>
+	
+	<div id="page" class="container">
+	<?php echo $this->layout()->content; ?>	
 	</div>
 </div>
+<div id="footer" class="container">
+	<p>(c) 2009 Sitename.com. Design by <a href="http://www.nodethirtythree.com/">nodethirtythree</a> + <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 </div>
-</div>
-<?php print $this->googleAnalytics(); ?>
 </body>
 </html>
