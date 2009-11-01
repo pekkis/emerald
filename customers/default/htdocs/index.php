@@ -1,1 +1,1 @@
-../../../htdocs/index.php
+../../../public/index.php
