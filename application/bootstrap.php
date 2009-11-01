@@ -1,6 +1,6 @@
 <?php
 
-set_include_path(realpath(dirname(__FILE__) . '/lib'));
+set_include_path(realpath(dirname(__FILE__) . '/../library'));
 
 require_once "Zend/Loader/Autoloader.php";
 Zend_Loader_Autoloader::getInstance()->registerNamespace('Emerald');
@@ -23,12 +23,17 @@ try {
 	// $front->setParam('useCaseSensitiveActions', false);
         
     $front->throwExceptions(false);
-    $front->addModuleDirectory($server->getRoot() . '/application/modules');
+    $front->addModuleDirectory($server->getRoot() . '/modules');
 
     $customer = $server->findCustomer($request);
     
+    if(!$customer) {
+    	die('Customer not found!');
+    }
+    
+    
     try {
-	   	$front->addModuleDirectory($customer->getRoot() . '/application/modules');	
+	   	$front->addModuleDirectory($customer->getRoot() . '/modules');	
     } catch(Exception $e) {
        	// There aint no customer specific modules
     }

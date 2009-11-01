@@ -15,7 +15,7 @@ class Emerald_Server
 	 *
 	 * @var string
 	 */
-	private $_version = '2.0.0';
+	private $_version = '3.0.0';
 	
 	/**
 	 * Emerald server root
@@ -62,9 +62,9 @@ class Emerald_Server
      */
     private function __construct()
     {
-    	$this->_root = realpath(dirname(__FILE__). "/../../..");
-    	$this->_config = new Zend_Config_Xml($this->getRoot() . '/application/config.xml');
-
+    	$this->_root = realpath(dirname(__FILE__). "/../../application");
+    	$this->_config = new Zend_Config_Xml($this->getRoot() . '/config.xml');
+    	    	
     	$db = Zend_Db::factory('PDO_MYSQL', $this->_config->db->toArray());
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
         $db->getConnection()->exec("SET names utf8");
@@ -143,7 +143,7 @@ class Emerald_Server
     public function findCustomer(Zend_Controller_Request_Http $request)
     {
     	// Resolve symlinks to real path
-    	$path = realpath($this->getRoot() . '/customers/' . $request->getServer('HTTP_HOST'));
+    	$path = realpath($this->getRoot() . '/../customers/' . $request->getServer('HTTP_HOST'));
 		
     	if(!Zend_Loader::isReadable($path))
     		return false;
