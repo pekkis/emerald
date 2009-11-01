@@ -10,6 +10,9 @@
 		$count++;
 		if($count == 1) $classNames[] = "firstChild";
 		if($count == $branchCount)  $classNames[] = "lastChild";
+		
+		if($this->activeId == $node->id) $classNames[] = "active";
+		
 	?>
 	<li<?php if($this->extended) echo " class=\"".implode(" ", $classNames)."\"" ?>>
 		<a 	class="<?php if($this->activeId == $node->id) echo "active" ?>"
