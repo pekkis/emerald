@@ -92,7 +92,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$router->addRoute('locale',
 		new Zend_Controller_Router_Route_Regex(
 		'([a-z]{2,3}(_[A-Z]{2})?)',
-		array('controller' => 'index', 'action' => 'index'),
+		array('module' => 'emerald' , 'controller' => 'index', 'action' => 'index'),
 		array(1 => 'locale')
 		)
 		);
@@ -100,7 +100,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$router->addRoute('iisiurl',
 		new Zend_Controller_Router_Route_Regex(
 		'(([a-z]{2,3}(_[A-Z]{2})?)/(.*?))(\.(html|xml))?$',
-		array('controller' => 'page', 'action' => 'view', 'render_type' => 'html'),
+		array('module' => 'emerald', 'controller' => 'page', 'action' => 'view', 'render_type' => 'html'),
 		array(1 => 'iisiurl', 6 => 'render_type')
 		)
 		);
@@ -108,10 +108,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$router->addRoute('loginlocale',
 		new Zend_Controller_Router_Route_Regex(
 		'login(/([a-z]{2,3}))?',
-		array('controller' => 'login', 'action' => 'index', 'locale' => 'en_US'),
+		array('module' => 'emerald', 'controller' => 'login', 'action' => 'index', 'locale' => 'en_US'),
 		array(2 => 'locale')
 		));        
 	    
+		$front->setRouter($router);
+				
 		return $router;
 		
 	}

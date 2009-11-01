@@ -256,7 +256,7 @@ Emerald.FileManager = {
 	open: function(field_name, url, type, win)
 	{
 		tinyMCE.activeEditor.windowManager.open({
-        file : '/admin/filelib/select/type/image',
+        file : '/emerald-admin/filelib/select/type/image',
         width : 800,  // Your dimensions may differ - toy around with them!
         height : 600,
         resizable : "no",
@@ -341,7 +341,7 @@ Emerald.TinyMCE = {
 			convert_urls: true,
 			relative_urls: false,
 			content_css: "/data/css/editor.css",
-			external_link_list_url : "/admin/sitemap/tinymcelinklist",
+			external_link_list_url : "/emerald-admin/sitemap/tinymcelinklist",
 			language: Emerald.Localization.getLanguage(),
 			plugins: "table",
 			theme_advanced_buttons2_add : "tablecontrols"

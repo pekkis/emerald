@@ -9,17 +9,17 @@ var sitemapMethods =
 	addRootPage: function(evt)
 	{
 		Event.stop(evt);
-		Emerald.Popup.open("/admin/sitemap/createPage/locale/"+locale+"/id/0", "pagepopup", "width=500px,height=500px");			
+		Emerald.Popup.open("/emerald-admin/sitemap/createPage/locale/"+locale+"/id/0", "pagepopup", "width=500px,height=500px");			
 	},
 	addSubPage: function(evt, id)
 	{
 		Event.stop(evt);
-		Emerald.Popup.open("/admin/sitemap/createPage/locale/"+locale+"/id/"+id, "pagepopup", "width=500px,height=500px");			
+		Emerald.Popup.open("/emerald-admin/sitemap/createPage/locale/"+locale+"/id/"+id, "pagepopup", "width=500px,height=500px");			
 	},
 	editProperties: function(evt, id)
 	{
 		Event.stop(evt);
-		Emerald.Popup.open("/admin/sitemap/editPage/id/"+id, "pagepopup", "width=500px,height=500px");	
+		Emerald.Popup.open("/emerald-admin/sitemap/editPage/id/"+id, "pagepopup", "width=500px,height=500px");	
 	},
 	deletePages: function(evt, dataSource)
 	{
@@ -28,7 +28,7 @@ var sitemapMethods =
 		if(!Emerald.confirm("sitemap/delete_all_selected_pages",[ids.length])) return;
 		
 		$j.ajax({
-			url: "/admin/sitemap/deletePage/",
+			url: "/emerald-admin/sitemap/deletePage/",
 			data: { "ids[]": ids },
 			type: 'post',
 			dataType: 'json',
@@ -53,13 +53,13 @@ var sitemapMethods =
 	reorderPages: function(evt)
 	{
 		Event.stop(evt);
-		Emerald.Popup.open("/admin/sitemap/reorder/locale/"+locale, "pagepopup", "width=500px,height=500px");
+		Emerald.Popup.open("/emerald-admin/sitemap/reorder/locale/"+locale, "pagepopup", "width=500px,height=500px");
 	},
 	setHome: function(evt, id)
 	{
 		Event.stop(evt);
 		$j.ajax({
-			url: "/admin/sitemap/setHome/id/"+id,
+			url: "/emerald-admin/sitemap/setHome/id/"+id,
 			type: 'post',
 			dataType: 'json',
 			success: (function(data)
@@ -89,10 +89,10 @@ $j(document).ready(function() {
 	{
 		var elm = Event.element(evt);
 		var locale = elm.getValue();
-		window.location = "/admin/sitemap/index/locale/"+locale;
+		window.location = "/emerald-admin/sitemap/index/locale/"+locale;
 	});
 
-	var url = "/admin/sitemap/branch";
+	var url = "/emerald-admin/sitemap/branch";
 	if(locale.length >1)
 	{
 		url += "/locale/"+locale;
@@ -138,7 +138,7 @@ $j(document).ready(function() {
 		var wrapper = new Element("span",{id: "eipId_"+dataRow.id});
 		new Emerald_EIP_Element_Text(wrapper, 
 		{
-			postUrl: "/admin/sitemap/changeTitle",
+			postUrl: "/emerald-admin/sitemap/changeTitle",
 			autoSave: true
 		});
 		

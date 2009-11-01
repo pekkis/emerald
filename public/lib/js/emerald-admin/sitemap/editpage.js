@@ -6,7 +6,7 @@ $j(document).ready(function() {
 	{
 		Event.stop(evt);
 		
-		new Ajax.Request("/admin/sitemap/savePage",
+		new Ajax.Request("/emerald-admin/sitemap/savePage",
 		{
 			method: "post",
 			parameters: Event.element(evt).serialize(true),
@@ -30,6 +30,6 @@ $j(document).ready(function() {
 	});
 	
 	var id = $(form['id']);
-	if(id.getValue()) extForm.populate("/admin/sitemap/getPageData/id/"+id.getValue());
+	if(id.getValue()) extForm.populate("/emerald-admin/sitemap/getPageData/id/"+id.getValue());
 	
 });

@@ -3,7 +3,7 @@ $j(document).ready(function() {
 	
 	var userDs = new Emerald_DataSource(
 	{
-		source: "/admin/user/loadUsers",
+		source: "/emerald-admin/user/loadUsers",
 		uniqCol: "id"
 	});
 	
@@ -42,7 +42,7 @@ $j(document).ready(function() {
 		new Emerald.RowMenu(menu.down("ul"),{hoverActivate: "tr"});
 		menu.select(".ac_editUser").invoke("observe","click", (function(evt, id){
 			Event.stop(evt);
-			window.location = "/admin/user/viewUser/id/"+id;
+			window.location = "/emerald-admin/user/viewUser/id/"+id;
 		}).bindAsEventListener(this, dataRow.id));
 		return cell;
 	});
@@ -58,7 +58,7 @@ $j(document).ready(function() {
 		if(!Emerald.confirm(Emerald.t('user/delete_selected_users', [userDs.getSelection().length]))) return;
 		
 		$j.ajax({
-			url: "/admin/user/deleteUser",
+			url: "/emerald-admin/user/deleteUser",
 			data: { "ids[]": userDs.getSelection() },
 			type: 'post',
 			dataType: 'json',
@@ -79,7 +79,7 @@ $j(document).ready(function() {
 	
 	var ds = new Emerald_DataSource(
 	{
-		source: "/admin/user/loadGroups",
+		source: "/emerald-admin/user/loadGroups",
 		uniqCol: "id"
 	});
 	
@@ -116,7 +116,7 @@ $j(document).ready(function() {
 		new Emerald.RowMenu(menu.down("ul"),{hoverActivate: "tr"});
 		menu.select(".ac_editGroup").invoke("observe","click", (function(evt, id){
 			Event.stop(evt);
-			window.location = "/admin/user/viewGroup/id/"+id;
+			window.location = "/emerald-admin/user/viewGroup/id/"+id;
 		}).bindAsEventListener(this, dataRow.id));
 		return cell;
 	});
@@ -131,7 +131,7 @@ $j(document).ready(function() {
 		// if(!Emerald.confirm("(untranslated) delete all selected ("+ds.getSelection().length+") groups")) return;
 		
 		$j.ajax({
-			url: "/admin/user/deleteGroup",
+			url: "/emerald-admin/user/deleteGroup",
 			data: { "ids[]": ds.getSelection() },
 			type: 'post',
 			dataType: 'json',
