@@ -1,32 +1,32 @@
-<h1>{l:shard/calendar/edit}</h1>
+<h1><?php echo $this->translate('shard/calendar/edit'); ?></h1>
 
 <form id="edit" method="post" action="/admin/calendar/saveEvent">
 
 
-<label for="title">{l:shard/calendar/event/start_date}</label>
+<label for="title"><?php echo $this->translate('shard/calendar/event/start_date'); ?></label>
 <?php echo $this->formSelectDate('start_date', new Zend_Date($this->event->start_date, Zend_Date::ISO_8601), new Zend_Date('2007-01-01', 'fi_FI'), new Zend_Date('2015-12-31', 'fi_FI'), array()); ?>
 
-<label for="title">{l:shard/calendar/event/end_date}</label>
+<label for="title"><?php echo $this->translate('shard/calendar/event/end_date'); ?></label>
 <?php echo $this->formSelectDate('end_date', new Zend_Date($this->event->end_date, Zend_Date::ISO_8601), new Zend_Date('2007-01-01', 'fi_FI'), new Zend_Date('2015-12-31', 'fi_FI'), array()); ?>
 
-<label for="title">{l:shard/calendar/event/title}</label>
+<label for="title"><?php echo $this->translate('shard/calendar/event/title'); ?></label>
 <?php echo $this->formText('title', $this->event->title, array('class' => 'w100')); ?>
 
-<label for="description">{l:shard/calendar/event/description}</label>
+<label for="description"><?php echo $this->translate('shard/calendar/event/description'); ?></label>
 <?php echo $this->formTextarea('description', $this->event->description, array('rows' => 3, 'class' => 'w100 mceEditablex')); ?>
 
-<label for="article">{l:shard/calendar/event/content}</label>
+<label for="article"><?php echo $this->translate('shard/calendar/event/content'); ?></label>
 <?php echo $this->formTextarea('content', $this->event->content, array('rows' => 15, 'class' => 'w100 mceEditor')); ?>
 
 <p>
 <?php echo $this->formHidden('status', 0); ?>
-<?php echo $this->formCheckbox('status', 1, array('checked' => $this->event->status)); ?> {l:shard/news/item/status_active}
+<?php echo $this->formCheckbox('status', 1, array('checked' => $this->event->status)); ?> <?php echo $this->translate('shard/news/item/status_active'); ?>
 </p>
 
 <input type="hidden" name="id" id="id" value="<?php echo $this->event->id ?>" />
 <input type="hidden" name="calendar_id" id="calendar_id" value="<?php echo $this->event->calendar_id ?>" />
 <p>
-<?php echo $this->formButton('submiter', '{l:common/submit}', array('type' => 'submit')); ?>
+<?php echo $this->formButton('submiter', $this->translate('common/submit'), array('type' => 'submit')); ?>
 </p>
 
 </form>

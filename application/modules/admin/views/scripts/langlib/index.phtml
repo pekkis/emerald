@@ -1,13 +1,13 @@
-<h1>{l:admin/langlib/title}</h1>
+<h1><?php echo $this->translate('admin/langlib/title'); ?></h1>
 
 <p>
-	<a href="/admin/langlib/dump">{l:admin/langlib/gimme_dump}</a>
+	<a href="/admin/langlib/dump"><?php echo $this->translate('admin/langlib/gimme_dump'); ?></a>
 </p>
 
 <form method="post" action="/admin/langlib/create">
 
 <fieldset>
-<legend>{l:admin/langlib/create_new}</legend>
+<legend><?php echo $this->translate('admin/langlib/create_new'); ?></legend>
 
 <label for="path">path</label>
 <input class="w33" type="text" name="path" id="path" />
@@ -19,7 +19,7 @@
 <input class="w33" type="text" name="en" id="en" />
 
 <p>
-<button type="submit" class="submit niceButton">{l:common/submit}</button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
 </p>
 
 </fieldset>
@@ -28,7 +28,7 @@
 
 
 <fieldset>
-<legend>{l:admin/langlib/existing}</legend>
+<legend><?php echo $this->translate('admin/langlib/existing'); ?></legend>
 
 <table border="1" width="100%" cellspacing="2" cellpadding="2">
 <tr>

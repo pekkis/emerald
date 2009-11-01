@@ -22,11 +22,11 @@
 
 <?php if(!$this->form): ?>
 <p>
-{l:shard/formcontent/no_form_selected}
+<?php echo $this->translate('shard/formcontent/no_form_selected'); ?>
 </p>
 <?php endif; ?>
 
 <div class="adminControl">
-<a id="formcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/formcontent/edit/page_id/<?php echo $this->page->id; ?>">{l:shard/formcontent/edit}</a>
+<a id="formcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/formcontent/edit/page_id/<?php echo $this->page->id; ?>"><?php echo $this->translate('shard/formcontent/edit'); ?></a>
 </div>
 <?php endif; ?>

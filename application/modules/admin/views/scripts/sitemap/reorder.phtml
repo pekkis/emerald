@@ -1,10 +1,10 @@
-<h1>{l:sitemap/reorder/title}</h1>
-<p>{l:sitemap/reorder/explanation}</p>
+<h1><?php echo $this->translate('sitemap/reorder/title'); ?></h1>
+<p><?php echo $this->translate('sitemap/reorder/explanation'); ?></p>
 <div id="sortTree">
 <?php echo $this->pageList ?>
 </div>
-<button id="sortCancel" class="cancel niceButton">{l:common/cancel}</button>
-<button id="sortCommit" class="submit niceButton">{l:common/submit}</button>
+<button id="sortCancel" class="cancel niceButton"><?php echo $this->translate('common/cancel'); ?></button>
+<button id="sortCommit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
 <style>
 #sortTree
 {

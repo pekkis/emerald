@@ -600,13 +600,12 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 				
 			}
 			$db->commit();
-			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, "{l:common/saved}"));
+			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, $this->view->translate('common/saved')));
 		}
 		catch(Exception $e)
 		{
 			$db->rollback();
-			var_dump($e);	
-			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::ERROR, "{l:common/failed}"));
+			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::ERROR, $this->translate('common/failed')));
 		}
 		
 	}

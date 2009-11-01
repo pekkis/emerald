@@ -1,9 +1,9 @@
-<h1>{l:admin/langlib/title/edit} :: <em><?php echo $this->entry->path; ?></em></h1>
+<h1><?php echo $this->translate('admin/langlib/title/edit'); ?> :: <em><?php echo $this->entry->path; ?></em></h1>
 
 <form method="post" action="/admin/langlib/save">
 
 <fieldset>
-<legend>{l:admin/langlib/edit}</legend>
+<legend><?php echo $this->translate('admin/langlib/edit'); ?></legend>
 
 <input type="hidden" name="id" id="id" value="<?php echo $this->entry->id; ?>" />
 
@@ -14,7 +14,7 @@
 <input class="w33" type="text" name="en" id="en" value="<?php echo $this->entry->en; ?>" />
 
 <p>
-<button type="submit" class="submit niceButton">{l:common/submit}</button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
 </p>
 
 </fieldset>

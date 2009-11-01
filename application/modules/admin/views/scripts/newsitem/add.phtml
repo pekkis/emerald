@@ -1,29 +1,29 @@
-<h1>{l:shard/news/item/create_new}</h1>
+<h1><?php echo $this->translate('shard/news/item/create_new'); ?></h1>
 
 <form id="edit" method="post" action="/admin/newsitem/insert/channel_id/<?php echo $this->channel->id; ?>">
 
-<label for="title">{l:shard/news/item/title}</label>
+<label for="title"><?php echo $this->translate('shard/news/item/title'); ?></label>
 <?php echo $this->formText('title', $this->item->title, array('class' => 'w100')); ?>
 
-<label for="description">{l:shard/news/item/description}</label>
+<label for="description"><?php echo $this->translate('shard/news/item/description'); ?></label>
 <?php echo $this->formTextarea('description', $this->item->description, array('rows' => 3, 'class' => 'w100 mceEditablex')); ?>
 
-<label for="article">{l:shard/news/item/article}</label>
+<label for="article"><?php echo $this->translate('shard/news/item/article'); ?></label>
 <?php echo $this->formTextarea('article', $this->item->article, array('rows' => 15, 'class' => 'w100 mceEditor')); ?>
 
-<label for="valid_start">{l:shard/news/item/valid_start}</label>
+<label for="valid_start"><?php echo $this->translate('shard/news/item/valid_start'); ?></label>
 <?php echo $this->formSelectDate('valid_start', ($now = new Zend_Date()), new Zend_Date('2007-01-01', Zend_Date::ISO_8601), new Zend_Date('2015-12-31', Zend_Date::ISO_8601), array()); ?>
 
-<label for="valid_end">{l:shard/news/item/valid_end}</label>
+<label for="valid_end"><?php echo $this->translate('shard/news/item/valid_end'); ?></label>
 <?php echo $this->formSelectDate('valid_end', $now->addMonth($this->channel->default_months_valid), new Zend_Date('2007-01-01', Zend_Date::ISO_8601), new Zend_Date('2015-12-31', Zend_Date::ISO_8601), array()); ?>
 
 <p>
 <?php echo $this->formHidden('status', 0); ?>
-<?php echo $this->formCheckbox('status', 1, array('checked' => $this->item->status)); ?> {l:shard/news/item/status_active}
+<?php echo $this->formCheckbox('status', 1, array('checked' => $this->item->status)); ?> <?php echo $this->translate('shard/news/item/status_active'); ?>
 </p>
 
 <p>
-<?php echo $this->formButton('submiter', '{l:common/submit}', array('type' => 'submit')); ?>
+<?php echo $this->formButton('submiter', $this->translate('common/submit'), array('type' => 'submit')); ?>
 </p>
 
 </form>

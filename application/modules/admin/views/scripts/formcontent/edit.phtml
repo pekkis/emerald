@@ -1,27 +1,27 @@
 <form id="formcontent_edit" method="post" action="/admin/formcontent/save/page_id/<?php echo $this->item->page_id; ?>">
 
-<label for="form_id">{l:shard/formcontent/form_id}</label>
+<label for="form_id"><?php echo $this->translate('shard/formcontent/form_id'); ?></label>
 <?php echo $this->formSelect('form_id', $this->item->form_id, array('class' => 'w33'), $this->form_id_options); ?>
 
-<label for="email_subject">{l:shard/formcontent/email_subject}</label>
+<label for="email_subject"><?php echo $this->translate('shard/formcontent/email_subject'); ?></label>
 <?php echo $this->formText('email_subject', $this->item->email_subject, array('class' => 'w33')); ?>
 
-<label for="email_from">{l:shard/formcontent/email_from}</label>
+<label for="email_from"><?php echo $this->translate('shard/formcontent/email_from'); ?></label>
 <?php echo $this->formText('email_from', $this->item->email_from, array('class' => 'w33')); ?>
 
-<label for="email_to">{l:shard/formcontent/email_to}</label>
+<label for="email_to"><?php echo $this->translate('shard/formcontent/email_to'); ?></label>
 <?php echo $this->formText('email_to', $this->item->email_to, array('class' => 'w33')); ?>
 
-<label for="redirect_page_id">{l:shard/formcontent/redirect_page_id}</label>
+<label for="redirect_page_id"><?php echo $this->translate('shard/formcontent/redirect_page_id'); ?></label>
 <?php echo $this->formText('redirect_page_id', $this->item->redirect_page_id, array('class' => 'w33')); ?>
 
 <p>
 <?php echo $this->formHidden('form_lock', 0); ?>
-<?php echo $this->formCheckbox('form_lock', 1, array('checked' => $this->item->form_lock)); ?> {l:shard/formcontent/form_lock}
+<?php echo $this->formCheckbox('form_lock', 1, array('checked' => $this->item->form_lock)); ?> <?php echo $this->translate('shard/formcontent/form_lock'); ?>
 </p>
 
 <p>
-<?php echo $this->formButton('submiter', '{l:common/submit}', array('type' => 'submit')); ?>
+<?php echo $this->formButton('submiter', $this->translate('common/submit'), array('type' => 'submit')); ?>
 </p>
 
 </form>

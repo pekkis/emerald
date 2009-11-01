@@ -6,6 +6,6 @@
 
 <?php if($this->writable): ?>
 <div class="adminControl">
-<a id="htmlcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/htmlcontent/edit/page_id/<?php echo $this->page->id; ?>/block_id/<?php echo $this->block_id; ?>">{l:common/edit}</a>
+<a id="htmlcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/htmlcontent/edit/page_id/<?php echo $this->page->id; ?>/block_id/<?php echo $this->block_id; ?>"><?php echo $this->translate('common/edit'); ?></a>
 </div>
 <?php endif; ?>

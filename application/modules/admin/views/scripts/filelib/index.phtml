@@ -1,6 +1,6 @@
-<h1>{l:admin/filelib/title}</h1>
+<h1><?php echo $this->translate('admin/filelib/title'); ?></h1>
 
-<p>{l:admin/filelib/explanation}</p>
+<p><?php echo $this->translate('admin/filelib/explanation'); ?></p>
 
 <table cellspacing="0" class="fileBrowser">
 <tr>
@@ -10,8 +10,8 @@
 <table id="folderList" class="entitityList">
 <thead>
 	<tr>
-		<th>{l:admin/filelib/foldername}</th>
-		<th>{l:common/actions}</th>
+		<th><?php echo $this->translate('admin/filelib/foldername'); ?></th>
+		<th><?php echo $this->translate('common/actions'); ?></th>
 	</tr>
 </thead>
 <tbody>
@@ -83,15 +83,15 @@ if(!$acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'read'
 <table class="entitityList">
 <thead>
 	<tr>
-		<th>{l:admin/filelib/filename}</th>
-		<th>{l:common/actions}</th>
+		<th><?php echo $this->translate('admin/filelib/filename'); ?></th>
+		<th><?php echo $this->translate('common/actions'); ?></th>
 	</tr>
 </thead>
 <tbody>
 <?php if(!count($this->files)): ?>
 <tr>
 	<td>
-		<span>{l:admin/filelib/no_files}</span>
+		<span><?php echo $this->translate('admin/filelib/no_files'); ?></span>
 	</td>
 </tr>
 <?php endif;?>
@@ -139,10 +139,10 @@ if(!$acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'read'
 <?php if(($this->active === null && Emerald_Application::getInstance()->getUser()->inGroup(Emerald_Group::GROUP_ROOT)) || $acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'write')): ?>
 <form id="createFolder" method="post" action="/admin/filelib/createFolder/parent_id/<?php echo $this->active; ?>">
 
-<label for="name">{l:admin/filelib/create_folder/name}</label>
+<label for="name"><?php echo $this->translate('admin/filelib/create_folder/name'); ?></label>
 <input id="name" name="name" type="text" class="w13" /> 
 
-<button type="submit" class="submit niceButton">{l:common/submit}</button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
 
 </form>
 <?php endif; ?>
@@ -153,7 +153,7 @@ if(!$acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'read'
 <h2>{admin/filelib/upload_file}</h2>
 
 <div id="messagex" class="debugMessagex">
-{l:admin/filelib/progress}: <span id="messages"></span>
+<?php echo $this->translate('admin/filelib/progress'); ?>: <span id="messages"></span>
 </div>
 
 <form enctype="multipart/form-data" id="uploadFile" target="uploadFrame" method="POST" action="/admin/filelib/uploadFile/folder_id/<?php echo $this->active; ?>">
@@ -163,7 +163,7 @@ if(!$acl->isAllowed(Emerald_Application::getInstance()->getUser(), $node, 'read'
 
 <input type="file" id="theFile" name="theFile" />
 
-<button type="submit" class="submit niceButton">{l:common/submit}</button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
 </form>
 
 

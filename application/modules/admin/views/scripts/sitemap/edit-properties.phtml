@@ -1,12 +1,12 @@
-<h1><span id="data_page_title"></span> {l:common/properties}</h1>
+<h1><span id="data_page_title"></span> <?php echo $this->translate('common/properties'); ?></h1>
 <form action="" name="pageproperties" id="pageproperties" class="paddedContent" method="post">
 <table class="horizontalData">
 	<tr>
-		<th><label for="title">{l:page/title}</label></th>
+		<th><label for="title"><?php echo $this->translate('page/title'); ?></label></th>
 		<td><input name="title" id="title" value="" /></td>
 	</tr>
 	<tr>
-		<th><label for="shard_id">{l:page/shard}</label></th>
+		<th><label for="shard_id"><?php echo $this->translate('page/shard'); ?></label></th>
 		<td>
 		<select name="shard_id" id="shard_id" value="">
 			<?php foreach($this->shards as $srv): ?>
@@ -16,7 +16,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th><label for="template">{l:page/template}</label></th>
+		<th><label for="template"><?php echo $this->translate('page/template'); ?></label></th>
 		<td>
 		<select name="template" id="template" value="">
 			<?php foreach($this->templates as $tpl): ?>
@@ -26,7 +26,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th><label for="innertemplate">{l:page/innertemplate}</label></th>
+		<th><label for="innertemplate"><?php echo $this->translate('page/innertemplate'); ?></label></th>
 		<td>
 		<select name="innertemplate" id="innertemplate" value="">
 			<?php foreach($this->innertemplates as $tpl): ?>
@@ -37,18 +37,18 @@
 	</tr>
 
 	<tr>
-		<th><label for="visibility">{l:page/visibility}</label></th>
+		<th><label for="visibility"><?php echo $this->translate('page/visibility'); ?></label></th>
 		<td>
 		<select name="visibility" id="visibility">
-			<option value="1">{l:page/visibility/visible}</option>			
-			<option value="0">{l:page/visibility/hidden}</option>
+			<option value="1"><?php echo $this->translate('page/visibility/visible'); ?></option>			
+			<option value="0"><?php echo $this->translate('page/visibility/hidden'); ?></option>
 		</select>
 		</td>
 	</tr>
 
 	<?php if(!$this->id): ?>
 	<tr>
-		<th><label for="page_count">{l:page/page_count}</label></th>
+		<th><label for="page_count"><?php echo $this->translate('page/page_count'); ?></label></th>
 		<td>
 		<select name="page_count" id="page_count">
 			<?php for($i = 1 ; $i < 11;  $i++): ?>
@@ -61,11 +61,11 @@
 </table>
 
 <fieldset>
-	<legend>{l:page/permissions}</legend>
+	<legend><?php echo $this->translate('page/permissions'); ?></legend>
 	<table>
 		<thead>
 			<tr>
-				<th>{l:page/groupname}</th>
+				<th><?php echo $this->translate('page/groupname'); ?></th>
 				<?php foreach($this->permissions as $permission): ?>
 				<th><?php echo $permission ?></th>
 				<?php endforeach; ?>
@@ -108,5 +108,5 @@
 <input name="id" value="<?php echo $this->id ?>" type="hidden" />
 <input name="locale" value="<?php echo $this->escape($this->localeName) ?>" type="hidden" />
 <input name="parent_id" value="<?php echo $this->parentId ?>" type="hidden" />
-<button type="submit" class="submit niceButton">{l:page/submit}</button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('page/submit'); ?></button>
 </form>
