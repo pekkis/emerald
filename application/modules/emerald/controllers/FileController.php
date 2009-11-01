@@ -1,5 +1,5 @@
 <?php
-class FileController extends Emerald_Controller_Action
+class Emerald_FileController extends Emerald_Controller_Action
 {
 	
 	

@@ -1,5 +1,5 @@
 <?php
-class HtmlcontentController extends Emerald_Controller_Action 
+class Emerald_HtmlcontentController extends Emerald_Controller_Action 
 {
 
 	public function init()

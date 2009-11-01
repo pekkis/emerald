@@ -1,5 +1,5 @@
 <?php
-class ErrorController extends Emerald_Controller_Action
+class Emerald_ErrorController extends Emerald_Controller_Action
 {
     public function errorAction()
     {

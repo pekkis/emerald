@@ -1,5 +1,5 @@
 <?php
-class Admin_NewschannelController extends Emerald_Controller_AdminAction
+class EmeraldAdmin_NewschannelController extends Emerald_Controller_AdminAction
 {
 	public function editAction()
 	{
@@ -24,7 +24,7 @@ class Admin_NewschannelController extends Emerald_Controller_AdminAction
 					
 			$this->view->channel = $channel;
 			$this->view->layout()->setLayout("admin_popup_outer");
-			$this->view->headScript()->appendFile('/lib/js/admin/newschannel/edit.js');
+			$this->view->headScript()->appendFile('/lib/js/emerald-admin/newschannel/edit.js');
 			
 		} catch(Exception $e) {
 			throw new Emerald_Exception('Internal Server Error', 500);

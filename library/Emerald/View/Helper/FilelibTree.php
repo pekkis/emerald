@@ -32,9 +32,9 @@ class Emerald_View_Helper_FilelibTree
 			else
 				$output .= "<img src=\"/lib/gfx/nuvola/22x22/filesystems/folder.png\" align=\"absmiddle\" /> ";
 			
-			$output .="<a class=\"filelibFolder\" href=\"/admin/filelib/{$this->_action}/id/{$node->id}\">{$node->name}</a>";
+			$output .="<a class=\"filelibFolder\" href=\"/emerald-admin/filelib/{$this->_action}/id/{$node->id}\">{$node->name}</a>";
 			
-			$output .= "&nbsp;" . $this->view->iconSmall("actions/configure", "admin/filelib/folder_properties", Array('popupSmall'), "", "/admin/filelib/folder_properties");
+			$output .= "&nbsp;" . $this->view->iconSmall("actions/configure", "admin/filelib/folder_properties", Array('popupSmall'), "", "/emerald-admin/filelib/folder_properties");
 			
 			if(isset($this->_tree[$node->id]))
 				$output .= $this->_renderBranch($this->_tree[$node->id]);

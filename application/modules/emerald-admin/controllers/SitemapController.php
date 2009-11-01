@@ -1,5 +1,5 @@
 <?php
-class Admin_SitemapController extends Emerald_Controller_AdminAction
+class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
 {
 	/**
 	 * Displays the sitemap page tpl
@@ -27,7 +27,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$this->view->locales = $locales = $localeTbl->fetchAll();
 		
 		if(!$locales->current()) {
-			$this->getResponse()->setRedirect('/admin/locale');
+			$this->getResponse()->setRedirect('/emerald-admin/locale');
 			return;
 		}
 		
@@ -35,7 +35,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 
 		if(!$filtered->locale)
 		{
-			$this->_redirect("/admin/sitemap/index/locale/".$locales->current()->locale);
+			$this->_redirect("/emerald-admin/sitemap/index/locale/".$locales->current()->locale);
 		}
 		
 		$this->view->editlocale = $locales->current()->locale;//count($locales) ? $locales->current()->locale : $currLocale->toString();
@@ -46,9 +46,9 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$this->view->workLocale = new Zend_Locale();
 		// = $selectedLocales;
 		$this->view->headScript()->appendFile("/lib/js/form.js");
-		$this->view->headScript()->appendFile("/lib/js/admin/datasource.js");
-		$this->view->headScript()->appendFile("/lib/js/admin/sitemap/index.js");
-		$this->view->headLink()->appendStylesheet("/lib/css/admin/sitemap/sitemap.css");
+		$this->view->headScript()->appendFile("/lib/js/emerald-admin/datasource.js");
+		$this->view->headScript()->appendFile("/lib/js/emerald-admin/sitemap/index.js");
+		$this->view->headLink()->appendStylesheet("/lib/css/emerald-admin/sitemap/sitemap.css");
 	}
 	
 	/**
@@ -320,7 +320,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$this->view->page = $page;
 		$this->view->acl = Zend_Registry::get('Emerald_Acl');
 		
-		$this->view->headScript()->appendFile("/lib/js/admin/sitemap/editpage.js");
+		$this->view->headScript()->appendFile("/lib/js/emerald-admin/sitemap/editpage.js");
 		$this->view->headScript()->appendFile("/lib/js/form.js");
 		$this->render("edit-properties");
 	}
@@ -419,7 +419,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		
 		$this->view->headScript()->appendFile("/lib/js/form.js");
-		$this->view->headScript()->appendFile("/lib/js/admin/sitemap/editpage.js");
+		$this->view->headScript()->appendFile("/lib/js/emerald-admin/sitemap/editpage.js");
 		$this->render("edit-properties");
 	}
 	

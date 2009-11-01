@@ -1,5 +1,5 @@
 <?php
-class FormcontentController extends Emerald_Controller_Action 
+class Emerald_FormcontentController extends Emerald_Controller_Action 
 {
 
 	

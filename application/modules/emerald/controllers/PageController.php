@@ -1,5 +1,5 @@
 <?php
-class PageController extends Emerald_Controller_Action
+class Emerald_PageController extends Emerald_Controller_Action
 {
 	
 	public function viewAction()

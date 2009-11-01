@@ -1,5 +1,5 @@
 <?php
-class Admin_HelpController extends Emerald_Controller_AdminAction 
+class EmeraldAdmin_HelpController extends Emerald_Controller_AdminAction 
 {
 
 	

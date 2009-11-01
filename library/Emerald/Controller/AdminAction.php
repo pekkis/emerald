@@ -27,8 +27,8 @@ class Emerald_Controller_AdminAction extends Emerald_Controller_Action
 			$this->_forward("index", "login","default");
 		}
 		
-		$this->view->translate()->setTranslator($this->_emerald->getTranslate());
-		$this->view->translate()->setLocale(Emerald_Application::getInstance()->getLocale() ? Emerald_Application::getInstance()->getLocale() : 'en');
+		$this->view->translate()->setTranslator(Zend_Registry::get('Zend_Translate'));
+		$this->view->translate()->setLocale(Zend_Registry::get('Zend_Locale') ? Zend_Registry::get('Zend_Locale') : 'en');
 		
 	}
 

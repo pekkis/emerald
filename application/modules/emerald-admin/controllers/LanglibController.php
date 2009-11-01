@@ -1,5 +1,5 @@
 <?php
-class Admin_LanglibController extends Emerald_Controller_AdminAction 
+class EmeraldAdmin_LanglibController extends Emerald_Controller_AdminAction 
 {
 
 	
@@ -140,7 +140,7 @@ class Admin_LanglibController extends Emerald_Controller_AdminAction
 				
 				$db->commit();
 
-				$this->getResponse()->setRedirect('/admin/langlib', 302);
+				$this->getResponse()->setRedirect('/emerald-admin/langlib', 302);
 								
 			} catch(Exception $e) {
 				$db->rollback();
@@ -207,7 +207,7 @@ class Admin_LanglibController extends Emerald_Controller_AdminAction
 												
 				$db->commit();
 
-				$this->getResponse()->setRedirect('/admin/langlib', 302);
+				$this->getResponse()->setRedirect('/emerald-admin/langlib', 302);
 								
 			} catch(Exception $e) {
 				$db->rollback();

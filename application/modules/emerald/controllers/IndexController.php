@@ -4,7 +4,7 @@
  * it throws an exception. Maybe they could automagically be handled?!?
  *
  */
-class IndexController extends Emerald_Controller_Action
+class Emerald_IndexController extends Emerald_Controller_Action
 {
 	/**
 	 * Many come here. Some get forwarded, others get thrown as exceptions.

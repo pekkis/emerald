@@ -1,5 +1,5 @@
 <?php
-class Admin_FormcontentController extends Emerald_Controller_Action
+class EmeraldAdmin_FormcontentController extends Emerald_Controller_Action
 {
 	public function editAction()
 	{
@@ -49,7 +49,7 @@ class Admin_FormcontentController extends Emerald_Controller_Action
 			$this->view->form_id_options = $formIdOptions;
 			
 			$this->view->layout()->setLayout("admin_popup_outer");
-			$this->view->headScript()->appendFile('/lib/js/admin/formcontent/edit.js');
+			$this->view->headScript()->appendFile('/lib/js/emerald-admin/formcontent/edit.js');
 						
 			
 			

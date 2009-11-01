@@ -1,5 +1,5 @@
 <?php
-class MenuController extends Emerald_Controller_Action 
+class Emerald_MenuController extends Emerald_Controller_Action 
 {
 	
 	private $sitemap = null;

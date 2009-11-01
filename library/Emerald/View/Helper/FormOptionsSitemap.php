@@ -49,7 +49,7 @@ class Emerald_View_Helper_FormOptionsSitemap
 			$class = ($node->id == $this->_activeId) ? 'active' : 'nonactive';
 			$output .= "<li class=\"{$class}\">";
 			
-			$output .="<a class=\"filelibFolder\" href=\"/admin/filelib/id/{$node->id}\">{$node->title}</a>";
+			$output .="<a class=\"filelibFolder\" href=\"/emerald-admin/filelib/id/{$node->id}\">{$node->title}</a>";
 			
 			$output .= $this->_renderBranch($node->id);
 			

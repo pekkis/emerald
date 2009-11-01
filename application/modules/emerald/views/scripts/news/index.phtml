@@ -2,8 +2,8 @@
 
 <?php if($this->writable): ?>
 	<div class="adminControl adminControlHeavy">
-	<a id="newschannel_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newschannel/edit/id/<?php echo $this->channel->id; ?>"><?php echo $this->translate('shard/news/channel/edit_channel'); ?></a>
-	 | <a id="newsitem_add" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/add/channel_id/<?php echo $this->channel->id; ?>"><?php echo $this->translate('shard/news/channel/add_item'); ?></a>
+	<a id="newschannel_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/emerald-admin/newschannel/edit/id/<?php echo $this->channel->id; ?>"><?php echo $this->translate('shard/news/channel/edit_channel'); ?></a>
+	 | <a id="newsitem_add" class="popup popup_large popup_resizable popup_scrollbars" href="/emerald-admin/newsitem/add/channel_id/<?php echo $this->channel->id; ?>"><?php echo $this->translate('shard/news/channel/add_item'); ?></a>
 	</div>
 <?php endif; ?>
 
@@ -36,7 +36,7 @@
 	
 <?php if($this->writable): ?>
 	<div class="adminControl adminControlLight">
-	<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/edit/id/<?php echo $item->id; ?>"><?php echo $this->translate('shard/news/item/edit_item'); ?></a> | <a class="confirmable" href="#"><?php echo $this->translate('common/delete'); ?></a>
+	<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/emerald-admin/newsitem/edit/id/<?php echo $item->id; ?>"><?php echo $this->translate('shard/news/item/edit_item'); ?></a> | <a class="confirmable" href="#"><?php echo $this->translate('common/delete'); ?></a>
 	</div>
 <?php endif; ?>	
 	

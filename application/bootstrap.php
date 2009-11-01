@@ -34,11 +34,6 @@ try {
 	$application->run();
 	
 	
-	die('end');
-   
-    
-            
-	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 
 	die('');

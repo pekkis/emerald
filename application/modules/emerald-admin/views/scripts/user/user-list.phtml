@@ -17,8 +17,8 @@
 		<li class="ui-tabs-nav-item"><a href="#userList"><span><?php echo $this->translate('user/usertab/title'); ?></span></a></li>
 		<li class="ui-tabs-nav-item"><a href="#groupList"><span><?php echo $this->translate('user/grouptab/title'); ?></span></a></li>
 		<!-- 
-		<li><?php echo $this->iconLarge("apps/personal", "users/view_users", Array(), "users/view_users","/admin/user/userList") ?></li>
-		<li><?php echo $this->iconLarge("apps/kdmconfig", "users/view_groups", Array(), "users/view_groups","/admin/user/groupList") ?></li>
+		<li><?php echo $this->iconLarge("apps/personal", "users/view_users", Array(), "users/view_users","/emerald-admin/user/userList") ?></li>
+		<li><?php echo $this->iconLarge("apps/kdmconfig", "users/view_groups", Array(), "users/view_groups","/emerald-admin/user/groupList") ?></li>
 		 -->
 	</ul>
 	<div id="userList">
@@ -45,7 +45,7 @@
 							<span class="selectNone"><?php echo $this->translate('entititylist/select_none'); ?></span>
 							::
 							<ul class="dynamicMenu iconVMenu" id="topMenukko">
-								<li class="ac_addUser"><?php echo $this->iconSmall("actions/edit_add", "users/add", Array(), $this->translate('users/add'),"/admin/user/viewNewUser") ?></li>
+								<li class="ac_addUser"><?php echo $this->iconSmall("actions/edit_add", "users/add", Array(), $this->translate('users/add'),"/emerald-admin/user/viewNewUser") ?></li>
 								<li class="rq_atLeastOne rq_confirm ac_deleteUser"><?php echo $this->iconSmall("actions/editdelete", "users/delete", Array(), $this->translate('users/delete')) ?></li>
 							</ul>
 							<span id="activeUserCommand"></span>
@@ -79,7 +79,7 @@
 							<span class="selectNone"><?php echo $this->translate('entititylist/select_none'); ?></span>
 							::
 							<ul class="dynamicMenu iconVMenu" id="topMenukko">
-								<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "groups/add", Array(), $this->translate('groups/add'),"/admin/user/viewNewGroup") ?></li>
+								<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "groups/add", Array(), $this->translate('groups/add'),"/emerald-admin/user/viewNewGroup") ?></li>
 								<li class="rq_atLeastOne rq_confirm ac_deleteGroup"><?php echo $this->iconSmall("actions/editdelete", "groups/delete", Array(), $this->translate('groups/delete')) ?></li>
 							</ul>
 							<span id="activeGroupCommand"></span>

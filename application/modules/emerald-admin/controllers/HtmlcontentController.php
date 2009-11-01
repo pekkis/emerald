@@ -1,5 +1,5 @@
 <?php
-class Admin_HtmlcontentController extends Emerald_Controller_Action
+class EmeraldAdmin_HtmlcontentController extends Emerald_Controller_Action
 {
 	public function editAction()
 	{
@@ -35,7 +35,7 @@ class Admin_HtmlcontentController extends Emerald_Controller_Action
 			
 			$this->view->layout()->setLayout("admin_popup_outer");
 			
-			$this->view->headScript()->appendFile('/lib/js/admin/htmlcontent/edit.js');
+			$this->view->headScript()->appendFile('/lib/js/emerald-admin/htmlcontent/edit.js');
 						
 			
 		} catch(Exception $e) {

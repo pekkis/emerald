@@ -111,9 +111,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		array('controller' => 'login', 'action' => 'index', 'locale' => 'en_US'),
 		array(2 => 'locale')
 		));        
-	        
-		$front->setRouter($router);
-		
+	    
 		return $router;
 		
 	}
@@ -142,7 +140,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$userTbl = Emerald_Model::get('User');
 		
-		if(!$id = $auth->hasIdentity()) {
+		if($auth->hasIdentity()) {
+									
+			$id = $auth->getIdentity();
+			$user = $userTbl->find($id)->current();
+						
+			
+		} else {
+
 			$userId = Emerald_User::USER_ANONYMOUS;
 			$user = $userTbl->find($userId);
 			if(!$user = $user->current()) {
@@ -150,12 +155,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			}
 			$auth->getStorage()->write($user->id);
 			
-		} else {
-
-			$user = $userTbl->find($id)->current(); 
+			
+			 
 			
 		}
-		
+
+				
 		Zend_Registry::set('Emerald_User', $user);
 		
 		return $user;		
