@@ -30,12 +30,12 @@ class Admin_FormcontentController extends Emerald_Controller_Action
 				
 				$formcontent->page_id = $input->page_id;
 				
-				$formcontent->email_subject = '{l:shard/formcontent/default_email_subject}';
+				$formcontent->email_subject = $this->view->translate('shard/formcontent/default_email_subject');
 				
 				$formcontent->email_from = $formcontent->email_to = $this->_emerald->getUser()->email;
 			}
 			
-			$formIdOptions = array('' => '{l:shard/formcontent/select_form_id}');
+			$formIdOptions = array('' => $this->view->translate('shard/formcontent/select_form_id'));
 			
 			$formTbl = Emerald_Model::get('Form');
 			
