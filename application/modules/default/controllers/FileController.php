@@ -68,6 +68,8 @@ class FileController extends Emerald_Controller_Action
 		
 		} catch(Exception $e) {
 
+			echo $e;
+			die();
 			
 			throw new Emerald_Exception('Unknown error', 500);
 			
