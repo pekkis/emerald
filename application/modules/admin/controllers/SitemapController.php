@@ -31,7 +31,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			return;
 		}
 		
-		$this->view->locale = $currLocale = $this->_emerald->getLocale();	
+		$this->view->locale = $currLocale = Zend_Registry::get('Zend_Locale');	
 
 		if(!$filtered->locale)
 		{
@@ -80,7 +80,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
-		$locale = $filtered->locale ? $filtered->locale : $this->_emerald->getLocale()->toString();
+		$locale = $filtered->locale ? $filtered->locale : Zend_Registry::get('Zend_Locale')->toString();
 		
 		$parentId = $filtered->start;
 		$sitemap = new Emerald_Sitemap($locale);

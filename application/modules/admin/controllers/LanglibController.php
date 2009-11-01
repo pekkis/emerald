@@ -247,7 +247,7 @@ class Admin_LanglibController extends Emerald_Controller_AdminAction
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$locale = $this->_emerald->getLocale();
+			$locale = Zend_Registry::get('Zend_Locale');
 			$translate = Emerald_Application::getInstance()->getTranslate();
 			
 			$langlib = $translate->getMessages($input->id);

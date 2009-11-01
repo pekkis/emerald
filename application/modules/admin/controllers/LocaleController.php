@@ -23,7 +23,7 @@ class Admin_LocaleController extends Emerald_Controller_AdminAction
 			
 				
 		$availableLocales = array_keys(Zend_Locale::getLocaleList());
-		$locale = $this->_emerald->getLocale();
+		$locale = Zend_Registry::get('Zend_Locale');
 
 		$workLocale = new Zend_Locale();
 		
@@ -76,7 +76,7 @@ class Admin_LocaleController extends Emerald_Controller_AdminAction
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$msg = $this->_emerald->getTranslate()->_('admin/locale/update_ok');
+			$msg = Zend_Registry::get('Zend_Translate')->_('admin/locale/update_ok');
 			
 			
 			$selectedLocales = array();

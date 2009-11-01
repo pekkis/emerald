@@ -34,7 +34,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			}
 						
 			
-			$this->view->locale = $this->_emerald->getLocale();
+			$this->view->locale = Zend_Registry::get('Zend_Locale');
 									
 			Emerald_Js::addjQueryUi($this->view);
 			

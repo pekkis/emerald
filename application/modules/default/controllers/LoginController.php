@@ -73,12 +73,12 @@ class LoginController extends Emerald_Controller_Action
 			$this->view->user = $this->getCurrentUser();
 			
 			if(Zend_Locale::isLocale($input->locale) && in_array($input->locale, Emerald_Server::getInstance()->getAdminLocales()))
-				$this->_emerald->setLocale($input->locale);
+				Zend_Registry::get('Zend_Locale')->setLocale($input->locale);
 			else {
 				
 				$locale = new Zend_Locale('fi');
 				$input->locale = $locale->getLanguage();
-				$this->_emerald->setLocale($input->locale); 
+				Zend_Registry::get('Zend_Locale')->setLocale($input->locale); 
 			}
 							
 
@@ -99,10 +99,6 @@ class LoginController extends Emerald_Controller_Action
 	}
 	public function handleAction()
 	{
-		if(!Zend_Session::sessionExists()) {
-			$this->_emerald->initializeSession();
-		}
-				
 		$this->_helper->getHelper('AjaxContext')->initContext('json');		
 		
 		
@@ -115,44 +111,45 @@ class LoginController extends Emerald_Controller_Action
 		);
 
 		
-		$oldFetchMode = $this->_db->getFetchMode();
-				
+						
 		
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();
 						
 			$auth = Zend_Auth::getInstance();
-			$adapter = new Zend_Auth_Adapter_DbTable($this->_db, 'user', 'email', 'passwd', 'MD5(?)');			
-
+			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'user', 'email', 'passwd', 'MD5(?) and status = 1');			
+						
 			$adapter->setIdentity($input->email);
 			$adapter->setCredential($input->passwd);
 
-			$this->_db->setFetchMode(Zend_Db::FETCH_ASSOC);			
 			$result = $auth->authenticate($adapter);
-			$this->_db->setFetchMode($oldFetchMode);
 			
 			if($result->isValid()) {
-				$row = $adapter->getResultRowObject('id');
-				Zend_Session::regenerateId();
-				$this->_emerald->getSession()->id = Zend_Session::getId();
-				$this->_emerald->getSession()->user_id = $row->id;
-				$this->_emerald->getSession()->save();
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, $this->_emerald->getTranslate()->_('login/message/ok'));
+				
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Zend_Registry::get('Zend_Translate')->translate('login/message/ok'));
+				
+				
+				$auth->getStorage()->write($adapter->getResultRowObject()->id);
+
+								Zend_Debug::dump($adapter->getResultRowObject());
+				die();
+				
+				
+				
 			} else {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, $this->_emerald->getTranslate()->_('login/message/error_authentication_failed'));
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, Zend_Registry::get('Zend_Translate')->translate('login/message/error_authentication_failed'));
 			}
 			
 		} catch(Exception $e) {
 			if($input->hasMissing()) {
-				$msg = $this->_emerald->getTranslate()->_('login/message/error_empty_fields');
+				$msg = Zend_Registry::get('Zend_Translate')->translate('login/message/error_empty_fields');
 			} elseif($input->hasInvalid()) {
-				$msg = $this->_emerald->getTranslate()->_('login/message/error_invalid_fields');
+				$msg = Zend_Registry::get('Zend_Translate')->translate('login/message/error_invalid_fields');
 			} else {
 				$msg = 'login/error/unknown';
 			}
 			
-			$this->_db->setFetchMode($oldFetchMode);
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, $msg);
 			
 		}
