@@ -156,8 +156,11 @@ class Emerald_Application
         Zend_layout::getMvcInstance()->disableLayout();
         
         $front = Zend_Controller_Front::getInstance();
-        $front->registerPlugin(new Emerald_Controller_Plugin_Filter());
+        // $front->registerPlugin(new Emerald_Controller_Plugin_Filter());
                 
+        
+        Zend_Registry::set('Zend_Translate', $this->getTranslate());
+        
         $response = $front->dispatch();
 		return $response;
         
