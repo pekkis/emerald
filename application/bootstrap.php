@@ -22,14 +22,24 @@ $application = new Zend_Application(
 );
 
 
-  
-           
+    
 
 
 try {
 
-	$application->getBootstrap()->bootstrap('customer')->bootstrap('db')->bootstrap('router')->bootstrap('session')
-	->bootstrap('acl')->bootstrap('locale')->bootstrap('user')->bootstrap('view')->bootstrap('translate');
+	$application->getBootstrap()
+	->bootstrap('cache')
+	->bootstrap('modules')
+	->bootstrap('customer')
+	->bootstrap('db')
+	->bootstrap('router')
+	->bootstrap('session')
+	->bootstrap('acl')
+	->bootstrap('locale')
+	->bootstrap('user')
+	->bootstrap('view')
+	->bootstrap('translate')
+	->bootstrap('layout');
 	
 	$application->run();
 	

@@ -248,7 +248,7 @@ class EmeraldAdmin_LanglibController extends Emerald_Controller_AdminAction
 			$input->process();
 			
 			$locale = Zend_Registry::get('Zend_Locale');
-			$translate = Emerald_Application::getInstance()->getTranslate();
+			$translate = Zend_Registry::get('Zend_Translate');
 			
 			$langlib = $translate->getMessages($input->id);
 			$js = Zend_JSON::encode($langlib);
@@ -261,6 +261,8 @@ class EmeraldAdmin_LanglibController extends Emerald_Controller_AdminAction
 			$this->getResponse()->appendBody($message); 
 			
 		}catch(Exception $e){
+			
+			
 			throw new Emerald_Exception('Not Found', 404);
 		}	
 	}

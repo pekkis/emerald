@@ -68,8 +68,19 @@ class Emerald_Server
     	$db = Zend_Db::factory('PDO_MYSQL', $this->_config->db->toArray());
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
         $db->getConnection()->exec("SET names utf8");
-        
+
         $this->_db = $db;
+        
+        $profiler = new Zend_Db_Profiler_Firebug('Core DB Queries');
+		$profiler->setEnabled(true);
+
+		// Attach the profiler to your db adapter
+		$db->setProfiler($profiler);
+				        
+        
+        date_default_timezone_set($this->getConfig()->timezone);
+        
+
 
         
     }
@@ -140,10 +151,10 @@ class Emerald_Server
     }
     
     
-    public function findCustomer(Zend_Controller_Request_Http $request)
+    public function findCustomer($host)
     {
     	// Resolve symlinks to real path
-    	$path = realpath($this->getRoot() . '/../customers/' . $request->getServer('HTTP_HOST'));
+    	$path = realpath($this->getRoot() . '/../customers/' . $host);
 		
     	if(!Zend_Loader::isReadable($path))
     		return false;

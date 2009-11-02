@@ -15,7 +15,7 @@ class Emerald_Json_Message
         
         if(is_string($message)) {
 	        if(preg_match('/^l:([a-z_\/]+)/', $message, $matches)) {
-	        	$message = Emerald_Application::getInstance()->getTranslate()->_($matches[1]);
+	        	$message = Zend_Registry::get('Zend_Translate')->translate($matches[1]);
 	        }
         }
                 

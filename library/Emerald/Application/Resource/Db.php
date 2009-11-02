@@ -6,13 +6,6 @@ class Emerald_Application_Resource_Db extends Zend_Application_Resource_Db
 	
 	public function init()
 	{
-		static $count;
-		$count++;
-		
-		if($count > 1) {
-			die('duhdiuhdd');
-		}
-		
 		$db = parent::init();
 		$customer = $this->getCustomer();
 								
@@ -22,6 +15,12 @@ class Emerald_Application_Resource_Db extends Zend_Application_Resource_Db
 		$customer->setDb($db);
 		
 		Zend_Registry::set('Emerald_Db', $db);
+
+		$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
+		$profiler->setEnabled(true);
+
+		// Attach the profiler to your db adapter
+		$db->setProfiler($profiler);
 		
 		return $db;
 		
