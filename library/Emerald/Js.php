@@ -6,13 +6,18 @@ class Emerald_Js
 	{
 		$view->headScript()->prependFile('/emerald-admin/langlib/js/id/' . Zend_Registry::get('Zend_Locale'));
 		$view->headScript()->prependFile('/lib/js/tinymce/jscripts/tiny_mce/tiny_mce.js');
+
 		$view->headScript()->prependFile('/lib/js/addon.js');
 		$view->headScript()->prependFile('/lib/js/common.js');
+
 		$view->headScript()->prependFile('/lib/js/prototype/prototype.js');
-		$view->headScript()->prependScript('var $j = jQuery.noConflict();');
-		$view->headScript()->prependFile('/lib/js/jquery/jquery.intercept-min.js');
-		$view->headScript()->prependFile('/lib/js/jquery/jquery.listen-min.js');
-		$view->headScript()->prependFile('/lib/js/jquery/jquery.js');
+		
+		ZendX_JQuery_View_Helper_JQuery::enableNoConflictMode();
+		
+				
+		// $view->headScript()->prependFile('/lib/js/jquery/jquery.intercept-min.js');
+		// $view->headScript()->prependFile('/lib/js/jquery/jquery.listen-min.js');
+		// $view->headScript()->prependFile('/lib/js/jquery/jquery.js');
 		$view->headScript()->prependFile('/lib/js/firebug/firebugx.js');
 	}
 	
