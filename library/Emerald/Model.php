@@ -17,6 +17,8 @@ class Emerald_Model
 	 */
 	public static function get($name)
 	{
+		
+		
 		$className = 'Emerald_Model_' . $name;
 		if(!isset(self::$_models[$name])) {
 			// require_once Emerald_Server::getInstance()->getRoot() . '/application/model/' . $name . '.php';
