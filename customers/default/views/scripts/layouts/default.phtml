@@ -1,19 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php 
+// @todo: this in init head maybe?
+$this->jQuery()->enable();
+$this->headLink()->appendStylesheet('/data/css/customer.css');
+?>
+
+<?php echo $this->doctype('XHTML1_STRICT'); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 <?php echo $this->headMeta(); ?>
 <?php print $this->headTitle(); ?>
-
-<script type="text/javascript" src="/lib/js/jquery/jquery.js"></script>
-<script type="text/javascript">
-var $j = jQuery.noConflict();
-</script>
-<script type="text/javascript" src="/lib/js/jquery/dimensions/jquery.dimensions.min.js"></script>
 	
-	<link rel="stylesheet" href="/data/css/customer.css" />
+	
 	
 	<?php echo $this->headLink(); ?>
+	<?php echo $this->jQuery(); ?>
 	<?php echo $this->headScript(); ?>
 
 </head>
