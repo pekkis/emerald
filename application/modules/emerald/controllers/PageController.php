@@ -66,8 +66,8 @@ class Emerald_PageController extends Emerald_Controller_Action
 				
 				$this->view->page = $page;
 												
-				$this->_helper->layout->setLayout('templates/' . basename($page->template, '.phtml'));
-				$this->_helper->viewRenderer->setRender('innertemplates/' . basename($page->innertemplate, '.phtml'), null, true);
+				$tpl = $page->getLayout($this);
+
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
 				
 			} else {
@@ -75,6 +75,9 @@ class Emerald_PageController extends Emerald_Controller_Action
 			}
 			
 		} catch(Exception $e) {
+			
+			echo $e;
+			die();
 			
 			throw new Emerald_Exception($e->getMessage(), $e->getHttpResponseCode() ? $e->getHttpResponseCode() : 404);
 		}

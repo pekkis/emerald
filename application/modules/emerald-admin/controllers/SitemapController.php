@@ -312,9 +312,8 @@ class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
 		$s_dao = Emerald_Model::get("Shard");
 		$this->view->shards = $s_dao->findAllowed();
 		$tpl = new Emerald_Templating();
-		$this->view->templates = $tpl->getTemplates();
-		$this->view->innertemplates = $tpl->getInnerTemplates();
-		
+		$this->view->layouts = $tpl->getLayouts();
+				
 		 
 		$this->view->permissions = Emerald_Permission::getAll();
 		$this->view->page = $page;
@@ -397,8 +396,8 @@ class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
 		$s_dao = Emerald_Model::get("Shard");
 		$this->view->shards = $s_dao->findAllowed();
 		$tpl = new Emerald_Templating();
-		$this->view->templates = $tpl->getTemplates();
-		$this->view->innertemplates = $tpl->getInnerTemplates();
+		$this->view->layouts = $tpl->getLayouts();
+		
 		
 		// TODO: Lazy loading causes this hack. How we gonna get past it?
 		$this->view->groups = Emerald_Model::get("Group")->fetchAll();
@@ -460,12 +459,7 @@ class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
 				'Int', 
 				'presence' => 'required'
 			),
-			'template' => Array
-			(
-				Array('StringLength',1,255),
-				'presence' => 'required'
-			),
-			'innertemplate' => Array
+			'layout' => Array
 			(
 				Array('StringLength',1,255),
 				'presence' => 'required'
@@ -567,8 +561,8 @@ class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
 				$page->title = $filtered->title;
 				if($cnt > 0) $page->title .= " ({$cnt})";
 				$page->shard_id = $filtered->shard_id;
-				$page->template = $filtered->template;
-				$page->innertemplate = $filtered->innertemplate;
+				$page->layout = $filtered->layout;
+				
 				// keep the old order-id if existing page, else get max from dao
 				$page->order_id = $page->order_id ? $page->order_id : $dao->getNextOrderId($page->parent_id, $locale);
 				$page->status = 1;

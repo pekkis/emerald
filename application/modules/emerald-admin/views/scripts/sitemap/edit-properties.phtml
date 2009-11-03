@@ -15,21 +15,12 @@
 		</select>
 		</td>
 	</tr>
+
 	<tr>
-		<th><label for="template"><?php echo $this->translate('page/template'); ?></label></th>
+		<th><label for="layout"><?php echo $this->translate('page/layout'); ?></label></th>
 		<td>
-		<select name="template" id="template" value="">
-			<?php foreach($this->templates as $tpl): ?>
-				<option value="<?php echo $tpl ?>"><?php echo $tpl ?></option>
-			<?php endforeach; ?>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<th><label for="innertemplate"><?php echo $this->translate('page/innertemplate'); ?></label></th>
-		<td>
-		<select name="innertemplate" id="innertemplate" value="">
-			<?php foreach($this->innertemplates as $tpl): ?>
+		<select name="layout" id="layout" value="">
+			<?php foreach($this->layouts as $tpl): ?>
 				<option value="<?php echo $tpl ?>"><?php echo $tpl ?></option>
 			<?php endforeach; ?>
 		</select>

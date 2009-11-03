@@ -5,6 +5,7 @@ class Emerald_Controller_Plugin_Page extends Zend_Controller_Plugin_Abstract
 	
 	
 	
+	
 	public function dispatchLoopShutdown()
 	{
 		

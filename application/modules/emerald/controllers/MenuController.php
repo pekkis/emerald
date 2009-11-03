@@ -6,6 +6,8 @@ class Emerald_MenuController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
+		
+		
 		$filters = array(
 		);
 		$validators = array(
@@ -35,7 +37,7 @@ class Emerald_MenuController extends Emerald_Controller_Action
 			}
 			while($page = $page->getParent());
 		
-			$this->getResponse()->appendBody($childHtml);
+			$this->getResponse()->appendBody($childHtml, $this->_getParam('rs'));
 			$this->_helper->viewRenderer->setNoRender();
 		} catch(Exception $e) {
 			

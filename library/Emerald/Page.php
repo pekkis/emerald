@@ -272,6 +272,13 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	}
 	
 	
+	public function getLayout($action)
+	{
+		require Zend_Registry::get('Emerald_Customer')->getRoot() . '/views/scripts/layouts/Default.php';				
+		$tpl = new Emerald_Layout_Default($this, $action);
+		return $tpl;
+	}
+	
 	
 }
 ?>

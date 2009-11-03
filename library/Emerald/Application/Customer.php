@@ -7,8 +7,7 @@ class Emerald_Application_Customer
 	 * @var array
 	 */
 	private $_roots = array(
-		'templates' => 'views/scripts/templates',
-		'innertemplates' => 'views/scripts/innertemplates',
+		'layouts' => 'views/scripts/layouts',
 	);
 	
 	private $_root;

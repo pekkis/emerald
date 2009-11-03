@@ -19,8 +19,8 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	
 	public function preDispatch()
 	{
-		parent::preDispatch();
-				
+		
+		
 		
 		//	It is not easy to make the viewrenderer do what I want.		
 		$this->getHelper('viewRenderer')->initView();
@@ -29,6 +29,19 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 			self::$_added = 1;	
 		}
 						
+	}
+
+	
+	
+	public function postDispatch()
+	{
+		if($rs = $this->_getParam('rs')) {
+
+			echo "KRAAAAAA";
+			$this->getHelper('viewRenderer')->setResponseSegment($rs);
+		}
+		
+		
 	}
 	
 	
