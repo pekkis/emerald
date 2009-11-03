@@ -415,11 +415,11 @@ $j(document).ready(function()
 		$j(this).hide();
 	});
 
-	$j.listen('click', '.confirmable', function() {
+	$j('.confirmable').live('click', function() {
 		return confirm(Emerald.t('common/are_you_sure'));
 	})
 	
-	$j.listen('click', '.popup', Emerald.Popup.listener);
+	$j('.popup').live('click', Emerald.Popup.listener);
 
 });
 
