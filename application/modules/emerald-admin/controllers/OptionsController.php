@@ -42,6 +42,8 @@ class EmeraldAdmin_OptionsController extends Emerald_Controller_AdminAction
 						
 			$this->view->workLocale = new Zend_Locale();
 			
+			$this->view->application = Zend_Registry::get('Emerald_Customer');
+			
 		} catch(Exception $e) {
 			throw new Emerald_Exception($e->getMessage(), 500);
 		}

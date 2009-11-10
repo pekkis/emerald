@@ -3,19 +3,20 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>emerald CMS</title>
-		
-		
+				
 		<?php		
-		$this->headScript()->prependScript('var $j = jQuery.noConflict();');
-		$this->headScript()->prependFile('/lib/js/jquery/dimensions/jquery.dimensions.min.js');
-		$this->headScript()->prependFile('/lib/js/jquery/jquery.js');
-		$this->headScript()->prependFile('/lib/js/firebug/firebugx.js');
+	 
+		$this->jQuery()->enable()->uiEnable();
+		$this->jQuery()->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
+		Emerald_Js::addAdminScripts($this);
+		$this->headLink()->prependStylesheet('/lib/css/emerald-admin/emerald_admin.css');
 		
 		$this->headScript()->appendFile('/lib/js/emerald-admin/login.js');
-		
 		$this->headLink()->appendStylesheet('/lib/css/emerald-admin/login.css');
+						
 		?>
-		
+				
+		<?php echo $this->jQuery(); ?>
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->headScript(); ?>
 	</head>
