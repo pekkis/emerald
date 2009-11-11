@@ -7,7 +7,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	}
 		
 	private $_translate;
-	    
+
+	
+	protected function _initFilelib()
+	{
+		$filelib = new Filelib_Model_Filelib();
+		$filelib->setRoot("/wwwroot/emerald/customers/default/files");
+		$filelib->setPublicRoot("/wwwroot/emerald/customers/default/public/files");
+		$filelib->setPublicDirectoryPrefix("/files");
+		$filelib->setDb($this->getResource('db'));
+		$filelib->setAcl($this->getResource('acl'));
+		$filelib->setMagic("/usr/share/file/magic");
+		
+		Zend_Registry::set('Emerald_Filelib', $filelib);
+		
+	}
+	
+	
 	
 	protected function _initCustomer()
 	{

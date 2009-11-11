@@ -20,7 +20,7 @@ class Emerald_Controller_AdminAction extends Emerald_Controller_Action
 	public function preDispatch()
 	{
 		// Sets the default layout to be the admin_outer (backwards compat)
-		$this->_helper->layout->setLayout('admin_outer');
+		// $this->_helper->layout->setLayout('admin_outer');
 		
 		if($this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ANONYMOUS))
 		{

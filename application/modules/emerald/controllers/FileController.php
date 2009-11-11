@@ -20,8 +20,6 @@ class Emerald_FileController extends Emerald_Controller_Action
 		try {
 			
 			
-			
-			
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();
 
@@ -48,31 +46,14 @@ class Emerald_FileController extends Emerald_Controller_Action
 			
 			readfile($path);
 
-			$this->_helper->layout->disableLayout();
-			$this->_helper->viewRenderer->setNoRender();
-			$this->getResponse()->setHeader('Content-Type', $file->mimetype);
-			
-			// If download param is set, lets do download instead of rendering.
-			// This should be _forward from downloadAction. 
-			if($input->download) {
-				$this->getResponse()->setHeader('Content-disposition',
-				"attachment; filename={$file->name}");
-
-			}
+			$response->setHeader('Content-Type', $file->mimetype);
 			
 			
 			
-		} catch(Emerald_Exception $e) {
+		} catch(Exception $e) {
 			
 			throw $e;
 		
-		} catch(Exception $e) {
-
-			echo $e;
-			die();
-			
-			throw new Emerald_Exception('Unknown error', 500);
-			
 		}
 	}
 	

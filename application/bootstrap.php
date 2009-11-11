@@ -39,8 +39,10 @@ try {
 	->bootstrap('user')
 	->bootstrap('view')
 	->bootstrap('translate')
-	->bootstrap('layout');
-	
+	->bootstrap('layout')
+	->bootstrap('filelib')
+	;
+		
 	$application->run();
 	
 	

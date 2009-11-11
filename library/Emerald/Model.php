@@ -15,11 +15,10 @@ class Emerald_Model
 	 * @param string $name Model class name
 	 * @return Zend_Db_Table
 	 */
-	public static function get($name)
+	public static function get($name, $module = 'Emerald')
 	{
-		
-		
-		$className = 'Emerald_Model_' . $name;
+				
+		$className = $module . '_Model_' . $name;
 		if(!isset(self::$_models[$name])) {
 			// require_once Emerald_Server::getInstance()->getRoot() . '/application/model/' . $name . '.php';
 			self::$_models[$name] = new $className();

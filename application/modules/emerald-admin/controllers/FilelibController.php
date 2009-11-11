@@ -305,9 +305,14 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();		
-			
-			$folderTbl = Emerald_Model::get('Filelib_Folder');
+									
+			$folderTbl = new Filelib_Model_Folder(null);
 
+			die();
+			
+
+			die('foo');
+			
 			if($input->id) {
 				$activeFolder = $folderTbl->find($input->id)->current();
 				if(!$activeFolder) {
@@ -324,6 +329,8 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			
 			$fileTbl = Emerald_Model::get('Filelib_File');
 			
+			
+			
 			$expr = ($input->id) ? $input->id : new Zend_Db_Expr('null');
 			
 			$files = $fileTbl->fetchAll(
@@ -337,8 +344,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			$this->view->token = $token;
 			
 			$this->view->active = $input->id;
-			
-			$this->view->activeFolder = 
+						
 			
 			$this->view->tree = $tree;
 			$this->view->files = $files;
