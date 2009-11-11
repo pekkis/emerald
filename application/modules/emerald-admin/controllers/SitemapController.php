@@ -599,7 +599,7 @@ class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
 		catch(Exception $e)
 		{
 			$db->rollback();
-			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::ERROR, $this->translate('common/failed')));
+			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::ERROR, $this->view->translate('common/failed')));
 		}
 		
 	}

@@ -41,13 +41,8 @@
 <?php 
 
 
-if(!$acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'read')) {
-	$color = 'red';
-} elseif(!$acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'write')) {
-	$color = 'yellow';
-} else {
-	$color = 'green';
-}
+$color = 'green';
+
 ?>
 
 <tr class="hoverActivator folder_level_<?php print $this->tree->getDepth() + 1; ?>">
@@ -64,7 +59,7 @@ if(!$acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'read')) {
 </td>
 
 <td class="actions hoverAction">
-<?php if($acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'write')): ?>
+<?php if(true): ?>
 <?php echo $this->iconSmall("actions/configure", "common/properties", Array('popup', 'popup_small'), "", "/emerald-admin/filelib/folder-properties/id/{$node->id}"); ?>
 <?php endif; ?>
 </td>
@@ -116,11 +111,11 @@ if(!$acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'read')) {
 		}else $mimetype = "empty";
 		?>
 		<?php echo $this->iconSmall("mimetypes/".$mimetype,""); ?>
-		<a class="thickbox" rel="lightbox[dir_images]" href="/file/render/id/<?php echo $file->id; ?>" title="<?php echo $file->name; ?>"><?php echo $file->name; ?></a>
+		<a class="thickbox" rel="lightbox[dir_images]" href="/filelib/index/render/id/<?php echo $file->id; ?>" title="<?php echo $file->name; ?>"><?php echo $file->name; ?></a>
 	</td>
 	
 	<td class="hoverAction">
-		<?php if($acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'write')): ?>
+		<?php if(true): ?>
 		<?php echo $this->iconSmall("actions/editdelete", "common/delete", Array('confirmable'), "", "/emerald-admin/filelib/delete/id/{$file->id}"); ?>
 		<?php endif; ?>
 	</td>
@@ -136,7 +131,7 @@ if(!$acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'read')) {
 </tr>
 </table>
 
-<?php if(($this->active === null && Zend_Registry::get('Emerald_User')->inGroup(Emerald_Group::GROUP_ROOT)) || $acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'write')): ?>
+<?php if(true): ?>
 <form id="createFolder" method="post" action="/emerald-admin/filelib/createFolder/parent_id/<?php echo $this->active; ?>">
 
 <label for="name"><?php echo $this->translate('admin/filelib/create_folder/name'); ?></label>
@@ -148,7 +143,7 @@ if(!$acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'read')) {
 <?php endif; ?>
 
 
-<?php if($this->active && $acl->isAllowed(Zend_Registry::get('Emerald_User'), $node, 'write')): ?>
+<?php if(true): ?>
 
 <h2>{admin/filelib/upload_file}</h2>
 

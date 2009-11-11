@@ -26,7 +26,7 @@ class Filelib_Model_Filelib
 	private $_directoryPermission = 0700;
 	private $_filePermission = 0700;
 	
-	
+			
 	
 	public function getFilesPerDirectory()
 	{
@@ -145,14 +145,20 @@ class Filelib_Model_Filelib
 	}
 
 
-	public function setAcl(Zend_Acl $acl)
+	public function setAcl(Filelib_Model_Acl_Interface $acl)
 	{
 		$this->_acl = $acl;
 	}
 	
 	
+	/**
+	 * @return Filelib_Model_Acl_Interface
+	 */
 	public function getAcl()
 	{
+		if(!$this->_acl) {
+			$this->_acl = new Filelib_Model_Acl_Simple();
+		}
 		return $this->_acl;
 	}
 	
@@ -185,13 +191,15 @@ class Filelib_Model_Filelib
 	}
 	
 	
-	public function upload(Filelib_Model_Upload $upload,  $folder)
+	public function upload(Filelib_Model_Upload $upload, $folder)
 	{
+		if(!$this->getAcl()->isWriteable($folder)) {
+			die('can not write');
+		}
+		
 		
 		if(!$upload->canUpload()) {
-			
 			die('can not upload');
-			
 		}
 		
 		
@@ -241,7 +249,7 @@ class Filelib_Model_Filelib
 		}
 		
 		
-		if($this->fileIsAnonymous($file)) {
+		if($this->getAcl()->isAnonymousReadable($file)) {
 			$file->createSymlink();			
 		}
 		

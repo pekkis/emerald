@@ -19,6 +19,11 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 				// We just *need* 'em groups to use 'em. Go hacks!
 			}
 			
+			
+			
+			
+			
+			
 			$folder = Emerald_Model::Get('Filelib_Folder')->find($input->id)->current();
 
 			if(!$folder) {
@@ -305,16 +310,12 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();		
-									
-			$folderTbl = new Filelib_Model_Folder(null);
 
-			die();
+			$fl = Zend_Registry::get('Emerald_Filelib');
 			
-
-			die('foo');
 			
 			if($input->id) {
-				$activeFolder = $folderTbl->find($input->id)->current();
+				$activeFolder = $fl->findFolder($input->id)->current();
 				if(!$activeFolder) {
 					throw new Emerald_Exception('Folder not found.', 404);
 				}
@@ -322,20 +323,26 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			}
 			
 			
-			$folder = new Emerald_Filelib_Folder(null);
+			$folder = new Filelib_Model_FolderIterator($fl, null);
 			
 			
 			$tree = new RecursiveIteratorIterator($folder, RecursiveIteratorIterator::SELF_FIRST);
 			
-			$fileTbl = Emerald_Model::get('Filelib_File');
-			
-			
+
 			
 			$expr = ($input->id) ? $input->id : new Zend_Db_Expr('null');
 			
-			$files = $fileTbl->fetchAll(
-				array('folder_id = ?' => $expr)
-			);
+			$files = array();
+			if($input->id) {
+				$fileTbl = $fl->getFileTable();
+				$files = $fileTbl->fetchAll(
+					array('folder_id = ?' => $expr)
+				);
+				
+				
+			}
+			
+			
 
 			// $tree = $this->_buildTree();
 

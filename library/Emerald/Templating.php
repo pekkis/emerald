@@ -4,7 +4,7 @@
  */
 class Emerald_Templating
 {
-	public function getTemplates()
+	public function getLayouts()
 	{
 		$layoutPath = Zend_Registry::get('Emerald_Customer')->getRoot('layouts');
 		return $this->_getFiles($layoutPath);
@@ -15,7 +15,7 @@ class Emerald_Templating
 		$res = Array();
 		foreach(scandir($path) as $file)
 		{
-			if(substr($file,-6) == ".php") $res[] = basename($file);
+			if(substr($file,-4) == ".php") $res[] = basename($file, '.php');
 		}
 		return $res;
 	}

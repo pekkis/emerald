@@ -16,7 +16,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$filelib->setPublicRoot("/wwwroot/emerald/customers/default/public/files");
 		$filelib->setPublicDirectoryPrefix("/files");
 		$filelib->setDb($this->getResource('db'));
-		$filelib->setAcl($this->getResource('acl'));
+		
+		
+		$acl = new Filelib_Model_Acl_Zend();
+		$acl->setAcl($this->getResource('acl')); 
+		$acl->setRole($this->getResource('user'));
+		$acl->setAnonymousRole('Emerald_Group_1');
+		
+		$filelib->setAcl($acl);
+		
+		
 		$filelib->setMagic("/usr/share/file/magic");
 		
 		Zend_Registry::set('Emerald_Filelib', $filelib);

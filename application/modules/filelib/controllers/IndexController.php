@@ -16,7 +16,7 @@ class Filelib_IndexController extends Zend_Controller_Action
 	{
 		$fl = Zend_Registry::get('Emerald_Filelib');
 		
-		$file = $fl->findFile(22)->current();
+		$file = $fl->findFile($this->_getParam('id'))->current();
 		
 		$fl->render($file, $this->getResponse());
 		
