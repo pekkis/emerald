@@ -1,0 +1,15 @@
+<?php
+
+$fl = Zend_Registry::get('Emerald_Filelib');
+
+$folder = $fl->findFolder(1)->current();
+
+$upload = $fl->getUpload("/home/pekkis/linus.png");
+
+$file = $fl->upload($upload, $folder);
+
+// $fl->delete($file);
+
+
+
+

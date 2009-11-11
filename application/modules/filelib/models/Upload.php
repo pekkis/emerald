@@ -1,9 +1,34 @@
 <?php
-class Emerald_Filelib_FileUpload extends SplFileObject 
+class Filelib_Model_Upload extends SplFileObject 
 {
 	private $_mimeType;
 		
 	private $_fileName;
+	
+	private $_overrideFilename;
+	
+	/**
+	 * @var Filelib_Model_Filelib
+	 */
+	private $_filelib;
+
+	
+	
+	public function setFilelib($filelib)
+	{
+		$this->_filelib = $filelib;
+	}
+	
+	
+	
+	/**
+	 * @return Filelib_Model_Filelib
+	 */
+	public function getFilelib()
+	{
+		return $this->_filelib;
+	}
+	
 	
 	
 	public function setOverrideFilename($filename)
@@ -21,30 +46,24 @@ class Emerald_Filelib_FileUpload extends SplFileObject
 	public function getMimeType()
 	{
 		if(!$this->_mimeType) {
-			
-			echo PHP_VERSION;
-			
 			if (version_compare(PHP_VERSION, '5.3.0') !== -1) {
 				$fileinfo = new finfo(FILEINFO_MIME_TYPE);				
 			} else {
-				$fileinfo = new finfo(FILEINFO_MIME, Emerald_Server::getInstance()->getConfig()->magic);
+				$fileinfo = new finfo(FILEINFO_MIME, $this->getFilelib()->getMagic());
 			}
 			return $fileinfo->file($this->getRealPath()); 
 		}
-		
-		
-		
-		
-		
-		
 	}
 	
 	
-	public function isUploadable()
+	public function canUpload()
 	{
+		return true;
 		
+		/*
 		$mimeTbl = Emerald_Model::get('Filelib_MimeType');
 		return ($mimeTbl->fetchRow($mimeTbl->getAdapter()->quoteInto('mimetype = ?', $this->getMimeType()))) ? true : false;
+		*/
 		
 	}
 	
