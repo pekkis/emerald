@@ -38,7 +38,7 @@ class Emerald_FileController extends Emerald_Controller_Action
 						
         	// $this->getResponse()->appendBody($msg);
 
-			$path = $file->getPath();
+			$path = $file->getPathname();
 						
 			if(!is_readable($path))
 				throw new Emerald_Exception('File not found!', 404);

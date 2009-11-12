@@ -13,9 +13,8 @@ class Filelib_Model_Filelib
 	private $_publicDirectoryPrefix = '';
 	
 	private $_magic;
-	
-	
-	
+
+	private $_plugins = array();
 
 	private $_fileTable;
 	private $_folderTable;
@@ -26,7 +25,33 @@ class Filelib_Model_Filelib
 	private $_directoryPermission = 0700;
 	private $_filePermission = 0700;
 	
-			
+	private $_symlinker;
+
+	/**
+	 * @return Filelib_Model_Symlinker
+	 */
+	public function getSymlinker()
+	{
+		if(!$this->_symlinker) {
+			$this->_symlinker = new Filelib_Model_Symlinker($this);
+		}
+		return $this->_symlinker;
+	}
+	
+	
+	public function addPlugin(Filelib_Model_Plugin_Abstract $plugin)
+	{
+		$plugin->setFilelib($this);
+		$this->_plugins[] = $plugin;
+	}
+
+	public function getPlugins()
+	{
+		return $this->_plugins;
+	}
+	
+	
+	
 	
 	public function getFilesPerDirectory()
 	{
@@ -196,22 +221,31 @@ class Filelib_Model_Filelib
 		if(!$this->getAcl()->isWriteable($folder)) {
 			die('can not write');
 		}
-		
-		
+				
 		if(!$upload->canUpload()) {
 			die('can not upload');
 		}
 		
-		
 		$fileTbl = $this->getFileTable();
 		$folderTbl = $this->getFileTable();
+
+		$file = $fileTbl->createRow();
 		
+		foreach($this->getPlugins() as $plugin) {
+			$plugin->setFile($file);
+		}
 		
+		foreach($this->getPlugins() as $plugin) {
+			$upload = $plugin->beforeUpload($upload);
+		}					
+		
+		// Zend_Debug::dump($upload);
+		
+				
 		try {
 			
 			$this->getDb()->beginTransaction();
 
-			$file = $fileTbl->createRow();
 			
 			$file->folder_id = $folder->id;
 			$file->mimetype = $upload->getMimeType();
@@ -243,16 +277,23 @@ class Filelib_Model_Filelib
 						
 			$this->getDb()->commit();
 			
+								
 		} catch(Exception $e) {
 			$this->getDb()->rollBack();
 			throw $e;
 		}
 		
-		
-		if($this->getAcl()->isAnonymousReadable($file)) {
-			$file->createSymlink();			
+		foreach($this->getPlugins() as $plugin) {
+			$upload = $plugin->afterUpload();
 		}
 		
+				
+		if($this->getAcl()->isAnonymousReadable($file)) {
+			$this->getSymlinker()->deleteSymlink($file);
+			$this->getSymlinker()->createSymlink($file);			
+		}
+		
+				
 		return $file;
 		
 	}
@@ -260,12 +301,11 @@ class Filelib_Model_Filelib
 	
 	public function delete(Filelib_Model_FileRow $file)
 	{
-
 		$this->getDb()->beginTransaction();
 						
 		try {
 			
-			$file->deleteSymlink();
+			$this->getSymlinker()->deleteSymlink($file);
 			$path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id; 
 							
 			$fileObj = new SplFileObject($path);
@@ -301,7 +341,7 @@ class Filelib_Model_Filelib
 			return $response->setRedirect($this->getPublicDirectoryPrefix() . '/' . $file->iisiurl, 302);
 		}
 				
-		$path = $file->getPath();
+		$path = $file->getPathname();
 		if(!is_readable($path)) {
 			throw new Model_Filelib_Exception('File not readable');
 		}

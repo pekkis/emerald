@@ -18,12 +18,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$filelib->setDb($this->getResource('db'));
 		
 		
+		$fp = new Filelib_Model_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
+		$filelib->addPlugin($fp);		
+		
+		$thumb = new Filelib_Model_Plugin_Image_Version(array('Identifier' => 'thumb', 'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)));
+		$filelib->addPlugin($thumb);
+			
+		$mini = new Filelib_Model_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'cropThumbnailImage', 200, 200)));
+		$filelib->addPlugin($mini);
+		
+		//$filelib->addPlugin(new Filelib_Model_Plugin_Jpegify());
+		// $filelib->addPlugin(new Filelib_Model_Plugin_Scaler());
+		
 		$acl = new Filelib_Model_Acl_Zend();
 		$acl->setAcl($this->getResource('acl')); 
 		$acl->setRole($this->getResource('user'));
 		$acl->setAnonymousRole('Emerald_Group_1');
 		
-		$filelib->setAcl($acl);
+		// $filelib->setAcl($acl);
 		
 		
 		$filelib->setMagic("/usr/share/file/magic");

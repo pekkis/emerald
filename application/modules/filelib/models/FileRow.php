@@ -1,14 +1,33 @@
 <?php
-class Filelib_Model_FileRow extends Zend_Db_Table_Row_Abstract
+class Filelib_Model_FileRow extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resource_Interface
 {
 	
 	private $_route;
 	
 	
+	public function getFilelib()
+	{
+		return Zend_Registry::get('Emerald_Filelib');
+	}
+	
+	
+	public function getResourceId()
+	{
+		return 'Emerald_Filelib_File_' . $this->id;
+	}
+	
+	
 	public function getPath()
 	{
-		$fl = Zend_Registry::get('Emerald_Filelib');
-		return $fl->getRoot() . '/' .  $fl->getDirectoryId($this->id) . '/' . $this->id;
+		$fl = $this->getFilelib();
+		return $fl->getRoot() . '/' .  $fl->getDirectoryId($this->id);
+	}
+	
+	
+	public function getPathname()
+	{
+		$fl = $this->getFilelib();
+		return $this->getPath() . '/' . $this->id;
 	}
 	
 	
@@ -76,7 +95,6 @@ class Filelib_Model_FileRow extends Zend_Db_Table_Row_Abstract
 	protected function _insert()
 	{
 		$this->_generateIisiUrl();
-		return parent::_insert();
 	}
 	
 	/**
@@ -85,7 +103,6 @@ class Filelib_Model_FileRow extends Zend_Db_Table_Row_Abstract
 	protected function _update()
 	{
 		$this->_generateIisiUrl();
-		return parent::_update();
 	}
 	
 	/**
@@ -106,42 +123,6 @@ class Filelib_Model_FileRow extends Zend_Db_Table_Row_Abstract
 		$this->path = $route;
 	}
 	
-	
-	public function getResourceId()
-	{
-		return 'Emerald_Page_' . $this->id;
-	}
-	
-	
-	
-	public function createSymlink()
-	{
-		$fl = Zend_Registry::get('Emerald_Filelib');
-		
-		$link = $fl->getPublicRoot() . '/' . $this->iisiurl;
-						
-		if(!is_link($link)) {
-
-			$path = dirname($link);
-		
-			if(!is_dir($path))
-				mkdir($path, 0700, true);
-
-			symlink($this->getPath(), $link);
-			
-		}
-		
-	}
-	
-	
-	public function deleteSymlink()
-	{
-		$fl = Zend_Registry::get('Emerald_Filelib');
-		$link = $fl->getPublicRoot() . '/' . $this->iisiurl;
-		if(is_link($link)) {
-			unlink($link);
-		}
-	}
 	
 	
 }
