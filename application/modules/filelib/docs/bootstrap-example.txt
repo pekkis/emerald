@@ -1,0 +1,45 @@
+        protected function _initFilelib()
+        {
+                
+		$filelib = new Filelib_Model_Filelib();
+                
+		// root
+		$filelib->setRoot("/wwwroot/emerald/customers/default/files");
+
+		// public root. symlinks are made here.
+                $filelib->setPublicRoot("/wwwroot/emerald/customers/default/public/files");
+
+		// relative path from webroot, files are pooped to browser from here
+		$filelib->setPublicDirectoryPrefix("/files");
+
+		// filelib needs zend db.
+                $filelib->setDb($this->getResource('db'));
+
+		// this plugin changes the images format to jpg.
+                $fp = new Filelib_Model_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
+                $filelib->addPlugin($fp);
+
+		// creates a version of the image.
+                $thumb = new Filelib_Model_Plugin_Image_Version(array('Identifier' => 'thumb', 'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)));
+                $filelib->addPlugin($thumb);
+
+		// another version of the image to demonstrate this plugin.
+                $mini = new Filelib_Model_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'cropThumbnailImage', 200, 200)));
+                $filelib->addPlugin($mini);
+
+		// Acl probably doesn't fully work yet, the simple one does tho so no worry.
+                // $acl = new Filelib_Model_Acl_Zend();
+                // $acl->setAcl($this->getResource('acl'));
+		// $acl->setRole($this->getResource('user'));
+                // $acl->setAnonymousRole('Emerald_Group_1');
+
+                // $filelib->setAcl($acl);
+
+		// If we are using PHP 5.2 we must tell mediabanksta where magic file is. 5.3 does not need.
+                $filelib->setMagic("/usr/share/file/magic");
+
+		// Registry entry is required at the moment!!!
+                Zend_Registry::set('Emerald_Filelib', $filelib);
+
+        }
+
