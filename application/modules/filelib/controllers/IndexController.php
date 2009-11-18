@@ -30,7 +30,7 @@ class Filelib_IndexController extends Zend_Controller_Action
 	{
 		$fl = Zend_Registry::get('Emerald_Filelib');
 		
-		$fi = new Filelib_Model_FolderIterator($fl, null);
+		$fi = new Emerald_Filelib_FolderIterator($fl, null);
 
 		$it = new RecursiveIteratorIterator($fi, RecursiveIteratorIterator::SELF_FIRST);
 
