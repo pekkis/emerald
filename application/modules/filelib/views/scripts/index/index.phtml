@@ -6,7 +6,11 @@ $folder = $fl->findFolder(1)->current();
 
 $upload = $fl->getUpload("/home/pekkis/linus.png");
 
+Zend_Debug::dump($upload);
+
 $file = $fl->upload($upload, $folder);
+
+
 
 // $fl->delete($file);
 
