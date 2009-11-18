@@ -1,5 +1,5 @@
 <?php
-class Emerald_Application_Resource_Db extends Zend_Application_Resource_Db
+class Emerald_Application_Resource_Customerdb extends Zend_Application_Resource_Db
 {
 
 	protected $_customer;

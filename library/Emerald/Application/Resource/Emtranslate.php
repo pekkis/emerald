@@ -1,5 +1,5 @@
 <?php
-class Emerald_Application_Resource_Translate extends Zend_Application_Resource_Translate
+class Emerald_Application_Resource_Emtranslate extends Zend_Application_Resource_Translate
 {
 	
 	
