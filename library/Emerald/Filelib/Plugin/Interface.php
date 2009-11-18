@@ -2,7 +2,7 @@
 interface Emerald_Filelib_Plugin_Interface
 {
 	
-	public function beforeUpload(Emerald_Filelib_Upload $upload);
+	public function beforeUpload(Emerald_FileObject $upload);
 	
 	public function afterUpload();
 	

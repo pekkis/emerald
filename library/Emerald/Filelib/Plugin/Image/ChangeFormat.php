@@ -31,7 +31,7 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
 				
 	
 	
-	public function beforeUpload(Emerald_Filelib_Upload $upload)
+	public function beforeUpload(Emerald_FileObject $upload)
 	{
 		$oldUpload = $upload;
 		
@@ -53,7 +53,7 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
 			
 			$upload = $this->getFilelib()->getUpload($tempnam);
 			
-			// $upload = new Emerald_Filelib_Upload($tempnam);
+			// $upload = new Emerald_FileObject($tempnam);
 			$upload->setOverrideFilename($pinfo['filename'] . '.' . $this->getTargetExtension());
 						
 			return $upload;
