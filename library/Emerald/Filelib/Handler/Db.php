@@ -124,9 +124,6 @@ class Emerald_Filelib_Handler_Db implements Emerald_Filelib_Handler_Interface
 		return $this->_folderTable;
 	}
 	
-	
-	
-	
 	public function findFolder($id)
 	{
 		$folderRow = $this->getFolderTable()->find($id)->current();

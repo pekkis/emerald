@@ -15,13 +15,12 @@ class Emerald_Filelib_FolderIterator implements RecursiveIterator, Countable
 	
 	public function __construct($filelib, $parentId)
 	{
-		$this->_filelib = $filelib;				
-			
+		$this->_filelib = $filelib;		
+
 		$folderTbl = new Emerald_Filelib_Handler_Db_Table_Folder($this->_filelib->getDb());
 		$expr = ($parentId) ? array('parent_id = ?' => $parentId) : array(new Zend_Db_Expr('parent_id IS NULL')); 
 		
 		$this->_items = $folderTbl->fetchAll($expr, array('name'));
-
 						
 	}
 	
@@ -63,7 +62,6 @@ class Emerald_Filelib_FolderIterator implements RecursiveIterator, Countable
 			return (bool) $this->_children->count();
 		}
 	}
-	
 	
 	public function getChildren()
 	{
