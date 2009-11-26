@@ -1,9 +1,8 @@
 <?php
 class Emerald_Filelib
 {
-	
-	private $_db;
-	
+	private $_handler;
+		
 	private $_acl;
 	
 	private $_root;
@@ -16,8 +15,7 @@ class Emerald_Filelib
 
 	private $_plugins = array();
 
-	private $_fileTable;
-	private $_folderTable;
+
 	
 	
 	private $_filesPerDirectory = 500;
@@ -34,6 +32,23 @@ class Emerald_Filelib
 		Emerald_Options::setConstructorOptions($this, $options);
 	}
 	
+	
+	
+	public function setHandler(Emerald_Filelib_Handler_Interface $handler)
+	{
+		$handler->setFilelib($this);
+		$this->_handler = $handler;
+	}
+	
+	
+	public function getHandler()
+	{
+		if(!$this->_handler) {
+			throw new Emerald_Filelib_Exception('Filelib handler not set');
+		}
+		
+		return $this->_handler;
+	}
 	
 	
 	
@@ -113,23 +128,6 @@ class Emerald_Filelib
 	}
 	
 	
-	public function getFileTable()
-	{
-		if(!$this->_fileTable) {
-			$this->_fileTable = new Emerald_Filelib_DbTable_File($this->getDb());
-		}
-		return $this->_fileTable;
-	}
-	
-	public function getFolderTable()
-	{
-		if(!$this->_folderTable) {
-			$this->_folderTable = new Emerald_Filelib_DbTable_Folder($this->getDb());
-		}
-		return $this->_folderTable;
-	}
-	
-	
 	public function setRoot($root)
 	{
 		$this->_root = $root;		
@@ -167,16 +165,6 @@ class Emerald_Filelib
 		
 	
 	
-	public function setDb(Zend_Db_Adapter_Abstract $db)
-	{
-		$this->_db = $db;
-	}
-	
-	
-	public function getDb()
-	{
-		return $this->_db;
-	}
 
 
 	public function setAcl(Emerald_Filelib_Acl_Interface $acl)
@@ -196,26 +184,40 @@ class Emerald_Filelib
 		return $this->_acl;
 	}
 	
-	
-	
+		
 	public function findFile($id)
 	{
-		return $this->getFileTable()->find($id);
+		return $this->getHandler()->findFile($id);
+		
 	}
 	
 	
 	public function findFolder($id)
 	{
-		return $this->getFolderTable()->find($id);
+		$folder = $this->getHandler()->findFolder($id);
+		$folder->setFilelib($this);
+		return $folder;
 	}
+
+	
+	public function findFilesIn(Emerald_Filelib_FolderItem $folder)
+	{
+		$items = $this->getHandler()->findFilesIn($folder);
+		foreach($items as $item) {
+			$item->setFilelib($this);
+		}
+		
+		return $items;
+	}
+	
+	
 	
 	
 	public function fileIsAnonymous($file)
 	{
 		return true;
 	}
-	
-	
+		
 	
 	public function getUpload($path)
 	{
@@ -225,47 +227,39 @@ class Emerald_Filelib
 	}
 	
 	
-	public function upload(Emerald_FileObject $upload, $folder)
+	public function upload($upload, $folder)
 	{
+		if(!$upload instanceof Emerald_FileObject) {
+			$upload = new Emerald_FileObject($upload);
+		}
+		
 		if(!$this->getAcl()->isWriteable($folder)) {
-			die('can not write');
+			throw new Emerald_Filelib_Exception("Folder '{$folder->id}'not writeable");
 		}
 				
 		if(!$upload->canUpload()) {
-			die('can not upload');
-		}
-		
-		$fileTbl = $this->getFileTable();
-		$folderTbl = $this->getFileTable();
-
-		$file = $fileTbl->createRow();
-		
-		foreach($this->getPlugins() as $plugin) {
-			$plugin->setFile($file);
+			throw new Emerald_Filelib_Exception("Can not upload");
 		}
 		
 		foreach($this->getPlugins() as $plugin) {
 			$upload = $plugin->beforeUpload($upload);
 		}					
-		
-		// Zend_Debug::dump($upload);
-		
 				
-		try {
-			
-			$this->getDb()->beginTransaction();
+		$file = $this->getHandler()->upload($upload, $folder);
+		$file->setFilelib($this);
 
-			
-			$file->folder_id = $folder->id;
-			$file->mimetype = $upload->getMimeType();
-			$file->size = $upload->getSize();
-			$file->name = $upload->getOverrideFilename();	
-			$file->save();
-			
+		if(!$file) {
+			throw new Emerald_Filelib_Exception("Can not upload");
+		}
+		
+		foreach($this->getPlugins() as $plugin) {
+			$plugin->setFile($file);
+		}
+
+		try {
 			$root = $this->getRoot();
-			
 			$dir = $root . '/' . $this->getDirectoryId($file->id); 
-			
+
 			if(!is_dir($dir)) {
 				@mkdir($dir, $this->getDirectoryPermission(), true);
 			}
@@ -275,46 +269,40 @@ class Emerald_Filelib
 			}
 			
 			$fileTarget = $dir . '/' . $file->id;
-						
+
 			copy($upload->getRealPath(), $fileTarget);
-			
 			chmod($fileTarget, $this->getFilePermission());
 			
 			if(!is_readable($fileTarget)) {
 				throw new Emerald_Filelib_Exception('Could not copy file to folder');
 			}
-						
-			$this->getDb()->commit();
-			
 								
 		} catch(Exception $e) {
-			$this->getDb()->rollBack();
+			
+			// Maybe log here?
 			throw $e;
 		}
-		
+
 		foreach($this->getPlugins() as $plugin) {
 			$upload = $plugin->afterUpload();
 		}
-		
 				
 		if($this->getAcl()->isAnonymousReadable($file)) {
 			$this->getSymlinker()->deleteSymlink($file);
 			$this->getSymlinker()->createSymlink($file);			
 		}
 		
-				
 		return $file;
-		
 	}
 	
 	
-	public function delete(Emerald_Filelib_FileRow $file)
+	public function deleteFile(Emerald_Filelib_FileItem $file)
 	{
-		$this->getDb()->beginTransaction();
-						
 		try {
-			
+
+			$this->getHandler()->deleteFile($file);
 			$this->getSymlinker()->deleteSymlink($file);
+						
 			$path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id; 
 							
 			$fileObj = new SplFileObject($path);
@@ -326,23 +314,28 @@ class Emerald_Filelib
 				throw new Emerald_Filelib_Exception('Can not delete file');
 			}
 			
-			$file->delete();
+			return true;
 			
-			$this->getDb()->commit();
+		} catch(Exception $e) {
+
+			echo $e;
 			
-		} catch(Emerald_Filelib_Exception $e) {
-			$this->getDb()->rollBack();
+			return true;
+			
+			// $this->getDb()->rollBack();
 			throw $e;
 		}
 		
 		
 		return true;
 		
+		
+		
 	}
 	
 	
 	
-	public function render(Emerald_Filelib_FileRow $file, Zend_Controller_Response_Http $response, $download = false)
+	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $download = false)
 	{
 		if($download) {
 			$response->setHeader('Content-disposition', "attachment; filename={$file->name}");
