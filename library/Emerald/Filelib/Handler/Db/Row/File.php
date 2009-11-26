@@ -41,7 +41,7 @@ class Emerald_Filelib_Handler_Db_Row_File extends Zend_Db_Table_Row_Abstract imp
 			
 			$file = $this;
 			
-			$folder = $myFolder = $this->findParentRow('Emerald_Filelib_DbTable_Folder');
+			$folder = $myFolder = $this->findParentRow('Emerald_Filelib_Handler_Db_Table_Folder');
 
 			array_unshift($route['id'], $folder->id);
 			array_unshift($route['name'], $folder->name);
