@@ -47,9 +47,8 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 	public function afterUpload()
 	{
 		$file = $this->getFile();
-		$mimetype = $file->mimetype;
 		
-		if(preg_match("/^image/", $mimetype)) {
+		if(substr($file->mimetype, 0, 6) == 'image/') {
 						
 			$img = new Imagick($file->getPathname()); 
 			
@@ -77,18 +76,20 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 	public function createSymlink()
 	{
 		$file = $this->getFile();
-		$fl = $this->getFilelib();
-		$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
-		$pinfo = pathinfo($link);
-		$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $pinfo['extension'];
-		if(!is_link($link)) {
-			$path = dirname($link);
-			if(!is_dir($path)) {
-				mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
-			}
-			symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
-		}
 		
+		if(substr($file->mimetype, 0, 6) == 'image/') {
+			$fl = $this->getFilelib();
+			$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
+			$pinfo = pathinfo($link);
+			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $pinfo['extension'];
+			if(!is_link($link)) {
+				$path = dirname($link);
+				if(!is_dir($path)) {
+					mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
+				}
+				symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
+			}
+		}
 	}
 	
 	public function deleteSymlink()
