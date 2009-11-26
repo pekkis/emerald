@@ -55,13 +55,10 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
 			
 			// $upload = new Emerald_FileObject($tempnam);
 			$upload->setOverrideFilename($pinfo['filename'] . '.' . $this->getTargetExtension());
-						
-			return $upload;
 			
 		}
 		
-		
+		return $upload;
 	}
-	
 	
 }
