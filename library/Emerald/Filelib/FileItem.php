@@ -38,6 +38,16 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	}
 	
 	
+	public function getRenderPath()
+	{
+		if($this->isAnonymous()) {
+			return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->iisiurl;
+		} else {
+			return $this->getPathname();
+		}
+	}
+	
+	
 	
 	public function render(Zend_Controller_Response_Http $response, $opts = array())
 	{

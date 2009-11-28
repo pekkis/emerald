@@ -381,16 +381,8 @@ class Emerald_Filelib
 	}
 	
 	
-	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
+	public function renderPath(Emerald_Filelib_FileItem $file, $opts = array())
 	{
-		if(isset($opts['download'])) {
-			$response->setHeader('Content-disposition', "attachment; filename={$file->name}");
-		} elseif($this->fileIsAnonymous($file)) {
-			
-		}
-
-		$provider = $this;
-		
 		if(isset($opts['version'])) {
 
 			$version = $opts['version'];
@@ -405,10 +397,23 @@ class Emerald_Filelib
 			$path = $file->getRenderPath();	
 		}
 
+		return $path;
+		
+	}
+	
+	
+	
+	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
+	{
+		$path = $this->renderPath($file, $opts);
+		
 		if($this->fileIsAnonymous($file)) {
 			return $response->setRedirect($path, 302);
 		}
 		
+		if(isset($opts['download'])) {
+			$response->setHeader('Content-disposition', "attachment; filename={$file->name}");
+		}
 		
 		if(!is_readable($path)) {
 			throw new Model_Filelib_Exception('File not readable');
