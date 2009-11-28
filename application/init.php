@@ -40,6 +40,7 @@ try {
 	->bootstrap('translate')
 	->bootstrap('layout')
 	->bootstrap('filelib')
+	->bootstrap('filelibplugins');
 	;
 		
 	$application->run();

@@ -9,6 +9,27 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	private $_translate;
 
 	
+	protected function _initFilelibPlugins()
+    {
+                $filelib = $this->bootstrap('filelib')->getResource('filelib');
+
+                $fp = new Emerald_Filelib_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
+                $filelib->addPlugin($fp);
+
+                $ra = new Emerald_Filelib_Plugin_RandomizeName(array('Prefix' => 'xoo'));
+                $filelib->addPlugin($ra);
+
+                $thumb = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'thumb', 'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)));
+                $filelib->addPlugin($thumb);
+
+                $mini = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'cropThumbnailImage', 200, 200)));
+                $filelib->addPlugin($mini);
+
+
+    }
+	
+	
+	
 	protected function _initCustomer()
 	{
 		$this->bootstrap('frontcontroller');

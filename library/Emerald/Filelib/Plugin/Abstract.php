@@ -13,6 +13,14 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 	}
 		
 	
+	
+	public function init()
+	{
+		
+	}
+	
+	
+	
 	public function setFilelib($filelib)
 	{
 		$this->_filelib = $filelib;
@@ -44,29 +52,29 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 	}
 	
 	
-	public function afterUpload()
+	public function afterUpload(Emerald_Filelib_FileItem $file)
 	{
 		
 	}
 	
-	public function beforeDelete()
+	public function beforeDelete(Emerald_Filelib_FileItem $file)
 	{
 		
 	}
 	
-	public function afterDelete()
+	public function afterDelete(Emerald_Filelib_FileItem $file)
 	{
 		
 	}
 			
 	
-	public function deleteSymlink()
+	public function deleteSymlink(Emerald_Filelib_FileItem $file)
 	{
 		
 	}
 	
 	
-	public function createSymlink()
+	public function createSymlink(Emerald_Filelib_FileItem $file)
 	{
 		
 	}

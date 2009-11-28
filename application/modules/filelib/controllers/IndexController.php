@@ -11,18 +11,7 @@ class Filelib_IndexController extends Zend_Controller_Action
 		
 	
 
-	public function renderAction()
-	{
-		$fl = Zend_Registry::get('Emerald_Filelib');
-		
-		$file = $fl->findFile($this->_getParam('id'));
-		
-		$fl->render($file, $this->getResponse());
-		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
-		
-	}
+
 	
 
 	

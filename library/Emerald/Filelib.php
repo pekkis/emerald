@@ -26,6 +26,7 @@ class Emerald_Filelib
 	private $_symlinker;
 
 	
+	private $_fileVersions;
 	
 	public function __construct($options = array())
 	{
@@ -69,11 +70,24 @@ class Emerald_Filelib
 	{
 		$plugin->setFilelib($this);
 		$this->_plugins[] = $plugin;
+		
+		$plugin->init();
+		
 	}
 
 	public function getPlugins()
 	{
 		return $this->_plugins;
+	}
+	
+	
+	
+	public function addFileVersion($fileType, $versionIdentifier, $versionProvider)
+	{
+		if(!isset($this->_fileVersions[$fileType])) {
+			$this->_fileVersions[$fileType] = array();
+		}		
+		$this->_fileVersions[$fileType][$versionIdentifier] = $versionProvider; 
 	}
 	
 	
@@ -187,7 +201,9 @@ class Emerald_Filelib
 		
 	public function findFile($id)
 	{
-		return $this->getHandler()->findFile($id);
+		$file = $this->getHandler()->findFile($id);
+		$file->setFilelib($this);
+		return $file;
 		
 	}
 	
@@ -213,6 +229,10 @@ class Emerald_Filelib
 	
 	
 	
+	/**
+	 * @param $file
+	 * @return unknown_type
+	 */
 	public function fileIsAnonymous($file)
 	{
 		return true;
@@ -334,16 +354,62 @@ class Emerald_Filelib
 	}
 	
 	
-	
-	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $download = false)
+	public function getFileType(Emerald_Filelib_FileItem $file)
 	{
-		if($download) {
+		// Mock until mimetype database is pooped in.
+		$split = explode('/', $file->mimetype);
+		return $split[0];
+	}
+	
+	
+	public function fileHasVersion(Emerald_Filelib_FileItem $file, $version)
+	{
+		$filetype = $this->getFileType($file);
+		if(isset($this->_fileVersions[$filetype][$version])) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
+	{
+		$filetype = $this->getFileType($file);
+		
+		return $this->_fileVersions[$filetype][$version];
+		
+	}
+	
+	
+	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
+	{
+		if(isset($opts['download'])) {
 			$response->setHeader('Content-disposition', "attachment; filename={$file->name}");
 		} elseif($this->fileIsAnonymous($file)) {
-			return $response->setRedirect($this->getPublicDirectoryPrefix() . '/' . $file->iisiurl, 302);
+			
 		}
-				
-		$path = $file->getPathname();
+
+		$provider = $this;
+		
+		if(isset($opts['version'])) {
+
+			$version = $opts['version'];
+									
+			if($this->fileHasVersion($file, $version)) {
+				$provider = $this->getVersionProvider($file, $version);
+				$path = $provider->getRenderPath($file); 
+			} else {
+				throw new Emerald_Filelib_Exception("Version '{$version}' is not available");
+			}
+		} else {
+			$path = $file->getRenderPath();	
+		}
+
+		if($this->fileIsAnonymous($file)) {
+			return $response->setRedirect($path, 302);
+		}
+		
+		
 		if(!is_readable($path)) {
 			throw new Model_Filelib_Exception('File not readable');
 		}

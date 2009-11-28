@@ -296,6 +296,34 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 	}
 	
 	
+	    public function submitAction()
+        {
+                $filelib = Zend_Registry::get('Emerald_Filelib');
+                $form = new Admin_Form_FileUpload();
+
+                if($form->isValid($_POST)) {
+
+                        $folder = $filelib->findFolder($form->folder_id->getValue());
+
+                        $form->file->receive();
+
+                        $file = $filelib->upload($form->file->getFileName(), $folder);
+
+                        Zend_Debug::dump($file);
+
+
+                }
+
+
+
+                die('mööööh');
+
+
+
+        }
+	
+	
+	
 	
 	public function indexAction()
 	{
@@ -315,21 +343,30 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 			
 			
 			if($input->id) {
-				$activeFolder = $fl->findFolder($input->id)->current();
+				$activeFolder = $fl->findFolder($input->id);
 				if(!$activeFolder) {
 					throw new Emerald_Exception('Folder not found.', 404);
 				}
-				$view->activeFolder = $activeFolder;
+				
+				$this->view->folder = $activeFolder;
+				$files = $activeFolder->findFiles();
+				$this->view->files = $files;
+				
+				$form = new Admin_Form_FileUpload();
+				$form->folder_id->setValue($activeFolder->id);
+				$this->view->form = $form;
+				
 			}
 			
 			
 			// $folder = new Filelib_Model_FolderIterator($fl, null);
 			
 			
-			$tree = new RecursiveIteratorIterator($folder, RecursiveIteratorIterator::SELF_FIRST);
+			// $tree = new RecursiveIteratorIterator($folder, RecursiveIteratorIterator::SELF_FIRST);
 			
 
 			
+			/*
 			$expr = ($input->id) ? $input->id : new Zend_Db_Expr('null');
 			
 			$files = array();
@@ -341,11 +378,12 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 				
 				
 			}
+			*/
 			
-			
-
+				
 			// $tree = $this->_buildTree();
 
+			/*
 			$token = md5(uniqid(rand(), true));
 			
 			$this->view->token = $token;
@@ -366,6 +404,9 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 			$this->view->headScript()->appendFile('/lib/js/jquery/jquery.hoveraction.js');
 			
 			$this->view->headLink()->appendStylesheet('/lib/css/admin/filelib/index.css');
+			
+			*/
+			
 		} catch(Emerald_Exception $e) {
 			throw $e;
 			

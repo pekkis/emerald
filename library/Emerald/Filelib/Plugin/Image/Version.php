@@ -44,9 +44,15 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 	}
 	
 	
-	public function afterUpload()
+	public function init()
 	{
-		$file = $this->getFile();
+		$this->getFilelib()->addFileVersion('image', $this->getIdentifier(), $this);
+	}
+	
+	
+	
+	public function afterUpload(Emerald_Filelib_FileItem $file)
+	{
 		
 		if(substr($file->mimetype, 0, 6) == 'image/') {
 						
@@ -73,10 +79,8 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 	}
 	
 	
-	public function createSymlink()
+	public function createSymlink(Emerald_Filelib_FileItem $file)
 	{
-		$file = $this->getFile();
-		
 		if(substr($file->mimetype, 0, 6) == 'image/') {
 			$fl = $this->getFilelib();
 			$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
@@ -92,9 +96,8 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 		}
 	}
 	
-	public function deleteSymlink()
+	public function deleteSymlink(Emerald_Filelib_FileItem $file)
 	{
-		$file = $this->getFile();
 		$fl = $this->getFilelib();
 		$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
 		$pinfo = pathinfo($link);
@@ -104,6 +107,26 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 		}
 		
 	}
+	
+	
+	public function getRenderPath(Emerald_Filelib_FileItem $file)
+	{
+		if($file->isAnonymous()) {
+
+			$fl = $this->getFilelib();
+			$link = $fl->getPublicDirectoryPrefix() . '/' . $file->iisiurl;
+			$pinfo = pathinfo($link);
+			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $pinfo['extension'];
+
+			return $link;
+			
+		} else {
+			$path = $file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id;	
+		}
+				
+		return $path;		
+	}
+	
 	
 	
 }

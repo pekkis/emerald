@@ -2,16 +2,18 @@
 interface Emerald_Filelib_Plugin_Interface
 {
 	
+	public function init();
+		
 	public function beforeUpload(Emerald_FileObject $upload);
 	
-	public function afterUpload();
+	public function afterUpload(Emerald_Filelib_FileItem $file);
 	
-	public function beforeDelete();
+	public function beforeDelete(Emerald_Filelib_FileItem $file);
 	
-	public function afterDelete();
+	public function afterDelete(Emerald_Filelib_FileItem $file);
 	
-	public function createSymlink();
+	public function createSymlink(Emerald_Filelib_FileItem $file);
 	
-	public function deleteSymlink();
+	public function deleteSymlink(Emerald_Filelib_FileItem $file);
 	
 }
