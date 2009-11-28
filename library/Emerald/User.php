@@ -54,7 +54,7 @@ class Emerald_User extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Role_I
 	public function findGroups()
 	{
 		if(!$this->_groups)
-			$this->_groups = $this->findManyToManyRowset('Emerald_Model_Group', 'Emerald_Model_UserGroup');
+			$this->_groups = $this->findManyToManyRowset('Core_Model_Group', 'Core_Model_UserGroup');
 		return $this->_groups;
 	}
 	

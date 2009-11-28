@@ -1,5 +1,5 @@
 <?php
-class Emerald_Model_NewsChannel extends Emerald_Db_Table_Abstract 
+class Core_Model_NewsChannel extends Emerald_Db_Table_Abstract 
 {
 	protected $_name = 'news_channel';
 	protected $_primary = array('id');
@@ -8,7 +8,7 @@ class Emerald_Model_NewsChannel extends Emerald_Db_Table_Abstract
 	protected $_referenceMap    = array(
         'NewsItems' => array(
             'columns'           => array('id'),
-            'refTableClass'     => 'Emerald_Model_NewsItem',
+            'refTableClass'     => 'Core_Model_NewsItem',
             'refColumns'        => array('news_channel_id')
 		)
     );

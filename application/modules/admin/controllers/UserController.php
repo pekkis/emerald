@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
+class Admin_UserController extends Emerald_Controller_AdminAction
 {
 	
 	public function indexAction()

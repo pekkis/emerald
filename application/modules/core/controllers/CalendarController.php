@@ -1,5 +1,5 @@
 <?php
-class Emerald_CalendarController extends Emerald_Controller_Action
+class Core_CalendarController extends Emerald_Controller_Action
 {
 	
 	public function indexAction()

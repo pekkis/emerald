@@ -1,5 +1,5 @@
 <?php
-class Emerald_Model_CalendarEvent extends Emerald_Db_Table_Abstract 
+class Core_Model_CalendarEvent extends Emerald_Db_Table_Abstract 
 {
 	protected $_name = 'calendar_event';
 	protected $_primary = array('id');
@@ -8,7 +8,7 @@ class Emerald_Model_CalendarEvent extends Emerald_Db_Table_Abstract
 	protected $_referenceMap    = array(
         'Events' => array(
             'columns'           => array('calendar_id'),
-            'refTableClass'     => 'Emerald_Model_Calendar',
+            'refTableClass'     => 'Core_Model_Calendar',
             'refColumns'        => array('id')
 		)
     );

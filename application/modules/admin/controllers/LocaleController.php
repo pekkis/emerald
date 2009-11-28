@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_LocaleController extends Emerald_Controller_AdminAction 
+class Admin_LocaleController extends Emerald_Controller_AdminAction 
 {
 	public function indexAction()
 	{

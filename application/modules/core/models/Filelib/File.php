@@ -1,5 +1,5 @@
 <?php
-class Emerald_Model_Filelib_File extends Emerald_Db_Table_Abstract 
+class Core_Model_Filelib_File extends Emerald_Db_Table_Abstract 
 {
 	protected $_name = 'filelib_file';
 	protected $_primary = 'id';

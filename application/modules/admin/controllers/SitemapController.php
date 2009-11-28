@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_SitemapController extends Emerald_Controller_AdminAction
+class Admin_SitemapController extends Emerald_Controller_AdminAction
 {
 	/**
 	 * Displays the sitemap page tpl

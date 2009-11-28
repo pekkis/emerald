@@ -1,5 +1,5 @@
 <?php
-class Emerald_LogoutController extends Emerald_Controller_Action 
+class Core_LogoutController extends Emerald_Controller_Action 
 {
 	
 	

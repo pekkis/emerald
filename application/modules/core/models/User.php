@@ -1,5 +1,5 @@
 <?php
-class Emerald_Model_User extends Zend_Db_Table_Abstract
+class Core_Model_User extends Zend_Db_Table_Abstract
 {
     protected $_name = 'user';
     protected $_rowClass = 'Emerald_User'; 

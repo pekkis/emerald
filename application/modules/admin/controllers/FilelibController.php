@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction 
+class Admin_FilelibController extends Emerald_Controller_AdminAction 
 {
 		
 	public function folderPropertiesAction()

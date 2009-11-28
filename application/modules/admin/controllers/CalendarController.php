@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_CalendarController extends Emerald_Controller_AdminAction
+class Admin_CalendarController extends Emerald_Controller_AdminAction
 {
 	public function editAction()
 	{

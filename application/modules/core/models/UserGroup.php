@@ -1,5 +1,5 @@
 <?php
-class Emerald_Model_UserGroup extends Zend_Db_Table_Abstract 
+class Core_Model_UserGroup extends Zend_Db_Table_Abstract 
 {
 	protected $_name = 'user_ugroup';
 	protected $_primary = array('user_id', 'group_id');
@@ -7,12 +7,12 @@ class Emerald_Model_UserGroup extends Zend_Db_Table_Abstract
 	protected $_referenceMap    = array(
         'User' => array(
             'columns'           => array('user_id'),
-            'refTableClass'     => 'Emerald_Model_User',
+            'refTableClass'     => 'Core_Model_User',
             'refColumns'        => array('id')
         ),
         'Group' => array(
             'columns'           => array('group_id'),
-            'refTableClass'     => 'Emerald_Model_Group',
+            'refTableClass'     => 'Core_Model_Group',
             'refColumns'        => array('id')
         )
     );

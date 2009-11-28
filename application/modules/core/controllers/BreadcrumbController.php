@@ -1,5 +1,5 @@
 <?php
-class Emerald_BreadcrumbController extends Emerald_Controller_Action 
+class Core_BreadcrumbController extends Emerald_Controller_Action 
 {
 	
 

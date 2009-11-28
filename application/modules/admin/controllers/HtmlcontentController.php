@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_HtmlcontentController extends Emerald_Controller_Action
+class Admin_HtmlcontentController extends Emerald_Controller_Action
 {
 	public function editAction()
 	{

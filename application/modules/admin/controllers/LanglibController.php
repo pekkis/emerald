@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_LanglibController extends Emerald_Controller_AdminAction 
+class Admin_LanglibController extends Emerald_Controller_AdminAction 
 {
 
 	

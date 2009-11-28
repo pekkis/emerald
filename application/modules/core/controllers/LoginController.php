@@ -1,5 +1,5 @@
 <?php
-class Emerald_LoginController extends Emerald_Controller_Action
+class Core_LoginController extends Emerald_Controller_Action
 {
 
 	public function init()

@@ -1,5 +1,5 @@
 <?php
-class Emerald_Model_Htmlcontent extends Zend_Db_Table_Abstract
+class Core_Model_Htmlcontent extends Zend_Db_Table_Abstract
 {
     protected $_name = 'htmlcontent';
     protected $_primary = array('page_id', 'block_id');

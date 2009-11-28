@@ -15,7 +15,7 @@ class Emerald_Model
 	 * @param string $name Model class name
 	 * @return Zend_Db_Table
 	 */
-	public static function get($name, $module = 'Emerald')
+	public static function get($name, $module = 'Core')
 	{
 				
 		$className = $module . '_Model_' . $name;

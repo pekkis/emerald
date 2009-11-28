@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_FormController extends Emerald_Controller_AdminAction 
+class Admin_FormController extends Emerald_Controller_AdminAction 
 {
 	
 	public function deleteAction()

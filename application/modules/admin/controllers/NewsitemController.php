@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_NewsitemController extends Emerald_Controller_AdminAction
+class Admin_NewsitemController extends Emerald_Controller_AdminAction
 {
 	
 	public function deleteAction()

@@ -1,5 +1,5 @@
 <?php
-class Emerald_RandomImageController extends Emerald_Controller_Action 
+class Core_RandomImageController extends Emerald_Controller_Action 
 {
 			
 	public function indexAction()

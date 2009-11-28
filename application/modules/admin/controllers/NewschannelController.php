@@ -1,5 +1,5 @@
 <?php
-class EmeraldAdmin_NewschannelController extends Emerald_Controller_AdminAction
+class Admin_NewschannelController extends Emerald_Controller_AdminAction
 {
 	public function editAction()
 	{

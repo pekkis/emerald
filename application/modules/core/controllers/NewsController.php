@@ -1,5 +1,5 @@
 <?php
-class Emerald_NewsController extends Emerald_Controller_Action 
+class Core_NewsController extends Emerald_Controller_Action 
 {
 
 	public function headlinesAction()
