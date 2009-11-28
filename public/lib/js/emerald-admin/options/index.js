@@ -7,7 +7,7 @@ $j(document).ready(function() {
 	{
 		var elm = Event.element(evt);
 		var locale = elm.getValue();
-		window.location = "/emerald-admin/options/index/locale/"+locale;
+		window.location = "/admin/options/index/locale/"+locale;
 	});
 		
 	$j('form').submit(function(){

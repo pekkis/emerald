@@ -121,8 +121,8 @@ Event.observe(window,"load", function()
 </table>
 <?php if($this->writable): ?>
 	<div class="adminControl adminControlHeavy">
-	<a id="calendar_edit" class="popup popup_large popup_scrollbars popup_resizable" href="/emerald-admin/calendar/edit/id/<?php echo $this->calendar->id; ?>"><?php echo $this->translate('shard/calendar/edit_calendar'); ?></a>
-	| <a id="calendar_addevent" class="popup popup_large popup_scrollbars popup_resizable" href="/emerald-admin/calendar/editEvent/calendar_id/<?php echo $this->calendar->id; ?>"><?php echo $this->translate('shard/calendar/add_event'); ?></a>
+	<a id="calendar_edit" class="popup popup_large popup_scrollbars popup_resizable" href="/admin/calendar/edit/id/<?php echo $this->calendar->id; ?>"><?php echo $this->translate('shard/calendar/edit_calendar'); ?></a>
+	| <a id="calendar_addevent" class="popup popup_large popup_scrollbars popup_resizable" href="/admin/calendar/editEvent/calendar_id/<?php echo $this->calendar->id; ?>"><?php echo $this->translate('shard/calendar/add_event'); ?></a>
 	</div>
 <?php endif; ?>
 <dl>

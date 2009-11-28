@@ -29,13 +29,13 @@ body
 	background-color: #000;
 	text-align: right;
 	color: #fff;
-	background-image: url('/lib/gfx/emerald-admin/top-rounded-left.png');
+	background-image: url('/lib/gfx/admin/top-rounded-left.png');
 	background-repeat: no-repeat;
 	padding-bottom: 1px;
 }
 #pageHeader .pageHeaderRight
 {
-	background-image: url('/lib/gfx/emerald-admin/top-rounded-right.png');
+	background-image: url('/lib/gfx/admin/top-rounded-right.png');
 	background-repeat: no-repeat;
 	background-position: top right;
 	padding: 0.3em;
@@ -58,7 +58,7 @@ body
 }
 #pageTop
 {
-	background-image: url('/lib/gfx/emerald-admin/emerald_logo-small.png');
+	background-image: url('/lib/gfx/admin/emerald_logo-small.png');
 	background-repeat: no-repeat;
 	background-position: 20px 10px;
 	
@@ -77,7 +77,7 @@ body
 #pageContent
 {
 	margin-top: 1em;
-	background-image: url('/lib/gfx/emerald-admin/slide-vert.png');
+	background-image: url('/lib/gfx/admin/slide-vert.png');
 	background-repeat: repeat-x;
 	dpadding-right: 0;
 }

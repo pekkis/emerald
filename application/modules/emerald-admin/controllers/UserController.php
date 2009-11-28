@@ -18,8 +18,8 @@ class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
 		Emerald_Js::addjQueryUi($this->view);
-		$this->view->headScript()->appendFile("/lib/js/emerald-admin/datasource.js");
-		$this->view->headScript()->appendFile("/lib/js/emerald-admin/user/user_list.js");
+		$this->view->headScript()->appendFile("/lib/js/admin/datasource.js");
+		$this->view->headScript()->appendFile("/lib/js/admin/user/user_list.js");
 	}
 	/**
      * Returns a list of all users in json
@@ -102,7 +102,7 @@ class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
 			$this->view->availableLocales = $adminLocales;
 			
 			$this->view->headScript()->appendFile("/lib/js/form.js");
-			$this->view->headScript()->appendFile("/lib/js/emerald-admin/user/user_edit.js");
+			$this->view->headScript()->appendFile("/lib/js/admin/user/user_edit.js");
 			
 		} catch(Exception $e) {
 			throw new Emerald_Exception('Not Found', 404);
@@ -130,7 +130,7 @@ class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
 			}
 			$this->view->availableLocales = $adminLocales;
 			$this->view->headScript()->appendFile("/lib/js/form.js");
-			$this->view->headScript()->appendFile("/lib/js/emerald-admin/user/user_edit.js");
+			$this->view->headScript()->appendFile("/lib/js/admin/user/user_edit.js");
 			$this->render("view-user");
 			
 		} catch(Exception $e) {
@@ -348,8 +348,8 @@ class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
-		$this->view->headScript()->appendFile("/lib/js/emerald-admin/datasource.js");
-		$this->view->headScript()->appendFile("/lib/js/emerald-admin/user/group_list.js");
+		$this->view->headScript()->appendFile("/lib/js/admin/datasource.js");
+		$this->view->headScript()->appendFile("/lib/js/admin/user/group_list.js");
 	}
 	*/
 	/**
@@ -425,7 +425,7 @@ class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
 			$id = $filtered->id;
 			$this->view->group = Emerald_Model::get('Group')->find($id)->current();
 			$this->view->headScript()->appendFile("/lib/js/form.js");
-			$this->view->headScript()->appendFile("/lib/js/emerald-admin/user/group_edit.js");
+			$this->view->headScript()->appendFile("/lib/js/admin/user/group_edit.js");
 			
 		} catch(Exception $e) {
 			throw new Emerald_Exception('Not Found', 404);
@@ -446,7 +446,7 @@ class EmeraldAdmin_UserController extends Emerald_Controller_AdminAction
 		try {
 			$this->view->group = Emerald_Model::get('Group')->createRow();
 			$this->view->headScript()->appendFile("/lib/js/form.js");
-			$this->view->headScript()->appendFile("/lib/js/emerald-admin/user/group_edit.js");
+			$this->view->headScript()->appendFile("/lib/js/admin/user/group_edit.js");
 			$this->render("view-group");
 			
 		} catch(Exception $e) {

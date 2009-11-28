@@ -53,7 +53,7 @@ Emerald.FileUploadMonitor = function() {
 			
 	this._token =  $j('#UPLOAD_IDENTIFIER').attr('value');
 	var theForm = $j('#UPLOAD_IDENTIFIER').parent();
-	this._uri = '/emerald-admin/filelib/monitorUpload/id/' + this._token;
+	this._uri = '/admin/filelib/monitorUpload/id/' + this._token;
 			
 	$j(theForm).submit(this._init.bind(this));			
 		

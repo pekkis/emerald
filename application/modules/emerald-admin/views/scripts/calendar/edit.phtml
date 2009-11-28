@@ -1,6 +1,6 @@
 <h1><?php echo $this->translate('shard/calendar/edit'); ?></h1>
 
-<form id="edit" method="post" action="/emerald-admin/calendar/save/id/<?php echo $this->calendar->id; ?>">
+<form id="edit" method="post" action="/admin/calendar/save/id/<?php echo $this->calendar->id; ?>">
 
 <label for="title"><?php echo $this->translate('shard/calendar/prop/default_date'); ?></label>
 <?php echo $this->formText('default_date', $this->calendar->default_date, array('class' => 'w50')); ?>

@@ -38,7 +38,7 @@ class EmeraldAdmin_OptionsController extends Emerald_Controller_AdminAction
 									
 			Emerald_Js::addjQueryUi($this->view);
 			
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/options/index.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/options/index.js');
 						
 			$this->view->workLocale = new Zend_Locale();
 			

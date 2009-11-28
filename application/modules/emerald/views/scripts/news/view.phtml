@@ -24,8 +24,8 @@
 	
 	<?php if($this->writable): ?>
 		<div class="adminControl adminControlLight">
-		<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/emerald-admin/newsitem/edit/id/<?php echo $this->item->id; ?>"><?php echo $this->translate('shard/news/item/edit_item'); ?></a>
-	 | <a class="confirmable" href="/emerald-admin/newsitem/delete/id/<?php echo $this->item->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
+		<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/edit/id/<?php echo $this->item->id; ?>"><?php echo $this->translate('shard/news/item/edit_item'); ?></a>
+	 | <a class="confirmable" href="/admin/newsitem/delete/id/<?php echo $this->item->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
 		</div>
 	<?php endif; ?>	
 	

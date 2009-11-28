@@ -5,7 +5,7 @@ $j(document).ready(function() {
 	form.observe("submit", function(evt)
 	{
 		Event.stop(evt);
-		new Ajax.Request("/emerald-admin/user/saveUser",
+		new Ajax.Request("/admin/user/saveUser",
 		{
 			method: "post",
 			parameters: Event.element(evt).serialize(),
@@ -13,7 +13,7 @@ $j(document).ready(function() {
 			{
 				if(msg.type == 1)
 				{
-					window.location = "/emerald-admin/user#userList";
+					window.location = "/admin/user#userList";
 				}
 				else if(msg.message.fields)
 				{

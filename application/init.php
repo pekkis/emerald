@@ -1,4 +1,4 @@
-<?php
+<?php 
 set_include_path(realpath(dirname(__FILE__) . '/../library'));
 
 // Define path to application directory
@@ -28,7 +28,6 @@ $application = new Zend_Application(
 try {
 
 	$application->getBootstrap()
-	->bootstrap('cache')
 	->bootstrap('modules')
 	->bootstrap('customer')
 	->bootstrap('db')

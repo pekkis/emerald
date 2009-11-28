@@ -9,7 +9,7 @@
 				
 		Emerald_Js::addAdminScripts($this);
 		
-		$this->headLink()->prependStylesheet('/lib/css/emerald-admin/emerald_admin.css');
+		$this->headLink()->prependStylesheet('/lib/css/admin/emerald_admin.css');
 				
 		?>
 		
@@ -46,11 +46,11 @@
 				</span>
 				<span class="helpMe">
 					
-					<a id="context_help" class="popup popup_large popup_scrollable" href="<?php echo "/emerald-admin/help/context/c/{$controller}/a/{$action}" ?>">
-					<?php echo $this->iconSmall("actions/help",""); ?>
+					<a id="context_help" class="popup popup_large popup_scrollable" href="<?php echo "/admin/help/context/c/{$controller}/a/{$action}" ?>">
+					<?php echo $this->icon()->small("actions/help",""); ?>
 					</a>
 					
-					<?php echo $this->iconSmall("actions/no","common/logout", array(), '', '/logout'); ?>
+					<?php echo $this->icon()->small("actions/no","common/logout", array(), '', '/logout'); ?>
 					
 				</span>
 			</div>
@@ -58,13 +58,13 @@
 		<div id="pageTop">
 			<div class="adminMenu">
 				<ul class="iconVMenu">
-					<li><?php echo $this->iconMedium("actions/gohome", "admin/menu/dashboard", Array(), "", "/emerald-admin/index") ?></li>
-					<li><?php echo $this->iconMedium("apps/kmenuedit", "admin/menu/sitemap", Array(), "", "/emerald-admin/sitemap") ?></li>
-					<li><?php echo $this->iconMedium("filesystems/folder_open", "admin/menu/filelib", Array(), "", "/emerald-admin/filelib") ?></li>
-					<li><?php echo $this->iconMedium("apps/kpager", "admin/menu/form", Array(), "", "/emerald-admin/form") ?></li>
-					<li><?php echo $this->iconMedium("apps/personal", "admin/menu/users", Array(), "", "/emerald-admin/user") ?></li>
-					<li><?php echo $this->iconMedium("apps/locale", "admin/menu/locale", Array(), "", "/emerald-admin/locale") ?></li>
-					<li><?php echo $this->iconMedium("actions/configure", "admin/menu/options", Array(), "", "/emerald-admin/options") ?></li>
+					<li><?php echo $this->icon()->medium("actions/gohome", "admin/menu/dashboard", Array(), "", "/admin/index") ?></li>
+					<li><?php echo $this->icon()->medium("apps/kmenuedit", "admin/menu/sitemap", Array(), "", "/admin/sitemap") ?></li>
+					<li><?php echo $this->icon()->medium("filesystems/folder_open", "admin/menu/filelib", Array(), "", "/admin/filelib") ?></li>
+					<li><?php echo $this->icon()->medium("apps/kpager", "admin/menu/form", Array(), "", "/admin/form") ?></li>
+					<li><?php echo $this->icon()->medium("apps/personal", "admin/menu/users", Array(), "", "/admin/user") ?></li>
+					<li><?php echo $this->icon()->medium("apps/locale", "admin/menu/locale", Array(), "", "/admin/locale") ?></li>
+					<li><?php echo $this->icon()->medium("actions/configure", "admin/menu/options", Array(), "", "/admin/options") ?></li>
 					
 				</ul>
 			</div>

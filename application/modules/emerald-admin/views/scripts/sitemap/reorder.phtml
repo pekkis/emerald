@@ -51,7 +51,7 @@ $j(document).ready(function() {
 		var poststring = Sortable.serialize('sortList');
 		console.debug(poststring);
 		$j.ajax({
-			url: "/emerald-admin/sitemap/updateOrder/locale/<?php echo $this->locale ?>",
+			url: "/admin/sitemap/updateOrder/locale/<?php echo $this->locale ?>",
 			data: poststring,
 			type: 'post',
 			dataType: 'json',

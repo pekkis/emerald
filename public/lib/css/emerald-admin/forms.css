@@ -31,7 +31,7 @@ button.niceButton.parsedButton
 }
 button.niceButton.parsedButton span
 {
-	background-image: url("/lib/gfx/emerald-admin/emerald-btn-left.png");
+	background-image: url("/lib/gfx/admin/emerald-btn-left.png");
 	background-repeat: no-repeat;
 	height: 30px;
 	display: block;
@@ -40,7 +40,7 @@ button.niceButton.parsedButton span
 }
 button.niceButton.parsedButton span span
 {
-	background-image: url("/lib/gfx/emerald-admin/emerald-btn-right.png");
+	background-image: url("/lib/gfx/admin/emerald-btn-right.png");
 	background-repeat: no-repeat;
 	background-position: top right;
 	padding-right: 5px;

@@ -38,7 +38,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			$this->view->permissions = Emerald_Permission::getAll();
 				
 			
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/filelib/folder-properties.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/filelib/folder-properties.js');
 			$this->view->layout()->setLayout('admin_popup_outer');
 			
 			
@@ -283,7 +283,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			$this->view->files = $files;
 		
 			$this->view->headScript()->appendFile('/lib/js/tinymce/jscripts/tiny_mce/tiny_mce_popup.js');			
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/filelib/select.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/filelib/select.js');
 			
 			
 			$this->view->layout()->setLayout("admin_popup_outer");
@@ -323,7 +323,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			}
 			
 			
-			$folder = new Filelib_Model_FolderIterator($fl, null);
+			// $folder = new Filelib_Model_FolderIterator($fl, null);
 			
 			
 			$tree = new RecursiveIteratorIterator($folder, RecursiveIteratorIterator::SELF_FIRST);
@@ -356,7 +356,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			$this->view->tree = $tree;
 			$this->view->files = $files;
 
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/filelib/index.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/filelib/index.js');
 			$this->view->headScript()->appendFile('/lib/js/scriptaculous/src/scriptaculous.js');
 			$this->view->headScript()->appendFile('/lib/js/lightbox2/js/lightbox.js');
 			$this->view->headScript()->appendFile('/lib/js/scriptaculous/src/effects.js');
@@ -365,7 +365,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			
 			$this->view->headScript()->appendFile('/lib/js/jquery/jquery.hoveraction.js');
 			
-			$this->view->headLink()->appendStylesheet('/lib/css/emerald-admin/filelib/index.css');
+			$this->view->headLink()->appendStylesheet('/lib/css/admin/filelib/index.css');
 		} catch(Emerald_Exception $e) {
 			throw $e;
 			
@@ -408,7 +408,7 @@ class EmeraldAdmin_FilelibController extends Emerald_Controller_AdminAction
 			
 		}
 		
-		$this->_redirect("/emerald-admin/filelib/index/id/{$folder->id}");
+		$this->_redirect("/admin/filelib/index/id/{$folder->id}");
 				
 		
 	}

@@ -12,7 +12,7 @@ class Emerald_Json_Message
     public function __construct($type, $message)
     {
         $this->type = $type;
-        
+
         if(is_string($message)) {
 	        if(preg_match('/^l:([a-z_\/]+)/', $message, $matches)) {
 	        	$message = Zend_Registry::get('Zend_Translate')->translate($matches[1]);

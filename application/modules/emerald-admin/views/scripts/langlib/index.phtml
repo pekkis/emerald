@@ -1,10 +1,10 @@
 <h1><?php echo $this->translate('admin/langlib/title'); ?></h1>
 
 <p>
-	<a href="/emerald-admin/langlib/dump"><?php echo $this->translate('admin/langlib/gimme_dump'); ?></a>
+	<a href="/admin/langlib/dump"><?php echo $this->translate('admin/langlib/gimme_dump'); ?></a>
 </p>
 
-<form method="post" action="/emerald-admin/langlib/create">
+<form method="post" action="/admin/langlib/create">
 
 <fieldset>
 <legend><?php echo $this->translate('admin/langlib/create_new'); ?></legend>
@@ -39,7 +39,7 @@
 
 <?php foreach($this->entries as $entry): ?>
 <tr>
-	<td><a href="/emerald-admin/langlib/edit/id/<?php echo $entry->id; ?>"><?php echo $entry->path; ?></a></td>
+	<td><a href="/admin/langlib/edit/id/<?php echo $entry->id; ?>"><?php echo $entry->path; ?></a></td>
 	<td><?php echo $entry->fi; ?></td>
 	<td><?php echo $entry->en; ?></td>
 </tr>

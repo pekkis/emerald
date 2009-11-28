@@ -19,7 +19,7 @@
 
 <td class="name">
 
-<a href="/emerald-admin/filelib/index">
+<a href="/admin/filelib/index">
 <?php if($this->active != null): ?>
 <img src="/lib/gfx/nuvola/22x22/filesystems/folder_green_open.png" align="absmiddle" /> 
 <?php else: ?>
@@ -48,7 +48,7 @@ $color = 'green';
 <tr class="hoverActivator folder_level_<?php print $this->tree->getDepth() + 1; ?>">
 <td class="name">
 
-<a href="/emerald-admin/filelib/index/id/<?php print $node->id; ?>">
+<a href="/admin/filelib/index/id/<?php print $node->id; ?>">
 <?php if($this->active != $node->id): ?>
 <img src="/lib/gfx/nuvola/22x22/filesystems/folder_<?php print $color; ?>_open.png" align="absmiddle" /> 
 <?php else: ?>
@@ -60,7 +60,7 @@ $color = 'green';
 
 <td class="actions hoverAction">
 <?php if(true): ?>
-<?php echo $this->iconSmall("actions/configure", "common/properties", Array('popup', 'popup_small'), "", "/emerald-admin/filelib/folder-properties/id/{$node->id}"); ?>
+<?php echo $this->iconSmall("actions/configure", "common/properties", Array('popup', 'popup_small'), "", "/admin/filelib/folder-properties/id/{$node->id}"); ?>
 <?php endif; ?>
 </td>
 
@@ -116,7 +116,7 @@ $color = 'green';
 	
 	<td class="hoverAction">
 		<?php if(true): ?>
-		<?php echo $this->iconSmall("actions/editdelete", "common/delete", Array('confirmable'), "", "/emerald-admin/filelib/delete/id/{$file->id}"); ?>
+		<?php echo $this->iconSmall("actions/editdelete", "common/delete", Array('confirmable'), "", "/admin/filelib/delete/id/{$file->id}"); ?>
 		<?php endif; ?>
 	</td>
 	
@@ -132,7 +132,7 @@ $color = 'green';
 </table>
 
 <?php if(true): ?>
-<form id="createFolder" method="post" action="/emerald-admin/filelib/createFolder/parent_id/<?php echo $this->active; ?>">
+<form id="createFolder" method="post" action="/admin/filelib/createFolder/parent_id/<?php echo $this->active; ?>">
 
 <label for="name"><?php echo $this->translate('admin/filelib/create_folder/name'); ?></label>
 <input id="name" name="name" type="text" class="w13" /> 
@@ -151,7 +151,7 @@ $color = 'green';
 <?php echo $this->translate('admin/filelib/progress'); ?>: <span id="messages"></span>
 </div>
 
-<form enctype="multipart/form-data" id="uploadFile" target="uploadFrame" method="POST" action="/emerald-admin/filelib/uploadFile/folder_id/<?php echo $this->active; ?>">
+<form enctype="multipart/form-data" id="uploadFile" target="uploadFrame" method="POST" action="/admin/filelib/uploadFile/folder_id/<?php echo $this->active; ?>">
 
 <input type="hidden" id="APC_UPLOAD_PROGRESS" name="APC_UPLOAD_PROGRESS" value="<?php echo $this->token; ?>" />
 <input type="hidden" id="UPLOAD_IDENTIFIER" name="UPLOAD_IDENTIFIER" value="<?php echo $this->token; ?>" />

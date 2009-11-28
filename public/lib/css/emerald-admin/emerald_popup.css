@@ -1,11 +1,11 @@
 @CHARSET "UTF-8";
 /* plz - just import other styles here */
 
-@import "/lib/css/emerald-admin/structure_popup.css";
-@import "/lib/css/emerald-admin/lists.css";
-@import "/lib/css/emerald-admin/generic.css";
-@import "/lib/css/emerald-admin/components.css";
-@import "/lib/css/emerald-admin/forms.css";
+@import "/lib/css/admin/structure_popup.css";
+@import "/lib/css/admin/lists.css";
+@import "/lib/css/admin/generic.css";
+@import "/lib/css/admin/components.css";
+@import "/lib/css/admin/forms.css";
 /*
 body
 {
@@ -38,7 +38,7 @@ h1, h2
 {
 	height: 110px;
 	background-color: #fff;
-	background-image: url('/lib/gfx/emerald-admin/emerald_logo-medium.png');
+	background-image: url('/lib/gfx/admin/emerald_logo-medium.png');
 	background-repeat: no-repeat;
 	background-position: 20px 10px;
 	padding-right: 2em;

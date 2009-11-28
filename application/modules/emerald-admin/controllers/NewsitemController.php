@@ -61,7 +61,7 @@ class EmeraldAdmin_NewsitemController extends Emerald_Controller_AdminAction
 		
 			$this->view->channel = $channel;
 			$this->view->layout()->setLayout("admin_popup_outer");
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/newsitem/add.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/newsitem/add.js');
 						
 			$itemTbl = Emerald_Model::get('NewsItem');
 
@@ -97,7 +97,7 @@ class EmeraldAdmin_NewsitemController extends Emerald_Controller_AdminAction
 			
 			$this->view->item = $item;
 			$this->view->layout()->setLayout("admin_popup_outer");
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/newsitem/add.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/newsitem/add.js');
 			
 		} catch(Exception $e) {
 			throw new Emerald_Exception('Internal Server Error', 500);

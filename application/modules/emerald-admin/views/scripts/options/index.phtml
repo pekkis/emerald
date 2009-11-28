@@ -20,7 +20,7 @@
 
 <h2 class="hidden"><?php echo $this->translate('admin/options/application/title'); ?></h2>
 
-<form id="saveApplicationFrm" method="post" action="/emerald-admin/options/save-application">
+<form id="saveApplicationFrm" method="post" action="/admin/options/save-application">
 
 
 <table>
@@ -74,7 +74,7 @@
 
 <div id="fragment-localeOptions-<?php print $locale->locale; ?>">
 
-<form id="saveLocaleFrm-<?php print $locale->locale; ?>" method="post" action="/emerald-admin/options/save-locale">
+<form id="saveLocaleFrm-<?php print $locale->locale; ?>" method="post" action="/admin/options/save-locale">
 
 <input type="hidden" name="locale" value="<?php print $locale->locale; ?>" />
 

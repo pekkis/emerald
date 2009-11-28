@@ -24,10 +24,10 @@ class EmeraldAdmin_FormController extends Emerald_Controller_AdminAction
 			$where = $formTbl->getAdapter()->quoteInto('id = ?', $input->id);
 			$formTbl->delete($where);
 			
-			$this->getResponse()->setRedirect("/emerald-admin/form");
+			$this->getResponse()->setRedirect("/admin/form");
 			
 		} catch(Exception $e) {
-			$this->getResponse()->setRedirect("/emerald-admin/form/edit/id/{$input->form_id}");
+			$this->getResponse()->setRedirect("/admin/form/edit/id/{$input->form_id}");
 		}
 		
 		
@@ -62,12 +62,12 @@ class EmeraldAdmin_FormController extends Emerald_Controller_AdminAction
 			$where = $fieldTbl->getAdapter()->quoteInto('id = ?', $input->id);
 			$fieldTbl->delete($where);
 			
-			$this->getResponse()->setRedirect("/emerald-admin/form/edit/id/{$input->form_id}");
+			$this->getResponse()->setRedirect("/admin/form/edit/id/{$input->form_id}");
 			
 		} catch(Exception $e) {
 			
 			
-			$this->getResponse()->setRedirect("/emerald-admin/form/edit/id/{$input->form_id}");
+			$this->getResponse()->setRedirect("/admin/form/edit/id/{$input->form_id}");
 			
 		}
 		
@@ -233,7 +233,7 @@ class EmeraldAdmin_FormController extends Emerald_Controller_AdminAction
 			}
 
 			Emerald_Js::addjQueryUi($this->view);
-			$this->view->headScript()->appendFile('/lib/js/emerald-admin/form/edit.js');
+			$this->view->headScript()->appendFile('/lib/js/admin/form/edit.js');
 			
 			$this->view->form = $form;
 
@@ -249,7 +249,7 @@ class EmeraldAdmin_FormController extends Emerald_Controller_AdminAction
 			
 			$this->view->opts = $opts;
 			
-			$this->view->headLink()->appendStylesheet('/lib/css/emerald-admin/form/form.css');
+			$this->view->headLink()->appendStylesheet('/lib/css/admin/form/form.css');
 									
 			
 		} catch(Exception $e) {
@@ -276,7 +276,7 @@ class EmeraldAdmin_FormController extends Emerald_Controller_AdminAction
 		
 		
 		
-		$this->view->headScript()->appendFile('/lib/js/emerald-admin/form/index.js');
+		$this->view->headScript()->appendFile('/lib/js/admin/form/index.js');
 		
 	}
 	

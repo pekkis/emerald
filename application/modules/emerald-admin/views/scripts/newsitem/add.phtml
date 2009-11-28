@@ -1,6 +1,6 @@
 <h1><?php echo $this->translate('shard/news/item/create_new'); ?></h1>
 
-<form id="edit" method="post" action="/emerald-admin/newsitem/insert/channel_id/<?php echo $this->channel->id; ?>">
+<form id="edit" method="post" action="/admin/newsitem/insert/channel_id/<?php echo $this->channel->id; ?>">
 
 <label for="title"><?php echo $this->translate('shard/news/item/title'); ?></label>
 <?php echo $this->formText('title', $this->item->title, array('class' => 'w100')); ?>

@@ -2,7 +2,7 @@
 
 <h1><?php echo $this->translate('admin/form/title/edit'); ?></h1>
 
-<form id="createField" method="post" action="/emerald-admin/form/createField/id/<?php echo $this->form->id; ?>">
+<form id="createField" method="post" action="/admin/form/createField/id/<?php echo $this->form->id; ?>">
 
 <fieldset>
 	<legend><?php echo $this->translate('admin/form/legend/create_new_field'); ?></legend>
@@ -32,7 +32,7 @@
 </table> 
 
 
-<form id="editFields" method="post" action="/emerald-admin/form/save/form_id/<?php echo $this->form->id; ?>">
+<form id="editFields" method="post" action="/admin/form/save/form_id/<?php echo $this->form->id; ?>">
 
 <div id="sort_div">
 <?php foreach($this->form->getFields() as $key => $field): ?>
@@ -75,7 +75,7 @@
 
 <td class="actions">
 <div>
-<a class="confirmable" href="/emerald-admin/form/deleteField/form_id/<?php echo $this->form->id; ?>/id/<?php echo $field->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
+<a class="confirmable" href="/admin/form/deleteField/form_id/<?php echo $this->form->id; ?>/id/<?php echo $field->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
 </div>
 </td>
 

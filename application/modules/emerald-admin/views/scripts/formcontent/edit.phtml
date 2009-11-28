@@ -1,4 +1,4 @@
-<form id="formcontent_edit" method="post" action="/emerald-admin/formcontent/save/page_id/<?php echo $this->item->page_id; ?>">
+<form id="formcontent_edit" method="post" action="/admin/formcontent/save/page_id/<?php echo $this->item->page_id; ?>">
 
 <label for="form_id"><?php echo $this->translate('shard/formcontent/form_id'); ?></label>
 <?php echo $this->formSelect('form_id', $this->item->form_id, array('class' => 'w33'), $this->form_id_options); ?>

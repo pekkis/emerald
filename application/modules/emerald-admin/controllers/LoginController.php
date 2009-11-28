@@ -70,7 +70,7 @@ class EmeraldAdmin_LoginController extends Emerald_Controller_AdminAction
 			}
 
 			// Emerald_Js::addjQueryUi($this->view);
-			// $this->view->headScript()->appendFile('/lib/js/emerald-admin/form/edit.js');
+			// $this->view->headScript()->appendFile('/lib/js/admin/form/edit.js');
 			
 			$this->view->res = $res;
 			$this->view->page_id = $input->page_id;

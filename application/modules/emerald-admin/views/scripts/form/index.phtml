@@ -5,7 +5,7 @@
 
 <h2><?php echo $this->translate('admin/form/title/create_new'); ?></h2>
 
-<form method="post" action="/emerald-admin/form/create">
+<form method="post" action="/admin/form/create">
 
 <label for="name"><?php echo $this->translate('admin/form/label/name'); ?></label>
 <input id="name" name="name" class="w13" type="text" />
@@ -37,8 +37,8 @@
 	<td><?php echo $form->name; ?></td>
 	<td><?php echo $form->description; ?></td>
 	<td>
-		<a href="/emerald-admin/form/edit/id/<?php echo $form->id; ?>"><?php echo $this->translate('common/edit'); ?></a> |
-		<a class="confirmable" href="/emerald-admin/form/delete/id/<?php echo $form->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
+		<a href="/admin/form/edit/id/<?php echo $form->id; ?>"><?php echo $this->translate('common/edit'); ?></a> |
+		<a class="confirmable" href="/admin/form/delete/id/<?php echo $form->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
 	</td>
 </tr>
 <?php endforeach; ?>

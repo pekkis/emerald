@@ -1,9 +1,9 @@
 <h1><?php echo $this->translate('shard/login/edit'); ?></h1>
 
 <?php $this->layout()->setLayout('admin_popup_outer'); ?>
-<?php $this->headScript()->appendFile('/lib/js/emerald-admin/login/edit.js'); ?>
+<?php $this->headScript()->appendFile('/lib/js/admin/login/edit.js'); ?>
 
-<form id="login_edit" method="post" action="/emerald-admin/login/save/page_id/<?php echo $this->page_id; ?>">
+<form id="login_edit" method="post" action="/admin/login/save/page_id/<?php echo $this->page_id; ?>">
 
 <label for="title"><?php echo $this->translate('shard/login/redirect_page_id'); ?></label>
 

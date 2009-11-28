@@ -2,8 +2,8 @@
 
 <div>
 	<ul class="iconVMenu noText">
-		<li><?php echo $this->iconLarge("apps/personal", "users/view_users", Array(), "users/view_users","/emerald-admin/user/userList") ?></li>
-		<li><?php echo $this->iconLarge("apps/kdmconfig", "users/view_groups", Array(), "users/view_groups","/emerald-admin/user/groupList") ?></li>
+		<li><?php echo $this->iconLarge("apps/personal", "users/view_users", Array(), "users/view_users","/admin/user/userList") ?></li>
+		<li><?php echo $this->iconLarge("apps/kdmconfig", "users/view_groups", Array(), "users/view_groups","/admin/user/groupList") ?></li>
 	</ul>
 </div>
 <br />
@@ -35,7 +35,7 @@
 						<span class="selectNone"><?php echo $this->translate('entititylist/select_none'); ?></span>
 						::
 						<ul class="dynamicMenu iconVMenu" id="topMenukko">
-							<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "groups/add", Array(), $this->translate('groups/add'),"/emerald-admin/user/viewNewGroup") ?></li>
+							<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "groups/add", Array(), $this->translate('groups/add'),"/admin/user/viewNewGroup") ?></li>
 							<li class="rq_exactlyOne ac_editGroup"><?php echo $this->iconSmall("actions/configure", "groups/edit", Array(), $this->translate('groups/edit')) ?></li>
 							<li class="rq_atLeastOne rq_confirm ac_deleteGroup"><?php echo $this->iconSmall("actions/editdelete", "groups/delete", Array(), $this->translate('groups/delete')) ?></li>
 						</ul>

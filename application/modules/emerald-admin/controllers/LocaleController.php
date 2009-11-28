@@ -40,8 +40,8 @@ class EmeraldAdmin_LocaleController extends Emerald_Controller_AdminAction
 		$this->view->availableLocales = $availableLocales;
 		
 		
-		$this->view->headScript()->appendFile('/lib/js/emerald-admin/locale/index.js');
-		$this->view->headLink()->appendStylesheet('/lib/css/emerald-admin/locale/locale.css');
+		$this->view->headScript()->appendFile('/lib/js/admin/locale/index.js');
+		$this->view->headLink()->appendStylesheet('/lib/css/admin/locale/locale.css');
 		
 	}
 	
