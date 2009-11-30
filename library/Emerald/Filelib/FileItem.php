@@ -49,12 +49,17 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	
 	
 	
+	public function renderPath($opts = array())
+	{
+		return $this->getFilelib()->renderPath($this, $opts);
+	}
+		
+	
 	public function render(Zend_Controller_Response_Http $response, $opts = array())
 	{
 		return $this->getFilelib()->render($this, $response, $opts);
 	}
-	
-	
+		
 	public function isAnonymous()
 	{
 		return $this->getFilelib()->fileIsAnonymous($this);
