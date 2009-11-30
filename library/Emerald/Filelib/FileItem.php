@@ -66,5 +66,13 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	}
 	
 	
+	public function hasVersion($version)
+	{
+		return $this->getFilelib()->fileHasVersion($this, $version);
+	}
+
+	
+	
+	
 	
 }
