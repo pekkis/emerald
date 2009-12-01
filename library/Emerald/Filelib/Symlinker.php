@@ -35,8 +35,7 @@ class Emerald_Filelib_Symlinker
 		}
 		
 		foreach($this->getFilelib()->getPlugins() as $plugin) {
-			$plugin->setFile($file);
-			$plugin->createSymlink();
+			$plugin->createSymlink($file);
 		}
 		
 		
@@ -51,10 +50,8 @@ class Emerald_Filelib_Symlinker
 			unlink($link);
 		}
 		
-		
 		foreach($this->getFilelib()->getPlugins() as $plugin) {
-			$plugin->setFile($file);
-			$plugin->deleteSymlink();
+			$plugin->deleteSymlink($file);
 		}
 		
 		

@@ -304,7 +304,7 @@ class Emerald_Filelib
 		}
 
 		foreach($this->getPlugins() as $plugin) {
-			$upload = $plugin->afterUpload();
+			$upload = $plugin->afterUpload($file);
 		}
 				
 		if($this->getAcl()->isAnonymousReadable($file)) {
