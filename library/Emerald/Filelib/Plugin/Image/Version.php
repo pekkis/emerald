@@ -85,7 +85,12 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 			$fl = $this->getFilelib();
 			$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
 			$pinfo = pathinfo($link);
-			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $pinfo['extension'];
+			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier();
+
+			if(isset($pinfo['extension'])) {
+				$link .= '.' . $pinfo['extension'];	
+			}
+						
 			if(!is_link($link)) {
 				$path = dirname($link);
 				if(!is_dir($path)) {
@@ -101,7 +106,12 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 		$fl = $this->getFilelib();
 		$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
 		$pinfo = pathinfo($link);
-		$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $pinfo['extension'];
+		$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier();
+
+		if(isset($pinfo['extension'])) {
+			$link .= '.' . $pinfo['extension'];	
+		}
+				
 		if(is_link($link)) {
 			unlink($link);			
 		}

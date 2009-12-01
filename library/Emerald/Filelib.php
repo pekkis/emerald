@@ -299,6 +299,8 @@ class Emerald_Filelib
 								
 		} catch(Exception $e) {
 			
+			
+			
 			// Maybe log here?
 			throw $e;
 		}
