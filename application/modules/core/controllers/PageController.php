@@ -36,7 +36,7 @@ class Core_PageController extends Emerald_Controller_Action
 					if(!$input->forward) {
 						
 						// We try to find a login page for the current locale. If we do, forward there.
-						$pageTbl = Emerald_Model::get('page');
+						$pageTbl = Emerald_Model::get('DbTable_Page');
 						$loginPage = $pageTbl->fetchRow(
 							array(
 								'locale = ?' => $page->locale,
@@ -55,7 +55,7 @@ class Core_PageController extends Emerald_Controller_Action
 					throw new Emerald_Exception('Forbidden', 401);				
 				}
 				
-				$localeTbl = Emerald_Model::get('Locale');
+				$localeTbl = Emerald_Model::get('DbTable_Locale');
 				$locale = $localeTbl->find($page->getLocale()->toString())->current();
 				$this->view->pageLocaleObj = $locale;
 
@@ -65,7 +65,14 @@ class Core_PageController extends Emerald_Controller_Action
 				$this->view->headTitle($page->title, 'PREPEND');
 				
 				$this->view->page = $page;
-												
+				
+				
+				$naviModel = new Core_Model_Navigation();
+				$navi = $naviModel->getNavigation();
+
+				
+			
+					
 				$tpl = $page->getLayout($this);
 
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());

@@ -17,7 +17,7 @@ class Admin_FormcontentController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$pageTbl = Emerald_Model::get('Page');
+			$pageTbl = Emerald_Model::get('DbTable_Page');
 			$page = $pageTbl->find($input->page_id)->current();
 			$page->assertWritable();
 
@@ -89,7 +89,7 @@ class Admin_FormcontentController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$pageTbl = Emerald_Model::get('Page');
+			$pageTbl = Emerald_Model::get('DbTable_Page');
 			$page = $pageTbl->find($input->page_id)->current();
 			$page->assertWritable();
 			

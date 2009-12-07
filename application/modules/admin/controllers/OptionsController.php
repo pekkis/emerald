@@ -20,7 +20,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$localeTbl = Emerald_Model::get('Locale');
+			$localeTbl = Emerald_Model::get('DbTable_Locale');
 			$this->view->locales = $locales = $localeTbl->fetchAll(null, 'locale DESC');
 			
 			$editLocale = null;
@@ -122,7 +122,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 						
-			$locale = Emerald_Model::get('Locale')->find($input->locale)->current();
+			$locale = Emerald_Model::get('DbTable_Locale')->find($input->locale)->current();
 			if(!$locale) {
 				throw new Exception('Locale not found');
 			}

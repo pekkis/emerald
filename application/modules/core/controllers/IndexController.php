@@ -24,7 +24,7 @@ class Core_IndexController extends Emerald_Controller_Action
 			$filtered = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$filtered->process();
 									
-			$localeTbl = Emerald_Model::get('Locale');
+			$localeTbl = Emerald_Model::get('DbTable_Locale');
 
 			$locale = false;
 			
@@ -55,7 +55,7 @@ class Core_IndexController extends Emerald_Controller_Action
 			
 			
 			
-			$pageTbl = Emerald_Model::get('Page');
+			$pageTbl = Emerald_Model::get('DbTable_Page');
 			$pageStart = $locale->page_start;
 			$row = false;
 						

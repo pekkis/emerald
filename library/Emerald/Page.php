@@ -61,7 +61,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	 */
 	static public function find($id)
 	{
-		$res = Emerald_Model::get('Page')->find($id);
+		$res = Emerald_Model::get('DbTable_Page')->find($id);
 		if($row = $res->current())
 			return $row;		
 		return false;
@@ -73,7 +73,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 		$where = array(
 			'iisiurl = ?' => $iisiUrl 
 		);
-		$res = Emerald_Model::get('Page')->fetchAll($where);
+		$res = Emerald_Model::get('DbTable_Page')->fetchAll($where);
 		return $res->current() ? $res->current() : false;
 	}
 
@@ -104,7 +104,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	public function getBranch($id = null)
 	{
 		$id = $id ? $id : $this->parent_id;
-		$res = Emerald_Model::get('Page')->findBranch($id, $this->locale);
+		$res = Emerald_Model::get('DbTable_Page')->findBranch($id, $this->locale);
 		$branch = Array();
 		while($row = $res->current())
 		{
@@ -195,7 +195,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 		if($processing === false)
 		{
 			$processing = true;
-			$res = Emerald_Model::get('Page')->fetchAll("path like '{$this->path};%'");
+			$res = Emerald_Model::get('DbTable_Page')->fetchAll("path like '{$this->path};%'");
 			foreach($res as $page)
 			{
 				$page->_generateIisiUrl();

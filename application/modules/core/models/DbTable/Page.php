@@ -1,5 +1,5 @@
 <?php
-class Core_Model_Page extends Zend_Db_Table_Abstract
+class Core_Model_DbTable_Page extends Zend_Db_Table_Abstract
 {
     protected $_name = 'page';
 	protected $_rowClass = 'Emerald_Page';

@@ -31,6 +31,7 @@ try {
 	->bootstrap('modules')
 	->bootstrap('customer')
 	->bootstrap('db')
+	->bootstrap('customerdb')
 	->bootstrap('router')
 	->bootstrap('session')
 	->bootstrap('acl')

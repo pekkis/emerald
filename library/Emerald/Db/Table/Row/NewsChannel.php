@@ -9,7 +9,7 @@ class Emerald_Db_Table_Row_NewsChannel extends Zend_Db_Table_Row_Abstract
 	 */
 	public function getPage()
 	{
-		$pageTbl = Emerald_Model::get('Page');
+		$pageTbl = Emerald_Model::get('DbTable_Page');
 		return $pageTbl->find($this->page_id)->current();
 	}
 	

@@ -139,7 +139,7 @@ class Admin_NewsitemController extends Emerald_Controller_AdminAction
 			$channelTbl = Emerald_Model::get('NewsChannel');
 			$channel = $channelTbl->find($input->channel_id)->current();
 			
-			$pageTbl = Emerald_Model::get('Page');
+			$pageTbl = Emerald_Model::get('DbTable_Page');
 			$page = $pageTbl->find($channel->page_id)->current();
 			$page->assertWritable();
 			
@@ -206,7 +206,7 @@ class Admin_NewsitemController extends Emerald_Controller_AdminAction
 			$channelTbl = Emerald_Model::get('NewsChannel');
 			$channel = $channelTbl->find($item->news_channel_id)->current();
 			
-			$pageTbl = Emerald_Model::get('Page');
+			$pageTbl = Emerald_Model::get('DbTable_Page');
 			$page = $pageTbl->find($channel->page_id)->current();
 			$page->assertWritable();
 			

@@ -10,7 +10,7 @@ class Admin_LocaleController extends Emerald_Controller_AdminAction
 		
 		
 		
-		$localeTbl = Emerald_Model::get('Locale');
+		$localeTbl = Emerald_Model::get('DbTable_Locale');
 		
 		$selectedLocalesRaw = $localeTbl->fetchAll();
 		
@@ -87,7 +87,7 @@ class Admin_LocaleController extends Emerald_Controller_AdminAction
 			}
 			
 			
-			$localeTbl = Emerald_Model::get('Locale');
+			$localeTbl = Emerald_Model::get('DbTable_Locale');
 			$localesRaw = $localeTbl->fetchAll();
 			
 			$existingLocales = array();

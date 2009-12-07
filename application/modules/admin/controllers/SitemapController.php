@@ -23,7 +23,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			throw new Emerald_Exception('Not Found', 404);
 		}
 		
-		$localeTbl = Emerald_Model::get('Locale');
+		$localeTbl = Emerald_Model::get('DbTable_Locale');
 		$this->view->locales = $locales = $localeTbl->fetchAll();
 		
 		if(!$locales->current()) {
@@ -134,7 +134,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		}
 		
 		$allowLocales = array();
-		foreach(Emerald_Model::get('Locale')->fetchAll() as $localeRaw)$allowLocales[] = $localeRaw->locale;
+		foreach(Emerald_Model::get('DbTable_Locale')->fetchAll() as $localeRaw)$allowLocales[] = $localeRaw->locale;
 		if(!in_array( $filtered->locale, $allowLocales)) throw new Emerald_Exception('Not Found', 404);
 		
 		$parentId = $filtered->start;
@@ -232,7 +232,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		static $table = NULL;
 		if(!$table)
 		{
-			$table = Emerald_Model::get('Page');
+			$table = Emerald_Model::get('DbTable_Page');
 		}
 		
 		$order = 0;
@@ -294,7 +294,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$id = $filtered->id;
 		$this->view->layout()->setLayout("admin_popup_outer");
 		
-		$dao = Emerald_Model::get('Page');
+		$dao = Emerald_Model::get('DbTable_Page');
 		$page = $dao->find($id)->current();
 		
 		if(!$page) 
@@ -371,7 +371,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		// to create a new root level page 
 		if($parentId) 
 		{
-			$dao = Emerald_Model::get('Page');
+			$dao = Emerald_Model::get('DbTable_Page');
 			// check if can write to parent
 			$parentPage = $dao->find($parentId)->current();
 			if(!$parentPage) 
@@ -497,7 +497,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		
 		$allowLocales = array();
-		foreach(Emerald_Model::get('Locale')->fetchAll() as $localeRaw) {
+		foreach(Emerald_Model::get('DbTable_Locale')->fetchAll() as $localeRaw) {
 			$allowLocales[] = $localeRaw->locale;			
 		}
 		if(!in_array( $filtered->locale, $allowLocales))
@@ -507,7 +507,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		$locale = $filtered->locale; // user get edit locale HERE
 		
-		$dao = Emerald_Model::get('Page');
+		$dao = Emerald_Model::get('DbTable_Page');
 		$parentId = $filtered->parent_id;
 		
 		
@@ -533,6 +533,8 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
 		
+		
+		
 		$newPages = Array();
 		
 		// check if creating or updating (depends if the id is present)
@@ -550,6 +552,9 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		}
 		
 		$db = Zend_Registry::get('Emerald_Db');
+		
+		
+		
 		try
 		{
 			$db->beginTransaction();
@@ -571,7 +576,9 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 				
 				
 				if(!$page->parent_id) $page->parent_id = NULL;
+				
 				$page->save();
+												
 
 				$permissionTbl = Emerald_Model::get('Permission_PageGroup');
 				$permissionTbl->delete('page_id = ' . $page->id);
@@ -599,6 +606,10 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		catch(Exception $e)
 		{
 			$db->rollback();
+			
+			echo $e;
+			die();
+			
 			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::ERROR, $this->view->translate('common/failed')));
 		}
 		
@@ -634,7 +645,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		$id = $filtered->id;
 		
-		$dao = Emerald_Model::get('Page');
+		$dao = Emerald_Model::get('DbTable_Page');
 		$page = $dao->find($id)->current();
 		
 		if(!$page) throw new Emerald_Exception("Not found", 404);
@@ -680,7 +691,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		}
 		
 		$ids = $filtered->ids;
-		$dao = Emerald_Model::get('Page');
+		$dao = Emerald_Model::get('DbTable_Page');
 		$db = Zend_Registry::get('Emerald_Db');
 		try
 		{
@@ -803,7 +814,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			$filtered->process();
 			
 			$message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Array());
-			$dao = Emerald_Model::get('Page');
+			$dao = Emerald_Model::get('DbTable_Page');
 			$db = Zend_Registry::get('Emerald_Db');
 			try
 			{
@@ -844,7 +855,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 	 */ 
 	public function tinymcelinklistAction()
 	{
-		$localeTbl = Emerald_Model::get('Locale');
+		$localeTbl = Emerald_Model::get('DbTable_Locale');
 		$locales = $localeTbl->fetchAll();
 		$data = Array();
 		foreach($locales as $locale)

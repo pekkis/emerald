@@ -36,8 +36,6 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	public function postDispatch()
 	{
 		if($rs = $this->_getParam('rs')) {
-
-			echo "KRAAAAAA";
 			$this->getHelper('viewRenderer')->setResponseSegment($rs);
 		}
 		

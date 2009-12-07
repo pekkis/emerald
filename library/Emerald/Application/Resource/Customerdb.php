@@ -6,7 +6,8 @@ class Emerald_Application_Resource_Customerdb extends Zend_Application_Resource_
 	
 	public function init()
 	{
-		$db = parent::init();
+		$db = $this->getBootstrap()->getResource('db');
+		
 		$customer = $this->getCustomer();
 								
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
@@ -15,7 +16,7 @@ class Emerald_Application_Resource_Customerdb extends Zend_Application_Resource_
 		$customer->setDb($db);
 		
 		Zend_Registry::set('Emerald_Db', $db);
-
+				
 		$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
 		$profiler->setEnabled(true);
 

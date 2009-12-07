@@ -26,10 +26,10 @@
 	
 	<nobr id="nodeMenu" style="display: none">
 	<ul class="iconVMenu noText">
-		<li class="rq_exactlyOne ac_addSubPage"><?php echo $this->iconSmall("actions/filenew", "sitemap/menu/add", Array(), $this->translate('sitemap/menu/add')) ?></li>
-		<li class="rq_exactlyOne ac_editProperties"><?php echo $this->iconSmall("actions/configure", "sitemap/menu/properties", Array(), $this->translate('sitemap/menu/properties')) ?></li>
-		<li class="rq_exactlyOne ac_editPage"><?php echo $this->iconSmall("apps/kate", "sitemap/menu/edit", Array(), $this->translate('sitemap/menu/edit')) ?></li>							
-		<li class="rq_exactlyOne ac_setHome"><?php echo $this->iconSmall("actions/gohome", "sitemap/menu/set_home", Array(), $this->translate('sitemap/menu/set_home')) ?></li>
+		<li class="rq_exactlyOne ac_addSubPage"><?php echo $this->icon()->small("actions/filenew", "sitemap/menu/add", Array(), $this->translate('sitemap/menu/add')) ?></li>
+		<li class="rq_exactlyOne ac_editProperties"><?php echo $this->icon()->small("actions/configure", "sitemap/menu/properties", Array(), $this->translate('sitemap/menu/properties')) ?></li>
+		<li class="rq_exactlyOne ac_editPage"><?php echo $this->icon()->small("apps/kate", "sitemap/menu/edit", Array(), $this->translate('sitemap/menu/edit')) ?></li>							
+		<li class="rq_exactlyOne ac_setHome"><?php echo $this->icon()->small("actions/gohome", "sitemap/menu/set_home", Array(), $this->translate('sitemap/menu/set_home')) ?></li>
 	</ul>
 	</nobr>
 	<table width="100%" cellspacing="0" class="entitityList">
@@ -56,9 +56,9 @@
 						<span class="selectNone"><?php echo $this->translate('entititylist/select_none'); ?></span>
 						::
 						<ul class="iconVMenu dynamicMenu" id="topMenukko">
-							<li class="ac_addRootPage"><?php echo $this->iconSmall("actions/filenew", "sitemap/menu/add", Array(), $this->translate('sitemap/menu/add')) ?></li>
-							<li class="ac_reorderPages"><?php echo $this->iconSmall("actions/kaboodleloop", "sitemap/menu/reorder", Array(), $this->translate('sitemap/menu/reorder')) ?></li>
-							<li class="rq_atLeastOne ac_deletePage"><?php echo $this->iconSmall("actions/editdelete", "sitemap/menu/delete", Array(), $this->translate('sitemap/menu/delete')) ?></li>
+							<li class="ac_addRootPage"><?php echo $this->icon()->small("actions/filenew", "sitemap/menu/add", Array(), $this->translate('sitemap/menu/add')) ?></li>
+							<li class="ac_reorderPages"><?php echo $this->icon()->small("actions/kaboodleloop", "sitemap/menu/reorder", Array(), $this->translate('sitemap/menu/reorder')) ?></li>
+							<li class="rq_atLeastOne ac_deletePage"><?php echo $this->icon()->small("actions/editdelete", "sitemap/menu/delete", Array(), $this->translate('sitemap/menu/delete')) ?></li>
 						</ul>
 						<span id="activeCommand"></span>
 					</div>
