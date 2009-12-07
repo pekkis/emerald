@@ -290,6 +290,7 @@ CREATE TABLE `htmlcontent` (
 
 LOCK TABLES `htmlcontent` WRITE;
 /*!40000 ALTER TABLE `htmlcontent` DISABLE KEYS */;
+INSERT INTO `htmlcontent` VALUES (2,2,'<p>Kraa!</p>','2009-12-07 18:48:39',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `htmlcontent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,8 +470,7 @@ CREATE TABLE `page` (
   `parent_id` bigint(20) unsigned DEFAULT NULL,
   `locale` char(6) NOT NULL,
   `order_id` smallint(6) NOT NULL DEFAULT '0',
-  `template` varchar(255) NOT NULL DEFAULT 'default.phtml',
-  `innertemplate` varchar(255) NOT NULL DEFAULT 'default.phtml',
+  `layout` varchar(255) DEFAULT 'Default',
   `title` varchar(255) NOT NULL,
   `iisiurl` text NOT NULL,
   `path` varchar(255) NOT NULL,
@@ -494,7 +494,7 @@ CREATE TABLE `page` (
   CONSTRAINT `page_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_4` FOREIGN KEY (`shard_id`) REFERENCES `shard` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_5` FOREIGN KEY (`locale`) REFERENCES `locale` (`locale`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -503,6 +503,7 @@ CREATE TABLE `page` (
 
 LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
+INSERT INTO `page` VALUES (2,NULL,'fi_FI',0,'Default','Etusivu','fi_FI/etusivu','[2]',1,1,'2009-12-07 17:47:06',NULL,NULL,NULL,1),(3,NULL,'fi_FI',1,'Default','Kraa','fi_FI/kraa','[]',5,1,'2009-12-07 18:40:16',NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -530,6 +531,7 @@ CREATE TABLE `permission_page_ugroup` (
 
 LOCK TABLES `permission_page_ugroup` WRITE;
 /*!40000 ALTER TABLE `permission_page_ugroup` DISABLE KEYS */;
+INSERT INTO `permission_page_ugroup` VALUES (2,1,4),(2,2,15),(3,1,4),(3,2,15);
 /*!40000 ALTER TABLE `permission_page_ugroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -747,4 +749,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-12-07 19:31:35
+-- Dump completed on 2009-12-07 21:56:29
