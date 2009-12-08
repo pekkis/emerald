@@ -419,6 +419,11 @@ class Emerald_Filelib
 		
 	}
 	
+	/**
+	 * Finds and returns all files
+	 * 
+	 * @return Emerald_Filelib_FileItemIterator
+	 */
 	public function findAllFiles()
 	{
 		$items = $this->getHandler()->findAllFiles();
@@ -446,7 +451,7 @@ class Emerald_Filelib
 	
 	/**
 	 * @param Emerald_Filelib_FolderItem $folder Folder
-	 * @return array Array of file items
+	 * @return Emerald_Filelib_FileItemIterator Collection of file items
 	 */
 	public function findFilesIn(Emerald_Filelib_FolderItem $folder)
 	{

@@ -13,7 +13,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
                 $filelib = $this->bootstrap('filelib')->getResource('filelib');
 
-                $fp = new Emerald_Filelib_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
+          $fp = new Emerald_Filelib_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
                 $filelib->addPlugin($fp);
 
                 $ra = new Emerald_Filelib_Plugin_RandomizeName(array('Prefix' => 'xoo'));
@@ -24,8 +24,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
                 $mini = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'thumbnailImage', 200, 200)));
                 $filelib->addPlugin($mini);
-
-
+                              
+                $flashify = new Emerald_Filelib_Plugin_Video_Flashify(array('Identifier' => 'flash'));
+				$filelib->addPlugin($flashify);
     }
 	
 	
