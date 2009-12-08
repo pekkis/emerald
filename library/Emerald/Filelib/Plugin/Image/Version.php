@@ -92,11 +92,29 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 			}
 						
 			if(!is_link($link)) {
+
 				$path = dirname($link);
 				if(!is_dir($path)) {
 					mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
 				}
-				symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
+								
+				if($fl->getRelativePathToRoot()) {
+										
+					// Relative linking requires some movin'n groovin.
+					$oldCwd = getcwd();
+					chdir($path);
+					
+					$fp = dirname($this->getFilelib()->getSymlinker()->getLinkSource($file, 1));
+					$fp .= '/' . $this->getIdentifier() . '/' . $file->id;
+					
+					symlink($fp, $link);
+					
+					chdir($oldCwd);
+				
+				} else {
+					symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
+				}
+				
 			}
 		}
 	}

@@ -12,7 +12,8 @@ class Core_IndexController extends Emerald_Controller_Action
 	 */
 	public function indexAction()
 	{
-						
+		
+		
 		$filters = array();
 		
 		$validators = array(
@@ -88,6 +89,8 @@ class Core_IndexController extends Emerald_Controller_Action
 			// Something went badly wrong. No can continunado :(			
 			throw new Emerald_Exception($e->getMessage());
 		}
+				
+		
 	}
 	
 }

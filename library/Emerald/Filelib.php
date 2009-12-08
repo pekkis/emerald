@@ -1,32 +1,78 @@
 <?php
+/**
+ * Emerald filelib
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ *
+ */
 class Emerald_Filelib
 {
+	/**
+	 * @var Emerald_Filelib_Handler_Interface Backend handler
+	 */
 	private $_handler;
 		
+	/**
+	 * @var Emerald_Filelib_Acl_Interface Acl handler
+	 */
 	private $_acl;
 	
+	/**
+	 * @var string Physical root
+	 */
 	private $_root;
 	
+	/**
+	 * @var string Physical public root
+	 */
 	private $_publicRoot;
 	
+	/**
+	 * @var string Public root prefix from web root.
+	 */
 	private $_publicDirectoryPrefix = '';
 	
+	/**
+	 * @var string Path to magic file (for PHP 5.2)
+	 */
 	private $_magic;
-
+	
+	/**
+	 * @var array Array of installed plugins
+	 */
 	private $_plugins = array();
 
-
-	
-	
+	/**
+	 * @var string Relative path from public to private root
+	 */
+	private $_relativePathToRoot;
+		
+	/**
+	 * @var integer Files per directory
+	 */
 	private $_filesPerDirectory = 500;
-	
+		
+	/**
+	 * @var integer Octal representation for directory permissions
+	 */
 	private $_directoryPermission = 0700;
+
+	/**
+	 * @var integer Octal representation for file permissions
+	 */
 	private $_filePermission = 0600;
 	
+	/**
+	 * @var Emerald_Filelib_Symlinker Symlinker
+	 */
 	private $_symlinker;
-
 	
-	private $_fileVersions;
+	/**
+	 * @var array Versions for file types
+	 */
+	private $_fileVersions = array();
+
 	
 	public function __construct($options = array())
 	{
@@ -34,14 +80,23 @@ class Emerald_Filelib
 	}
 	
 	
-	
+	/**
+	 * Sets handler
+	 * 
+	 * @param Emerald_Filelib_Handler_Interface $handler 
+	 */
 	public function setHandler(Emerald_Filelib_Handler_Interface $handler)
 	{
 		$handler->setFilelib($this);
 		$this->_handler = $handler;
 	}
+		
 	
-	
+	/**
+	 * Returns handler
+	 * 
+	 * @return Emerald_Filelib_Handler_Interface
+	 */
 	public function getHandler()
 	{
 		if(!$this->_handler) {
@@ -50,11 +105,36 @@ class Emerald_Filelib
 		
 		return $this->_handler;
 	}
+
 	
+	/**
+	 * Sets symbolic link from public to private root
+	 * 
+	 * @param string $relativePathToRoot 
+	 * @return Emerald_Filelib Filelib
+	 */
+	public function setRelativePathToRoot($relativePathToRoot)
+	{
+		$this->_relativePathToRoot = $relativePathToRoot;
+		return $this;
+	}
+	
+	
+	/**
+	 * Returns symbolic link from public to private root
+	 * 
+	 * @return string
+	 */
+	public function getRelativePathToRoot()
+	{
+		return $this->_relativePathToRoot;
+	}
 	
 	
 	
 	/**
+	 * Returns symlinker
+	 * 
 	 * @return Emerald_Filelib_Symlinker
 	 */
 	public function getSymlinker()
@@ -66,6 +146,12 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Adds a plugin
+	 * 
+	 * @param Emerald_Filelib_Plugin_Abstract Plugin $plugin
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function addPlugin(Emerald_Filelib_Plugin_Abstract $plugin)
 	{
 		$plugin->setFilelib($this);
@@ -73,8 +159,15 @@ class Emerald_Filelib
 		
 		$plugin->init();
 		
+		return $this;
+		
 	}
 
+	/**
+	 * Returns all plugins
+	 * 
+	 * @return array Array of plugins
+	 */
 	public function getPlugins()
 	{
 		return $this->_plugins;
@@ -82,47 +175,102 @@ class Emerald_Filelib
 	
 	
 	
+	/**
+	 * Adds a file version
+	 * 
+	 * @param string $fileType string File type
+	 * @param string $versionIdentifier Version identifier
+	 * @param object $versionProvider Version provider reference
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function addFileVersion($fileType, $versionIdentifier, $versionProvider)
 	{
 		if(!isset($this->_fileVersions[$fileType])) {
 			$this->_fileVersions[$fileType] = array();
 		}		
-		$this->_fileVersions[$fileType][$versionIdentifier] = $versionProvider; 
+		$this->_fileVersions[$fileType][$versionIdentifier] = $versionProvider;
+
+		return $this;
+	}
+	
+	
+	/**
+	 * Sets files per directory
+	 * 
+	 * @param integer $filesPerDirectory
+	 * @return Emerald_Filelib Filelib
+	 */
+	public function setFilesPerDirectory($filesPerDirectory)
+	{
+		$this->_filesPerDirectory = $filesPerDirectory;
 	}
 	
 	
 	
-	
+	/**
+	 * Returns files per directory
+	 * 
+	 * @return integer
+	 */
 	public function getFilesPerDirectory()
 	{
 		return $this->_filesPerDirectory;
 	}
 	
+	
+	/**
+	 * Sets directory permission
+	 * 
+	 * @param integer $directoryPermission
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setDirectoryPermission($directoryPermission)
 	{
 		$this->_directoryPermission = octdec($directoryPermission);
+		return $this;
 	}
+		
 	
-	
-	
+	/**
+	 * Returns directory permission
+	 * 
+	 * @return integer
+	 */
 	public function getDirectoryPermission()
 	{
 		return $this->_directoryPermission;
 	}
 	
-	
+	/**
+	 * Sets file permission
+	 * 
+	 * @param integer $filePermission
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setFilePermission($filePermission)
 	{
 		$this->_filePermission = octdec($filePermission);
+		return $this;
 	}
 	
-	
+	/**
+	 * Returns file permission
+	 * 
+	 * @return integer
+	 */
 	public function getFilePermission()
 	{
 		return $this->_filePermission;
 	}
 	
 	
+	
+	/**
+	 * Returns directory id for specified file id
+	 * 
+	 * @param integer $fileId File id
+	 * @return integer
+	 */
 	public function getDirectoryId($fileId)
 	{
 		return ceil($fileId / $this->getFilesPerDirectory());	
@@ -130,48 +278,95 @@ class Emerald_Filelib
 	
 	
 	
+	/**
+	 * Sets magic file
+	 * 
+	 * @param string $magic Path to magic file
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setMagic($magic)
 	{
 		$this->_magic = $magic;
+		return $this;
 	}
 	
 	
+	/**
+	 * Returns path to magic file
+	 * 
+	 * @return string
+	 */
 	public function getMagic()
 	{
 		return $this->_magic;
 	}
 	
 	
+	/**
+	 * Sets root
+	 * 
+	 * @param string $root
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setRoot($root)
 	{
 		$this->_root = $root;		
 	}
 	
 	
+	/**
+	 * Returns root
+	 * 
+	 * @return string
+	 */
 	public function getRoot()
 	{
 		return $this->_root;
 	}
 
 	
+	/**
+	 * Sets web access prefix
+	 * 
+	 * @param string $publicDirectoryPrefix
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setPublicDirectoryPrefix($publicDirectoryPrefix)
 	{
-		$this->_publicDirectoryPrefix = $publicDirectoryPrefix;				
+		$this->_publicDirectoryPrefix = $publicDirectoryPrefix;
+		return $this;				
 	}
 	
 	
+	/**
+	 * Returns web access prefix
+	 * 
+	 * @return string
+	 */
 	public function getPublicDirectoryPrefix()
 	{
 		return $this->_publicDirectoryPrefix;
 	}
 		
 		
+	/**
+	 * Sets public root
+	 * 
+	 * @param string $publicRoot 
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setPublicRoot($publicRoot)
 	{
-		$this->_publicRoot = $publicRoot;				
+		$this->_publicRoot = $publicRoot;
+		return $this;				
 	}
 	
 	
+	/**
+	 * Returns public root
+	 * 
+	 * @return string
+	 */
 	public function getPublicRoot()
 	{
 		return $this->_publicRoot;
@@ -181,13 +376,22 @@ class Emerald_Filelib
 	
 
 
+	/**
+	 * Sets acl handler
+	 * 
+	 * @param Emerald_Filelib_Acl_Interface $acl
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setAcl(Emerald_Filelib_Acl_Interface $acl)
 	{
 		$this->_acl = $acl;
+		return $this;
 	}
 	
 	
 	/**
+	 * Returns acl handler
+	 * 
 	 * @return Emerald_Filelib_Acl_Interface
 	 */
 	public function getAcl()
@@ -199,6 +403,12 @@ class Emerald_Filelib
 	}
 	
 		
+	/**
+	 * Finds a file
+	 * 
+	 * @param mixed $idFile File id
+	 * @return Emerald_Filelib_FileItem
+	 */
 	public function findFile($id)
 	{
 		$file = $this->getHandler()->findFile($id);
@@ -208,6 +418,12 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Finds a folder
+	 * 
+	 * @param mixed $id Folder id
+	 * @return Emerald_Filelib_FolderItem
+	 */
 	public function findFolder($id)
 	{
 		$folder = $this->getHandler()->findFolder($id);
@@ -216,6 +432,10 @@ class Emerald_Filelib
 	}
 
 	
+	/**
+	 * @param Emerald_Filelib_FolderItem $folder Folder
+	 * @return array Array of file items
+	 */
 	public function findFilesIn(Emerald_Filelib_FolderItem $folder)
 	{
 		$items = $this->getHandler()->findFilesIn($folder);
@@ -230,15 +450,24 @@ class Emerald_Filelib
 	
 	
 	/**
-	 * @param $file
-	 * @return unknown_type
+	 * Returns whether a file is anonymous
+	 * 
+	 * @todo This is still mock!
+	 * @param Emerald_Filelib_FileItem $file File
+	 * @return boolean
 	 */
-	public function fileIsAnonymous($file)
+	public function fileIsAnonymous(Emerald_Filelib_FileItem $file)
 	{
 		return true;
 	}
 		
 	
+	/**
+	 * Gets a new upload
+	 * 
+	 * @param string $path Path to upload file
+	 * @return Emerald_FileObject
+	 */
 	public function getUpload($path)
 	{
 		$upload = new Emerald_FileObject($path);
@@ -247,10 +476,18 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Uploads file to filelib.
+	 * 
+	 * @param mixed $upload Uploadable, path or object
+	 * @param Emerald_Filelib_FolderItem $folder 
+	 * @return Emerald_Filelib_FileItem
+	 * @throws Emerald_Filelib_Exception
+	 */
 	public function upload($upload, $folder)
 	{
 		if(!$upload instanceof Emerald_FileObject) {
-			$upload = new Emerald_FileObject($upload);
+			$upload = $this->getUpload($upload);
 		}
 		
 		if(!$this->getAcl()->isWriteable($folder)) {
@@ -298,9 +535,6 @@ class Emerald_Filelib
 			}
 								
 		} catch(Exception $e) {
-			
-			
-			
 			// Maybe log here?
 			throw $e;
 		}
@@ -318,6 +552,12 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Deletes a file
+	 * 
+	 * @param Emerald_Filelib_FileItem $file
+	 * @throws Emerald_Filelib_Exception 
+	 */
 	public function deleteFile(Emerald_Filelib_FileItem $file)
 	{
 		try {
@@ -356,6 +596,12 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Returns file type of a file
+	 * 
+	 * @param Emerald_Filelib_FileItem File $file item
+	 * @return string File type
+	 */
 	public function getFileType(Emerald_Filelib_FileItem $file)
 	{
 		// Mock until mimetype database is pooped in.
@@ -364,6 +610,13 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Returns whether a file has a certain version
+	 * 
+	 * @param Emerald_Filelib_FileItem $file File item
+	 * @param string $version Version
+	 * @return boolean
+	 */
 	public function fileHasVersion(Emerald_Filelib_FileItem $file, $version)
 	{
 		$filetype = $this->getFileType($file);
@@ -374,15 +627,28 @@ class Emerald_Filelib
 		
 	}
 	
+	
+	/**
+	 * Returns version provider for a file/version
+	 * 
+	 * @param Emerald_Filelib_FileItem $file File item
+	 * @param string $version Version
+	 * @return object Provider
+	 */
 	public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
 	{
 		$filetype = $this->getFileType($file);
-		
 		return $this->_fileVersions[$filetype][$version];
-		
 	}
 	
 	
+	/**
+	 * Renders a file's path
+	 * 
+	 * @param Emerald_Filelib_FileItem $file
+	 * @param array $opts Options
+	 * @return string File path
+	 */
 	public function renderPath(Emerald_Filelib_FileItem $file, $opts = array())
 	{
 		if(isset($opts['version'])) {
@@ -405,6 +671,13 @@ class Emerald_Filelib
 	
 	
 	
+	/**
+	 * Renders a file to a response
+	 * 
+	 * @param Emerald_Filelib File $file item
+	 * @param Zend_Controller_Response_Http $response Response
+	 * @param array $opts Options
+	 */
 	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
 	{
 		$path = $this->renderPath($file, $opts);
@@ -424,8 +697,6 @@ class Emerald_Filelib
 		$response->setHeader('Content-Type', $file->mimetype);
 		
 		readfile($path);
-						
-		return;
 		
 	}
 	
