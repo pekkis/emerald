@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config description="Emerald customer specific configuration">
+	<cache>false</cache>
+    <resources>
+	    
+	    <customerdb>
+	    	<xoo />
+	    </customerdb>
+	    
+	    <db>
+	       <params>
+		       <host>localhost</host>
+		       <dbname>emerald_demo</dbname>
+		       <username>root</username>
+		       <password>g04753m135</password>
+	       </params>
+	    </db>
+	    
+	    <filelib>
+	    	<Root>/wwwroot/emerald/customers/emerald.axis-of-evil.org/files</Root>
+			<PublicRoot>/wwwroot/emerald/customers/emerald.axis-of-evil.org/public/files</PublicRoot>
+	    </filelib>
+	    	    
+	</resources>
+
+	<routes>
+
+	</routes>
+
+</config>
