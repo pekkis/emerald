@@ -1,7 +1,8 @@
 <?php
 /**
- * Randomizes upload's name
+ * Randomizes uploads' file names before uploading
  * 
+ * @package Emerald_Filelib
  * @author pekkis
  *
  */
@@ -34,12 +35,8 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
 	{
 		return $this->_prefix;
 	}
-	
 		
 	
-	/* (non-PHPdoc)
-	 * @see Emerald/Filelib/Plugin/Emerald_Filelib_Plugin_Abstract#beforeUpload()
-	 */
 	public function beforeUpload(Emerald_FileObject $upload)
 	{
 		$pinfo = pathinfo($upload->getOverrideFilename());

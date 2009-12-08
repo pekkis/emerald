@@ -1,4 +1,11 @@
 <?php
+/**
+ * Folder item
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ *
+ */
 class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 {
 	private $_filelib;

@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 $thumb = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'thumb', 'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)));
                 $filelib->addPlugin($thumb);
 
-                $mini = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'cropThumbnailImage', 200, 200)));
+                $mini = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'thumbnailImage', 200, 200)));
                 $filelib->addPlugin($mini);
 
 

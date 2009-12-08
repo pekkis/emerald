@@ -1,4 +1,11 @@
 <?php
+/**
+ * Emerald filelib symlinker
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ *
+ */
 class Emerald_Filelib_Symlinker
 {
 

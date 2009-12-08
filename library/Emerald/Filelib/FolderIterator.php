@@ -1,4 +1,13 @@
 <?php
+/**
+ * Folder iterator
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ * @deprecated
+ * @todo rewrite soon!
+ *
+ */
 class Emerald_Filelib_FolderIterator implements RecursiveIterator, Countable
 {
 	private $_children;

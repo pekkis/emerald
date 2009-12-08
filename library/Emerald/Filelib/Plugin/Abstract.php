@@ -1,11 +1,15 @@
 <?php
+/**
+ * Abstract plugin class provides convenient empty methods for all hooks.
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ *
+ */
 abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin_Interface
 {
 
 	protected $_filelib;
-	
-	protected $_file;
-	
 	
 	public function __construct($options = array())
 	{
@@ -13,15 +17,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 	}
 		
 	
-	
-	public function init()
-	{
-		
-	}
-	
-	
-	
-	public function setFilelib($filelib)
+	public function setFilelib(Emerald_Filelib $filelib)
 	{
 		$this->_filelib = $filelib;
 	}
@@ -32,22 +28,15 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 		return $this->_filelib;
 	}
 	
-	
-	public function getFile()
+
+	public function init()
 	{
-		return $this->_file;
+		
 	}
-	
-	
-	public function setFile($file)
-	{
-		$this->_file = $file;
-	}
-			
+		
 	
 	public function beforeUpload(Emerald_FileObject $upload)
 	{
-
 		return $upload;
 	}
 	

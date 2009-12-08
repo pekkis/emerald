@@ -1,29 +1,62 @@
 <?php
+/**
+ * Changes images' formats before uploading them.
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_Abstract
 {
 		
+	/**
+	 * @var array Imagemagick options
+	 */
 	protected $_imageMagickOptions = array();
 
+	/**
+	 * @var string Target file extension
+	 */
 	protected $_targetExtension;
 	
+	/**
+	 * Sets imagemagick options
+	 * 
+	 * @param array $imageMagickOptions Options as array
+	 */
 	public function setImageMagickOptions($imageMagickOptions)
 	{
 		$this->_imageMagickOptions = $imageMagickOptions;
 	}
 		
 	
+	/**
+	 * Returns imagemagick options
+	 * 
+	 * @return array
+	 */
 	public function getImageMagickOptions()
 	{
 		return $this->_imageMagickOptions;
 	}
 	
 	
+	/**
+	 * Sets target file's extension
+	 * 
+	 * @param string $targetExtension
+	 */
 	public function setTargetExtension($targetExtension)
 	{
 		$this->_targetExtension = $targetExtension;
 	}
 	
 	
+	/**
+	 * Returns target file extension
+	 * 
+	 * @return string
+	 */
 	public function getTargetExtension()
 	{
 		return $this->_targetExtension;
@@ -53,7 +86,6 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
 			
 			$upload = $this->getFilelib()->getUpload($tempnam);
 			
-			// $upload = new Emerald_FileObject($tempnam);
 			$upload->setOverrideFilename($pinfo['filename'] . '.' . $this->getTargetExtension());
 			
 		}

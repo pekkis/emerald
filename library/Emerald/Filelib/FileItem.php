@@ -1,9 +1,15 @@
 <?php
+/**
+ * Emerald filelib file item
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ *
+ */
 class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 {
-	protected $_versions;	
-	
 	private $_filelib;
+
 	
 	public function setFilelib(Emerald_Filelib $filelib)
 	{
@@ -20,6 +26,12 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	public function findFiles()
 	{
 		return $this->getFilelib()->findFilesIn($this);
+	}
+	
+	
+	public function getType()
+	{
+		return $this->getFilelib()->getFileType($this);
 	}
 	
 
@@ -46,8 +58,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 			return $this->getPathname();
 		}
 	}
-	
-	
+		
 	
 	public function renderPath($opts = array())
 	{
@@ -59,7 +70,8 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	{
 		return $this->getFilelib()->render($this, $response, $opts);
 	}
-		
+
+	
 	public function isAnonymous()
 	{
 		return $this->getFilelib()->fileIsAnonymous($this);
@@ -70,9 +82,5 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	{
 		return $this->getFilelib()->fileHasVersion($this, $version);
 	}
-
-	
-	
-	
 	
 }

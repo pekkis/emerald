@@ -149,10 +149,10 @@ class Emerald_Filelib
 	/**
 	 * Adds a plugin
 	 * 
-	 * @param Emerald_Filelib_Plugin_Abstract Plugin $plugin
+	 * @param Emerald_Filelib_Plugin_Interface Plugin $plugin
 	 * @return Emerald_Filelib Filelib
 	 */
-	public function addPlugin(Emerald_Filelib_Plugin_Abstract $plugin)
+	public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
 	{
 		$plugin->setFilelib($this);
 		$this->_plugins[] = $plugin;
@@ -216,6 +216,8 @@ class Emerald_Filelib
 	{
 		return $this->_filesPerDirectory;
 	}
+	
+	
 	
 	
 	/**
@@ -417,6 +419,16 @@ class Emerald_Filelib
 		
 	}
 	
+	public function findAllFiles()
+	{
+		$items = $this->getHandler()->findAllFiles();
+		foreach($items as $item) {
+			$item->setFilelib($this);
+		}
+		return $items;
+	}
+	
+	
 	
 	/**
 	 * Finds a folder
@@ -509,9 +521,6 @@ class Emerald_Filelib
 			throw new Emerald_Filelib_Exception("Can not upload");
 		}
 		
-		foreach($this->getPlugins() as $plugin) {
-			$plugin->setFile($file);
-		}
 
 		try {
 			$root = $this->getRoot();

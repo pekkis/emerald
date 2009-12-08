@@ -1,43 +1,61 @@
 <?php
-class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstract
+/**
+ * Versions an image
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
+class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_VersionProvider_Abstract
 {
-	protected $_identifier;	
 	
-	protected $_imageMagickOptions = array();
-	
+	/**
+	 * @var array Scale options
+	 */
 	protected $_scaleOptions = array();
 	
 	
+	/**
+	 * Sets ImageMagick options
+	 * 
+	 * @param array $imageMagickOptions
+	 */
 	public function setImageMagickOptions($imageMagickOptions)
 	{
 		$this->_imageMagickOptions = $imageMagickOptions;
 	}
-		
 	
+	
+	/**
+	 * Return ImageMagick options
+	 * 
+	 * @return array
+	 */
 	public function getImageMagickOptions()
 	{
 		return $this->_imageMagickOptions;
 	}
 		
 	
-	public function setIdentifier($identifier)
-	{
-		$this->_identifier = $identifier;
-	}
-
 	
-	public function getIdentifier()
-	{
-		return $this->_identifier;
-	}
 		
 	
+	/**
+	 * Sets scale options
+	 * 
+	 * @param array $scaleOptions
+	 */
 	public function setScaleOptions($scaleOptions)
 	{
 		$this->_scaleOptions = $scaleOptions;
 	}
 
 	
+	/**
+	 * Returns scale options
+	 * 
+	 * @return array
+	 */
 	public function getScaleOptions()
 	{
 		return $this->_scaleOptions;
@@ -46,42 +64,46 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 	
 	public function init()
 	{
+		// Register a version for images with identifier and self as provider.
 		$this->getFilelib()->addFileVersion('image', $this->getIdentifier(), $this);
 	}
 	
 	
+	/**
+	 * Creates version. Potentially overwrites old one.
+	 * 
+	 * @param Emerald_FileItem $file
+	 */
+	public function createVersion(Emerald_Filelib_FileItem $file)
+	{
+		if($file->getType() != 'image') {
+			throw new Exception('File must be an image');
+		}
+				
+		$img = new Imagick($file->getPathname()); 
+		$scaleOptions = $this->getScaleOptions();
+		$scaleMethod = $scaleOptions['method'];
+		unset($scaleOptions['method']);
+		call_user_func_array(array($img, $scaleMethod), $scaleOptions);
+		$path = $file->getPath() . '/' . $this->getIdentifier();
+		if(!is_dir($path)) {
+			mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
+		}
+		$img->writeImage($path . '/' . $file->id);
+	}
+	
 	
 	public function afterUpload(Emerald_Filelib_FileItem $file)
 	{
-		
-		if(substr($file->mimetype, 0, 6) == 'image/') {
-						
-			$img = new Imagick($file->getPathname()); 
-			
-
-			$scaleOptions = $this->getScaleOptions();
-									
-			$scaleMethod = $scaleOptions['method'];
-			unset($scaleOptions['method']);
-			
-			call_user_func_array(array($img, $scaleMethod), $scaleOptions);
-			
-			$path = $file->getPath() . '/' . $this->getIdentifier();
-			
-			if(!is_dir($path)) {
-				mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
-			}
-						
-			$img->writeImage($path . '/' . $file->id);
-			
+		if($file->getType() == 'image') {
+			$this->createVersion($file);
 		}
-		
 	}
 	
 	
 	public function createSymlink(Emerald_Filelib_FileItem $file)
 	{
-		if(substr($file->mimetype, 0, 6) == 'image/') {
+		if($file->getType() == 'image') {
 			$fl = $this->getFilelib();
 			$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
 			$pinfo = pathinfo($link);
@@ -135,6 +157,7 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Abstra
 		}
 		
 	}
+	
 	
 	
 	public function getRenderPath(Emerald_Filelib_FileItem $file)

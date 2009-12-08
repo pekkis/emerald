@@ -151,6 +151,15 @@ class Emerald_Filelib_Handler_Db implements Emerald_Filelib_Handler_Interface
 	}
 	
 	
+	public function findAllFiles()
+	{
+		$res = $this->getFileTable()->fetchAll(array(), "id ASC");
+		$files = array();
+		foreach($res as $row) {
+			$files[] = new Emerald_Filelib_FileItem($row->toArray());			
+		}
+		return new Emerald_Filelib_FileItemIterator($files);				
+	}
 	
 	
 }
