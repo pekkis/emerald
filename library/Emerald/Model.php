@@ -20,7 +20,6 @@ class Emerald_Model
 				
 		$className = $module . '_Model_' . $name;
 		if(!isset(self::$_models[$name])) {
-			// require_once Emerald_Server::getInstance()->getRoot() . '/application/model/' . $name . '.php';
 			self::$_models[$name] = new $className();
 		}
 		return self::$_models[$name];

@@ -7,6 +7,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	}
 		
 	private $_translate;
+	
+	protected function _initServer() {
+		
+		$options = $this->getOptions();
+		
+		$options = $options['resources']['server'];
+		
+		$server = Emerald_Server::getInstance($options); 
+
+		
+		
+		
+		
+	}
 
 	
 	protected function _initFilelibPlugins()

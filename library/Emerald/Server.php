@@ -45,11 +45,11 @@ class Emerald_Server
      *
      * @return Emerald_Server
      */
-    public static function getInstance()
+    public static function getInstance($options = null)
     {
         static $instance;
         if(!$instance) {
-            $instance = new self();
+            $instance = new self($options);
         }
         return $instance;  
     }
@@ -60,12 +60,13 @@ class Emerald_Server
      * Prepares db connection (does not init it), loads core config.
      *
      */
-    private function __construct()
+    private function __construct($config)
     {
-    	$this->_root = realpath(dirname(__FILE__). "/../../application");
-    	$this->_config = new Zend_Config_Xml($this->getRoot() . '/config.xml');
+    	
+    	$this->_root = APPLICATION_PATH;
+		
     	    	
-    	$db = Zend_Db::factory('PDO_MYSQL', $this->_config->db->toArray());
+    	$db = Zend_Db::factory($config['db']['adapter'], $config['db']['params']);
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
         $db->getConnection()->exec("SET names utf8");
 
@@ -78,10 +79,10 @@ class Emerald_Server
 		$db->setProfiler($profiler);
 				        
         
-        date_default_timezone_set($this->getConfig()->timezone);
+        date_default_timezone_set($config['timezone']);
         
 
-
+		
         
     }
 

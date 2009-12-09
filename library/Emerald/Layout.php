@@ -23,11 +23,11 @@ class Emerald_Layout
 	}
 	
 	
+	
 	public function getPage()
 	{
 		return $this->_page;
 	}
-	
 	
 	public function actionToStack($action, $controller = null, $module = null, array $params = array())
 	{
@@ -36,6 +36,37 @@ class Emerald_Layout
 
 		
 	}
+	
+	
+	public function shard($page, $identifier, $params = array())
+	{
+
+		
+		try {
+			
+			if(!$page instanceof Emerald_Page) {
+				$page = Emerald_Page::find($page);
+				if(!$page) return; // prevents unneseccary template errors
+			}
+						
+			$requestParams = Zend_Controller_Front::getInstance()->getRequest()->getQuery();
+			$params = array_merge($requestParams, $params);
+
+			$shard = Emerald_Shard::factory($identifier);
+			$action = (isset($params['a'])) ? $params['a'] : Emerald_Shard::getDefaultAction($shard);
+			$params['page'] = $page;
+												
+			return $this->actionToStack(
+				$action, $shard, 'core', $params
+			);
+					
+		} catch(Exception $e) {
+			
+			return (Emerald_Server::getInstance()->inProduction()) ? '' : $e->getMessage();
+		}
+		
+	}
+	
 	
 	
 }
