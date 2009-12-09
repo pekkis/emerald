@@ -13,19 +13,37 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
                 $filelib = $this->bootstrap('filelib')->getResource('filelib');
 
-          $fp = new Emerald_Filelib_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
-                $filelib->addPlugin($fp);
+          		// $fp = new Emerald_Filelib_Plugin_Image_ChangeFormat(array('TargetExtension' => 'jpg', 'ImageMagickOptions' => array('CompressionQuality' => 10, 'ImageFormat' => 'jpeg')));
+                // $filelib->addPlugin($fp);
 
                 $ra = new Emerald_Filelib_Plugin_RandomizeName(array('Prefix' => 'xoo'));
                 $filelib->addPlugin($ra);
 
-                $thumb = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'thumb', 'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)));
+                $thumb = new Emerald_Filelib_Plugin_Image_Version(
+                	array(
+                		'ImageMagickOptions' => array(
+							'ImageFormat' => 'jpeg',
+                		),
+                		'Extension' => 'jpg',
+                		'Identifier' => 'thumb',
+                		'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)
+                	)
+                );
                 $filelib->addPlugin($thumb);
 
-                $mini = new Emerald_Filelib_Plugin_Image_Version(array('Identifier' => 'mini', 'ScaleOptions' => array('method' => 'thumbnailImage', 200, 200)));
+                $mini = new Emerald_Filelib_Plugin_Image_Version(
+                	array(
+                		'ImageMagickOptions' => array(
+							'ImageFormat' => 'jpeg',
+                		),
+                		'Extension' => 'jpg',
+                		'Identifier' => 'mini',
+                		'ScaleOptions' => array('method' => 'thumbnailImage', 200, 200),
+                	)
+                );
                 $filelib->addPlugin($mini);
                               
-                $flashify = new Emerald_Filelib_Plugin_Video_Flashify(array('Identifier' => 'flash'));
+                $flashify = new Emerald_Filelib_Plugin_Video_Flashify(array('Extension' => 'flv', 'Identifier' => 'flash'));
 				$filelib->addPlugin($flashify);
     }
 	

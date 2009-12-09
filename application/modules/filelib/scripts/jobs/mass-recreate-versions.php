@@ -65,11 +65,11 @@ echo "\n\n";
 
 foreach($files as $file) {
 	
-	echo "Recreate versions for #{$file->id}\n";
+	echo "Recreate versions for #{$file->id}, of mimetype '{$file->mimetype}' and type '{$file->getType()}'\n";
 			
 	foreach($filelib->getPlugins() as $plugin) {
 		
-		if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_Interface) {
+		if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_Interface && $plugin->providesFor($file)) {
 
 			try {
 				echo "\tProcessing version '{$plugin->getIdentifier()}' => ";
