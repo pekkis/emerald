@@ -79,6 +79,12 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
 		$scaleOptions = $this->getScaleOptions();
 		$scaleMethod = $scaleOptions['method'];
 		unset($scaleOptions['method']);
+		
+		foreach($this->getImageMagickOptions() as $key => $value) {
+			$method = "set" . $key;
+			$img->$method($value);
+		}
+				
 		call_user_func_array(array($img, $scaleMethod), $scaleOptions);
 		$path = $file->getPath() . '/' . $this->getIdentifier();
 		if(!is_dir($path)) {

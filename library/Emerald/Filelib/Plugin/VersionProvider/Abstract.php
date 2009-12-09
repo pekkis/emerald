@@ -114,11 +114,6 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	}
 	
 	
-	
-	
-	
-	
-	
 	/**
 	 * Sets identifier
 	 * 
