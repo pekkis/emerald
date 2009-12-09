@@ -102,7 +102,7 @@ class Emerald_Filelib_Handler_Db_Row_File extends Zend_Db_Table_Row_Abstract imp
 	 */ 
 	protected function _update()
 	{
-		$this->_generateIisiUrl();
+		// $this->_generateIisiUrl();
 	}
 	
 	/**

@@ -32,7 +32,36 @@ class Emerald_Filelib_Symlinker
 	{
 		return $this->_filelib;
 	}
+	
+	
+	public function getLink(Emerald_Filelib_FileItem $file, $prefix = true)
+	{
 		
+		$folders = array();
+		$folders[] = $folder = $file->findFolder();
+		while($parent = $folder->findParent()) {
+			array_unshift($folders, $parent);
+		} 
+
+		$beautifurl = array();
+		
+		foreach($folders as $folder) {
+			$beautifurl[] = $folder->name;
+		}
+		
+		$beautifurl[] = $file->name;
+
+		$beautifurl = implode(DIRECTORY_SEPARATOR, $beautifurl);
+		
+		if($prefix) {
+			$beautifurl = $this->getFilelib()->getPublicRoot() . '/' . $beautifurl; 
+		}
+		
+		return $beautifurl;
+		
+	}
+	
+	
 	
 	/**
 	 * Creates symlink(s) for a file
@@ -43,7 +72,8 @@ class Emerald_Filelib_Symlinker
 	{
 		$fl = $this->getFilelib();
 		
-		$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
+		$link = $this->getLink($file);
+								
 		if(!is_link($link)) {
 			
 			$path = dirname($link);
@@ -85,7 +115,7 @@ class Emerald_Filelib_Symlinker
 	{
 		$fl = $this->getFilelib();
 		
-		$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
+		$link = $this->getLink($file);
 		
 		if(is_link($link)) {
 			unlink($link);

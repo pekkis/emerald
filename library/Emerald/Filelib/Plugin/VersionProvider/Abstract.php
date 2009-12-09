@@ -41,7 +41,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	{
 		if($this->providesFor($file)) {
 			$fl = $this->getFilelib();
-			$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
+			$link = $fl->getSymlinker()->getLink($file);
 			$pinfo = pathinfo($link);
 			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier();
 
@@ -80,7 +80,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	{
 		if($this->providesFor($file)) {
 			$fl = $this->getFilelib();
-			$link = $fl->getPublicRoot() . '/' . $file->iisiurl;
+			$link = $fl->getSymlinker()->getLink($file);
 			$pinfo = pathinfo($link);
 			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier();
 	
@@ -100,7 +100,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 		if($file->isAnonymous()) {
 
 			$fl = $this->getFilelib();
-			$link = $fl->getPublicDirectoryPrefix() . '/' . $file->iisiurl;
+			$link = $fl->getPublicDirectoryPrefix() . '/' . $fl->getSymlinker()->getLink($file, false);
 			$pinfo = pathinfo($link);
 			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $this->getExtension();
 

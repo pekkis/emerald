@@ -19,7 +19,7 @@ abstract class Emerald_Model_AbstractItem
 	
 	public function __get($key)
 	{
-		if(!isset($this->_data[$key])) {
+		if(!array_key_exists($key, $this->_data)) {
 			throw new Emerald_Model_Exception("Field '{$key}' not set");
 		}
 		return $this->_data[$key];

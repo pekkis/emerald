@@ -27,7 +27,16 @@ class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 		return $this->getFilelib()->findFilesIn($this);
 	}
 		
-	
+	/**
+	 * @return Emerald_Filelib_FolderItem
+	 */
+	public function findParent()
+	{
+		if($this->parent_id) {
+			return $this->getFilelib()->findFolder($this->parent_id);	
+		}
+		return false;
+	}
 	
 	
 }

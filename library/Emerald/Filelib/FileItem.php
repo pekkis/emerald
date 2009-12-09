@@ -11,6 +11,15 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	private $_filelib;
 
 	
+	/**
+	 * @return Emerald_Filelib_FolderItem
+	 */
+	public function findFolder()
+	{
+		return $this->getFilelib()->findFolder($this->folder_id);
+	}
+	
+	
 	public function setFilelib(Emerald_Filelib $filelib)
 	{
 		$this->_filelib = $filelib;
@@ -53,7 +62,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	public function getRenderPath()
 	{
 		if($this->isAnonymous()) {
-			return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->iisiurl;
+			return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getFilelib()->getSymlinker()->getLink($this, false);
 		} else {
 			return $this->getPathname();
 		}

@@ -22,9 +22,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 $thumb = new Emerald_Filelib_Plugin_Image_Version(
                 	array(
                 		'ImageMagickOptions' => array(
-							'ImageFormat' => 'jpeg',
+							'ImageFormat' => 'png',
                 		),
-                		'Extension' => 'jpg',
+                		'Extension' => 'png',
                 		'Identifier' => 'thumb',
                 		'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)
                 	)
@@ -34,9 +34,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 $mini = new Emerald_Filelib_Plugin_Image_Version(
                 	array(
                 		'ImageMagickOptions' => array(
-							'ImageFormat' => 'jpeg',
+							'ImageFormat' => 'png',
                 		),
-                		'Extension' => 'jpg',
+                		'Extension' => 'png',
                 		'Identifier' => 'mini',
                 		'ScaleOptions' => array('method' => 'thumbnailImage', 200, 200),
                 	)
