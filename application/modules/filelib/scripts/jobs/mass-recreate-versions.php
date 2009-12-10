@@ -80,11 +80,11 @@ foreach($files as $file) {
 			}		
 			echo "\n";
 		
-			if($recreateSymlinks) {
-				$filelib->getSymlinker()->deleteSymlink($file);
-				$filelib->getSymlinker()->createSymlink($file);
-			}
+		}
 		
+		if($recreateSymlinks) {
+			$filelib->getSymlinker()->deleteSymlink($file);
+			$filelib->getSymlinker()->createSymlink($file);
 		}
 	}
 	
