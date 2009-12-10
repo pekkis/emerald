@@ -1,12 +1,12 @@
 <?php
 /**
- * Fileitem iterator extends ArrayIterator to implement toArray method.
+ * Filelib item-iterator extends ArrayIterator to implement toArray method.
  * 
  * @package Emerald_Filelib
  * @author pekkis
  *
  */
-class Emerald_Filelib_FileItemIterator extends ArrayIterator
+abstract class Emerald_Filelib_ItemIterator extends ArrayIterator
 {
 
 	/**

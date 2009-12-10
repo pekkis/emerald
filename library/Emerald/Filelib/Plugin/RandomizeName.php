@@ -37,7 +37,7 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
 	}
 		
 	
-	public function beforeUpload(Emerald_FileObject $upload)
+	public function beforeUpload(Emerald_Filelib_FileUpload $upload)
 	{
 		$pinfo = pathinfo($upload->getOverrideFilename());
 		$newname = uniqid($this->getPrefix(), false);

@@ -15,10 +15,10 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 				$this->getBootstrap()->bootstrap($options['DbResource']);
 
 				$db = $this->getBootstrap()->getResource($options['DbResource']);
-				$handler = new Emerald_Filelib_Handler_Db();
+				$handler = new Emerald_Filelib_Backend_Db();
 				$handler->setDb($db);
 				
-				$this->_filelib->setHandler($handler);
+				$this->_filelib->setBackend($handler);
 												
 				// $options['Db'] = $this->getBootstrap()->getResource($options['DbResource']);
 

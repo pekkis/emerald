@@ -9,7 +9,7 @@
 class Emerald_Filelib
 {
 	/**
-	 * @var Emerald_Filelib_Handler_Interface Backend handler
+	 * @var Emerald_Filelib_Backend_Interface Backend handler
 	 */
 	private $_handler;
 		
@@ -81,29 +81,29 @@ class Emerald_Filelib
 	
 	
 	/**
-	 * Sets handler
+	 * Sets backend
 	 * 
-	 * @param Emerald_Filelib_Handler_Interface $handler 
+	 * @param Emerald_Filelib_Backend_Interface $handler 
 	 */
-	public function setHandler(Emerald_Filelib_Handler_Interface $handler)
+	public function setBackend(Emerald_Filelib_Backend_Interface $backend)
 	{
-		$handler->setFilelib($this);
-		$this->_handler = $handler;
+		$backend->setFilelib($this);
+		$this->_backend = $backend;
 	}
 		
 	
 	/**
-	 * Returns handler
+	 * Returns backend
 	 * 
-	 * @return Emerald_Filelib_Handler_Interface
+	 * @return Emerald_Filelib_Backend_Interface
 	 */
-	public function getHandler()
+	public function getBackend()
 	{
-		if(!$this->_handler) {
-			throw new Emerald_Filelib_Exception('Filelib handler not set');
+		if(!$this->_backend) {
+			throw new Emerald_Filelib_Exception('Filelib backend not set');
 		}
 		
-		return $this->_handler;
+		return $this->_backend;
 	}
 
 	
@@ -424,7 +424,7 @@ class Emerald_Filelib
 	 */
 	public function findFile($id)
 	{
-		$file = $this->getHandler()->findFile($id);
+		$file = $this->getBackend()->findFile($id);
 		$file->setFilelib($this);
 		return $file;
 		
@@ -437,7 +437,7 @@ class Emerald_Filelib
 	 */
 	public function findAllFiles()
 	{
-		$items = $this->getHandler()->findAllFiles();
+		$items = $this->getBackend()->findAllFiles();
 		foreach($items as $item) {
 			$item->setFilelib($this);
 		}
@@ -454,7 +454,7 @@ class Emerald_Filelib
 	 */
 	public function findFolder($id)
 	{
-		$folder = $this->getHandler()->findFolder($id);
+		$folder = $this->getBackend()->findFolder($id);
 		$folder->setFilelib($this);
 		return $folder;
 	}
@@ -466,7 +466,7 @@ class Emerald_Filelib
 	 */
 	public function findFilesIn(Emerald_Filelib_FolderItem $folder)
 	{
-		$items = $this->getHandler()->findFilesIn($folder);
+		$items = $this->getBackend()->findFilesIn($folder);
 		foreach($items as $item) {
 			$item->setFilelib($this);
 		}
@@ -494,11 +494,11 @@ class Emerald_Filelib
 	 * Gets a new upload
 	 * 
 	 * @param string $path Path to upload file
-	 * @return Emerald_FileObject
+	 * @return Emerald_Filelib_FileUpload
 	 */
 	public function getUpload($path)
 	{
-		$upload = new Emerald_FileObject($path);
+		$upload = new Emerald_Filelib_FileUpload($path);
 		$upload->setFilelib($this);
 		return $upload;		
 	}
@@ -514,7 +514,7 @@ class Emerald_Filelib
 	 */
 	public function upload($upload, $folder)
 	{
-		if(!$upload instanceof Emerald_FileObject) {
+		if(!$upload instanceof Emerald_Filelib_FileUpload) {
 			$upload = $this->getUpload($upload);
 		}
 		
@@ -530,7 +530,7 @@ class Emerald_Filelib
 			$upload = $plugin->beforeUpload($upload);
 		}					
 				
-		$file = $this->getHandler()->upload($upload, $folder);
+		$file = $this->getBackend()->upload($upload, $folder);
 		$file->setFilelib($this);
 
 		if(!$file) {
@@ -587,7 +587,7 @@ class Emerald_Filelib
 	{
 		try {
 
-			$this->getHandler()->deleteFile($file);
+			$this->getBackend()->deleteFile($file);
 			$this->getSymlinker()->deleteSymlink($file);
 						
 			$path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id; 

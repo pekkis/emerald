@@ -8,27 +8,47 @@
  */
 class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 {
+	
+	/**
+	 * @var Emerald_Filelib Filelib
+	 */
 	private $_filelib;
 	
+	/**
+	 * Sets filelib
+	 * 
+	 * @param Emerald_Filelib $filelib
+	 */
 	public function setFilelib(Emerald_Filelib $filelib)
 	{
 		$this->_filelib = $filelib;
 	}
 	
-	
+	/**
+	 * Returns filelib
+	 * 
+	 * @return Emerald_Filelib_Filelib
+	 */
 	public function getFilelib()
 	{
-		return $this->_filelib; 
+		return $this->_filelib;
 	}
 	
 	
+	/**
+	 * Returns files in folder
+	 * 
+	 * @return Emerald_Filelib_FileItemIterator
+	 */
 	public function findFiles()
 	{
 		return $this->getFilelib()->findFilesIn($this);
 	}
 		
 	/**
-	 * @return Emerald_Filelib_FolderItem
+	 * Returns parent folder
+	 * 
+	 * @return Emerald_Filelib_FolderItem|false
 	 */
 	public function findParent()
 	{

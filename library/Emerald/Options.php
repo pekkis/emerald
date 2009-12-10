@@ -1,6 +1,6 @@
 <?php
 /**
- * Unified object option setter. Follows Zend Framework 2.0 proposition.
+ * Unified object option setter. Somewhat follows Zend Framework 2.0 proposition.
  * 
  * @package Emerald_Options
  * @author pekkis
@@ -8,7 +8,6 @@
  */
 class Emerald_Options 
 { 
-    
 	
 	/**
 	 * Sets object options via compatible setters.

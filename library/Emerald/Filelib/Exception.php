@@ -6,5 +6,5 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Exception extends Emerald_Exception {}
+class Emerald_Filelib_Exception extends Zend_Exception {}
 ?>

@@ -35,7 +35,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 	}
 		
 	
-	public function beforeUpload(Emerald_FileObject $upload)
+	public function beforeUpload(Emerald_Filelib_FileUpload $upload)
 	{
 		return $upload;
 	}

@@ -34,10 +34,10 @@ interface Emerald_Filelib_Plugin_Interface
 	/**
 	 * Runs before upload
 	 * 
-	 * @param Emerald_FileObject $upload
-	 * @return Emerald_FileObject
+	 * @param Emerald_Filelib_FileUpload $upload
+	 * @return Emerald_Filelib_FileUpload
 	 */
-	public function beforeUpload(Emerald_FileObject $upload);
+	public function beforeUpload(Emerald_Filelib_FileUpload $upload);
 	
 	
 	/**
