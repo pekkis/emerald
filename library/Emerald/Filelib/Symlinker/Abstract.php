@@ -1,14 +1,14 @@
 <?php
 /**
- * Emerald filelib symlinker
+ * An abstract symlinker class with common methods implemented.
  * 
  * @package Emerald_Filelib
  * @author pekkis
  *
  */
-class Emerald_Filelib_Symlinker
+abstract class Emerald_Filelib_Symlinker_Abstract
 {
-
+	
 	/**
 	 * @var Emerald_Filelib Filelib
 	 */
@@ -32,35 +32,6 @@ class Emerald_Filelib_Symlinker
 	{
 		return $this->_filelib;
 	}
-	
-	
-	public function getLink(Emerald_Filelib_FileItem $file, $prefix = true)
-	{
-		
-		$folders = array();
-		$folders[] = $folder = $file->findFolder();
-		while($parent = $folder->findParent()) {
-			array_unshift($folders, $parent);
-		} 
-
-		$beautifurl = array();
-		
-		foreach($folders as $folder) {
-			$beautifurl[] = $folder->name;
-		}
-		
-		$beautifurl[] = $file->name;
-
-		$beautifurl = implode(DIRECTORY_SEPARATOR, $beautifurl);
-		
-		if($prefix) {
-			$beautifurl = $this->getFilelib()->getPublicRoot() . '/' . $beautifurl; 
-		}
-		
-		return $beautifurl;
-		
-	}
-	
 	
 	
 	/**
@@ -87,7 +58,7 @@ class Emerald_Filelib_Symlinker
 				// Relative linking requires some movin'n groovin.
 				$oldCwd = getcwd();
 				chdir($path);
-				symlink($this->getLinkSource($file, 1), $link);
+				symlink($this->getRelativePathTo($file, 1), $link);
 				chdir($oldCwd);
 				
 			} else {
@@ -111,7 +82,7 @@ class Emerald_Filelib_Symlinker
 	 * 
 	 * @param Emerald_Filelib_FileItem $file File item
 	 */
-	public function deleteSymlink($file)
+	public function deleteSymlink(Emerald_Filelib_FileItem $file)
 	{
 		$fl = $this->getFilelib();
 		
@@ -128,17 +99,16 @@ class Emerald_Filelib_Symlinker
 		
 		
 	}
-	
-	
+		
 	
 	/**
-	 * Returns relative link from 
+	 * Returns relative link from the public to private root
 	 * 
 	 * @param Emerald_Filelib_File $file File item
 	 * @param $levelsDown How many levels down from root
 	 * @return string
 	 */
-	public function getLinkSource(Emerald_Filelib_FileItem $file, $levelsDown = 0)
+	public function getRelativePathTo(Emerald_Filelib_FileItem $file, $levelsDown = 0)
 	{
 		$fl = $this->getFilelib();
 		

@@ -140,10 +140,21 @@ class Emerald_Filelib
 	public function getSymlinker()
 	{
 		if(!$this->_symlinker) {
-			$this->_symlinker = new Emerald_Filelib_Symlinker($this);
+			throw new Emerald_Filelib_Exception("Filelib must have a symlinker");
 		}
 		return $this->_symlinker;
 	}
+	
+	
+	public function setSymlinker($symlinker)
+	{
+		if(!$symlinker instanceof Emerald_Filelib_Interface) {
+			$symlinker = new $symlinker($this); 			
+		}
+		
+		$this->_symlinker = $symlinker;	
+	}
+	
 	
 	
 	/**

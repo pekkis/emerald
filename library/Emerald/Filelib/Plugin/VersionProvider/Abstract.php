@@ -41,12 +41,8 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	{
 		if($this->providesFor($file)) {
 			$fl = $this->getFilelib();
-			$link = $fl->getSymlinker()->getLink($file);
-			$pinfo = pathinfo($link);
-			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier();
-
 			
-			$link .= '.' . $this->getExtension();	
+			$link = $fl->getSymlinker()->getLinkVersion($file, $this, true);
 									
 			if(!is_link($link)) {
 
@@ -61,7 +57,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 					$oldCwd = getcwd();
 					chdir($path);
 					
-					$fp = dirname($this->getFilelib()->getSymlinker()->getLinkSource($file, 1));
+					$fp = dirname($this->getFilelib()->getSymlinker()->getRelativePathTo($file, 1));
 					$fp .= '/' . $this->getIdentifier() . '/' . $file->id;
 					
 					symlink($fp, $link);
@@ -80,13 +76,9 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	{
 		if($this->providesFor($file)) {
 			$fl = $this->getFilelib();
-			$link = $fl->getSymlinker()->getLink($file);
-			$pinfo = pathinfo($link);
-			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier();
-	
 			
-			$link .= '.' . $this->getExtension();	
-							
+			$link = $fl->getSymlinker()->getLinkVersion($file, $this, true);
+
 			if(is_link($link)) {
 				unlink($link);			
 			}
@@ -98,18 +90,11 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	public function getRenderPath(Emerald_Filelib_FileItem $file)
 	{
 		if($file->isAnonymous()) {
-
-			$fl = $this->getFilelib();
-			$link = $fl->getPublicDirectoryPrefix() . '/' . $fl->getSymlinker()->getLink($file, false);
-			$pinfo = pathinfo($link);
-			$link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $this->getIdentifier() . '.' . $this->getExtension();
-
+			$link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getFilelib()->getSymlinker()->getLinkVersion($file, $this, false);
 			return $link;
-			
 		} else {
 			$path = $file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id;	
 		}
-				
 		return $path;		
 	}
 	
