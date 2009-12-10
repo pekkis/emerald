@@ -111,13 +111,40 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	
 	public function createFolder(Emerald_Filelib_FolderItem $folder)
 	{
-		throw new Emerald_Filelib_Exception('Mock fail');
+		try {
+			$folderRow = $this->getFolderTable()->createRow($folder->toArray());
+			$folderRow->save();
+			
+			$folder->id = $folderRow->id;
+			return $folder;
+			
+		} catch(Exception $e) {
+			throw new Emerald_Filelib_Exception($e->getMessage());
+		}
+				
+				
 	}
 	
 	
 	public function deleteFolder(Emerald_Filelib_FolderItem $folder)
 	{
-		throw new Emerald_Filelib_Exception('Mock fail');
+		try {
+			
+			foreach($folder->findSubFolders() as $childFolder) {
+				$this->deleteFolder($childFolder);
+			}
+
+			foreach($folder->findFiles() as $file) {
+				$this->deleteFile($file);	
+			}
+			
+			$this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->id));
+			
+			
+		} catch(Exception $e) {
+			throw new Emerald_Filelib_Exception($e->getMessage());
+		}
+
 	}
 	
 	public function updateFolder(Emerald_Filelib_FolderItem $folder)
@@ -159,15 +186,25 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			$file->mimetype = $upload->getMimeType();
 			$file->size = $upload->getSize();
 			$file->name = $upload->getOverrideFilename();	
+			
 			$file->save();
-					
+			
+			$fileItem = new Emerald_Filelib_FileItem($file->toArray());
+			$fileItem->setFilelib($this->getFilelib());
+			
+			$fileItem->iisiurl = $file->iisiurl = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false);
+			
+			$file->save();
+			
 			$this->getDb()->commit();
 			
-			$file = new Emerald_Filelib_FileItem($file->toArray());
-			
-			return $file;
+			return $fileItem;
 		
 		} catch(Exception $e) {
+			
+			echo $e;
+			die();
+			
 			$this->getDb()->rollBack();
 			throw new Emerald_Filelib_Exception($e->getMessage());
 		}
@@ -182,6 +219,19 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		$item = new Emerald_Filelib_FolderItem($folderRow->toArray());
 		return $item;		
 	}
+
+	
+	public function findSubFolders(Emerald_Filelib_FolderItem $folder)
+	{
+		$folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->id));
+		
+		$folders = array();
+		foreach($folderRows as $folderRow) {
+			$folders[] = new Emerald_Filelib_FolderItem($folderRow->toArray());
+		}
+		return new Emerald_Filelib_FolderItemIterator($folders);
+	}
+	
 	
 	
 	public function findFile($id)

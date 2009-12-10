@@ -32,6 +32,14 @@ interface Emerald_Filelib_Backend_Interface
 	public function findFolder($id);
 	
 	/**
+	 * Finds subfolders of a folder
+	 * 
+	 * @param Emerald_Filelib_FolderItem $id
+	 * @return Emerald_Filelib_FolderItemIterator
+	 */
+	public function findSubFolders(Emerald_Filelib_FolderItem $folder);
+	
+	/**
 	 * Finds all files
 	 * 
 	 * @return Emerald_Filelib_FileItemIterator

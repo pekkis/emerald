@@ -27,7 +27,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 	/**
 	 * Returns filelib
 	 * 
-	 * @return Emerald_Filelib_Filelib
+	 * @return Emerald_Filelib Filelib
 	 */
 	public function getFilelib()
 	{
@@ -56,6 +56,16 @@ class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 			return $this->getFilelib()->findFolder($this->parent_id);	
 		}
 		return false;
+	}
+	
+	/**
+	 * Finds subfolders
+	 * 
+	 * @return Emerald_Filelib_FolderItemIterator
+	 */
+	public function findSubFolders()
+	{
+		return $this->getFilelib()->findSubFolders($this);
 	}
 	
 	

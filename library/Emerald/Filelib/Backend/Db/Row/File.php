@@ -1,35 +1,8 @@
 <?php
-class Emerald_Filelib_Backend_Db_Row_File extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resource_Interface
+class Emerald_Filelib_Backend_Db_Row_File extends Zend_Db_Table_Row_Abstract
 {
 	
 	private $_route;
-	
-	
-	public function getFilelib()
-	{
-		return Zend_Registry::get('Emerald_Filelib');
-	}
-	
-	
-	public function getResourceId()
-	{
-		return 'Emerald_Filelib_File_' . $this->id;
-	}
-	
-	
-	public function getPath()
-	{
-		$fl = $this->getFilelib();
-		return $fl->getRoot() . '/' .  $fl->getDirectoryId($this->id);
-	}
-	
-	
-	public function getPathname()
-	{
-		$fl = $this->getFilelib();
-		return $this->getPath() . '/' . $this->id;
-	}
-	
 	
 	public function getRoute($specified = false)
 	{

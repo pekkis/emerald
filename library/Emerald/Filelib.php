@@ -135,7 +135,7 @@ class Emerald_Filelib
 	/**
 	 * Returns symlinker
 	 * 
-	 * @return Emerald_Filelib_Symlinker
+	 * @return Emerald_Filelib_Symlinker_Interface
 	 */
 	public function getSymlinker()
 	{
@@ -146,13 +146,21 @@ class Emerald_Filelib
 	}
 	
 	
+	/**
+	 * Sets symlinker
+	 * 
+	 * @param Emerald_Filelib_Symlinker_Interface|string $symlinker
+	 * @return Emerald_Filelib Filelib
+	 */
 	public function setSymlinker($symlinker)
 	{
 		if(!$symlinker instanceof Emerald_Filelib_Interface) {
 			$symlinker = new $symlinker($this); 			
 		}
 		
-		$this->_symlinker = $symlinker;	
+		$this->_symlinker = $symlinker;
+		
+		return $this;
 	}
 	
 	
@@ -415,6 +423,32 @@ class Emerald_Filelib
 		return $this->_acl;
 	}
 	
+	
+	
+	public function createFolder(Emerald_Filelib_FolderItem $folder)
+	{
+		return $this->getBackend()->createFolder($folder);
+	}
+	
+	
+	public function deleteFolder(Emerald_Filelib_FolderItem $folder)
+	{
+		return $this->getBackend()->deleteFolder($folder);
+	}
+	
+	public function updateFolder(Emerald_Filelib_FolderItem $folder)
+	{
+		return $this->getBackend()->updateFolder($folder);
+	}
+	
+	
+	public function updateFile(Emerald_Filelib_FileItem $file)
+	{
+		return $this->getBackend()->updateFile($file);
+	}
+	
+	
+	
 		
 	/**
 	 * Finds a file
@@ -457,6 +491,21 @@ class Emerald_Filelib
 		$folder = $this->getBackend()->findFolder($id);
 		$folder->setFilelib($this);
 		return $folder;
+	}
+	
+	/**
+	 * Finds subfolders
+	 * 
+	 * @param Emerald_Fildlib_FolderItem $folder Folder
+	 * @return Emerald_Filelib_FolderItemIterator
+	 */
+	public function findSubFolders(Emerald_Filelib_FolderItem $folder)
+	{
+		$folders = $this->getBackend()->findSubFolders($folder);
+		foreach($folders as $folder) {
+			$folder->setFilelib($this);
+		}
+		return $folders;
 	}
 
 	
@@ -589,7 +638,14 @@ class Emerald_Filelib
 
 			$this->getBackend()->deleteFile($file);
 			$this->getSymlinker()->deleteSymlink($file);
-						
+
+			foreach($this->getPlugins() as $plugin) {
+				if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_Interface && $plugin->providesFor($file)) {
+					$plugin->deleteVersion($file);					
+				}
+			}
+			
+			
 			$path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id; 
 							
 			$fileObj = new SplFileObject($path);

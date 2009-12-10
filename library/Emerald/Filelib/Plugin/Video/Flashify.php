@@ -1,4 +1,12 @@
 <?php
+/**
+ * Prototype test plugin for video versioning
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ * @todo Abstract to generic ffmpeg plugin
+ *
+ */
 class Emerald_Filelib_Plugin_Video_Flashify
 extends Emerald_Filelib_Plugin_VersionProvider_Abstract
 {

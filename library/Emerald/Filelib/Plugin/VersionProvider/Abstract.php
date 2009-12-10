@@ -34,8 +34,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 			$this->createVersion($file);
 		}
 	}
-	
-	
+		
 	
 	public function createSymlink(Emerald_Filelib_FileItem $file)
 	{
@@ -71,6 +70,14 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 			}
 		}
 	}
+	
+	
+	public function deleteVersion(Emerald_Filelib_FileItem $file)
+	{
+		$path = $file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id;
+		unlink($path);
+	}
+	
 	
 	public function deleteSymlink(Emerald_Filelib_FileItem $file)
 	{
