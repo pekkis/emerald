@@ -56,7 +56,10 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 					$oldCwd = getcwd();
 					chdir($path);
 					
-					$fp = dirname($this->getFilelib()->getSymlinker()->getRelativePathTo($file, 1));
+					$path2 = substr($path, strlen($fl->getPublicRoot()) + 1);
+					$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
+										
+					$fp = dirname($this->getFilelib()->getSymlinker()->getRelativePathTo($file, $depth));
 					$fp .= '/' . $this->getIdentifier() . '/' . $file->id;
 					
 					symlink($fp, $link);

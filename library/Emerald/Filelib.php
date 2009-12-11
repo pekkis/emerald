@@ -392,9 +392,6 @@ class Emerald_Filelib
 	{
 		return $this->_publicRoot;
 	}
-		
-	
-	
 
 
 	/**
@@ -425,30 +422,51 @@ class Emerald_Filelib
 	
 	
 	
+	
+	/**
+	 * Creates a folder
+	 * 
+	 * @param Emerald_Filelib_FolderItem $folder
+	 * @return unknown_type
+	 */
 	public function createFolder(Emerald_Filelib_FolderItem $folder)
 	{
 		return $this->getBackend()->createFolder($folder);
 	}
 	
 	
+	/**
+	 * Deletes a folder
+	 * 
+	 * @param Emerald_Filelib_FolderItem $folder Folder
+	 */
 	public function deleteFolder(Emerald_Filelib_FolderItem $folder)
 	{
 		return $this->getBackend()->deleteFolder($folder);
 	}
 	
+	/**
+	 * Updates a folder
+	 * 
+	 * @param Emerald_Filelib_FolderItem $folder Folder
+	 */
 	public function updateFolder(Emerald_Filelib_FolderItem $folder)
 	{
 		return $this->getBackend()->updateFolder($folder);
 	}
 	
 	
+	/**
+	 * Updates a file
+	 * 
+	 * @param Emerald_Filelib_FileItem $file
+	 * @return unknown_type
+	 */
 	public function updateFile(Emerald_Filelib_FileItem $file)
 	{
 		return $this->getBackend()->updateFile($file);
 	}
-	
-	
-	
+		
 		
 	/**
 	 * Finds a file
@@ -522,8 +540,6 @@ class Emerald_Filelib
 		
 		return $items;
 	}
-	
-	
 	
 	
 	/**
@@ -660,19 +676,8 @@ class Emerald_Filelib
 			return true;
 			
 		} catch(Exception $e) {
-
-			echo $e;
-			
-			return true;
-			
-			// $this->getDb()->rollBack();
-			throw $e;
+			throw new Emerald_Filelib_Exception($e->getMessage());
 		}
-		
-		
-		return true;
-		
-		
 		
 	}
 	
@@ -685,7 +690,7 @@ class Emerald_Filelib
 	 */
 	public function getFileType(Emerald_Filelib_FileItem $file)
 	{
-		// Mock until mimetype database is pooped in.
+		// @todo Semi-mock until mimetype database is pooped in.
 		$split = explode('/', $file->mimetype);
 		return $split[0];
 	}

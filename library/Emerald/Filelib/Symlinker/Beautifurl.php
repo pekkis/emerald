@@ -24,29 +24,36 @@ implements Emerald_Filelib_Symlinker_Interface
 	}
 	
 	
-	public function getLink(Emerald_Filelib_FileItem $file, $prefix = true)
+	public function getLink(Emerald_Filelib_FileItem $file, $prefix = true, $force = false)
 	{
-		$folders = array();
-		$folders[] = $folder = $file->findFolder();
-		while($parent = $folder->findParent()) {
-			array_unshift($folders, $parent);
-		} 
-
-		$beautifurl = array();
-		
-		foreach($folders as $folder) {
-			$beautifurl[] = $folder->name;
+		if($force || !isset($file->link)) {
+			
+			$folders = array();
+			$folders[] = $folder = $file->findFolder();
+			
+			while($folder = $folder->findParent()) {
+				array_unshift($folders, $folder);
+			} 
+	
+			$beautifurl = array();
+			
+			foreach($folders as $folder) {
+				$beautifurl[] = $folder->name;
+			}
+			
+			$beautifurl[] = $file->name;
+	
+			$beautifurl = implode(DIRECTORY_SEPARATOR, $beautifurl);
+			
+			$file->link = $beautifurl;
+			
 		}
-		
-		$beautifurl[] = $file->name;
-
-		$beautifurl = implode(DIRECTORY_SEPARATOR, $beautifurl);
-		
+				
 		if($prefix) {
-			$beautifurl = $this->getFilelib()->getPublicRoot() . '/' . $beautifurl; 
+			return $this->getFilelib()->getPublicRoot() . '/' . $file->link; 
 		}
 		
-		return $beautifurl;
+		return $file->link;
 		
 	}
 	

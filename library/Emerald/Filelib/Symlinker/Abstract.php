@@ -43,7 +43,7 @@ abstract class Emerald_Filelib_Symlinker_Abstract
 	{
 		$fl = $this->getFilelib();
 		
-		$link = $this->getLink($file);
+		$link = $this->getLink($file, true, true);
 								
 		if(!is_link($link)) {
 			
@@ -55,12 +55,13 @@ abstract class Emerald_Filelib_Symlinker_Abstract
 			
 			if($fl->getRelativePathToRoot()) {
 				
+				$path2 = substr($path, strlen($fl->getPublicRoot()) + 1);
+				$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
 				// Relative linking requires some movin'n groovin.
 				$oldCwd = getcwd();
 				chdir($path);
-				symlink($this->getRelativePathTo($file, 1), $link);
+				symlink($this->getRelativePathTo($file, $depth), $link);
 				chdir($oldCwd);
-				
 			} else {
 				symlink($file->getPathname(), $link);
 			}

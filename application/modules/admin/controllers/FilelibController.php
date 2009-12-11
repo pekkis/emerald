@@ -341,17 +341,6 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			
-			
-			$folder = $fl->findFile(76);
-			$fl->deleteFile($folder);
-			
-			$folder = $fl->findFile(77);
-			$fl->deleteFile($folder);
-			
-			die();
-			
-			
-			
 			if($input->id) {
 				$activeFolder = $fl->findFolder($input->id);
 				if(!$activeFolder) {

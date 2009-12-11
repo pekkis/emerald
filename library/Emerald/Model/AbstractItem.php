@@ -51,6 +51,13 @@ abstract class Emerald_Model_AbstractItem
 	} 
 	
 	
+	public function __isset($key)
+	{
+		return array_key_exists($key, $this->_data);
+	}
+	
+	
+	
 	/**
 	 * Automatic getter returns a field if it exists.
 	 * 

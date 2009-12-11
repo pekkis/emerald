@@ -43,7 +43,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	/**
 	 * Returns filelib
 	 * 
-	 * @return Emerald_Filelib_Filelib
+	 * @return Emerald_Filelib Filelib
 	 */
 	public function getFilelib()
 	{
@@ -154,25 +154,47 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 				$folder->toArray(),
 				$this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->id)
 			);
-			
-			
+
 			foreach($folder->findSubFolders() as $subFolder) {
 				$this->updateFolder($subFolder);
 			}
 			
+			foreach($folder->findFiles() as $file) {
+				$this->updateFile($file);
+			}
 			
 		} catch(Exception $e) {
 			throw new Emerald_Filelib_Exception($e->getMessage());
 		}
-		
-		
-		throw new Emerald_Filelib_Exception('Mock fail');
+				
 	}
 	
 	
-	public function updateFile(Emerald_Filelib_FileItem $folder)
+	public function updateFile(Emerald_Filelib_FileItem $file)
 	{
-		throw new Emerald_Filelib_Exception('Mock fail');
+		try {
+						
+			$this->getFilelib()->getSymlinker()->deleteSymlink($file);
+
+			$fileRow = $this->getFileTable()->find($file->id)->current();
+			$fileRow->link = $file->getFilelib()->getSymlinker()->getLink($file, false, true); 
+
+			$this->getFileTable()->update(
+				$file->toArray(),
+				$this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->id)
+			);
+
+			$file->link = $fileRow->link;
+			$this->getFilelib()->getSymlinker()->createSymlink($file);
+			
+		} catch(Exception $e) {
+			
+			echo $e;
+			die();
+			
+			throw new Emerald_Filelib_Exception($e->getMessage());
+		}
+		
 	}
 	
 	
@@ -209,7 +231,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			$fileItem = new Emerald_Filelib_FileItem($file->toArray());
 			$fileItem->setFilelib($this->getFilelib());
 			
-			$fileItem->iisiurl = $file->iisiurl = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false);
+			$fileItem->link = $file->link = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false);
 			
 			$file->save();
 			
