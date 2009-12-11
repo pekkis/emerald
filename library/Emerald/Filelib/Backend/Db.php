@@ -149,6 +149,23 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	
 	public function updateFolder(Emerald_Filelib_FolderItem $folder)
 	{
+		try {
+			$this->getFolderTable()->update(
+				$folder->toArray(),
+				$this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->id)
+			);
+			
+			
+			foreach($folder->findSubFolders() as $subFolder) {
+				$this->updateFolder($subFolder);
+			}
+			
+			
+		} catch(Exception $e) {
+			throw new Emerald_Filelib_Exception($e->getMessage());
+		}
+		
+		
 		throw new Emerald_Filelib_Exception('Mock fail');
 	}
 	

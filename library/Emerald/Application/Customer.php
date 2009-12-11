@@ -33,7 +33,7 @@ class Emerald_Application_Customer
 	public function __construct($root)
 	{
 		$this->_root = $root;
-		$this->_config = new Zend_Config_Xml($this->_root . '/config.xml');
+		$this->_config = new Zend_Config_Ini($this->getRoot() . '/configs/application.ini');
         // $this->_db = Zend_Db::factory('PDO_MYSQL', $this->_config->db->toArray());
 	}
 	
@@ -52,7 +52,7 @@ class Emerald_Application_Customer
 	/**
      * Returns config
      *
-     * @return Zend_Config_Xml
+     * @return Zend_Config_Ini
      */
     public function getConfig()
     {
