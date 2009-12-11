@@ -19,11 +19,6 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 				// We just *need* 'em groups to use 'em. Go hacks!
 			}
 			
-			
-			
-			
-			
-			
 			$folder = Emerald_Model::Get('Filelib_Folder')->find($input->id)->current();
 
 			if(!$folder) {
@@ -341,6 +336,13 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			
+			
+			$folder = $fl->findRootFolder();
+
+			Zend_Debug::dump($folder->toArray());
+			
+			die();
+			
 			if($input->id) {
 				$activeFolder = $fl->findFolder($input->id);
 				if(!$activeFolder) {
@@ -355,7 +357,10 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 				$form->folder_id->setValue($activeFolder->id);
 				$this->view->form = $form;
 				
+			} else {
+				
 			}
+			
 			
 			
 			// $folder = new Filelib_Model_FolderIterator($fl, null);

@@ -495,6 +495,19 @@ class Emerald_Filelib
 		}
 		return $items;
 	}
+
+		
+	/**
+	 * Finds the root folder
+	 * 
+	 * @return Emerald_Filelib_FolderItem
+	 */
+	public function findRootFolder()
+	{
+		$folder = $this->getBackend()->findRootFolder();
+		$folder->setFilelib($this);
+		return $folder;
+	}
 	
 	
 	

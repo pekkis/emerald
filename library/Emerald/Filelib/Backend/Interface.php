@@ -114,4 +114,13 @@ interface Emerald_Filelib_Backend_Interface
 	 */
 	public function updateFile(Emerald_Filelib_FileItem $file);
 	
+	
+			
+	/**
+	 * Finds the root folder
+	 * 
+	 * @return Emerald_Filelib_FolderItem
+	 */
+	public function findRootFolder();
+	
 }

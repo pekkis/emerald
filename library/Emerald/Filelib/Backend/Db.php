@@ -260,6 +260,15 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	}
 
 	
+	public function findRootFolder()
+	{
+		$folderRow = $this->getFolderTable()->fetchRow(array('parent_id IS NULL'));
+		$item = new Emerald_Filelib_FolderItem($folderRow->toArray());
+		return $item;
+	}
+	
+	
+	
 	public function findSubFolders(Emerald_Filelib_FolderItem $folder)
 	{
 		$folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->id));
