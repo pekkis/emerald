@@ -52,7 +52,7 @@ CREATE TABLE `filelib_file` (
   `mimetype` varchar(255) NOT NULL,
   `size` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `iisiurl` text NOT NULL,
+  `link` varchar(1000) DEFAULT NULL,
   `path` varchar(255) NOT NULL,
   `created` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `filelib_file` (
   KEY `folder_id` (`folder_id`),
   KEY `mimetype` (`mimetype`),
   CONSTRAINT `filelib_file_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `filelib_folder` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `filelib_file` (
 
 LOCK TABLES `filelib_file` WRITE;
 /*!40000 ALTER TABLE `filelib_file` DISABLE KEYS */;
-INSERT INTO `filelib_file` VALUES (3,1,'image/gif',70038,'dp4_layout_03.gif','folder/dp4_layout_03.gif','[1]',NULL,NULL),(5,1,'image/jpeg',53626,'xoo4b10f197a0420.jpg','folder/xoo4b10f197a0420.jpg','[1]',NULL,NULL),(6,1,'image/jpeg',53626,'xoo4b10f1ab2940c.jpg','folder/xoo4b10f1ab2940c.jpg','[1]',NULL,NULL);
+INSERT INTO `filelib_file` VALUES (20,4,'image/jpeg',29806,'img01.jpg','layout/img01.jpg','',NULL,NULL);
 /*!40000 ALTER TABLE `filelib_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +116,7 @@ CREATE TABLE `filelib_folder` (
   UNIQUE KEY `parent_id_name` (`parent_id`,`name`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `filelib_folder_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `filelib_folder` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +125,7 @@ CREATE TABLE `filelib_folder` (
 
 LOCK TABLES `filelib_folder` WRITE;
 /*!40000 ALTER TABLE `filelib_folder` DISABLE KEYS */;
-INSERT INTO `filelib_folder` VALUES (1,NULL,'folder',NULL,NULL);
+INSERT INTO `filelib_folder` VALUES (1,NULL,'root',NULL,NULL),(4,1,'layout',NULL,NULL);
 /*!40000 ALTER TABLE `filelib_folder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +290,7 @@ CREATE TABLE `htmlcontent` (
 
 LOCK TABLES `htmlcontent` WRITE;
 /*!40000 ALTER TABLE `htmlcontent` DISABLE KEYS */;
-INSERT INTO `htmlcontent` VALUES (2,2,'<p>Kraa!</p>','2009-12-07 18:48:39',NULL,NULL,NULL);
+INSERT INTO `htmlcontent` VALUES (2,2,'<p>Kraa! Pekkis roxors</p>','2009-12-07 18:48:39',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `htmlcontent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,7 +403,7 @@ CREATE TABLE `news_channel` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `page_id` (`page_id`),
   CONSTRAINT `news_channel_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,6 +412,7 @@ CREATE TABLE `news_channel` (
 
 LOCK TABLES `news_channel` WRITE;
 /*!40000 ALTER TABLE `news_channel` DISABLE KEYS */;
+INSERT INTO `news_channel` VALUES (1,3,10,'shard/news/channel/default_link_readmore',1,12,'shard/news/channel/default_title',NULL,NULL,NULL,NULL,NULL,NULL,60,NULL,NULL,'0000-00-00 00:00:00',NULL,8,NULL,1);
 /*!40000 ALTER TABLE `news_channel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -718,10 +719,6 @@ INSERT INTO `user_ugroup` VALUES (1,1),(8,2);
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'emerald_demo'
---
-
---
 -- Final view structure for view `sitemap`
 --
 
@@ -749,4 +746,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-12-07 21:56:29
+-- Dump completed on 2009-12-13 19:54:58
