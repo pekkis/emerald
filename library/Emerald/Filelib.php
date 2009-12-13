@@ -154,7 +154,7 @@ class Emerald_Filelib
 	 */
 	public function setSymlinker($symlinker)
 	{
-		if(!$symlinker instanceof Emerald_Filelib_Interface) {
+		if(!$symlinker instanceof Emerald_Filelib_Symlinker_Interface) {
 			$symlinker = new $symlinker($this); 			
 		}
 		
@@ -211,6 +211,24 @@ class Emerald_Filelib
 
 		return $this;
 	}
+	
+	
+	/**
+	 * Returns versions of the specified file
+	 * 
+	 * @param Emerald_Filelib_FileItem|string $fileType File item or file type
+	 * @return array Array of provided versions
+	 */
+	public function getFileVersions($fileType)
+	{
+		if($fileType instanceof Emerald_Filelib_FileItem) {
+			$fileType = $fileType->getType();
+		}
+		
+		return array_keys($this->_fileVersions[$fileType]);
+				
+	}
+	
 	
 	
 	/**

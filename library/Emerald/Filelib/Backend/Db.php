@@ -231,7 +231,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			$fileItem = new Emerald_Filelib_FileItem($file->toArray());
 			$fileItem->setFilelib($this->getFilelib());
 			
-			$fileItem->link = $file->link = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false);
+			$fileItem->link = $file->link = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false, true);
 			
 			$file->save();
 			

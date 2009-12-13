@@ -193,57 +193,28 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 	
 	
 	
-	public function createfolderAction()
+	public function createFolderAction()
 	{
+		$folderForm = new Admin_Form_CreateFolder();
+
+		$fl = Zend_Registry::get('Emerald_Filelib');
 		
-		
-		$filters = array();
-		$validators = array(
-			'parent_id' => array('Int', 'presence' => 'optional', 'default_value' => null),
-			'name' => array('Alnum', new Zend_Validate_StringLength(3, 15))			
+		if($folderForm->isValid($this->getRequest()->getParams())) {
+
+			$folderItem = new Emerald_Filelib_FolderItem($folderForm->getValues());
 			
-		);
-		
-		
-		try {
+			$fl->createFolder($folderItem);
 			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();
+			Zend_Debug::dump($folderForm->getValues());
+			
+			die('a ok');
+			
 						
-			$folderTbl = Emerald_Model::get('Filelib_Folder');
 			
-			$folderTbl->getAdapter()->beginTransaction();
-			
-			$folder = $folderTbl->createRow();
-									
-			$folder->name = $input->name;
-			$folder->parent_id = $input->parent_id;
-			
-			$folder->save();
-			
-			$permissionTbl = Emerald_Model::get('Permission_Filelib_FolderGroup');
-			$permission = $permissionTbl->createRow();
-			
-			$permission->folder_id = $folder->id;
-			$permission->ugroup_id = Emerald_Group::GROUP_ANONYMOUS;
-			$permission->permission = Emerald_Permission::READ;
-			$permission->save();
-			
-			$folderTbl->getAdapter()->commit();
-					
-			$message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Created folder');
-		} catch(Exception $e) {
-			
-			$folderTbl->getAdapter()->rollback();
-			
-			$message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Did not create folder');
-			$message->errorFields = array_keys($input->getMessages());
 		}
 		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
-		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-		$this->getResponse()->appendBody($message);
+	
+		die('fail');
 				
 	}
 	
@@ -335,13 +306,18 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 			$input->process();		
 
 			$fl = Zend_Registry::get('Emerald_Filelib');
-			
+			$this->view->fl = $fl;
 			
 			$folder = $fl->findRootFolder();
-
-			Zend_Debug::dump($folder->toArray());
+			$iter = new Emerald_Filelib_FolderItemIterator($folder);
 			
-			die();
+			$iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
+			
+			$this->view->iter = $iter;
+			
+			
+			
+			
 			
 			if($input->id) {
 				$activeFolder = $fl->findFolder($input->id);
@@ -352,6 +328,10 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 				$this->view->folder = $activeFolder;
 				$files = $activeFolder->findFiles();
 				$this->view->files = $files;
+
+				$folderForm = new Admin_Form_CreateFolder();
+				$folderForm->parent_id->setValue($activeFolder->id);
+				$this->view->folderForm = $folderForm;
 				
 				$form = new Admin_Form_FileUpload();
 				$form->folder_id->setValue($activeFolder->id);

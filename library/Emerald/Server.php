@@ -8,14 +8,6 @@
 class Emerald_Server
 {
 	
-	private $_name = 'Emerald';
-
-	/**
-	 * Emerald server version
-	 *
-	 * @var string
-	 */
-	private $_version = '3.0.0';
 	
 	/**
 	 * Emerald server root
@@ -62,6 +54,7 @@ class Emerald_Server
      */
     private function __construct($config)
     {
+    	$this->_config = $config;
     	
     	$this->_root = APPLICATION_PATH;
 		
@@ -121,34 +114,6 @@ class Emerald_Server
     public function getDb()
     {
     	return $this->_db;
-    }
-	
-    
-    public function getIdentifier($spec = 'full')
-    {
-    	
-    	switch($spec) {
-    		
-    		case 'full':
-    			$identifier = $this->_name . ';' . $this->_version;
-    			break;
-    			
-    		case 'name':
-    			$identifier = $this->_name;
-    			break;
-
-    	}
-    	
-    
-    	return $identifier;
-    	
-    	
-    }
-    
-    
-    public function getVersion()
-    {
-    	return $this->_version;
     }
     
     

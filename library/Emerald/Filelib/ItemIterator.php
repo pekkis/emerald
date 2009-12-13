@@ -9,6 +9,16 @@
 abstract class Emerald_Filelib_ItemIterator extends ArrayIterator
 {
 
+	public function __construct($array)
+	{
+		if(!is_array($array)) {
+			$array = array($array);
+		}
+		
+		parent::__construct($array);
+	}
+	
+	
 	/**
 	 * Returns the collection as array.
 	 * 

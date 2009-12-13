@@ -21,7 +21,7 @@ CREATE TABLE filelib_file
   mimetype varchar(255) NOT NULL,
   size integer default NULL,
   name varchar(255) NOT NULL,
-  iisiurl text NOT NULL,
+  link varchar(1000) NULL,
   path varchar(255) NOT NULL,
   created timestamp NULL,
   modified timestamp NULL,

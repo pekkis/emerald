@@ -12,15 +12,26 @@ abstract class Emerald_Filelib_Symlinker_Abstract
 	/**
 	 * @var Emerald_Filelib Filelib
 	 */
-	private $_filelib;
+	protected $_filelib;
 		
 	/**
-	 * @param Emerald_Filelib $filelib
+	 * @param array|Zend_Config $options
 	 */
-	public function __construct(Emerald_Filelib $filelib)
+	public function __construct($options = array())
+	{
+		Emerald_Options::setConstructorOptions($this, $options);
+	}
+
+	
+	/**
+	 * Sets filelib
+	 * 
+	 */
+	public function setFilelib(Emerald_Filelib $filelib)
 	{
 		$this->_filelib = $filelib;
 	}
+	
 	
 	
 	/**
@@ -69,6 +80,7 @@ abstract class Emerald_Filelib_Symlinker_Abstract
 			
 			
 		}
+		
 		
 		// Forward to all plugins
 		foreach($this->getFilelib()->getPlugins() as $plugin) {

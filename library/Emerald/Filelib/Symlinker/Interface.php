@@ -5,9 +5,9 @@ interface Emerald_Filelib_Symlinker_Interface
 	/**
 	 * Constructor eats filelib as parameter.
 	 * 
-	 * @param $filelib
+	 * @param Zend_Config|array $options
 	 */
-	public function __construct(Emerald_Filelib $filelib);
+	public function __construct($options);
 		
 	/**
 	 * Returns filelib

@@ -3,10 +3,12 @@ class Admin_IndexController extends Emerald_Controller_AdminAction
 {
 	public function indexAction()
 	{
-		if(Emerald_Server::getInstance()->getConfig()->dashboard->newsFeed) {
+		$config = Emerald_Server::getInstance()->getConfig();
+		
+		if(isset($config['dashboard']['newsFeed'])) {
 			
 			try {
-				$feed = Zend_Feed::import(Emerald_Server::getInstance()->getConfig()->dashboard->newsFeed);	
+				$feed = Zend_Feed::import($config['dashboard']['newsFeed']);	
 			} catch(Exception $e) {
 				$feed = null;
 			}

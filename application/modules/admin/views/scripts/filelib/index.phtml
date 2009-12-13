@@ -1,5 +1,58 @@
-<?php Zend_Debug::dump($this->folder->toArray()); ?>
+<ul>
+<?php $depth = 0; $first = true; ?>
 
-<?php Zend_Debug::dump($this->files->toArray()); ?>
+<?php foreach($this->iter as $folder): ?>
+
+	<?php if($first): ?>
+	<?php $first = false; ?>
+	<?php else: ?>
+	
+	<?php if($this->iter->getDepth() > $depth) echo '<ul>'; ?>
+	<?php if($this->iter->getDepth() < $depth) echo str_repeat('</li></ul>', $depth - $this->iter->getDepth()); ?>
+	<?php if($this->iter->getDepth() == $depth) echo '</li>'; ?>
+	
+	<?php endif; ?>
+		
+	<li>						
+	<?php if($this->folder && $this->folder->id == $folder->id): ?>
+	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
+	
+	<?php if($this->folder->parent_id != null): ?>
+	[ delete ]
+	<?php endif; ?>
+	
+	<?php else: ?>
+	<a href="/admin/filelib/index/id/<?php echo $folder->id; ?>"><?php echo $folder->name; ?></a>
+	<?php endif; ?>
+	
+	<?php $depth = $this->iter->getDepth(); ?>
+	
+	<?php endforeach; ?>
+	
+	<?php if($depth) echo str_repeat('</li></ul>', $depth); ?>
+	
+</ul>
+
+
+<?php if($this->files): ?>
+<ul>
+<?php foreach($this->files as $file): ?>
+<li>
+<a href="<?php echo $file->renderPath(); ?>"><?php echo $file->name; ?></a> [ Delete ]
+<br />
+Versions:
+<?php foreach($this->fl->getFileVersions($file) as $fv): ?>
+<a href="<?php echo $file->renderPath(array('version' => $fv)); ?>"><?php echo $fv; ?></a> 
+<?php endforeach; ?>
+
+</li>
+<?php endforeach; ?>
+</ul>
+
+<?php echo $this->folderForm; ?>
 
 <?php echo $this->form; ?>
+
+<?php endif; ?>
+
+

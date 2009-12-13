@@ -9,12 +9,25 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 		if(!$this->_filelib) {
 			
 			$options = $this->getOptions();
-			$this->_filelib = new Emerald_Filelib($options);
+				
 			
-			if(isset($options['DbResource'])) {
-				$this->getBootstrap()->bootstrap($options['DbResource']);
+			
+						
+			$symlinkerOptions = $options['symlinker'];
+			unset($options['symlinker']);
+				
+			$symlinker = new $symlinkerOptions['class']($symlinkerOptions['options']);
+			
+			$this->_filelib = new Emerald_Filelib($options);
 
-				$db = $this->getBootstrap()->getResource($options['DbResource']);
+			$symlinker->setFilelib($this->_filelib);
+			
+			$this->_filelib->setSymlinker($symlinker);
+			
+			if(isset($options['dbResource'])) {
+				$this->getBootstrap()->bootstrap($options['dbResource']);
+
+				$db = $this->getBootstrap()->getResource($options['dbResource']);
 				$handler = new Emerald_Filelib_Backend_Db();
 				$handler->setDb($db);
 				
@@ -22,7 +35,7 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 												
 				// $options['Db'] = $this->getBootstrap()->getResource($options['DbResource']);
 
-				unset($options['DbResource']);
+				unset($options['dbResource']);
 			}
 			
 		}
@@ -37,6 +50,8 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
      */
 	public function init()
 	{
+		
+		
 		$filelib = $this->getFilelib();
 
 		Zend_Registry::set('Emerald_Filelib', $filelib);
