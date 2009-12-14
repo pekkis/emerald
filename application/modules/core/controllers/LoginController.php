@@ -33,9 +33,9 @@ class Core_LoginController extends Emerald_Controller_Action
 			$loginTbl = Emerald_Model::get('LoginRedirect');
 			if($res = $loginTbl->find($input->page->id)->current()) {
 				$page = Emerald_Page::find($res->redirect_page_id);
-				$redirectUrl = $page->iisiurl; 				
+				$redirectUrl = $page->beautifurl; 				
 			} else {
-				$redirectUrl = $this->view->page->iisiurl;
+				$redirectUrl = $this->view->page->beautifurl;
 			}
 
 			$this->view->redirectUrl = $redirectUrl;

@@ -1,6 +1,8 @@
 <?php 
 // @todo: this in init head maybe?
-$this->jQuery()->enable();
+$this->jQuery()->enable()->uiEnable();
+$this->jQuery()->addJavascriptFile("/lib/emerald.js");
+
 $this->headLink()->appendStylesheet('/data/css/customer.css');
 ?>
 

@@ -4,7 +4,7 @@ class Admin_DevController extends Emerald_Controller_AdminAction
 
 	
 	
-	public function recreatefileiisiurlsAction()
+	public function recreatefilebeautifurlsAction()
 	{
 		
 		$fileTbl = Emerald_Model::get('Filelib_File');
@@ -27,7 +27,7 @@ class Admin_DevController extends Emerald_Controller_AdminAction
 	
 
 	
-	public function recreateiisiurlsAction()
+	public function recreatebeautifurlsAction()
 	{
 		$res = $this->_db->fetchCol("SELECT id FROM page");
 		foreach($res as $id) {
@@ -35,7 +35,7 @@ class Admin_DevController extends Emerald_Controller_AdminAction
 			$page = Emerald_Page::find($id);
 			// this is now done by magick(tm) ;)
 			/*
-			$page->iisiurl = $page->makeIisiUrl();
+			$page->beautifurl = $page->makebeautifurl();
 			
 			$route = $page->getRoute('id');
 			
@@ -53,7 +53,7 @@ class Admin_DevController extends Emerald_Controller_AdminAction
 		
 		
 		
-		die('recreated iisiurls');
+		die('recreated beautifurls');
 	}
 	
 	

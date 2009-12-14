@@ -17,7 +17,7 @@ $j(document).ready(function() {
 					});
 				} else {
 					
-					top.document.location = '/' + msg.redirect_iisiurl;
+					top.document.location = '/' + msg.redirect_beautifurl;
 					
 				}
 			}

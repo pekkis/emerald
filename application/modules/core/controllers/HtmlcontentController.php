@@ -25,17 +25,21 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$input->page->assertReadable($this->getCurrentUser());
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $input->page, 'read')) {
+				throw new Emerald_Acl_ForbiddenException('Forbidden');
+			}
 			
-			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
+			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $input->page, 'write');
 			$this->view->writable = $writable;
+
+			$htmlModel = new Core_Model_HtmlContent();
+			$htmlcontent = $htmlModel->find($input->page, $input->block_id);			
+
+			if(!$htmlcontent->content && $input->onEmpty) {
+				$htmlcontent->content = $input->onEmpty;
+			}
 						
-			$htmlcontentTbl = Emerald_Model::get('Htmlcontent');
-			$htmlcontent = $htmlcontentTbl->find($input->page->id, $input->block_id);
-											
-			$this->view->content = ($htmlcontent = $htmlcontent->current()) ? $htmlcontent->content : $input->onEmpty;
-			$this->view->block_id = $input->block_id;
-			$this->view->page = $input->page;		
+			$this->view->htmlcontent = $htmlcontent;
 			
 		} catch(Exception $e) {
 			
@@ -48,6 +52,89 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 		}
 		
 	}
+	
+	
+	
+	public function editAction()
+	{
+				
+		$filters = array(
+		);
+		
+		$validators = array(
+			'page_id' => array('Int', 'presence' => 'required'),
+			'block_id' => array('Int', 'presence' => 'required'),
+		);
+		
+		try {
+
+			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
+			
+			$htmlModel = new Core_Model_HtmlContent();
+			$htmlcontent = $htmlModel->find($input->page_id, $input->block_id);			
+			
+			$this->view->htmlcontent = $htmlcontent;
+			
+			$this->view->layout()->setLayout("admin-popup");
+
+			$form = new Core_Form_HtmlContent();
+			$form->setDefaults($htmlcontent->toArray());
+			
+			$this->view->form = $form;
+						
+			
+		} catch(Exception $e) {
+			throw new Emerald_Exception($e->getMessage(), 500);
+		}
+		
+	}
+	
+	
+	
+	public function saveAction()
+	{
+		
+		$filters = array(
+		);
+		
+		$validators = array(
+			'page_id' => array('Int', 'presence' => 'required'),
+			'block_id' => array('Int', 'presence' => 'required'),
+			'content' => array(new Zend_Validate_StringLength(0), 'allowEmpty' => true, 'presence' => 'optional'),
+		);
+		
+		try {
+
+			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
+						
+			$htmlcontentTbl = Emerald_Model::get('Htmlcontent');
+			$htmlcontent = $htmlcontentTbl->find($input->page_id, $input->block_id)->current();
+			
+			$page = $htmlcontent->getPage();
+			$page->assertWritable();
+						
+			$htmlcontent->content = $input->getUnescaped('content');
+			$htmlcontent->save();
+						
+			$message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			
+		} catch(Exception $e) {
+			$message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$message->errorFields = array_keys($input->getMessages()); 
+		}
+		
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender();
+		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
+		$this->getResponse()->appendBody($message);
+		
+		
+	}
+	
 	
 	
 	

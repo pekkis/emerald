@@ -1,10 +1,10 @@
 <?php
 /**
- * Iisiurl filter replaces page controllers view action calls with corresponding IisiUrls(tm).
+ * beautifurl filter replaces page controllers view action calls with corresponding beautifurls(tm).
  *
  * @todo: optimize, cache, conquer world.
  */
-class Emerald_Filter_Iisiurl implements Zend_Filter_Interface 
+class Emerald_Filter_Beautifurl implements Zend_Filter_Interface 
 {
 	
 	public function filter($value)
@@ -18,18 +18,18 @@ class Emerald_Filter_Iisiurl implements Zend_Filter_Interface
 		if(!$matches[0])
 			return $value;
 		
-		// We be fetching de iisiurls for replaces from de database
+		// We be fetching de beautifurls for replaces from de database
 		$imploded = implode(', ', $matches[1]);
-		$sql = "SELECT id, iisiurl FROM page WHERE id IN ({$imploded})";
+		$sql = "SELECT id, beautifurl FROM page WHERE id IN ({$imploded})";
 		$res = $db->fetchAll($sql);
-		$iisiUrls = array();
+		$beautifurls = array();
 		foreach($res as $row) {
-			$iisiUrls[$row->id] = $row->iisiurl;			
+			$beautifurls[$row->id] = $row->beautifurl;			
 		}
 
 		// We be doin' de replacin'
 		foreach($matches[0] as $key => $toReplace) {
-			$value = str_ireplace($toReplace, $iisiUrls[$matches[1][$key]], $value);
+			$value = str_ireplace($toReplace, $beautifurls[$matches[1][$key]], $value);
 		}
 
 		return $value;

@@ -1,21 +1,15 @@
 <?php
 class Emerald_Filter_PageIdToPage implements Zend_Filter_Interface 
 {
-	
-	/**
-	 * Does the actual langlib filtering
-	 *
-	 * @param string $value Original string
-	 * @return string Filtered string
-	 */
+
 	public function filter($value)
 	{
-		if($value instanceof Emerald_Page) {
+		if($value instanceof Core_Model_PageItem) {
 			return $value;
 		}
-		
-		
-		return Emerald_Page::find($value);
+
+		$pageModel = new Core_Model_Page();
+		return $pageModel->find($value);
 		
 	}
 	

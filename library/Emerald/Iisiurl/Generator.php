@@ -1,12 +1,12 @@
 <?php
 /**
- * Generates iisiurls for different languages.
+ * Generates beautifurls for different languages.
  * 
- * @package Emerald_Iisiurl
+ * @package Emerald_beautifurl
  * @author pekkis
  *
  */
-class Emerald_Iisiurl_Generator
+class Emerald_beautifurl_Generator
 {
 
 	
@@ -24,19 +24,19 @@ class Emerald_Iisiurl_Generator
 	 * Returns a generator for the specified language.
 	 *
 	 * @param string $language Language identifier.
-	 * @return Emerald_Iisiurl_Generator_Interface
+	 * @return Emerald_beautifurl_Generator_Interface
 	 */
 	public function getGenerator($language)
 	{
 		$language = ucfirst($language);
 		if(!isset($this->_generators[$language])) {
 			try {
-				$className = "Emerald_Iisiurl_Generator_{$language}";
+				$className = "Emerald_beautifurl_Generator_{$language}";
 								
 				@Zend_Loader::loadClass($className);
 				$this->_generators[$language] = new $className();
 			} catch(Zend_Exception $e) {
-				$this->_generators[$language] = new Emerald_Iisiurl_Generator_Default();
+				$this->_generators[$language] = new Emerald_beautifurl_Generator_Default();
 			}
 		}
 		
@@ -50,7 +50,7 @@ class Emerald_Iisiurl_Generator
     /**
      * Get singleton
      *
-     * @return Emerald_Iisiurl_Generator
+     * @return Emerald_beautifurl_Generator
      */
     public static function getInstance()
     {
@@ -64,9 +64,9 @@ class Emerald_Iisiurl_Generator
 	
 	
 	
-	public function generate($iisiurl, $language)
+	public function generate($beautifurl, $language)
 	{
-		return $this->getGenerator($language)->generate($iisiurl);
+		return $this->getGenerator($language)->generate($beautifurl);
 	}
 	
 	

@@ -24,7 +24,7 @@ class Admin_NewsitemController extends Emerald_Controller_AdminAction
 			
 			$item->delete();
 						
-			$this->getResponse()->setRedirect("/{$page->iisiurl}");
+			$this->getResponse()->setRedirect("/{$page->beautifurl}");
 			
 			
 			

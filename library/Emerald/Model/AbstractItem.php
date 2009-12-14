@@ -16,12 +16,20 @@ abstract class Emerald_Model_AbstractItem
 	protected $_data = array();
 	
 	/**
-	 * Constructor fills item with data if specified.
+	 * Constructor fills item with data if specified. If an object is given, toArray is called.
 	 * 
-	 * @param array $data
+	 * @param object|array $data
 	 */
-	public function __construct(array $data = array())
+	public function __construct($data)
 	{
+		if(is_object($data)) {
+			$data = $data->toArray();
+		}
+		
+		if(!is_array($data)) {
+			throw new Emerald_Model_Exception('Supplied data must be an array');
+		}
+		
 		foreach($data as $key => $value) {
 			$this->$key = $value;			
 		}

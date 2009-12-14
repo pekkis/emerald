@@ -10,7 +10,7 @@ class Emerald_Options_Locale extends Emerald_Options_Abstract
 	/**
 	 * Locale
 	 *
-	 * @var Emerald_Locale
+	 * @var Core_Model_LocaleItem
 	 */
 	private $_locale;
 
@@ -21,10 +21,10 @@ class Emerald_Options_Locale extends Emerald_Options_Abstract
 	 */
 	private $_optionTbl;
 	
-	public function __construct(Emerald_Db_Table_Row_Locale $locale)
+	public function __construct(Core_Model_LocaleItem $locale)
 	{
 		$this->_locale = $locale;
-		$this->_optionTbl = Emerald_Model::get('Locale_Option');
+		$this->_optionTbl = new Core_Model_DbTable_Locale_Option();
 	}
 		
 	protected function _get($key)

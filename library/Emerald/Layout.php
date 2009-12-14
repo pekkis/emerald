@@ -8,7 +8,7 @@ class Emerald_Layout
 	
 	private $_actionStack;
 	
-	public function __construct(Emerald_Page $page, Emerald_Controller_Action $action)
+	public function __construct(Core_Model_PageItem $page, Emerald_Controller_Action $action)
 	{
 		$this->_page = $page;
 		$this->_action = $action;
@@ -44,9 +44,14 @@ class Emerald_Layout
 		
 		try {
 			
-			if(!$page instanceof Emerald_Page) {
-				$page = Emerald_Page::find($page);
-				if(!$page) return; // prevents unneseccary template errors
+			if(!$page instanceof Core_Model_PageItem) {
+
+				$pageModel = new Core_Model_Page();
+				$page = $pageModel->find($page);
+				
+				// prevents unneseccary template errors
+				// @todo What is this?
+				if(!$page) return; 
 			}
 						
 			$requestParams = Zend_Controller_Front::getInstance()->getRequest()->getQuery();
@@ -55,7 +60,7 @@ class Emerald_Layout
 			$shard = Emerald_Shard::factory($identifier);
 			$action = (isset($params['a'])) ? $params['a'] : Emerald_Shard::getDefaultAction($shard);
 			$params['page'] = $page;
-												
+			
 			return $this->actionToStack(
 				$action, $shard, 'core', $params
 			);

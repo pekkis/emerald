@@ -167,7 +167,7 @@ class Core_FormcontentController extends Emerald_Controller_Action
 					$redirectPage = Emerald_Page::find($input->redirect_page_id);
 					
 					$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Mail sent ok');
-					$msg->redirect_iisiurl = $redirectPage->iisiurl;					
+					$msg->redirect_beautifurl = $redirectPage->beautifurl;					
 										
 					
 				} catch(Exception $e) {

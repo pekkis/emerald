@@ -26,7 +26,7 @@ class Core_MenuController extends Emerald_Controller_Action
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
 						
-			$active = $navi->findBy('uri', '/' . $page->iisiurl, false);
+			$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
 			if($active) {
 				$active->setActive(true);
 			}
@@ -61,7 +61,7 @@ class Core_MenuController extends Emerald_Controller_Action
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
 						
-			$active = $navi->findBy('uri', '/' . $page->iisiurl, false);
+			$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
 			if($active) {
 				$active->setActive(true);
 			}

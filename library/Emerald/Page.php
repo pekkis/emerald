@@ -61,6 +61,9 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	 */
 	static public function find($id)
 	{
+
+		throw new Exception('Emerald_Page::find');
+		
 		$res = Emerald_Model::get('DbTable_Page')->find($id);
 		if($row = $res->current())
 			return $row;		
@@ -68,10 +71,10 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	}
 	
 	
-	static public function findByIisiUrl($iisiUrl)
+	static public function findBybeautifurl($beautifurl)
 	{
 		$where = array(
-			'iisiurl = ?' => $iisiUrl 
+			'beautifurl = ?' => $beautifurl 
 		);
 		$res = Emerald_Model::get('DbTable_Page')->fetchAll($where);
 		return $res->current() ? $res->current() : false;
@@ -143,7 +146,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 			return $this->_route['title'];
 		} elseif($specified == 'link') {
 			return $this->_route['link'];
-		} elseif($specified == 'iisiurl') {
+		} elseif($specified == 'beautifurl') {
 			$route = $this->_route['title'];
 			array_unshift($route, $this->locale);
 			return $route;
@@ -154,14 +157,14 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	
 
 	
-	public function makeIisiUrl()
+	public function makebeautifurl()
 	{
-		$routeArr = $this->getRoute('iisiurl');
+		$routeArr = $this->getRoute('beautifurl');
 		
 		$locale = array_shift($routeArr);
 		
 		foreach($routeArr as &$route) {
-			$route = Emerald_Iisiurl_Generator::getInstance()->generate($route, $this->getLocale()->getLanguage()); 
+			$route = Emerald_beautifurl_Generator::getInstance()->generate($route, $this->getLocale()->getLanguage()); 
 		}
 		
 		array_unshift($routeArr, $locale);
@@ -175,7 +178,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	 */ 
 	protected function _insert()
 	{
-		$this->_generateIisiUrl();
+		$this->_generatebeautifurl();
 		return parent::_insert();
 	}
 	
@@ -184,7 +187,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	 */ 
 	protected function _update()
 	{
-		$this->_generateIisiUrl();
+		$this->_generatebeautifurl();
 		return parent::_update();
 	}
 	
@@ -198,7 +201,7 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 			$res = Emerald_Model::get('DbTable_Page')->fetchAll("path like '{$this->path};%'");
 			foreach($res as $page)
 			{
-				$page->_generateIisiUrl();
+				$page->_generatebeautifurl();
 				$page->save();
 			}
 			
@@ -207,13 +210,13 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	}
 	
 	/**
-	 * Sets all IisiUrl(tm) related fields
+	 * Sets all beautifurl(tm) related fields
 	 * 
 	 */ 
-	private function _generateIisiUrl()
+	private function _generatebeautifurl()
 	{
 		
-		$this->iisiurl = $this->makeIisiUrl();
+		$this->beautifurl = $this->makebeautifurl();
 		
 		$route = $this->getRoute('id');
 		
@@ -272,12 +275,6 @@ class Emerald_Page extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resour
 	}
 	
 	
-	public function getLayout($action)
-	{
-		require Zend_Registry::get('Emerald_Customer')->getRoot() . '/views/scripts/layouts/Default.php';				
-		$tpl = new Emerald_Layout_Default($this, $action);
-		return $tpl;
-	}
 	
 	
 }

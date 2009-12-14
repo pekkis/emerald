@@ -19,7 +19,7 @@ class Emerald_Sitemap
 	
 	// base query with a placeholder for joins and where
 	private static $_baseQuery = "
-	SELECT id, parent_id, order_id,locale,title,iisiurl,shard_id,created,modified,created_by,modified_by, status, visibility,
+	SELECT id, parent_id, order_id,locale,title,beautifurl,shard_id,created,modified,created_by,modified_by, status, visibility,
 	(SELECT COUNT(*) FROM page as y WHERE y.parent_id = x.id) AS 'child_cnt'
 	FROM page AS x %s WHERE %s GROUP BY id ORDER BY order_id ASC";
 	// Just a remainder : (SELECT GROUP_CONCAT(ugroup_id,':',permission) FROM permission_page_ugroup WHERE page_id = id AND) AS group_permission

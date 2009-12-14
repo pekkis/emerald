@@ -3,7 +3,7 @@
 <div class="item <?php if(!$item->isValid()): ?> newsItemInvalid <?php endif; ?>">
 
 	<h3>
-		<a href="/<?php echo $this->page->iisiurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
+		<a href="/<?php echo $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
 			<?php echo $item->title; ?> &raquo;
 		</a>
 	</h3>

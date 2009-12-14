@@ -60,7 +60,7 @@ class Core_Model_Navigation
 			// recurse
 			$page = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => '/' . $pageRow->iisiurl,
+					'uri' => '/' . $pageRow->beautifurl,
 					'label' => $pageRow->title,
 				)
 			);
@@ -82,7 +82,7 @@ class Core_Model_Navigation
 			// recurse
 			$page = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => '/' . $pageRow->iisiurl,
+					'uri' => '/' . $pageRow->beautifurl,
 					'label' => $pageRow->title,
 				)
 			);

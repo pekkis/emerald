@@ -1,9 +1,15 @@
 <?php
+/**
+ * Emerald controller action
+ * 
+ * @package Emerald_Controller
+ * @author pekkis
+ *
+ */
 class Emerald_Controller_Action extends Zend_Controller_Action
 {
 	private static $_added = 0;	
-	
-	
+		
 	public function getCustomer()
 	{
 		return $this->getInvokeArg('bootstrap')->getResource('customer');
@@ -49,6 +55,15 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	}
 	
 	
+	/**
+	 * Returns ACL
+	 * 
+	 * @return Zend_Acl
+	 */
+	public function getAcl()
+	{
+		return $this->getInvokeArg('bootstrap')->getResource('acl');
+	}
 	
 	
 }

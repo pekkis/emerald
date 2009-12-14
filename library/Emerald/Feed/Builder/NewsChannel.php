@@ -42,7 +42,7 @@ class Emerald_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interface
 		
 		foreach($this->_channel->getItems() as $item)
 		{
-			$link = 'http://' . $request->getServer('HTTP_HOST') . '/' . $page->iisiurl . '?a=view&amp;id=' . $item->id;
+			$link = 'http://' . $request->getServer('HTTP_HOST') . '/' . $page->beautifurl . '?a=view&amp;id=' . $item->id;
 			
 			
 			$entry = new Zend_Feed_Builder_Entry($item->title, $link, $item->description);

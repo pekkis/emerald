@@ -9,27 +9,32 @@ class Core_PageController extends Emerald_Controller_Action
 		$filters = array();
 		$validators = array(
 			'id' => array(new Zend_Validate_Int()),
-			'iisiurl' => array(new Zend_Validate_Regex('(([a-z]{2,3}(_[A-Z]{2})?)/(.*?))')),
+			'beautifurl' => array(new Zend_Validate_Regex('(([a-z]{2,3}(_[A-Z]{2})?)/(.*?))')),
 			'forward' => array(new Zend_Validate_InArray(array(0,1)), 'presence' => 'optional', 'default' => 0) 
 		);
 		
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			if($iisiUrl = $input->iisiurl) {
-				$page = Emerald_Page::findByIisiUrl(urldecode($iisiUrl));
+			
+			$pageModel = new Core_Model_Page();
+						
+			if($beautifurl = $input->beautifurl) {
+				$page = $pageModel->findByBeautifurl($beautifurl);
 			} elseif($id = $input->id) {
-				$page = Emerald_Page::find($id);
+				$page = $pageModel->find($id);
 			} else {
-				throw new Emerald_Exception('Falseful page identifier!');
+				throw new Emerald_Exception('Page not found');
 			}
 					
 			if($page) {
 				
-				$readable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'read');
+				$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
 								
 				if(!$readable) {
 
+					die('not readable');
+					
 					// throw new Emerald_Exception('Forbidden', 401);		
 					
 					// We don't want infinite page forwarding poop de loops, just one forward.
@@ -45,7 +50,7 @@ class Core_PageController extends Emerald_Controller_Action
 						);
 						if($loginPage) {
 							$this->getResponse()->setHttpResponseCode(401);
-							$this->_forward('view', null, null, array('forward' => 1, 'id' => $loginPage->id, 'iisiurl' => $loginPage->iisiurl));
+							$this->_forward('view', null, null, array('forward' => 1, 'id' => $loginPage->id, 'beautifurl' => $loginPage->beautifurl));
 							return;
 						}
 						
@@ -55,8 +60,9 @@ class Core_PageController extends Emerald_Controller_Action
 					throw new Emerald_Exception('Forbidden', 401);				
 				}
 				
-				$localeTbl = Emerald_Model::get('DbTable_Locale');
-				$locale = $localeTbl->find($page->getLocale()->toString())->current();
+				
+				$locale = $page->getLocaleItem();
+				
 				$this->view->pageLocaleObj = $locale;
 
 				$this->view->headTitle()->setSeparator(' - ');
@@ -69,13 +75,13 @@ class Core_PageController extends Emerald_Controller_Action
 				
 				$naviModel = new Core_Model_Navigation();
 				$navi = $naviModel->getNavigation();
-
-				
-			
 					
-				$tpl = $page->getLayout($this);
+				$tpl = $page->getLayoutObject($this);
 
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
+				
+				$this->getHelper('viewRenderer')->setNoRender();
+				
 				
 			} else {
 				throw new Emerald_Exception('Page not found', 404);			

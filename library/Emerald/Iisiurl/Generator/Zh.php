@@ -1,10 +1,10 @@
 <?php
-class Emerald_Iisiurl_Generator_Zh implements Emerald_Iisiurl_Generator_Interface
+class Emerald_beautifurl_Generator_Zh implements Emerald_beautifurl_Generator_Interface
 {
 
-	public function generate($iisiurl)
+	public function generate($beautifurl)
 	{
-		return $iisiurl;
+		return $beautifurl;
 	}
 		
 }

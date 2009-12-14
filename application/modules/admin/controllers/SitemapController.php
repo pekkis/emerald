@@ -882,7 +882,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		foreach($branch as $node) {
 			
 			$title = str_repeat(" - ",$this->_level).$node->title;
-			$target = "/page/view/id/{$node->id}";//$node->iisiurl;
+			$target = "/page/view/id/{$node->id}";//$node->beautifurl;
 			$output[] = "['$title','$target']";
 			$output = array_merge($output, $this->_renderTinyMCEList($node->id, $sitemap));
 			

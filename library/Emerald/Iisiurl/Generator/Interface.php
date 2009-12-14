@@ -1,10 +1,10 @@
 <?php
-interface Emerald_Iisiurl_Generator_Interface
+interface Emerald_beautifurl_Generator_Interface
 {
 	/**
-	 * Generates an iisiurl from a string
+	 * Generates an beautifurl from a string
 	 *
-	 * @param string $iisiurl String to be iisiurlified.
+	 * @param string $beautifurl String to be beautifurlified.
 	 */
-	public function generate($iisiurl);
+	public function generate($beautifurl);
 }
