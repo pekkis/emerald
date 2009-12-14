@@ -1,0 +1,40 @@
+<?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				
+		<?php
+		$this->jQuery()->enable()->uiEnable();
+		$this->jQuery()->addJavascriptFile("/lib/emerald.js");
+		
+		$this->headLink()->prependStylesheet('/lib/css/admin/emerald_popup.css');
+		?>
+		
+		
+		<?php echo $this->headLink(); ?>
+		<?php echo $this->jQuery(); ?>
+		<?php echo $this->headScript(); ?>
+		
+		<title>emerald CMS</title>
+	</head>
+
+	<body id="popup">
+		
+		<div id="loading" style="display: none;">
+			<img src="/lib/gfx/ajax-loader.gif" class="Emerald_Icon" />
+		</div>
+		
+		
+		<div id="pageContainer">
+			<div id="pageTopp">
+			<!-- Sumptin smaller here, dis be bopub... -->
+			</div>
+			<div id="pageContent">
+				<?php echo $this->layout()->content; ?>
+			</div>
+			
+			
+		</div>		
+	</body>
+</html>
