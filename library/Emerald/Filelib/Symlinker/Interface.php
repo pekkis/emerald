@@ -7,7 +7,7 @@ interface Emerald_Filelib_Symlinker_Interface
 	 * 
 	 * @param Zend_Config|array $options
 	 */
-	public function __construct($options);
+	public function __construct($options = array());
 		
 	/**
 	 * Returns filelib

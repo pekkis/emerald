@@ -52,7 +52,7 @@ class Emerald_View_Helper_File extends Zend_View_Helper_Abstract
 		}
 		
 		if($file->isAnonymous()) {
-			return $file->renderPath();
+			return $file->renderPath($options);
 		} else {
 			return $this->view->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id));	
 		}
