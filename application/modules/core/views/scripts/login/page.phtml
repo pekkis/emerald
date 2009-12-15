@@ -1,6 +1,6 @@
 <?php if($this->writable): ?>
 <div class="adminControl">
-<a id="htmlcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/login/edit/page_id/<?php echo $this->page->id; ?>"><?php echo $this->translate('shard/formcontent/edit'); ?></a>
+<a id="htmlcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/login/edit/page_id/<?php echo $this->page->id; ?>"><?php echo $this->translate('Edit form'); ?></a>
 </div>
 <?php endif; ?>
 
@@ -19,13 +19,13 @@
 <div id="messages">
 </div>
 
-<label for="foo"><?php echo $this->translate('common/email'); ?></label>		
+<label for="foo"><?php echo $this->translate('E-mail'); ?></label>		
 <input id="foo" name="foo" type="text" />
 
-<label for="bar"><?php echo $this->translate('common/password'); ?></label>
+<label for="bar"><?php echo $this->translate('Password'); ?></label>
 <input id="bar" name="bar" type="password" />
 		
-<button id="submiter" type="submit"><?php echo $this->translate('common/submit'); ?></button>
+<button id="submiter" type="submit"><?php echo $this->translate('Submit'); ?></button>
 				
 </form>
 </div>
@@ -35,7 +35,7 @@
 <?php else: ?>
 
 <p>
-<a href="/logout"><?php echo $this->translate('common/logout'); ?></a>
+<a href="/logout"><?php echo $this->translate('Log out'); ?></a>
 </p>
 
 <?php endif; ?>

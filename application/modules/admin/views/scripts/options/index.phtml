@@ -1,9 +1,9 @@
-<h1><?php echo $this->translate('admin/options/title'); ?></h1>
+<h1><?php echo $this->translate('Settings'); ?></h1>
 
 <div id="container-1">
 
 <ul>
-	<li class="ui-tabs-nav-item"><a href="#fragment-applicationOptions"><span><?php echo $this->translate('admin/options/application/title'); ?></span></a></li>
+	<li class="ui-tabs-nav-item"><a href="#fragment-applicationOptions"><span><?php echo $this->translate('Application'); ?></span></a></li>
 	<?php foreach($this->locales as $locale): ?>
 	
 	<?php $this->workLocale->setLocale($locale->locale); ?>
@@ -12,13 +12,13 @@
 	$localeName = $this->locale->getTranslation($this->workLocale->getLanguage(), 'language');
 	if($this->workLocale->getRegion()) $localeName .= ", " . $this->locale->getTranslation($this->workLocale->getRegion(), 'country');	
 	?>
-	<li class="ui-tabs-nav-item"><a href="#fragment-localeOptions-<?php print $locale->locale; ?>"><span><?php echo $this->translate('admin/options/locale/title_tab'); ?>: <?php print $localeName; ?></span></a></li>
+	<li class="ui-tabs-nav-item"><a href="#fragment-localeOptions-<?php print $locale->locale; ?>"><span><?php echo $this->translate('Locale'); ?>: <?php print $localeName; ?></span></a></li>
 	<?php endforeach; ?>
 </ul>
 
 <div id="fragment-applicationOptions">
 
-<h2 class="hidden"><?php echo $this->translate('admin/options/application/title'); ?></h2>
+<h2 class="hidden"><?php echo $this->translate('Application'); ?></h2>
 
 <form id="saveApplicationFrm" method="post" action="/admin/options/save-application">
 
@@ -27,7 +27,7 @@
 	<thead></thead>
 	<tbody>
 		<tr>
-			<th><label for="default_locale"><?php echo $this->translate('admin/options/application/default_locale'); ?></label></th>
+			<th><label for="default_locale"><?php echo $this->translate('Default language'); ?></label></th>
 			<td>
 				
 				
@@ -55,7 +55,7 @@
 		</tr>
 		
 		<tr>
-			<th><label for="google_analytics_id"><?php echo $this->translate('admin/options/application/google_analytics_id'); ?></label></th>
+			<th><label for="google_analytics_id"><?php echo $this->translate('Google Analytics key'); ?></label></th>
 			<td><?php echo $this->formText('google_analytics_id', $this->application->getOption('google_analytics_id')); ?></td>
 		</tr>
 				
@@ -63,7 +63,7 @@
 </table>
 
 <p>
-<button type="submit" class="submit niceButton"><?php echo $this->translate('common/save'); ?></button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('Save'); ?></button>
 </p>
 
 </form>
@@ -82,14 +82,14 @@
 	<thead></thead>
 	<tbody>
 		<tr>
-			<th><label for="title"><?php echo $this->translate('admin/options/locale/title_opt'); ?></label></th>
+			<th><label for="title"><?php echo $this->translate('Title (in browser title bar)'); ?></label></th>
 			<td><?php echo $this->formText('title', $locale->getOption('title')); ?></td>
 		</tr>
 	</tbody>
 </table>
 
 <p>
-<button type="submit" class="submit niceButton"><?php echo $this->translate('common/save'); ?></button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('Save'); ?></button>
 </p>
 
 </form>

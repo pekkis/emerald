@@ -1,17 +1,17 @@
-<h1><?php echo $this->translate('admin/locale/title'); ?></h1>
+<h1><?php echo $this->translate('Locales'); ?></h1>
 
 <p>
-<?php print $this->translate("admin/locale/locale_usage", count($this->selectedLocales), 99); ?>
+<?php print $this->translate("You are using %s of your %s allowed locales.", count($this->selectedLocales), 99); ?>
 </p>
 
 <p>
-<input id="showObscure" type="checkbox" /> <?php echo $this->translate('admin/locale/show_obscure_locale'); ?>
+<input id="showObscure" type="checkbox" /> <?php echo $this->translate('Show rare locales'); ?>
 </p>
 
 <form id="locales" method="post" action="/admin/locale/update">
 
 <p>
-<button type="submit" class="confirmable submit niceButton"><?php echo $this->translate('common/submit'); ?></button> <span class="message"></span>
+<button type="submit" class="confirmable submit niceButton"><?php echo $this->translate('Submit'); ?></button> <span class="message"></span>
 </p>
 
 <table>
@@ -64,7 +64,7 @@ $class = (in_array($availableLocale, $this->usualLocales) || in_array($available
 </table>
 
 <p>
-<button type="submit" class="confirmable submit niceButton"><?php echo $this->translate('common/submit'); ?></button> <span class="message"></span>
+<button type="submit" class="confirmable submit niceButton"><?php echo $this->translate('Submit'); ?></button> <span class="message"></span>
 </p>
 
 </form>

@@ -127,7 +127,7 @@ class Core_LoginController extends Emerald_Controller_Action
 			
 			if($result->isValid()) {
 				
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Zend_Registry::get('Zend_Translate')->translate('login/message/ok'));
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Zend_Registry::get('Zend_Translate')->translate('Login was successful.'));
 				
 				
 				$auth->getStorage()->write($adapter->getResultRowObject()->id);
@@ -138,14 +138,14 @@ class Core_LoginController extends Emerald_Controller_Action
 				
 				
 			} else {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, Zend_Registry::get('Zend_Translate')->translate('login/message/error_authentication_failed'));
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, Zend_Registry::get('Zend_Translate')->translate('User was not authenticated.'));
 			}
 			
 		} catch(Exception $e) {
 			if($input->hasMissing()) {
-				$msg = Zend_Registry::get('Zend_Translate')->translate('login/message/error_empty_fields');
+				$msg = Zend_Registry::get('Zend_Translate')->translate('Please fill all required fields.');
 			} elseif($input->hasInvalid()) {
-				$msg = Zend_Registry::get('Zend_Translate')->translate('login/message/error_invalid_fields');
+				$msg = Zend_Registry::get('Zend_Translate')->translate('Please check all required fields.');
 			} else {
 				$msg = 'login/error/unknown';
 			}

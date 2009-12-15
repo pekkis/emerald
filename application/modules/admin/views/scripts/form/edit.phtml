@@ -1,11 +1,11 @@
 <div id="formController">
 
-<h1><?php echo $this->translate('admin/form/title/edit'); ?></h1>
+<h1><?php echo $this->translate('Form :: edit'); ?></h1>
 
 <form id="createField" method="post" action="/admin/form/createField/id/<?php echo $this->form->id; ?>">
 
 <fieldset>
-	<legend><?php echo $this->translate('admin/form/legend/create_new_field'); ?></legend>
+	<legend><?php echo $this->translate('New field'); ?></legend>
 	
 	<select name="type">
 	<?php foreach($this->opts as $okey => $opt): ?>
@@ -13,7 +13,7 @@
 	<?php endforeach; ?>
 	</select>
 	
-	<button type="submit" class="submit niceButton"><?php echo $this->translate('common/create'); ?></button>
+	<button type="submit" class="submit niceButton"><?php echo $this->translate('Create'); ?></button>
 		
 </fieldset>
 
@@ -24,11 +24,11 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
-<th class="type"><?php echo $this->translate('admin/form/th/type'); ?></th>
-<th class="title"><?php echo $this->translate('admin/form/th/title'); ?></th>
-<th class="mandatory"><?php echo $this->translate('admin/form/th/mandatory'); ?></th>
-<th class="options"><?php echo $this->translate('admin/form/th/options'); ?></th>
-<th class="actions"><?php echo $this->translate('admin/form/th/actions'); ?></th>
+<th class="type"><?php echo $this->translate('Field type'); ?></th>
+<th class="title"><?php echo $this->translate('Title'); ?></th>
+<th class="mandatory"><?php echo $this->translate('Mandatory'); ?></th>
+<th class="options"><?php echo $this->translate('Options'); ?></th>
+<th class="actions"><?php echo $this->translate('Actions'); ?></th>
 </table> 
 
 
@@ -75,7 +75,7 @@
 
 <td class="actions">
 <div>
-<a class="confirmable" href="/admin/form/deleteField/form_id/<?php echo $this->form->id; ?>/id/<?php echo $field->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
+<a class="confirmable" href="/admin/form/deleteField/form_id/<?php echo $this->form->id; ?>/id/<?php echo $field->id; ?>"><?php echo $this->translate('Delete'); ?></a>
 </div>
 </td>
 
@@ -87,7 +87,7 @@
 
 
 <p>
-<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('Submit'); ?></button>
 </p>
 
 </form>

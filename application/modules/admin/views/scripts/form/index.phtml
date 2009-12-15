@@ -1,34 +1,34 @@
 <div id="formController">
 
-<h1><?php echo $this->translate('admin/form/title'); ?></h1>
+<h1><?php echo $this->translate('Forms'); ?></h1>
 
 
-<h2><?php echo $this->translate('admin/form/title/create_new'); ?></h2>
+<h2><?php echo $this->translate('Create a new form'); ?></h2>
 
 <form method="post" action="/admin/form/create">
 
-<label for="name"><?php echo $this->translate('admin/form/label/name'); ?></label>
+<label for="name"><?php echo $this->translate('Name'); ?></label>
 <input id="name" name="name" class="w13" type="text" />
 
-<label for="description"><?php echo $this->translate('admin/form/label/description'); ?></label>
+<label for="description"><?php echo $this->translate('Description'); ?></label>
 <textarea id="description" name="description" class="w33"></textarea>
 
 
 <p>
-<button type="submit" class="submit niceButton"><?php echo $this->translate('common/create'); ?></button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('Create'); ?></button>
 </p>
 
 </form>
 
-<h2><?php echo $this->translate('admin/form/title/existing_forms'); ?></h2>
+<h2><?php echo $this->translate('Existing forms'); ?></h2>
 
 
 <table class="entitityList">
 <thead>
 	<tr>
-		<th><?php echo $this->translate('admin/form/label/name'); ?></th>
-		<th><?php echo $this->translate('admin/form/label/description'); ?></th>
-		<th><?php echo $this->translate('common/actions'); ?></th>
+		<th><?php echo $this->translate('Name'); ?></th>
+		<th><?php echo $this->translate('Description'); ?></th>
+		<th><?php echo $this->translate('Actions'); ?></th>
 	</tr>
 </thead>
 <tbody>
@@ -37,8 +37,8 @@
 	<td><?php echo $form->name; ?></td>
 	<td><?php echo $form->description; ?></td>
 	<td>
-		<a href="/admin/form/edit/id/<?php echo $form->id; ?>"><?php echo $this->translate('common/edit'); ?></a> |
-		<a class="confirmable" href="/admin/form/delete/id/<?php echo $form->id; ?>"><?php echo $this->translate('common/delete'); ?></a>
+		<a href="/admin/form/edit/id/<?php echo $form->id; ?>"><?php echo $this->translate('Edit'); ?></a> |
+		<a class="confirmable" href="/admin/form/delete/id/<?php echo $form->id; ?>"><?php echo $this->translate('Delete'); ?></a>
 	</td>
 </tr>
 <?php endforeach; ?>

@@ -1,4 +1,4 @@
-<h1><?php echo $this->translate('admin/sitemap/title'); ?></h1>
+<h1><?php echo $this->translate('Sitemap'); ?></h1>
 <div id="sitemapContent" class="operandsCol">
 	
 	<p>
@@ -26,39 +26,39 @@
 	
 	<nobr id="nodeMenu" style="display: none">
 	<ul class="iconVMenu noText">
-		<li class="rq_exactlyOne ac_addSubPage"><?php echo $this->icon()->small("actions/filenew", "sitemap/menu/add", Array(), $this->translate('sitemap/menu/add')) ?></li>
-		<li class="rq_exactlyOne ac_editProperties"><?php echo $this->icon()->small("actions/configure", "sitemap/menu/properties", Array(), $this->translate('sitemap/menu/properties')) ?></li>
-		<li class="rq_exactlyOne ac_editPage"><?php echo $this->icon()->small("apps/kate", "sitemap/menu/edit", Array(), $this->translate('sitemap/menu/edit')) ?></li>							
-		<li class="rq_exactlyOne ac_setHome"><?php echo $this->icon()->small("actions/gohome", "sitemap/menu/set_home", Array(), $this->translate('sitemap/menu/set_home')) ?></li>
+		<li class="rq_exactlyOne ac_addSubPage"><?php echo $this->icon()->small("actions/filenew", "New page", Array(), $this->translate('New page')) ?></li>
+		<li class="rq_exactlyOne ac_editProperties"><?php echo $this->icon()->small("actions/configure", "Properties", Array(), $this->translate('Properties')) ?></li>
+		<li class="rq_exactlyOne ac_editPage"><?php echo $this->icon()->small("apps/kate", "Edit contents", Array(), $this->translate('Edit contents')) ?></li>							
+		<li class="rq_exactlyOne ac_setHome"><?php echo $this->icon()->small("actions/gohome", "Set start page", Array(), $this->translate('Set start page')) ?></li>
 	</ul>
 	</nobr>
 	<table width="100%" cellspacing="0" class="entitityList">
 		<thead>
 			<tr class="columnHeadings">
-				<th><?php echo $this->translate('sitemap/col/title'); ?></th>
+				<th><?php echo $this->translate('Page title'); ?></th>
 				<th>&nbsp;</th><?php /* command column */ ?>
 				<th>&nbsp;</th><?php /* selector column */ ?>
 				<th>&nbsp;</th><?php /* home column */ ?>
-				<th><?php echo $this->translate('sitemap/col/shard'); ?></th>
-				<th><?php echo $this->translate('sitemap/col/created'); ?></th>
+				<th><?php echo $this->translate('Type'); ?></th>
+				<th><?php echo $this->translate('Created'); ?></th>
 			</tr>
 			<tr class="flowControls">
 				<th colspan="6">
 					<div class="paging" style="display: none">
-						<span class="title"><?php echo $this->translate('entititylist/paging'); ?>:</span>
+						<span class="title"><?php echo $this->translate('Page'); ?>:</span>
 						<a href="" class="prevPage">&laquo;</a>
 						<span class="currentPage">0</span> / <span class="totalPages">0</span>
 						<a href="" class="nextPage">&raquo;</a>
 					</div>
 					<div class="selection">
 						<span class="selectionCount">0</span> 
-						<span class="title"><?php echo $this->translate('entititylist/selection_count'); ?></span>,
-						<span class="selectNone"><?php echo $this->translate('entititylist/select_none'); ?></span>
+						<span class="title"><?php echo $this->translate('selected'); ?></span>,
+						<span class="selectNone"><?php echo $this->translate('clear'); ?></span>
 						::
 						<ul class="iconVMenu dynamicMenu" id="topMenukko">
-							<li class="ac_addRootPage"><?php echo $this->icon()->small("actions/filenew", "sitemap/menu/add", Array(), $this->translate('sitemap/menu/add')) ?></li>
-							<li class="ac_reorderPages"><?php echo $this->icon()->small("actions/kaboodleloop", "sitemap/menu/reorder", Array(), $this->translate('sitemap/menu/reorder')) ?></li>
-							<li class="rq_atLeastOne ac_deletePage"><?php echo $this->icon()->small("actions/editdelete", "sitemap/menu/delete", Array(), $this->translate('sitemap/menu/delete')) ?></li>
+							<li class="ac_addRootPage"><?php echo $this->icon()->small("actions/filenew", "New page", Array(), $this->translate('New page')) ?></li>
+							<li class="ac_reorderPages"><?php echo $this->icon()->small("actions/kaboodleloop", "Reorder pages", Array(), $this->translate('Reorder pages')) ?></li>
+							<li class="rq_atLeastOne ac_deletePage"><?php echo $this->icon()->small("actions/editdelete", "Delete selected pages", Array(), $this->translate('Delete selected pages')) ?></li>
 						</ul>
 						<span id="activeCommand"></span>
 					</div>

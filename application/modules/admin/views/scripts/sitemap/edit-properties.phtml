@@ -1,12 +1,12 @@
-<h1><span id="data_page_title"></span> <?php echo $this->translate('common/properties'); ?></h1>
+<h1><span id="data_page_title"></span> <?php echo $this->translate('Properties'); ?></h1>
 <form action="" name="pageproperties" id="pageproperties" class="paddedContent" method="post">
 <table class="horizontalData">
 	<tr>
-		<th><label for="title"><?php echo $this->translate('page/title'); ?></label></th>
+		<th><label for="title"><?php echo $this->translate('Page title'); ?></label></th>
 		<td><input name="title" id="title" value="" /></td>
 	</tr>
 	<tr>
-		<th><label for="shard_id"><?php echo $this->translate('page/shard'); ?></label></th>
+		<th><label for="shard_id"><?php echo $this->translate('Type'); ?></label></th>
 		<td>
 		<select name="shard_id" id="shard_id" value="">
 			<?php foreach($this->shards as $srv): ?>
@@ -28,18 +28,18 @@
 	</tr>
 
 	<tr>
-		<th><label for="visibility"><?php echo $this->translate('page/visibility'); ?></label></th>
+		<th><label for="visibility"><?php echo $this->translate('Visibility'); ?></label></th>
 		<td>
 		<select name="visibility" id="visibility">
-			<option value="1"><?php echo $this->translate('page/visibility/visible'); ?></option>			
-			<option value="0"><?php echo $this->translate('page/visibility/hidden'); ?></option>
+			<option value="1"><?php echo $this->translate('Visible'); ?></option>			
+			<option value="0"><?php echo $this->translate('Hidden'); ?></option>
 		</select>
 		</td>
 	</tr>
 
 	<?php if(!$this->id): ?>
 	<tr>
-		<th><label for="page_count"><?php echo $this->translate('page/page_count'); ?></label></th>
+		<th><label for="page_count"><?php echo $this->translate('Count'); ?></label></th>
 		<td>
 		<select name="page_count" id="page_count">
 			<?php for($i = 1 ; $i < 11;  $i++): ?>
@@ -52,11 +52,11 @@
 </table>
 
 <fieldset>
-	<legend><?php echo $this->translate('page/permissions'); ?></legend>
+	<legend><?php echo $this->translate('Permissions'); ?></legend>
 	<table>
 		<thead>
 			<tr>
-				<th><?php echo $this->translate('page/groupname'); ?></th>
+				<th><?php echo $this->translate('Group name'); ?></th>
 				<?php foreach($this->permissions as $permission): ?>
 				<th><?php echo $permission ?></th>
 				<?php endforeach; ?>
@@ -99,5 +99,5 @@
 <input name="id" value="<?php echo $this->id ?>" type="hidden" />
 <input name="locale" value="<?php echo $this->escape($this->localeName) ?>" type="hidden" />
 <input name="parent_id" value="<?php echo $this->parentId ?>" type="hidden" />
-<button type="submit" class="submit niceButton"><?php echo $this->translate('page/submit'); ?></button>
+<button type="submit" class="submit niceButton"><?php echo $this->translate('Submit'); ?></button>
 </form>

@@ -31,8 +31,8 @@ class Core_NewsController extends Emerald_Controller_Action
 				$channel = $channelTbl->createRow(array(), true);
 				$channel->page_id = $page->id;
 				$channel->created_by = $this->getCurrentUser()->id;
-				$channel->title = Zend_Registry::get('Zend_Translate')->translate('shard/news/channel/default_title', $page->getLocale()); 
-				$channel->link_readmore = Zend_Registry::get('Zend_Translate')->translate('shard/news/channel/default_link_readmore', $page->getLocale());
+				$channel->title = Zend_Registry::get('Zend_Translate')->translate('News', $page->getLocale()); 
+				$channel->link_readmore = Zend_Registry::get('Zend_Translate')->translate('Read more', $page->getLocale());
 				$channel->save();
 			}
 	
@@ -84,8 +84,8 @@ class Core_NewsController extends Emerald_Controller_Action
 				$channel = $channelTbl->createRow(array(), true);
 				$channel->page_id = $page->id;
 				$channel->created_by = $this->getCurrentUser()->id;
-				$channel->title = Zend_Registry::get('Zend_Translate')->translate('shard/news/channel/default_title', $page->getLocale()); 
-				$channel->link_readmore = Zend_Registry::get('Zend_Translate')->translate('shard/news/channel/default_link_readmore', $page->getLocale());
+				$channel->title = Zend_Registry::get('Zend_Translate')->translate('News', $page->getLocale()); 
+				$channel->link_readmore = Zend_Registry::get('Zend_Translate')->translate('Read more', $page->getLocale());
 				$channel->save();
 			}
 	

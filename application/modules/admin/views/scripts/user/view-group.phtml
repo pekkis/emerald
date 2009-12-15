@@ -1,4 +1,4 @@
-<h1><?php echo $this->translate('user/group_edit_title'); ?></h1>
+<h1><?php echo $this->translate('Edit group'); ?></h1>
 
 <div id="ugContent" class="operandsCol">
 <form action="/admin/user/saveGroup" method="post" id="group_edit" name="group_edit">
@@ -6,14 +6,14 @@
 	<thead></thead>
 	<tbody>
 		<tr>
-			<th><label for="email"><?php echo $this->translate('user/col/name'); ?></label></th>
+			<th><label for="email"><?php echo $this->translate('Name'); ?></label></th>
 			<td><?php echo $this->formText('name', $this->group->name); ?></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td>
-				<button onclick="history.back()" class="cancel niceButton"><?php echo $this->translate('common/cancel'); ?></button>
-				<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
+				<button onclick="history.back()" class="cancel niceButton"><?php echo $this->translate('Cancel'); ?></button>
+				<button type="submit" class="submit niceButton"><?php echo $this->translate('Submit'); ?></button>
 			</td>
 		</tr>
 	</tbody>

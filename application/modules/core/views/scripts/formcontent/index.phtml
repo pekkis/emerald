@@ -8,7 +8,7 @@
 <?php echo $this->formRenderer($this->form); ?>
 
 <p>
-<button type="submit"><?php echo $this->translate('common/submit', $this->page->getLocale()); ?></button>
+<button type="submit"><?php echo $this->translate('Submit', $this->page->getLocale()); ?></button>
 </p>
 
 </form>
@@ -22,11 +22,11 @@
 
 <?php if(!$this->form): ?>
 <p>
-<?php echo $this->translate('shard/formcontent/no_form_selected'); ?>
+<?php echo $this->translate('No form selected.'); ?>
 </p>
 <?php endif; ?>
 
 <div class="adminControl">
-<a id="formcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/formcontent/edit/page_id/<?php echo $this->page->id; ?>"><?php echo $this->translate('shard/formcontent/edit'); ?></a>
+<a id="formcontent_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/formcontent/edit/page_id/<?php echo $this->page->id; ?>"><?php echo $this->translate('Edit form'); ?></a>
 </div>
 <?php endif; ?>

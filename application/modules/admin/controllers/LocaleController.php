@@ -76,7 +76,7 @@ class Admin_LocaleController extends Emerald_Controller_AdminAction
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$msg = Zend_Registry::get('Zend_Translate')->_('admin/locale/update_ok');
+			$msg = Zend_Registry::get('Zend_Translate')->_('Save ok.');
 			
 			
 			$selectedLocales = array();

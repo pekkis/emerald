@@ -1,15 +1,15 @@
-<h1><?php echo $this->translate('user/users_and_groups_title'); ?></h1>
+<h1><?php echo $this->translate('Users and Groups'); ?></h1>
 
 <div>
 	<ul class="iconVMenu noText">
-		<li><?php echo $this->iconLarge("apps/personal", "users/view_users", Array(), "users/view_users","/admin/user/userList") ?></li>
-		<li><?php echo $this->iconLarge("apps/kdmconfig", "users/view_groups", Array(), "users/view_groups","/admin/user/groupList") ?></li>
+		<li><?php echo $this->iconLarge("apps/personal", "Users", Array(), "Users","/admin/user/userList") ?></li>
+		<li><?php echo $this->iconLarge("apps/kdmconfig", "Groups", Array(), "Groups","/admin/user/groupList") ?></li>
 	</ul>
 </div>
 <br />
 <nobr id="groupRowMenu" style="display: none">
 <ul class="noText iconVMenu">
-	<li class="rq_exactlyOne ac_editGroup"><?php echo $this->iconSmall("actions/configure", "groups/edit", Array(), $this->translate('groups/edit')) ?></li>
+	<li class="rq_exactlyOne ac_editGroup"><?php echo $this->iconSmall("actions/configure", "Edit", Array(), $this->translate('Edit')) ?></li>
 </ul>
 </nobr>
 <div id="ugContent">
@@ -18,26 +18,26 @@
 		<thead>
 			<tr class="columnHeadings">
 				<th></th>
-				<th><?php echo $this->translate('group/col/name'); ?></th>
+				<th><?php echo $this->translate('Name'); ?></th>
 				<th></th> <?php /* commands */ ?>
 			</tr>
 			<tr class="flowControls">
 				<th colspan="5">
 					<div class="paging">
-						<span class="title"><?php echo $this->translate('entititylist/paging'); ?>:</span>
+						<span class="title"><?php echo $this->translate('Page'); ?>:</span>
 						<a href="" class="prevPage">&laquo;</a>
 						<span class="currentPage">0</span> / <span class="totalPages">0</span>
 						<a href="" class="nextPage">&raquo;</a>
 					</div>
 					<div class="selection">
 						<span class="selectionCount">0</span> 
-						<span class="title"><?php echo $this->translate('entititylist/selection_count'); ?></span>,
-						<span class="selectNone"><?php echo $this->translate('entititylist/select_none'); ?></span>
+						<span class="title"><?php echo $this->translate('selected'); ?></span>,
+						<span class="selectNone"><?php echo $this->translate('clear'); ?></span>
 						::
 						<ul class="dynamicMenu iconVMenu" id="topMenukko">
-							<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "groups/add", Array(), $this->translate('groups/add'),"/admin/user/viewNewGroup") ?></li>
-							<li class="rq_exactlyOne ac_editGroup"><?php echo $this->iconSmall("actions/configure", "groups/edit", Array(), $this->translate('groups/edit')) ?></li>
-							<li class="rq_atLeastOne rq_confirm ac_deleteGroup"><?php echo $this->iconSmall("actions/editdelete", "groups/delete", Array(), $this->translate('groups/delete')) ?></li>
+							<li class="ac_addGroup"><?php echo $this->iconSmall("actions/edit_add", "Add Group", Array(), $this->translate('Add Group'),"/admin/user/viewNewGroup") ?></li>
+							<li class="rq_exactlyOne ac_editGroup"><?php echo $this->iconSmall("actions/configure", "Edit", Array(), $this->translate('Edit')) ?></li>
+							<li class="rq_atLeastOne rq_confirm ac_deleteGroup"><?php echo $this->iconSmall("actions/editdelete", "Delete", Array(), $this->translate('Delete')) ?></li>
 						</ul>
 						<span id="activeCommand"></span>
 					</div>

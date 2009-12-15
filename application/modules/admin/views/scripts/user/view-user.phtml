@@ -1,4 +1,4 @@
-<h1><?php echo $this->translate('user/user_edit_title'); ?></h1>
+<h1><?php echo $this->translate('Edit user'); ?></h1>
 
 <div id="ugContent" class="operandsCol">
 <form action="/admin/user/saveUser" method="post" id="user_edit" name="user_edit">
@@ -6,28 +6,28 @@
 	<thead></thead>
 	<tbody>
 		<tr>
-			<th><label for="email"><?php echo $this->translate('user/col/email'); ?></label></th>
+			<th><label for="email"><?php echo $this->translate('Email'); ?></label></th>
 			<td><?php echo $this->formText('email', $this->user->email); ?></td>
 		</tr>
 		<tr>
-			<th><label for="firstname"><?php echo $this->translate('user/col/firstname'); ?></label></th>
+			<th><label for="firstname"><?php echo $this->translate('First Name'); ?></label></th>
 			<td><?php echo $this->formText('firstname', $this->user->firstname); ?></td>
 		</tr>
 		<tr>
-			<th><label for="lastname"><?php echo $this->translate('user/col/lastname'); ?></label></th>
+			<th><label for="lastname"><?php echo $this->translate('Last Name'); ?></label></th>
 			<td><?php echo $this->formText('lastname', $this->user->lastname); ?></td>
 		</tr>
 		<tr>
-			<th><label for="password"><?php echo $this->translate('user/col/password'); ?></label></th>
+			<th><label for="password"><?php echo $this->translate('Password'); ?></label></th>
 			<td><?php echo $this->formPassword('password', ""); ?></td>
 		</tr>
 		<tr>
-			<th><label for="password_confirm"><?php echo $this->translate('user/col/password_confirm'); ?></label></th>
+			<th><label for="password_confirm"><?php echo $this->translate('Confirm password'); ?></label></th>
 			<td><?php echo $this->formPassword('password_confirm', ""); ?></td>
 		</tr>
 		
 		<tr>
-			<th><label for=""><?php echo $this->translate('user/col/groups'); ?></label></th>
+			<th><label for=""><?php echo $this->translate('Groups'); ?></label></th>
 			<td>
 				<select name="groups[]" id="groups" multiple="multiple">
 				<?php foreach($this->groups as $grp): ?>
@@ -40,7 +40,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th><label for=""><?php echo $this->translate('user/option/locale'); ?></label></th>
+			<th><label for=""><?php echo $this->translate('Admin language'); ?></label></th>
 			<td>
 				<select name="options[locale]" id="groups">
 				<?php foreach($this->availableLocales as $locale => $translation): ?>
@@ -55,8 +55,8 @@
 		<tr>
 			<td></td>
 			<td>
-				<button onclick="history.back()" class="cancel niceButton"><?php echo $this->translate('common/cancel'); ?></button>
-				<button type="submit" class="submit niceButton"><?php echo $this->translate('common/submit'); ?></button>
+				<button onclick="history.back()" class="cancel niceButton"><?php echo $this->translate('Cancel'); ?></button>
+				<button type="submit" class="submit niceButton"><?php echo $this->translate('Submit'); ?></button>
 			</td>
 			
 		</tr>

@@ -20,13 +20,13 @@
 
 <p>
 <?php echo $this->formHidden('status', 0); ?>
-<?php echo $this->formCheckbox('status', 1, array('checked' => $this->event->status)); ?> <?php echo $this->translate('shard/news/item/status_active'); ?>
+<?php echo $this->formCheckbox('status', 1, array('checked' => $this->event->status)); ?> <?php echo $this->translate('Active'); ?>
 </p>
 
 <input type="hidden" name="id" id="id" value="<?php echo $this->event->id ?>" />
 <input type="hidden" name="calendar_id" id="calendar_id" value="<?php echo $this->event->calendar_id ?>" />
 <p>
-<?php echo $this->formButton('submiter', $this->translate('common/submit'), array('type' => 'submit')); ?>
+<?php echo $this->formButton('submiter', $this->translate('Submit'), array('type' => 'submit')); ?>
 </p>
 
 </form>

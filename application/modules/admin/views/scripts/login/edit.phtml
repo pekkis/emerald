@@ -1,18 +1,18 @@
-<h1><?php echo $this->translate('shard/login/edit'); ?></h1>
+<h1><?php echo $this->translate('Login form'); ?></h1>
 
 <?php $this->layout()->setLayout('admin_popup_outer'); ?>
 <?php $this->headScript()->appendFile('/lib/js/admin/login/edit.js'); ?>
 
 <form id="login_edit" method="post" action="/admin/login/save/page_id/<?php echo $this->page_id; ?>">
 
-<label for="title"><?php echo $this->translate('shard/login/redirect_page_id'); ?></label>
+<label for="title"><?php echo $this->translate('After login, redirect to'); ?></label>
 
 <select name="redirect_page_id">
 <?php echo $this->formOptionsSitemap($this->sitemap, $this->res->redirect_page_id ? $this->res->redirect_page_id : $this->page_id ); ?>
 </select>
 
 <p>
-	<button type="submit" class="submit niceButton"><?php echo $this->translate('common/save'); ?></button>
+	<button type="submit" class="submit niceButton"><?php echo $this->translate('Save'); ?></button>
 </p>
 
 </form>

@@ -24,14 +24,6 @@ class Emerald_Server
 	private $_config;
 	
 	
-	/**
-	 * Emerald server Db
-	 *
-	 * @var Zend_Db_Adapter_Pdo_Mysql
-	 */
-	private $_db;
-	
-	
     /**
      * Get singleton
      *
@@ -58,20 +50,6 @@ class Emerald_Server
     	
     	$this->_root = APPLICATION_PATH;
 		
-    	    	
-    	$db = Zend_Db::factory($config['db']['adapter'], $config['db']['params']);
-        $db->setFetchMode(Zend_Db::FETCH_OBJ);
-        $db->getConnection()->exec("SET names utf8");
-
-        $this->_db = $db;
-        
-        $profiler = new Zend_Db_Profiler_Firebug('Core DB Queries');
-		$profiler->setEnabled(true);
-
-		// Attach the profiler to your db adapter
-		$db->setProfiler($profiler);
-				        
-        
         date_default_timezone_set($config['timezone']);
         
 
@@ -103,18 +81,6 @@ class Emerald_Server
     	return $this->_config;
     }
     
-    
-    
-    
-    /**
-     * Returns Db
-     *
-     * @return Zend_Db_Adapter_Pdo_Mysql
-     */
-    public function getDb()
-    {
-    	return $this->_db;
-    }
     
     
     public function findCustomer($host)
