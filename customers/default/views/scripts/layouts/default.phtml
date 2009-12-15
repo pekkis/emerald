@@ -2,8 +2,10 @@
 // @todo: this in init head maybe?
 $this->jQuery()->enable()->uiEnable();
 $this->jQuery()->addJavascriptFile("/lib/emerald.js");
-
 $this->headLink()->appendStylesheet('/data/css/customer.css');
+
+$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+
 ?>
 
 <?php echo $this->doctype('XHTML1_STRICT'); ?>

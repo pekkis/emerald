@@ -58,11 +58,18 @@ class Emerald_Layout
 			$params = array_merge($requestParams, $params);
 
 			$shard = Emerald_Shard::factory($identifier);
-			$action = (isset($params['a'])) ? $params['a'] : Emerald_Shard::getDefaultAction($shard);
+			
+			$action = Emerald_Shard::getDefaultAction($shard);
+			
+			
+			if(isset($params['a'])) {
+				$action['action'] = $params['a'];
+			}
+									
 			$params['page'] = $page;
 			
 			return $this->actionToStack(
-				$action, $shard, 'core', $params
+				$action['action'], $action['controller'], $action['module'], $params
 			);
 					
 		} catch(Exception $e) {

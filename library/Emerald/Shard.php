@@ -48,10 +48,10 @@ class Emerald_Shard
 		
 		if(!self::$_shardIds) {
 
-			$shards = $db->fetchAll("SELECT id, name, action FROM shard WHERE status & 1");
+			$shards = $db->fetchAll("SELECT id, name, module, controller, action FROM shard WHERE status & 1");
 			foreach($shards as $srv) {
 				self::$_shardIds[$srv->id] = $srv->name;
-				self::$_shardActions[$srv->name] = $srv->action;
+				self::$_shardActions[$srv->name] = array('module' => $srv->module, 'controller' => $srv->controller, 'action' => $srv->action);
 			}
 			self::$_shardNames = array_flip(self::$_shardIds);
 		}

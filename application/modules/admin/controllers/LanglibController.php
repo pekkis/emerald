@@ -236,35 +236,6 @@ class Admin_LanglibController extends Emerald_Controller_AdminAction
 	public function jsAction()
 	{
 		
-		$filters = array();
-		$validators = array(
-			'id' => array(array('InArray',Array("en","fi")), 'presence' => 'optional', 'default' => 'en'),
-		);
-				
-		try {
-									
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$input->process();
-			
-			$locale = Zend_Registry::get('Zend_Locale');
-			$translate = Zend_Registry::get('Zend_Translate');
-			
-			$langlib = $translate->getMessages($input->id);
-			$js = Zend_JSON::encode($langlib);
-			
-			$message = "Emerald.Localization.init('{$input->id}', {$js});";
-			
-			$this->_helper->layout->disableLayout();
-			$this->_helper->viewRenderer->setNoRender();
-			$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-			$this->getResponse()->appendBody($message); 
-			
-		}catch(Exception $e){
-			
-			
-			throw new Emerald_Exception('Not Found', 404);
-		}	
 	}
 	
 	

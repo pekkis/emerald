@@ -10,7 +10,9 @@
 		Emerald_Js::addAdminScripts($this);
 		
 		$this->headLink()->prependStylesheet('/lib/css/admin/emerald_admin.css');
-				
+		
+		$this->headScript()->prependFile('/admin/langlib/js/id/' . Zend_Registry::get('Zend_Locale'));
+		
 		?>
 		
 		

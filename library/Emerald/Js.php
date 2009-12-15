@@ -4,7 +4,7 @@ class Emerald_Js
 
 	static public function addAdminScripts(Zend_View_Abstract $view)
 	{
-		$view->headScript()->prependFile('/admin/langlib/js/id/' . Zend_Registry::get('Zend_Locale'));
+
 		$view->headScript()->prependFile('/lib/js/tinymce/jscripts/tiny_mce/tiny_mce.js');
 
 		$view->headScript()->prependFile('/lib/js/addon.js');

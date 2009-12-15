@@ -17,7 +17,9 @@ class Core_NewsController extends Emerald_Controller_Action
 			$input->process();
 
 			$page = $input->page;
+			
 			$page->assertReadable();
+			
 			$this->view->page = $input->page;
 			
 			$channelTbl = Emerald_Model::get('NewsChannel');
