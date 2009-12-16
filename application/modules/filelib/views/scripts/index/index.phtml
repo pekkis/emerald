@@ -2,15 +2,76 @@
 
 $fl = Zend_Registry::get('Emerald_Filelib');
 
+
 $folder = $fl->findFolder(1)->current();
 
-$upload = $fl->getUpload("/home/pekkis/linus.png");
-
-Zend_Debug::dump($upload);
-
+$upload = $fl->getUpload("/home/mikko/Desktop/harri_koskinen.jpg");
 $file = $fl->upload($upload, $folder);
 
 
+$upload = $fl->getUpload("/home/mikko/Desktop/HarriKoskinenBlockLamp(1).jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/blocklamp_redcord.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/Genelec_salkku_press.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/woodnotestuoli1.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/img46c3f089a0eeb.jpg");
+//Zend_Debug::dump($upload);
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/harri_koskinen/Harri_Koskinen_place02.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/harri_koskinen/Harri_Koskinen_place04.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/harri_koskinen/Harri_Koskinen_woodnotes_chair_black.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/harri_koskinen/Harri_Koskinen_muu_chair_low.jpg");
+$file = $fl->upload($upload, $folder);
+
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_profile01.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_perch_chair_black.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_tiki_chair_black.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_tiki_chair_lightred.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_tiki_chair_green.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_place02.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_place03.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_place06.jpg");
+$file = $fl->upload($upload, $folder);
+
+$upload = $fl->getUpload("/home/mikko/Desktop/designstory_placeholder_images/Eric_Pfeiffer/Eric_Pfeiffer_W_Stand02.jpg");
+$file = $fl->upload($upload, $folder);
 
 // $fl->delete($file);
 
