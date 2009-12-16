@@ -6,27 +6,18 @@ class Core_ErrorController extends Emerald_Controller_Action
     	$this->view->layout()->disableLayout();
     	$errors = $this->_getParam('error_handler');
     	$exception = $errors->exception;
-    			
-    	
+
     	
     	switch($errors->type)
     	{
     		
     		case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
-            	$this->getResponse()->setHttpResponseCode(404);
+            	return $this->_forward('not-found');
             	break;
             
-            case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_OTHER:
-            	
-            	if($exception instanceof Emerald_Exception) {
-            		$this->getResponse()->setHttpResponseCode($exception->getHttpResponseCode());	
-            	} else {
-            		$this->getResponse()->setHttpResponseCode(500);
-            	}
-            	break;
-    		
-    		
+            default:
+           		return $this->_forward('internal-server');
     	}
     	    	    	
 		$this->view->message = $exception->getMessage();
@@ -34,5 +25,26 @@ class Core_ErrorController extends Emerald_Controller_Action
     	
     	
     }
+    
+    
+    
+    public function notFoundAction()
+    {
+    	$this->getResponse()->setHttpResponseCode(404);
+    }
+    
+    
+    public function forbiddenAction()
+    {
+    	$this->getResponse()->setHttpResponseCode(401);
+    }
+	    
+    
+    public function internalServerAction()
+    {
+		$this->getResponse()->setHttpResponseCode(500);
+    }
+    
+    
+    
 }
-?>

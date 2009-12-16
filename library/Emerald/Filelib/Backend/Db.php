@@ -285,6 +285,9 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	public function findFile($id)
 	{
 		$fileRow = $this->getFileTable()->find($id)->current();
+		if(!$fileRow) {
+			return false;
+		}
 		$item = new Emerald_Filelib_FileItem($fileRow->toArray());
 		return $item;		
 	}

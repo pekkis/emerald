@@ -495,6 +495,11 @@ class Emerald_Filelib
 	public function findFile($id)
 	{
 		$file = $this->getBackend()->findFile($id);
+		
+		if(!$file) {
+			return false;
+		}
+		
 		$file->setFilelib($this);
 		return $file;
 		

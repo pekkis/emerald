@@ -77,10 +77,14 @@ class Core_PageController extends Emerald_Controller_Action
 				$navi = $naviModel->getNavigation();
 					
 				$tpl = $page->getLayoutObject($this);
+				$tpl->setPage($page);
+				$tpl->setNoRender(true);
 
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
 				
-				$this->getHelper('viewRenderer')->setNoRender();
+				$tpl->run();
+				
+				// $this->getHelper('viewRenderer')->setNoRender();
 				
 				
 			} else {

@@ -10,6 +10,12 @@
 class Emerald_View_Helper_File extends Zend_View_Helper_Abstract
 {
 	
+	
+	private $_onNotFoundGoto = array('module' => 'default', 'controller' => 'error', 'action' => 'not-found');
+	
+	private $_onDeniedGoto = array('module' => 'default', 'controller' => 'error', 'action' => 'forbidden');
+	
+	
 	/**
 	 * Filelib
 	 * 
@@ -40,8 +46,19 @@ class Emerald_View_Helper_File extends Zend_View_Helper_Abstract
 	{
 		return $this;
 	}
-		
-
+	
+	
+	
+	public function setOnNotFoundGoto(array $onNotFoundGoto)
+	{
+		$this->_onNotFoundGoto = $onNotFoundGoto;	
+	}
+	
+	public function setonDeniedGoto(array $onNotFoundGoto)
+	{
+		$this->_onDeniedGoto = $onNotFoundGoto;
+	}
+	
 	
 	public function url($file, $options = array())
 	{
@@ -50,6 +67,13 @@ class Emerald_View_Helper_File extends Zend_View_Helper_Abstract
 		if(!$file instanceof Emerald_Filelib_FileItem) {
 			$file = $filelib->findFile($file);
 		}
+		
+		if(!$file) {
+			$goto = $this->_onNotFoundGoto;
+			$url = $this->view->url($goto, 'default', true);
+			return $url;
+		}
+		
 		
 		if($file->isAnonymous()) {
 			return $file->renderPath($options);

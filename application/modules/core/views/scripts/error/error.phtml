@@ -1,3 +1,5 @@
+<?php $this->layout()->disableLayout(); ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -12,14 +14,6 @@
 	
 				<h1>emerald error</h1>
 				<p><?php echo $this->message; ?></p>
-				
-				<?php if(!Emerald_Server::getInstance()->inProduction()): ?>	
-				<p>
-				<?php Zend_Debug::dump($this->exception->getTrace()); ?>
-				</p>
-				<?php endif; ?>
-	
-	
 		</div>
 	
 	</body>

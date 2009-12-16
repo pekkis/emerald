@@ -1,5 +1,5 @@
 <?php
-class Emerald_Layout
+abstract class Emerald_Layout
 {
 	
 	private $_page;
@@ -8,20 +8,68 @@ class Emerald_Layout
 	
 	private $_actionStack;
 	
-	public function __construct(Core_Model_PageItem $page, Emerald_Controller_Action $action)
+	public function __construct()
 	{
-		$this->_page = $page;
-		$this->_action = $action;
-		
-		$this->_action->getHelper('layout')->setLayout('layouts/' . strtolower(basename($this->_page->layout, '.phtml')));
-		$this->_actionStack = $this->_action->getHelper('actionStack'); 
+	}
 
-		$this->_action->getHelper('viewRenderer')->setNoRender();		
-		$this->init();
+	
+	abstract protected function _run();
 		
+	
+	
+	final protected function _preRun()
+	{
+		$this->_action->getHelper('layout')->setLayout('layouts/' . $this->getLayoutFile());
+		$this->_actionStack = $this->_action->getHelper('actionStack'); 
 		
 	}
 	
+	
+	public function run()
+	{
+		$this->_preRun();
+		$this->_run();	
+	}
+	
+	
+	
+	public function setNoRender($noRender = true)
+	{
+		$this->_action->getHelper('viewRenderer')->setNoRender($noRender);
+	}
+	
+	
+	
+	public function setLayoutFile($layoutFile)
+	{
+		$this->_layoutFile = $layoutFile;
+	}
+	
+	
+	public function getLayoutFile()
+	{
+		return $this->_layoutFile;
+	}
+	
+	
+	public function setAction($action)
+	{
+		$this->_action = $action;
+	}
+	
+	
+	public function getAction()
+	{
+		return $this->_action;
+	}
+	
+	
+	
+	public function setPage($page)
+	{
+		$this->_page = $page;
+		$this->setLayoutFile(strtolower(basename($this->getPage()->layout, '.phtml')));
+	}
 	
 	
 	public function getPage()
@@ -74,7 +122,7 @@ class Emerald_Layout
 					
 		} catch(Exception $e) {
 			
-			return (Emerald_Server::getInstance()->inProduction()) ? '' : $e->getMessage();
+			return $e->getMessage();
 		}
 		
 	}

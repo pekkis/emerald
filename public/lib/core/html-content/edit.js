@@ -19,7 +19,9 @@ $(document).ready(function() {
 						$(identifier).addClass('validationError');
 					});
 				} else {
+					
 					window.opener.document.location.reload();
+										
 					if(Emerald.confirm("admin/htmlcontent/save_ok_confirm_close"))
 					{
 						window.close();

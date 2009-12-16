@@ -102,15 +102,5 @@ class Emerald_Server
     }
     
     
-    /**
-     * Is the Emerald core instance in production or not
-     *
-     * @return bool true or false
-     */
-    public function inProduction()
-    {
-    	return $this->getConfig()->production == 'true' ? true : false; 
-    }
-    
 }
 ?>
