@@ -1,0 +1,46 @@
+<h1><?php echo get_class($this->model); ?></h1>
+
+<?php $cols = $this->model->info('cols'); ?>
+
+<p>
+<a href="/crud/item/create/model/<?php echo get_class($this->model); ?>">Create new</a>
+</p>
+
+<table border="1" cellspacing="5" cellpadding="5">
+
+<tr>
+<th>Actions</th>
+<?php foreach($cols as $col): ?>
+<th><?php echo $col; ?></th>
+<?php endforeach; ?>
+</tr>
+
+<?php foreach($this->items->toArray() as $key => $item): ?>
+
+<tr>
+<td>
+<?php
+$pk = $this->model->info('primary');
+
+$pkd = array();
+
+foreach($pk as $p) {
+	$pkd[] = $item[$p];
+}
+$pkd = implode(';', $pkd);
+?>
+
+<a href="/crud/item/edit/model/<?php echo get_class($this->model); ?>/id/<?php echo $pkd; ?>">Edit</a>
+
+</td>
+
+<?php foreach($item as $key => $value): ?>
+<td><?php echo $value; ?></td>
+<?php endforeach; ?>
+</tr>
+
+<?php endforeach; ?>
+</table>
+
+
+
