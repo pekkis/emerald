@@ -10,6 +10,13 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 {
 	private static $_added = 0;	
 		
+	
+	
+	/**
+	 * Returns customer
+	 * 
+	 * @return Emerald_Application_Customer
+	 */
 	public function getCustomer()
 	{
 		return $this->getInvokeArg('bootstrap')->getResource('customer');

@@ -20,29 +20,25 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			$localeTbl = Emerald_Model::get('DbTable_Locale');
-			$this->view->locales = $locales = $localeTbl->fetchAll(null, 'locale DESC');
+			$localeModel = new Core_Model_Locale();
+			$locales = $localeModel->findAll();
 			
-			$editLocale = null;
-			
-			if($currLocale = $locales->current()) {
-				$this->view->editLocale = $editLocale = $locales->current();//count($locales) ? $locales->current()->locale : $currLocale->toString();
-				foreach($locales as $lc)
-				{
-					if($lc->locale == $input->locale) $this->view->editLocale = $editLocale = $lc;
-				}
-			}
-						
-			
-			$this->view->locale = Zend_Registry::get('Zend_Locale');
 									
-			Emerald_Js::addjQueryUi($this->view);
+			$appForm = new Admin_Form_ApplicationOptions();
+
 			
-			$this->view->headScript()->appendFile('/lib/js/admin/options/index.js');
-						
-			$this->view->workLocale = new Zend_Locale();
+			$customer = $this->getCustomer();
 			
-			$this->view->application = Zend_Registry::get('Emerald_Customer');
+			$opts = $customer->getOptionContainer()->getOptions();
+			$appForm->setDefaults($opts);
+			
+			
+			
+			$this->view->appForm = $appForm;
+				
+			
+			
+		
 			
 		} catch(Exception $e) {
 			throw new Emerald_Exception($e->getMessage(), 500);

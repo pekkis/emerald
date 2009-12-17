@@ -10,10 +10,14 @@ class Emerald_User extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Role_I
 	public function __construct($config = array())
 	{
 		parent::__construct($config);
-		
+
+		// @todo: fucktor
 	    if (isset($config['data']) && isset($config['stored']) && $config['stored'] === true) {
-	    	$this->_options = new Emerald_Options_User($this); 	    	
-        }
+			$this->_options = new Emerald_Db_OptionContainer($this);
+			$this->_options->setTable(new Core_Model_DbTable_User);
+			$this->_options->setWhereConditions(array('user_id' => $this->id));
+		}
+	    	
 				
 	}
 	

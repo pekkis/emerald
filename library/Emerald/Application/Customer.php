@@ -73,7 +73,8 @@ class Emerald_Application_Customer
     
     public function setDb($db)
     {
-		$this->_db = $db;
+		
+    	$this->_db = $db;
     }
     
     
@@ -93,7 +94,9 @@ class Emerald_Application_Customer
     public function getOptionContainer()
     {
     	if(!$this->_optionContainer) {
-    		$this->_optionContainer = new Emerald_Options_Application($this);	
+    		$this->_optionContainer = new Emerald_Db_OptionContainer();
+			$this->_optionContainer->setTable(new Core_Model_DbTable_Application_Option);
+    		
     	}
     	return $this->_optionContainer;
     }

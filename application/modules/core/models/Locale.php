@@ -103,7 +103,20 @@ class Core_Model_Locale
 	{
 		$localeTbl = $this->getTable();
 		$localeRow = $localeTbl->fetchRow();
-		return ($localeRow) ? new Core_Model_LocaleItem($localeRow->toArray()) : false;
+		return ($localeRow) ? new Core_Model_LocaleItem($localeRow) : false;
+	}
+	
+	
+	public function findAll()
+	{
+		$rows = $this->getTable()->fetchAll(array(), 'locale ASC');
+		$locales = new ArrayIterator();
+		foreach($rows as $row) {
+			$locales->append(new Core_Model_LocaleItem($row));
+		}
+		
+		return $locales;
+		
 	}
 	
 	

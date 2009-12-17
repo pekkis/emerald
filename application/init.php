@@ -50,5 +50,10 @@ try {
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 
+	
+	Zend_Debug::dump($e->getTrace());
+	
+	
+	
 	die('');
 }

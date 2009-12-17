@@ -13,7 +13,10 @@ class Core_Model_LocaleItem extends Emerald_Model_AbstractItem
 	public function getOptionContainer()
 	{
 		if(!$this->_optionContainer) {
-			$this->_optionContainer = new Emerald_Options_Locale($this);
+			$this->_optionContainer = new Emerald_Db_OptionContainer($this);
+			$this->_optionContainer->setTable(new Core_Model_DbTable_Locale_Option);
+			$this->_optionContainer->setWhereConditions(array('locale_locale' => $this->locale));
+			
 		}
 		return $this->_optionContainer;
 	}
