@@ -27,7 +27,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	/**
 	 * Returns filelib
 	 * 
-	 * @return Emerald_Filelib_Filelib
+	 * @return Emerald_Filelib
 	 */
 	public function getFilelib()
 	{
@@ -144,4 +144,13 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 		return $this->getFilelib()->fileHasVersion($this, $version);
 	}
 	
+	/**
+	 * Delete this file
+	 * 
+	 * @return true
+	 */
+	public function delete()
+	{
+		return $this->getFilelib()->deleteFile($this);
+	}
 }
