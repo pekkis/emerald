@@ -11,6 +11,8 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	private static $_added = 0;	
 		
 	
+	protected static $_pageModel; 
+	
 	
 	/**
 	 * Returns customer
@@ -70,6 +72,22 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	public function getAcl()
 	{
 		return $this->getInvokeArg('bootstrap')->getResource('acl');
+	}
+	
+
+	protected function _getPageModel()
+	{
+		if(!self::$_pageModel) {
+			self::$_pageModel = new Core_Model_Page();
+		}
+		
+		return self::$_pageModel;
+	}
+	
+	
+	protected function _pageFromPageId($pageId)
+	{
+		return $this->_getPageModel()->find($pageId);
 	}
 	
 	

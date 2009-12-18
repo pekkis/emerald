@@ -11,11 +11,9 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
-		$filters = array(
-			'page' => array(new Emerald_Filter_PageIdToPage()),
-		);
+		$filters = array();
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'block_id' => array('Int', 'presence' => 'required'),
 			'onEmpty' => array(new Zend_Validate_StringLength(0, 255), 'allowEmpty' => true, 'presence' => 'optional', 'default' => ''),	
 		);
@@ -25,15 +23,17 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 			
-			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $input->page, 'read')) {
+			$page = $this->_pageFromPageId($input->page_id);
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
 				throw new Emerald_Acl_ForbiddenException('Forbidden');
 			}
 			
-			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $input->page, 'write');
+			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
 			$this->view->writable = $writable;
 
 			$htmlModel = new Core_Model_HtmlContent();
-			$htmlcontent = $htmlModel->find($input->page, $input->block_id);			
+			$htmlcontent = $htmlModel->find($page, $input->block_id);			
 
 			if(!$htmlcontent->content && $input->onEmpty) {
 				$htmlcontent->content = $input->onEmpty;

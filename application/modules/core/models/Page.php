@@ -1,6 +1,8 @@
 <?php
 class Core_Model_Page
 {
+	private static $_pages = array();
+	
 	public function getTable()
 	{
 		static $table;
@@ -11,12 +13,23 @@ class Core_Model_Page
 	}
 		
 	
+	
 	public function find($id)
 	{
+		
+		if(isset(self::$_pages[$id])) {
+			return self::$_pages[$id];
+		}
+		
 		$pageTbl = $this->getTable();
 		$page = $pageTbl->find($id)->current();
-		return ($page) ? new Core_Model_PageItem($page) : false;
-			
+				
+		$page = ($page) ? new Core_Model_PageItem($page) : false;
+		
+		self::$_pages[$id] = $page;
+		
+		return $page;
+		
 	}
 	
 	

@@ -67,9 +67,8 @@ class Core_LoginController extends Emerald_Controller_Action
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();
 			
+									
 			
-						
-			$this->view->layout()->disableLayout();
 			$this->view->user = $this->getCurrentUser();
 			
 			if(Zend_Locale::isLocale($input->locale) && in_array($input->locale, Emerald_Server::getInstance()->getAdminLocales()))

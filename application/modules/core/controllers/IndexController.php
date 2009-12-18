@@ -24,13 +24,7 @@ class Core_IndexController extends Emerald_Controller_Action
 			
 			$localeModel = new Core_Model_Locale();
 			$page = $localeModel->startFrom($this->getCustomer(), $input->locale);
-
-			$message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save');
-			
-			echo $message;
-			die();			
-			
-			
+						
 			// Lets forward instead of redirecting. Url looks easier(tm).
 			$this->_forward('view', 'page', null, array('id' => $page->id));
 					

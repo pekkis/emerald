@@ -42,7 +42,8 @@ try {
 	->bootstrap('translate')
 	->bootstrap('layout')
 	->bootstrap('filelib')
-	->bootstrap('filelibplugins');
+	->bootstrap('filelibplugins')
+	->bootstrap('misc');
 	;
 		
 	$application->run();
@@ -52,7 +53,6 @@ try {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 
 	
 	Zend_Debug::dump($e->getTrace());
-	
 	
 	
 	die('');

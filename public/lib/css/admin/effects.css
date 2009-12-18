@@ -5,3 +5,7 @@
 .highlighted {
 	background-color: #EEEEEE;
 }
+
+.error {
+	color: #FF0000;
+}

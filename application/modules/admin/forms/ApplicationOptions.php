@@ -7,7 +7,7 @@ class Admin_Form_ApplicationOptions extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/admin/options/save-application");
+		$this->setAction("/admin/options/save-application/format/json");
 		
 		
 		
@@ -28,7 +28,7 @@ class Admin_Form_ApplicationOptions extends ZendX_JQuery_Form
 		
 		
 		$gaElm = new Zend_Form_Element_Text('google_analytics_id', array('label' => 'Google analytics id'));
-		$gaElm->addValidator(new Zend_Validate_StringLength(0, 255));
+		$gaElm->addValidator(new Zend_Validate_StringLength(0, 20));
 		$gaElm->setRequired(false);
 		$gaElm->setAllowEmpty(true);
 					

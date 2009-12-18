@@ -22,7 +22,27 @@
 
 <div id="locale-options">
 
-Locale settings here
+<div id="accordion">
+
+<?php foreach($this->localeForms as $locale => $localeForm): ?>
+
+<h2><a href="#locale-options-<?php echo $locale; ?>"><?php echo $locale; ?></a></h2>
+
+<div>
+
+<?php echo $localeForm; ?>
+
+</div>
+
+
+<?php endforeach; ?>
+
+
+</div>
+
+
+
+
 
 </div>
 	

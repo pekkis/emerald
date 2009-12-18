@@ -189,13 +189,20 @@ Emerald.t = Emerald.Localization.translate; // shortcut
 
 
 
+Emerald.message = function(msg)
+{
+	$("#message p").text(msg);
+	$("#message").show();
+}
+
 
 
 
 
 $(document).ready(function()
 {
-		
+	$("#message").hide();
+	
 	$("#loading").bind("ajaxStart", function(){
 		$(this).css('top', $(window).scrollTop());
 		$(this).show();

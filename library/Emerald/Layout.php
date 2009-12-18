@@ -114,7 +114,7 @@ abstract class Emerald_Layout
 				$action['action'] = $params['a'];
 			}
 									
-			$params['page'] = $page;
+			$params['page_id'] = $page->id;
 			
 			return $this->actionToStack(
 				$action['action'], $action['controller'], $action['module'], $params

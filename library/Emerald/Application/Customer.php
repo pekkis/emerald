@@ -86,7 +86,7 @@ class Emerald_Application_Customer
     
     public function setOption($key, $value)
     {
-    	return $this->getOptionContainer()->$key = $value;	
+    	$this->getOptionContainer()->$key = $value;	
     }
     
     

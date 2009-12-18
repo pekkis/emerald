@@ -110,8 +110,10 @@ class Emerald_Db_OptionContainer
 			$this->_fetch($sel);		
 		}
 		
-		if(isset($this->_options[$key])) {
+		if(key_exists($key, $this->_options)) {
 			return $this->_options[$key];	
+		} else {
+			return false;
 		}
 		
 	}
@@ -130,10 +132,14 @@ class Emerald_Db_OptionContainer
 		$valuec = $this->getValueColumn();
 		
 		$res = $this->getTable()->getAdapter()->fetchAll($sel);
-				
+
+		// Zend_Debug::dump($res);
+		
 		foreach($res as $row) {
 			$this->_options[$row->$keyc] = $row->$valuec;
 		}
+		
+		// Zend_Debug::Dump($this->_options);
 		
 	}
 	
@@ -165,16 +171,34 @@ class Emerald_Db_OptionContainer
 	 */
 	public function set($key, $value)
 	{
+	
 		$oldValue = $this->get($key);
+		
+				
+		if($oldValue !== false) {
+			
+			$arr = $this->getWhereConditions();
+			$arr += array($this->getKeyColumn() => $key);
+			
+			$where = array();
+			foreach($arr as $key2 => $value2) {
+				$where[] = $this->getTable()->getAdapter()->quoteInto("{$key2} = ?", $value2);
+			}
+			$where = implode(" AND ", $where); 
+			$this->getTable()->update(array($this->getValueColumn() => $value), $where);
+			
+		} else {
+			
+			$arr = $this->getWhereConditions();
+			$arr += array($this->getKeyColumn() => $key, $this->getValueColumn() => $value);
+			$row = $this->getTable()->createRow();
+			$row->setFromArray($arr);
+			$row->save();
+			
+		}
+		
 		$this->_options[$key] = $value;
 		
-		if($oldValue !== false && !$value) {
-			 $this->_deleteOptions[$key] = $key;
-		} elseif($oldValue === false && $value) {
-			$this->_newOptions[$key] = $key;
-		} elseif($oldValue != $value) {
-			$this->_dirtyOptions[$key] = $key;
-		}
 	}
 	
 	
@@ -205,26 +229,8 @@ class Emerald_Db_OptionContainer
 	 */
 	public function __destruct()
 	{
-		
-		foreach($this->_newOptions as $key) {
-			$arr = $this->getWhereConditions();
-			$arr += array($this->getKeyColumn() => $key, $this->getValueColumn() => $this->$key);
-			$row = $this->getTable()->createRow();
-			$row->save();
-		}
-		
-		foreach($this->_dirtyOptions as $key) {
-			
-			$arr = $this->getWhereConditions();
-			$arr += array($this->getKeyColumn() => $key);
-			
-			$where = array();
-			foreach($arr as $key => $value) {
-				$where[] = $this->getTable()->getAdapter()->quoteInto("{$key} = ?", $value);
-			}
-			$where = implode(" AND ", $where); 
-			$this->getTable()->update(array($this->getValueColumn() => $this->get($key)), $where);
-		}
+
+		return;
 		
 		
 		foreach($this->_deleteOptions as $key) {

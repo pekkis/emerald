@@ -17,11 +17,13 @@ class Core_Model_Locale
 	
 	public function startFrom(Emerald_Application_Customer $customer, $locale = null)
 	{
-				
-		
+			
+								
 		
 		if($locale) {
 			$locale = $this->find($locale);
+						
+			
 			if(!$locale) {
 				throw new Emerald_Model_Exception('Invalid locale');
 			}
@@ -44,6 +46,7 @@ class Core_Model_Locale
 
 		
 		$page = $this->findDefaultPage($customer, $locale);
+		
 		return $page;
 	}
 
@@ -53,11 +56,11 @@ class Core_Model_Locale
 	{
 		$pageModel = new Core_Model_Page();
 		
+				
 		if($locale->page_start) {
 			$page = $pageModel->find($locale->page_start);
 		} else {
-			
-			$page = $pageModel->findAny();
+			$page = $pageModel->findAny($locale);
 			
 			if(!$page) {
 				throw new Emerald_Model_Exception('No pages');

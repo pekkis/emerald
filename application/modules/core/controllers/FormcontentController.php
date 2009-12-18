@@ -8,12 +8,16 @@ class Core_FormcontentController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 		);
 						
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			
+			Zend_Debug::dump($this->_getAllParams());
+			die();
+			
 			$input->process();
 				
 			$page = $input->page;

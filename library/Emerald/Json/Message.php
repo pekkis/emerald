@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-class Emerald_Json_Message extends Emerald_Model_AbstractItem
+class Emerald_Json_Message
 {
 	const SUCCESS = 1;
 	const INFO = 2;
@@ -14,16 +14,17 @@ class Emerald_Json_Message extends Emerald_Model_AbstractItem
 	
 	
 	protected $_translatorContainer = null;
-        
+
+	
+	public $type;
+	
+	public $message;
+	
+	
     public function __construct($type, $message)
     {
-    	parent::__construct(array('type' => $type, 'message' => $message));
-    }
-    
-    
-    public function __toString()
-    {
-		return Zend_Json::encode($this->toArray());
+    	$this->type = $type;
+    	$this->message = $message;
     }
     
     

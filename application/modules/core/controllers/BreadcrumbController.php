@@ -10,7 +10,7 @@ class Core_BreadcrumbController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'separator' => array(new Zend_Validate_StringLength(1, 15), 'presence' => 'required')
 		);
 						

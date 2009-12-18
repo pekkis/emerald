@@ -8,15 +8,16 @@ class Core_PageController extends Emerald_Controller_Action
 		
 		$filters = array();
 		$validators = array(
-			'id' => array(new Zend_Validate_Int()),
-			'beautifurl' => array(new Zend_Validate_Regex('(([a-z]{2,3}(_[A-Z]{2})?)/(.*?))')),
+			'id' => array(new Zend_Validate_Int(), 'required' => false, 'allowEmpty' => true),
+			'beautifurl' => array(new Zend_Validate_Regex('(([a-z]{2,3}(_[A-Z]{2})?)/(.*?))'), 'required' => false, 'allowEmpty' => true),
 			'forward' => array(new Zend_Validate_InArray(array(0,1)), 'presence' => 'optional', 'default' => 0) 
 		);
 		
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			
+
+						
 			$pageModel = new Core_Model_Page();
 						
 			if($beautifurl = $input->beautifurl) {
@@ -92,9 +93,6 @@ class Core_PageController extends Emerald_Controller_Action
 			}
 			
 		} catch(Exception $e) {
-			
-			echo $e;
-			die();
 			
 			throw new Emerald_Exception($e->getMessage(), $e->getHttpResponseCode() ? $e->getHttpResponseCode() : 404);
 		}

@@ -1,19 +1,19 @@
 
-$j(document).ready(function() {
+$(document).ready(function() {
 	
 	
-	$j("input,button,select").attr('disabled', '');
+	$("input,button,select").attr('disabled', '');
 	
 	
-	$j("#login").submit(function() {
+	$("#login").submit(function() {
 		
 		
 		
 		var postData = { };
-		if($j('#foo').attr('value')) postData.email = $j('#foo').attr('value'); 
-		if($j('#bar').attr('value')) postData.passwd = $j('#bar').attr('value');
+		if($('#foo').attr('value')) postData.email = $('#foo').attr('value'); 
+		if($('#bar').attr('value')) postData.passwd = $('#bar').attr('value');
 	
-		$j.ajax({
+		$.ajax({
 			type: "post",
 			url: "/login/handle",
 			dataType: "json",
@@ -23,7 +23,7 @@ $j(document).ready(function() {
 				
 				if(msg.type != 1) 
 				{
-					$j('#messages').text(msg.message);						
+					$('#messages').text(msg.message);						
 				} 
 				else  
 				{	
@@ -45,7 +45,7 @@ $j(document).ready(function() {
 	
 	});
 
-	$j('#locale').change(function() {
+	$('#locale').change(function() {
 		
 		top.document.location = '/login/' + this.value;	
 	})

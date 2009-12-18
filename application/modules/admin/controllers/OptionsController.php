@@ -1,6 +1,19 @@
 <?php
 class Admin_OptionsController extends Emerald_Controller_AdminAction 
 {
+	
+	public $ajaxable = array(
+		'save-application' => array('json'),
+		'save-locale' => array('json')
+	);
+	
+	public function init()
+	{
+		$this->getHelper('ajaxContext')->initContext();
+	}
+	
+	
+	
 	public function indexAction()
 	{
 		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
@@ -22,10 +35,8 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			
 			$localeModel = new Core_Model_Locale();
 			$locales = $localeModel->findAll();
-			
-									
+												
 			$appForm = new Admin_Form_ApplicationOptions();
-
 			
 			$customer = $this->getCustomer();
 			
@@ -36,7 +47,19 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			
 			$this->view->appForm = $appForm;
 				
-			
+
+			$this->view->localeForms = array();
+
+			foreach($locales as $locale) {
+				
+				$form = new Admin_Form_LocaleOptions();
+				
+				$form->setDefaults($locale->getOptionContainer()->getOptions());
+				$form->locale->setValue($locale->locale);
+				
+				$this->view->localeForms[$locale->locale] = $form; 
+				
+			}
 			
 		
 			
@@ -58,40 +81,23 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
 		
-		$filters = array();
-		$validators = array(
-			'default_locale' => array(new Zend_Validate_Regex('([a-z]{2,3}(_[A-Z]{2})?)'), 'presence' => 'optional', 'allowEmpty' => true),
-			'google_analytics_id' => array(new Zend_Validate_StringLength(1, 20), 'presence' => 'optional', 'allowEmpty' => true),
-		);
 		
-		try {
+		$form = new Admin_Form_ApplicationOptions();
+		if($form->isValid($this->_getAllParams())) {
 			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$input->process();
+			$oc = $this->getCustomer()->getOptionContainer();
+			foreach($form->getValues() as $key => $value) {
+				$oc->$key = $value;
+			}
 			
-			
-			$application = Zend_Registry::get('Emerald_Customer');
-			$application->setOption('default_locale', $input->default_locale);
-			$application->setOption('google_analytics_id', $input->google_analytics_id);
-				
-			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'l:common/save_ok');
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
 			
 			
-		} catch(Exception $e) {
-			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'l:common/save_failed');
-			$msg->errorFields = array_keys($input->getMessages());
+		} else {
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$msg->errors = $form->getMessages();
+			$this->view->message = $msg;
 		}
-		
-		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
-		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-		$this->getResponse()->appendBody($msg);
-		
-		
 		
 		
 	}
@@ -104,44 +110,29 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
 		
-		$filters = array();
-		$validators = array(
-			'locale' => array(new Zend_Validate_Regex('([a-z]{2,3}(_[A-Z]{2})?)'), 'presence' => 'required'), 
-			'title' => array(new Zend_Validate_StringLength(0, 255), 'presence' => 'required', 'allowEmpty' => true),
-		);
 		
-		try {
+		
+		
+		
+		$form = new Admin_Form_LocaleOptions();
+		if($form->isValid($this->_getAllParams())) {
 			
+			$localeModel = new Core_Model_Locale();
+			$locale = $localeModel->find($form->locale->getValue());
 			
-			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$input->process();
-						
-			$locale = Emerald_Model::get('DbTable_Locale')->find($input->locale)->current();
-			if(!$locale) {
-				throw new Exception('Locale not found');
+			$oc = $locale->getOptionContainer();
+			foreach($form->getValues() as $key => $value) {
+				$oc->$key = $value;
 			}
 			
-			$locale->setOption('title', $input->title);
-						
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'l:common/save_ok');
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
 			
 			
-		} catch(Exception $e) {
-			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'l:common/save_failed');
-			$msg->errorFields = array_keys($input->getMessages());
+		} else {
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$msg->errors = $form->getMessages();
+			$this->view->message = $msg;
 		}
-		
-		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
-		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-		$this->getResponse()->appendBody($msg);
-		
-		
-		
 		
 	}
 	

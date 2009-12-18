@@ -11,7 +11,7 @@ class Core_MenuController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'ban' => array('Digits'),
 			'extended' => array(array('InArray',array(0,1))),
 		);
@@ -21,7 +21,7 @@ class Core_MenuController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 		
-			$page = $input->page;
+			$page = $this->_pageFromPageId($input->page_id);
 			
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
@@ -46,7 +46,7 @@ class Core_MenuController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'ban' => array('Digits'),
 			'extended' => array(array('InArray',array(0,1))),
 		);

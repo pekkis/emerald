@@ -9,7 +9,7 @@ class Core_CalendarController extends Emerald_Controller_Action
 			'page' => array(new Emerald_Filter_PageIdToPage())
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'calMon' => array('Int'),
 			'calYear' => array('Int')
 		);

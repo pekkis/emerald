@@ -7,7 +7,7 @@ class Core_NewsController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'headlines' => array('Int', 'presence' => 'optional', 'default' => 3),
 		);
 						
@@ -62,7 +62,7 @@ class Core_NewsController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'page_no' => array('Int', 'presence' => 'optional', 'default' => 1)
 		);
 						
@@ -129,7 +129,7 @@ class Core_NewsController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'optional', 'allowEmpty' => true),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'id' => array('Int', 'presence' => 'required')
 		);
 						
