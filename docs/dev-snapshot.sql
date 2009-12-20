@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: emerald_demo
 -- ------------------------------------------------------
--- Server version	5.1.37-1ubuntu5
+-- Server version	5.1.37-1ubuntu5-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `application_option` (
 
 LOCK TABLES `application_option` WRITE;
 /*!40000 ALTER TABLE `application_option` DISABLE KEYS */;
-INSERT INTO `application_option` VALUES ('default_locale','fi_FI');
+INSERT INTO `application_option` VALUES ('default_locale','fi_FI'),('google_analytics_id','');
 /*!40000 ALTER TABLE `application_option` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +290,7 @@ CREATE TABLE `htmlcontent` (
 
 LOCK TABLES `htmlcontent` WRITE;
 /*!40000 ALTER TABLE `htmlcontent` DISABLE KEYS */;
-INSERT INTO `htmlcontent` VALUES (2,2,'<p>Kraa! Pekkis roxors</p>','2009-12-07 18:48:39',NULL,NULL,NULL);
+INSERT INTO `htmlcontent` VALUES (2,1,NULL,'2009-12-14 17:52:28',NULL,NULL,NULL),(2,2,'<p>Kraa! Pekkis roxors</p>','2009-12-07 18:48:39',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `htmlcontent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +316,7 @@ CREATE TABLE `locale` (
 
 LOCK TABLES `locale` WRITE;
 /*!40000 ALTER TABLE `locale` DISABLE KEYS */;
-INSERT INTO `locale` VALUES ('fi_FI',NULL);
+INSERT INTO `locale` VALUES ('en_US',NULL),('fi_FI',2);
 /*!40000 ALTER TABLE `locale` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,6 +342,7 @@ CREATE TABLE `locale_option` (
 
 LOCK TABLES `locale_option` WRITE;
 /*!40000 ALTER TABLE `locale_option` DISABLE KEYS */;
+INSERT INTO `locale_option` VALUES ('en_US','title','Emerald Content Management Server'),('fi_FI','title','Emerald-sisällönhallintajärjestelmä');
 /*!40000 ALTER TABLE `locale_option` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,7 +474,7 @@ CREATE TABLE `page` (
   `order_id` smallint(6) NOT NULL DEFAULT '0',
   `layout` varchar(255) DEFAULT 'Default',
   `title` varchar(255) NOT NULL,
-  `iisiurl` text NOT NULL,
+  `beautifurl` varchar(1000) DEFAULT NULL,
   `path` varchar(255) NOT NULL,
   `shard_id` int(10) unsigned NOT NULL,
   `visibility` tinyint(3) unsigned NOT NULL DEFAULT '1',
@@ -489,13 +490,13 @@ CREATE TABLE `page` (
   KEY `modified_by` (`modified_by`),
   KEY `shard_id` (`shard_id`),
   KEY `locale` (`locale`),
-  KEY `iisiurl_index` (`iisiurl`(255)),
+  KEY `iisiurl_index` (`beautifurl`(255)),
   CONSTRAINT `page_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_4` FOREIGN KEY (`shard_id`) REFERENCES `shard` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_5` FOREIGN KEY (`locale`) REFERENCES `locale` (`locale`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -504,7 +505,7 @@ CREATE TABLE `page` (
 
 LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
-INSERT INTO `page` VALUES (2,NULL,'fi_FI',0,'Default','Etusivu','fi_FI/etusivu','[2]',1,1,'2009-12-07 17:47:06',NULL,NULL,NULL,1),(3,NULL,'fi_FI',1,'Default','Kraa','fi_FI/kraa','[]',5,1,'2009-12-07 18:40:16',NULL,NULL,NULL,1);
+INSERT INTO `page` VALUES (2,NULL,'fi_FI',0,'Default','Etusivu','fi_FI/etusivu','[2]',1,1,'2009-12-07 17:47:06',NULL,NULL,NULL,1),(3,NULL,'fi_FI',1,'Default','Kraa','fi_FI/kraa','[]',5,1,'2009-12-07 18:40:16',NULL,NULL,NULL,1),(4,NULL,'fi_FI',2,'Default','Lussutus','fi_FI/lussutus','',1,1,'2009-12-20 10:36:52',NULL,NULL,NULL,0),(5,NULL,'fi_FI',3,'Default','Lussutake','fi_FI/lussutake','[5]',1,1,'2009-12-20 10:37:05',NULL,NULL,NULL,0),(6,5,'fi_FI',0,'Default','Alamummoon!!!','fi_FI/lussutake/alamummoon','[5];[6]',1,1,'2009-12-20 10:37:30',NULL,NULL,NULL,0),(7,5,'fi_FI',1,'Default','Alalussuttaja2','fi_FI/lussutake/alalussuttaja2','[5];[7]',1,1,'2009-12-20 10:37:51',NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +533,7 @@ CREATE TABLE `permission_page_ugroup` (
 
 LOCK TABLES `permission_page_ugroup` WRITE;
 /*!40000 ALTER TABLE `permission_page_ugroup` DISABLE KEYS */;
-INSERT INTO `permission_page_ugroup` VALUES (2,1,4),(2,2,15),(3,1,4),(3,2,15);
+INSERT INTO `permission_page_ugroup` VALUES (2,1,4),(2,2,15),(3,1,4),(3,2,15),(4,1,4),(4,2,15),(5,1,4),(5,2,15),(6,1,4),(6,2,15),(7,1,4),(7,2,15);
 /*!40000 ALTER TABLE `permission_page_ugroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -572,6 +573,8 @@ DROP TABLE IF EXISTS `shard`;
 CREATE TABLE `shard` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
+  `module` varchar(255) NOT NULL DEFAULT 'core',
+  `controller` varchar(255) NOT NULL DEFAULT 'index',
   `action` varchar(255) NOT NULL DEFAULT 'index',
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -585,7 +588,7 @@ CREATE TABLE `shard` (
 
 LOCK TABLES `shard` WRITE;
 /*!40000 ALTER TABLE `shard` DISABLE KEYS */;
-INSERT INTO `shard` VALUES (1,'Htmlcontent','index',3),(2,'Breadcrumb','index',1),(3,'Menu','index',1),(4,'Sitemap','index',1),(5,'News','index',3),(7,'Formcontent','index',3),(9,'Login','page',3),(10,'Randomimage','index',3);
+INSERT INTO `shard` VALUES (1,'Htmlcontent','core','html-content','index',3),(2,'Breadcrumb','core','index','index',1),(3,'Menu','core','index','index',1),(4,'Sitemap','core','index','index',1),(5,'News','core','index','index',3),(7,'Formcontent','core','index','index',3),(9,'Login','core','index','page',3),(10,'Randomimage','core','index','index',3);
 /*!40000 ALTER TABLE `shard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -700,11 +703,11 @@ DROP TABLE IF EXISTS `user_ugroup`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_ugroup` (
   `user_id` bigint(20) unsigned NOT NULL,
-  `group_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`user_id`,`group_id`),
-  KEY `group_id` (`group_id`),
-  CONSTRAINT `user_ugroup_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_ugroup_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `ugroup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `ugroup_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`user_id`,`ugroup_id`),
+  KEY `group_id` (`ugroup_id`),
+  CONSTRAINT `user_ugroup_ibfk_2` FOREIGN KEY (`ugroup_id`) REFERENCES `ugroup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_ugroup_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -746,4 +749,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-12-13 19:54:58
+-- Dump completed on 2009-12-20 21:53:16
