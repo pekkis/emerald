@@ -1,8 +1,7 @@
 <?php
 class Emerald_Group extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Role_Interface 
 {
-	const GROUP_ANONYMOUS = 1;
-	const GROUP_ROOT = 2;
+	
 	
 	
 	
@@ -18,9 +17,6 @@ class Emerald_Group extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Role_
 	}
 		
 	
-	public function getRoleId()
-	{
-		return 'Emerald_Group_' . $this->id;
-	}
+
 	
 }

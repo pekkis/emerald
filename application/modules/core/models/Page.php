@@ -3,6 +3,11 @@ class Core_Model_Page
 {
 	private static $_pages = array();
 	
+	/**
+	 * Returns table
+	 * 
+	 * @return Zend_Db_Table_Abstract
+	 */
 	public function getTable()
 	{
 		static $table;
@@ -57,6 +62,31 @@ class Core_Model_Page
 		return ($page) ? new Core_Model_PageItem($page) : false;
 		
 	}
+	
+	
+	
+	
+	public function save(Core_Model_PageItem $page)
+	{
+		if($page->parent_id == '') {
+			$page->parent_id = null;
+		}
+		
+		$tbl = $this->getTable();
+		
+		$row = $tbl->find($page->id)->current();
+		if(!$row) {
+			$row = $tbl->createRow();
+		}
+		$row->setFromArray($page->toArray());
+		$row->save();
+
+		$naviModel = new Core_Model_Navigation();
+		$naviModel->pageUpdate($page);
+				
+	}
+	
+	
 	
 	
 }

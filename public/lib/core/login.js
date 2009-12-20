@@ -1,13 +1,12 @@
 
 $(document).ready(function() {
 	
-	
+		
 	$("input,button,select").attr('disabled', '');
 	
 	
-	$("#login").submit(function() {
-		
-		
+	$("form").submit(function() {
+				
 		
 		var postData = { };
 		if($('#foo').attr('value')) postData.email = $('#foo').attr('value'); 

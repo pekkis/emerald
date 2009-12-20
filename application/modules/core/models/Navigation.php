@@ -4,6 +4,87 @@ class Core_Model_Navigation
 
 	private $_navigation;
 	
+	private $_pageModel;
+	
+	
+	/**
+	 * Returns page model
+	 * 
+	 * @return Core_Model_Page
+	 */
+	public function getPageModel()
+	{
+		if(!$this->_pageModel) {
+			$this->_pageModel = new Core_Model_Page();	
+		}
+		return $this->_pageModel;
+		
+	}
+	
+	
+	
+	public function pageUpdate(Core_Model_PageItem $page)
+	{
+		Zend_Debug::Dump($page->id, "UPDATING");
+		
+		
+		$navi = $this->getNavigation();
+
+		
+		$navi = $navi->findBy("id", $page->id);
+
+		
+		
+
+		$route = array();
+		$beautifurl = array();
+
+		$parent = $navi;
+		
+		array_unshift($route, '[' . $parent->id . ']');
+		array_unshift($beautifurl, $parent->label);
+		
+		while($parent = $parent->getParent()) {
+
+			if(!$parent instanceof Zend_Navigation_Page) {
+				break;
+			}
+			
+						
+			if($parent->id) {
+				array_unshift($route, '[' . $parent->id . ']');
+				array_unshift($beautifurl, $parent->label);	
+			}
+					
+		}
+
+		$route = implode(";", $route);
+		$beautifurl = Emerald_Beautifurl::fromArray($beautifurl, $page->locale);
+		
+		$navi->url = "/" . $beautifurl;
+
+		$this->getPageModel()->getTable()->update(
+			array('path' => $route, 'beautifurl' => $beautifurl),
+			$this->getPageModel()->getTable()->getAdapter()->quoteInto("id = ?", $page->id)
+		);
+
+		$this->_navigation = null;
+		
+		
+		if($pages = $navi->getPages()) {
+			foreach($pages as $child) {
+				$childPage = $this->getPageModel()->find($child->id);
+				$this->pageUpdate($childPage);
+			}
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Returns the whole site navi
@@ -27,6 +108,7 @@ class Core_Model_Navigation
 					array(
 						'uri' => '/' . $locale->locale,
 						'label' => $locale->locale,
+						'locale' => $locale->locale,
 					)
 				);
 				
@@ -62,6 +144,9 @@ class Core_Model_Navigation
 				array(
 					'uri' => '/' . $pageRow->beautifurl,
 					'label' => $pageRow->title,
+					'locale' => $pageRow->locale,
+					'id' => $pageRow->id,
+					'parent_id' => null,
 				)
 			);
 									
@@ -84,6 +169,10 @@ class Core_Model_Navigation
 				array(
 					'uri' => '/' . $pageRow->beautifurl,
 					'label' => $pageRow->title,
+					'locale' => $pageRow->locale,
+					'id' => $pageRow->id,
+					'parent_id' => $pageId,
+				
 				)
 			);
 						

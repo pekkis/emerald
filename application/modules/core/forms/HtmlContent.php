@@ -17,6 +17,7 @@ class Core_Form_HtmlContent extends ZendX_JQuery_Form
 		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		
+		
 		$this->addElements(array($pageIdElm, $blockIdElm, $contentElm, $submitElm));
 		
 		

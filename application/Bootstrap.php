@@ -100,7 +100,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$customer = $this->getResource('customer');
 		
-		$acl = new Zend_Acl(); 
+		$acl = new Emerald_Acl(); 
         Zend_Registry::set('Emerald_Acl', $acl);
         
 		Emerald_Acl::initialize($acl, $customer); 
@@ -126,22 +126,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 	protected function _initUser()
 	{
-		$auth = Zend_Auth::getInstance();
 						
-		$db = $this->getResource('db');
+		$auth = Zend_Auth::getInstance();
 				
-		$userTbl = Emerald_Model::get('User');
+		$userModel = new Core_Model_User();
 		
 		if($auth->hasIdentity()) {
-			$id = $auth->getIdentity();
-			$user = $userTbl->find($id)->current();
+			$user = $auth->getIdentity();
 		} else {
-			$userId = Emerald_User::USER_ANONYMOUS;
-			$user = $userTbl->find($userId);
-			if(!$user = $user->current()) {
+			$user = $userModel->findAnonymous();
+			if(!$user) {
 				throw new Emerald_Exception('Something wrong with ur user');
 			}
-			$auth->getStorage()->write($user->id);
+			$auth->getStorage()->write($user);
 		}
 				
 		Zend_Registry::set('Emerald_User', $user);

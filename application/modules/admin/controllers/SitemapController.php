@@ -6,49 +6,49 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 	 */
 	public function indexAction()
 	{
-		$validators = array(
-			'locale' => Array
-			(
-				'allowEmpty' => false,
-				'presence' => 'optional'
-			)
-		);
+		$filters = array();
+		$validators = array('locale' => Array('allowEmpty' => false, 'presence' => 'optional'));
+		
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
-		
-		$localeTbl = Emerald_Model::get('DbTable_Locale');
-		$this->view->locales = $locales = $localeTbl->fetchAll();
-		
-		if(!$locales->current()) {
-			$this->getResponse()->setRedirect('/admin/locale');
-			return;
-		}
-		
-		$this->view->locale = $currLocale = Zend_Registry::get('Zend_Locale');	
+				
+		$localeModel = new Core_Model_Locale();
+		$this->view->locales = $locales = $localeModel->findAll();
 
-		if(!$filtered->locale)
+		if(!$locales->current()) {
+			return $this->getHelper('redirector')->gotoRouteAndExit(array('module' => 'admin', 'controller' => 'locale', 'action' => 'index'));
+		}
+
+		if(!$input->locale)
 		{
-			$this->_redirect("/admin/sitemap/index/locale/".$locales->current()->locale);
+			return $this->getHelper('redirector')->gotoRouteAndExit(array('module' => 'admin', 'controller' => 'sitemap', 'action' => 'index', 'locale' => $locales->current()->locale));
 		}
 		
-		$this->view->editlocale = $locales->current()->locale;//count($locales) ? $locales->current()->locale : $currLocale->toString();
 		foreach($locales as $lc)
 		{
-			if($lc->locale == $filtered->locale) $this->view->editlocale = $filtered->locale;
+			if($lc->locale == $input->locale)
+				$this->view->editlocale = $input->locale;
 		}
-		$this->view->workLocale = new Zend_Locale();
-		// = $selectedLocales;
-		$this->view->headScript()->appendFile("/lib/js/form.js");
-		$this->view->headScript()->appendFile("/lib/js/admin/datasource.js");
-		$this->view->headScript()->appendFile("/lib/js/admin/sitemap/index.js");
-		$this->view->headLink()->appendStylesheet("/lib/css/admin/sitemap/sitemap.css");
+		
+		
+		
+		$navimodel = new Core_Model_Navigation();
+		
+		$navigation = $navimodel->getNavigation();
+		
+		$navigation = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
+		
+		
+		$this->view->navigation = $navigation;
+		
+		
 	}
 	
 	/**
@@ -73,16 +73,16 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
-		$locale = $filtered->locale ? $filtered->locale : Zend_Registry::get('Zend_Locale')->toString();
+		$locale = $input->locale ? $input->locale : Zend_Registry::get('Zend_Locale')->toString();
 		
-		$parentId = $filtered->start;
+		$parentId = $input->start;
 		$sitemap = new Emerald_Sitemap($locale);
 				
 		$pages = $sitemap->findBranch(($parentId) ? $parentId : null);	
@@ -120,8 +120,8 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
@@ -135,16 +135,16 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		$allowLocales = array();
 		foreach(Emerald_Model::get('DbTable_Locale')->fetchAll() as $localeRaw)$allowLocales[] = $localeRaw->locale;
-		if(!in_array( $filtered->locale, $allowLocales)) throw new Emerald_Exception('Not Found', 404);
+		if(!in_array( $input->locale, $allowLocales)) throw new Emerald_Exception('Not Found', 404);
 		
-		$parentId = $filtered->start;
-		$sitemap = new Emerald_Sitemap($filtered->locale);
+		$parentId = $input->start;
+		$sitemap = new Emerald_Sitemap($input->locale);
 		$list = $this->_recursiveBuildList($sitemap);
 		$list->addAttribute("id","sortList");
 		$dom_sxe = dom_import_simplexml($list);
 		$dom_sxe->ownerDocument->formatOutput = true;
 		
-		$this->view->locale = $filtered->locale;
+		$this->view->locale = $input->locale;
 		$this->view->pageList = $dom_sxe->ownerDocument->saveXML($dom_sxe,LIBXML_NOEMPTYTAG);
 		$this->view->headScript()->appendFile("/lib/js/scriptaculous/src/scriptaculous.js");
 		$this->view->headScript()->appendFile("/lib/js//scriptaculous/src/effects.js");
@@ -275,8 +275,8 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
@@ -291,7 +291,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		
 		
-		$id = $filtered->id;
+		$id = $input->id;
 		$this->view->layout()->setLayout("admin_popup_outer");
 		
 		$dao = Emerald_Model::get('DbTable_Page');
@@ -349,15 +349,15 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
-		$parentId = $filtered->id;
+		$parentId = $input->id;
 		$parentPage = null;
 		
 		// TODO: Lazy loading causes this hack. How we gonna get past it?
@@ -391,7 +391,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		$this->view->layout()->setLayout("admin_popup_outer");
 		$this->view->parentId = $parentId;
-		$this->view->localeName = $filtered->locale;
+		$this->view->localeName = $input->locale;
 		
 		$s_dao = Emerald_Model::get("Shard");
 		$this->view->shards = $s_dao->findAllowed();
@@ -481,13 +481,13 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
-			$fields = array_keys(array_merge($filtered->getMissing(),$filtered->getInvalid()));
+			$fields = array_keys(array_merge($input->getMissing(),$input->getInvalid()));
 			
 			$this->getResponse()->setHeader('X-JSON', new Emerald_Json_Message(Emerald_Json_Message::ERROR, array('fields'=>$fields)));
 			return;
@@ -500,15 +500,15 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		foreach(Emerald_Model::get('DbTable_Locale')->fetchAll() as $localeRaw) {
 			$allowLocales[] = $localeRaw->locale;			
 		}
-		if(!in_array( $filtered->locale, $allowLocales))
+		if(!in_array( $input->locale, $allowLocales))
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
 		
-		$locale = $filtered->locale; // user get edit locale HERE
+		$locale = $input->locale; // user get edit locale HERE
 		
 		$dao = Emerald_Model::get('DbTable_Page');
-		$parentId = $filtered->parent_id;
+		$parentId = $input->parent_id;
 		
 		
 		// if not creating at root level 
@@ -538,7 +538,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		$newPages = Array();
 		
 		// check if creating or updating (depends if the id is present)
-		if($id = $filtered->getEscaped("id"))
+		if($id = $input->getEscaped("id"))
 		{
 			$obj = $dao->find($id)->current();
 			if(!$obj) throw new Emerald_Exception("Not found", 404);
@@ -548,7 +548,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		}
 		else
 		{
-			while($filtered->page_count--) $newPages[] = $dao->createRow();
+			while($input->page_count--) $newPages[] = $dao->createRow();
 		}
 		
 		$db = Zend_Registry::get('Emerald_Db');
@@ -562,17 +562,17 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			
 			foreach($newPages as $cnt => $page)
 			{
-				$page->parent_id = $filtered->parent_id ? $filtered->parent_id : null;
-				$page->title = $filtered->title;
+				$page->parent_id = $input->parent_id ? $input->parent_id : null;
+				$page->title = $input->title;
 				if($cnt > 0) $page->title .= " ({$cnt})";
-				$page->shard_id = $filtered->shard_id;
-				$page->layout = $filtered->layout;
+				$page->shard_id = $input->shard_id;
+				$page->layout = $input->layout;
 				
 				// keep the old order-id if existing page, else get max from dao
 				$page->order_id = $page->order_id ? $page->order_id : $dao->getNextOrderId($page->parent_id, $locale);
 				$page->status = 1;
 				$page->locale = $locale;
-				$page->visibility = $filtered->visibility;
+				$page->visibility = $input->visibility;
 				
 				
 				if(!$page->parent_id) $page->parent_id = NULL;
@@ -583,7 +583,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 				$permissionTbl = Emerald_Model::get('Permission_PageGroup');
 				$permissionTbl->delete('page_id = ' . $page->id);
 								
-				foreach($filtered->permission as $groupId => $permissionArr)
+				foreach($input->permission as $groupId => $permissionArr)
 				{
 					if($grp = Emerald_Model::get('Group')->find($groupId)->current())
 					{
@@ -634,16 +634,16 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
 		
-		$id = $filtered->id;
+		$id = $input->id;
 		
 		$dao = Emerald_Model::get('DbTable_Page');
 		$page = $dao->find($id)->current();
@@ -681,16 +681,16 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
 			throw new Emerald_Exception('Not Found', 404);
 		}
 		
-		$ids = $filtered->ids;
+		$ids = $input->ids;
 		$dao = Emerald_Model::get('DbTable_Page');
 		$db = Zend_Registry::get('Emerald_Db');
 		try
@@ -759,9 +759,9 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
 		}
 		catch(Exception $e)
 		{
@@ -774,7 +774,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		if($this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
 		{
-			$id = $filtered->id;
+			$id = $input->id;
 			if($page = Emerald_Model::get("Page")->find($id)->current())
 			{
 				if($locale = Emerald_Model::get("Locale")->find($page->locale)->current())
@@ -809,9 +809,9 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		);
 		try
 		{
-			$filtered = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
-			$filtered->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$filtered->process();
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
 			
 			$message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Array());
 			$dao = Emerald_Model::get('DbTable_Page');
@@ -819,7 +819,7 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 			try
 			{
 				$db->beginTransaction();
-				foreach($filtered->eip as $id => $title)
+				foreach($input->eip as $id => $title)
 				{
 					$id = (int)$id;
 					$page = $dao->find($id)->current();

@@ -94,7 +94,7 @@ class Core_PageController extends Emerald_Controller_Action
 			
 		} catch(Exception $e) {
 			
-			throw new Emerald_Exception($e->getMessage(), $e->getHttpResponseCode() ? $e->getHttpResponseCode() : 404);
+			throw new Emerald_Exception($e->getMessage(), $e->getCode() ? $e->getCode() : 404);
 		}
 				
 			

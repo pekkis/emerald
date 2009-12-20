@@ -55,46 +55,7 @@ class Core_LoginController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
-		$filters = array();
-		
-		$validators = array(
-			'locale' => array(new Zend_Validate_Regex('/[a-z]{2,3}(_[A-Z]{2})?/'))
-		);
-
-		
-		try {
-			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();
-			
-									
-			
-			$this->view->user = $this->getCurrentUser();
-			
-			if(Zend_Locale::isLocale($input->locale) && in_array($input->locale, Emerald_Server::getInstance()->getAdminLocales()))
-				Zend_Registry::get('Zend_Locale')->setLocale($input->locale);
-			else {
-				
-				$locale = new Zend_Locale('fi');
-				$input->locale = $locale->getLanguage();
-				Zend_Registry::get('Zend_Locale')->setLocale($input->locale); 
-			}
-							
-
-			$adminLocales = array();
-			$locale = new Zend_Locale();
-			foreach(Emerald_Server::getInstance()->getAdminLocales() as $pocale) {
-				$adminLocales[$pocale] = $locale->getTranslation($pocale, 'language', $pocale);
-			}
-
-			$this->view->locale = $input->locale;
-			$this->view->adminLocales = $adminLocales;
-			
-		} catch(Exception $e) {
-			
-			throw new Emerald_Exception($e->getMessage(), 500);
-			
-		}
+		$this->view->form = new Core_Form_Login();
 	}
 	public function handleAction()
 	{

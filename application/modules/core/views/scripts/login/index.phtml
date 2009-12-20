@@ -1,42 +1,8 @@
 <?php
-$this->headScript()->appendFile('/lib/admin/login.js');
+$this->headScript()->appendFile('/lib/core/login.js');
 $this->layout()->setLayout('plain');
 ?>
 
-		<div id="loginBoxContainer">
-		
-		
-		<div id="loginBox">
-		<div id="loginBoxContent">
-		
-		
-		
-		<form id="login">
-		
-		<div id="messages">
-		<noscript><?php echo $this->translate('common/error_javascript_required'); ?></noscript>
-		</div>
+<h1>Emerald Login</h1>
 
-		<div class="input">
-		<label for="locale"><?php echo $this->translate('Select language'); ?></label>
-		<?php echo $this->formSelect('locale', $this->locale, array('disabled' => 'disabled'), $this->adminLocales); ?>
-		</div>
-	
-		<div class="input">
-		<label for="foo"><?php echo $this->translate('E-mail'); ?></label>		
-		<input disabled="disabled" id="foo" name="foo" type="text" />
-		</div>
-
-		<div class="input">
-		<label for="bar"><?php echo $this->translate('Password'); ?></label>
-		<input disabled="disabled" id="bar" name="bar" type="password" />
-		</div>
-				
-		<button id="submiter" disabled="disabled" type="submit"><?php echo $this->translate('Submit'); ?></button>
-						
-		</form>
-		</div>
-		</div>
-		</div>
-		
-</html>
+<?php echo $this->form; ?>

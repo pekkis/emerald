@@ -29,15 +29,12 @@ body
 	background-color: #000;
 	text-align: right;
 	color: #fff;
-	background-image: url('/lib/gfx/admin/top-rounded-left.png');
-	background-repeat: no-repeat;
+		
 	padding-bottom: 1px;
 }
 #pageHeader .pageHeaderRight
 {
-	background-image: url('/lib/gfx/admin/top-rounded-right.png');
-	background-repeat: no-repeat;
-	background-position: top right;
+	
 	padding: 0.3em;
 	padding-top: 0.3em;
 	padding-right: 0.5em;

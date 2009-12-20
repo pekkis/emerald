@@ -1,70 +1,40 @@
+<?php $this->headScript()->appendFile("/lib/admin/sitemap/index.js"); ?>
+
 <h1><?php echo $this->translate('Sitemap'); ?></h1>
-<div id="sitemapContent" class="operandsCol">
+
+<ul>
+<?php $depth = 0; $first = true; ?>
+
+<?php foreach($this->navigation as $menu): ?>
+
+	<?php if($first): ?>
+	<?php $first = false; ?>
+	<?php else: ?>
 	
-	<p>
-	<select name="" class="localeSwither">
-	<?php 
-	foreach($this->locales as $wl):
-		$this->workLocale->setLocale($wl->locale);
-	?>
+	<?php if($this->navigation->getDepth() > $depth) echo '<ul>'; ?>
+	<?php if($this->navigation->getDepth() < $depth) echo str_repeat('</li></ul>', $depth - $this->navigation->getDepth()); ?>
+	<?php if($this->navigation->getDepth() == $depth) echo '</li>'; ?>
 	
-		<option 
-			value="<?php echo $wl->locale ?>"
-			<?php if($this->editlocale == $this->workLocale->toString()): ?>
-				selected="selected"
-			<?php endif; ?>
-		>
-		<?php 
+	<?php endif; ?>
 		
-		echo $this->locale->getTranslation($this->workLocale->getLanguage(), 'language');
-		?>
-		<?php if($this->workLocale->getRegion()) echo ", " . $this->locale->getTranslation($this->workLocale->getRegion(), 'country'); ?>
-		</option>
-	<?php endforeach; ?>
-	</select>
-	</p>
+	<li>						
+	<?php echo $menu->label; ?>
+	<br />
+	<?php if($menu->id): ?>
+	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
+	<?php echo $this->translate('Edit'); ?>
+	</a>
+	<?php endif; ?>
 	
-	<nobr id="nodeMenu" style="display: none">
-	<ul class="iconVMenu noText">
-		<li class="rq_exactlyOne ac_addSubPage"><?php echo $this->icon()->small("actions/filenew", "New page", Array(), $this->translate('New page')) ?></li>
-		<li class="rq_exactlyOne ac_editProperties"><?php echo $this->icon()->small("actions/configure", "Properties", Array(), $this->translate('Properties')) ?></li>
-		<li class="rq_exactlyOne ac_editPage"><?php echo $this->icon()->small("apps/kate", "Edit contents", Array(), $this->translate('Edit contents')) ?></li>							
-		<li class="rq_exactlyOne ac_setHome"><?php echo $this->icon()->small("actions/gohome", "Set start page", Array(), $this->translate('Set start page')) ?></li>
-	</ul>
-	</nobr>
-	<table width="100%" cellspacing="0" class="entitityList">
-		<thead>
-			<tr class="columnHeadings">
-				<th><?php echo $this->translate('Page title'); ?></th>
-				<th>&nbsp;</th><?php /* command column */ ?>
-				<th>&nbsp;</th><?php /* selector column */ ?>
-				<th>&nbsp;</th><?php /* home column */ ?>
-				<th><?php echo $this->translate('Type'); ?></th>
-				<th><?php echo $this->translate('Created'); ?></th>
-			</tr>
-			<tr class="flowControls">
-				<th colspan="6">
-					<div class="paging" style="display: none">
-						<span class="title"><?php echo $this->translate('Page'); ?>:</span>
-						<a href="" class="prevPage">&laquo;</a>
-						<span class="currentPage">0</span> / <span class="totalPages">0</span>
-						<a href="" class="nextPage">&raquo;</a>
-					</div>
-					<div class="selection">
-						<span class="selectionCount">0</span> 
-						<span class="title"><?php echo $this->translate('selected'); ?></span>,
-						<span class="selectNone"><?php echo $this->translate('clear'); ?></span>
-						::
-						<ul class="iconVMenu dynamicMenu" id="topMenukko">
-							<li class="ac_addRootPage"><?php echo $this->icon()->small("actions/filenew", "New page", Array(), $this->translate('New page')) ?></li>
-							<li class="ac_reorderPages"><?php echo $this->icon()->small("actions/kaboodleloop", "Reorder pages", Array(), $this->translate('Reorder pages')) ?></li>
-							<li class="rq_atLeastOne ac_deletePage"><?php echo $this->icon()->small("actions/editdelete", "Delete selected pages", Array(), $this->translate('Delete selected pages')) ?></li>
-						</ul>
-						<span id="activeCommand"></span>
-					</div>
-				</th>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	</table>
-</div>
+	
+	
+	
+	<?php $depth = $this->navigation->getDepth(); ?>
+	
+	<?php endforeach; ?>
+	
+	<?php if($depth) echo str_repeat('</li></ul>', $depth); ?>
+	
+</ul>
+
+

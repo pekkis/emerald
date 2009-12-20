@@ -14,6 +14,70 @@ class Core_Model_Locale
 	
 	
 	
+	public function updateSiteLocales(array $locales)
+	{
+		$selectedLocalesRaw = $this->findAll();
+		$selectedLocales = array();
+		foreach($selectedLocalesRaw as $localeRaw) {
+			$selectedLocales[] = $localeRaw->locale;			
+		}
+			
+		$addLocales = array_diff($locales, $selectedLocales);
+		$deleteLocales = array_diff($selectedLocales, $locales);
+
+		try {
+			$this->getTable()->getAdapter()->beginTransaction();
+				
+			if($deleteLocales) {
+				$this->getTable()->delete($this->getTable()->getAdapter()->quoteInto("locale IN (?)", $deleteLocales));
+			}
+			foreach($addLocales as $addLocale) {
+				$this->getTable()->insert(array('locale' => $addLocale));
+			}
+			
+			$this->getTable()->getAdapter()->commit();
+			
+			return true;
+			
+		} catch(Exception $e) {
+									
+			$this->getTable()->getAdapter()->rollBack();
+			return false;
+		}
+		
+	}
+	
+	
+	public function getAvailableLocales()
+	{
+		$locales = array_keys(Zend_Locale::getLocaleList());
+
+		$forbidden = array('root', 'auto', 'environment', 'browser', 'sr_YU', 'und', 'und_ZZ');
+		
+		$common = array('fi', 'fi_FI', 'sv', 'sv_SE', 'en', 'en_US', 'en_UK');
+		
+		$availables = array();
+
+		foreach($locales as $locale) {
+
+			if(!in_array($locale, $forbidden)) {
+				$available = new stdClass();
+				$available->locale = $locale;
+				$available->class = (in_array($locale, $common)) ? 'common' : 'uncommon';
+			}
+						
+			$availables[] = $available;			
+			
+		}
+		
+		ksort($availables);
+		
+		return $availables;
+		
+	}
+	
+	
+	
 	
 	public function startFrom(Emerald_Application_Customer $customer, $locale = null)
 	{

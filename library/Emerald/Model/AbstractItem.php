@@ -20,7 +20,7 @@ abstract class Emerald_Model_AbstractItem
 	 * 
 	 * @param object|array $data
 	 */
-	public function __construct($data)
+	public function __construct($data = array())
 	{
 		if(is_object($data)) {
 			$data = $data->toArray();
@@ -45,6 +45,19 @@ abstract class Emerald_Model_AbstractItem
 	{
 		return $this->_data;
 	}
+
+	
+	/**
+	 * Sets from array
+	 * 
+	 * @param array $array Data
+	 */
+	public function setFromArray(array $array)
+	{
+		$this->_data = array_merge($this->_data, $array);
+		
+	}
+	
 	
 
 	/**

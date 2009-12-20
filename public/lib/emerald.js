@@ -193,6 +193,10 @@ Emerald.message = function(msg)
 {
 	$("#message p").text(msg);
 	$("#message").show();
+	
+	$("#message").show();
+	
+	location = "#message";
 }
 
 
