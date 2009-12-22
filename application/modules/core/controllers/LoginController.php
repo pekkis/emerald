@@ -2,13 +2,15 @@
 class Core_LoginController extends Emerald_Controller_Action
 {
 
+	public $ajaxable = array(
+        'handle'     => array('json'),
+    );
+	
 	public function init()
 	{
-		/*
-		$ajaxContext = $this->_helper->getHelper('AjaxContext');
-        $ajaxContext->addActionContext('handle', 'json')->initContext();
-       	*/          
+		$this->getHelper('ajaxContext')->initContext();
 	}
+	
 	
 	
 	public function pageAction()
@@ -57,69 +59,37 @@ class Core_LoginController extends Emerald_Controller_Action
 	{
 		$this->view->form = new Core_Form_Login();
 	}
-	public function handleAction()
-	{
-		$this->_helper->getHelper('AjaxContext')->initContext('json');		
-		
-		
-		$filters = array(
-		);
-		
-		$validators = array(
-			'email' => array(new Zend_Validate_EmailAddress(), 'presence' => 'required'),
-			'passwd' => array('Alnum', 'presence' => 'required')
-		);
 
 		
-						
-		
-		try {
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();
-						
+	
+	public function handleAction()
+	{
+
+		$form = new Core_Form_Login();
+		if(!$form->isValid($this->getRequest()->getPost())) {
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Check fields');
+			$msg->errors = $form->getMessages(); 
+		} else {
+			
 			$auth = Zend_Auth::getInstance();
 			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'user', 'email', 'passwd', 'MD5(?) and status = 1');			
 						
-			$adapter->setIdentity($input->email);
-			$adapter->setCredential($input->passwd);
+			$adapter->setIdentity($form->tussi->getValue());
+			$adapter->setCredential($form->loso->getValue());
 
 			$result = $auth->authenticate($adapter);
 			
 			if($result->isValid()) {
-				
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, Zend_Registry::get('Zend_Translate')->translate('Login was successful.'));
-				
-				
-				$auth->getStorage()->write($adapter->getResultRowObject()->id);
-
-								Zend_Debug::dump($adapter->getResultRowObject());
-				die();
-				
-				
-				
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Login OK');
+				// $auth->getStorage()->write($adapter->getResultRowObject());
 			} else {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, Zend_Registry::get('Zend_Translate')->translate('User was not authenticated.'));
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Login failed.');
 			}
 			
-		} catch(Exception $e) {
-			if($input->hasMissing()) {
-				$msg = Zend_Registry::get('Zend_Translate')->translate('Please fill all required fields.');
-			} elseif($input->hasInvalid()) {
-				$msg = Zend_Registry::get('Zend_Translate')->translate('Please check all required fields.');
-			} else {
-				$msg = 'login/error/unknown';
-			}
-			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, $msg);
 			
 		}
-		
-			
-		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
-		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-        $this->getResponse()->appendBody($msg);
+
+		$this->view->message = $msg;
 		
 		
 		

@@ -199,6 +199,75 @@ Emerald.message = function(msg)
 	location = "#message";
 }
 
+Emerald.Json = { };
+
+Emerald.Json.Message = {
+		
+	SUCCESS : 1,
+	INFO : 2,
+	ERROR : 4
+
+};
+
+
+
+jQuery.fn.jsonSubmit = function(options) {
+	  
+		var defaultOptions = {
+			success: function() { alert('tussi'); }
+		};
+		
+		var finalOptions = jQuery.extend(defaultOptions, options);
+				
+		return this.each(function(){
+		
+		  $this = $(this);
+	
+		  $this.data("callback", finalOptions);
+		  
+		  $this.submit(function() {
+			
+			$("label", $this).removeClass("error");
+			
+			// $("input[type=submit], button[type=submit]", $this).attr("disabled", "disabled");
+			
+			 $.ajax({
+				type: "post",
+				url: this.action + "/format/json",
+				dataType: "json",
+				data: $(this).serialize(),
+				success: function(response) 
+				{
+					var msg = response.message;
+					// $("input[type=submit], button[type=submit]", $this).attr("disabled", "");
+					console.debug(msg);
+					
+					if(msg.type == Emerald.Json.Message.ERROR) {
+						
+						if(msg.errors) {
+							$.each(msg.errors, function(key, value) {
+								$("label[for=" + key + "]", $this).addClass("error");
+							});
+						}
+						
+					}
+					
+					var callback = $this.data("callback");
+					
+					callback.success();
+					
+					
+				}
+			});
+			return false;
+			
+		  });
+		  
+		  
+		 
+	  });
+	};
+
 
 
 
