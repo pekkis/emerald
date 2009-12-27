@@ -2,4 +2,4 @@
 
 <h1>Error</h1>
 
-<p><?php echo $this->translate('Not found'); ?></p>
+<p><?php echo $this->translate(($this->message) ? $this->message : 'Not found'); ?></p>

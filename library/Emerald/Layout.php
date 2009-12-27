@@ -31,6 +31,13 @@ abstract class Emerald_Layout
 		$this->_run();	
 	}
 	
+	public function runAjax()
+	{
+		$this->_preRun();
+		$this->_action->getHelper('layout')->disableLayout();
+		// $this->_action->getHelper('ajaxContext')->initContext('html');
+		$this->_runAjax();	
+	}
 	
 	
 	public function setNoRender($noRender = true)
@@ -84,6 +91,9 @@ abstract class Emerald_Layout
 
 		
 	}
+	
+	
+	
 	
 	
 	public function shard($page, $identifier, $params = array())

@@ -5,7 +5,7 @@ class Core_Form_Login extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/core/login/handle");
+		$this->setAction("/core/user/login");
 		
 		$emailElm = new Zend_Form_Element_Text('tussi', array('label' => 'E-mail', 'class' => 'w66'));
 		$emailElm->addValidator(new Zend_Validate_StringLength(0, 255));

@@ -99,7 +99,7 @@ class Core_Model_Locale
 				$locale = $this->findAny($customer);
 				
 				if(!$locale) {
-					throw new Emerald_Model_Exception('No locales');
+					throw new Emerald_Model_Exception('No locales', 404);
 				}
 				
 				$this->setDefault($customer, $locale);

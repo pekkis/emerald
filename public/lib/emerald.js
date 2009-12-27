@@ -47,19 +47,19 @@ Emerald.Popup.listener = function(myEvent) {
 	var elm = $(this);
 	var features = { };
 	
-	if(elm.hasClass('popup_small')) {
+	if(elm.hasClass('popup-small')) {
 		features.width = 400;
 		features.height = 400;
-	} else if(elm.hasClass('popup_large')) {
+	} else if(elm.hasClass('popup-large')) {
 		features.width = 800;
 		features.height = 600;
-	} else if(elm.hasClass('popup_medium')) {
+	} else if(elm.hasClass('popup-medium')) {
 		features.width = 500;
 		features.height = 500;
 	}
 	
-	features.resizable = (elm.hasClass('popup_resizable')) ? 'yes' : 'no';
-	features.scrollbars = (elm.hasClass('popup_scrollbars')) ? 'yes' : 'no';
+	features.resizable = (elm.hasClass('popup-resizable')) ? 'yes' : 'no';
+	features.scrollbars = (elm.hasClass('popup-scrollbars')) ? 'yes' : 'no';
 
 	console.debug(features);
 
@@ -70,23 +70,24 @@ Emerald.Popup.listener = function(myEvent) {
 
 Emerald.TinyMCE = {
 		
-		init: function(config)
+		options: function(options)
 		{
-			var common = {
+			var defaultOptions = {
+				script_url : '/lib/tinymce/jscripts/tiny_mce/tiny_mce.js',
 				width: "100%",
 				theme : "advanced",
 				file_browser_callback : Emerald.FileManager.open,
 				convert_urls: true,
 				relative_urls: false,
-				content_css: "/data/css/editor.css",
+				content_css: "/data/editor.css",
 				external_link_list_url : "/admin/sitemap/tinymcelinklist",
 				language: Emerald.Localization.getLanguage(),
 				plugins: "table",
 				theme_advanced_buttons2_add : "tablecontrols"
 			};
 			
-			var returner = $.extend(common, config);
-			return returner;
+			var combinedOptions = $.extend(defaultOptions, options);
+			return combinedOptions;
 			
 		}
 		
@@ -214,7 +215,8 @@ Emerald.Json.Message = {
 jQuery.fn.jsonSubmit = function(options) {
 	  
 		var defaultOptions = {
-			success: function() { alert('tussi'); }
+			success: function() {},
+			failure: function() {}
 		};
 		
 		var finalOptions = jQuery.extend(defaultOptions, options);
@@ -240,7 +242,9 @@ jQuery.fn.jsonSubmit = function(options) {
 				{
 					var msg = response.message;
 					// $("input[type=submit], button[type=submit]", $this).attr("disabled", "");
-					console.debug(msg);
+					//console.debug(msg);
+					
+					var callback = $this.data("callback");
 					
 					if(msg.type == Emerald.Json.Message.ERROR) {
 						
@@ -250,11 +254,14 @@ jQuery.fn.jsonSubmit = function(options) {
 							});
 						}
 						
+						callback.failure();						
+					} else {
+						callback.success();
 					}
 					
-					var callback = $this.data("callback");
 					
-					callback.success();
+					
+					
 					
 					
 				}

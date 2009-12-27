@@ -74,7 +74,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$server = Emerald_Server::getInstance();
 		$customer = $server->findCustomer($_SERVER['HTTP_HOST']);
-						
+
+		if(!$customer) {
+			throw new Emerald_Exception("Customer not found");
+		}
+		
 		$front = $this->getResource('frontcontroller');
 		
 		$config = $customer->getConfig();

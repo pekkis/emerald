@@ -2,12 +2,16 @@
 class Core_HtmlcontentController extends Emerald_Controller_Action 
 {
 
+	public $ajaxable = array(
+		'save' => array('json'),
+	);
+	
 	public function init()
 	{
-		$contextSwitch = $this->_helper->getHelper('contextSwitch');
-        $contextSwitch->addActionContext('index', array('json'))
-                      ->initContext();
+		$this->getHelper('ajaxContext')->initContext();
 	}
+	
+
 	
 	public function indexAction()
 	{
@@ -96,42 +100,33 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 	public function saveAction()
 	{
 		
-		$filters = array(
-		);
+		$form = new Core_Form_HtmlContent();
 		
-		$validators = array(
-			'page_id' => array('Int', 'presence' => 'required'),
-			'block_id' => array('Int', 'presence' => 'required'),
-			'content' => array(new Zend_Validate_StringLength(0), 'allowEmpty' => true, 'presence' => 'optional'),
-		);
-		
-		try {
+		if($form->isValid($this->getRequest()->getPost())) {
+			
+			$page = $this->_pageFromPageId($form->page_id->getValue());
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
+				throw new Emerald_Acl_ForbiddenException('Forbidden');
+			}
 
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$input->process();
-						
-			$htmlcontentTbl = Emerald_Model::get('Htmlcontent');
-			$htmlcontent = $htmlcontentTbl->find($input->page_id, $input->block_id)->current();
 			
-			$page = $htmlcontent->getPage();
-			$page->assertWritable();
-						
-			$htmlcontent->content = $input->getUnescaped('content');
-			$htmlcontent->save();
-						
-			$message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			$model = new Core_Model_HtmlContent();
 			
-		} catch(Exception $e) {
+			$htmlcontent = $model->find($form->page_id->getValue(), $form->block_id->getValue());		
+			
+			$htmlcontent->setFromArray($form->getValues());
+			
+			$model->save($htmlcontent);
+
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			
+			
+		} else {
 			$message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
-			$message->errorFields = array_keys($input->getMessages()); 
+			$message->errors = array_keys($input->getMessages()); 
 		}
 		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender();
-		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-		$this->getResponse()->appendBody($message);
-		
+		$this->view->message = $msg;
 		
 	}
 	

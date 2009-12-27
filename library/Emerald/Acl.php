@@ -14,11 +14,11 @@ class Emerald_Acl extends Zend_Acl
 	{
         
         
-        $anonGroup = 'Emerald_Group_' . Core_Model_GroupItem::GROUP_ANONYMOUS;
+        $anonGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ANONYMOUS;
         $acl->addRole($anonGroup);
         $acl->deny($anonGroup);
 
-        $rootGroup = 'Emerald_Group_' . Core_Model_GroupItem::GROUP_ROOT; 
+        $rootGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ROOT; 
         $acl->addRole($rootGroup);
         $acl->allow($rootGroup);
         

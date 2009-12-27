@@ -16,7 +16,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 	
 	public function indexAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -76,7 +76,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 	
 	public function saveApplicationAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}
@@ -105,7 +105,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 	
 	public function saveLocaleAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Emerald_Group::GROUP_ROOT))
+		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
 		}

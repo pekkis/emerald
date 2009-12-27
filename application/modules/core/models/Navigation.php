@@ -28,13 +28,10 @@ class Core_Model_Navigation
 		Zend_Debug::Dump($page->id, "UPDATING");
 		
 		
-		$navi = $this->getNavigation();
+		$navi = $this->clearNavigation()->getNavigation();
 
 		
 		$navi = $navi->findBy("id", $page->id);
-
-		
-		
 
 		$route = array();
 		$beautifurl = array();
@@ -84,6 +81,11 @@ class Core_Model_Navigation
 	
 	
 	
+	public function clearNavigation()
+	{
+		$this->_navigation = null;
+		return $this;
+	}
 	
 	
 	/**

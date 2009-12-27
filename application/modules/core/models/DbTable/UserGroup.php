@@ -1,5 +1,5 @@
 <?php
-class Core_Model_UserGroup extends Zend_Db_Table_Abstract 
+class Core_Model_DbTable_UserGroup extends Zend_Db_Table_Abstract 
 {
 	protected $_name = 'user_ugroup';
 	protected $_primary = array('user_id', 'group_id');

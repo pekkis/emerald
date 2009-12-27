@@ -10,7 +10,7 @@ final class Emerald_Version
     /**
      * Emerald version
      */
-    const VERSION = '0.6.0';
+    const VERSION = '3.0.0';
 
     /**
      * Compare the specified Emerald version string $version

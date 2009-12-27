@@ -4,6 +4,16 @@ class Core_MenuController extends Emerald_Controller_Action
 	
 	private $sitemap = null;
 	
+	public $ajaxable = array(
+        'index'     => array('json'),
+    );
+	
+	public function init()
+	{
+		$this->getHelper('ajaxContext')->setAutoJsonSerialization(false)->initContext();
+	}
+	
+	
 	public function indexAction()
 	{
 		
@@ -11,7 +21,7 @@ class Core_MenuController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'allowEmpty' => true),
 			'ban' => array('Digits'),
 			'extended' => array(array('InArray',array(0,1))),
 		);
@@ -20,19 +30,25 @@ class Core_MenuController extends Emerald_Controller_Action
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
-		
-			$page = $this->_pageFromPageId($input->page_id);
-			
+
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
 						
-			$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
-			if($active) {
-				$active->setActive(true);
+			if($input->page_id) {
+				$page = $this->_pageFromPageId($input->page_id);
+				$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
+				if($active) {
+					$active->setActive(true);
+				}
+				
+				$localeMenu = $navi->findBy('uri', '/' . $page->locale);
+				$this->view->menu = $localeMenu;
+			} else {
+				$this->view->menu = $navi;
 			}
 			
-			$localeMenu = $navi->findBy('uri', '/' . $page->locale);
-			$this->view->menu = $localeMenu;
+			
+						
 			
 			$this->_helper->viewRenderer->setResponseSegment($this->_getParam('rs'));
 		} catch(Exception $e) {

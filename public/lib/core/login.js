@@ -1,7 +1,10 @@
-
 $(document).ready(function() {
 			
-	$("form").jsonSubmit({ success: function() { alert('override tussi'); } });	
+	$("form").jsonSubmit({
+	
+		success: function() { top.document.location.reload(); }
+		
+	});	
 	
 });
 

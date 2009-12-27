@@ -9,14 +9,14 @@ class Emerald_Permission
 	const WRITE = 2;
 	const READ = 4;
 		
-	const PUBLISH = 8;
+	// const PUBLISH = 8;
 	
 	
 	private static $_permissions = array(
 		1 => 'execute',
 		2 => 'write',
 		4 => 'read',
-		8 => 'publish',
+		// 8 => 'publish',
 	);
 	
 	public static function getAll()

@@ -66,10 +66,14 @@ class Core_Model_Page
 	
 	
 	
-	public function save(Core_Model_PageItem $page)
+	public function save(Core_Model_PageItem $page, array $permissions = array())
 	{
-		if($page->parent_id == '') {
+		if(!is_numeric($page->parent_id)) {
 			$page->parent_id = null;
+		}
+				
+		if(!is_numeric($page->id)) {
+			$page->id = null;
 		}
 		
 		$tbl = $this->getTable();
@@ -80,12 +84,56 @@ class Core_Model_Page
 		}
 		$row->setFromArray($page->toArray());
 		$row->save();
+		
+		
+		if($permissions) {
+			
+			$tbl = new Core_Model_DbTable_Permission_Page_Ugroup();
+						
+			$tbl->getAdapter()->beginTransaction();
+			
+			$tbl->delete($tbl->getAdapter()->quoteInto("page_id = ?", $page->id));
+			
+			foreach($permissions as $key => $data) {
+				if($data) {
+					$sum = array_sum($data);
+					$tbl->insert(array('page_id' => $page->id, 'ugroup_id' => $key, 'permission' => $sum));
+				}
+			}
+			
+			$tbl->getAdapter()->commit();
+			
+		}
+		
 
 		$naviModel = new Core_Model_Navigation();
 		$naviModel->pageUpdate($page);
 				
 	}
 	
+	
+	
+	public function getPermissions(Core_Model_PageItem $page)
+	{
+		$groupModel = new Core_Model_Group();
+		$groups = $groupModel->findAll();
+				
+		$permissions = Emerald_Permission::getAll();
+
+		$perms = array();
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		
+		foreach($groups as $group) {
+			foreach($permissions as $permKey => $permName) {
+				if($acl->isAllowed($group, $page, $permName)) {
+					$perms[$group->id][] = $permKey;
+				}	
+			}
+		}
+		
+		return $perms;
+	}
 	
 	
 	

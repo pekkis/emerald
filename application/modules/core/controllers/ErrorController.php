@@ -3,11 +3,12 @@ class Core_ErrorController extends Emerald_Controller_Action
 {
     public function errorAction()
     {
-    	$this->view->layout()->disableLayout();
+    	// $this->view->layout()->disableLayout();
     	$errors = $this->_getParam('error_handler');
     	$exception = $errors->exception;
 
-    	
+    	$this->view->message = $exception->getMessage();
+    	    	
     	switch($errors->type)
     	{
     		
@@ -17,10 +18,20 @@ class Core_ErrorController extends Emerald_Controller_Action
             	break;
             
             default:
-           		return $this->_forward('internal-server');
+           		
+            	if($code = $exception->getCode()) {
+            		            		            		
+            		if($code == 404) {
+            			return $this->_forward('not-found');
+            		}
+            		
+            		
+            	}
+            	
+            	return $this->_forward('internal-server');
     	}
     	    	    	
-		$this->view->message = $exception->getMessage();
+		
     	$this->view->exception = $exception;
     	
     	

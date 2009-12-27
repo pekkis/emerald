@@ -1,6 +1,15 @@
 <?php
 class Core_PageController extends Emerald_Controller_Action
 {
+	public $ajaxable = array(
+        'view'     => array('html'),
+    );
+	
+	public function init()
+	{
+		$this->getHelper('ajaxContext')->initContext();
+	}
+	
 	
 	public function viewAction()
 	{
@@ -73,17 +82,31 @@ class Core_PageController extends Emerald_Controller_Action
 				
 				$this->view->page = $page;
 				
+				 
 				
 				$naviModel = new Core_Model_Navigation();
 				$navi = $naviModel->getNavigation();
-					
+				
+
 				$tpl = $page->getLayoutObject($this);
 				$tpl->setPage($page);
 				$tpl->setNoRender(true);
 
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
+								
+				if($this->getHelper('ajaxContext')->getCurrentContext() == 'html') {
+
+					$tpl->runAjax();
+										
+				} else {
+
 				
-				$tpl->run();
+					$tpl->run();
+					
+				}
+				
+				
+					
 				
 				// $this->getHelper('viewRenderer')->setNoRender();
 				

@@ -10,6 +10,24 @@ class Emerald_View_Helper_Icon extends Zend_View_Helper_Abstract
 		"large"=>"48x48"
 	);
 	
+	
+	protected $_translatorContainer = null;
+    
+    public function getTranslatorContainer()
+    {
+    	if(!$this->_translatorContainer) {
+    		$this->_translatorContainer = new Emerald_TranslatorContainer();
+    	}
+    	return $this->_translatorContainer;
+    }
+    
+    
+    public function setTranslationContainer(Emerald_TranslationContainer $translationContainer)
+    {
+    	$this->_translatorContainer = $translationContainer;
+    }
+	
+	
 	public function icon()
 	{
 		return $this;
@@ -18,10 +36,12 @@ class Emerald_View_Helper_Icon extends Zend_View_Helper_Abstract
 	
 	protected function _getIcon($size, $path, $contextHelp = false, $classNames = Array(), $iconText = "", $href="", $id = NULL)
 	{
+		$translator = $this->getTranslatorContainer()->getTranslator();
+				
 		
 		$strIcon ="<img align=\"absmiddle\" class=\"Emerald_Icon\" src=\"".self::$_iconPath.self::$_sizes[$size]."/".$path.".png\" alt=\"icon\" />";
 		if($iconText) $strIcon .="<span>{$iconText}</span>";
-		if($contextHelp) $strIcon = '<a href="'.$href.'" class="'.implode(" ", $classNames).'" title="{l:'.$contextHelp.'}"'.($id ? " id=\"{$id}\"":"").'>'.$strIcon."</a>";
+		if($contextHelp) $strIcon = '<a href="'.$href.'" class="'.implode(" ", $classNames).'" title="' . $translator->translate($contextHelp) . '"'.($id ? " id=\"{$id}\"":"").'>'.$strIcon."</a>";
 		return $strIcon;
 	}
 

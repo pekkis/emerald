@@ -1,7 +1,7 @@
 <?php
 class Core_Model_UserItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Role_Interface
 {
-	const USER_ANONYMOUS = 1;
+	
 	
 	
 	protected $_groups;
@@ -10,7 +10,8 @@ class Core_Model_UserItem extends Emerald_Model_AbstractItem implements Emerald_
 	public function getGroups()
 	{
 		if(!$this->_groups) {
-			die('group fetch');
+			$model = new Core_Model_User();
+			$this->_groups = $model->getGroupsFor($this); 			
 		}
 		return $this->_groups;
 		

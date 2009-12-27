@@ -22,11 +22,13 @@
 	<br />
 	<?php if($menu->id): ?>
 	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
-	<?php echo $this->translate('Edit'); ?>
+	<?php echo $this->translate('Edit page'); ?>
 	</a>
 	<?php endif; ?>
-	
-	
+	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'create', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
+	<?php echo $this->translate('Create page'); ?>
+	</a>
+
 	
 	
 	<?php $depth = $this->navigation->getDepth(); ?>

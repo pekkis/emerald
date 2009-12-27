@@ -2,14 +2,6 @@
 class Core_LoginController extends Emerald_Controller_Action
 {
 
-	public $ajaxable = array(
-        'handle'     => array('json'),
-    );
-	
-	public function init()
-	{
-		$this->getHelper('ajaxContext')->initContext();
-	}
 	
 	
 	
@@ -62,38 +54,7 @@ class Core_LoginController extends Emerald_Controller_Action
 
 		
 	
-	public function handleAction()
-	{
 
-		$form = new Core_Form_Login();
-		if(!$form->isValid($this->getRequest()->getPost())) {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Check fields');
-			$msg->errors = $form->getMessages(); 
-		} else {
-			
-			$auth = Zend_Auth::getInstance();
-			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'user', 'email', 'passwd', 'MD5(?) and status = 1');			
-						
-			$adapter->setIdentity($form->tussi->getValue());
-			$adapter->setCredential($form->loso->getValue());
-
-			$result = $auth->authenticate($adapter);
-			
-			if($result->isValid()) {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Login OK');
-				// $auth->getStorage()->write($adapter->getResultRowObject());
-			} else {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Login failed.');
-			}
-			
-			
-		}
-
-		$this->view->message = $msg;
-		
-		
-		
-	}
 	
 	
 	

@@ -11,16 +11,28 @@ class Core_Model_HtmlContent
 	}
 	
 	
-	public function find($pageId, $blockId)
+	public function find($htmlContentId, $blockId)
 	{
 		$tbl = $this->getTable();
-		$row = $tbl->find($pageId, $blockId)->current();
-		return ($row) ? new Core_Model_LocaleItem($row->toArray()) : new Core_Model_LocaleItem(array('page_id' => $pageId, 'block_id' => $blockId, 'content' => ''));
+		$row = $tbl->find($htmlContentId, $blockId)->current();
+		return ($row) ? new Core_Model_HtmlContentItem($row->toArray()) : new Core_Model_HtmlContentItem(array('page_id' => $htmlContentId, 'block_id' => $blockId, 'content' => ''));
 	}
 		
 	
 	
-	
+	public function save(Core_Model_HtmlContentItem $htmlContent)
+	{
+		$tbl = $this->getTable();
+		
+		$row = $tbl->find($htmlContent->page_id, $htmlContent->block_id)->current();
+		if(!$row) {
+			$row = $tbl->createRow();
+		}
+		
+		$row->setFromArray($htmlContent->toArray());
+		$row->save();
+
+	}
 	
 	
 	

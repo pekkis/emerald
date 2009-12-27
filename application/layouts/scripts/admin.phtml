@@ -39,23 +39,17 @@
 				
 				// TODO: should these be assigned by the view instead of grabbing em from singeltons?
 				$usr = Zend_Registry::get('Emerald_User'); 
-				$rq = Zend_Controller_Front::getInstance()->getRequest(); 
-				$controller = $rq->getControllerName();
-				$action = $rq->getActionName();
+				// $rq = Zend_Controller_Front::getInstance()->getRequest(); 
+				// $controller = $rq->getControllerName();
+				// $action = $rq->getActionName();
 			?>
 			<div class="pageHeaderRight">
 				<span class="userInfo">
 					<span class="userName"><?php echo $usr->firstname." ".$usr->lastname ?></span>
-					(<span class="userLogin"><?php echo $usr->email ?></span>)
+					<span class="userLogin"><?php echo $usr->email ?></span>
 				</span>
 				<span class="helpMe">
-					
-					<a id="context_help" class="popup popup_large popup_scrollable" href="<?php echo "/admin/help/context/c/{$controller}/a/{$action}" ?>">
-					<?php echo $this->icon()->small("actions/help",""); ?>
-					</a>
-					
-					<?php echo $this->icon()->small("actions/no","Log out", array(), '', '/logout'); ?>
-					
+					<?php echo $this->icon()->small("actions/no","Log out", array(), '', $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true)); ?>
 				</span>
 			</div>
 		</div>
