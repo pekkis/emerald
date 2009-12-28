@@ -1,0 +1,59 @@
+<?php $this->headScript()->appendFile("/lib/admin/user/index.js"); ?>
+
+<h1><?php echo $this->translate('Users and groups'); ?></h1>
+
+<div id="tabs">
+
+<ul>
+	<li><a href="#users"><?php echo $this->translate('Users'); ?></a></li>
+	<li><a href="#groups"><?php echo $this->translate('Groups'); ?></a></li>
+</ul>
+
+<div id="users">
+
+<h2><?php echo $this->translate('Users'); ?></h2>
+
+<p>
+<a href="<?php echo $this->url(array('action' => 'create')); ?>"><?php echo $this->translate('Create user'); ?></a>
+</p>
+
+<ul>
+<?php foreach($this->users as $user): ?>
+<li>
+<a href="<?php echo $this->url(array('action' => 'edit', 'id' => $user->id)); ?>"><?php echo $user->email; ?></a><br />
+<?php echo $this->translate("Groups "); ?>: 
+<?php foreach($user->getGroups() as $group): ?>
+<?php echo $group->name; ?>, 
+<?php endforeach; ?>
+</li>
+<?php endforeach; ?>
+</ul>
+
+
+</div>
+
+<div id="groups">
+
+<p>
+<a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'create')); ?>"><?php echo $this->translate('Create group'); ?></a>
+</p>
+
+
+<h2><?php echo $this->translate('Groups'); ?></h2>
+
+<ul>
+<?php foreach($this->groups as $group): ?>
+<li>
+<a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'edit', 'id' => $user->id)); ?>"><?php echo $group->name; ?></a><br />
+<?php echo $this->translate("Users "); ?>: 
+<?php foreach($group->getUsers() as $user): ?>
+<?php echo $user->email; ?>, 
+<?php endforeach; ?>
+</li>
+<?php endforeach; ?>
+</ul>
+
+
+</div>
+
+</div>

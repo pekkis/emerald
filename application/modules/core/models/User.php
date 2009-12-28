@@ -16,7 +16,18 @@ class Core_Model_User
 		}
 		return $table;
 	}
+
 	
+	public function findAll()
+	{
+		$rows = $this->getTable()->fetchAll(array(), 'email ASC');
+		$iter = new ArrayIterator();
+		foreach($rows as $row) {
+			$iter->append(new Core_Model_UserItem($row));
+		}
+		return $iter;
+	}
+		
 
 	public function find($id)
 	{
@@ -54,7 +65,59 @@ class Core_Model_User
 		
 		
 	}
+		
 	
+	public function save(Core_Model_UserItem $user)
+	{
+				
+		if(!is_numeric($user->id)) {
+			$user->id = null;
+		}
+		
+		$tbl = $this->getTable();
+		
+		$row = $tbl->find($user->id)->current();
+		if(!$row) {
+			$row = $tbl->createRow();
+		}
+						
+		$row->setFromArray($user->toArray());
+		$row->save();
+		
+		$user->id = $row->id;
+		
+	}
+
+	
+	
+	public function setPassword(Core_Model_UserItem $user, $password)
+	{
+								
+		$password = md5($password);
+		
+		$user->passwd = $password;
+		$this->save($user);
+	}
+	
+	
+	public function setGroups(Core_Model_UserItem $user, $groups)
+	{
+	
+		$tbl = new Core_Model_DbTable_UserGroup();
+					
+		$tbl->getAdapter()->beginTransaction();
+		
+		$tbl->delete($tbl->getAdapter()->quoteInto("user_id = ?", $user->id));
+		
+		if($groups) {
+			foreach($groups as $key => $groupId) {
+				$tbl->insert(array('user_id' => $user->id, 'ugroup_id' => $groupId));
+			}
+		}
+		
+		$tbl->getAdapter()->commit();
+				
+	}
 	
 	
 }

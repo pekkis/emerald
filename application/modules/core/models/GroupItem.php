@@ -1,6 +1,7 @@
 <?php
 class Core_Model_GroupItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Role_Interface
 {
+	private $_users;
 	
 	public function getRoleId()
 	{
@@ -12,5 +13,17 @@ class Core_Model_GroupItem extends Emerald_Model_AbstractItem implements Emerald
 	{
 		$acl->addRole($this);
 	}
+	
+	
+	public function getUsers()
+	{
+		if(!$this->_users) {
+			$model = new Core_Model_Group();
+			$this->_users = $model->getUsersIn($this); 			
+		}
+		return $this->_users;
+		
+	}
+	
 	
 } 
