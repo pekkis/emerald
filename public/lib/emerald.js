@@ -211,6 +211,49 @@ Emerald.Json.Message = {
 };
 
 
+jQuery.fn.jsonClick = function(options) {
+	  
+	var defaultOptions = {
+		success: function(elm) {},
+		failure: function(elm) {}
+	};
+	
+	var finalOptions = jQuery.extend(defaultOptions, options);
+			
+	return this.each(function(){
+	
+		
+		$this = $(this);
+			
+	  $this.data("callback", finalOptions);
+	  
+	  $this.click(function() {
+		  
+		  $that = $(this);
+		  $.ajax({
+			type: "post",
+			url: this.href + "/format/json",
+			dataType: "json",
+			success: function(response) 
+			{
+				var msg = response.message;
+				var callback = $that.data("callback");
+				if(msg.type == Emerald.Json.Message.ERROR) {
+					callback.failure($that);						
+				} else {
+					callback.success($that);
+				}
+			}
+		});
+		return false;
+	  });
+  });
+};
+
+	
+
+
+
 
 jQuery.fn.jsonSubmit = function(options) {
 	  
@@ -249,7 +292,18 @@ jQuery.fn.jsonSubmit = function(options) {
 					if(msg.type == Emerald.Json.Message.ERROR) {
 						
 						if(msg.errors) {
+																												
 							$.each(msg.errors, function(key, value) {
+								
+								// Catch subforms too
+								$.each(value, function(key2, value2) {
+									if(typeof(value2) == 'object') {
+										$("label[for=" + key2 + "]", $this).addClass("error");
+										
+									}
+								});
+								
+								
 								$("label[for=" + key + "]", $this).addClass("error");
 							});
 						}
@@ -290,10 +344,13 @@ $(document).ready(function()
 		$(this).hide();
 	});
 
-	$('.confirmable').live('click', function() {
-		return confirm(Emerald.t('common/are_you_sure'));
+	$('.emerald-confirm').live('click', function() {
+		return confirm(Emerald.t('Are you sure?'));
 	})
 	
 	$('.popup').live('click', Emerald.Popup.listener);
+
+	
+	
 
 });

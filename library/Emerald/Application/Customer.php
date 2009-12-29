@@ -102,5 +102,22 @@ class Emerald_Application_Customer
     }
     
     
+    public function getLayouts()
+    {
+    	
+    }
+    
+    
+    
+    public function getLayout($layout)
+    {
+    	require_once $this->getRoot() . "/views/scripts/layouts/{$layout}.php";				
+		$className = "Emerald_Layout_{$layout}";    	
+    	$layout = new $className();
+    	return $layout;
+    }
+    
+    
+    
 }
 ?>

@@ -25,14 +25,13 @@ class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Zend_Acl
 	
 	public function getLayoutObject($action = null)
 	{
-		require Zend_Registry::get('Emerald_Customer')->getRoot() . '/views/scripts/layouts/Default.php';				
-		$tpl = new Emerald_Layout_Default();
+		$layout = Zend_Registry::get('Emerald_Customer')->getLayout($this->layout);	
 		
 		if($action) {
-			$tpl->setAction($action);
+			$layout->setAction($action);
 		}
 				
-		return $tpl;
+		return $layout;
 	}
 	
 	

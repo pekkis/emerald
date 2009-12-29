@@ -89,6 +89,19 @@ class Core_Model_User
 	}
 
 	
+	public function delete(Core_Model_UserItem $user)
+	{
+		$tbl = $this->getTable();
+		$row = $tbl->find($user->id)->current();
+		if(!$row) {
+			throw new Emerald_Model_Exception('Could not delete');
+		}
+		
+		$row->delete();
+		
+	}
+	
+	
 	
 	public function setPassword(Core_Model_UserItem $user, $password)
 	{

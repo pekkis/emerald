@@ -3,6 +3,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 {
 	public $ajaxable = array(
 		'save' => array('json'),
+		'delete' => array('json'),
 	);
 	
 	public function init()
@@ -27,13 +28,26 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 		$userModel = new Core_Model_User();
 								
 		$form = new Admin_Form_User(); 
-
-		$form->getSubForm('pwd')->password->setRequired(true);
-		$form->getSubForm('pwd')->password->setAllowEmpty(false);
-		// $form->getSubForm('pwd')->password->setAttribute('Label', 'Password');		
-		
 				
 		$this->view->form = $form;
+		
+	}
+	
+	
+	public function deleteAction()
+	{
+		$userModel = new Core_Model_User();
+		$user = $userModel->find($this->_getParam('id'));
+		
+		try {
+			$userModel->delete($user);
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');	
+		} catch(Emerald_Exception $e) {
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+		}
+		
+		
+		
 		
 	}
 	
@@ -63,13 +77,21 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 	
 	public function saveAction()
 	{
-		
 		$form = new Admin_Form_User();
+		
+		if(!$this->_getParam('id')) {
+			$form->getSubForm('pwd')->password->setRequired(true);
+			$form->getSubForm('pwd')->password->setAllowEmpty(false);
+		}
+		
+		
+		
 		if($form->isValid($this->_getAllParams())) {
 			
 			$userModel = new Core_Model_User();
 			if(!$user = $userModel->find($form->id->getValue())) {
 				$user = new Core_Model_UserItem();
+				
 			}
 
 			$user->setFromArray($form->getValues());

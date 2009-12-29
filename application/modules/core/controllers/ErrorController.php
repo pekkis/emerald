@@ -8,7 +8,15 @@ class Core_ErrorController extends Emerald_Controller_Action
     	$exception = $errors->exception;
 
     	$this->view->message = $exception->getMessage();
-    	    	
+
+    	
+    	$customer = $this->getCustomer();
+    	
+    	$layout = $customer->getLayout('Error');
+    	$layout->setAction($this);
+    	$layout->run();
+    	
+    	
     	switch($errors->type)
     	{
     		

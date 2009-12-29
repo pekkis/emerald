@@ -25,6 +25,8 @@
 <?php foreach($user->getGroups() as $group): ?>
 <?php echo $group->name; ?>, 
 <?php endforeach; ?>
+<br />
+<a class="user-delete emerald-confirm" href="<?php echo $this->url(array('action' => 'delete', 'id' => $user->id)); ?>"><?php echo $this->translate('Delete'); ?></a>
 </li>
 <?php endforeach; ?>
 </ul>
@@ -44,11 +46,13 @@
 <ul>
 <?php foreach($this->groups as $group): ?>
 <li>
-<a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'edit', 'id' => $user->id)); ?>"><?php echo $group->name; ?></a><br />
+<a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'edit', 'id' => $group->id)); ?>"><?php echo $group->name; ?></a><br />
 <?php echo $this->translate("Users "); ?>: 
 <?php foreach($group->getUsers() as $user): ?>
 <?php echo $user->email; ?>, 
 <?php endforeach; ?>
+<br />
+<a class="group-delete emerald-confirm" href="<?php echo $this->url(array('controller' => 'group', 'action' => 'delete', 'id' => $group->id)); ?>"><?php echo $this->translate('Delete'); ?></a>
 </li>
 <?php endforeach; ?>
 </ul>

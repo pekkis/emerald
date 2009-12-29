@@ -7,6 +7,7 @@ class Admin_Form_User extends ZendX_JQuery_Form
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
 		$this->setAction("/admin/user/save");
+		$this->setAttrib('class', 'emerald-json');
 
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));

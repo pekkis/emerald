@@ -14,6 +14,13 @@ class Core_Model_Group
 		return $table;
 	}
 	
+
+	public function find($id)
+	{
+		$tbl = $this->getTable();
+		$row = $tbl->find($id)->current();
+		return ($row) ? new Core_Model_GroupItem($row->toArray()) : false;
+	}
 	
 	
 	public function findAll()
@@ -43,6 +50,43 @@ class Core_Model_Group
 		
 		
 	}
+	
+	
+		
+	public function save(Core_Model_GroupItem $group)
+	{
+				
+		if(!is_numeric($group->id)) {
+			$group->id = null;
+		}
+		
+		$tbl = $this->getTable();
+		
+		$row = $tbl->find($group->id)->current();
+		if(!$row) {
+			$row = $tbl->createRow();
+		}
+						
+		$row->setFromArray($group->toArray());
+		$row->save();
+		
+		$group->id = $row->id;
+		
+	}
+
+	
+	public function delete(Core_Model_GroupItem $group)
+	{
+		$tbl = $this->getTable();
+		$row = $tbl->find($group->id)->current();
+		if(!$row) {
+			throw new Emerald_Model_Exception('Could not delete');
+		}
+		
+		$row->delete();
+		
+	}
+	
 	
 	
 }

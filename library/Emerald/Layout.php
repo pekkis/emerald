@@ -8,10 +8,16 @@ abstract class Emerald_Layout
 	
 	private $_actionStack;
 	
+	private $_layoutFile = 'default';
+	
 	public function __construct()
 	{
+		$this->_init();
 	}
 
+	
+	protected function _init()
+	{}
 	
 	abstract protected function _run();
 		
@@ -75,7 +81,6 @@ abstract class Emerald_Layout
 	public function setPage($page)
 	{
 		$this->_page = $page;
-		$this->setLayoutFile(strtolower(basename($this->getPage()->layout, '.phtml')));
 	}
 	
 	

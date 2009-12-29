@@ -3,6 +3,7 @@ class Emerald_Layout_Default extends Emerald_Layout
 {
 	
 	
+	
 	protected function _run()
 	{
 		// $this->actionToStack('index', 'html-content', 'emerald', array('page' => $this->getPage(), 'block_id' => 2, 'rs' => 'sidebar_one'));
