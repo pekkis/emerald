@@ -188,10 +188,6 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			$this->getFilelib()->getSymlinker()->createSymlink($file);
 			
 		} catch(Exception $e) {
-			
-			echo $e;
-			die();
-			
 			throw new Emerald_Filelib_Exception($e->getMessage());
 		}
 		

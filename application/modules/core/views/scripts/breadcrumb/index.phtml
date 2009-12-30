@@ -1,3 +1,0 @@
-<?php foreach($this->route['link'] as $key => $routePart): ?>
-<a href="<?php echo $routePart; ?>"><?php echo $this->route['title'][$key]; ?></a><?php if(($key + 1) < sizeof($this->route['link'])) echo $this->separator; ?>
-<?php endforeach; ?>
