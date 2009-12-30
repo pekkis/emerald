@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.37, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.11
 --
 -- Host: localhost    Database: lemerald
 -- ------------------------------------------------------
--- Server version	5.1.37-1ubuntu5-log
+-- Server version	5.0.75-0ubuntu10.2-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -20,14 +20,14 @@
 --
 
 DROP TABLE IF EXISTS `application_option`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `application_option` (
-  `identifier` varchar(255) NOT NULL DEFAULT '',
-  `strvalue` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`identifier`)
+  `identifier` varchar(255) NOT NULL default '',
+  `strvalue` varchar(255) default NULL,
+  PRIMARY KEY  (`identifier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `application_option`
@@ -44,25 +44,25 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `filelib_file`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `filelib_file` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `folder_id` int(10) unsigned NOT NULL,
   `mimetype` varchar(255) NOT NULL,
-  `size` int(11) DEFAULT NULL,
+  `size` int(11) default NULL,
   `name` varchar(255) NOT NULL,
-  `link` varchar(1000) DEFAULT NULL,
+  `link` varchar(1000) default NULL,
   `path` varchar(255) NOT NULL,
-  `created` timestamp NULL DEFAULT NULL,
-  `modified` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created` timestamp NULL default NULL,
+  `modified` timestamp NULL default NULL,
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`,`folder_id`),
   KEY `folder_id` (`folder_id`),
   KEY `mimetype` (`mimetype`),
   CONSTRAINT `filelib_file_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `filelib_folder` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `filelib_file`
@@ -79,20 +79,20 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `filelib_folder`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `filelib_folder` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) unsigned DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `parent_id` int(10) unsigned default NULL,
   `name` varchar(255) NOT NULL,
-  `created` timestamp NULL DEFAULT NULL,
-  `modified` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created` timestamp NULL default NULL,
+  `modified` timestamp NULL default NULL,
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `parent_id_name` (`parent_id`,`name`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `filelib_folder_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `filelib_folder` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `filelib_folder`
@@ -109,25 +109,25 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `form`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `form` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) unsigned DEFAULT NULL,
-  `modified_by` bigint(20) unsigned DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` timestamp NULL default NULL,
+  `created_by` int(10) unsigned default NULL,
+  `modified_by` int(10) unsigned default NULL,
+  `status` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `created_by` (`created_by`),
   KEY `modified_by` (`modified_by`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `form_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `form`
@@ -143,21 +143,21 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `form_field`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `form_field` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `form_id` bigint(20) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `form_id` int(10) unsigned NOT NULL,
   `type` tinyint(4) NOT NULL,
-  `order_id` smallint(6) NOT NULL DEFAULT '0',
-  `title` varchar(255) DEFAULT NULL,
-  `mandatory` tinyint(4) NOT NULL DEFAULT '0',
+  `order_id` smallint(6) NOT NULL default '0',
+  `title` varchar(255) default NULL,
+  `mandatory` tinyint(4) NOT NULL default '0',
   `options` text,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY  (`id`),
   KEY `form_id` (`form_id`),
   CONSTRAINT `form_field_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `form_field`
@@ -173,21 +173,21 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `formcontent`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `formcontent` (
-  `page_id` bigint(20) unsigned NOT NULL,
-  `form_id` bigint(20) unsigned DEFAULT NULL,
+  `page_id` int(10) unsigned NOT NULL,
+  `form_id` int(10) unsigned default NULL,
   `email_subject` varchar(255) NOT NULL,
   `email_from` varchar(255) NOT NULL,
   `email_to` varchar(255) NOT NULL,
-  `form_lock` tinyint(4) NOT NULL DEFAULT '0',
-  `redirect_page_id` bigint(20) unsigned NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) unsigned DEFAULT NULL,
-  `modified_by` bigint(20) unsigned DEFAULT NULL,
-  PRIMARY KEY (`page_id`),
+  `form_lock` tinyint(4) NOT NULL default '0',
+  `redirect_page_id` int(10) unsigned NOT NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` timestamp NULL default NULL,
+  `created_by` int(10) unsigned default NULL,
+  `modified_by` int(10) unsigned default NULL,
+  PRIMARY KEY  (`page_id`),
   KEY `form_id` (`form_id`),
   KEY `redirect_page_id` (`redirect_page_id`),
   KEY `created_by` (`created_by`),
@@ -198,7 +198,7 @@ CREATE TABLE `formcontent` (
   CONSTRAINT `formcontent_ibfk_4` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `formcontent_ibfk_5` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `formcontent`
@@ -214,24 +214,24 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `htmlcontent`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `htmlcontent` (
-  `page_id` bigint(20) unsigned NOT NULL,
-  `block_id` bigint(20) unsigned NOT NULL,
+  `page_id` int(10) unsigned NOT NULL,
+  `block_id` int(10) unsigned NOT NULL,
   `content` text,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) unsigned DEFAULT NULL,
-  `modified_by` bigint(20) unsigned DEFAULT NULL,
-  PRIMARY KEY (`page_id`,`block_id`),
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` timestamp NULL default NULL,
+  `created_by` int(10) unsigned default NULL,
+  `modified_by` int(10) unsigned default NULL,
+  PRIMARY KEY  (`page_id`,`block_id`),
   KEY `created_by` (`created_by`),
   KEY `modified_by` (`modified_by`),
   CONSTRAINT `htmlcontent_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `htmlcontent_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `htmlcontent_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `htmlcontent`
@@ -248,16 +248,16 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `locale`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `locale` (
   `locale` char(6) NOT NULL,
-  `page_start` bigint(20) unsigned DEFAULT NULL,
-  PRIMARY KEY (`locale`),
+  `page_start` int(10) unsigned default NULL,
+  PRIMARY KEY  (`locale`),
   KEY `page_start` (`page_start`),
   CONSTRAINT `locale_ibfk_1` FOREIGN KEY (`page_start`) REFERENCES `page` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `locale`
@@ -274,16 +274,16 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `locale_option`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `locale_option` (
   `locale_locale` char(6) NOT NULL,
-  `identifier` varchar(255) NOT NULL DEFAULT '',
-  `strvalue` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`locale_locale`,`identifier`),
+  `identifier` varchar(255) NOT NULL default '',
+  `strvalue` varchar(255) default NULL,
+  PRIMARY KEY  (`locale_locale`,`identifier`),
   CONSTRAINT `locale_option_ibfk_1` FOREIGN KEY (`locale_locale`) REFERENCES `locale` (`locale`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `locale_option`
@@ -300,17 +300,17 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `login_redirect`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `login_redirect` (
-  `page_id` bigint(20) unsigned NOT NULL,
-  `redirect_page_id` bigint(20) unsigned DEFAULT NULL,
-  PRIMARY KEY (`page_id`),
+  `page_id` int(10) unsigned NOT NULL,
+  `redirect_page_id` int(10) unsigned default NULL,
+  PRIMARY KEY  (`page_id`),
   KEY `redirect_page_id` (`redirect_page_id`),
   CONSTRAINT `login_redirect_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `login_redirect_ibfk_2` FOREIGN KEY (`redirect_page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `login_redirect`
@@ -326,35 +326,35 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `news_channel`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `news_channel` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `page_id` bigint(20) unsigned NOT NULL,
-  `items_per_page` tinyint(4) NOT NULL DEFAULT '10',
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `page_id` int(10) unsigned NOT NULL,
+  `items_per_page` tinyint(4) NOT NULL default '10',
   `link_readmore` varchar(255) NOT NULL,
-  `allow_syndication` tinyint(4) NOT NULL DEFAULT '1',
-  `default_months_valid` tinyint(4) DEFAULT '12',
+  `allow_syndication` tinyint(4) NOT NULL default '1',
+  `default_months_valid` tinyint(4) default '12',
   `title` varchar(255) NOT NULL,
   `description` text,
-  `locale` char(6) DEFAULT NULL,
-  `copyright` varchar(255) DEFAULT NULL,
-  `managing_editor` varchar(255) DEFAULT NULL,
-  `webmaster` varchar(255) DEFAULT NULL,
-  `category` varchar(255) DEFAULT NULL,
-  `ttl` smallint(6) NOT NULL DEFAULT '60',
-  `skip_hours` varchar(255) DEFAULT NULL,
-  `skip_days` varchar(255) DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) unsigned DEFAULT NULL,
-  `modified_by` bigint(20) unsigned DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
+  `locale` char(6) default NULL,
+  `copyright` varchar(255) default NULL,
+  `managing_editor` varchar(255) default NULL,
+  `webmaster` varchar(255) default NULL,
+  `category` varchar(255) default NULL,
+  `ttl` smallint(6) NOT NULL default '60',
+  `skip_hours` varchar(255) default NULL,
+  `skip_days` varchar(255) default NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` timestamp NULL default NULL,
+  `created_by` int(10) unsigned default NULL,
+  `modified_by` int(10) unsigned default NULL,
+  `status` int(11) NOT NULL default '1',
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `page_id` (`page_id`),
   CONSTRAINT `news_channel_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `news_channel`
@@ -370,26 +370,26 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `news_item`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `news_item` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `news_channel_id` bigint(20) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `news_channel_id` int(10) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text,
   `article` text,
-  `author` varchar(255) DEFAULT NULL,
-  `category` varchar(255) DEFAULT NULL,
-  `comments` varchar(255) DEFAULT NULL,
-  `enclosure` varchar(255) DEFAULT NULL,
+  `author` varchar(255) default NULL,
+  `category` varchar(255) default NULL,
+  `comments` varchar(255) default NULL,
+  `enclosure` varchar(255) default NULL,
   `valid_start` datetime NOT NULL,
-  `valid_end` datetime DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) unsigned DEFAULT NULL,
-  `modified_by` bigint(20) unsigned DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
+  `valid_end` datetime default NULL,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` timestamp NULL default NULL,
+  `created_by` int(10) unsigned default NULL,
+  `modified_by` int(10) unsigned default NULL,
+  `status` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
   KEY `news_channel_id` (`news_channel_id`),
   KEY `created_by` (`created_by`),
   KEY `modified_by` (`modified_by`),
@@ -397,7 +397,7 @@ CREATE TABLE `news_item` (
   CONSTRAINT `news_item_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `news_item_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `news_item`
@@ -413,25 +413,25 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `page`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `page` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) unsigned DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `parent_id` int(10) unsigned default NULL,
   `locale` char(6) NOT NULL,
-  `order_id` smallint(6) NOT NULL DEFAULT '0',
-  `layout` varchar(255) DEFAULT 'Default',
+  `order_id` smallint(6) NOT NULL default '0',
+  `layout` varchar(255) default 'Default',
   `title` varchar(255) NOT NULL,
-  `beautifurl` varchar(1000) DEFAULT NULL,
+  `beautifurl` varchar(1000) default NULL,
   `path` varchar(255) NOT NULL,
   `shard_id` int(10) unsigned NOT NULL,
-  `visibility` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) unsigned DEFAULT NULL,
-  `modified_by` bigint(20) unsigned DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
+  `visibility` tinyint(3) unsigned NOT NULL default '1',
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `modified` timestamp NULL default NULL,
+  `created_by` int(10) unsigned default NULL,
+  `modified_by` int(10) unsigned default NULL,
+  `status` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `parent_id_title` (`parent_id`,`title`),
   KEY `parent_id` (`parent_id`),
   KEY `created_by` (`created_by`),
@@ -444,8 +444,8 @@ CREATE TABLE `page` (
   CONSTRAINT `page_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_4` FOREIGN KEY (`shard_id`) REFERENCES `shard` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_5` FOREIGN KEY (`locale`) REFERENCES `locale` (`locale`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `page`
@@ -453,7 +453,7 @@ CREATE TABLE `page` (
 
 LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
-INSERT INTO `page` VALUES (12,NULL,'fi',0,'Default','Etusivu','fi/etusivu','[12]',1,1,'2009-12-26 12:39:49',NULL,NULL,NULL,0),(13,NULL,'fi',0,'Default','Lätinää','fi/latinaa','[13]',1,1,'2009-12-27 16:35:05',NULL,NULL,NULL,0),(14,13,'fi',0,'Default','Pekkiksen synty','fi/latinaa/pekkiksen_synty','[13];[14]',1,1,'2009-12-27 16:36:18',NULL,NULL,NULL,0),(15,13,'fi',0,'Default','Lussutusta','fi/latinaa/lussutusta','[13];[15]',1,1,'2009-12-27 16:39:06',NULL,NULL,NULL,0),(16,NULL,'fi',0,'Default','Projektit','fi/projektit','[16]',1,1,'2009-12-27 17:16:58',NULL,NULL,NULL,0);
+INSERT INTO `page` VALUES (12,NULL,'fi',0,'Default','Etusivu','fi/etusivu','[12]',1,1,'2009-12-26 12:39:49',NULL,NULL,NULL,0),(13,NULL,'fi',0,'Default','Lätinää','fi/latinaa','[13]',1,1,'2009-12-27 16:35:05',NULL,NULL,NULL,0),(14,13,'fi',0,'Default','Pekkiksen synty','fi/latinaa/pekkiksen_synty','[13];[14]',1,1,'2009-12-27 16:36:18',NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,18 +462,18 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `permission_page_ugroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `permission_page_ugroup` (
-  `page_id` bigint(20) unsigned NOT NULL,
-  `ugroup_id` bigint(20) unsigned NOT NULL,
-  `permission` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`page_id`,`ugroup_id`),
+  `page_id` int(10) unsigned NOT NULL,
+  `ugroup_id` int(10) unsigned NOT NULL,
+  `permission` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`page_id`,`ugroup_id`),
   KEY `ugroup_id` (`ugroup_id`),
   CONSTRAINT `permission_page_ugroup_ibfk_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `permission_page_ugroup_ibfk_2` FOREIGN KEY (`ugroup_id`) REFERENCES `ugroup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `permission_page_ugroup`
@@ -481,7 +481,7 @@ CREATE TABLE `permission_page_ugroup` (
 
 LOCK TABLES `permission_page_ugroup` WRITE;
 /*!40000 ALTER TABLE `permission_page_ugroup` DISABLE KEYS */;
-INSERT INTO `permission_page_ugroup` VALUES (12,1,4),(12,2,7),(13,1,1),(13,2,7),(14,1,4),(14,2,7),(15,1,4),(15,2,7),(16,1,4),(16,2,7);
+INSERT INTO `permission_page_ugroup` VALUES (12,1,4),(12,2,7),(13,1,1),(13,2,7),(14,1,4),(14,2,7);
 /*!40000 ALTER TABLE `permission_page_ugroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -490,19 +490,19 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `shard`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `shard` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
-  `module` varchar(255) NOT NULL DEFAULT 'core',
-  `controller` varchar(255) NOT NULL DEFAULT 'index',
-  `action` varchar(255) NOT NULL DEFAULT 'index',
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
+  `module` varchar(255) NOT NULL default 'core',
+  `controller` varchar(255) NOT NULL default 'index',
+  `action` varchar(255) NOT NULL default 'index',
+  `status` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `shard`
@@ -519,15 +519,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ugroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ugroup` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ugroup`
@@ -544,19 +544,19 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `user` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL auto_increment,
   `email` varchar(255) NOT NULL,
   `passwd` char(32) NOT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
+  `firstname` varchar(255) default NULL,
+  `lastname` varchar(255) default NULL,
+  `status` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `user`
@@ -564,7 +564,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'anonymous@example.com','4ee6d203733c39cb3910c3371d56e1f3',NULL,NULL,1),(8,'root@example.com','bd9059497b4af2bb913a8522747af2de',NULL,NULL,1);
+INSERT INTO `user` VALUES (8,'root@example.com','bd9059497b4af2bb913a8522747af2de',NULL,NULL,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,16 +573,16 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user_option`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `user_option` (
-  `user_id` bigint(20) unsigned NOT NULL,
-  `identifier` varchar(255) NOT NULL DEFAULT '',
-  `strvalue` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`identifier`),
+  `user_id` int(10) unsigned NOT NULL,
+  `identifier` varchar(255) NOT NULL default '',
+  `strvalue` varchar(255) default NULL,
+  PRIMARY KEY  (`user_id`,`identifier`),
   CONSTRAINT `user_option_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `user_option`
@@ -598,17 +598,17 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `user_ugroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `user_ugroup` (
-  `user_id` bigint(20) unsigned NOT NULL,
-  `ugroup_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`user_id`,`ugroup_id`),
+  `user_id` int(10) unsigned NOT NULL,
+  `ugroup_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`user_id`,`ugroup_id`),
   KEY `group_id` (`ugroup_id`),
   CONSTRAINT `user_ugroup_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_ugroup_ibfk_2` FOREIGN KEY (`ugroup_id`) REFERENCES `ugroup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `user_ugroup`
@@ -616,7 +616,7 @@ CREATE TABLE `user_ugroup` (
 
 LOCK TABLES `user_ugroup` WRITE;
 /*!40000 ALTER TABLE `user_ugroup` DISABLE KEYS */;
-INSERT INTO `user_ugroup` VALUES (1,1),(8,2);
+INSERT INTO `user_ugroup` VALUES (8,2);
 /*!40000 ALTER TABLE `user_ugroup` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -629,4 +629,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-12-27 23:17:12
+-- Dump completed on 2009-12-30 11:19:08

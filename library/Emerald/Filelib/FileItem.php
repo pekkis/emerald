@@ -153,4 +153,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	{
 		return $this->getFilelib()->deleteFile($this);
 	}
+	
+	
+	
 }

@@ -5,4 +5,3 @@ class Core_Model_Permission_PageGroup extends Zend_Db_Table_Abstract
     protected $_primary = array('page_id', 'ugroup_id');
 	
 }
-?>

@@ -74,10 +74,40 @@ class Emerald_Filelib
 	private $_fileVersions = array();
 
 	
+	/**
+	 * @var Fileitem class
+	 */
+	private $_fileItemClass = 'Emerald_Filelib_FileItem';
+		
+	
 	public function __construct($options = array())
 	{
 		Emerald_Options::setConstructorOptions($this, $options);
 	}
+	
+	
+	/**
+	 * Sets fileitem class
+	 * 
+	 * @param string $fileItemClass Class name
+	 */
+	public function setFileItemClass($fileItemClass)
+	{
+		$this->_fileItemClass = $fileItemClass;
+	}
+	
+	
+	/**
+	 * Returns fileitem class
+	 * 
+	 * @return string
+	 */
+	public function getFileItemClass()
+	{
+		return $this->_fileItemClass;
+	}
+	
+	
 	
 	
 	/**
@@ -587,7 +617,8 @@ class Emerald_Filelib
 	 */
 	public function fileIsAnonymous(Emerald_Filelib_FileItem $file)
 	{
-		return true;
+		return $this->getAcl()->isAnonymousReadable($file);
+		
 	}
 		
 	
@@ -804,9 +835,14 @@ class Emerald_Filelib
 	{
 		$path = $this->renderPath($file, $opts);
 		
-		if($this->fileIsAnonymous($file)) {
+		if($this->getAcl()->isAnonymousReadable($file)) {
 			return $response->setRedirect($path, 302);
 		}
+		
+		if(!$this->getAcl()->isReadable($file)) {
+			throw new Emerald_Filelib_Exception('Not readable', 404);
+		}
+		
 		
 		if(isset($opts['download'])) {
 			$response->setHeader('Content-disposition', "attachment; filename={$file->name}");
@@ -817,7 +853,7 @@ class Emerald_Filelib
 		}
 
 		$response->setHeader('Content-Type', $file->mimetype);
-		
+						
 		readfile($path);
 		
 	}

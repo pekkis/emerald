@@ -211,6 +211,8 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	
 	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder)
 	{
+		$fileItemClass = $this->getFilelib()->getFileItemClass();
+		
 		try {
 
 			$this->getDb()->beginTransaction();
@@ -224,7 +226,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			
 			$file->save();
 			
-			$fileItem = new Emerald_Filelib_FileItem($file->toArray());
+			$fileItem = new $fileItemClass($file->toArray());
 			$fileItem->setFilelib($this->getFilelib());
 			
 			$fileItem->link = $file->link = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false, true);
@@ -280,21 +282,25 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	
 	public function findFile($id)
 	{
+		$fileItemClass = $this->getFilelib()->getFileItemClass();
 		$fileRow = $this->getFileTable()->find($id)->current();
 		if(!$fileRow) {
 			return false;
 		}
-		$item = new Emerald_Filelib_FileItem($fileRow->toArray());
+		
+		$item = new $fileItemClass($fileRow->toArray());
 		return $item;		
 	}
 	
 	
 	public function findFilesIn(Emerald_Filelib_FolderItem $folder)
 	{
+		$fileItemClass = $this->getFilelib()->getFileItemClass();
 		$res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->id));
 		$files = array();
+		
 		foreach($res as $row) {
-			$files[] = new Emerald_Filelib_FileItem($row->toArray());			
+			$files[] = new $fileItemClass($row->toArray());			
 		}
 		return new Emerald_Filelib_FileItemIterator($files);				
 	}
@@ -302,10 +308,11 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	
 	public function findAllFiles()
 	{
+		$fileItemClass = $this->getFilelib()->getFileItemClass();
 		$res = $this->getFileTable()->fetchAll(array(), "id ASC");
 		$files = array();
 		foreach($res as $row) {
-			$files[] = new Emerald_Filelib_FileItem($row->toArray());			
+			$files[] = new $fileItemClass($row->toArray());			
 		}
 		return new Emerald_Filelib_FileItemIterator($files);				
 	}

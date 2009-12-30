@@ -22,7 +22,7 @@ class Filelib_FileController extends Zend_Controller_Action
 		}
 				
 		$file->render($this->getResponse(), $opts);
-
+		
 		
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender();

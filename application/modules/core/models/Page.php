@@ -85,6 +85,7 @@ class Core_Model_Page
 		$row->setFromArray($page->toArray());
 		$row->save();
 		
+		$page->id = $row->id;
 		
 		if($permissions) {
 			
@@ -135,6 +136,18 @@ class Core_Model_Page
 		return $perms;
 	}
 	
+	
+	public function delete(Core_Model_PageItem $page)
+	{
+		$tbl = $this->getTable();
+		$row = $tbl->find($page->id)->current();
+		if(!$row) {
+			throw new Emerald_Model_Exception('Could not delete');
+		}
+		
+		$row->delete();
+		
+	}
 	
 	
 }

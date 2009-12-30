@@ -37,8 +37,9 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			$this->view->writable = $writable;
 
 			$htmlModel = new Core_Model_HtmlContent();
-			$htmlcontent = $htmlModel->find($page, $input->block_id);			
-
+									
+			$htmlcontent = $htmlModel->find($page->id, $input->block_id);			
+			
 			if(!$htmlcontent->content && $input->onEmpty) {
 				$htmlcontent->content = $input->onEmpty;
 			}
@@ -46,9 +47,6 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			$this->view->htmlcontent = $htmlcontent;
 			
 		} catch(Exception $e) {
-			
-			echo $e;
-			die();
 			
 			throw $e;
 			

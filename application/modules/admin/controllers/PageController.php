@@ -1,8 +1,31 @@
 <?php
 class Admin_PageController extends Emerald_Controller_AdminAction
 {
+	public $ajaxable = array(
+		'save' => array('json'),
+		'delete' => array('json'),
+	);
 	
+	public function init()
+	{
+		$this->getHelper('ajaxContext')->initContext();
+	}
 
+	public function deleteAction()
+	{
+		$pageModel = new Core_Model_Page();
+		$page = $pageModel->find($this->_getParam('id'));
+		
+		try {
+			$pageModel->delete($page);
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');	
+		} catch(Emerald_Exception $e) {
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+		}
+		
+	}
+	
+		
 	
 	public function editAction()
 	{
