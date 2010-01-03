@@ -30,7 +30,7 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			$page = $this->_pageFromPageId($input->page_id);
 			
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-				throw new Emerald_Acl_ForbiddenException('Forbidden');
+				throw new Emerald_Exception('Forbidden', 401);
 			}
 			
 			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
@@ -104,7 +104,7 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			
 			$page = $this->_pageFromPageId($form->page_id->getValue());
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-				throw new Emerald_Acl_ForbiddenException('Forbidden');
+				throw new Emerald_Exception('Forbidden', 401);
 			}
 
 			
