@@ -120,16 +120,19 @@ abstract class Emerald_Layout
 			$requestParams = Zend_Controller_Front::getInstance()->getRequest()->getQuery();
 			$params = array_merge($requestParams, $params);
 
-			$shard = Emerald_Shard::factory($identifier);
+			Zend_Debug::Dump($identifier);
 			
-			$action = Emerald_Shard::getDefaultAction($shard);
-			
-			
+			$shardModel = new Core_Model_Shard();
+			$shard = $shardModel->findByIdentifier($identifier);
+
+			$action = $shard->getDefaultAction();
+												
 			if(isset($params['a'])) {
 				$action['action'] = $params['a'];
 			}
 									
 			$params['page_id'] = $page->id;
+			
 			
 			return $this->actionToStack(
 				$action['action'], $action['controller'], $action['module'], $params

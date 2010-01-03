@@ -104,7 +104,19 @@ class Emerald_Application_Customer
     
     public function getLayouts()
     {
+    	$iter = new DirectoryIterator($this->getRoot() . '/views/scripts/layouts');
     	
+    	$layouts = new ArrayObject();
+    	
+    	foreach($iter as $file) {
+    		if($file->isFile() && preg_match("/\.php$/", $file->getFilename())) {
+    			$layouts[] = basename($file->getFilename(), '.php'); 
+    		}    		
+    	}
+    	
+    	$layouts->asort();
+    	
+    	return $layouts;
     }
     
     

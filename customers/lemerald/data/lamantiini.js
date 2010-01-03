@@ -17,7 +17,7 @@ Lamantiini.naviUpdate = function($link, navitree) {
 	$.each(navitree, function(key, navi) {
 		
 		if($link.attr('href') == navi.uri) {
-			Lamantiini.setTitle(navi.title);
+			Lamantiini.setTitle(navi.label);
 			$link.parents('li').addClass('active');
 		}
 		
@@ -123,6 +123,7 @@ $(document).ready(function() {
 	
 	$('marquee').marquee();
 	
+	/*
 	$('a[href]').live('click', function(e) {
 		
 		if(e.button != 0) {
@@ -142,7 +143,7 @@ $(document).ready(function() {
 		
 		return false;
 	});
-	
+	*/
 
 	if(location.hash && location.hash != '/') {
 		$(window).trigger('hashchange');

@@ -2,12 +2,77 @@
 class Core_NewsController extends Emerald_Controller_Action 
 {
 
-	public function headlinesAction()
+	public function indexAction()
 	{
+				
+		
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'default' => 1)
+		);
+						
+		try {
+			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
+
+			$page = $this->_pageFromPageId($input->page_id);
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
+				throw new Emerald_Exception('Forbidden', 401);
+			}
+			
+			
+			$channelModel = new Core_Model_NewsChannel();
+
+			$channel = $channelModel->findByPageId($page->id);
+			$this->view->channel = $channel;
+	
+			$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
+			
+			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
+									
+			if(!$readable) {
+				throw new Emerald_Exception('Forbidden', 401);				
+			}
+						
+			$news = $channel->getItems();
+			$news->setCurrentPageNumber($input->page);
+
+			$this->view->channel = $channel;
+			$this->view->news = $news;
+			$this->view->writable = $writable;
+			
+		} catch(Exception $e) {
+			throw $e;
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public function headlinesAction()
+	{
+		
+		
+		$filters = array(
+		);
+		$validators = array(
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'headlines' => array('Int', 'presence' => 'optional', 'default' => 3),
 		);
 						
@@ -16,7 +81,12 @@ class Core_NewsController extends Emerald_Controller_Action
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 
-			$page = $input->page;
+			$page = $this->_pageFromPageId($input->page_id);
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
+				throw new Emerald_Exception('Forbidden', 401);
+			}
+			
 			
 			$page->assertReadable();
 			
@@ -56,71 +126,6 @@ class Core_NewsController extends Emerald_Controller_Action
 	}
 	
 	
-	
-	public function indexAction()
-	{
-		$filters = array(
-		);
-		$validators = array(
-			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
-			'page_no' => array('Int', 'presence' => 'optional', 'default' => 1)
-		);
-						
-		try {
-			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
-			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
-			$input->process();
-			
-			$page = $input->page;
-			$page->assertReadable();
-			$this->view->page = $input->page;
-			
-			$channelTbl = Emerald_Model::get('NewsChannel');
-			$where = array(
-				'page_id = ?' => $page->id
-			);
-					
-			if(!$channel = $channelTbl->fetchRow($where)) {
-				$channel = $channelTbl->createRow(array(), true);
-				$channel->page_id = $page->id;
-				$channel->created_by = $this->getCurrentUser()->id;
-				$channel->title = Zend_Registry::get('Zend_Translate')->translate('News', $page->getLocale()); 
-				$channel->link_readmore = Zend_Registry::get('Zend_Translate')->translate('Read more', $page->getLocale());
-				$channel->save();
-			}
-	
-			$this->view->channel = $channel;
-	
-			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'write');
-					
-			$pageCount = ceil($channel->getItemCount($writable) / $channel->items_per_page);
-			$pageNo = $this->_getParam('page_no', 1);
-			
-			$news = $channel->getItems($writable, $channel->items_per_page, ($pageNo - 1) * $channel->items_per_page);
-	
-			$this->view->pageCount = $pageCount;
-			$this->view->pageNo = $pageNo;
-			
-			$this->view->news = $news;
-			$this->view->writable = $writable;
-	
-			if($writable) {
-				Emerald_Js::addAdminScripts($this->view);			
-			}
-			
-			if($channel->allow_syndication) {
-				$this->view->headLink()->headLink(array('rel' => 'alternate', 'title' => $channel->description, 'type' => 'application/rss+xml', 'href' => "/news/feed/id/{$channel->id}/mode/rss"), 'APPEND');			
-			}
-			
-		} catch(Exception $e) {
-			throw $e;
-		}
-		
-		
-		
-		
-		
-	}
 	
 	
 	

@@ -291,6 +291,8 @@ jQuery.fn.jsonSubmit = function(options) {
 					
 					if(msg.type == Emerald.Json.Message.ERROR) {
 						
+						console.debug(msg);
+						
 						if(msg.errors) {
 																												
 							$.each(msg.errors, function(key, value) {
@@ -299,10 +301,10 @@ jQuery.fn.jsonSubmit = function(options) {
 								$.each(value, function(key2, value2) {
 									if(typeof(value2) == 'object') {
 										$("label[for=" + key2 + "]", $this).addClass("error");
-										
 									}
 								});
 								
+								console.debug(key);
 								
 								$("label[for=" + key + "]", $this).addClass("error");
 							});

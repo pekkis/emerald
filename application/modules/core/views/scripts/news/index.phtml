@@ -1,19 +1,19 @@
-<div class="newsChannel" id="newsChannelPage<?php echo $this->page->id; ?>">
+<div class="news-channel" id="news-channel-page-<?php echo $this->channel->page_id; ?>">
 
 <?php if($this->writable): ?>
-	<div class="adminControl adminControlHeavy">
-	<a id="newschannel_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newschannel/edit/id/<?php echo $this->channel->id; ?>"><?php echo $this->translate('Edit newschannel'); ?></a>
-	 | <a id="newsitem_add" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/add/channel_id/<?php echo $this->channel->id; ?>"><?php echo $this->translate('Add newsitem'); ?></a>
+	<div class="emerald-controls emerald-controls-heavy">
+	<a id="newschannel-edit" class="popup popup-large popup-resizable popup-scrollbars"
+	href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-channel', 'action' => 'edit', 'id' => $this->channel->id), 'default', true); ?>"><?php echo $this->translate('Edit newschannel'); ?></a>
+	 | <a id="newsitem-add" class="popup popup-large popup-resizable popup-scrollbars"
+	 href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-channel', 'action' => 'add-item', 'id' => $this->channel->id), 'default', true); ?>">
+	 <?php echo $this->translate('Add newsitem'); ?>
+	 </a>
 	</div>
 <?php endif; ?>
 
-<?php if($this->pageCount > 1): ?>
 <p>
-<?php for($i = 1; $i <= $this->pageCount; $i++): ?>
-<a href="?page_no=<?php echo $i; ?>"><?php echo ($i == $this->pageNo) ? "<strong>{$i}</strong>" : $i; ?></a><?php if($i < $this->pageCount) echo ' | '; ?>
-<?php endfor; ?>
+pagination here
 </p>
-<?php endif; ?>
 
 <?php foreach($this->news as $item): ?>
 
@@ -35,8 +35,8 @@
 	</p>
 	
 <?php if($this->writable): ?>
-	<div class="adminControl adminControlLight">
-	<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/edit/id/<?php echo $item->id; ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="confirmable" href="#"><?php echo $this->translate('Delete'); ?></a>
+	<div class="emerald-controls emerald-controls-light">
+	<a id="newsitem-edit" class="popup popup-large popup-resizable popup-scrollbars" href="/admin/newsitem/edit/id/<?php echo $item->id; ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="confirmable" href="#"><?php echo $this->translate('Delete'); ?></a>
 	</div>
 <?php endif; ?>	
 	
@@ -44,18 +44,14 @@
 
 <?php endforeach; ?>
 
-<?php if($this->pageCount > 1): ?>
 <p>
-<?php for($i = 1; $i <= $this->pageCount; $i++): ?>
-<a href="?page_no=<?php echo $i; ?>"><?php echo ($i == $this->pageNo) ? "<strong>{$i}</strong>" : $i; ?></a><?php if($i < $this->pageCount) echo ' | '; ?>
-<?php endfor; ?>
+pagination here
 </p>
-<?php endif; ?>
 
 <?php if($this->channel->allow_syndication): ?>
 <p>
-<a href="/news/feed/id/<?php print $this->channel->id; ?>">
-	<img alt=$this->translate('RSS-feed') title=$this->translate('RSS-feed') src="/lib/gfx/feed/feed-icon-28x28.png" />
+<a href="?format=xml">
+	<img alt="<?php echo $this->translate('RSS-feed'); ?>" title="<?php echo $this->translate('RSS-feed'); ?>" src="/lib/gfx/feed/feed-icon-28x28.png" />
 </a>
 </p>
 <?php endif; ?>

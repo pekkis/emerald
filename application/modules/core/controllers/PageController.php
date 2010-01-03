@@ -87,13 +87,17 @@ class Core_PageController extends Emerald_Controller_Action
 				$naviModel = new Core_Model_Navigation();
 				$navi = $naviModel->getNavigation();
 				
+				
 
 				$tpl = $page->getLayoutObject($this);
 				$tpl->setPage($page);
 				$tpl->setNoRender(true);
 
+				
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
-								
+
+				
+				
 				if($this->getHelper('ajaxContext')->getCurrentContext() == 'html') {
 
 					$tpl->runAjax();
@@ -105,8 +109,7 @@ class Core_PageController extends Emerald_Controller_Action
 					
 				}
 				
-				
-					
+								
 				
 				// $this->getHelper('viewRenderer')->setNoRender();
 				

@@ -19,15 +19,36 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$parentIdElm->setRequired(false);
 		$parentIdElm->setAllowEmpty(true);
 		
-		$layoutElm = new Zend_Form_Element_Text('layout', array('label' => 'Layout', 'class' => 'w66'));
-		$layoutElm->addValidator(new Zend_Validate_StringLength(0, 255));
+		$layoutElm = new Zend_Form_Element_Select('layout', array('label' => 'Layout', 'class' => 'w66'));
+		// $layoutElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$layoutElm->setRequired(false);
 		$layoutElm->setAllowEmpty(true);
+		
+		$layouts = Zend_Registry::get('Emerald_Customer')->getLayouts();
 
-		$shardElm = new Zend_Form_Element_Text('shard_id', array('label' => 'Shard id', 'class' => 'w66'));
-		$shardElm->addValidator(new Zend_Validate_StringLength(0, 255));
+		$layoutOpts = array();
+		foreach($layouts as $layout) {
+			$layoutOpts[$layout] = $layout;
+		}
+		$layoutElm->setMultiOptions($layoutOpts);
+		
+				
+
+		$shardElm = new Zend_Form_Element_Select('shard_id', array('label' => 'Shard id', 'class' => 'w66'));
+		// $shardElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$shardElm->setRequired(true);
 		$shardElm->setAllowEmpty(false);
+		
+		$shardModel = new Core_Model_Shard();
+		$shards = $shardModel->findAll();
+		
+		$shardOpts = array();
+		foreach($shards as $shard) {
+			if($shard->isInsertable()) {
+				$shardOpts[$shard->id] = $shard->name;
+			}
+		}
+		$shardElm->setMultiOptions($shardOpts);
 		
 		
 		$titleElm = new Zend_Form_Element_Text('title', array('label' => 'Page title', 'class' => 'w66'));
