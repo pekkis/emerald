@@ -115,10 +115,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$customer = $this->getResource('customer');
 		
-		$acl = new Emerald_Acl(); 
-        Zend_Registry::set('Emerald_Acl', $acl);
-        
-		Emerald_Acl::initialize($acl, $customer); 
+		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+		if(!$acl = $cache->load('acl')) {
+			$acl = new Emerald_Acl(); 
+			Emerald_Acl::initialize($acl, $customer);
+			$cache->save($acl, 'acl'); 
+		}
+		Zend_Registry::set('Emerald_Acl', $acl);
                                 
         return $acl;
 		

@@ -54,3 +54,5 @@
 [04-Jan-2010 21:44:23] PHP Warning:  include(Emerald/Db/Table/Abstract.php): failed to open stream: No such file or directory in /wwwroot/emerald/library/Zend/Loader.php on line 83
 [04-Jan-2010 21:44:23] PHP Warning:  include(): Failed opening 'Emerald/Db/Table/Abstract.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
 [04-Jan-2010 21:44:23] PHP Fatal error:  Class 'Emerald_Db_Table_Abstract' not found in /wwwroot/emerald/application/modules/core/models/DbTable/NewsChannel.php on line 3
+[04-Jan-2010 21:55:45] PHP Notice:  Undefined index: generic in /wwwroot/emerald/library/Emerald/Cache/Manager.php on line 25
+[04-Jan-2010 21:55:45] PHP Fatal error:  Call to a member function load() on a non-object in /wwwroot/emerald/application/Bootstrap.php on line 119

@@ -32,10 +32,12 @@ class Emerald_Acl extends Zend_Acl
 	{
 		if(!$this->hasRole($role)) {
 			$role->__lazyLoadAclRole($this);
+			$this->cacheSave();
 		}
 		
 		if(!$this->has($resource)) {
 			$resource->__lazyLoadAclResource($this);
+			$this->cacheSave();
 		}
 
 		
@@ -43,6 +45,18 @@ class Emerald_Acl extends Zend_Acl
 		
 	}
 	
+	
+	public function cacheSave()
+	{
+		Zend_Registry::get('Emerald_CacheManager')->getCache('global')->save($this, 'acl');	
+	}
+	
+	
+	
+	public function cacheRemove()
+	{
+		Zend_Registry::get('Emerald_CacheManager')->getCache('global')->remove('acl');
+	}
 	
 	
 	
