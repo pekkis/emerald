@@ -20,16 +20,15 @@ class Emerald_FileObject extends SplFileObject
 	 */
 	public function getMimeType()
 	{
-		if(!$this->_mimeType) {
-			if (version_compare(PHP_VERSION, '5.3.0') !== -1) {
+		if (!$this->_mimeType) {
+			if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
 				$fileinfo = new finfo(FILEINFO_MIME_TYPE);				
 			} else {
 				$fileinfo = new finfo(FILEINFO_MIME, $this->getFilelib()->getMagic());
 			}
-			return $fileinfo->file($this->getRealPath()); 
+			$this->_mimeType = $fileinfo->file($this->getRealPath()); 
 		}
+		
+		return $this->_mimeType;
 	}
-	
-	
-	
 }
