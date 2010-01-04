@@ -397,7 +397,7 @@ CREATE TABLE `news_item` (
   CONSTRAINT `news_item_ibfk_1` FOREIGN KEY (`news_channel_id`) REFERENCES `news_channel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `news_item_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `news_item_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,6 +406,7 @@ CREATE TABLE `news_item` (
 
 LOCK TABLES `news_item` WRITE;
 /*!40000 ALTER TABLE `news_item` DISABLE KEYS */;
+INSERT INTO `news_item` VALUES (1,1,'Tussiuutinen','Tussilassa on nähty loso','<p>Tussilan veljekset!</p>',NULL,NULL,NULL,NULL,'2010-01-04 00:00:00','2011-01-04 00:00:00','2010-01-04 18:01:39',NULL,NULL,NULL,1),(2,1,'Tussikasvo tän pitäs olla eka','Tussitesti 2','<p>Tussutan lussia</p>',NULL,NULL,NULL,NULL,'2010-01-01 00:00:00','2011-01-04 00:00:00','2010-01-04 18:13:15',NULL,NULL,NULL,1),(3,1,'Tussilan vaarilla oli talo','Tussi lussi mussi','<p>Na na naa naa, hey hey hey, good bye!</p>',NULL,NULL,NULL,NULL,'2010-01-04 00:00:00','2011-01-04 00:00:00','2010-01-04 18:14:15',NULL,NULL,NULL,1),(4,1,'Lusautapa tussia','Tusander','<p>Tussin lussutus uutinen ei ole kirjoitettu viel&auml; oikein ja se on losokka</p>',NULL,NULL,NULL,NULL,'2010-01-05 00:00:00','2011-01-07 00:00:00','2010-01-04 18:21:50',NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `news_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,6 +457,33 @@ LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
 INSERT INTO `page` VALUES (12,NULL,'fi',0,'Default','Etusivu','fi/etusivu','[12]',1,1,'2009-12-26 12:39:49',NULL,NULL,NULL,0),(13,NULL,'fi',0,'Default','Lätinää','fi/latinaa','[13]',1,1,'2009-12-27 16:35:05',NULL,NULL,NULL,0),(14,13,'fi',0,'Default','Pekkiksen synty','fi/latinaa/pekkiksen_synty','[13];[14]',1,1,'2009-12-27 16:36:18',NULL,NULL,NULL,0),(21,NULL,'fi',0,'Default','Nyyssit','fi/nyyssit','[21]',5,1,'2009-12-30 19:09:08',NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permission_folder_ugroup`
+--
+
+DROP TABLE IF EXISTS `permission_folder_ugroup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permission_folder_ugroup` (
+  `folder_id` int(10) unsigned NOT NULL,
+  `ugroup_id` int(10) unsigned NOT NULL,
+  `permission` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`folder_id`,`ugroup_id`),
+  KEY `ugroup_id` (`ugroup_id`),
+  CONSTRAINT `permission_folder_ugroup_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `filelib_folder` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `permission_folder_ugroup_ibfk_2` FOREIGN KEY (`ugroup_id`) REFERENCES `ugroup` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permission_folder_ugroup`
+--
+
+LOCK TABLES `permission_folder_ugroup` WRITE;
+/*!40000 ALTER TABLE `permission_folder_ugroup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permission_folder_ugroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -630,4 +658,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-01-03 21:41:33
+-- Dump completed on 2010-01-04 23:13:46
