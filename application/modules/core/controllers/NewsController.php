@@ -6,16 +6,22 @@ class Core_NewsController extends Emerald_Controller_Action
 		'index' => array('xml'),
 	);
 	
+	public $ajaxable = array('index' => array('html'));
+	
 	public function init()
 	{
-		$this->getHelper('contextSwitch')->initContext();
+		$this->getHelper('ajaxContext')->initContext();
+
+		if(!$this->getHelper('ajaxContext')->getCurrentContext()) {
+			$this->getHelper('contextSwitch')->initContext();	
+		}
+		
 	}
 	
 	
 	
 	public function indexAction()
 	{
-				
 		
 		$filters = array(
 		);
@@ -34,6 +40,7 @@ class Core_NewsController extends Emerald_Controller_Action
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
 				throw new Emerald_Exception('Forbidden', 401);
 			}
+			
 			
 			
 			$channelModel = new Core_Model_NewsChannel();
@@ -219,12 +226,7 @@ class Core_NewsController extends Emerald_Controller_Action
 			$this->view->page = $input->page;
 			
 					
-			$builder = new Emerald_Feed_Builder_NewsChannel($channel);
-
-			$feed = Zend_Feed::importBuilder($builder, $input->mode);
 			
-			$this->getResponse()->appendBody($feed->saveXML());
-
 			$this->getResponse()->setHeader('Content-type', "application/{$input->mode}+xml; charset: UTF-8");
 
 			$this->_helper->layout->disableLayout();

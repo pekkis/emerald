@@ -41,7 +41,7 @@ class Core_NewsItemController extends Emerald_Controller_Action
 			$form->setDefaults($item->toArray());			
 					
 			$this->view->form = $form;
-			
+			$this->view->page = $page;
 			
 		} catch(Exception $e) {
 			throw $e;

@@ -10,6 +10,8 @@ abstract class Emerald_Layout
 	
 	private $_layoutFile = 'default';
 	
+	private $_jax = false;
+	
 	public function __construct()
 	{
 		$this->_init();
@@ -26,7 +28,14 @@ abstract class Emerald_Layout
 	final protected function _preRun()
 	{
 		$this->_action->getHelper('layout')->setLayout('layouts/' . $this->getLayoutFile());
-		$this->_actionStack = $this->_action->getHelper('actionStack'); 
+		$this->_actionStack = $this->_action->getHelper('actionStack');
+
+		$front = Zend_Controller_Front::getInstance();
+		
+		// @todo: check this!
+		$stackPlugin = $front->getPlugin('Zend_Controller_Plugin_ActionStack');
+		$stackPlugin->setClearRequestParams(true);
+		
 		
 	}
 	
@@ -39,6 +48,8 @@ abstract class Emerald_Layout
 	
 	public function runAjax()
 	{
+		$this->_jax = true;
+		
 		$this->_preRun();
 		$this->_action->getHelper('layout')->disableLayout();
 		// $this->_action->getHelper('ajaxContext')->initContext('html');
@@ -131,6 +142,9 @@ abstract class Emerald_Layout
 									
 			$params['page_id'] = $page->id;
 			
+			if($this->_jax) {
+				// die();			
+			}
 			
 			return $this->actionToStack(
 				$action['action'], $action['controller'], $action['module'], $params

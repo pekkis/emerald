@@ -17,7 +17,6 @@ class Core_MenuController extends Emerald_Controller_Action
 	public function indexAction()
 	{
 		
-		
 		$filters = array(
 		);
 		$validators = array(

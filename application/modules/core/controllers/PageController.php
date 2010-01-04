@@ -12,8 +12,9 @@ class Core_PageController extends Emerald_Controller_Action
     
 	public function init()
 	{
+		
 		$this->getHelper('ajaxContext')->initContext();
-		$this->getHelper('contextSwitch')->initContext();
+		// $this->getHelper('contextSwitch')->initContext();
 	}
 	
 	
@@ -105,11 +106,16 @@ class Core_PageController extends Emerald_Controller_Action
 				
 				if($this->getHelper('ajaxContext')->getCurrentContext() || $this->getHelper('contextSwitch')->getCurrentContext()) {
 					$tpl->runAjax();
+					
+					
+					
 				} else {
 					$tpl->run();
 				}
 				
 								
+				
+				
 				
 				// $this->getHelper('viewRenderer')->setNoRender();
 				

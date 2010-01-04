@@ -1,0 +1,62 @@
+<?php if($this->writable) { $this->headScript()->appendFile("/lib/core/news/index.js"); } ?>
+
+<div class="news-channel" id="news-channel-page-<?php echo $this->channel->page_id; ?>">
+
+<?php if($this->writable): ?>
+	<div class="emerald-controls emerald-controls-heavy">
+	<a id="newschannel-edit" class="popup popup-large popup-resizable popup-scrollbars"
+	href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-channel', 'action' => 'edit', 'id' => $this->channel->id), 'default', true); ?>"><?php echo $this->translate('Edit newschannel'); ?></a>
+	 | <a id="newsitem-add" class="popup popup-large popup-resizable popup-scrollbars"
+	 href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-channel', 'action' => 'add-item', 'id' => $this->channel->id), 'default', true); ?>">
+	 <?php echo $this->translate('Add newsitem'); ?>
+	 </a>
+	</div>
+<?php endif; ?>
+
+<p>
+pagination here
+</p>
+
+<?php foreach($this->news as $item): ?>
+
+<?php $date = new Zend_Date($item->valid_start, Zend_Date::ISO_8601); ?>
+
+<div class="news-item <?php if(!$item->isValid()): ?> emerald-invisible news-item-invalid <?php endif; ?>">
+
+	<h2>
+	<?php echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>,
+	<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?>: <?php echo $item->title; ?>
+	</h2>
+	
+	<div class="newsItemContent">
+	<?php echo $item->description; ?>
+	</div>
+	
+	<p>
+		<a href="/<?php echo $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>"><?php echo $this->channel->link_readmore; ?></a>
+	</p>
+	
+<?php if($this->writable): ?>
+	<div class="emerald-controls emerald-controls-light">
+	<a id="newsitem-edit" class="popup popup-large popup-resizable popup-scrollbars" href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="emerald-confirm news-item-delete" href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-item', 'action' => 'delete', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
+	</div>
+<?php endif; ?>	
+	
+</div>
+
+<?php endforeach; ?>
+
+<p>
+pagination here
+</p>
+
+<?php if($this->channel->allow_syndication): ?>
+<p>
+<a class="noajax" href="<?php echo $this->page->beautifurl; ?>?format=xml">
+	<img alt="<?php echo $this->translate('RSS-feed'); ?>" title="<?php echo $this->translate('RSS-feed'); ?>" src="/lib/gfx/feed/feed-icon-28x28.png" />
+</a>
+</p>
+<?php endif; ?>
+
+
+</div>
