@@ -8,7 +8,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 	public function init()
 	{
 		$cm = new Emerald_Cache_Manager();
-		Zend_Registry::set('Emerald_Cache_Manager', $cm);		
+		Zend_Registry::set('Emerald_CacheManager', $cm);		
 
 		$opts = $this->getOptions();
 				

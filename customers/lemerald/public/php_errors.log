@@ -42,3 +42,15 @@
 [04-Jan-2010 21:05:19] PHP Warning:  include(): Failed opening 'Emerald/Application.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
 [04-Jan-2010 21:05:19] PHP Fatal error:  Class 'Emerald_Application' not found in /wwwroot/emerald/library/Emerald/Feed/Builder/NewsChannel.php on line 16
 [04-Jan-2010 21:05:26] PHP Fatal error:  Call to undefined method Emerald_Server::getIdentifier() in /wwwroot/emerald/library/Emerald/Feed/Builder/NewsChannel.php on line 23
+[04-Jan-2010 21:39:17] PHP Warning:  include(Emerald/Registry.php): failed to open stream: No such file or directory in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:39:17] PHP Warning:  include(): Failed opening 'Emerald/Registry.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:39:17] PHP Fatal error:  Class 'Emerald_Registry' not found in /wwwroot/emerald/application/modules/core/models/Navigation.php on line 100
+[04-Jan-2010 21:40:27] PHP Warning:  include(Emerald/Group.php): failed to open stream: No such file or directory in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:40:27] PHP Warning:  include(): Failed opening 'Emerald/Group.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:40:27] PHP Fatal error:  Class 'Emerald_Group' not found in /wwwroot/emerald/application/modules/admin/controllers/FormController.php on line 266
+[04-Jan-2010 21:40:39] PHP Fatal error:  Call to undefined method Zend_Cache_Core::delete() in /wwwroot/emerald/application/modules/core/models/Navigation.php on line 87
+[04-Jan-2010 21:44:01] PHP Notice:  Undefined variable: navi in /wwwroot/emerald/application/modules/core/models/Navigation.php on line 34
+[04-Jan-2010 21:44:01] PHP Fatal error:  Call to a member function findBy() on a non-object in /wwwroot/emerald/application/modules/core/models/Navigation.php on line 34
+[04-Jan-2010 21:44:23] PHP Warning:  include(Emerald/Db/Table/Abstract.php): failed to open stream: No such file or directory in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:44:23] PHP Warning:  include(): Failed opening 'Emerald/Db/Table/Abstract.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:44:23] PHP Fatal error:  Class 'Emerald_Db_Table_Abstract' not found in /wwwroot/emerald/application/modules/core/models/DbTable/NewsChannel.php on line 3

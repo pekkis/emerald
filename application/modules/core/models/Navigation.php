@@ -25,10 +25,10 @@ class Core_Model_Navigation
 	
 	public function pageUpdate(Core_Model_PageItem $page)
 	{
-		Zend_Debug::Dump($page->id, "UPDATING");
-		
+		// Zend_Debug::Dump($page->id, "UPDATING");
 		
 		$navi = $this->clearNavigation()->getNavigation();
+		
 
 		
 		$navi = $navi->findBy("id", $page->id);
@@ -75,6 +75,7 @@ class Core_Model_Navigation
 			}
 		}
 		
+		$navi = $this->clearNavigation()->getNavigation();
 		
 		
 	}
@@ -83,6 +84,9 @@ class Core_Model_Navigation
 	
 	public function clearNavigation()
 	{
+		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+		$cache->remove('navigation');
+		
 		$this->_navigation = null;
 		return $this;
 	}
@@ -96,30 +100,35 @@ class Core_Model_Navigation
 	public function getNavigation()
 	{
 		if(!$this->_navigation) {
-									
-			$navi = new Zend_Navigation();
-	
-			$localeTbl = new Core_Model_DbTable_Locale();
-			$pageTbl = new Core_Model_DbTable_Page();
+
+			$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
 			
-			$locales = $localeTbl->fetchAll(array(), "locale");
-			
-			foreach($locales as $locale) {
+			if(!$navi = $cache->load('navigation')) {
+				$navi = new Zend_Navigation();
+		
+				$localeTbl = new Core_Model_DbTable_Locale();
+				$pageTbl = new Core_Model_DbTable_Page();
 				
-				$page = new Zend_Navigation_Page_Uri(
-					array(
-						'uri' => '/' . $locale->locale,
-						'label' => $locale->locale,
-						'locale' => $locale->locale,
-					)
-				);
+				$locales = $localeTbl->fetchAll(array(), "locale");
 				
-				$this->_recurseLocale($page, $locale->locale);
+				foreach($locales as $locale) {
+					
+					$page = new Zend_Navigation_Page_Uri(
+						array(
+							'uri' => '/' . $locale->locale,
+							'label' => $locale->locale,
+							'locale' => $locale->locale,
+						)
+					);
+					
+					$this->_recurseLocale($page, $locale->locale);
+					
+					$navi->addPage($page);
+					
+				}
 				
-				$navi->addPage($page);
-				
-			}
-			
+				$cache->save($navi, 'navigation');
+			}			
 			
 			
 			$this->_navigation = $navi;

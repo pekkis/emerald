@@ -1,5 +1,5 @@
 <?php
-class Core_Model_DbTable_NewsChannel extends Emerald_Db_Table_Abstract 
+class Core_Model_DbTable_NewsChannel extends Zend_Db_Table_Abstract 
 {
 	protected $_name = 'news_channel';
 	protected $_primary = array('id');

@@ -21,10 +21,6 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 
-
-    
-
-
 try {
 
 	$application->getBootstrap()
@@ -45,7 +41,6 @@ try {
 	->bootstrap('filelib')
 	->bootstrap('filelibplugins')
 	->bootstrap('misc');
-	;
 		
 	$application->run();
 	
@@ -54,7 +49,6 @@ try {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 
 	
 	Zend_Debug::dump($e->getTrace());
-	
-	
+		
 	die('');
 }
