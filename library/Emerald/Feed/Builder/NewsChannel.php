@@ -5,27 +5,27 @@ class Emerald_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interface
 	private $_channel;
 	
 	
-	public function __construct(Emerald_Db_Table_Row_NewsChannel $channel)
+	public function __construct(Core_Model_NewsChannelItem $channel)
 	{
 		$this->_channel = $channel;
+		$this->_channel->items_per_page = 9999;
 	}
 	
 	
 	public function getHeader()
 	{
-		$app = Emerald_Application::getInstance();
+		
 		$request = Zend_Controller_Front::getInstance()->getRequest();
 		
 		$feedUrl = 'http://' . $request->getServer('HTTP_HOST') . $request->getRequestUri(); 
 								
 		$header = new Zend_Feed_Builder_Header($this->_channel->title, $feedUrl);
 		$header->setDescription($this->_channel->description);
-		$header->setGenerator(Emerald_Server::getInstance()->getIdentifier('full'));
+		$header->setGenerator("Emerald " . Emerald_Version::VERSION);
 		
 		$date = new DateTime($this->_channel->modified);
 						
 		$header->pubDate = $header->lastUpdate = $header->lastModified = $date->format('U');
-		
 		
 		return $header;
 	}
@@ -35,13 +35,18 @@ class Emerald_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interface
 	{
 		$entries = array();
 		
-		$page = $this->_channel->getPage();
+		$pageModel = new Core_Model_Page();
+		$page = $pageModel->find($this->_channel->page_id);
 		
-		$app = Emerald_Application::getInstance();
 		$request = Zend_Controller_Front::getInstance()->getRequest();
 		
 		foreach($this->_channel->getItems() as $item)
 		{
+			if(!$item->isValid()) {
+				// Xml doesn't include invalids
+				continue;
+			}
+			
 			$link = 'http://' . $request->getServer('HTTP_HOST') . '/' . $page->beautifurl . '?a=view&amp;id=' . $item->id;
 			
 			

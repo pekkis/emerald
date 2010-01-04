@@ -12,3 +12,33 @@
 [26-Dec-2009 14:29:42] PHP Catchable fatal error:  Argument 1 passed to RecursiveIteratorIterator::__construct() must implement interface Traversable, null given, called in /wwwroot/emerald/application/modules/admin/controllers/PageController.php on line 53 and defined in /wwwroot/emerald/application/modules/admin/forms/Page.php on line 61
 [26-Dec-2009 14:40:17] PHP Warning:  require(/wwwroot/emerald/customers/lemerald/views/scripts/layouts/Default.php): failed to open stream: No such file or directory in /wwwroot/emerald/application/modules/core/models/PageItem.php on line 28
 [26-Dec-2009 14:40:17] PHP Fatal error:  require(): Failed opening required '/wwwroot/emerald/customers/lemerald/views/scripts/layouts/Default.php' (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/application/modules/core/models/PageItem.php on line 28
+[04-Jan-2010 18:56:06] PHP Fatal error:  Class 'Core_Form_NewsItem' not found in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 107
+[04-Jan-2010 19:05:11] PHP Warning:  include(Zend/Form/Element/TextArea.php): failed to open stream: No such file or directory in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 19:05:11] PHP Warning:  include(): Failed opening 'Zend/Form/Element/TextArea.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 19:05:11] PHP Fatal error:  Class 'Zend_Form_Element_TextArea' not found in /wwwroot/emerald/application/modules/core/forms/NewsItem.php on line 21
+[04-Jan-2010 19:14:31] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 114
+[04-Jan-2010 19:14:39] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 114
+[04-Jan-2010 19:14:40] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 114
+[04-Jan-2010 19:14:40] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 114
+[04-Jan-2010 19:15:55] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 120
+[04-Jan-2010 19:16:02] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 120
+[04-Jan-2010 19:16:03] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 120
+[04-Jan-2010 19:16:04] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 120
+[04-Jan-2010 19:16:04] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 120
+[04-Jan-2010 19:16:04] PHP Fatal error:  Call to a member function setValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsChannelController.php on line 120
+[04-Jan-2010 19:16:51] PHP Parse error:  syntax error, unexpected ';' in /wwwroot/emerald/application/modules/core/forms/NewsItem.php on line 16
+[04-Jan-2010 19:53:59] PHP Fatal error:  Call to a member function getValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsItemController.php on line 59
+[04-Jan-2010 19:54:27] PHP Fatal error:  Call to a member function getValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsItemController.php on line 61
+[04-Jan-2010 19:55:16] PHP Fatal error:  Call to a member function getValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsItemController.php on line 63
+[04-Jan-2010 19:55:17] PHP Fatal error:  Call to a member function getValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsItemController.php on line 63
+[04-Jan-2010 19:56:21] PHP Fatal error:  Call to a member function getValue() on a non-object in /wwwroot/emerald/application/modules/core/controllers/NewsItemController.php on line 63
+[04-Jan-2010 19:56:37] PHP Fatal error:  Class 'Core_Model_NewsItem' not found in /wwwroot/emerald/application/modules/core/controllers/NewsItemController.php on line 69
+[04-Jan-2010 20:01:51] PHP Notice:  Undefined property: Core_Model_NewsItem::$valid_start in /wwwroot/emerald/application/modules/core/views/scripts/news/index.phtml on line 20
+[04-Jan-2010 20:01:51] PHP Fatal error:  Call to undefined method Core_Model_NewsItem::isValid() in /wwwroot/emerald/application/modules/core/views/scripts/news/index.phtml on line 22
+[04-Jan-2010 20:06:03] PHP Parse error:  syntax error, unexpected T_IS_GREATER_OR_EQUAL in /wwwroot/emerald/application/modules/core/models/NewsItemItem.php on line 18
+[04-Jan-2010 20:06:14] PHP Parse error:  syntax error, unexpected T_DOUBLE_ARROW in /wwwroot/emerald/application/modules/core/models/NewsItemItem.php on line 18
+[04-Jan-2010 21:04:28] PHP Catchable fatal error:  Argument 1 passed to Emerald_Feed_Builder_NewsChannel::__construct() must be an instance of Emerald_Db_Table_Row_NewsChannel, instance of Core_Model_NewsChannelItem given, called in /wwwroot/emerald/application/modules/core/views/scripts/news/index.xml.phtml on line 2 and defined in /wwwroot/emerald/library/Emerald/Feed/Builder/NewsChannel.php on line 8
+[04-Jan-2010 21:05:19] PHP Warning:  include(Emerald/Application.php): failed to open stream: No such file or directory in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:05:19] PHP Warning:  include(): Failed opening 'Emerald/Application.php' for inclusion (include_path='/wwwroot/emerald/library') in /wwwroot/emerald/library/Zend/Loader.php on line 83
+[04-Jan-2010 21:05:19] PHP Fatal error:  Class 'Emerald_Application' not found in /wwwroot/emerald/library/Emerald/Feed/Builder/NewsChannel.php on line 16
+[04-Jan-2010 21:05:26] PHP Fatal error:  Call to undefined method Emerald_Server::getIdentifier() in /wwwroot/emerald/library/Emerald/Feed/Builder/NewsChannel.php on line 23

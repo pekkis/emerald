@@ -4,10 +4,16 @@ class Core_PageController extends Emerald_Controller_Action
 	public $ajaxable = array(
         'view'     => array('html'),
     );
-	
+
+    public $contexts = array(
+        'view'     => array('xml'),
+    );
+    
+    
 	public function init()
 	{
 		$this->getHelper('ajaxContext')->initContext();
+		$this->getHelper('contextSwitch')->initContext();
 	}
 	
 	
@@ -97,16 +103,10 @@ class Core_PageController extends Emerald_Controller_Action
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
 
 				
-				
-				if($this->getHelper('ajaxContext')->getCurrentContext() == 'html') {
-
+				if($this->getHelper('ajaxContext')->getCurrentContext() || $this->getHelper('contextSwitch')->getCurrentContext()) {
 					$tpl->runAjax();
-										
 				} else {
-
-				
 					$tpl->run();
-					
 				}
 				
 								

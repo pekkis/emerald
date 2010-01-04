@@ -310,9 +310,9 @@ jQuery.fn.jsonSubmit = function(options) {
 							});
 						}
 						
-						callback.failure();						
+						callback.failure(msg);						
 					} else {
-						callback.success();
+						callback.success(msg);
 					}
 					
 					

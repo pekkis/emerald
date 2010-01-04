@@ -28,6 +28,7 @@ $application = new Zend_Application(
 try {
 
 	$application->getBootstrap()
+	->bootstrap('cache')
 	->bootstrap('server')
 	->bootstrap('modules')
 	->bootstrap('customer')

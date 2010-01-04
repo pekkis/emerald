@@ -323,3 +323,11 @@ way to fit your requirements.
 	visibility:visible;
 }
 
+.emerald-invisible {
+	opacity: 0.66;
+}
+
+.emerald-invisible:hover {
+	opacity: 1.0;
+}
+

@@ -2,6 +2,17 @@
 class Core_NewsController extends Emerald_Controller_Action 
 {
 
+	public $contexts = array(
+		'index' => array('xml'),
+	);
+	
+	public function init()
+	{
+		$this->getHelper('contextSwitch')->initContext();
+	}
+	
+	
+	
 	public function indexAction()
 	{
 				
@@ -27,18 +38,21 @@ class Core_NewsController extends Emerald_Controller_Action
 			
 			$channelModel = new Core_Model_NewsChannel();
 
-			$channel = $channelModel->findByPageId($page->id);
-			$this->view->channel = $channel;
 	
 			$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
 			
 			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
-									
+
+			$channel = $channelModel->findByPageId($page->id);
+			$this->view->channel = $channel;
+			
+			
+			
 			if(!$readable) {
 				throw new Emerald_Exception('Forbidden', 401);				
 			}
 						
-			$news = $channel->getItems();
+			$news = $channel->getItems($writable);
 			$news->setCurrentPageNumber($input->page);
 
 			$this->view->channel = $channel;

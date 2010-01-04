@@ -1,3 +1,5 @@
+<?php if($this->writable) { $this->headScript()->appendFile("/lib/core/news/index.js"); } ?>
+
 <div class="news-channel" id="news-channel-page-<?php echo $this->channel->page_id; ?>">
 
 <?php if($this->writable): ?>
@@ -19,11 +21,11 @@ pagination here
 
 <?php $date = new Zend_Date($item->valid_start, Zend_Date::ISO_8601); ?>
 
-<div class="newsItem <?php if(!$item->isValid()): ?> newsItemInvalid <?php endif; ?>">
+<div class="news-item <?php if(!$item->isValid()): ?> emerald-invisible news-item-invalid <?php endif; ?>">
 
 	<h2>
-	<?php //echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>
-	<?php // echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?> <?php echo $item->title; ?>
+	<?php echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>,
+	<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?>: <?php echo $item->title; ?>
 	</h2>
 	
 	<div class="newsItemContent">
@@ -36,7 +38,7 @@ pagination here
 	
 <?php if($this->writable): ?>
 	<div class="emerald-controls emerald-controls-light">
-	<a id="newsitem-edit" class="popup popup-large popup-resizable popup-scrollbars" href="/admin/newsitem/edit/id/<?php echo $item->id; ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="confirmable" href="#"><?php echo $this->translate('Delete'); ?></a>
+	<a id="newsitem-edit" class="popup popup-large popup-resizable popup-scrollbars" href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="emerald-confirm news-item-delete" href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-item', 'action' => 'delete', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
 	</div>
 <?php endif; ?>	
 	

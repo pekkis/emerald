@@ -81,6 +81,48 @@ class Core_NewsChannelController extends Emerald_Controller_Action
 	}
 	
 	
+	public function addItemAction()
+	{
+		$filters = array();
+		
+		$validators = array(
+			'id' => array('Int', 'presence' => 'required'),
+		);
+		
+		try {
+			
+			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
+
+			$channelModel = new Core_Model_NewsChannel();
+			$channel = $channelModel->find($input->id);
+						
+			$page = $this->_pageFromPageId($channel->page_id);
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
+				throw new Emerald_Exception('Forbidden', 401);
+			}
+
+			$form = new Core_Form_NewsItem();
+			$this->view->form = $form;
+			
+			$form->news_channel_id->setValue($input->id);
+			
+			$now = new DateTime();
+			
+			$form->valid_start->setValue($now->format('Y-m-d'));
+			
+			$now->modify("+ {$channel->default_months_valid} months");
+			
+			$form->valid_end->setValue($now->format('Y-m-d'));
+			
+			$form->status->setValue(1);
+			
+		} catch(Exception $e) {
+			throw $e;
+		}
+	}
 	
 	
 	

@@ -39,7 +39,7 @@ class Emerald_Validate_Datetime extends Zend_Validate_Abstract
 
         $this->_setValue($valueString);
 
-        if (!preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $valueString)) {
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$/', $valueString)) {
             $this->_error();
             return false;
         }

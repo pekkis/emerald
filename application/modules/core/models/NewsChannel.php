@@ -93,31 +93,5 @@ class Core_Model_NewsChannel
 	
 	
 	
-	
-	/**
-	 * Finds all items
-	 * 
-	 * @return ArrayIterator
-	 */
-	public function findAll()
-	{
-		$rows = $this->getTable()->fetchAll(array(), 'name ASC');
-		$iter = new ArrayIterator();
-		foreach($rows as $row) {
-			$iter->append(new Core_Model_NewsChannelItem($row));
-		}
-		return $iter;
-	}	
-	
-
-	
-	
-	
-	public function findByIdentifier($identifier)
-	{
-		return (is_numeric($identifier) ? $this->find($identifier) : $this->findByName($identifier));
-	}
-	
-	
 }
 ?>

@@ -128,17 +128,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 	
 	
-	protected function _innitCache()
-	{
-		// If we cache, we cache table metadata.
-        if($app->getConfig()->cache == 'true') {
-        	$cache = Emerald_Cache::getGeneric(); 
-        	Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
-        }        
-		
-	}
-	
-	
 	protected function _initUser()
 	{
 						

@@ -5,10 +5,12 @@ class Core_Model_Paginator_Adapter_NewsItem implements Zend_Paginator_Adapter_In
 	
 	protected $_innerAdapter;
 
+	protected $_invalids;
 	
-	public function __construct(Core_Model_NewsChannelItem $channel)
+	public function __construct(Core_Model_NewsChannelItem $channel, $invalids = false)
 	{
 		$this->_channel = $channel;
+		$this->_invalids = $invalids;
 	}
 	
 	
@@ -18,6 +20,16 @@ class Core_Model_Paginator_Adapter_NewsItem implements Zend_Paginator_Adapter_In
 		if(!$this->_innerAdapter) {
 			$tbl = new Core_Model_DbTable_NewsItem();
 			$sel = $tbl->select()->where('news_channel_id = ?', $this->_channel->id);
+			
+			if(!$this->_invalids) {
+				$now = new DateTime();
+				$sel->where("status = ?", 1);
+				$sel->where("valid_start <= ?", $now->format('Y-m-d H:i:s'));
+				$sel->where("valid_end >= ?", $now->format('Y-m-d H:i:s'));
+			}
+			
+			$sel->order('valid_start DESC');
+			
 			$this->_innerAdapter = new Zend_Paginator_Adapter_DbTableSelect($sel);
 		}
 		
@@ -38,7 +50,7 @@ class Core_Model_Paginator_Adapter_NewsItem implements Zend_Paginator_Adapter_In
 		
 		$items = new ArrayIterator();
 		foreach($rawItems as $item) {
-			$items[] = new Core_Model_NewsItem($item->toArray());
+			$items[] = new Core_Model_NewsItemItem($item->toArray());
 		}
 		return $items;		
 	}
