@@ -23,6 +23,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initMisc()
 	{
 		$this->getResource('view')->doctype("XHTML1_TRANSITIONAL");
+		
 	}
 	
 	
