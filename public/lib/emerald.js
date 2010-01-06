@@ -223,7 +223,7 @@ jQuery.fn.jsonClick = function(options) {
 	return this.each(function(){
 	
 		
-		$this = $(this);
+	$this = $(this);
 			
 	  $this.data("callback", finalOptions);
 	  
@@ -265,29 +265,41 @@ jQuery.fn.jsonSubmit = function(options) {
 		var finalOptions = jQuery.extend(defaultOptions, options);
 				
 		return this.each(function(){
-		
-		  $this = $(this);
-	
-		  $this.data("callback", finalOptions);
+			
+			$this = $(this);
+			$this.data("callback", finalOptions);
 		  
 		  $this.submit(function() {
 			
-			$("label", $this).removeClass("error");
+			  $that = $(this);
+							  
+			$("label", $that).removeClass("error");
 			
-			// $("input[type=submit], button[type=submit]", $this).attr("disabled", "disabled");
+			// $("input[type=submit], button[type=submit]", $that).attr("disabled", "disabled");
+						
 			
+			
+			if(this.action.indexOf("?") != -1) {
+				var addon = '&format=json';
+			} else {
+				var addon = "/format/json";
+			}
+					
 			 $.ajax({
 				type: "post",
-				url: this.action + "/format/json",
+				url: this.action + addon,
 				dataType: "json",
 				data: $(this).serialize(),
 				success: function(response) 
 				{
-					var msg = response.message;
-					// $("input[type=submit], button[type=submit]", $this).attr("disabled", "");
-					//console.debug(msg);
-					
-					var callback = $this.data("callback");
+					console.debug(response);
+				 	var msg = response.message;
+					// $("input[type=submit], button[type=submit]", $that).attr("disabled", "");
+					console.debug(msg);
+				
+					return true;
+										
+					var callback = $that.data("callback");
 					
 					if(msg.type == Emerald.Json.Message.ERROR) {
 						
@@ -300,13 +312,13 @@ jQuery.fn.jsonSubmit = function(options) {
 								// Catch subforms too
 								$.each(value, function(key2, value2) {
 									if(typeof(value2) == 'object') {
-										$("label[for=" + key2 + "]", $this).addClass("error");
+										$("label[for=" + key2 + "]", $that).addClass("error");
 									}
 								});
 								
 								console.debug(key);
 								
-								$("label[for=" + key + "]", $this).addClass("error");
+								$("label[for=" + key + "]", $that).addClass("error");
 							});
 						}
 						

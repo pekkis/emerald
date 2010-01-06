@@ -1,7 +1,6 @@
 <?php
-class Core_Model_NewsItem
+class Core_Model_FormField
 {
-	
 	
 	/**
 	 * Returns table
@@ -12,7 +11,7 @@ class Core_Model_NewsItem
 	{
 		static $table;
 		if(!$table) {
-			$table = new Core_Model_DbTable_NewsItem();
+			$table = new Core_Model_DbTable_FormField();
 		}
 		return $table;
 	}
@@ -22,17 +21,35 @@ class Core_Model_NewsItem
 	 * Finds item with primary key
 	 * 
 	 * @param $id
-	 * @return Core_Model_NewsItemItem
+	 * @return Core_Model_FormFieldItem
 	 */
 	public function find($id)
 	{
 		$tbl = $this->getTable();
 		$row = $tbl->find($id)->current();
-		return ($row) ? new Core_Model_NewsItemItem($row->toArray()) : false;
+		return ($row) ? new Core_Model_FormFieldItem($row->toArray()) : false;
 	}
 	
 	
-	public function save(Core_Model_NewsItemItem $item)
+	
+	
+	/**
+	 * Finds all items
+	 * 
+	 * @return ArrayIterator
+	 */
+	public function findAll()
+	{
+		$rows = $this->getTable()->fetchAll(array(), 'name ASC');
+		$iter = new ArrayIterator();
+		foreach($rows as $row) {
+			$iter->append(new Core_Model_FormFieldItem($row));
+		}
+		return $iter;
+	}	
+	
+	
+	public function save(Core_Model_FormFieldItem $item)
 	{
 		if(!is_numeric($item->id)) {
 			$item->id = null;
@@ -44,15 +61,16 @@ class Core_Model_NewsItem
 		if(!$row) {
 			$row = $tbl->createRow();
 		}
+						
 		$row->setFromArray($item->toArray());
 		$row->save();
 		
 		$item->setFromArray($row->toArray());
+				
 	}
+
 	
-	
-		
-	public function delete(Core_Model_NewsItemItem $item)
+	public function delete(Core_Model_FormFieldItem $item)
 	{
 		$tbl = $this->getTable();
 		$row = $tbl->find($item->id)->current();
@@ -63,5 +81,5 @@ class Core_Model_NewsItem
 	}
 	
 	
+	
 }
-?>

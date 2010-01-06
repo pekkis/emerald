@@ -29,7 +29,7 @@ $this->headScript()->appendFile("/lib/admin/form/index.js");
 	<td><?php echo $form->description; ?></td>
 	<td>
 		<a href="<?php echo $this->url(array('action' => 'edit', 'id' => $form->id)); ?>"><?php echo $this->translate('Edit'); ?></a> |
-		<a class="confirmable" href="/admin/form/delete/id/<?php echo $form->id; ?>"><?php echo $this->translate('Delete'); ?></a>
+		<a class="emerald-confirm form-delete" href="<?php echo $this->url(array('action' => 'delete', 'id' => $form->id)); ?>"><?php echo $this->translate('Delete'); ?></a>
 	</td>
 </tr>
 <?php endforeach; ?>

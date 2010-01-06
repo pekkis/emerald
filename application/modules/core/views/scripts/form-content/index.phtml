@@ -1,0 +1,33 @@
+<?php 
+$this->headScript()->appendFile('/lib/core/form-content/index.js');
+?>
+
+<?php if($this->form): ?>
+
+<?php
+
+if(!$this->zform) {
+	$this->zform = $this->form->getZendForm();
+}
+
+$this->zform->setAction('/' . $this->page->beautifurl . '?a=post');
+echo $this->zform;
+
+?>
+
+<?php endif; ?>
+
+
+<?php if($this->writable): ?>
+
+<?php if(!$this->form): ?>
+<p>
+<?php echo $this->translate('No form selected.'); ?>
+</p>
+<?php endif; ?>
+
+<div class="emerald-controls">
+<a id="form-content-edit" class="popup popup-large popup-resizable popup-scrollbars"
+href="<?php echo $this->url(array('module' => 'core', 'controller' => 'form-content', 'action' => 'edit', 'page_id' => $this->formcontent->page_id), 'default', true); ?>"><?php echo $this->translate('Edit form'); ?></a>
+</div>
+<?php endif; ?>

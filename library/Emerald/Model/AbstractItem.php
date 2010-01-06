@@ -11,6 +11,14 @@ abstract class Emerald_Model_AbstractItem
 {
 
 	/**
+	 * Enforce field integrity
+	 * 
+	 * @var unknown_type
+	 */
+	protected $_enforceFieldIntegrity = false;
+
+	
+	/**
 	 * @var array Item data
 	 */
 	protected $_data = array();
@@ -34,6 +42,18 @@ abstract class Emerald_Model_AbstractItem
 			$this->$key = $value;			
 		}
 	}
+	
+	
+	/**
+	 * Sets whether field integrity is enforced (exception thrown when accessing unaccessible)
+	 * 
+	 * @param boolean $enforceFieldIntegrity
+	 */
+	public function enforceFieldIntegrity($enforceFieldIntegrity)
+	{
+		$this->_enforceFieldIntegrity = (bool) $enforceFieldIntegrity;
+	}
+	
 	
 	
 	/**
@@ -89,10 +109,17 @@ abstract class Emerald_Model_AbstractItem
 	public function __get($key)
 	{
 		if(!array_key_exists($key, $this->_data)) {
-			throw new Emerald_Model_Exception("Field '{$key}' not set");
+			
+			if(!$this->_enforceFieldIntegrity) {
+				return null;
+			}
+			throw new Emerald_Model_Exception("Field '{$key}' not set");	
+			
 		}
 		return $this->_data[$key];
 	}
+	
+	
 	
 
 	/**

@@ -1,23 +1,13 @@
+<?php
+$this->headScript()->appendFile('/lib/admin/form/edit.js');
+$this->headLink()->appendStylesheet('/lib/admin/form/edit.css');
+?>
+
 <div id="formController">
 
-<h1><?php echo $this->translate('Form :: edit'); ?></h1>
+<h1><?php echo $this->translate('Edit form'); ?></h1>
 
-<form id="createField" method="post" action="/admin/form/createField/id/<?php echo $this->form->id; ?>">
-
-<fieldset>
-	<legend><?php echo $this->translate('New field'); ?></legend>
-	
-	<select name="type">
-	<?php foreach($this->opts as $okey => $opt): ?>
-	<option value="<?php echo $okey; ?>"><?php echo $opt; ?></option>
-	<?php endforeach; ?>
-	</select>
-	
-	<button type="submit" class="submit niceButton"><?php echo $this->translate('Create'); ?></button>
-		
-</fieldset>
-
-</form>
+<?php echo $this->fieldCreateForm; ?>
 
 <br />
 
@@ -32,12 +22,14 @@
 </table> 
 
 
-<form id="editFields" method="post" action="/admin/form/save/form_id/<?php echo $this->form->id; ?>">
+<form id="field-edit" method="post" action="<?php echo $this->url(array('module' => 'admin', 'controller' => 'form', 'action' => 'save'), 'default', true); ?>">
 
-<div id="sort_div">
+<input type="hidden" name="form_id" value="<?php echo $this->form->id; ?>" />
+
+<div id="form-sort">
 <?php foreach($this->form->getFields() as $key => $field): ?>
 
-<div class="sortable_div">
+<div class="form-sortable">
 
 <input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $field->id; ?>" />
 
@@ -75,7 +67,7 @@
 
 <td class="actions">
 <div>
-<a class="confirmable" href="/admin/form/deleteField/form_id/<?php echo $this->form->id; ?>/id/<?php echo $field->id; ?>"><?php echo $this->translate('Delete'); ?></a>
+<a class="emerald-confirm field-delete" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'form', 'action' => 'field-delete', 'id' => $field->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
 </div>
 </td>
 

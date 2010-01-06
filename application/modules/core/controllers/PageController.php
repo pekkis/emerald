@@ -80,14 +80,14 @@ class Core_PageController extends Emerald_Controller_Action
 				
 				$locale = $page->getLocaleItem();
 				
-				$this->view->pageLocaleObj = $locale;
+				// $this->view->pageLocaleObj = $locale;
 
 				$this->view->headTitle()->setSeparator(' - ');
 				
 				$this->view->headTitle($locale->getOption('title'));
 				$this->view->headTitle($page->title, 'PREPEND');
 				
-				$this->view->page = $page;
+				// $this->view->page = $page;
 				
 				 
 				

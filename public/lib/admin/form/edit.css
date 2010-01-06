@@ -1,12 +1,12 @@
 
-.sortable_div {
+.form-sortable {
 	cursor: move;
 	margin: 0.5em 0;
 	background-color: #DDDDEE;
 	border: 1px solid #CCCCCC;
 }
 
-.sortable_div table td div {
+.form-sortable table td div {
 padding: 0.33em;
 }
 
