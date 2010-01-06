@@ -126,7 +126,7 @@ CREATE TABLE `form` (
   KEY `modified_by` (`modified_by`),
   CONSTRAINT `form_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `form_ibfk_2` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,6 +135,7 @@ CREATE TABLE `form` (
 
 LOCK TABLES `form` WRITE;
 /*!40000 ALTER TABLE `form` DISABLE KEYS */;
+INSERT INTO `form` VALUES (4,'Tussi','Tussilomake','2010-01-06 15:19:07',NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `form` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +157,7 @@ CREATE TABLE `form_field` (
   PRIMARY KEY (`id`),
   KEY `form_id` (`form_id`),
   CONSTRAINT `form_field_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,6 +166,7 @@ CREATE TABLE `form_field` (
 
 LOCK TABLES `form_field` WRITE;
 /*!40000 ALTER TABLE `form_field` DISABLE KEYS */;
+INSERT INTO `form_field` VALUES (17,4,1,0,'Yksi',1,''),(18,4,2,1,'Kaksi',0,''),(19,4,3,2,'Koli',0,'Lussi\nTussi\nLoo'),(20,4,4,3,'Neli',0,'Sukka\nJukka\nTukka'),(21,4,5,4,'Viisuri',0,'Loso\nKaita'),(22,4,6,5,'Kuus',0,''),(23,4,1,6,NULL,0,NULL);
 /*!40000 ALTER TABLE `form_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,6 +208,7 @@ CREATE TABLE `formcontent` (
 
 LOCK TABLES `formcontent` WRITE;
 /*!40000 ALTER TABLE `formcontent` DISABLE KEYS */;
+INSERT INTO `formcontent` VALUES (22,4,'Tussi','puhemies@diktaattoriporssi.com','mikko.forsstrom@brainalliance.com',0,12,'2010-01-06 19:27:45',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `formcontent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,7 +409,7 @@ CREATE TABLE `news_item` (
 
 LOCK TABLES `news_item` WRITE;
 /*!40000 ALTER TABLE `news_item` DISABLE KEYS */;
-INSERT INTO `news_item` VALUES (1,1,'Tussiuutinen','Tussilassa on nähty loso','<p>Tussilan veljekset!</p>',NULL,NULL,NULL,NULL,'2010-01-04 00:00:00','2011-01-04 00:00:00','2010-01-04 18:01:39',NULL,NULL,NULL,1),(2,1,'Tussikasvo tän pitäs olla eka','Tussitesti 2','<p>Tussutan lussia</p>',NULL,NULL,NULL,NULL,'2010-01-01 00:00:00','2011-01-04 00:00:00','2010-01-04 18:13:15',NULL,NULL,NULL,1),(3,1,'Tussilan vaarilla oli talo','Tussi lussi mussi','<p>Na na naa naa, hey hey hey, good bye!</p>',NULL,NULL,NULL,NULL,'2010-01-04 00:00:00','2011-01-04 00:00:00','2010-01-04 18:14:15',NULL,NULL,NULL,1),(4,1,'Lusautapa tussia','Tusander','<p>Tussin lussutus uutinen ei ole kirjoitettu viel&auml; oikein ja se on losokka</p>',NULL,NULL,NULL,NULL,'2010-01-05 00:00:00','2011-01-07 00:00:00','2010-01-04 18:21:50',NULL,NULL,NULL,1);
+INSERT INTO `news_item` VALUES (1,1,'Tussiuutinen','Tussilassa on nähty loso','<p>Tussilan veljekset!</p>',NULL,NULL,NULL,NULL,'2010-01-04 00:00:00','2011-01-04 00:00:00','2010-01-04 18:01:39',NULL,NULL,NULL,1),(3,1,'Tussilan vaarilla oli talo','Tussi lussi mussi','<p>Na na naa naa, hey hey hey, good bye!</p>',NULL,NULL,NULL,NULL,'2010-01-04 00:00:00','2011-01-04 00:00:00','2010-01-04 18:14:15',NULL,NULL,NULL,1),(4,1,'Lusautapa tussia','Tusander','<p>Tussin lussutus uutinen ei ole kirjoitettu viel&auml; oikein ja se on losokka</p>',NULL,NULL,NULL,NULL,'2010-01-05 00:00:00','2011-01-07 00:00:00','2010-01-04 18:21:50',NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `news_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,7 +449,7 @@ CREATE TABLE `page` (
   CONSTRAINT `page_ibfk_3` FOREIGN KEY (`modified_by`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_4` FOREIGN KEY (`shard_id`) REFERENCES `shard` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `page_ibfk_5` FOREIGN KEY (`locale`) REFERENCES `locale` (`locale`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,7 +458,7 @@ CREATE TABLE `page` (
 
 LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
-INSERT INTO `page` VALUES (12,NULL,'fi',0,'Default','Etusivu','fi/etusivu','[12]',1,1,'2009-12-26 12:39:49',NULL,NULL,NULL,0),(13,NULL,'fi',0,'Default','Lätinää','fi/latinaa','[13]',1,1,'2009-12-27 16:35:05',NULL,NULL,NULL,0),(14,13,'fi',0,'Default','Pekkiksen synty','fi/latinaa/pekkiksen_synty','[13];[14]',1,1,'2009-12-27 16:36:18',NULL,NULL,NULL,0),(21,NULL,'fi',0,'Default','Nyyssit','fi/nyyssit','[21]',5,1,'2009-12-30 19:09:08',NULL,NULL,NULL,0);
+INSERT INTO `page` VALUES (12,NULL,'fi',0,'Default','Etusivu','fi/etusivu','[12]',1,1,'2009-12-26 12:39:49',NULL,NULL,NULL,0),(13,NULL,'fi',0,'Default','Lätinää','fi/latinaa','[13]',1,1,'2009-12-27 16:35:05',NULL,NULL,NULL,0),(14,13,'fi',0,'Default','Pekkiksen synty','fi/latinaa/pekkiksen_synty','[13];[14]',1,1,'2009-12-27 16:36:18',NULL,NULL,NULL,0),(21,NULL,'fi',0,'Default','Nyyssit','fi/nyyssit','[21]',5,1,'2009-12-30 19:09:08',NULL,NULL,NULL,0),(22,NULL,'fi',0,'Default','Lomake','fi/lomake','[22]',7,1,'2010-01-06 18:49:59',NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,7 +513,7 @@ CREATE TABLE `permission_page_ugroup` (
 
 LOCK TABLES `permission_page_ugroup` WRITE;
 /*!40000 ALTER TABLE `permission_page_ugroup` DISABLE KEYS */;
-INSERT INTO `permission_page_ugroup` VALUES (12,1,4),(12,2,7),(13,1,5),(13,2,7),(14,1,4),(14,2,7),(21,1,4),(21,2,7);
+INSERT INTO `permission_page_ugroup` VALUES (12,1,4),(12,2,7),(13,1,5),(13,2,7),(14,1,4),(14,2,7),(21,1,4),(21,2,7),(22,1,4),(22,2,7);
 /*!40000 ALTER TABLE `permission_page_ugroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,7 +542,7 @@ CREATE TABLE `shard` (
 
 LOCK TABLES `shard` WRITE;
 /*!40000 ALTER TABLE `shard` DISABLE KEYS */;
-INSERT INTO `shard` VALUES (1,'Htmlcontent','core','html-content','index',3),(2,'Breadcrumb','core','index','index',1),(3,'Menu','core','index','index',1),(4,'Sitemap','core','index','index',1),(5,'News','core','news','index',3),(7,'Formcontent','core','index','index',3),(9,'Login','core','index','page',3),(10,'Randomimage','core','index','index',3);
+INSERT INTO `shard` VALUES (1,'Htmlcontent','core','html-content','index',3),(2,'Breadcrumb','core','index','index',1),(3,'Menu','core','index','index',1),(4,'Sitemap','core','index','index',1),(5,'News','core','news','index',3),(7,'Formcontent','core','form-content','index',3),(9,'Login','core','index','page',3),(10,'Randomimage','core','index','index',3);
 /*!40000 ALTER TABLE `shard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -658,4 +661,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-01-04 23:13:46
+-- Dump completed on 2010-01-06 22:42:45
