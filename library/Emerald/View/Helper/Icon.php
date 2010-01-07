@@ -1,7 +1,7 @@
 <?php
 class Emerald_View_Helper_Icon extends Zend_View_Helper_Abstract
 {
-	static $_iconPath = "/lib/gfx/nuvola/";
+	static $_iconPath = "/lib/nuvola/";
 	static $_sizes = Array
 	(
 		"x-small"=>"16x16",
@@ -39,7 +39,7 @@ class Emerald_View_Helper_Icon extends Zend_View_Helper_Abstract
 		$translator = $this->getTranslatorContainer()->getTranslator();
 				
 		
-		$strIcon ="<img align=\"absmiddle\" class=\"Emerald_Icon\" src=\"".self::$_iconPath.self::$_sizes[$size]."/".$path.".png\" alt=\"icon\" />";
+		$strIcon ="<img align=\"absmiddle\" class=\"emerald-icon\" src=\"".self::$_iconPath.self::$_sizes[$size]."/".$path.".png\" alt=\"icon\" />";
 		if($iconText) $strIcon .="<span>{$iconText}</span>";
 		if($contextHelp) $strIcon = '<a href="'.$href.'" class="'.implode(" ", $classNames).'" title="' . $translator->translate($contextHelp) . '"'.($id ? " id=\"{$id}\"":"").'>'.$strIcon."</a>";
 		return $strIcon;
