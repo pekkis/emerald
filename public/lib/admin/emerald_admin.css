@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+/* plz - just import other styles here */
+
+@import "/lib/admin/structure_admin.css";
+@import "/lib/admin/lists.css";
+@import "/lib/admin/generic.css";
+@import "/lib/admin/components.css";
+@import "/lib/admin/forms.css";
+@import "/lib/admin/effects.css";
