@@ -343,6 +343,51 @@ jQuery.fn.jsonSubmit = function(options) {
 	  });
 	};
 
+	Emerald.Icon = 
+	{
+		// the root of all evil
+		iconPath: "/lib/gfx/nuvola/",
+		xsmall: function(path, contextHelpPath)
+		{
+			return 	Emerald.Icon._getIcon("x-small", path, contextHelpPath);
+		},
+		small: function(path, contextHelpPath)
+		{
+			return 	Emerald.Icon._getIcon("small", path, contextHelpPath);
+		},
+		medium: function(path, contextHelpPath)
+		{
+			return 	Emerald.Icon._getIcon("medium", path, contextHelpPath);
+		},
+		large: function(path, contextHelpPath)
+		{
+			return 	Emerald.Icon._getIcon("large", path, contextHelpPath);
+		},
+		_getIcon: function(size, path, contextHelpPath)
+		{
+			var link = new Element("a", 
+			{
+				href: "", 
+				title: Emerald.Localization.translate(contextHelpPath)
+			});
+			var sizes = 
+			{
+				"x-small": "16x16",
+				"small": "22x22",
+				"medium": "32x32",
+				"large": "64x64",
+				"x-large": "128x12x"
+			};
+			if(sizes[size] == undefined) throw ("Undefined icon size :"+size);
+			var icon = new Element("img",
+			{
+				src: Emerald.Icon.iconPath + sizes[size] + "/" + path + ".png",
+				className: "Emerald_Icon"
+			});
+			link.appendChild(icon);
+			return link;
+		}
+	};
 
 
 
