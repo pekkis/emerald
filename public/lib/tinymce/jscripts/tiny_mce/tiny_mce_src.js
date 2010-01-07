@@ -694,7 +694,7 @@ tinymce.create('tinymce.util.Dispatcher', {
 			// Parse URL (Credits goes to Steave, http://blog.stevenlevithan.com/archives/parseuri)
 			u = u.replace(/@@/g, '(mce_at)'); // Zope 3 workaround, they use @@something
 			u = /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/.exec(u);
-			each(["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"], function(v, i) {
+			each(["source","protocol","authority","user-info","user","password","host","port","relative","path","directory","file","query","anchor"], function(v, i) {
 				var s = u[i];
 
 				// Zope 3 workaround, they use @@something
@@ -708,8 +708,8 @@ tinymce.create('tinymce.util.Dispatcher', {
 				if (!t.protocol)
 					t.protocol = b.protocol;
 
-				if (!t.userInfo)
-					t.userInfo = b.userInfo;
+				if (!t.user-info)
+					t.user-info = b.user-info;
 
 				if (!t.port && t.host == 'mce_host')
 					t.port = b.port;
@@ -878,8 +878,8 @@ tinymce.create('tinymce.util.Dispatcher', {
 					if (t.protocol)
 						s += t.protocol + '://';
 
-					if (t.userInfo)
-						s += t.userInfo + '@';
+					if (t.user-info)
+						s += t.user-info + '@';
 
 					if (t.host)
 						s += t.host;

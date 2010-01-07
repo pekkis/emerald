@@ -12,7 +12,7 @@ body
 	
 }
 
-#popup #pageContainer
+#popup #page-container
 {
 	text-align: left;
 	margin: 5px 20px;
@@ -22,11 +22,11 @@ body
 
 
 
-#pageIeContainer
+#ie-container
 {
 	text-align: center;
 }
-#pageContainer
+#page-container
 {
 	text-align: left;
 	width: 70em;
@@ -35,7 +35,7 @@ body
 	
 	margin-top: 1em;
 }
-#pageHeader
+#page-header
 {
 	background-color: #000;
 	text-align: right;
@@ -43,7 +43,7 @@ body
 		
 	padding-bottom: 1px;
 }
-#pageHeader .pageHeaderRight
+#page-header .page-header-right
 {
 	
 	padding: 0.3em;
@@ -52,19 +52,19 @@ body
 	border-bottom: 1px solid #fff;
 	
 }
-#pageHeader .userInfo
+#page-header .user-info
 {
 }
-#pageHeader .userName
+#page-header .userName
 {
 	font-weight: bold;
 }
-#pageHeader .helpMe img
+#page-header .helpMe img
 {
 	vertical-align:middle;
 	
 }
-#pageTop
+#page-top
 {
 	dbackground-image: url('/lib/gfx/admin/emerald_logo-small.png');
 	background-repeat: no-repeat;
@@ -73,25 +73,25 @@ body
 	height: 5em;
 }
 
-#pageTop .adminMenu
+#page-top .adminMenu
 {
 	float: right;
 	clear: both;
 }
-#pageTop, #pageContent
+#page-top, #page-content
 {
 	padding: 1em;
 }
-#pageContent
+#page-content
 {
 	margin-top: 1em;
-	background-image: url('/lib/gfx/admin/slide-vert.png');
+	background-image: url('/lib/admin/slide-vert.png');
 	background-repeat: repeat-x;
 	dpadding-right: 0;
 }
 
 
-#pageFooter
+#page-footer
 {
 	margin-top: 1em;
 	background-color: #fff;
