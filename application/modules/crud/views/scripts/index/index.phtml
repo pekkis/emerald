@@ -1,8 +1,0 @@
-<h1>Zend Crud</h1>
-
-
-<ul>
-<?php foreach($this->crud->getModels() as $model): ?>
-<li><a href="/crud/index/model/id/<?php echo get_class($model); ?>"><?php echo get_class($model); ?></li>
-<?php endforeach;?>
-</ul>
