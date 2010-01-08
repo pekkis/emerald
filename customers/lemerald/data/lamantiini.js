@@ -124,6 +124,7 @@ $(document).ready(function() {
 	$('marquee').marquee();
 	
 	
+	/*
 	$('a[href]').live('click', function(e) {
 						
 		if(e.button != 0) {
@@ -147,7 +148,7 @@ $(document).ready(function() {
 		
 		return false;
 	});
-	
+	*/
 
 	if(location.hash && location.hash != '/') {
 		$(window).trigger('hashchange');

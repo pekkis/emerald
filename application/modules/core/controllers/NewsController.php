@@ -65,6 +65,7 @@ class Core_NewsController extends Emerald_Controller_Action
 			$this->view->channel = $channel;
 			$this->view->news = $news;
 			$this->view->writable = $writable;
+			$this->view->page = $page;
 			
 		} catch(Exception $e) {
 			throw $e;
