@@ -1,14 +1,12 @@
-<div id="newsSplitter">
-
-	<div class="newsItemView">
+<div class="news-item-view">
 	
 	<?php $date = new Zend_Date($this->item->valid_start, Zend_Date::ISO_8601); ?>
 	
-	<div class="newsItem <?php if(!$this->item->isValid()): ?> newsItemInvalid <?php endif; ?>">
+	<div class="news-item <?php if(!$this->item->isValid()): ?> emerald-invisible <?php endif; ?>">
 	
 		<h2>
-		<?php // echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>
-		<?php // echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?> <?php echo $this->item->title; ?>
+		<?php echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>
+		<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?> <?php echo $this->item->title; ?>
 		</h2>
 		
 		<div class="newsItemDescription">
@@ -23,23 +21,11 @@
 	</div>
 	
 	<?php if($this->writable): ?>
-		<div class="adminControl adminControlLight">
-		<a id="newsitem_edit" class="popup popup_large popup_resizable popup_scrollbars" href="/admin/newsitem/edit/id/<?php echo $this->item->id; ?>"><?php echo $this->translate('Edit'); ?></a>
-	 | <a class="confirmable" href="/admin/newsitem/delete/id/<?php echo $this->item->id; ?>"><?php echo $this->translate('Delete'); ?></a>
+		<div class="emerald-controls emerald-controls-light">
+		<a id="newsitem-edit" class="popup popup-large popup-resizable popup-scrollbars"
+		href="<?php echo $this->url(array('module' => 'core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $this->item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>
 		</div>
 	<?php endif; ?>	
-	
-	</div>
-
-	<div class="headlines">
-			
-	<?php echo $this->shard($this->page, 'Htmlcontent', array('a' => 'index', 'block_id' => 567)); ?>
-			
-	<?php echo $this->shard($this->page, 'News', array('a' => 'headlines', 'headlines' => 10)); ?>	
-	</div>
-	
-
-
 
 
 </div>

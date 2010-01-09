@@ -26,10 +26,13 @@ class Core_Model_UserItem extends Emerald_Model_AbstractItem implements Emerald_
 	
 	public function __lazyLoadAclRole(Zend_Acl $acl)
 	{
+		
 		if(!$acl->hasRole($this)) {
 			$gruppen = array();
 			$groupz = $this->getGroups();
-	       	foreach($groupz as $group) {
+	       	
+			
+			foreach($groupz as $group) {
 	       		$gruppen[] = $group;
 	       	}
 	       	$acl->addRole($this, $gruppen);

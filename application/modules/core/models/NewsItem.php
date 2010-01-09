@@ -32,6 +32,8 @@ class Core_Model_NewsItem
 	}
 	
 	
+	
+	
 	public function save(Core_Model_NewsItemItem $item)
 	{
 		if(!is_numeric($item->id)) {

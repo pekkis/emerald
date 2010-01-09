@@ -254,7 +254,7 @@ DROP TABLE IF EXISTS `locale`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `locale` (
-  `locale` char(6) NOT NULL,
+  `locale` varchar(6) NOT NULL,
   `page_start` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`locale`),
   KEY `page_start` (`page_start`),
@@ -280,7 +280,7 @@ DROP TABLE IF EXISTS `locale_option`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `locale_option` (
-  `locale_locale` char(6) NOT NULL,
+  `locale_locale` varchar(6) NOT NULL,
   `identifier` varchar(255) NOT NULL DEFAULT '',
   `strvalue` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`locale_locale`,`identifier`),
@@ -340,7 +340,7 @@ CREATE TABLE `news_channel` (
   `default_months_valid` tinyint(4) DEFAULT '12',
   `title` varchar(255) NOT NULL,
   `description` text,
-  `locale` char(6) DEFAULT NULL,
+  `locale` varchar(6) DEFAULT NULL,
   `copyright` varchar(255) DEFAULT NULL,
   `managing_editor` varchar(255) DEFAULT NULL,
   `webmaster` varchar(255) DEFAULT NULL,
@@ -423,7 +423,7 @@ DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned DEFAULT NULL,
-  `locale` char(6) NOT NULL,
+  `locale` varchar(6) NOT NULL,
   `order_id` smallint(6) NOT NULL DEFAULT '0',
   `layout` varchar(255) DEFAULT 'Default',
   `title` varchar(255) NOT NULL,

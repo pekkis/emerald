@@ -156,7 +156,6 @@ class Core_NewsController extends Emerald_Controller_Action
 		$filters = array(
 		);
 		$validators = array(
-			'page' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'id' => array('Int', 'presence' => 'required')
 		);
 						
@@ -164,32 +163,22 @@ class Core_NewsController extends Emerald_Controller_Action
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
-		
-			$page = $input->page;
-			$page->assertReadable();
-			$this->view->page = $input->page;
-			
-			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
-			$this->view->writable = $writable;
-						
-			$channelTbl = Emerald_Model::get('NewsChannel');
-			
-			$channel = $channelTbl->fetchRow(array('page_id = ?' => $page->id));
-			
-			$newsItemTbl = Emerald_Model::get('NewsItem');
-			
-			$where = array(
-				'id = ?' => $input->id,
-				'news_channel_id = ?' => $channel->id
-			);
-			
-			if(!$item = $newsItemTbl->fetchRow($where)) {
-				throw new Emerald_Exception('Invalid news id');
-			}
-			
-			
+
+			$newsModel = new Core_Model_NewsItem();
+			$item = $newsModel->find($input->id);
 			
 			$this->view->item = $item;
+			
+			$channel = $item->getChannel();
+			$this->view->channel = $channel;
+			
+			$page = $channel->getPage();
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
+				throw new Emerald_Exception('Forbidden', 401);
+			}
+			$this->view->page = $page;
+			$writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'write');
+			$this->view->writable = $writable;
 
 		} catch(Exception $e) {
 			throw $e;

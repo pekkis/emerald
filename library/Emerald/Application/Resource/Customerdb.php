@@ -11,7 +11,7 @@ class Emerald_Application_Resource_Customerdb extends Zend_Application_Resource_
 		$customer = $this->getCustomer();
 								
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
-		$db->getConnection()->exec("SET names utf8");
+		// $db->getConnection()->exec("SET names utf8");
 		
 		$customer->setDb($db);
 		

@@ -7,11 +7,13 @@ class Core_Model_NewsChannelItem extends Emerald_Model_AbstractItem
 	
 	protected $_paginator;
 	
-	public function getItemPaginator()
+	
+	public function getPage()
 	{
+		$model = new Core_Model_Page();
+		return $model->find($this->page_id);
 	}
-	
-	
+		
 	
 	public function getItems($invalids = false)
 	{

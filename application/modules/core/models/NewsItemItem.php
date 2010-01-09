@@ -1,6 +1,12 @@
 <?php
 class Core_Model_NewsItemItem extends Emerald_Model_AbstractItem
 {
+	public function getChannel()
+	{
+		$model = new Core_Model_NewsChannel();
+		return $model->find($this->news_channel_id);
+	}
+	
 	
 	
 	

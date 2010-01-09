@@ -33,7 +33,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 	{
 		if(!$this->_globalBackend) {
 			$opts = $this->getOptions();
-			$this->_globalBackend = Zend_Cache::_makeBackend($opts['backend']['global']['name'], $opts['backend']['global']['options']);
+			$this->_globalBackend = Zend_Cache::_makeBackend($opts['backend']['global']['name'], $opts['backend']['global']['options'], true, true);
 		}
 		return $this->_globalBackend;		
 	}

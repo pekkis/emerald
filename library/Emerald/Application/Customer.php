@@ -80,18 +80,24 @@ class Emerald_Application_Customer
     
     public function getOption($key)
     {
-    	return $this->getOptionContainer()->$key;
+    	return $this->_getOptionContainer()->$key;
     }
     
     
     public function setOption($key, $value)
     {
-    	$this->getOptionContainer()->$key = $value;	
+    	$this->_getOptionContainer()->$key = $value;	
+    }
+    
+    
+    public function getOptions()
+    {
+    	return $this->_getOptionContainer()->getOptions();
     }
     
     
     
-    public function getOptionContainer()
+    protected function _getOptionContainer()
     {
     	if(!$this->_optionContainer) {
     		$this->_optionContainer = new Emerald_Db_OptionContainer();

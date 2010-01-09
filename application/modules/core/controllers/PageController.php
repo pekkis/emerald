@@ -50,6 +50,11 @@ class Core_PageController extends Emerald_Controller_Action
 								
 				if(!$readable) {
 
+					Zend_Debug::dump($this->getCurrentUser());
+					
+					Zend_Debug::Dump($this->getAcl());
+					
+					
 					die('not readable');
 					
 					// throw new Emerald_Exception('Forbidden', 401);		

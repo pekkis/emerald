@@ -1,7 +1,8 @@
 <?php
 class Core_Model_Page
 {
-	private static $_pages = array();
+	
+	static public $registry;
 	
 	/**
 	 * Returns table
@@ -21,29 +22,31 @@ class Core_Model_Page
 	
 	public function find($id)
 	{
-		
-		if(isset(self::$_pages[$id])) {
-			return self::$_pages[$id];
+		if(!$page = $this->findFromRegistry($id)) {
+			$pageTbl = $this->getTable();
+			$page = $pageTbl->find($id)->current();
+			$page = ($page) ? new Core_Model_PageItem($page) : false;
+			
+			if($page) {
+				$this->saveToRegistry($page);	
+			}
 		}
-		
-		$pageTbl = $this->getTable();
-		$page = $pageTbl->find($id)->current();
-				
-		$page = ($page) ? new Core_Model_PageItem($page) : false;
-		
-		self::$_pages[$id] = $page;
-		
 		return $page;
-		
 	}
 	
 	
 	public function findByBeautifurl($beautifurl)
 	{
-		$pageTbl = $this->getTable();
-		$page = $pageTbl->fetchRow(array('beautifurl = ?' => $beautifurl));
-		return ($page) ? new Core_Model_PageItem($page) : false;
-		
+		if(!$page = $this->findFromRegistry($beautifurl)) {
+			$pageTbl = $this->getTable();
+			$row = $pageTbl->fetchRow(array('beautifurl = ?' => $beautifurl));
+			$page = ($row) ? new Core_Model_PageItem($row) : false;
+			
+			if($page) {
+				$this->saveToRegistry($page);
+			}
+		}
+		return $page;
 	}
 	
 	
@@ -147,6 +150,49 @@ class Core_Model_Page
 		
 		$row->delete();
 		
+	}
+	
+	
+	
+	/**
+	 * Returns page registry
+	 * 
+	 * @return Zend_Registry
+	 */
+	public function getRegistry()
+	{
+		if(!self::$registry) {
+			self::$registry = new Zend_Registry();
+		}
+		
+		return self::$registry;
+		
+	}
+	
+	
+	public function findFromRegistry($identifier)
+	{
+		$registry = $this->getRegistry();
+		
+		if(!is_numeric($identifier)) {
+			if(!$registry->isRegistered($identifier)) {
+				return false;
+			}
+			$identifier = $registry->get($identifier);
+		}
+		
+		if($registry->isRegistered($identifier)) {
+			return $registry->get($identifier);	
+		}
+		return false;
+	}
+	
+	
+	public function saveToRegistry(Core_Model_PageItem $page)
+	{
+		$registry = $this->getRegistry();
+		$registry->set($page->id, $page);
+		$registry->set($page->beautifurl, $page->id);
 	}
 	
 	

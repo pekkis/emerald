@@ -43,6 +43,10 @@ class Emerald_Db_OptionContainer
 	protected $_newOptions = array();
 
 	
+		
+	
+	
+	
 	public function getKeyColumn()
 	{
 		return $this->_keyColumn;

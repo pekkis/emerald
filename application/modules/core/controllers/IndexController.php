@@ -22,6 +22,11 @@ class Core_IndexController extends Emerald_Controller_Action
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();
 			
+			$installed = $this->getCustomer()->getOption('installed');
+			if(!$installed) {
+				return $this->getHelper('redirector')->gotoRouteAndExit(array('action' => 'index', 'controller' => 'install', 'module' => 'core'), 'default', true);
+			}
+			
 			$localeModel = new Core_Model_Locale();
 			$page = $localeModel->startFrom($this->getCustomer(), $input->locale);
 						

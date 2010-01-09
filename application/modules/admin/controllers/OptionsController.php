@@ -40,7 +40,7 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 			
 			$customer = $this->getCustomer();
 			
-			$opts = $customer->getOptionContainer()->getOptions();
+			$opts = $customer->getOptions();
 			$appForm->setDefaults($opts);
 			
 			
@@ -85,9 +85,9 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 		$form = new Admin_Form_ApplicationOptions();
 		if($form->isValid($this->_getAllParams())) {
 			
-			$oc = $this->getCustomer()->getOptionContainer();
+			
 			foreach($form->getValues() as $key => $value) {
-				$oc->$key = $value;
+				$this->getCustomer()->setOption($key, $value);
 			}
 			
 			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');

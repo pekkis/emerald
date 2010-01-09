@@ -22,9 +22,9 @@ class Admin_Form_PagePermissions extends ZendX_JQuery_Form
 			// Zend_Debug::dump($permissions);
 		
 		foreach($groups as $group) {
-			$elm = new Zend_Form_Element_MultiCheckbox($group->id, array('label' => $group->name));
+			$elm = new Zend_Form_Element_MultiCheckbox((string) $group->id, array('label' => $group->name));
 			foreach($permissions as $key => $value) {
-				$elm->addMultiOption($key, $value);
+				$elm->addMultiOption((string) $key, $value);
 			}
 			$this->addElement($elm);
 		}

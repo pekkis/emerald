@@ -87,7 +87,7 @@ $this->headLink()->appendStylesheet("/lib/lamantiini.css");
 		</div>
 		
 		<div id="footer">
-		<a href="http://drkobros.com/emerald">powered by Emerald <?php echo Emerald_Version::VERSION; ?></a>
+		<a href="http://drkobros.com/emerald">powered by Emerald <?php echo Emerald_Version::VERSION; ?></a> &amp; PostgreSQL
 		</div>
 		
 	
@@ -101,6 +101,7 @@ $this->headLink()->appendStylesheet("/lib/lamantiini.css");
 
 <?php echo $this->jQuery(); ?>
 <?php echo $this->headScript(); ?>
+<?php echo $this->googleAnalytics(); ?>
 
 </body>
 

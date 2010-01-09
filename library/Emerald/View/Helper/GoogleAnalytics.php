@@ -4,7 +4,7 @@ class Emerald_View_Helper_GoogleAnalytics
 		
 	public function googleAnalytics()
 	{
-		$analyticsId = Emerald_Application::getInstance()->getOption('google_analytics_id');
+		$analyticsId = Zend_Registry::get('Emerald_Customer')->getOption('google_analytics_id');
 				
 		
 		if($analyticsId) {
