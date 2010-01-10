@@ -1,20 +1,14 @@
 <?php 
 $this->headTitle()->append('Dashboard');
+$this->headScript()->appendFile("/lib/admin/index/index.js");
 ?>
 
 <h1><?php echo $this->translate('Dashboard'); ?></h1>
 
 <p><?php echo $this->translate('Welcome to Emerald.'); ?></p>
 
+<h2><?php echo $this->translate('Developer tools'); ?></h2>
 
-<?php if($this->feed): ?>
-<h2><?php echo $this->translate('Emerald News'); ?></h2>
-<div id="emeraldNews">
-<?php foreach($this->feed as $item): ?>
-<div class="emeraldNewsItem">
-<h3><?php print $item->title; ?></h3>
-<p><a href="<?php print $item->link; ?>"><?php print $item->description; ?></a></p>
-</div>
-<?php endforeach; ?>
-</div>
-<?php endif; ?>
+<ul>
+<li><a id="clear-cache" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'cache', 'action' => 'clear'), 'default', true); ?>"><?php echo $this->translate('Clear caches'); ?></a></li>
+</ul>

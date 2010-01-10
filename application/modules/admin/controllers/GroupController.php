@@ -77,7 +77,7 @@ class Admin_GroupController extends Emerald_Controller_AdminAction
 		if($form->isValid($this->_getAllParams())) {
 			
 			$groupModel = new Core_Model_Group();
-			if(!$group = $groupModel->find($form->id->getValue())) {
+			if(!$form->id->getValue() || !$group = $groupModel->find($form->id->getValue())) {
 				$group = new Core_Model_GroupItem();
 				
 			}
@@ -87,7 +87,7 @@ class Admin_GroupController extends Emerald_Controller_AdminAction
 			$groupModel->save($group);
 
 			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
-			
+			$this->view->message->group_id = $group->id;
 			
 		} else {
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');

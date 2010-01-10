@@ -1,5 +1,8 @@
-<?php $this->headScript()->appendFile("/lib/admin/user/edit.js"); ?>
+<?php
+$this->headTitle("Edit user")->headTitle("Users & groups");
+$this->headScript()->appendFile("/lib/admin/user/edit.js");
+?>
 
-<h2><?php echo $this->translate('Edit user'); ?></h2>
+<h1><?php echo $this->translate('Edit user'); ?></h1>
 
 <?php echo $this->form; ?>

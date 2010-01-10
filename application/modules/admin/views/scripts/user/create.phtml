@@ -1,5 +1,8 @@
-<?php $this->headScript()->appendFile("/lib/admin/user/create.js"); ?>
+<?php
+$this->headTitle("Create user")->headTitle("Users & groups");
+$this->headScript()->appendFile("/lib/admin/user/create.js");
+?>
 
-<h2><?php echo $this->translate('Create user'); ?></h2>
+<h1><?php echo $this->translate('Create user'); ?></h1>
 
 <?php echo $this->form; ?>

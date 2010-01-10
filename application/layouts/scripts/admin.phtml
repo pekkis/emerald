@@ -15,7 +15,6 @@
 		
 		
 		
-		
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->jQuery(); ?>
 		<?php echo $this->headScript(); ?>
@@ -34,19 +33,23 @@
 		<div id="header">
 			<div id="logo">
 				<?php $cusr = Zend_Registry::get('Emerald_User'); ?> 
-				<h1><a href="/">Emerald<sup></sup></a></h1>
-				<h2><?php echo $cusr->email ?> :: <a href="<?php echo $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
+				<h1><a href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>">Emerald</a></h1>
+				<h2><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'user', 'action' => 'edit', 'id' => $cusr->id), 'default', true); ?>"><?php echo $cusr->email ?> :: <a href="<?php echo $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
 			</div>
 			<div id="menu">
-				<?php echo $this->navigation()->menu($this->navigation); ?>
+				<?php echo $this->navigation()->menu()->renderMenu($this->navigation, array('maxDepth' => 0)); ?>
 			</div>
 		</div>
 	</div>	
-	
-	<div id="page">
-	<div id="content">
 			
-		<div id="message" class="ui-state-highlight ui-corner-all"> 
+	<div id="page">
+	<div id="page-content">
+		
+		<div id="breadcrumbs">
+		<?php echo $this->navigation()->breadcrumbs($this->navigation); ?>
+		</div>
+			
+		<div id="message" title="Obs" class="ui-state-highlight ui-corner-all"> 
 			<p></p>
 		</div>
 					

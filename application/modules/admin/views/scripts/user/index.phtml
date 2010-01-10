@@ -14,8 +14,6 @@ $this->headScript()->appendFile("/lib/admin/user/index.js");
 
 <div id="users">
 
-<h2><?php echo $this->translate('Users'); ?></h2>
-
 <p>
 <a href="<?php echo $this->url(array('action' => 'create')); ?>"><?php echo $this->translate('Create user'); ?></a>
 </p>
@@ -42,9 +40,6 @@ $this->headScript()->appendFile("/lib/admin/user/index.js");
 <p>
 <a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'create')); ?>"><?php echo $this->translate('Create group'); ?></a>
 </p>
-
-
-<h2><?php echo $this->translate('Groups'); ?></h2>
 
 <ul>
 <?php foreach($this->groups as $group): ?>

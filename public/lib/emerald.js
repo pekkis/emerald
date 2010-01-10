@@ -190,11 +190,10 @@ Emerald.t = Emerald.Localization.translate; // shortcut
 
 Emerald.message = function(msg)
 {
+	
 	$("#message p").text(msg);
-	$("#message").show();
-	
-	$("#message").show();
-	
+	$("#message").dialog('open');
+		
 	location = "#message";
 }
 
@@ -237,9 +236,9 @@ jQuery.fn.jsonClick = function(options) {
 				var msg = response.message;
 				var callback = $that.data("callback");
 				if(msg.type == Emerald.Json.Message.ERROR) {
-					callback.failure($that);						
+					callback.failure($that, msg);						
 				} else {
-					callback.success($that);
+					callback.success($that, msg);
 				}
 			}
 		});
@@ -400,7 +399,7 @@ $(document).ready(function()
 	
 	$('.popup').live('click', Emerald.Popup.listener);
 
-	
+	$('#message').dialog({ autoOpen: false });
 	
 
 });

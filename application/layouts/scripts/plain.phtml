@@ -1,36 +1,47 @@
 <?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-
-		<?php echo $this->headTitle(); ?>
-
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
 		<?php 
+		$this->headTitle()->setSeparator(' - ')->append("Emerald");
 		$this->jQuery()->enable()->uiEnable();
 		$this->jQuery()->addJavascriptFile("/lib/emerald.js");
 		// $this->headLink()->prependStylesheet('/lib/css/admin/emerald_popup.css');
-		$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');				
-	
-		
 		$this->jQuery()->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
-				
-		$this->headLink()->prependStylesheet('/lib/admin/emerald_admin.css');
+		$this->headLink()->prependStylesheet('/lib/admin/main.css');
 		$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
-		
 		?>
-				
+		
+		
 		
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->jQuery(); ?>
 		<?php echo $this->headScript(); ?>
-
 		
+		
+		<?php echo $this->headTitle(); ?>
 	</head>
 
-	<body>
+	<body id="plain">
 		
+		<div id="loading" style="display: none;">
+		<img src="/lib/ajax-loader.gif" class="emerald-icon" />
+		</div>
+	
+		<div id="wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1><a href="/">Emerald<sup></sup></a></h1>
+				</div>
+			</div>
+		</div>	
+	
+	<div id="page">
+	<div id="page-content">
 		<?php echo $this->layout()->content; ?>
+	</div>
+	</div>
 
 	</body>
 </html>

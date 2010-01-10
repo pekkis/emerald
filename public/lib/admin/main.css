@@ -39,9 +39,12 @@ img.right {
 
 h1, h2, h3 {
 	margin: 0;
-	text-transform: lowercase;
 	font-weight: normal;
 	color: #78CC00;
+}
+
+#logo h1 {
+	text-transform: lowercase;	
 }
 
 h1 {
@@ -102,6 +105,10 @@ input, textarea, select {
 	background: #7ACF00 url(images/img03.jpg);
 }
 
+	#plain #wrapper {
+		background-position: bottom left;
+	}
+
 /* Header */
 
 #header {
@@ -110,18 +117,31 @@ input, textarea, select {
 	padding-top: 10px;
 }
 
+	#plain #header {
+		height: 30px;
+		margin: 0 auto;
+		padding: 0;
+	}
+
 #logo {
 	float: left;
 	height: 120px;
 	margin-left: 30px;
 }
-
-
+	
+	#plain #logo {
+		height: auto;
+		margin-left: 10px;
+	}
 
 #logo h1 {
 	font-size: 38px;
 	color: #3399CC;
 }
+
+	#plain #logo h1 {
+		font-size: 24px;
+	}
 
 #logo h1 sup {
 	vertical-align: text-top;
@@ -180,6 +200,13 @@ input, textarea, select {
 	font-weight: bold;
 }
 
+/* breadcrumb */
+
+#breadcrumbs {
+	margin: 0.5em 0;	
+}
+
+
 /* Page */
 
 #page {
@@ -188,14 +215,89 @@ input, textarea, select {
 	padding: 0;
 }
 
+	#plain #page {
+		width: auto;
+		padding: 1em;
+	}
+
+
 /* Content */
 
-#content {
+#page-content {
 
 
 }
 
-#content h1 {
+#plain #page-content h2 {
+	margin: 0.33em 0;	
+}
+
+#page-content h1 {
 	margin: 0 0 0.33em 0;	
 }
+
+
+/* emeraldia */
+
+#loading
+{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding-top: 10px;
+	text-align: left !important;
+}
+	
+	#plain #loading {
+	}
+
+
+
+/* forms */
+
+.optional {
+	font-weight: normal;	
+}
+
+.required {
+	font-weight: bold;	
+}
+
+.error {
+	color: #FF0000;	
+}
+
+.w100 {
+	width: 100%;
+}
+
+.w66 {
+	width: 66%;
+}
+
+.w50 {
+	width: 50%;
+}
+
+.w33 {
+	width: 33%;
+}
+
+dl.zend_form {
+	margin: 0;
+	padding: 0;	
+}
+
+dl.zend_form dt, dl.zend_form dd {
+	padding: 0;
+	margin: 0;	
+}
+
+dl.zend_form dt {
+	margin-top: 1em;	
+}
+
+
+
+
 

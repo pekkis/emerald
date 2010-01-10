@@ -1,6 +1,12 @@
 <?php
-class Emerald_Cache_Manager
+class Emerald_Cache_Manager implements IteratorAggregate
 {
+	
+	
+	public function getIterator()
+	{
+		return new ArrayIterator($this->_caches);
+	}
 	
 	
 	private $_caches = array();

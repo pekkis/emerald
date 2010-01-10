@@ -79,6 +79,7 @@ class Core_Model_User
 		$row = $tbl->find($user->id)->current();
 		if(!$row) {
 			$row = $tbl->createRow();
+			$row->passwd = md5(uniqid());
 		}
 						
 		$row->setFromArray($user->toArray());

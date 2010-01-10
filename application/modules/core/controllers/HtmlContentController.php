@@ -78,8 +78,6 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			$htmlcontent = $htmlModel->find($input->page_id, $input->block_id);			
 			
 			$this->view->htmlcontent = $htmlcontent;
-			
-			$this->view->layout()->setLayout("admin-popup");
 
 			$form = new Core_Form_HtmlContent();
 			$form->setDefaults($htmlcontent->toArray());

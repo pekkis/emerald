@@ -19,7 +19,26 @@ class Admin_Model_Navigation
 			
 			$dashboard = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'label' => 'Dashboard'));
 			$navi->addPage($dashboard);
+
+			$users = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'label' => 'Users & groups'));
 			
+			$createUser = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'action' => 'create', 'label' => 'Create user'));
+			$users->addPage($createUser);			
+
+			$editUser = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'action' => 'edit', 'label' => 'Edit user'));
+			$users->addPage($editUser);			
+			
+			$createGroup = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'group', 'action' => 'create', 'label' => 'Create group'));
+			$users->addPage($createGroup);			
+			
+			$editGroup = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'group', 'action' => 'edit', 'label' => 'Edit group'));
+			$users->addPage($editGroup);			
+			
+			$navi->addPage($users);
+									
+			$locale = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'label' => 'Locales'));
+			$navi->addPage($locale);
+						
 			$sitemap = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'sitemap', 'label' => 'Sitemap'));
 			$navi->addPage($sitemap);
 						
@@ -29,12 +48,6 @@ class Admin_Model_Navigation
 			$forms = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'label' => 'Forms'));
 			$navi->addPage($forms);
 					
-			$users = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'label' => 'Users & groups'));
-			$navi->addPage($users);
-
-			$locale = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'label' => 'Locales'));
-			$navi->addPage($locale);
-			
 			$options = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'options', 'label' => 'Options'));
 			$navi->addPage($options);
 						

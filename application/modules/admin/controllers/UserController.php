@@ -83,19 +83,16 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 			$form->getSubForm('pwd')->password->setRequired(true);
 			$form->getSubForm('pwd')->password->setAllowEmpty(false);
 		}
-		
-		
+				
 		
 		if($form->isValid($this->_getAllParams())) {
 			
 			$userModel = new Core_Model_User();
-			if(!$user = $userModel->find($form->id->getValue())) {
+			if(!$form->id->getValue() || !$user = $userModel->find($form->id->getValue())) {
 				$user = new Core_Model_UserItem();
-				
 			}
 
 			$user->setFromArray($form->getValues());
-						
 			$userModel->save($user);
 			
 			$userModel->setGroups($user, $form->groups->getValue());
@@ -108,6 +105,7 @@ class Admin_UserController extends Emerald_Controller_AdminAction
 			
 			
 			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			$this->view->message->user_id = $user->id;
 			
 			
 		} else {

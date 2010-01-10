@@ -3,6 +3,6 @@ $this->headScript()->appendFile('/lib/core/login.js');
 $this->layout()->setLayout('plain');
 ?>
 
-<h1>Emerald Login</h1>
+<h1><?php echo $this->translate('Login'); ?></h1>
 
 <?php echo $this->form; ?>
