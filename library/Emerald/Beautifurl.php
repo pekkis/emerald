@@ -8,11 +8,11 @@ class Emerald_Beautifurl
 	 * @param string $beautifier String to use for spacing
 	 * @return string
 	 */
-	public static function fromString($str, $beautifier = '_')
+	public static function fromString($str, $beautifier = '-')
 	{
 		$beautifurl = htmlentities(mb_strtolower($str, 'utf8'), ENT_COMPAT, 'utf-8');
-		$beautifurl = preg_replace("/&(.)(acute|cedil|circ|ring|tilde|uml);/", "$1", $beautifurl);
-		$beautifurl = preg_replace("/([^a-z0-9]+)/", $beautifier, html_entity_decode($beautifurl));
+		$beautifurl = preg_replace('/&(.)(acute|cedil|circ|ring|tilde|uml);/', "$1", $beautifurl);
+		$beautifurl = preg_replace('/([^a-z0-9]+)/', $beautifier, html_entity_decode($beautifurl));
     	$beautifurl = trim($beautifurl, $beautifier);
 
     	return $beautifurl;
@@ -20,7 +20,7 @@ class Emerald_Beautifurl
 	
 	
 	
-	public static function fromArray(array $fragments, $prepend = null, $beautifier = '_')
+	public static function fromArray(array $fragments, $prepend = null, $beautifier = '-')
 	{
 		$beautifulFragments = array();
 		foreach($fragments as $fragment) {
@@ -31,7 +31,7 @@ class Emerald_Beautifurl
 			array_unshift($beautifulFragments, $prepend);
 		}
 		
-		$beautifurl = implode("/", $beautifulFragments);
+		$beautifurl = implode('/', $beautifulFragments);
 		return $beautifurl;
 		
 	}

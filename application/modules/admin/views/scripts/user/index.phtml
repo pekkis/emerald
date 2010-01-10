@@ -1,6 +1,9 @@
-<?php $this->headScript()->appendFile("/lib/admin/user/index.js"); ?>
+<?php
+$this->headTitle()->append('Users & groups');
+$this->headScript()->appendFile("/lib/admin/user/index.js");
+?>
 
-<h1><?php echo $this->translate('Users and groups'); ?></h1>
+<h1><?php echo $this->translate('Users & groups'); ?></h1>
 
 <div id="tabs">
 

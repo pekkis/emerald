@@ -4,6 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
 		<?php 
+		$this->headTitle()->setSeparator(' - ')->append("Emerald");
 		$this->jQuery()->enable()->uiEnable();
 		$this->jQuery()->addJavascriptFile("/lib/emerald.js");
 		// $this->headLink()->prependStylesheet('/lib/css/admin/emerald_popup.css');
@@ -20,63 +21,40 @@
 		<?php echo $this->headScript(); ?>
 		
 		
-		<title>emerald CMS</title>
+		<?php echo $this->headTitle(); ?>
 	</head>
 
 	<body>
+	
 	<div id="loading" style="display: none;">
 		<img src="/lib/ajax-loader.gif" class="emerald-icon" />
 	</div>
-	<div id="ie-container">
-	<div id="page-container">
-		<div id="page-header">
-			<?php 
-				
-				// TODO: should these be assigned by the view instead of grabbing em from singeltons?
-				$usr = Zend_Registry::get('Emerald_User'); 
-				// $rq = Zend_Controller_Front::getInstance()->getRequest(); 
-				// $controller = $rq->getControllerName();
-				// $action = $rq->getActionName();
-			?>
-			<div class="page-header-right">
-				<span class="user-info">
-					<span class="user-name"><?php echo $usr->firstname." ".$usr->lastname ?></span>
-					<span class="user-login"><?php echo $usr->email ?></span>
-				</span>
-				<span class="help-me">
-					<?php echo $this->icon()->small("actions/no","Log out", array(), '', $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true)); ?>
-				</span>
+	
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<?php $cusr = Zend_Registry::get('Emerald_User'); ?> 
+				<h1><a href="/">Emerald<sup></sup></a></h1>
+				<h2><?php echo $cusr->email ?> :: <a href="<?php echo $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
+			</div>
+			<div id="menu">
+				<?php echo $this->navigation()->menu($this->navigation); ?>
 			</div>
 		</div>
-		<div id="page-top">
-			<div class="adminMenu">
-				<ul class="iconVMenu">
-					<li><?php echo $this->icon()->medium("actions/gohome", "Dashboard", Array(), "", "/admin/index") ?></li>
-					<li><?php echo $this->icon()->medium("apps/kmenuedit", "Sitemap", Array(), "", "/admin/sitemap") ?></li>
-					<li><?php echo $this->icon()->medium("filesystems/folder_open", "File library", Array(), "", "/admin/filelib") ?></li>
-					<li><?php echo $this->icon()->medium("apps/kpager", "Forms", Array(), "", "/admin/form") ?></li>
-					<li><?php echo $this->icon()->medium("apps/personal", "Users &amp; groups", Array(), "", "/admin/user") ?></li>
-					<li><?php echo $this->icon()->medium("apps/locale", "Locales", Array(), "", "/admin/locale") ?></li>
-					<li><?php echo $this->icon()->medium("actions/configure", "Options", Array(), "", "/admin/options") ?></li>
-					
-				</ul>
-			</div>
-		</div>
-		
-		<div id="page-content">
+	</div>	
+	
+	<div id="page">
+	<div id="content">
 			
-			<div id="message" class="ui-state-highlight ui-corner-all"> 
-				<span float="left" class="ui-icon ui-icon-info"></span>
-				<p> </p>
-			</div>
+		<div id="message" class="ui-state-highlight ui-corner-all"> 
+			<p></p>
+		</div>
 					
-			<?php echo $this->layout()->content; ?>
-		</div>
-		
-		<div id="page-footer">
-			Emerald
-		</div>
+		<?php echo $this->layout()->content; ?>
+				
 	</div>
 	</div>
+	
+	
 	</body>
 </html>

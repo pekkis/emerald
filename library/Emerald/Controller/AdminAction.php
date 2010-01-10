@@ -29,11 +29,18 @@ class Emerald_Controller_AdminAction extends Emerald_Controller_Action
 		
 		$this->view->translate()->setTranslator(Zend_Registry::get('Zend_Translate'));
 		$this->view->translate()->setLocale(Zend_Registry::get('Zend_Locale') ? Zend_Registry::get('Zend_Locale') : 'en');
+
+		
+		$model = new Admin_Model_Navigation();
+		$this->view->navigation = $model->getNavigation();
 		
 	}
 
-	protected function _isUserAllowed($target, $permission)
-	{
-		return Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $target, $permission);
-	}
+	
+	
+	
+	
+	
+	
+	
 }

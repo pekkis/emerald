@@ -133,7 +133,12 @@ abstract class Emerald_Layout
 
 			$shardModel = new Core_Model_Shard();
 			$shard = $shardModel->findByIdentifier($identifier);
-
+			
+			/*
+			$className = "Emerald_Shard_{$shard->name}";
+			$shardProvider = new $className();
+			*/
+			
 			$action = $shard->getDefaultAction();
 												
 			if(isset($params['a'])) {

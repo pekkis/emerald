@@ -146,7 +146,7 @@ CREATE TABLE "page" (
   "layout" varchar(255) DEFAULT 'Default',
   "title" varchar(255) NOT NULL,
   "beautifurl" varchar(1000) DEFAULT NULL,
-  "path" varchar(255) NOT NULL,
+  "path" varchar(255) NULL,
   "shard_id" int  NOT NULL,
   "visibility" smallint  NOT NULL DEFAULT '1',
   "status" smallint  NOT NULL DEFAULT '0',
@@ -240,4 +240,7 @@ ALTER TABLE locale ADD FOREIGN KEY ("page_start") REFERENCES "page" ("id") ON DE
 INSERT INTO shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'core', 'html-content', 'index', 3);
 INSERT INTO shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'core', 'form-content', 'index', 3);
 INSERT INTO shard (id, name, module, controller, action, status) VALUES(3, 'News', 'core', 'news', 'index', 3);
+
+
+CREATE UNIQUE INDEX page_beautifurl_idx ON page (beautifurl);
 

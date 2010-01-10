@@ -1,19 +1,20 @@
-<?php $this->headScript()->appendFile("/lib/admin/options/index.js"); ?>
+<?php
+$this->headTitle()->append('Options');
+$this->headScript()->appendFile("/lib/admin/options/index.js");
+?>
 
-<h1><?php echo $this->translate('Settings'); ?></h1>
+<h1><?php echo $this->translate('Options'); ?></h1>
 
 <div id="tabs">
 
 
 
 <ul>
-	<li><a href="#application-options"><?php echo $this->translate('Application settings'); ?></a></li>
-	<li><a href="#locale-options"><?php echo $this->translate('Locale specific options'); ?></a></li>
+	<li><a href="#application-options"><?php echo $this->translate('Application options'); ?></a></li>
+	<li><a href="#locale-options"><?php echo $this->translate('Locale options'); ?></a></li>
 </ul>
 
 <div id="application-options">
-
-<h2 class="hidden"><?php echo $this->translate('Application settings'); ?></h2>
 
 <?php echo $this->appForm; ?>
 

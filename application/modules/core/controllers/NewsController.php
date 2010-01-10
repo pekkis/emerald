@@ -40,8 +40,7 @@ class Core_NewsController extends Emerald_Controller_Action
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
 				throw new Emerald_Exception('Forbidden', 401);
 			}
-			
-			
+				
 			
 			$channelModel = new Core_Model_NewsChannel();
 
@@ -49,7 +48,7 @@ class Core_NewsController extends Emerald_Controller_Action
 			$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
 			
 			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
-
+						
 			$channel = $channelModel->findByPageId($page->id);
 			$this->view->channel = $channel;
 			

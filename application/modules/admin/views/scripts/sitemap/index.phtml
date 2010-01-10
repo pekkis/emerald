@@ -1,19 +1,22 @@
-<?php $this->headScript()->appendFile("/lib/admin/sitemap/index.js"); ?>
+<?php
+$this->headScript()->appendFile("/lib/admin/sitemap/index.js");
+$this->headTitle()->append('Sitemap');
+?>
 
 <h1><?php echo $this->translate('Sitemap'); ?></h1>
 
 <ul>
 <?php $depth = 0; $first = true; ?>
 
-<?php foreach($this->navigation as $menu): ?>
+<?php foreach($this->sitemap as $menu): ?>
 
 	<?php if($first): ?>
 	<?php $first = false; ?>
 	<?php else: ?>
 	
-	<?php if($this->navigation->getDepth() > $depth) echo '<ul>'; ?>
-	<?php if($this->navigation->getDepth() < $depth) echo str_repeat('</li></ul>', $depth - $this->navigation->getDepth()); ?>
-	<?php if($this->navigation->getDepth() == $depth) echo '</li>'; ?>
+	<?php if($this->sitemap->getDepth() > $depth) echo '<ul>'; ?>
+	<?php if($this->sitemap->getDepth() < $depth) echo str_repeat('</li></ul>', $depth - $this->sitemap->getDepth()); ?>
+	<?php if($this->sitemap->getDepth() == $depth) echo '</li>'; ?>
 	
 	<?php endif; ?>
 		
@@ -34,7 +37,7 @@
 	</a>
 	
 	
-	<?php $depth = $this->navigation->getDepth(); ?>
+	<?php $depth = $this->sitemap->getDepth(); ?>
 	
 	<?php endforeach; ?>
 	

@@ -1,9 +1,201 @@
-@CHARSET "UTF-8";
-/* plz - just import other styles here */
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
 
-@import "/lib/admin/structure.css";
-@import "/lib/admin/lists.css";
-@import "/lib/admin/generic.css";
-@import "/lib/admin/components.css";
-@import "/lib/admin/forms.css";
-@import "/lib/admin/effects.css";
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+a:link {
+	color: #7AD000;
+}
+
+a:hover, a:active {
+	text-decoration: none;
+	color: #7AD000;
+}
+
+a:visited {
+	color: #7AD000;
+}
+
+img {
+	border: none;
+}
+
+img.left {
+	float: left;
+	margin: 7px 15px 0 0;
+}
+
+img.right {
+	float: right;
+	margin: 7px 0 0 15px;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	text-transform: lowercase;
+	font-weight: normal;
+	color: #78CC00;
+}
+
+h1 {
+	letter-spacing: -1px;
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 23px;
+}
+
+p, ul, ol {
+	margin: 0 0 2em 0;
+	text-align: justify;
+	line-height: 26px;
+}
+
+.title {
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+	border-bottom: 10px solid #EDEDED;
+}
+
+
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #FFFFFF;
+	color: #6D6D6D;
+}
+
+
+/* Form */
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+legend {
+	display: none;
+}
+
+input, textarea, select {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #333333;
+}
+
+#wrapper {
+	background: #7ACF00 url(images/img03.jpg);
+}
+
+/* Header */
+
+#header {
+	height: 80px;
+	margin: 0 auto 20px auto;
+	padding-top: 10px;
+}
+
+#logo {
+	float: left;
+	height: 120px;
+	margin-left: 30px;
+}
+
+
+
+#logo h1 {
+	font-size: 38px;
+	color: #3399CC;
+}
+
+#logo h1 sup {
+	vertical-align: text-top;
+	font-size: 24px;
+}
+
+#logo h1 a {
+	color: #FFFFFF;
+}
+
+#logo h2 {
+	text-transform: uppercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FFFFFF;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+/* Menu */
+
+#menu {
+	margin-right: 1em;
+	float: right;
+}
+
+#menu ul {
+	margin: 0;
+	padding: 28px 0 0 0;
+	list-style: none;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	margin-left: 5px;
+	background: #6AB000;
+	padding: 7px 10px;
+	text-decoration: none;
+	font-size: 15px;
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	text-decoration: underline;
+}
+
+#menu .active a {
+	font-weight: bold;
+}
+
+/* Page */
+
+#page {
+	width: 900px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Content */
+
+#content {
+
+
+}
+
+#content h1 {
+	margin: 0 0 0.33em 0;	
+}
+

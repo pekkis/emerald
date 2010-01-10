@@ -52,7 +52,7 @@ class Emerald_Server
 		
         date_default_timezone_set($config['timezone']);
         
-
+        // $this->loader = new Zend_Loader_PluginLoader();
 		
         
     }

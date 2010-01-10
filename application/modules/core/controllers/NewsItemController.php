@@ -109,9 +109,9 @@ class Core_NewsItemController extends Emerald_Controller_Action
 			}
 						
 			$model = new Core_Model_NewsItem();
-			$item = $model->find($form->id->getValue());
-
-			if(!$item) {
+			
+					
+			if(!$form->id->getValue() || !$item = $model->find($form->id->getValue())) {
 				$item = new Core_Model_NewsItemItem();
 			}
 			

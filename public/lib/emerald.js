@@ -61,8 +61,6 @@ Emerald.Popup.listener = function(myEvent) {
 	features.resizable = (elm.hasClass('popup-resizable')) ? 'yes' : 'no';
 	features.scrollbars = (elm.hasClass('popup-scrollbars')) ? 'yes' : 'no';
 
-	console.debug(features);
-
 	Emerald.Popup.open(elm.attr('href'), elm.attr('id'), Emerald.Popup.featureStringFromObject(features)); 
 	return false;
 }
@@ -292,19 +290,14 @@ jQuery.fn.jsonSubmit = function(options) {
 				data: $(this).serialize(),
 				success: function(response) 
 				{
-					console.debug(response);
 				 	var msg = response.message;
 					// $("input[type=submit], button[type=submit]", $that).attr("disabled", "");
-					console.debug(msg);
-				
-					return true;
-										
+						
+															
 					var callback = $that.data("callback");
 					
 					if(msg.type == Emerald.Json.Message.ERROR) {
-						
-						console.debug(msg);
-						
+																		
 						if(msg.errors) {
 																												
 							$.each(msg.errors, function(key, value) {
@@ -315,9 +308,7 @@ jQuery.fn.jsonSubmit = function(options) {
 										$("label[for=" + key2 + "]", $that).addClass("error");
 									}
 								});
-								
-								console.debug(key);
-								
+																								
 								$("label[for=" + key + "]", $that).addClass("error");
 							});
 						}

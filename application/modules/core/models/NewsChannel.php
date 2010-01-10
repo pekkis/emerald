@@ -79,9 +79,8 @@ class Core_Model_NewsChannel
 		}
 		
 		$tbl = $this->getTable();
-		
-		$row = $tbl->find($channel->id)->current();
-		if(!$row) {
+				
+		if(!$channel->id || !$row = $tbl->find($channel->id)->current()) {
 			$row = $tbl->createRow();
 		}
 		$row->setFromArray($channel->toArray());

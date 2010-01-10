@@ -41,9 +41,8 @@ class Core_Model_NewsItem
 		}
 		
 		$tbl = $this->getTable();
-		
-		$row = $tbl->find($item->id)->current();
-		if(!$row) {
+				
+		if(!$item->id || !$row = $tbl->find($item->id)->current()) {
 			$row = $tbl->createRow();
 		}
 		$row->setFromArray($item->toArray());

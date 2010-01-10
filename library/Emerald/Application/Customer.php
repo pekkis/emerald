@@ -20,6 +20,9 @@ class Emerald_Application_Customer
 	private $_config;
 	
 	
+	private $_optionCache;
+	
+	
 	/**
 	 * Db
 	 *
@@ -28,6 +31,8 @@ class Emerald_Application_Customer
 	private $_db;
 	
 	private $_optionContainer;
+	
+	private $_options;
 		
 	
 	public function __construct($root)
@@ -78,21 +83,39 @@ class Emerald_Application_Customer
     }
     
     
+    public function getOptionCache()
+    {
+    	if(!$this->_optionCache) {
+    		$this->_optionCache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+    	}
+    	return $this->_optionCache;
+    }
+    
+    
     public function getOption($key)
     {
-    	return $this->_getOptionContainer()->$key;
+		$options = $this->getOptions();
+		return (isset($options[$key])) ? $options[$key] : false;
     }
     
     
     public function setOption($key, $value)
     {
-    	$this->_getOptionContainer()->$key = $value;	
+    	$this->_options[$key] = $value;
+    	$this->_getOptionContainer()->$key = $value;
+    	$this->getOptionCache()->remove('application_options');
+    		
     }
-    
     
     public function getOptions()
     {
-    	return $this->_getOptionContainer()->getOptions();
+    	if(!$this->_options) {
+    		if(!$this->_options = $this->getOptionCache()->load('application_options')) {
+    			$this->_options = $this->_getOptionContainer()->getOptions();
+    			$this->getOptionCache()->save($this->_options, 'application_options'); 
+    		}
+    	}
+    	return $this->_options;
     }
     
     

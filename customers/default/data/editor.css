@@ -1,0 +1,59 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+a:link {
+	color: #7AD000;
+}
+
+a:hover, a:active {
+	text-decoration: none;
+	color: #7AD000;
+}
+
+a:visited {
+	color: #7AD000;
+}
+
+img {
+	border: none;
+}
+
+img.left {
+	float: left;
+	margin: 7px 15px 0 0;
+}
+
+img.right {
+	float: right;
+	margin: 7px 0 0 15px;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	text-transform: lowercase;
+	font-weight: normal;
+	color: #78CC00;
+}
+
+h1 {
+	letter-spacing: -1px;
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 23px;
+}
+
+p, ul, ol {
+	margin: 0 0 2em 0;
+	text-align: justify;
+	line-height: 26px;
+}
+
+.title {
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+	border-bottom: 10px solid #EDEDED;
+}

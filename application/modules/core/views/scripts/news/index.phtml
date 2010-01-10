@@ -13,9 +13,7 @@
 	</div>
 <?php endif; ?>
 
-<p>
-pagination here
-</p>
+<?php echo $this->paginationControl($this->news, 'Sliding', 'news/pagination.phtml', array('page' => $this->page)); ?>
 
 <?php foreach($this->news as $item): ?>
 
@@ -46,9 +44,7 @@ pagination here
 
 <?php endforeach; ?>
 
-<p>
-pagination here
-</p>
+<?php echo $this->paginationControl($this->news, 'Sliding', 'news/pagination.phtml', array('page' => $this->page)); ?>
 
 <?php if($this->channel->allow_syndication): ?>
 <p>

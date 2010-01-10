@@ -12,8 +12,8 @@ class Emerald_Acl extends Zend_Acl
 	
 	static public function initialize(Zend_Acl $acl, Emerald_Application_Customer $customer)
 	{
-        
-        
+
+		
         $anonGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ANONYMOUS;
         $acl->addRole($anonGroup);
         $acl->deny($anonGroup);
@@ -21,7 +21,7 @@ class Emerald_Acl extends Zend_Acl
         $rootGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ROOT; 
         $acl->addRole($rootGroup);
         $acl->allow($rootGroup);
-        
+                
         return $acl;
 		
 	}
