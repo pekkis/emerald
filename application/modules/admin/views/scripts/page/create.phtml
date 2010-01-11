@@ -1,2 +1,12 @@
-<?php
-echo $this->form;
+<?php 
+$this->headTitle("Create page")->headTitle("Sitemap");
+$this->headScript()->appendFile('/lib/admin/page/create.js');
+?>
+
+<h1><?php echo $this->translate('Create page'); ?></h1>
+
+<div class="box">
+
+<?php echo $this->form; ?>
+
+</div>

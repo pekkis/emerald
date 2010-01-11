@@ -1,2 +1,12 @@
-<?php
-echo $this->form;
+<?php 
+$this->headTitle("Edit page")->headTitle('Sitemap');
+$this->headScript()->appendFile('/lib/admin/page/edit.js');
+?>
+
+<h1><?php echo $this->translate('Edit page'); ?></h1>
+
+<div class="box">
+
+<?php echo $this->form; ?>
+
+</div>

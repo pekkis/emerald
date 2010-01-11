@@ -3,10 +3,9 @@ $this->headTitle()->append('Forms');
 $this->headScript()->appendFile("/lib/admin/form/index.js");
 ?>
 
-<div id="forms">
-
 <h1><?php echo $this->translate('Forms'); ?></h1>
 
+<div class="box">
 
 <h2><?php echo $this->translate('Create a new form'); ?></h2>
 
@@ -15,7 +14,7 @@ $this->headScript()->appendFile("/lib/admin/form/index.js");
 <h2><?php echo $this->translate('Existing forms'); ?></h2>
 
 
-<table class="entitityList">
+<table>
 <thead>
 	<tr>
 		<th><?php echo $this->translate('Name'); ?></th>
