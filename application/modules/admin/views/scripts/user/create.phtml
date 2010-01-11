@@ -3,6 +3,9 @@ $this->headTitle("Create user")->headTitle("Users & groups");
 $this->headScript()->appendFile("/lib/admin/user/create.js");
 ?>
 
+
 <h1><?php echo $this->translate('Create user'); ?></h1>
 
+<div class="box">
 <?php echo $this->form; ?>
+</div>

@@ -125,7 +125,7 @@ input, textarea, select {
 
 #logo {
 	float: left;
-	height: 120px;
+	dheight: 120px;
 	margin-left: 30px;
 }
 	
@@ -318,6 +318,10 @@ dl.zend_form dt {
 		
 }
 
-
+.box {
+	background-image: url('slide-vert.png');
+	background-repeat: repeat-x;
+	padding: 1em;		
+}
 
 
