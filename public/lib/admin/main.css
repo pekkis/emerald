@@ -307,10 +307,12 @@ dl.zend_form dt {
 	width: 20em;
 	background-image: url('slide-vert.png');
 	background-repeat: repeat-x;
+	padding: 1em;
 }
 
 #page-content #sidebar + div {
-	margin-left: 22em;
+	margin-left: 23em;
+	padding: 1em;
 	background-image: url('slide-vert.png');
 	background-repeat: repeat-x;
 		
