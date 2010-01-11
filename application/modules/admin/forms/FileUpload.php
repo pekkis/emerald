@@ -6,7 +6,8 @@ class Admin_Form_FileUpload extends Zend_Form
         {
                 $this->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
                 $this->setAction('/admin/filelib/submit');
-
+				$this->setAttrib('id', 'file-upload');
+                
                 $folderElm = new Zend_Form_Element_Hidden('folder_id');
                 $folderElm->addValidator(new Zend_Validate_Int());
 

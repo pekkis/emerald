@@ -1,8 +1,14 @@
 <?php
-$this->headTitle()->append('Files');
+$this->headTitle()->append('File library');
+$this->headScript()->appendFile('/lib/admin/filelib/index.js');
 ?>
 
-<h1><?php echo $this->translate('Files'); ?></h1>
+<h1><?php echo $this->translate('File library'); ?></h1>
+
+<div id="sidebar">
+
+<h2><?php echo $this->translate('Folders'); ?></h2>
+
 
 <ul>
 <?php $depth = 0; $first = true; ?>
@@ -24,11 +30,15 @@ $this->headTitle()->append('Files');
 	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
 	
 	<?php if($this->folder->parent_id != null): ?>
-	[ delete ]
+	[<a class="delete-folder" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'folder', 'action' => 'delete', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 	<?php endif; ?>
 	
+	[<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'folder', 'action' => 'edit', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>]
+	
 	<?php else: ?>
-	<a href="/admin/filelib/index/id/<?php echo $folder->id; ?>"><?php echo $folder->name; ?></a>
+	<a href="/admin/filelib/index/id/<?php echo $folder->id; ?>">
+	<?php echo $folder->name == 'root' ? '/' : $folder->name; ?>
+	</a>
 	<?php endif; ?>
 	
 	<?php $depth = $this->iter->getDepth(); ?>
@@ -39,12 +49,24 @@ $this->headTitle()->append('Files');
 	
 </ul>
 
+<?php if($this->folder): ?>
+
+<h3><?php echo $this->translate('Create folder'); ?></h3>
+<?php echo $this->folderForm; ?>
+<?php endif; ?>
+
+</div>
+
+<div> 
+
+<h2><?php echo $this->translate('Files'); ?></h2>
 
 <?php if($this->files): ?>
 <ul>
 <?php foreach($this->files as $file): ?>
 <li>
-<a href="<?php echo $file->renderPath(); ?>"><?php echo $file->name; ?></a> [ Delete ]
+<a href="<?php echo $file->renderPath(); ?>"><?php echo $file->name; ?></a>
+[<a class="delete-file" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 <br />
 Versions:
 <?php foreach($this->fl->getFileVersions($file) as $fv): ?>
@@ -55,10 +77,11 @@ Versions:
 <?php endforeach; ?>
 </ul>
 
-<?php echo $this->folderForm; ?>
+
+<h3><?php echo $this->translate('Upload file'); ?></h3>
 
 <?php echo $this->form; ?>
 
 <?php endif; ?>
 
-
+</div>

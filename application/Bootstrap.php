@@ -75,7 +75,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$filelib->setAcl($aclHandler);
 		
 		$filelib->setFileItemClass("Core_Model_FileItem");
-				
+		$filelib->setFolderItemClass("Core_Model_FolderItem");		
+		
     }
 	
 	

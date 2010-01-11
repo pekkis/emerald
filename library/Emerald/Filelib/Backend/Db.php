@@ -253,7 +253,8 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	public function findFolder($id)
 	{
 		$folderRow = $this->getFolderTable()->find($id)->current();
-		$item = new Emerald_Filelib_FolderItem($folderRow->toArray());
+		$className = $this->getFilelib()->getFolderItemClass();
+		$item = new $className($folderRow->toArray());
 		return $item;		
 	}
 
@@ -261,7 +262,8 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	public function findRootFolder()
 	{
 		$folderRow = $this->getFolderTable()->fetchRow(array('parent_id IS NULL'));
-		$item = new Emerald_Filelib_FolderItem($folderRow->toArray());
+		$className = $this->getFilelib()->getFolderItemClass();
+		$item = new $className($folderRow->toArray());
 		return $item;
 	}
 	
@@ -272,8 +274,11 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		$folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->id));
 		
 		$folders = array();
+		
+		$className = $this->getFilelib()->getFolderItemClass();
+				
 		foreach($folderRows as $folderRow) {
-			$folders[] = new Emerald_Filelib_FolderItem($folderRow->toArray());
+			$folders[] = new $className($folderRow->toArray());
 		}
 		return new Emerald_Filelib_FolderItemIterator($folders);
 	}

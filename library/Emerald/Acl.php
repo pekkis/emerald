@@ -46,6 +46,15 @@ class Emerald_Acl extends Zend_Acl
 	}
 	
 	
+	public function remove($resource)
+	{
+		parent::remove($resource);
+		$this->cacheSave();
+	}
+	
+	
+	
+	
 	public function cacheSave()
 	{
 		Zend_Registry::get('Emerald_CacheManager')->getCache('global')->save($this, 'acl');	

@@ -137,6 +137,8 @@ input, textarea, select {
 #logo h1 {
 	font-size: 38px;
 	color: #3399CC;
+	text-shadow: #000 1px -1px 3px;
+
 }
 
 	#plain #logo h1 {
@@ -153,7 +155,7 @@ input, textarea, select {
 }
 
 #logo h2 {
-	text-transform: uppercase;
+	dtext-transform: uppercase;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	color: #FFFFFF;
@@ -228,7 +230,7 @@ input, textarea, select {
 
 }
 
-#plain #page-content h2 {
+#page-content h2 {
 	margin: 0.33em 0;	
 }
 
@@ -297,6 +299,22 @@ dl.zend_form dt {
 	margin-top: 1em;	
 }
 
+
+/* sidebar */
+
+#page-content #sidebar {
+	float: left;
+	width: 20em;
+	background-image: url('slide-vert.png');
+	background-repeat: repeat-x;
+}
+
+#page-content #sidebar + div {
+	margin-left: 22em;
+	background-image: url('slide-vert.png');
+	background-repeat: repeat-x;
+		
+}
 
 
 

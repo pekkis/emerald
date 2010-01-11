@@ -44,6 +44,11 @@ class Admin_Model_Navigation
 						
 			$filelib = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'filelib', 'label' => 'Files'));
 			$navi->addPage($filelib);
+			
+			$editFolder = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'folder', 'action' => 'edit', 'label' => 'Edit folder'));
+			$filelib->addPage($editFolder);
+						
+			
 
 			$forms = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'label' => 'Forms'));
 			$navi->addPage($forms);

@@ -21,6 +21,7 @@ $this->headTitle()->append('Sitemap');
 	<?php endif; ?>
 		
 	<li>						
+	
 	<?php echo $menu->label; ?>
 	<br />
 	<?php if($menu->id): ?>
@@ -44,5 +45,6 @@ $this->headTitle()->append('Sitemap');
 	<?php if($depth) echo str_repeat('</li></ul>', $depth); ?>
 	
 </ul>
+
 
 

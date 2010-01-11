@@ -78,7 +78,14 @@ class Emerald_Filelib
 	 * @var Fileitem class
 	 */
 	private $_fileItemClass = 'Emerald_Filelib_FileItem';
+
+	
+	/**
+	 * @var Folderitem class
+	 */
+	private $_folderItemClass = 'Emerald_Filelib_FolderItem';
 		
+	
 	
 	public function __construct($options = array())
 	{
@@ -107,6 +114,27 @@ class Emerald_Filelib
 		return $this->_fileItemClass;
 	}
 	
+	
+	/**
+	 * Sets folderitem class
+	 * 
+	 * @param string $folderItemClass Class name
+	 */
+	public function setFolderItemClass($folderItemClass)
+	{
+		$this->_folderItemClass = $folderItemClass;
+	}
+	
+	
+	/**
+	 * Returns folderitem class
+	 * 
+	 * @return string
+	 */
+	public function getFolderItemClass()
+	{
+		return $this->_folderItemClass;
+	}
 	
 	
 	

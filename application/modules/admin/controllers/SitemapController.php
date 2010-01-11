@@ -39,14 +39,14 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 		
 		
 		
+		
 		$navimodel = new Core_Model_Navigation();
 		
 		$navigation = $navimodel->getNavigation();
-		
+						
 		$navigation = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
-		
-		
-		$this->view->sitemap = $sitemap;
+				
+		$this->view->sitemap = $navigation;
 		
 		
 	}

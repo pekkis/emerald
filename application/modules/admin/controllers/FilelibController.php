@@ -2,6 +2,15 @@
 class Admin_FilelibController extends Emerald_Controller_AdminAction 
 {
 		
+	public $ajaxable = array(
+		'create-folder' => array('json'),
+		'delete-folder' => array('json'),
+	);
+	
+	public function init()
+	{
+		$this->getHelper('ajaxContext')->initContext();
+	}
 	
 	
 	public function monitoruploadAction()
@@ -82,20 +91,19 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 		
 		if($folderForm->isValid($this->getRequest()->getParams())) {
 
-			$folderItem = new Emerald_Filelib_FolderItem($folderForm->getValues());
+			$className = $fl->getFolderItemClass();
+			
+			$folderItem = new $className($folderForm->getValues());
 			
 			$fl->createFolder($folderItem);
+
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success');					
 			
-			Zend_Debug::dump($folderForm->getValues());
-			
-			die('a ok');
-			
-						
-			
+		} else {
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail');
+			$msg->errors = $folderForm->getMessages();
 		}
-		
-	
-		die('fail');
+		$this->view->message = $msg;
 				
 	}
 	
@@ -149,16 +157,9 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
                 $form = new Admin_Form_FileUpload();
 
                 if($form->isValid($_POST)) {
-
-                        $folder = $filelib->findFolder($form->folder_id->getValue());
-
-                        $form->file->receive();
-
-                        $file = $filelib->upload($form->file->getFileName(), $folder);
-
-                        Zend_Debug::dump($file);
-
-
+					$folder = $filelib->findFolder($form->folder_id->getValue());
+					$form->file->receive();
+					$file = $filelib->upload($form->file->getFileName(), $folder);
                 }
 
 
@@ -219,6 +220,8 @@ class Admin_FilelibController extends Emerald_Controller_AdminAction
 				$this->view->form = $form;
 				
 			} else {
+				
+				$this->getHelper('redirector')->gotoRouteAndExit(array('id' => $folder->id));
 				
 			}
 			
