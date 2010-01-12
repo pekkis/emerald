@@ -1,0 +1,32 @@
+#sitemap li.node {
+	clear: both;
+	margin: 0.25em 0;	
+}
+
+ul {
+	margin: 0;
+}
+
+
+	#sitemap li.node > div.node-row > div {
+		padding: 0.25em;
+	}
+
+#sitemap .label {
+	float: left;
+	width: 10em;
+}
+
+#sitemap .label > input {
+	width: 9em;
+}
+
+#sitemap .actions {
+	float: left;	
+}
+
+#sitemap .features {
+	float: left;	
+}
+
+

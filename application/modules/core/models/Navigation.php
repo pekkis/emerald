@@ -158,6 +158,8 @@ class Core_Model_Navigation
 					'locale' => $pageRow->locale,
 					'id' => $pageRow->id,
 					'parent_id' => null,
+					'layout' => $pageRow->layout,
+					'shard_id' => $pageRow->shard_id
 				)
 			);
 									
@@ -183,7 +185,8 @@ class Core_Model_Navigation
 					'locale' => $pageRow->locale,
 					'id' => $pageRow->id,
 					'parent_id' => $pageId,
-				
+					'layout' => $pageRow->layout,
+					'shard_id' => $pageRow->shard_id,
 				)
 			);
 						

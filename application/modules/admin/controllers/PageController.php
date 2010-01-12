@@ -4,6 +4,7 @@ class Admin_PageController extends Emerald_Controller_AdminAction
 	public $ajaxable = array(
 		'save' => array('json'),
 		'delete' => array('json'),
+		'save-partial' => array('json')
 	);
 	
 	public function init()
@@ -76,19 +77,57 @@ class Admin_PageController extends Emerald_Controller_AdminAction
 	}
 	
 	
+	public function savePartialAction()
+	{
+		$pageModel = new Core_Model_Page();
+		$form = new Admin_Form_Page();
+		
+		
+		
+		if($this->_getParam('id')) {
+			$page = $pageModel->find($this->_getParam('id'));
+			$form->setLocale($page->locale);
+			
+			$naviModel = new Core_Model_Navigation();
+			$navi = $naviModel->getNavigation();
+		
+			if($form->isValidPartial($this->_getAllParams())) {
+				foreach($form->getValues() as $key => $value) {
+					if($value != null) {
+						$page->$key = $value;
+					}
+				}
+				// $page->setFromArray($form->getValues());
+				$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
+
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Ok');
+								
+			} else {
+				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Failed');
+				$msg->errors = $form->getMessages(); 
+			} 
+		
+		} else {
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Failed');
+		}		
+		$this->view->message = $msg;
+	}
+	
+	
 	
 	
 	
 	public function saveAction()
 	{
-		
+
 		$pageModel = new Core_Model_Page();
 		
 		$form = new Admin_Form_Page();
 		
 		if($this->_getParam('id')) {
 			$page = $pageModel->find($this->_getParam('id'));
-			$form->setLocale($page->locale);	
+			$form->setLocale($page->locale);
+															
 		} else {
 			
 			$parentId = $this->_getParam('parent_id');

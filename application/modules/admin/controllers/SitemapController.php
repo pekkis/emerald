@@ -48,6 +48,25 @@ class Admin_SitemapController extends Emerald_Controller_AdminAction
 				
 		$this->view->sitemap = $navigation;
 		
+		$shardModel = new Core_Model_Shard();
+		$shards = $shardModel->findAll();
+		
+		$shardOpts = array();
+		foreach($shards as $shard) {
+			if($shard->isInsertable()) {
+				$shardOpts[$shard->id] = $shard->name;
+			}
+		}
+		$this->view->shardOpts = $shardOpts;
+		
+		$layouts = Zend_Registry::get('Emerald_Customer')->getLayouts();
+		$layoutOpts = array();
+		foreach($layouts as $layout) {
+			$layoutOpts[$layout] = $layout;
+		}
+		$this->view->layoutOpts = $layoutOpts;
+		
+		
 		
 	}
 	

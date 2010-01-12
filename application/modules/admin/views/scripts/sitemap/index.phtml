@@ -23,10 +23,12 @@ $this->headTitle()->append('Sitemap');
 		
 	<li class="node node-level-<?php echo $this->sitemap->getDepth(); ?>" id="page-<?php echo $menu->id; ?>">						
 		
+	<div class="node-row ui-widget ui-widget-content ui-corner-all">
+		
 	<?php if($menu->id): ?>
 
 	<div class="label label-editable">	
-	<?php echo $menu->label; ?>
+	<span><?php echo $menu->label; ?></span>
 	</div>
 
 	<?php else: ?>
@@ -36,27 +38,40 @@ $this->headTitle()->append('Sitemap');
 	</div>
 			
 	<?php endif; ?>
+
+	<?php if($menu->id): ?>
+	<div class="features">
+	<?php echo $this->formSelect("shard-{$menu->id}", $menu->shard_id, array('class' => 'shard'), $this->shardOpts); ?>
+	<?php echo $this->formSelect("layout-{$menu->id}", $menu->layout, array('class' => 'layout'), $this->layoutOpts); ?>
+	</div>	
+	<?php endif; ?>
 	
 	<div class="actions">	
-	
-	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
-	<?php echo $this->translate('Edit'); ?>
-	</a>
 
 	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'create', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate('Create page'); ?>
 	</a>
 
+	<?php if($menu->id): ?>
+	|
+	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
+	<?php echo $this->translate('Edit'); ?>
+	</a>
+
+	|
+
 	<a class="delete" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'delete', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate('Delete'); ?>
 	</a>
+	<?php endif; ?>
 			
 	
 			
 	</div>
 	
 	<div class="clear"></div>
-			
+	
+	</div>
 	
 	<?php $depth = $this->sitemap->getDepth(); ?>
 	

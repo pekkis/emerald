@@ -25,7 +25,6 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$layoutElm->setAllowEmpty(true);
 		
 		$layouts = Zend_Registry::get('Emerald_Customer')->getLayouts();
-
 		$layoutOpts = array();
 		foreach($layouts as $layout) {
 			$layoutOpts[$layout] = $layout;

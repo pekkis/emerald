@@ -149,6 +149,8 @@ class Core_Model_Page
 		}
 		
 		$row->delete();
+		$naviModel = new Core_Model_Navigation();
+		$naviModel->clearNavigation();
 		
 	}
 	
