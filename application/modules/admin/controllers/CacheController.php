@@ -1,5 +1,5 @@
 <?php
-class Admin_CacheController extends Emerald_Controller_AdminAction
+class Admin_CacheController extends Emerald_Controller_Action
 {
 	public $ajaxable = array(
 		'clear' => array('json'),

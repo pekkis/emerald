@@ -1,5 +1,5 @@
 <?php
-class Admin_SitemapController extends Emerald_Controller_AdminAction
+class Admin_SitemapController extends Emerald_Controller_Action
 {
 
 	public function indexAction()

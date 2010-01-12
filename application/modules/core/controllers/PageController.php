@@ -47,41 +47,10 @@ class Core_PageController extends Emerald_Controller_Action
 			if($page) {
 				
 				$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
-								
-				if(!$readable) {
 
-					Zend_Debug::dump($this->getCurrentUser());
-					
-					Zend_Debug::Dump($this->getAcl());
-					
-					
-					die('not readable');
-					
-					// throw new Emerald_Exception('Forbidden', 401);		
-					
-					// We don't want infinite page forwarding poop de loops, just one forward.
-					if(!$input->forward) {
-						
-						// We try to find a login page for the current locale. If we do, forward there.
-						$pageTbl = Emerald_Model::get('DbTable_Page');
-						$loginPage = $pageTbl->fetchRow(
-							array(
-								'locale = ?' => $page->locale,
-								'shard_id = ?' => 9,
-							)
-						);
-						if($loginPage) {
-							$this->getResponse()->setHttpResponseCode(401);
-							$this->_forward('view', null, null, array('forward' => 1, 'id' => $loginPage->id, 'beautifurl' => $loginPage->beautifurl));
-							return;
-						}
-						
-					}
-					
-					
+				if(!$readable) {
 					throw new Emerald_Exception('Forbidden', 401);				
 				}
-				
 				
 				$locale = $page->getLocaleItem();
 				

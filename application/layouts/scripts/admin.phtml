@@ -43,7 +43,10 @@
 				<h2><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'user', 'action' => 'edit', 'id' => $cusr->id), 'default', true); ?>"><?php echo $cusr->email ?> :: <a href="<?php echo $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
 			</div>
 			<div id="menu">
-				<?php echo $this->navigation()->menu()->renderMenu($this->navigation, array('maxDepth' => 0)); ?>
+				<?php
+				$model = new Admin_Model_Navigation();
+				$navigation = $model->getNavigation();
+				echo $this->navigation()->menu()->renderMenu($navigation, array('maxDepth' => 0)); ?>
 			</div>
 		</div>
 	</div>	

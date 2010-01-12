@@ -1,5 +1,5 @@
 <?php
-class Admin_UserController extends Emerald_Controller_AdminAction
+class Admin_UserController extends Emerald_Controller_Action
 {
 	public $ajaxable = array(
 		'save' => array('json'),
