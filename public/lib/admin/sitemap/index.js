@@ -68,8 +68,7 @@ $(document).ready(function() {
 			var id = $label.parent().parent().attr('id').split('-')[1];
 			
 			$.post('/admin/page/save-partial/id/' + id + '/format/json', { 'title': $(this).val() }, function() {
-					
-				
+								
 				
 			});
 												
