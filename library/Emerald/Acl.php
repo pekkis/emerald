@@ -31,11 +31,20 @@ class Emerald_Acl extends Zend_Acl
 	public function isAllowed($role = null, $resource = null, $privilege = null)
 	{
 		if(!$this->hasRole($role)) {
+			
+			if(!$role instanceof Emerald_Acl_Role_Interface) {
+				throw new Zend_Acl_Exception("Can not autoload role '{$role}'");
+			}
 			$role->__lazyLoadAclRole($this);
 			$this->cacheSave();
 		}
 		
 		if(!$this->has($resource)) {
+			
+			if(!$resource instanceof Emerald_Acl_Resource_Interface) {
+				throw new Zend_Acl_Exception("Can not autoload resource '{$resource}'");
+			}
+						
 			$resource->__lazyLoadAclResource($this);
 			$this->cacheSave();
 		}

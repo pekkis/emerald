@@ -83,7 +83,6 @@ class Admin_UserController extends Emerald_Controller_Action
 			$form->getSubForm('pwd')->password->setRequired(true);
 			$form->getSubForm('pwd')->password->setAllowEmpty(false);
 		}
-				
 		
 		if($form->isValid($this->_getAllParams())) {
 			

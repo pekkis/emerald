@@ -1,5 +1,5 @@
 <?php
-class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Zend_Acl_Resource_Interface
+class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface
 {
 
 	public function __toString()
@@ -36,8 +36,7 @@ class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Zend_Acl
 	
 	
 	
-	
-	public function __lazyLoadAclResource(Emerald_Acl $acl)
+	public function __lazyLoadAclResource(Zend_Acl $acl)
 	{
 		if(!$acl->has($this)) {
 			$acl->add($this);

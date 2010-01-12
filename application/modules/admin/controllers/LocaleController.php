@@ -37,13 +37,6 @@ class Admin_LocaleController extends Emerald_Controller_Action
 	 */
 	public function updateAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-		
-		
-		
 		$form = new Admin_Form_Locale();
 		if(!$form->isValid($this->_getAllParams())) {
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');

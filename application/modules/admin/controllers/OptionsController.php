@@ -16,12 +16,6 @@ class Admin_OptionsController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-		
-		
 		$filters = array();
 		$validators = array(
 			'locale' => array(new Zend_Validate_Regex('([a-z]{2,3}(_[A-Z]{2})?)'), 'presence' => 'optional'),
@@ -77,12 +71,6 @@ class Admin_OptionsController extends Emerald_Controller_Action
 	
 	public function saveApplicationAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-		
-		
 		$form = new Admin_Form_ApplicationOptions();
 		if($form->isValid($this->_getAllParams())) {
 			
@@ -106,15 +94,6 @@ class Admin_OptionsController extends Emerald_Controller_Action
 	
 	public function saveLocaleAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-		
-		
-		
-		
-		
 		$form = new Admin_Form_LocaleOptions();
 		
 		$form->setLocale($this->_getParam('locale'));

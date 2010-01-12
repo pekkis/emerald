@@ -18,6 +18,7 @@ class Admin_Model_Navigation
 			$navi = new Zend_Navigation();
 			
 			$dashboard = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'label' => 'Dashboard'));
+									
 			$navi->addPage($dashboard);
 
 			$users = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'label' => 'Users & groups'));
@@ -67,11 +68,21 @@ class Admin_Model_Navigation
 
 			$editForm = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'action' => 'edit', 'label' => 'Edit form'));
 			$forms->addPage($editForm);
-			
-			
+						
 			$options = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'options', 'label' => 'Options'));
 			$navi->addPage($options);
-						
+
+			/* invisibles */
+			
+			$cache = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'cache', 'action' => 'clear', 'label' => 'Cache'));
+			$cache->setVisible(false);
+			$navi->addPage($cache);
+
+			$about = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'about', 'action' => 'index', 'label' => 'About'));
+			$about->setVisible(false);
+			$navi->addPage($about);
+			
+			
 			$this->_navigation = $navi;
 			
 		}

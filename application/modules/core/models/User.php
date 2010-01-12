@@ -1,7 +1,7 @@
 <?php
 class Core_Model_User
 {
-	const USER_ANONYMOUS = 1;
+	const USER_ANONYMOUS = 0;
 	
 	/**
 	 * Returns table

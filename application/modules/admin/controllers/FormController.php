@@ -17,25 +17,14 @@ class Admin_FormController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-				
 		$formModel = new Core_Model_Form();
 		$forms = $formModel->findAll();
 		$this->view->forms = $forms;
-		
-		
 	}
 	
 	
 	public function deleteAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
 		
 		$model = new Core_Model_Form();
 		$item = $model->find($this->_getParam('id'));
@@ -59,11 +48,6 @@ class Admin_FormController extends Emerald_Controller_Action
 	
 	public function createPostAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-
 			
 		$form = new Admin_Form_FormCreate();
 		$model = new Core_Model_Form();
@@ -87,14 +71,7 @@ class Admin_FormController extends Emerald_Controller_Action
 	
 	public function fieldDeleteAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-
-		
 		$model = new Core_Model_FormField();
-		
 
 		try {
 			$item = $model->find($this->_getParam('id'));
@@ -111,12 +88,6 @@ class Admin_FormController extends Emerald_Controller_Action
 	
 	public function fieldCreateAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-		
-		
 		$form = new Admin_Form_FormFieldCreate();
 
 		if($form->isValid($this->_getAllParams())) {
@@ -144,12 +115,6 @@ class Admin_FormController extends Emerald_Controller_Action
 	
 	public function saveAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-
-		
 		$filters = array();
 		$validators = array(
 			'form_id' => array('Int', 'presence' => 'required'),
@@ -212,12 +177,6 @@ class Admin_FormController extends Emerald_Controller_Action
 	
 	public function editAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 401);
-		}
-				
-		
 		$filters = array();
 		$validators = array(
 			'id' => array('Int', 'presence' => 'required'),

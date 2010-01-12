@@ -12,12 +12,6 @@ class Admin_CacheController extends Emerald_Controller_Action
 	
 	public function clearAction()
 	{
-			
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 401);
-		}
-		
 
 		try {
 			

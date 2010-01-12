@@ -37,8 +37,6 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			
 			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
 			
-			Zend_Debug::Dump($writable);
-			
 			$this->view->writable = $writable;
 
 			$htmlModel = new Core_Model_HtmlContent();

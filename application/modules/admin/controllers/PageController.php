@@ -56,9 +56,6 @@ class Admin_PageController extends Emerald_Controller_Action
 
 	public function createAction()
 	{
-		// $pageModel = new Core_Model_Page();
-
-		// $page = $pageModel->find($this->_getParam('id'));		
 		
 		$form = new Admin_Form_Page();
 		$form->setLocale($this->_getParam('locale'));
@@ -69,9 +66,6 @@ class Admin_PageController extends Emerald_Controller_Action
 		
 		$permForm->setDefaults(array(Core_Model_Group::GROUP_ROOT => array_keys(Emerald_Permission::getAll())));
 		
-		
-		// $form->setDefaults($page->toArray());
-		
 		$this->view->form = $form;
 		
 	}
@@ -81,7 +75,6 @@ class Admin_PageController extends Emerald_Controller_Action
 	{
 		$pageModel = new Core_Model_Page();
 		$form = new Admin_Form_Page();
-		
 		
 		
 		if($this->_getParam('id')) {
@@ -141,9 +134,7 @@ class Admin_PageController extends Emerald_Controller_Action
 			} else {
 				$form->setLocale($parentId);
 			}
-						
-			
-			// $form->setLocale($this->_getParam('id'));
+
 		}
 			
 		
