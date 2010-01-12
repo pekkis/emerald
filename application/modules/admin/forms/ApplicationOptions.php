@@ -24,7 +24,6 @@ class Admin_Form_ApplicationOptions extends ZendX_JQuery_Form
 
 		$dlElm->addValidator(new Zend_Validate_Regex("/^([a-z]{2,3}(_[A-Z]{2})?)$/"));
 		$dlElm->setRequired(true);
-
 		
 		
 		$gaElm = new Zend_Form_Element_Text('google_analytics_id', array('label' => 'Google analytics id'));

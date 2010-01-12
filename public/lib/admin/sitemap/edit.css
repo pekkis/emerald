@@ -7,13 +7,17 @@ ul {
 	margin: 0;
 	list-style-type: none;
 	display: block;
+	padding: 0;
 }
+
+ul ul {
+	padding-left: 1em;
+}
+
 
 li {
 	list-style-type: none;
 }
-
-
 
 	#sitemap li.node > div.node-row > div {
 		padding: 0.25em;
@@ -22,6 +26,14 @@ li {
 #sitemap .label {
 	float: left;
 	width: 10em;
+}
+
+#sitemap .node-row {
+	cursor: move;	
+}
+
+#sitemap .label > span {
+	cursor: crosshair;	
 }
 
 #sitemap .label > input {

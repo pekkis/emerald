@@ -10,7 +10,7 @@ class Core_Model_LocaleItem extends Emerald_Model_AbstractItem
 	}
 	
 	
-	public function getOptionContainer()
+	protected function _getOptionContainer()
 	{
 		if(!$this->_optionContainer) {
 			$this->_optionContainer = new Emerald_Db_OptionContainer($this);
@@ -25,15 +25,21 @@ class Core_Model_LocaleItem extends Emerald_Model_AbstractItem
 	
 	public function getOption($key, $default = null)
     {
-    	return $this->getOptionContainer()->get($key, $default);
+    	return $this->_getOptionContainer()->get($key, $default);
     }
     
     
     public function setOption($key, $value)
     {
-    	return $this->getOptionContainer()->set($key, $value);
+    	return $this->_getOptionContainer()->set($key, $value);
     }
 	
 	
+    
+    public function getOptions()
+    {
+    	return $this->_getOptionContainer()->getOptions();
+    }
+    
 	
 }

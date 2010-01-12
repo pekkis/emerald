@@ -1,51 +1,50 @@
 <?php
 class Admin_SitemapController extends Emerald_Controller_AdminAction
 {
+
+	public function indexAction()
+	{
+		
+		$localeModel = new Core_Model_Locale();
+		$locales = $localeModel->findAll();
+		$this->view->locales = $locales;
+		
+	}
+	
 	/**
 	 * Displays the sitemap page tpl
 	 */
-	public function indexAction()
+	public function editAction()
 	{
 		$filters = array();
 		$validators = array('locale' => Array('allowEmpty' => false, 'presence' => 'optional'));
 		
-		try
-		{
+		try {
 			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
 			$input->process();
-		}
-		catch(Exception $e)
-		{
+		} catch(Exception $e) {
 			throw new Emerald_Exception('Not Found', 404);
 		}
-				
+
 		$localeModel = new Core_Model_Locale();
-		$this->view->locales = $locales = $localeModel->findAll();
-
-		if(!$locales->current()) {
-			return $this->getHelper('redirector')->gotoRouteAndExit(array('module' => 'admin', 'controller' => 'locale', 'action' => 'index'));
-		}
-
-		if(!$input->locale)
-		{
-			return $this->getHelper('redirector')->gotoRouteAndExit(array('module' => 'admin', 'controller' => 'sitemap', 'action' => 'index', 'locale' => $locales->current()->locale));
+		$locale = $localeModel->find($input->locale);
+		
+		if(!$input->locale) {
+			return $this->getHelper('redirector')->gotoRouteAndExit(array('module' => 'admin', 'controller' => 'sitemap', 'action' => 'index'));
 		}
 		
-		foreach($locales as $lc)
-		{
-			if($lc->locale == $input->locale)
-				$this->view->editlocale = $input->locale;
-		}
-		
-		
-		
+		$this->view->locale = $locale;
 		
 		$navimodel = new Core_Model_Navigation();
 		
-		$navigation = $navimodel->getNavigation();
-						
+		$navigation = $navimodel->getNavigation()->findBy('uri', '/' . $locale->locale);
+
+		$navigation = new Zend_Navigation(array($navigation));
+		
 		$navigation = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
-				
+
+		
+		
 		$this->view->sitemap = $navigation;
 		
 		$shardModel = new Core_Model_Shard();

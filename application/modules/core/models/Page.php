@@ -87,8 +87,7 @@ class Core_Model_Page
 		}
 		$row->setFromArray($page->toArray());
 		$row->save();
-		
-		$page->id = $row->id;
+		$page->setFromArray($row->toArray());
 		
 		if($permissions) {
 			

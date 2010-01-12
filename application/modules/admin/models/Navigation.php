@@ -41,7 +41,10 @@ class Admin_Model_Navigation
 						
 			$sitemap = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'sitemap', 'label' => 'Sitemap'));
 			$navi->addPage($sitemap);
-			
+
+			$editSitemap = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'sitemap', 'action' => 'edit', 'label' => 'Edit sitemap'));
+			$sitemap->addPage($editSitemap);
+						
 			$editPage = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'label' => 'Edit page'));
 			$sitemap->addPage($editPage);
 
@@ -61,6 +64,10 @@ class Admin_Model_Navigation
 
 			$createForm = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'action' => 'create', 'label' => 'Create form'));
 			$forms->addPage($createForm);
+
+			$editForm = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'action' => 'edit', 'label' => 'Edit form'));
+			$forms->addPage($editForm);
+			
 			
 			$options = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'options', 'label' => 'Options'));
 			$navi->addPage($options);

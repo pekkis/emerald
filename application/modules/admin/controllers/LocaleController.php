@@ -46,17 +46,14 @@ class Admin_LocaleController extends Emerald_Controller_AdminAction
 		
 		$form = new Admin_Form_Locale();
 		if(!$form->isValid($this->_getAllParams())) {
-			
-
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
-			
-			
-			
 		} else {
 			
 			$formLocales = array();
-			foreach($form->locale->getValue() as $key => $value) {
-				$formLocales[] = $value;
+			if($form->locale->getValue()) {
+				foreach($form->locale->getValue() as $key => $value) {
+					$formLocales[] = $value;
+				}
 			}
 			
 			$localeModel = new Core_Model_Locale();

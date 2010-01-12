@@ -149,33 +149,23 @@ class Admin_PageController extends Emerald_Controller_AdminAction
 		
 		$naviModel = new Core_Model_Navigation();
 		$navi = $naviModel->getNavigation();
-
 		
 		if(!$form->isValid($this->_getAllParams())) {
-
-			Zend_Debug::dump($form->getMessages());
 			
-			die('not ok');
-			
-			
-			
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail');
+			$msg->errors = $form->getMessages(); 
 			
 		} else {
-															
-			Zend_Debug::dump($page->toArray());
-			
-			Zend_Debug::dump($form->getValues());
-			
 			$page->setFromArray($form->getValues());
-						
 			$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
-						
-			die();
 			
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Ok');
+			$msg->page_id = $page->id;
 		}
 		
 		
-		
+		$this->view->message = $msg;
+				
 		
 	}
 	

@@ -121,8 +121,8 @@ class Core_Model_Locale
 		$pageModel = new Core_Model_Page();
 		
 				
-		if($locale->page_start) {
-			$page = $pageModel->find($locale->page_start);
+		if($ps = $locale->getOption('page_start')) {
+			$page = $pageModel->find($ps);
 		} else {
 			$page = $pageModel->findAny($locale);
 			

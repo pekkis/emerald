@@ -6,7 +6,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/admin/page/save/format/json");
+		$this->setAction("/admin/page/save");
 
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));
@@ -19,15 +19,11 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$parentIdElm->setRequired(false);
 		$parentIdElm->setAllowEmpty(true);
 
-		$orderIdElm = new Zend_Form_Element_Text('order_id', array('label' => 'Weight'));
-		$orderIdElm->addValidator(new Zend_Validate_Int());
-		$orderIdElm->setRequired(false);
-		$orderIdElm->setAllowEmpty(true);
 						
 		$layoutElm = new Zend_Form_Element_Select('layout', array('label' => 'Layout', 'class' => 'w66'));
 		// $layoutElm->addValidator(new Zend_Validate_StringLength(0, 255));
-		$layoutElm->setRequired(false);
-		$layoutElm->setAllowEmpty(true);
+		$layoutElm->setRequired(true);
+		$layoutElm->setAllowEmpty(false);
 		
 		$layouts = Zend_Registry::get('Emerald_Customer')->getLayouts();
 		$layoutOpts = array();
@@ -50,28 +46,39 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		foreach($shards as $shard) {
 			if($shard->isInsertable()) {
 				$shardOpts[$shard->id] = $shard->name;
+				
+				if($shard->name == 'Html') {
+					$shardElm->setValue($shard->id);
+				}
+				
 			}
 		}
 		$shardElm->setMultiOptions($shardOpts);
 		
 		
 		$titleElm = new Zend_Form_Element_Text('title', array('label' => 'Page title', 'class' => 'w66'));
-		$titleElm->addValidator(new Zend_Validate_StringLength(0, 255));
-		$titleElm->setRequired(false);
-		$titleElm->setAllowEmpty(true);
-				
+		$titleElm->addValidator(new Zend_Validate_StringLength(1, 255));
+		$titleElm->setRequired(true);
+		$titleElm->setAllowEmpty(false);
+		
+		$orderIdElm = new Zend_Form_Element_Text('order_id', array('label' => 'Weight'));
+		$orderIdElm->addValidator(new Zend_Validate_Int(), new Zend_Validate_Between(1, 10000));
+		$orderIdElm->setRequired(true);
+		$orderIdElm->setAllowEmpty(false);
+		$orderIdElm->setValue(1);
+		
 		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($idElm, $localeElm, $parentIdElm, $orderIdElm, $layoutElm, $shardElm, $titleElm, $submitElm));
+		$this->addElements(array($idElm, $localeElm, $parentIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $submitElm));
 
 		
 		$permissionForm = new Admin_Form_PagePermissions();
 		$permissionForm->setAttrib('id', 'page-permissions');
 		
 		
-		$this->addSubForm($permissionForm, 'page-permissions', 6);
+		$this->addSubForm($permissionForm, 'page-permissions', 7);
 
 		
 		
@@ -94,7 +101,6 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$navi = $naviModel->getNavigation();
 						
 		$navi = $navi->findBy("uri", "/" . $locale);
-
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		
 		$opts = array();

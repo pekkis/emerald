@@ -54,8 +54,9 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 				
 				$form = new Admin_Form_LocaleOptions();
 				
-				$form->setDefaults($locale->getOptionContainer()->getOptions());
+				$form->setDefaults($locale->getOptions());
 				$form->locale->setValue($locale->locale);
+				$form->setLocale($locale->locale);
 				
 				$this->view->localeForms[$locale->locale] = $form; 
 				
@@ -115,14 +116,16 @@ class Admin_OptionsController extends Emerald_Controller_AdminAction
 		
 		
 		$form = new Admin_Form_LocaleOptions();
+		
+		$form->setLocale($this->_getParam('locale'));
 		if($form->isValid($this->_getAllParams())) {
 			
 			$localeModel = new Core_Model_Locale();
 			$locale = $localeModel->find($form->locale->getValue());
 			
-			$oc = $locale->getOptionContainer();
+			
 			foreach($form->getValues() as $key => $value) {
-				$oc->$key = $value;
+				$locale->setOption($key, $value);
 			}
 			
 			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');

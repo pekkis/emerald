@@ -7,7 +7,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 a:link {
@@ -56,10 +56,8 @@ h2 {
 	font-size: 23px;
 }
 
-p, ul, ol {
-	margin: 0 0 2em 0;
-	text-align: justify;
-	line-height: 26px;
+p:first-child {
+	margin-top: 0;	
 }
 
 .title {
@@ -303,6 +301,10 @@ dl.zend_form dt {
 	margin-top: 1em;	
 }
 
+dl.zend_form dt: {
+	margin-top: 1em;	
+}
+
 
 /* sidebar */
 
@@ -331,4 +333,23 @@ dl.zend_form dt {
 .clear {
 	clear: both;
 }
+
+p, ul, ol {
+	margin: 0 0 2em 0;
+	text-align: justify;
+	line-height: 26px;
+}
+
+#page-content p, #page-content ul, #page-content ol {
+	line-height: auto;
+	margin: auto;	
+} 
+
+p:first-child {
+	margin-top: 0;	
+}
+ 
+ .title {
+ 	margin-top: 1em;	
+ }
 

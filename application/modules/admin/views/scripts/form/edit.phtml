@@ -1,16 +1,16 @@
 <?php
+$this->headTitle('Edit form')->headTitle('Forms');
 $this->headScript()->appendFile('/lib/admin/form/edit.js');
 $this->headLink()->appendStylesheet('/lib/admin/form/edit.css');
 ?>
 
-<div id="formController">
+
 
 <h1><?php echo $this->translate('Edit form'); ?></h1>
 
+<div class="box">
+
 <?php echo $this->fieldCreateForm; ?>
-
-<br />
-
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
