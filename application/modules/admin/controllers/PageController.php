@@ -91,14 +91,15 @@ class Admin_PageController extends Emerald_Controller_AdminAction
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
 		
+						
 			if($form->isValidPartial($this->_getAllParams())) {
 				foreach($form->getValues() as $key => $value) {
-					if($value != null) {
+					if($value) {
 						$page->$key = $value;
 					}
 				}
 				// $page->setFromArray($form->getValues());
-				$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
+				$pageModel->save($page);
 
 				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Ok');
 								

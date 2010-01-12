@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	
 	$("ul > li > ul").sortable({
 		// connectWith: "ul > li > ul",
@@ -11,10 +10,12 @@ $(document).ready(function() {
 						
 			var parentId = $parent.attr('id').split('-')[1] ? $parent.attr('id').split('-')[1] : '';
 			
+			var count = 0;
+			
 			$parent.find('li.node').each(function(key, value) {
 
 				var nid = value.id.split('-')[1];
-				var xoo = { 'order_id': key, 'parent_id': parentId };
+				var xoo = { 'order_id': ++count, 'parent_id': parentId };
 			
 				$.post('/admin/page/save-partial/id/' + nid + '/format/json',  xoo , function() {
 				
@@ -37,7 +38,7 @@ $(document).ready(function() {
 	$(".shard").change(function() {
 		$this = $(this);
 		var id = $this.attr('id').split('-')[1];
-		$.post('/admin/page/save-partial/id/' + id + '/format/json', { 'shard': $(this).val() }, function() {
+		$.post('/admin/page/save-partial/id/' + id + '/format/json', { 'shard_id': $(this).val() }, function() {
 		});
 	});
 	
@@ -61,13 +62,13 @@ $(document).ready(function() {
 		$input.focus();
 		
 		$input.blur(function() {
+			
 			$label = $(this).parent();
-									
-			var id = $label.parent().attr('id').split('-')[1];
+							
+			var id = $label.parent().parent().attr('id').split('-')[1];
 			
 			$.post('/admin/page/save-partial/id/' + id + '/format/json', { 'title': $(this).val() }, function() {
-				
-				
+					
 				
 				
 			});

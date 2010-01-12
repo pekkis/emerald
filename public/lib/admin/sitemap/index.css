@@ -5,7 +5,14 @@
 
 ul {
 	margin: 0;
+	list-style-type: none;
+	display: block;
 }
+
+li {
+	list-style-type: none;
+}
+
 
 
 	#sitemap li.node > div.node-row > div {

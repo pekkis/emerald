@@ -18,7 +18,12 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		// $parentIdElm->setAutoInsertNotEmptyValidator(false);
 		$parentIdElm->setRequired(false);
 		$parentIdElm->setAllowEmpty(true);
-		
+
+		$orderIdElm = new Zend_Form_Element_Text('order_id', array('label' => 'Weight'));
+		$orderIdElm->addValidator(new Zend_Validate_Int());
+		$orderIdElm->setRequired(false);
+		$orderIdElm->setAllowEmpty(true);
+						
 		$layoutElm = new Zend_Form_Element_Select('layout', array('label' => 'Layout', 'class' => 'w66'));
 		// $layoutElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$layoutElm->setRequired(false);
@@ -59,7 +64,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($idElm, $localeElm, $parentIdElm, $layoutElm, $shardElm, $titleElm, $submitElm));
+		$this->addElements(array($idElm, $localeElm, $parentIdElm, $orderIdElm, $layoutElm, $shardElm, $titleElm, $submitElm));
 
 		
 		$permissionForm = new Admin_Form_PagePermissions();
