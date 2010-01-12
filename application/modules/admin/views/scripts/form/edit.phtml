@@ -15,8 +15,8 @@ $this->headLink()->appendStylesheet('/lib/admin/form/edit.css');
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <th class="type"><?php echo $this->translate('Field type'); ?></th>
-<th class="title"><?php echo $this->translate('Title'); ?></th>
-<th class="mandatory"><?php echo $this->translate('Mandatory'); ?></th>
+<th class="ftitle"><?php echo $this->translate('Title'); ?></th>
+<th class="mandatory"><?php echo $this->translate('Required'); ?></th>
 <th class="options"><?php echo $this->translate('Options'); ?></th>
 <th class="actions"><?php echo $this->translate('Actions'); ?></th>
 </table> 
@@ -29,12 +29,13 @@ $this->headLink()->appendStylesheet('/lib/admin/form/edit.css');
 <div id="form-sort">
 <?php foreach($this->form->getFields() as $key => $field): ?>
 
-<div class="form-sortable">
+<div class="form-sortable ui-widget ui-widget-content ui-corner-all ui-widget-state-default">
 
 <input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $field->id; ?>" />
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
+
+<tr class="">
 
 <td class="type">
 <div>
@@ -46,7 +47,7 @@ $this->headLink()->appendStylesheet('/lib/admin/form/edit.css');
 </div>
 </td>
 
-<td class="title">
+<td class="ftitle">
 <div>
 <input name="title[<?php echo $key; ?>]" type="text" value="<?php echo $field->title; ?>" />
 </div>

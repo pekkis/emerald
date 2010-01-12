@@ -329,3 +329,6 @@ dl.zend_form dt {
 }
 
 
+.clear {
+	clear: both;
+}

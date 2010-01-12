@@ -47,19 +47,21 @@ class Admin_Model_Navigation
 
 			$createPage = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'page', 'action' => 'create', 'label' => 'Create page'));
 			$sitemap->addPage($createPage);
-			
-			
+						
 			$filelib = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'filelib', 'label' => 'Files'));
 			$navi->addPage($filelib);
+
+			
 			
 			$editFolder = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'folder', 'action' => 'edit', 'label' => 'Edit folder'));
 			$filelib->addPage($editFolder);
 						
-			
-
 			$forms = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'label' => 'Forms'));
 			$navi->addPage($forms);
-					
+
+			$createForm = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'action' => 'create', 'label' => 'Create form'));
+			$forms->addPage($createForm);
+			
 			$options = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'options', 'label' => 'Options'));
 			$navi->addPage($options);
 						

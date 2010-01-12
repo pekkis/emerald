@@ -7,12 +7,18 @@ $this->headScript()->appendFile("/lib/admin/form/index.js");
 
 <div class="box">
 
-<h2><?php echo $this->translate('Create a new form'); ?></h2>
+<p>
+<a href="<?php echo $this->url(array('action' => 'create')); ?>"><?php echo $this->translate('Create form'); ?></a>
+</p>
 
-<?php echo $this->form; ?>
+<?php if(!$this->forms->count()): ?>
 
-<h2><?php echo $this->translate('Existing forms'); ?></h2>
+<p>
+<?php echo $this->translate('No forms'); ?>
+</p>
 
+
+<?php else: ?>
 
 <table>
 <thead>
@@ -35,5 +41,7 @@ $this->headScript()->appendFile("/lib/admin/form/index.js");
 <?php endforeach; ?>
 </tbody>
 </table>
+
+<?php endif; ?>
 
 </div>

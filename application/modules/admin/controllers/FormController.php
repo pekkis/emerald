@@ -4,7 +4,7 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	public $ajaxable = array(
 		'save' => array('json'),
 		'delete' => array('json'),
-		'create' => array('json'),
+		'create-post' => array('json'),
 		'field-create' => array('json'),
 		'field-delete' => array('json'),
 	);
@@ -24,10 +24,8 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 				
 		$formModel = new Core_Model_Form();
 		$forms = $formModel->findAll();
-		
-		$this->view->form = new Admin_Form_FormCreate();
-		
 		$this->view->forms = $forms;
+		
 		
 	}
 	
@@ -54,6 +52,13 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 	
 	public function createAction()
 	{
+		$this->view->form = new Admin_Form_FormCreate();
+		
+	}
+	
+	
+	public function createPostAction()
+	{
 		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
 		{
 		 	throw new Emerald_Exception("Forbidden", 403);
@@ -67,12 +72,15 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 			$item = new Core_Model_FormItem();
 			$item->setFromArray($form->getValues());
 			$model->save($item);
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Operation ok');
+			
+			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Operation ok');
+			$msg->form_id = $item->id;
 		} else {
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Operation failed');
 			$msg->errors = $form->getMessages();
-			$this->view->message = $msg;
 		}
+		
+		$this->view->message = $msg;
 		
 	}
 	
@@ -237,12 +245,12 @@ class Admin_FormController extends Emerald_Controller_AdminAction
 						
 			
 			$opts = array(
-			'1' => '{l:admin/form/field/type/1}',
-			'2' => '{l:admin/form/field/type/2}',
-			'3' => '{l:admin/form/field/type/3}',
-			'4' => '{l:admin/form/field/type/4}',
-			'5' => '{l:admin/form/field/type/5}',
-			'6' => '{l:admin/form/field/type/6}',
+			'1' => 'Text',
+			'2' => 'Textarea',
+			'3' => 'Select',
+			'4' => 'Multiselect',
+			'5' => 'Radio',
+			'6' => 'Checkbox',
 			);
 			
 			$this->view->opts = $opts;

@@ -1,11 +1,12 @@
 <?php
 $this->headScript()->appendFile("/lib/admin/sitemap/index.js");
+$this->headLink()->appendStylesheet("/lib/admin/sitemap/index.css");
 $this->headTitle()->append('Sitemap');
 ?>
 
 <h1><?php echo $this->translate('Sitemap'); ?></h1>
 
-<ul>
+<ul id="sitemap">
 <?php $depth = 0; $first = true; ?>
 
 <?php foreach($this->sitemap as $menu): ?>
@@ -20,15 +21,28 @@ $this->headTitle()->append('Sitemap');
 	
 	<?php endif; ?>
 		
-	<li>						
-	
-	<?php echo $menu->label; ?>
-	<br />
+	<li class="node node-level-<?php echo $this->sitemap->getDepth(); ?>" id="page-<?php echo $menu->id; ?>">						
+		
 	<?php if($menu->id): ?>
-	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
-	<?php echo $this->translate('Edit page'); ?>
-	</a>
+
+	<div class="label label-editable">	
+	<?php echo $menu->label; ?>
+	</div>
+
+	<?php else: ?>
+	
+	<div class="label">	
+	<?php echo $menu->label; ?>
+	</div>
+			
 	<?php endif; ?>
+	
+	<div class="actions">	
+	
+	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
+	<?php echo $this->translate('Edit'); ?>
+	</a>
+
 	<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'create', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate('Create page'); ?>
 	</a>
@@ -36,7 +50,13 @@ $this->headTitle()->append('Sitemap');
 	<a class="delete" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'delete', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate('Delete'); ?>
 	</a>
+			
 	
+			
+	</div>
+	
+	<div class="clear"></div>
+			
 	
 	<?php $depth = $this->sitemap->getDepth(); ?>
 	

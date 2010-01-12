@@ -62,6 +62,8 @@ class Admin_PageController extends Emerald_Controller_AdminAction
 		$form = new Admin_Form_Page();
 		$form->setLocale($this->_getParam('locale'));
 		
+		$form->parent_id->setValue($this->_getParam('id'));
+		
 		$permForm = $form->getSubForm('page-permissions');
 		
 		$permForm->setDefaults(array(Core_Model_Group::GROUP_ROOT => array_keys(Emerald_Permission::getAll())));

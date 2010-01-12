@@ -3,7 +3,9 @@ $(document).ready(function() {
 	
 	$('#form-sort').sortable({ items: '.form-sortable' });
 
-	$('form#field-edit').jsonSubmit();
+	$('form#field-edit').jsonSubmit({
+		success: function(msg) { Emerald.message(msg.message); }
+	});
 		
 	
 	$('form#field-create').jsonSubmit({

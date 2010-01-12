@@ -18,14 +18,14 @@ class Admin_Form_FormFieldCreate extends ZendX_JQuery_Form
 		
 		
 			$opts = array(
-			'1' => 'l:admin/form/field/type/1',
-			'2' => 'l:admin/form/field/type/2',
-			'3' => 'l:admin/form/field/type/3',
-			'4' => 'l:admin/form/field/type/4',
-			'5' => 'l:admin/form/field/type/5',
-			'6' => 'l:admin/form/field/type/6',
+			'1' => 'Text',
+			'2' => 'Textarea',
+			'3' => 'Select',
+			'4' => 'Multiselect',
+			'5' => 'Radio',
+			'6' => 'Checkbox',
 			);
-		
+				
 		$typeElm->addMultiOptions($opts);
 				
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Add field'));
