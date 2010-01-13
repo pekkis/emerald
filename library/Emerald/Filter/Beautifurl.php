@@ -14,25 +14,46 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 		$regex = '/\/page\/view\/id\/(\d+)/';
 		preg_match_all($regex, $value, $matches);
 
-		if(!$matches[0]) {
-			return $value;
-		}
-
-		
-		$naviModel = new Core_Model_Navigation();
-
-		$navigation = $naviModel->getNavigation();
-		
-		// We be doin' de replacin'
-		foreach($matches[0] as $key => $toReplace) {
-			$page = $navigation->findBy('id', $matches[1][$key]);
-			if($page) {
-				$value = str_ireplace($toReplace, $page->uri, $value);	
+		if($matches[0]) {
+			$naviModel = new Core_Model_Navigation();
+			$navigation = $naviModel->getNavigation();
+			// We be doin' de replacin'
+			foreach($matches[0] as $key => $toReplace) {
+				$page = $navigation->findBy('id', $matches[1][$key]);
+				if($page) {
+					$value = str_ireplace($toReplace, $page->uri, $value);	
+				}
+				
 			}
-			
 		}
+
+		// We be getting de replaces
+		$regex = '/\/filelib\/file\/render\/id\/(\d+)(\/version\/([a-z]+))?/';
+		preg_match_all($regex, $value, $matches);
+
+		if($matches[0]) {
+			
+			$fl = Zend_Registry::get('Emerald_Filelib');
+			
+			// We be doin' de replacin'
+			foreach($matches[0] as $key => $toReplace) {
+				$file = $fl->findFile($matches[1][$key]);
+				if($file->isAnonymous()) {
+					
+					$opts = array();
+					if(isset($matches[3][$key])) {
+						$opts['version'] = $matches[3][$key];
+					}
+					
+					$value = str_ireplace($toReplace, $file->renderPath($opts), $value);	
+				}
+				
+			}
+		}
+		
 
 		return $value;
+		
 		
 	}
 	

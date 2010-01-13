@@ -29,6 +29,8 @@ class Core_Model_HtmlContent
 			$row = $tbl->createRow();
 		}
 		
+		Zend_Debug::dump($htmlContent->toArray());
+		
 		$row->setFromArray($htmlContent->toArray());
 		$row->save();
 

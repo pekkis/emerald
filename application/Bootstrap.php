@@ -15,8 +15,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$options = $options['resources']['server'];
 		
 		$server = Emerald_Server::getInstance($options); 
-
-		
 		
 	}
 

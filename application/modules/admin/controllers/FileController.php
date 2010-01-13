@@ -27,6 +27,8 @@ class Admin_FileController extends Emerald_Controller_Action
 		$this->view->message = $msg;
 	}
 	
+	
+	
 		
 
 }

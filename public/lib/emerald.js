@@ -78,7 +78,7 @@ Emerald.TinyMCE = {
 				convert_urls: true,
 				relative_urls: false,
 				content_css: "/data/editor.css",
-				external_link_list_url : "/admin/sitemap/tinymcelinklist",
+				external_link_list_url : "/admin/sitemap/link-list",
 				language: Emerald.Localization.getLanguage(),
 				plugins: "table",
 				theme_advanced_buttons2_add : "tablecontrols"
@@ -118,18 +118,28 @@ Emerald.FileManager = {
     init : function () {
         
 		// Remove tinymces own poo.
-		$('link:last').remove();					
+		// $('link:last').remove();					
 		
 		// Associate clicks to all filelib files and push em back to the tinymce dialog.		
-		$('.filelibFile').click(function() {
+		$('.file').click(function() {
+			
 			var href= $(this).attr('href');
-		        var win = tinyMCEPopup.getWindowArg("window");
-    		    win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = href;
-        	// for image browsers: update image dimensions
+			
+
+			
+		    var win = tinyMCEPopup.getWindowArg("window");
+    		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = href;
+        	
+			
+
+    		
+    		// for image browsers: update image dimensions
         	if (win.getImageData) win.getImageData();
         	// close popup window
         	tinyMCEPopup.close();
-			return false;
+			
+                	
+        	return false;
 		});
 		
     }

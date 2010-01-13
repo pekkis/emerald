@@ -113,6 +113,9 @@ class Admin_Model_Navigation
 			$page->setVisible(false);
 			$filelib->addPage($page);
 			
+			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'filelib', 'action' => 'select', 'label' => 'Select file'));
+			$page->setVisible(false);
+			$filelib->addPage($page);
 			
 			$forms = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'form', 'label' => 'Forms'));
 			$navi->addPage($forms);

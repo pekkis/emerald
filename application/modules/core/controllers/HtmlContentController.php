@@ -115,6 +115,7 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			
 			$htmlcontent->setFromArray($form->getValues());
 			
+			
 			$model->save($htmlcontent);
 
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');

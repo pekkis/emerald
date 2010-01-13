@@ -9,6 +9,8 @@ class Core_Form_HtmlContent extends ZendX_JQuery_Form
 		$this->setMethod(Zend_Form::METHOD_POST);
 		$this->setAction('/core/html-content/save');
 
+
+		
 		$pageIdElm = new Zend_Form_Element_Hidden('page_id');		
 		$pageIdElm->setDecorators(array('ViewHelper'));
 		
@@ -16,6 +18,8 @@ class Core_Form_HtmlContent extends ZendX_JQuery_Form
 		$blockIdElm->setDecorators(array('ViewHelper'));
 		
 		$contentElm = new Zend_Form_Element_Textarea('content', array('label' => 'Content', 'class' => array('tinymce', 'w100')));
+		// $contentElm->setFilters(array(new Emerald_Filter_HtmlSpecialChars()));
+		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		
 		$this->addElements(array($pageIdElm, $blockIdElm, $contentElm, $submitElm));

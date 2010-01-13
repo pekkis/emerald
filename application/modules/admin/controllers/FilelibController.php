@@ -12,77 +12,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 		$this->getHelper('ajaxContext')->initContext();
 	}
 	
-	
-	public function monitoruploadAction()
-	{
-		$filters = array();
-		$validators = array(
-			'id' => array('Alnum', 'presence' => 'required'),
-		);
-				
-		try {
-			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();
-			
-			
-			$info = uploadprogress_get_info($input->id);
-
-			$info = Zend_Json::encode($info);
-			
-			$this->_helper->_layout->disableLayout();
-			$this->_helper->viewRenderer->setNoRender();
-			$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=UTF-8');
-			$this->getResponse()->appendBody($info);
-						
-			
-		} catch(Exception $e) {
-			die('xäxx');
-		}
-	}
-	
-	
-	public function uploadfileAction()
-	{
-		$filters = array();
-		$validators = array(
-			'folder_id' => array('Int', 'presence' => 'required'),
-		);
 		
-		
-		try {
-			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();
-		
-			
-			$folderTbl = Emerald_Model::get('Filelib_Folder');
-			$folder = $folderTbl->fetchRow(array('id = ?' => $input->folder_id));
-						
-			$file = $_FILES['theFile'];
-									
-			$filelib = Emerald_Filelib::getInstance();
-			
-			if(is_uploaded_file($file['tmp_name']) && !$file['error']) {
-				
-				$uploadable = new Emerald_Filelib_FileUpload($file['tmp_name']);
-																			
-				$uploadable->setOverrideFilename($file['name']);
-				$uploaded = $filelib->upload($uploadable, $folder);
-			
-			}
-						
-		} catch(Exception $e) {
-			
-			die($e->getMessage());
-			
-			// $this->_forward('uploadFileFailed');
-		}
-		
-	}
-	
-	
-	
 	public function createFolderAction()
 	{
 		$folderForm = new Admin_Form_CreateFolder();
@@ -277,21 +207,56 @@ class Admin_FilelibController extends Emerald_Controller_Action
 	}
 	
 	
-	
-	
-	private function _buildTree()
+
+	public function selectAction()
 	{
-		$folderTbl = Emerald_Model::get('Filelib_Folder');
-		$foldersRaw = $folderTbl->fetchAll(null, array('parent_id', 'name'));
 		
-		$folders = array();
-		foreach($foldersRaw as $folder) {
-			$folders[$folder->parent_id][] = $folder;
-		}
+				$filters = array();
+		$validators = array(
+			'id' => array('Int', 'default_value' => null)
+		);
+		
+		
+		try {
+			
+			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
+			$input->process();		
+
+			$fl = Zend_Registry::get('Emerald_Filelib');
+			$this->view->fl = $fl;
+			
+			$folder = $fl->findRootFolder();
+			$iter = new Emerald_Filelib_FolderItemIterator($folder);
+			
+			$iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
+			
+			$this->view->iter = $iter;
+			
+			if($input->id) {
+				$activeFolder = $fl->findFolder($input->id);
+				if(!$activeFolder) {
+					throw new Emerald_Exception('Folder not found.', 404);
+				}
 				
-		return $folders;
+				$this->view->folder = $activeFolder;
+				$files = $activeFolder->findFiles();
+				$this->view->files = $files;
+				
+			} else {
+				
+				$this->getHelper('redirector')->gotoRouteAndExit(array('id' => $folder->id));
+				
+			}
+			
+		} catch(Emerald_Exception $e) {
+			throw $e;
+			
+		} catch(Exception $e) {
+			throw new Emerald_Exception($e, 500);
+		}
+		
+		
 		
 	}
-	
 	
 }
