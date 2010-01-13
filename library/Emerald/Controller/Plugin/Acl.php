@@ -122,9 +122,7 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 		// $this->getAcl()->removeRole($this->getRole());
 		
 		try {
-			
 			if (!$this->getAcl()->isAllowed($this->getRole(), $resourceName)) {
-				
 				$this->denyAccess();
 			}
 		} catch(Zend_Acl_Exception $e) {

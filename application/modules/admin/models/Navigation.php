@@ -49,6 +49,14 @@ class Admin_Model_Navigation
 			$editPage = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit', 'label' => 'Edit page'));
 			$sitemap->addPage($editPage);
 
+			$savePage = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'page', 'action' => 'save', 'label' => 'Save page'));
+			$savePage->setVisible(false);
+			$sitemap->addPage($editPage);
+
+			$deletePage = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'page', 'action' => 'save', 'label' => 'Delete page'));
+			$deletePage->setVisible(false);
+			$sitemap->addPage($deletePage);
+						
 			$createPage = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'page', 'action' => 'create', 'label' => 'Create page'));
 			$sitemap->addPage($createPage);
 						

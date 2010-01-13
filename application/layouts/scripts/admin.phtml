@@ -44,9 +44,7 @@
 			</div>
 			<div id="menu">
 				<?php
-				$model = new Admin_Model_Navigation();
-				$navigation = $model->getNavigation();
-				echo $this->navigation()->menu()->renderMenu($navigation, array('maxDepth' => 0)); ?>
+				echo $this->navigation()->menu()->renderMenu(null, array('maxDepth' => 0)); ?>
 			</div>
 		</div>
 	</div>	
@@ -55,7 +53,7 @@
 	<div id="page-content">
 		
 		<div id="breadcrumbs">
-		<?php echo $this->navigation()->breadcrumbs($this->navigation); ?>
+		<?php echo $this->navigation()->breadcrumbs(); ?>
 		</div>
 			
 		<div id="message" title="Obs" class="ui-state-highlight ui-corner-all"> 

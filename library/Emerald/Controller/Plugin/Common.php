@@ -5,18 +5,23 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 	
 	public function dispatchLoopStartup($request)
 	{
+		$view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
+		$naviHelper = $view->getHelper('Navigation');
+
+		$user = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('user');
+		$acl = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('acl');
+		
+		Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
+		Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($user);
+		
 		if($request->getModuleName() == 'admin') {
-									
-			$user = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('user');
-			$acl = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('acl');
 			
 			$model = new Admin_Model_Navigation();
-			$navigation = new RecursiveIteratorIterator($model->getNavigation(), RecursiveIteratorIterator::SELF_FIRST);
-
+			$navigation = $model->getNavigation();
 			
 			
-			foreach($navigation as $page) {
-				
+			$iter = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
+			foreach($iter as $page) {
 				$resName = "{$page->module}_" . ($page->controller ? $page->controller : 'index') . '_'  . ($page->action ? $page->action : 'index');
 				
 				if(!$acl->has($resName)) {
@@ -24,7 +29,6 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 				}
 				$page->setResource($resName);
 				$page->setPrivilege('read');
-		
 			}
 			
 			Zend_Controller_Front::getInstance()->registerPlugin(new Emerald_Controller_Plugin_Acl($acl, $user));
@@ -37,8 +41,17 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 			// $this->view->translate()->setTranslator(Zend_Registry::get('Zend_Translate'));
 			// $this->view->translate()->setLocale(Zend_Registry::get('Zend_Locale') ? Zend_Registry::get('Zend_Locale') : 'en');
 				
+		} else {
+			$model = new Core_Model_Navigation();
+			$navigation = $model->getNavigation();
 		}
 		
+		
+		$naviHelper->setContainer($navigation);
+		
+		
+		
+				
 	}
 
 	

@@ -21,7 +21,11 @@ class Emerald_Acl extends Zend_Acl
         $rootGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ROOT; 
         $acl->addRole($rootGroup);
         $acl->allow($rootGroup);
-                
+
+        $acl->addResource('locale');
+        $acl->allow($anonGroup, 'locale');
+        
+        
         return $acl;
 		
 	}
@@ -42,7 +46,16 @@ class Emerald_Acl extends Zend_Acl
 		if(!$this->has($resource)) {
 			
 			if(!$resource instanceof Emerald_Acl_Resource_Interface) {
-				throw new Zend_Acl_Exception("Can not autoload resource '{$resource}'");
+				
+				if(preg_match("/^Emerald_Page/", $resource)) {
+					
+					$split = explode("_", $resource);
+					$pageModel = new Core_Model_Page();
+					$resource = $pageModel->find($split[2]);
+				} else {
+					throw new Zend_Acl_Exception("Can not autoload resource '{$resource}'");	
+				}
+				
 			}
 						
 			$resource->__lazyLoadAclResource($this);

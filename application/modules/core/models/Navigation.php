@@ -121,9 +121,13 @@ class Core_Model_Navigation
 						)
 					);
 					
+					$page->setResource("locale");
+					$page->setPrivilege('read');
+					
 					$this->_recurseLocale($page, $locale->locale);
 					
 					$navi->addPage($page);
+					
 					
 				}
 				
@@ -159,10 +163,13 @@ class Core_Model_Navigation
 					'id' => $pageRow->id,
 					'parent_id' => null,
 					'layout' => $pageRow->layout,
-					'shard_id' => $pageRow->shard_id
+					'shard_id' => $pageRow->shard_id,
 				)
 			);
-									
+			
+			$page->setResource("Emerald_Page_{$page->id}");
+			$page->setPrivilege('read');
+
 			$this->_recursePage($page, $pageRow->id);
 			$localePage->addPage($page);
 		}
@@ -190,6 +197,8 @@ class Core_Model_Navigation
 				)
 			);
 						
+			$page->setResource("Emerald_Page_{$page->id}");
+			$page->setPrivilege('read');
 			
 			$this->_recursePage($page, $pageRow->id);
 			$parentPage->addPage($page);

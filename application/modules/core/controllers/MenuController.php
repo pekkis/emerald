@@ -46,8 +46,7 @@ class Core_MenuController extends Emerald_Controller_Action
 				$this->view->menu = $navi;
 			}
 			
-			
-						
+			$this->view->getHelper('navigation')->setContainer($navi);						
 			
 			$this->_helper->viewRenderer->setResponseSegment($this->_getParam('rs'));
 		} catch(Exception $e) {
