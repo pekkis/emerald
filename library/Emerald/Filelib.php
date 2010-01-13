@@ -518,7 +518,15 @@ class Emerald_Filelib
 	 */
 	public function deleteFolder(Emerald_Filelib_FolderItem $folder)
 	{
-		return $this->getBackend()->deleteFolder($folder);
+		foreach($folder->findSubFolders() as $childFolder) {
+			$this->deleteFolder($childFolder);
+		}
+
+		foreach($folder->findFiles() as $file) {
+			$this->deleteFile($file);	
+		}
+		
+		$this->getBackend()->deleteFolder($folder);
 	}
 	
 	/**
@@ -528,7 +536,18 @@ class Emerald_Filelib
 	 */
 	public function updateFolder(Emerald_Filelib_FolderItem $folder)
 	{
-		return $this->getBackend()->updateFolder($folder);
+		$this->getBackend()->updateFolder($folder);
+
+		foreach($folder->findFiles() as $file) {
+			$this->updateFile($file);
+		}
+		
+		foreach($folder->findSubFolders() as $subFolder) {
+			$this->updateFolder($subFolder);
+		}
+			
+		
+		
 	}
 	
 	
@@ -540,7 +559,12 @@ class Emerald_Filelib
 	 */
 	public function updateFile(Emerald_Filelib_FileItem $file)
 	{
-		return $this->getBackend()->updateFile($file);
+		$this->getSymlinker()->deleteSymlink($file);
+		$this->getBackend()->updateFile($file);
+		if($this->fileIsAnonymous($file)) {
+			$this->getSymlinker()->createSymlink($file);
+		}
+	
 	}
 		
 		

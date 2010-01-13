@@ -84,14 +84,17 @@ class Admin_FolderController extends Emerald_Controller_Action
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			$folder = $fl->findFolder($form->id->getValue());
 
+			
 			$fl->updateFolder($folder);
 
 			$folderModel = new Core_Model_Folder();
 			$folderModel->savePermissions($folder, $form->getSubForm('folder-permissions')->getValues());
-						
-			$this->getAcl()->remove($folder);
 			
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			$fl->updateFolder($folder);
+			
+			// $this->getAcl()->cacheRemove();
+			
+			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok!');
 			$this->view->message->folder_id = $folder->id;
 			
 		} else {

@@ -14,27 +14,10 @@ class Admin_LocaleController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
-		if(!$this->getCurrentUser()->inGroup(Core_Model_Group::GROUP_ROOT))
-		{
-		 	throw new Emerald_Exception("Forbidden", 403);
-		}
-		
-
 		$this->view->form = new Admin_Form_Locale();		
-		
-		
 	}
 	
 	
-	/**
-	 * This is The Most Dangerous Action Alive(tm). User can wipe out all data from all the pages
-	 * of all the locales with a click of a button. Thank you cascading deletes! :)
-	 * 
-	 * @todo Implement ACL, only root can do. 
-	 * @todo Maybe change the cascading in Locale table to restrict?
-	 * @todo Maybe implement status for locale, just update it until janitor deletes from db?!?
-	 *
-	 */
 	public function updateAction()
 	{
 		$form = new Admin_Form_Locale();
@@ -58,12 +41,8 @@ class Admin_LocaleController extends Emerald_Controller_Action
 			} else {
 				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
 			}
-			
-			
-			
 		}
 			
-		
 		$this->view->message = $msg;
 		
 	}

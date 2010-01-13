@@ -108,69 +108,23 @@ class Admin_FilelibController extends Emerald_Controller_Action
 	}
 	
 	
-	
-	public function selectAction()
+	public function submitAction()
 	{
-		$filters = array();
-		$validators = array(
-			'id' => array('Int', 'default_value' => null)
-		);
-		
-		
-		try {
-			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();		
+		$filelib = Zend_Registry::get('Emerald_Filelib');
+		$form = new Admin_Form_FileUpload();
 
-			
-			$tree = $this->_buildTree();
-			
-			$fileTbl = Emerald_Model::get('Filelib_File');
+		if($form->isValid($this->getRequest()->getPost())) {
+			$folder = $filelib->findFolder($form->folder_id->getValue());
+			$form->file->receive();
+			$file = $filelib->upload($form->file->getFileName(), $folder);
 
-			$expr = ($input->id) ? $input->id : new Zend_Db_Expr('null');
-		
-			$files = $fileTbl->fetchAll(
-				array('folder_id = ?' => $expr)
-			);
-
-			$this->view->active = $input->id;
-			$this->view->tree = $tree;
-			$this->view->files = $files;
-		
-			$this->view->headScript()->appendFile('/lib/js/tinymce/jscripts/tiny_mce/tiny_mce_popup.js');			
-			$this->view->headScript()->appendFile('/lib/js/admin/filelib/select.js');
-			
-			
-			$this->view->layout()->setLayout("admin_popup_outer");
-			
-		} catch(Exception $e) {
-			throw new Emerald_Exception($e, 500);
+			$this->view->success = true;
+			$this->view->folder_id = $form->folder_id->getValue();
+		} else {
+			$this->view->success = false;
+			$this->view->folder_id = $this->_getParam('folder_id');
 		}
-		
-		
 	}
-	
-	
-	    public function submitAction()
-        {
-                $filelib = Zend_Registry::get('Emerald_Filelib');
-                $form = new Admin_Form_FileUpload();
-
-                if($form->isValid($_POST)) {
-					$folder = $filelib->findFolder($form->folder_id->getValue());
-					$form->file->receive();
-					$file = $filelib->upload($form->file->getFileName(), $folder);
-                }
-
-
-
-                die('mööööh');
-
-
-
-        }
-	
-	
 	
 	
 	public function indexAction()

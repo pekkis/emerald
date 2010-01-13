@@ -129,18 +129,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	public function deleteFolder(Emerald_Filelib_FolderItem $folder)
 	{
 		try {
-			
-			foreach($folder->findSubFolders() as $childFolder) {
-				$this->deleteFolder($childFolder);
-			}
-
-			foreach($folder->findFiles() as $file) {
-				$this->deleteFile($file);	
-			}
-			
 			$this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->id));
-			
-			
 		} catch(Exception $e) {
 			throw new Emerald_Filelib_Exception($e->getMessage());
 		}
@@ -154,14 +143,6 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 				$folder->toArray(),
 				$this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->id)
 			);
-
-			foreach($folder->findSubFolders() as $subFolder) {
-				$this->updateFolder($subFolder);
-			}
-			
-			foreach($folder->findFiles() as $file) {
-				$this->updateFile($file);
-			}
 			
 		} catch(Exception $e) {
 			throw new Emerald_Filelib_Exception($e->getMessage());
@@ -173,8 +154,6 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	public function updateFile(Emerald_Filelib_FileItem $file)
 	{
 		try {
-						
-			$this->getFilelib()->getSymlinker()->deleteSymlink($file);
 
 			$fileRow = $this->getFileTable()->find($file->id)->current();
 			$fileRow->link = $file->getFilelib()->getSymlinker()->getLink($file, false, true); 
@@ -185,7 +164,6 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			);
 
 			$file->link = $fileRow->link;
-			$this->getFilelib()->getSymlinker()->createSymlink($file);
 			
 		} catch(Exception $e) {
 			throw new Emerald_Filelib_Exception($e->getMessage());

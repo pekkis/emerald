@@ -5,7 +5,7 @@ class Core_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emeral
 	
 	public function getResourceId()
 	{
-		return "Emerald_Filelib_FolderItem_{$this->id}";
+		return "Emerald_Filelib_Folder_{$this->id}";
 	} 
 	
 	

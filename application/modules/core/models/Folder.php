@@ -31,6 +31,7 @@ class Core_Model_Folder
 	
 	public function savePermissions(Core_Model_FolderItem $folder, $permissions)
 	{
+		
 		$tbl = new Core_Model_DbTable_Permission_Folder_Ugroup();
 		$tbl->getAdapter()->beginTransaction();
 		try {
@@ -44,11 +45,18 @@ class Core_Model_Folder
 				}
 			}
 			$tbl->getAdapter()->commit();
-			return true;
+			
+	
 		} catch(Exception $e) {
 			$tbl->getAdapter()->rollBack();
 			return false;
 		}
+		
+		
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		$acl->remove($folder);
+				
 	}
 	
 	
