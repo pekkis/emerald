@@ -8,15 +8,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 	private $_translate;
 	
-	protected function _initServerr() {
-		
-		$options = $this->getOptions();
-		
-		$options = $options['resources']['server'];
-		
-		$server = Emerald_Server::getInstance($options); 
-		
-	}
 
 	protected function _initMisc()
 	{
@@ -83,9 +74,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
 		$this->bootstrap('frontcontroller');
 		
-		$server = Emerald_Server::getInstance();
-		$customer = $server->findCustomer($_SERVER['HTTP_HOST']);
-
+		$path = APPLICATION_PATH . '/../customers/' . $_SERVER['HTTP_HOST'];
+		if(is_dir($path)) {
+			$customer = new Emerald_Application_Customer(realpath($path));
+		}
+		
 		if(!$customer) {
 			throw new Emerald_Exception("Customer not found");
 		}
