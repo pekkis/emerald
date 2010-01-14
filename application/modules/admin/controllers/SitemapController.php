@@ -1,7 +1,19 @@
 <?php
 class Admin_SitemapController extends Emerald_Controller_Action
 {
-
+	
+	public $contexts = array(
+        'link-list'     => array('js', 'json'),
+    );
+	
+	public function init()
+	{
+		$this->getHelper('contextSwitch')
+		->addContext('js', array('suffix' => 'js', 'headers' => array('Content-Type' => 'text/javascript; charset=UTF-8')))
+		->initContext();
+	}
+	
+	
 	public function indexAction()
 	{
 		
@@ -10,6 +22,7 @@ class Admin_SitemapController extends Emerald_Controller_Action
 		$this->view->locales = $locales;
 		
 	}
+	
 	
 	/**
 	 * Displays the sitemap page tpl
@@ -69,6 +82,20 @@ class Admin_SitemapController extends Emerald_Controller_Action
 		
 	}
 	
+	
+	public function linkListAction()
+	{
+		
+		$navimodel = new Core_Model_Navigation();
+
+		$navigation = $navimodel->getNavigation();
+		
+		$navigation = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
+		
+		$this->view->navigation = $navigation;
+
+		
+	}
 	
 	
 }

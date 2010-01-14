@@ -97,7 +97,7 @@ class Admin_Model_Navigation
 			$page->setVisible(false);
 			$filelib->addPage($page);
 
-			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'folder', 'action' => 'delete', 'label' => ''));
+			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'sitemap', 'action' => 'link-list', 'label' => ''));
 			$page->setVisible(false);
 			$filelib->addPage($page);
 			

@@ -78,7 +78,7 @@ Emerald.TinyMCE = {
 				convert_urls: true,
 				relative_urls: false,
 				content_css: "/data/editor.css",
-				external_link_list_url : "/admin/sitemap/link-list",
+				external_link_list_url : "/admin/sitemap/link-list/format/js",
 				language: Emerald.Localization.getLanguage(),
 				plugins: "table",
 				theme_advanced_buttons2_add : "tablecontrols"
@@ -117,8 +117,8 @@ Emerald.FileManager = {
 
     init : function () {
         
-		// Remove tinymces own poo.
-		// $('link:last').remove();					
+		// Remove tinymces own stylez.
+		$('link:last').remove();					
 		
 		// Associate clicks to all filelib files and push em back to the tinymce dialog.		
 		$('.file').click(function() {

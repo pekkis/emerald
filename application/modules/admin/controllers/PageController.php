@@ -61,6 +61,11 @@ class Admin_PageController extends Emerald_Controller_Action
 		$form->setLocale($this->_getParam('locale'));
 		
 		$form->parent_id->setValue($this->_getParam('id'));
+		$form->order_id->setValue(1);
+		
+		$shardModel = new Core_Model_Shard();
+		$shard = $shardModel->findByIdentifier('Html');
+		$form->shard_id->setValue($shard->id);
 		
 		$permForm = $form->getSubForm('page-permissions');
 		

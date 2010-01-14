@@ -212,6 +212,8 @@ class Core_FormContentController extends Emerald_Controller_Action
 					
 			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Mail send failure.');
 			$msg->exception = $e->getMessage();
+			
+			
 		}	
 		
 		$this->view->message = $msg;

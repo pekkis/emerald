@@ -8,7 +8,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 	private $_translate;
 	
-	protected function _initServer() {
+	protected function _initServerr() {
 		
 		$options = $this->getOptions();
 		

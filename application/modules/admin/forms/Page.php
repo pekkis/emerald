@@ -47,10 +47,11 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 			if($shard->isInsertable()) {
 				$shardOpts[$shard->id] = $shard->name;
 				
+				/*
 				if($shard->name == 'Html') {
 					$shardElm->setValue($shard->id);
 				}
-				
+				*/				
 			}
 		}
 		$shardElm->setMultiOptions($shardOpts);
@@ -65,7 +66,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$orderIdElm->addValidator(new Zend_Validate_Int(), new Zend_Validate_Between(1, 10000));
 		$orderIdElm->setRequired(true);
 		$orderIdElm->setAllowEmpty(false);
-		$orderIdElm->setValue(1);
+		// $orderIdElm->setValue(1);
 		
 		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));

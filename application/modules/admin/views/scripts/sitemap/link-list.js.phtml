@@ -1,0 +1,12 @@
+<?php
+$list = array();
+foreach($this->navigation as $page) {
+	$prepend = str_repeat('-', $this->navigation->getDepth());
+	$list[] = "[\"{$prepend}{$page->label}\", \"{$this->url(array('module' => 'core', 'controller' => 'page', 'action' => 'view', 'id' => $page->id), 'default', true)}\"]";	
+}
+?>
+
+var tinyMCELinkList = new Array(
+<?php echo implode(",\n", $list); ?>
+
+);
