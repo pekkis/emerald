@@ -41,7 +41,7 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 				if($file && $file->isAnonymous()) {
 					
 					$opts = array();
-					if(isset($matches[3][$key])) {
+					if(isset($matches[3][$key]) && $matches[3][$key]) {
 						$opts['version'] = $matches[3][$key];
 					}
 					
