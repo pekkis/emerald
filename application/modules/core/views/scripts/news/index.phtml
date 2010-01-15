@@ -22,11 +22,11 @@
 <div class="news-item <?php if(!$item->isValid()): ?> emerald-invisible news-item-invalid <?php endif; ?>">
 
 	<h2>
-	<?php echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>,
-	<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?>: <?php echo $item->title; ?>
+	<?php echo $date->get(Zend_Date::DATETIME_SHORT, $this->page->getLocale()) ?>: 
+	<?php echo $item->title; ?>
 	</h2>
 	
-	<div class="newsItemContent">
+	<div class="description">
 	<?php echo $item->description; ?>
 	</div>
 	

@@ -67,13 +67,23 @@ class Core_PageController extends Emerald_Controller_Action
 				
 				$naviModel = new Core_Model_Navigation();
 				$navi = $naviModel->getNavigation();
-				
+
+				$navi = $navi->findBy('uri', '/' . $page->locale);
 				
 
+				
+				$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
+				if($active) {
+					$active->setActive(true);
+				}
+
+				
+				
+				$this->view->getHelper('navigation')->setContainer($navi);		
+				
 				$tpl = $page->getLayoutObject($this);
 				$tpl->setPage($page);
 				$tpl->setNoRender(true);
-
 				
 				$this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
 
@@ -87,7 +97,8 @@ class Core_PageController extends Emerald_Controller_Action
 					$tpl->run();
 				}
 				
-								
+
+				$this->view->activePage = $page;
 				
 				
 				

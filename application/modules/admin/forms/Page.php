@@ -68,18 +68,23 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$orderIdElm->setAllowEmpty(false);
 		// $orderIdElm->setValue(1);
 		
+		$visibleElm = new Zend_Form_Element_Checkbox('visibility', array('label' => 'Visible'));
+		$visibleElm->addValidator(new Zend_Validate_InArray(array(0, 1)));	
+		$visibleElm->setRequired(true);
+		$visibleElm->setAllowEmpty(false);
+		
 		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($idElm, $localeElm, $parentIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $submitElm));
+		$this->addElements(array($idElm, $localeElm, $parentIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $submitElm));
 
 		
 		$permissionForm = new Admin_Form_PagePermissions();
 		$permissionForm->setAttrib('id', 'page-permissions');
 		
 		
-		$this->addSubForm($permissionForm, 'page-permissions', 7);
+		$this->addSubForm($permissionForm, 'page-permissions', 8);
 
 		
 		

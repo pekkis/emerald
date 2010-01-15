@@ -164,7 +164,7 @@ class Core_FormContentController extends Emerald_Controller_Action
 			
 			if($zform->isValid($this->getRequest()->getPost())) {
 				
-				$transport = new Zend_Mail_Transport_Smtp();
+
 
 				$mail = new Zend_Mail('UTF8');
 					

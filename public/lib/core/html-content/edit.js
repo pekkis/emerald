@@ -3,7 +3,9 @@
 
 $(document).ready(function() {
 	$(".tinymce").tinymce(Emerald.TinyMCE.options());
-	$('form').jsonSubmit();
+	$('form').jsonSubmit({
+		success: function(msg) { window.opener.location.reload(); }
+	});
 });
 
 

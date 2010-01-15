@@ -1,12 +1,10 @@
+<ul class="news-headlines">
 <?php foreach($this->news as $item): ?>
 <?php $date = new Zend_Date($item->valid_start, Zend_Date::ISO_8601); ?>
-<div class="item <?php if(!$item->isValid()): ?> newsItemInvalid <?php endif; ?>">
-
-	<h3>
-		<a href="/<?php echo $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
-			<?php echo $item->title; ?> &raquo;
-		</a>
-	</h3>
-
-</div>
+<li class="news-headlines <?php if(!$item->isValid()): ?>emerald-invisible<?php endif; ?>">
+<a href="/<?php echo $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
+<?php echo $item->title; ?>
+</a>
+</li>
 <?php endforeach; ?>
+</ul>

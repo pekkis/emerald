@@ -14,6 +14,7 @@
 		$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
 		?>
 		
+		<?php echo $this->headMeta(); ?>
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->jQuery(); ?>
 		<?php echo $this->headScript(); ?>

@@ -12,7 +12,7 @@ class Core_Form_Login extends ZendX_JQuery_Form
 		$emailElm->setRequired(true);
 		$emailElm->setAllowEmpty(false);
 		
-		$passwdElm = new Zend_Form_Element_Text('loso', array('label' => 'Password', 'class' => 'w66'));
+		$passwdElm = new Zend_Form_Element_Password('loso', array('label' => 'Password', 'class' => 'w66'));
 		$passwdElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$passwdElm->setRequired(true);
 		$passwdElm->setAllowEmpty(true);

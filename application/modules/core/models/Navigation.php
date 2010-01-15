@@ -123,6 +123,7 @@ class Core_Model_Navigation
 					
 					$page->setResource("locale");
 					$page->setPrivilege('read');
+					$page->setVisible(true);
 					
 					$this->_recurseLocale($page, $locale->locale);
 					
@@ -138,7 +139,6 @@ class Core_Model_Navigation
 			$this->_navigation = $navi;
 			
 		}
-		
 		return $this->_navigation;
 						
 		
@@ -169,6 +169,7 @@ class Core_Model_Navigation
 			
 			$page->setResource("Emerald_Page_{$page->id}");
 			$page->setPrivilege('read');
+			$page->setVisible($pageRow->visibility);
 
 			$this->_recursePage($page, $pageRow->id);
 			$localePage->addPage($page);
@@ -199,6 +200,7 @@ class Core_Model_Navigation
 						
 			$page->setResource("Emerald_Page_{$page->id}");
 			$page->setPrivilege('read');
+			$page->setVisible($pageRow->visibility);
 			
 			$this->_recursePage($page, $pageRow->id);
 			$parentPage->addPage($page);

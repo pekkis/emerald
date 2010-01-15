@@ -131,6 +131,7 @@ abstract class Emerald_Layout
 			$requestParams = Zend_Controller_Front::getInstance()->getRequest()->getQuery();
 			$params = array_merge($requestParams, $params);
 
+			
 			$shardModel = new Core_Model_Shard();
 			$shard = $shardModel->findByIdentifier($identifier);
 			

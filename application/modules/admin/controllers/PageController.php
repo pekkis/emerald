@@ -41,13 +41,7 @@ class Admin_PageController extends Emerald_Controller_Action
 		$permForm = $form->getSubForm('page-permissions');
 		$permissions = $pageModel->getPermissions($page);
 		$permForm->setDefaults($permissions);
-		
-		/*
-		foreach($permForm->getElements() as $key => $elm) {
-			$elm->setDefaults($permissions[$key]);
-		}
-		*/
-		
+				
 		$this->view->form = $form;
 				
 		
@@ -66,6 +60,8 @@ class Admin_PageController extends Emerald_Controller_Action
 		$shardModel = new Core_Model_Shard();
 		$shard = $shardModel->findByIdentifier('Html');
 		$form->shard_id->setValue($shard->id);
+		$form->layout->setValue('Default');
+		$form->visibility->setValue(1);
 		
 		$permForm = $form->getSubForm('page-permissions');
 		

@@ -36,6 +36,9 @@ class Core_Model_Locale
 			}
 			
 			$this->getTable()->getAdapter()->commit();
+
+			$naviModel = new Core_Model_Navigation();
+			$naviModel->clearNavigation();
 			
 			return true;
 			

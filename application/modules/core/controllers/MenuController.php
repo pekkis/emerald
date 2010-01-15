@@ -16,13 +16,12 @@ class Core_MenuController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
+		return;
 		
 		$filters = array(
 		);
 		$validators = array(
 			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'allowEmpty' => true),
-			'ban' => array('Digits'),
-			'extended' => array(array('InArray',array(0,1))),
 		);
 						
 		try {
