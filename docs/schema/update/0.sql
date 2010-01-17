@@ -1,0 +1,1 @@
+ALTER TABLE page ADD COLUMN cache_seconds integer NOT NULL DEFAULT 0;

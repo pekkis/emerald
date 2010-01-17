@@ -149,6 +149,7 @@ CREATE TABLE "page" (
   "path" varchar(255) NULL,
   "shard_id" int  NOT NULL,
   "visibility" smallint  NOT NULL DEFAULT '1',
+  "cache_seconds" integer NOT NULL DEFAULT 0,
   "status" smallint  NOT NULL DEFAULT '0',
   PRIMARY KEY ("id"),
   UNIQUE ("parent_id","title"),

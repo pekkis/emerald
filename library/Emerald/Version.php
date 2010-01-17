@@ -30,6 +30,12 @@ final class Emerald_Version
     
     public static function getVersionNumber()
     {
+    	$refle = new ReflectionClass('Emerald_Version');
     	
+    	$doc = $refle->getDocComment();
+    	preg_match("/Version\.php (\d{1,4}) /i", $doc, $match);
+    	
+    	return $match[1];
+    
     }
 }

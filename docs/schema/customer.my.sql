@@ -233,10 +233,7 @@ CREATE TABLE `page` (
   path varchar(255) NULL,
   shard_id int(10) unsigned NOT NULL,
   visibility tinyint(3) unsigned NOT NULL DEFAULT '1',
-  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  modified timestamp NULL DEFAULT NULL,
-  created_by int(10) unsigned DEFAULT NULL,
-  modified_by int(10) unsigned DEFAULT NULL,
+  cache_seconds integer unsigned NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   UNIQUE KEY parent_id_title (parent_id,title),
@@ -247,8 +244,6 @@ CREATE TABLE `page` (
   KEY locale (locale),
   KEY iisiurl_index (beautifurl(255)),
   CONSTRAINT page_ibfk_1 FOREIGN KEY (parent_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT page_ibfk_2 FOREIGN KEY (created_by) REFERENCES `user` (id) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT page_ibfk_3 FOREIGN KEY (modified_by) REFERENCES `user` (id) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_4 FOREIGN KEY (shard_id) REFERENCES shard (id) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_5 FOREIGN KEY (locale) REFERENCES locale (locale) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
