@@ -172,30 +172,26 @@ Emerald.Localization =
 	/**
 	 * translate
 	 * 
-	 * @param {String} pathname Language Path which can contain printf-like placeholders
-	 * @param {Array} llParams Parameters to inject to the path
+	 * @param {String} tstr String to translate
+	 * @param {Array} params Parameters to inject to the path
 	 */
-	translate: function(pathname, llParams)
+	translate: function(tstr, params)
 	{
-		if(Emerald.Localization._localizations[pathname]) 
+		if(Emerald.Localization._localizations[tstr]) 
 		{
-			if(!llParams) llParams = [];
-			
-			var arrParams = $A(llParams);
-			pathname = Emerald.Localization._localizations[pathname];
-									
-			// dirty fix, this accepts "kinda like formatted" strings and no formatting will happen
-			pathname = pathname.gsub(/%./,function(){return arrParams.shift();});
-					
-						
+			return Emerald.Localization._localizations[tstr];			
 		}	
 		
-		return pathname;
+		return tstr;
 	}
 	
 };
-Emerald.t = Emerald.Localization.translate; // shortcut
 
+String.prototype.t = function(params)
+{
+	return Emerald.Localization.translate(this.toString(), params);
+
+}
 
 
 Emerald.message = function(msg)
@@ -231,10 +227,12 @@ jQuery.fn.jsonClick = function(options) {
 	
 		
 	$this = $(this);
+	
+	var eventName = $this.hasClass('emerald-confirm') ? 'clickConfirmed' : 'click';
 			
 	  $this.data("callback", finalOptions);
 	  
-	  $this.click(function() {
+	  $this.bind(eventName, function() {
 		  
 		  $that = $(this);
 		  $.ajax({
@@ -403,9 +401,12 @@ $(document).ready(function()
 		$(this).hide();
 	});
 
-	$('.emerald-confirm').live('click', function() {
-		return confirm(Emerald.t('Are you sure?'));
-	})
+	$('.emerald-confirm').live('click', function(event) {
+		event.preventDefault();
+		if(confirm('Are you sure?'.t())) {
+			$(this).trigger('clickConfirmed');
+		}
+	});
 	
 	$('.popup').live('click', Emerald.Popup.listener);
 

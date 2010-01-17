@@ -93,6 +93,9 @@ class Admin_Model_Navigation
 			$editFolder = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'folder', 'action' => 'edit', 'label' => 'Edit folder'));
 			$filelib->addPage($editFolder);
 
+			$deleteFolder = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'folder', 'action' => 'delete', 'label' => 'Delete folder'));
+			$filelib->addPage($deleteFolder);
+			
 			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'folder', 'action' => 'save', 'label' => ''));
 			$page->setVisible(false);
 			$filelib->addPage($page);

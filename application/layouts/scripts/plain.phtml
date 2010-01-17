@@ -5,7 +5,8 @@
 		$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
 		$this->headLink(array('href' => '/lib/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
 		$this->headTitle()->setSeparator(' - ')->append("Emerald");
-		$this->jQuery()->enable()->uiEnable();
+		$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
+		
 		$this->jQuery()->addJavascriptFile("/lib/emerald.js");
 		$this->jQuery()->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
 		$this->headLink()->prependStylesheet('/lib/admin/main.css');

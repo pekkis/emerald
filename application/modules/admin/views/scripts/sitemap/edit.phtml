@@ -62,7 +62,7 @@ $this->headTitle('Edit sitemap')->headTitle('Sitemap');
 
 	|
 
-	<a class="delete" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'delete', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
+	<a class="delete emerald-confirm" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'delete', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate('Delete'); ?>
 	</a>
 	<?php endif; ?>

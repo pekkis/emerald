@@ -31,7 +31,7 @@ $this->headScript()->appendFile('/lib/admin/filelib/index.js');
 	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
 	
 	<?php if($this->folder->parent_id != null): ?>
-	[<a class="delete-folder" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'folder', 'action' => 'delete', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
+	[<a class="emerald-confirm delete-folder" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'folder', 'action' => 'delete', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 	<?php endif; ?>
 	
 	[<a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'folder', 'action' => 'edit', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>]
@@ -67,7 +67,7 @@ $this->headScript()->appendFile('/lib/admin/filelib/index.js');
 <?php foreach($this->files as $file): ?>
 <li>
 <a href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a>
-[<a class="delete-file" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
+[<a class="emerald-confirm delete-file" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 <br />
 Versions:
 <?php foreach($this->fl->getFileVersions($file) as $fv): ?>

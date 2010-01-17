@@ -1,6 +1,8 @@
 
 $(document).ready(function() {
-	$('form').jsonSubmit();
+	$('form').jsonSubmit({
+		success: function() { window.opener.location.reload(); }  
+	});
 });
 
 

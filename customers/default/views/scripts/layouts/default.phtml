@@ -2,7 +2,7 @@
 // @todo: this in init head maybe?
 $this->headMeta()->appendHttpEquiv("Content-Type", "text/html; charset=UTF-8");
 $this->headMeta()->appendName("Generator", "Emerald");
-$this->jQuery()->enable()->uiEnable();
+$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
 $this->jQuery()
 	->addJavascriptFile("/lib/emerald.js");
 
