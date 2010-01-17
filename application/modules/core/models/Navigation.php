@@ -84,7 +84,7 @@ class Core_Model_Navigation
 	
 	public function clearNavigation()
 	{
-		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
 		$cache->remove('navigation');
 		
 		$this->_navigation = null;
@@ -101,7 +101,7 @@ class Core_Model_Navigation
 	{
 		if(!$this->_navigation) {
 
-			$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+			$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
 			
 			if(!$navi = $cache->load('navigation')) {
 				$navi = new Zend_Navigation();

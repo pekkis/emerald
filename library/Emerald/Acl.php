@@ -79,14 +79,14 @@ class Emerald_Acl extends Zend_Acl
 	
 	public function cacheSave()
 	{
-		Zend_Registry::get('Emerald_CacheManager')->getCache('global')->save($this, 'acl');	
+		Zend_Registry::get('Emerald_CacheManager')->getCache('default')->save($this, 'acl');	
 	}
 	
 	
 	
 	public function cacheRemove()
 	{
-		Zend_Registry::get('Emerald_CacheManager')->getCache('global')->remove('acl');
+		Zend_Registry::get('Emerald_CacheManager')->getCache('default')->remove('acl');
 	}
 	
 	

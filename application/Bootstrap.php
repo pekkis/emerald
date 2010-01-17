@@ -12,6 +12,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initMisc()
 	{
 		$this->getResource('view')->doctype("XHTML1_TRANSITIONAL");
+		Zend_Registry::set('Emerald_CacheManager', $this->getResource('cachemanager'));
 		
 	}
 	
@@ -108,7 +109,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$customer = $this->getResource('customer');
 		
-		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+		$cache =$this->getResource('cachemanager')->getCache('default');
 		if(!$acl = $cache->load('acl')) {
 			$acl = new Emerald_Acl(); 
 			Emerald_Acl::initialize($acl, $customer);

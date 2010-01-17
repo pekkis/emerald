@@ -86,7 +86,7 @@ class Emerald_Application_Customer
     public function getOptionCache()
     {
     	if(!$this->_optionCache) {
-    		$this->_optionCache = Zend_Registry::get('Emerald_CacheManager')->getCache('global');
+    		$this->_optionCache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
     	}
     	return $this->_optionCache;
     }
