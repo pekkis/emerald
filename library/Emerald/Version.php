@@ -4,7 +4,7 @@
  *
  * @package Emerald_Version
  * @author pekkis
- * @id $id$
+ * @id $Id$
  * 
  */
 final class Emerald_Version
