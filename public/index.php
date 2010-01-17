@@ -27,7 +27,7 @@ try {
 	->bootstrap('server')
 	->bootstrap('modules')
 	->bootstrap('customer')
-	->bootstrap('cachemanager')
+	->bootstrap('cachemanager')->bootstrap('cache')
 	->bootstrap('db')
 	->bootstrap('customerdb')
 	->bootstrap('router')

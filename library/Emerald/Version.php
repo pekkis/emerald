@@ -4,6 +4,8 @@
  *
  * @package Emerald_Version
  * @author pekkis
+ * @id $id$
+ * 
  */
 final class Emerald_Version
 {
@@ -23,5 +25,11 @@ final class Emerald_Version
     public static function compareVersion($version)
     {
         return version_compare($version, strtolower(self::VERSION));
+    }
+    
+    
+    public static function getVersionNumber()
+    {
+    	
     }
 }
