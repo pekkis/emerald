@@ -1,65 +1,118 @@
 <?php
 
 /**
- * Zend Framework
+ * Emerald
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlEntities.php 4135 2007-03-20 12:46:11Z darby $
+ * @category  Emerald
+ * @package   Emerald_Filter
+ * @license   New BSD License
  */
 
 
 /**
- * @see Zend_Filter_Interface
- */
-require_once 'Zend/Filter/Interface.php';
-
-
-/**
- * @category   Zend
- * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category Emerald
+ * @package  Emerald_Filter
+ * @license  New BSD License
  */
 class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
 {
     /**
-     * Corresponds to second htmlentities() argument
-     *
-     * @var integer
-     */
-    protected $_quoteStyle;
-
-    /**
-     * Corresponds to third htmlentities() argument
+     * Character set. Corresponds to third htmlspecialchars() argument
      *
      * @var string
      */
-    protected $_charSet;
+    protected $_charset = 'UTF-8';
 
     /**
-     * Sets filter options
+     * Double encode. Corresponds to second htmlspecialchars() argument
      *
-     * @param  integer $quoteStyle
-     * @param  string  $charSet
+     * @var boolean
+     */
+    protected $_doubleEncode = true;
+
+    /**
+     * Quote style. Corresponds to second htmlspecialchars() argument
+     *
+     * @var integer
+     */
+    protected $_quoteStyle = ENT_COMPAT;
+
+    /**
+     * Constructor
+     *
+     * @param  array $options
      * @return void
      */
-    public function __construct($quoteStyle = ENT_COMPAT, $charSet = 'UTF-8')
+    public function __construct(array $options = array())
     {
-        $this->_quoteStyle = $quoteStyle;
-        $this->_charSet    = $charSet;
+        if (!empty($options)) {
+            $this->setOptions($options);
+        }
+    }
+
+    /**
+     * Set options
+     *
+     * @param  array                           $options
+     * @return Emerald_Filter_HtmlSpecialChars
+     */
+    public function setOptions(array $options)
+    {
+        foreach ($options as $key => $value) {
+            $method = 'set' . ucfirst($key);
+
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the charset option
+     *
+     * @return string
+     */
+    public function getCharset()
+    {
+        return $this->_charset;
+    }
+
+    /**
+     * Sets the charset option
+     *
+     * @param  string                          $charset
+     * @return Emerald_Filter_HtmlSpecialChars
+     */
+    public function setCharset($charset)
+    {
+        $this->_charset = $charset;
+
+        return $this;
+    }
+
+    /**
+     * Returns the doubleEncode option
+     *
+     * @return boolean
+     */
+    public function getDoubleEncode()
+    {
+        return $this->_doubleEncode;
+    }
+
+    /**
+     * Sets the doubleEncode option
+     *
+     * @param  boolean                         $doubleEncode
+     * @return Emerald_Filter_HtmlSpecialChars
+     */
+    public function setDoubleEncode($doubleEncode)
+    {
+        $this->_doubleEncode = $doubleEncode;
+
+        return $this;
     }
 
     /**
@@ -75,51 +128,26 @@ class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
     /**
      * Sets the quoteStyle option
      *
-     * @param  integer $quoteStyle
-     * @return Zend_Filter_HtmlEntities Provides a fluent interface
+     * @param  integer                         $quoteStyle
+     * @return Emerald_Filter_HtmlSpecialChars
      */
     public function setQuoteStyle($quoteStyle)
     {
         $this->_quoteStyle = $quoteStyle;
-    }
 
-    /**
-     * Returns the charSet option
-     *
-     * @return string
-     */
-    public function getCharSet()
-    {
-        return $this->_charSet;
-    }
-
-    /**
-     * Sets the charSet option
-     *
-     * @param  string $charSet
-     * @return Zend_Filter_HtmlEntities Provides a fluent interface
-     */
-    public function setCharSet($charSet)
-    {
-        $this->_charSet = $charSet;
         return $this;
     }
 
     /**
      * Defined by Zend_Filter_Interface
      *
-     * Returns the string $value, converting characters to their corresponding HTML entity
-     * equivalents where they exist
+     * Convert special characters to HTML entities
      *
      * @param  string $value
      * @return string
      */
     public function filter($value)
     {
-        if(is_object($value)) {
-        	return $value;
-        }
-    	
-    	return htmlspecialchars((string) $value, $this->_quoteStyle, $this->_charSet);
+    	return htmlspecialchars((string) $value, $this->_quoteStyle, $this->_charset, $this->_doubleEncode);
     }
 }
