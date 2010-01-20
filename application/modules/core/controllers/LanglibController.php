@@ -30,8 +30,11 @@ class Core_LanglibController extends Emerald_Controller_Action
 			
 			$translate = Zend_Registry::get('Zend_Translate');
 		
+			$locale = new Zend_Locale($input->locale);
+			
 			$this->view->messages = $translate->getMessages($input->locale);
-			$this->view->locale = $input->locale; 
+			$this->view->locale = $input->locale;
+			$this->view->language = $locale->getLanguage(); 
 		} catch(Exception $e){
 			throw new Emerald_Exception('Translations not found');
 		}	

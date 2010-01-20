@@ -12,7 +12,9 @@ class Emerald_Controller_Plugin_AutoUpdater extends Zend_Controller_Plugin_Abstr
 	public function routeStartup()
 	{
 		$bootstrap = Zend_Controller_Front::getInstance()->getParam('bootstrap');
-		
+		$db = $bootstrap->getResource('db');
+		$customer = $bootstrap->getResource('customer');
+				
 		$currentVersion = Emerald_Version::getVersionNumber();
 		
 		$oldVersion = $bootstrap->getResource('customer')->getOption('version');
@@ -21,14 +23,26 @@ class Emerald_Controller_Plugin_AutoUpdater extends Zend_Controller_Plugin_Abstr
 		} 
 
 		if($oldVersion < $currentVersion) {
-		
-			switch ($oldVersion) {
-				case 0:
-					$this->_execute(0);
+
+			$db->beginTransaction();
+			try {
+	
+			
+				switch ($oldVersion) {
+					case 0:
+						$this->_execute(0);
+						
+								
 					
-							
+				}
+				$customer->setOption('version', Emerald_Version::getVersionNumber());
 				
+				$db->commit();
+				
+			} catch(Exception $e) {
+				$db->rollBack();
 			}
+				
 			
 		}		
 		
@@ -44,8 +58,6 @@ class Emerald_Controller_Plugin_AutoUpdater extends Zend_Controller_Plugin_Abstr
 		
 		$sqls = explode(';', $file);
 		
-		$db->beginTransaction();
-		try {
 			foreach($sqls as $sql) {
 				if($sql) {
 					$db->query($sql);
@@ -53,18 +65,7 @@ class Emerald_Controller_Plugin_AutoUpdater extends Zend_Controller_Plugin_Abstr
 				}
 			}		
 			
-			$customer->setOption('version', Emerald_Version::getVersionNumber());
 			
-			$db->commit();
-			
-		} catch(Exception $e) {
-			
-			echo $e;
-			
-			$db->rollBack();
-		}
-		
-		
 		
 		
 	}

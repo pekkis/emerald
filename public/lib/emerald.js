@@ -153,8 +153,9 @@ Emerald.Localization =
 {
 	_localizations: {},
 	_language: null,
+	_locale: null,
 	
-	init: function(language, data)
+	init: function(locale, language, data)
 	{
 		Emerald.Localization._language = language;
 		Emerald.Localization._localizations = data;
@@ -165,6 +166,7 @@ Emerald.Localization =
 	 */
 	getLanguage: function()
 	{
+		console.debug(Emerald.Localization._language);
 		return Emerald.Localization._language;
 	},
 	
