@@ -48,14 +48,12 @@ try {
 	$response = $front->getResponse();
 	
 	$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
-	$memcached = $cache->getBackend()->getMemcached();
-	
-	$request = $front->getRequest();
-	
-	
-	$cacheKey = $cache->getOption('cache_id_prefix') . $request->getServer('REQUEST_URI');
-	
-	$memcached->set($cacheKey, $response->__toString(), 100);
+	if($cache instanceof Emerald_Cache_Backend_Memcached) {
+		$memcached = $cache->getBackend()->getMemcached();
+		$request = $front->getRequest();
+		$cacheKey = $cache->getOption('cache_id_prefix') . $request->getServer('REQUEST_URI');
+		$memcached->set($cacheKey, $response->__toString(), 100);
+	}
 	
 	echo $response;	
 	

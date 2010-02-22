@@ -12,7 +12,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		Zend_Registry::set('Emerald_CacheManager', $cm);		
 
 		$opts = $this->getOptions();
-				
+		
 		$backend = $this->getGlobalBackend();
 		$globalCache = Zend_Cache::factory('Core', $backend, $opts['frontend']['default']['options']);		
 		
@@ -22,7 +22,9 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		Zend_Date::setOptions(array('cache' => $globalCache));
 		Zend_Translate::setCache($globalCache);
 		Zend_Locale::setCache($globalCache);	
-
+		
+		
+		
 		return $cm;				
 	}
 	

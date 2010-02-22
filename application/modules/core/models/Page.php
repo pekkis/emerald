@@ -79,6 +79,12 @@ class Core_Model_Page
 			$page->id = null;
 		}
 		
+		if(!is_numeric($page->global_id)) {
+			$gpm = new Core_Model_DbTable_PageGlobal();
+			$gp = $gpm->insert(array());
+			$page->global_id = $gp;			
+		}
+		
 		$tbl = $this->getTable();
 		
 		$row = $tbl->find($page->id)->current();

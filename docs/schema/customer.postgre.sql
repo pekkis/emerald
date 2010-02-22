@@ -136,12 +136,24 @@ CREATE TABLE "locale_option" (
 
 CREATE SEQUENCE news_channel_id_seq;
 
+
+CREATE SEQUENCE page_global_id_seq;
+
+CREATE TABLE page_global
+(
+id integer NOT NULL DEFAULT NEXTVAL('page_global_id_seq'),
+PRIMARY KEY(id)
+);
+
+DROP TABLE IF EXISTS page;
+
 CREATE SEQUENCE page_id_seq;
 
 CREATE TABLE "page" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('page_id_seq'),
-  "parent_id" int  DEFAULT NULL,
+  "id" int NOT NULL DEFAULT NEXTVAL('page_id_seq'),
+  "global_id" int NOT NULL,
   "locale" varchar(6) NOT NULL,
+  "parent_id" int  DEFAULT NULL,
   "order_id" smallint NOT NULL DEFAULT '0',
   "layout" varchar(255) DEFAULT 'Default',
   "title" varchar(255) NOT NULL,
@@ -153,6 +165,8 @@ CREATE TABLE "page" (
   "status" smallint  NOT NULL DEFAULT '0',
   PRIMARY KEY ("id"),
   UNIQUE ("parent_id","title"),
+  UNIQUE ("global_id","locale"),
+  FOREIGN KEY ("global_id") REFERENCES "page_global" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY ("parent_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY ("shard_id") REFERENCES "shard" ("id") ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY ("locale") REFERENCES "locale" ("locale") ON DELETE NO ACTION ON UPDATE CASCADE

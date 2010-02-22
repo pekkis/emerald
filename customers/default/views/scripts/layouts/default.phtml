@@ -89,6 +89,10 @@ $this->headTitle()->setSeparator(' - ');
 </div>
 
 <div id="footer">
+	
+	<?php echo $this->languageSwitcher(array('page' => $this->navigation()->findActive($this->navigation()->getContainer(), 0, 0)))?>
+	
+	
 	<p id="legal">Copyright 2009 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
 </div>
 

@@ -21,8 +21,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$client->setMethod(Zend_Http_Client::POST);
 		$client->setParameterPost('admin', 'true');
 		
-		
-		die();
 	}
 	
 	
