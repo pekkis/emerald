@@ -27,7 +27,7 @@ try {
 	->bootstrap('server')
 	->bootstrap('modules')
 	->bootstrap('customer')
-	->bootstrap('cachemanager')->bootstrap('cache')
+	->bootstrap('cache')
 	->bootstrap('db')
 	->bootstrap('customerdb')
 	->bootstrap('router')
@@ -42,8 +42,22 @@ try {
 	->bootstrap('filelibplugins')
 	->bootstrap('misc');
 		
-	$application->run();
+	$lus = $application->run();
 	
+	$front = Zend_Controller_Front::getInstance();
+	$response = $front->getResponse();
+	
+	$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
+	$memcached = $cache->getBackend()->getMemcached();
+	
+	$request = $front->getRequest();
+	
+	
+	$cacheKey = $cache->getOption('cache_id_prefix') . $request->getServer('REQUEST_URI');
+	
+	$memcached->set($cacheKey, $response->__toString(), 100);
+	
+	echo $response;	
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 

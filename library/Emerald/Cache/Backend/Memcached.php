@@ -463,5 +463,11 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
             'get_list' => false
         );
     }
+    
+    
+    public function getMemcached()
+    {
+    	return $this->_memcache;
+    }
 
 }
