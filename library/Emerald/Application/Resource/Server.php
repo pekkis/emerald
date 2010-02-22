@@ -1,5 +1,5 @@
 <?php
-class Emerald_Application_Resource_Server extends Zend_Application_Resource_Db
+class Emerald_Application_Resource_Server extends Zend_Application_Resource_ResourceAbstract
 {
 	
 	public function init()

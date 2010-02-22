@@ -78,37 +78,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 	
 	
-	protected function _initCustomer()
-	{
-		$this->bootstrap('frontcontroller');
-		
-		$path = APPLICATION_PATH . '/../customers/' . $_SERVER['HTTP_HOST'];
-		if(is_dir($path)) {
-			$customer = new Emerald_Application_Customer(realpath($path));
-		}
-		
-		if(!$customer) {
-			throw new Emerald_Exception("Customer not found");
-		}
-		
-		$front = $this->getResource('frontcontroller');
-		
-		$config = $customer->getConfig();
-		
-		$config = $config->toArray();
-		
-		$this->addOptions($config);
-		
-		try {
-		   	$front->addModuleDirectory($customer->getRoot() . '/modules');	
-	    } catch(Exception $e) {
-	       	// There aint no customer specific modules
-	    }
-		
-	    Zend_Registry::set('Emerald_Customer', $customer);
-	    
-		return $customer;
-	}
+	
 	
 	public function _initAcl()
 	{

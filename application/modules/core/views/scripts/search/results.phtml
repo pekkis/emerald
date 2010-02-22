@@ -1,0 +1,21 @@
+<form method="get" action="/<?php echo $this->page->beautifurl; ?>">
+
+<input name="a" type="hidden" value="results" />
+
+<input name="q" type="text" size="50" value="<?php echo $this->q; ?>" />
+
+<button name="btnX" type="submit">Hae</button>
+
+</form>
+
+<h2>Hakusi tulokset</h2>
+
+<?php if(!$this->results): ?>
+Iso kyynel! Haullasi ei juuri nyt löytynyt tuloksia.
+<?php else: ?>
+
+<?php foreach($this->results as $result): ?>
+<h3><a class="eviLink" href="<?php echo $result->path; ?>"><?php echo $result->title; ?></a></h3>
+<?php endforeach; ?>
+
+<?php endif; ?>
