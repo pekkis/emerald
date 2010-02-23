@@ -1,4 +1,6 @@
 <?php 
+$start = microtime(true);
+
 set_include_path(realpath(dirname(__FILE__) . '/../library'));
 
 // Define path to application directory
@@ -12,8 +14,22 @@ defined('APPLICATION_ENV')
               (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV')
                                          : 'production'));
 
+function _peksu_autoload($what) {
+
+	require_once str_replace('_', '/', $what) . '.php';
+	
+	
+}
+
+// require_once "Zend/Loader/Autoloader.php";
+// Zend_Loader_Autoloader::getInstance()->setDefaultAutoloader('_peksu_autoload');
+
+                                         
 /** Zend_Application */
 require_once 'Zend/Application.php';
+
+
+
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(
@@ -56,6 +72,12 @@ try {
 	}
 	
 	echo $response;	
+	
+	
+	$end = microtime(true) - $start;
+	
+
+	echo $end;
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 

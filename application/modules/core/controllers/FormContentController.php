@@ -20,6 +20,7 @@ class Core_FormContentController extends Emerald_Controller_Action
 		);
 						
 		try {
+			
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 				
