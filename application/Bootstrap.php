@@ -35,33 +35,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 				
 		// $ra = new Emerald_Filelib_Plugin_RandomizeName(array('Prefix' => 'xoo'));
 		// $filelib->addPlugin($ra);
-		
-		$thumb = new Emerald_Filelib_Plugin_Image_Version(
-			array(
-				'ImageMagickOptions' => array(
-				'ImageFormat' => 'png',
-				),
-				'Extension' => 'png',
-				'Identifier' => 'thumb',
-				'ScaleOptions' => array('method' => 'scaleImage', 640, 480, true)
-			)
-		);
-		$filelib->addPlugin($thumb);
-
-		$mini = new Emerald_Filelib_Plugin_Image_Version(
-			array(
-				'ImageMagickOptions' => array(
-				'ImageFormat' => 'png',
-				),
-				'Extension' => 'png',
-				'Identifier' => 'mini',
-				'ScaleOptions' => array('method' => 'thumbnailImage', 200, 200),
-			)
-		);
-		$filelib->addPlugin($mini);
 		                              
-		$flashify = new Emerald_Filelib_Plugin_Video_Flashify(array('Extension' => 'flv', 'Identifier' => 'flash'));
-		$filelib->addPlugin($flashify);
+		
 		
 		$aclHandler = new Emerald_Filelib_Acl_Zend();
 		$aclHandler->setAcl($acl);
@@ -73,6 +48,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$filelib->setFileItemClass("Core_Model_FileItem");
 		$filelib->setFolderItemClass("Core_Model_FolderItem");		
+		
+						
+		
+		
 		
     }
 	

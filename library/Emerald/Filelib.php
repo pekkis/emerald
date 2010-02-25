@@ -75,17 +75,21 @@ class Emerald_Filelib
 
 	
 	/**
-	 * @var Fileitem class
+	 * @var string Fileitem class
 	 */
 	private $_fileItemClass = 'Emerald_Filelib_FileItem';
 
 	
 	/**
-	 * @var Folderitem class
+	 * @var string Folderitem class
 	 */
 	private $_folderItemClass = 'Emerald_Filelib_FolderItem';
 		
-	
+		
+	/**
+	 * @var array Profiles
+	 */
+	private $_profiles = array();
 	
 	public function __construct($options = array())
 	{
@@ -135,6 +139,26 @@ class Emerald_Filelib
 	{
 		return $this->_folderItemClass;
 	}
+	
+	
+	/**
+	 * Adds a file profile
+	 * 
+	 * @param string $name Name
+	 * @param string $description Description
+	 */
+	public function addProfile($name, $description) {
+		$this->_profiles[$name] = $description;
+	}
+	
+	/**
+	 * @return array Returns all file profiles
+	 */
+	public function getProfiles()
+	{
+		return $this->_profiles;
+	}
+	
 	
 	
 	
@@ -255,17 +279,22 @@ class Emerald_Filelib
 	/**
 	 * Adds a file version
 	 * 
+	 * @param string $profile string File profile
 	 * @param string $fileType string File type
 	 * @param string $versionIdentifier Version identifier
 	 * @param object $versionProvider Version provider reference
 	 * @return Emerald_Filelib Filelib
 	 */
-	public function addFileVersion($fileType, $versionIdentifier, $versionProvider)
+	public function addFileVersion($profile, $fileType, $versionIdentifier, $versionProvider)
 	{
-		if(!isset($this->_fileVersions[$fileType])) {
-			$this->_fileVersions[$fileType] = array();
+		if(!isset($this->_fileVersions[$profile])) {
+			$this->_fileVersions[$profile] = array();
+		}
+		
+		if(!isset($this->_fileVersions[$profile][$fileType])) {
+			$this->_fileVersions[$profile][$fileType] = array();
 		}		
-		$this->_fileVersions[$fileType][$versionIdentifier] = $versionProvider;
+		$this->_fileVersions[$profile][$fileType][$versionIdentifier] = $versionProvider;
 
 		return $this;
 	}
@@ -277,14 +306,17 @@ class Emerald_Filelib
 	 * @param Emerald_Filelib_FileItem|string $fileType File item or file type
 	 * @return array Array of provided versions
 	 */
-	public function getFileVersions($fileType)
+	public function getFileVersions(Core_Model_FileItem $file)
 	{
-		if($fileType instanceof Emerald_Filelib_FileItem) {
-			$fileType = $fileType->getType();
-		}
+		$fileType = $file->getType();
+		$profile = $file->profile;
 		
-		return array_keys($this->_fileVersions[$fileType]);
+		if(!isset($this->_fileVersions[$profile][$fileType])) {
+			$this->_fileVersions[$profile][$fileType] = array();
+		}
 				
+		return array_keys($this->_fileVersions[$profile][$fileType]);
+						
 	}
 	
 	
@@ -696,7 +728,7 @@ class Emerald_Filelib
 	 * @return Emerald_Filelib_FileItem
 	 * @throws Emerald_Filelib_Exception
 	 */
-	public function upload($upload, $folder)
+	public function upload($upload, $folder, $profile = 'default')
 	{
 		if(!$upload instanceof Emerald_Filelib_FileUpload) {
 			$upload = $this->getUpload($upload);
@@ -714,7 +746,7 @@ class Emerald_Filelib
 			$upload = $plugin->beforeUpload($upload);
 		}					
 				
-		$file = $this->getBackend()->upload($upload, $folder);
+		$file = $this->getBackend()->upload($upload, $folder, $profile);
 		$file->setFilelib($this);
 
 		if(!$file) {
@@ -825,7 +857,8 @@ class Emerald_Filelib
 	public function fileHasVersion(Emerald_Filelib_FileItem $file, $version)
 	{
 		$filetype = $this->getFileType($file);
-		if(isset($this->_fileVersions[$filetype][$version])) {
+		if(isset($this->_fileVersions[$file->profile][$filetype][$version])) {
+			
 			return true;
 		}
 		return false;
@@ -843,7 +876,7 @@ class Emerald_Filelib
 	public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
 	{
 		$filetype = $this->getFileType($file);
-		return $this->_fileVersions[$filetype][$version];
+		return $this->_fileVersions[$file->profile][$filetype][$version];
 	}
 	
 	
@@ -886,14 +919,15 @@ class Emerald_Filelib
 	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
 	{
 		$path = $this->renderPath($file, $opts);
-		
+				
 		if($this->getAcl()->isAnonymousReadable($file)) {
 			return $response->setRedirect($path, 302);
 		}
-		
+						
 		if(!$this->getAcl()->isReadable($file)) {
 			throw new Emerald_Filelib_Exception('Not readable', 404);
 		}
+		
 		
 		
 		if(isset($opts['download'])) {
@@ -905,7 +939,10 @@ class Emerald_Filelib
 		}
 
 		$response->setHeader('Content-Type', $file->mimetype);
-						
+
+		
+		
+		
 		readfile($path);
 		
 	}

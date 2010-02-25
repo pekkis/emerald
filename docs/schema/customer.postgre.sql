@@ -101,6 +101,7 @@ CREATE TABLE "filelib_file" (
   "id" int  NOT NULL DEFAULT NEXTVAL('filelib_file_id_seq'),
   "folder_id" int  NOT NULL,
   "mimetype" varchar(255) NOT NULL,
+  "profile" varchar(255) NOT NULL DEFAULT 'default',
   "size" int DEFAULT NULL,
   "name" varchar(255) NOT NULL,
   "link" varchar(1000) DEFAULT NULL,

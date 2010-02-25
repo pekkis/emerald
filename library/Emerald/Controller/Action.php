@@ -25,6 +25,11 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	}
 	
 	
+	/**
+	 * Returns current user
+	 * 
+	 * @return Core_Model_UserItem
+	 */
 	public function getCurrentUser()
 	{
 		return $this->getInvokeArg('bootstrap')->getResource('user');

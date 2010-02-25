@@ -57,10 +57,15 @@ try {
 	->bootstrap('filelib')
 	->bootstrap('filelibplugins')
 	->bootstrap('misc');
-		
+
+	$front = Zend_Controller_Front::getInstance();
+	
+	// $front->getDispatcher()->setParam('useDefaultControllerAlways', true);
+	
+	
 	$lus = $application->run();
 	
-	$front = Zend_Controller_Front::getInstance();
+	
 	$response = $front->getResponse();
 	
 	$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
@@ -77,7 +82,7 @@ try {
 	$end = microtime(true) - $start;
 	
 
-	echo $end;
+	// echo $end;
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 

@@ -5,7 +5,13 @@ class Filelib_FileController extends Zend_Controller_Action
 	public function renderAction()
 	{
 		$fl = Zend_Registry::get('Emerald_Filelib');
+		
+		
+		
 		$file = $fl->findFile($this->_getParam('id'));
+		
+		
+		
 		
 		$version = $this->_getParam('version');
 
@@ -20,8 +26,9 @@ class Filelib_FileController extends Zend_Controller_Action
 		if($download) {
 			$opts['download'] = true;
 		}
-				
+			
 		$file->render($this->getResponse(), $opts);
+
 		
 		
 		$this->_helper->layout->disableLayout();

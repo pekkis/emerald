@@ -21,11 +21,25 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	 */
 	protected $_providesFor = array();
 	
+	protected $_profiles = array();
+	
 	
 	/**
 	 * @var File extension for the version
 	 */
 	protected $_extension;
+	
+	
+	public function setProfiles(array $profiles)
+	{
+		$this->_profiles = $profiles;
+	}
+	
+	public function getProfiles()
+	{
+		return $this->_profiles;
+	}
+	
 	
 	
 	public function afterUpload(Emerald_Filelib_FileItem $file)
@@ -162,8 +176,15 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	 */
 	public function providesFor(Emerald_Filelib_FileItem $file)
 	{
-		return (in_array($file->getType(), $this->getProvidesFor()));
+		if(in_array($file->getType(), $this->getProvidesFor())) {
+			if(in_array($file->profile, $this->getProfiles())) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
+	
 	
 	
 	/**
@@ -202,9 +223,11 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 			throw new Emerald_Filelib_Exception('Version plugin must have a file extension');
 		}
 		
-
+		
 		foreach($this->getProvidesFor() as $fileType) {
-			$this->getFilelib()->addFileVersion($fileType, $this->getIdentifier(), $this);
+			foreach($this->getProfiles() as $profile) {
+				$this->getFilelib()->addFileVersion($profile, $fileType, $this->getIdentifier(), $this);
+			}
 		}
 		
 	}

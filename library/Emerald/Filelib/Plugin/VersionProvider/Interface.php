@@ -8,6 +8,12 @@
  */
 interface Emerald_Filelib_Plugin_VersionProvider_Interface
 {
+	
+	public function setProfiles(array $profiles);
+	
+	public function getProfiles();
+		
+	
 	/**
 	 * Sets file types for this version plugin.
 	 * 

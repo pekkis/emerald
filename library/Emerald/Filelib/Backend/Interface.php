@@ -70,7 +70,7 @@ interface Emerald_Filelib_Backend_Interface
 	 * @return Emerald_Filelib_FileItem File item
 	 * @throws Emerald_Filelib_Exception When fails
 	 */
-	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder);
+	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, $profile = 'default');
 		
 	/**
 	 * Creates a folder

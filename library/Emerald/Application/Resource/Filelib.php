@@ -40,6 +40,29 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 			
 		}
 
+		if(!isset($options['profiles'])) {
+			$options['profiles'] = array('default' => 'Default profile');
+		}
+
+		foreach($options['profiles'] as $name => $description) {
+			$this->_filelib->addProfile($name, $description);
+		}
+		
+		if(isset($options['plugins'])) {
+			
+			foreach($options['plugins'] as $plugin) {
+				
+				if(!isset($plugin['profiles'])) {
+					$plugin['profiles'] = array_keys($filelib->getProfiles());
+				}
+				
+				$plugin = new $plugin['type']($plugin);
+				
+				$this->_filelib->addPlugin($plugin);
+			}
+			
+		}
+		
 		return $this->_filelib;
 	}
 

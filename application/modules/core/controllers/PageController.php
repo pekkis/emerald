@@ -46,6 +46,14 @@ class Core_PageController extends Emerald_Controller_Action
 					
 			if($page) {
 				
+				$locale = $page->getLocaleItem();
+				if(!$locale->getOption('open')) {
+					$user = $this->getCurrentUser();
+					if(!$user->inGroup(Core_Model_Group::GROUP_ROOT)) {
+						throw new Emerald_Exception('Not found', 404);	
+					}
+				} 
+				
 				$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
 
 				if(!$readable) {

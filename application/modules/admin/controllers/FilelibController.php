@@ -46,7 +46,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 		if($form->isValid($this->getRequest()->getPost())) {
 			$folder = $filelib->findFolder($form->folder_id->getValue());
 			$form->file->receive();
-			$file = $filelib->upload($form->file->getFileName(), $folder);
+			$file = $filelib->upload($form->file->getFileName(), $folder, $form->profile->getValue());
 
 			$this->view->success = true;
 			$this->view->folder_id = $form->folder_id->getValue();

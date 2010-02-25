@@ -187,7 +187,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		
 	}
 	
-	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder)
+	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, $profile = 'default')
 	{
 		$fileItemClass = $this->getFilelib()->getFileItemClass();
 		
@@ -200,7 +200,8 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			$file->folder_id = $folder->id;
 			$file->mimetype = $upload->getMimeType();
 			$file->size = $upload->getSize();
-			$file->name = $upload->getOverrideFilename();	
+			$file->name = $upload->getOverrideFilename();
+			$file->profile = $profile;	
 			
 			$file->save();
 			

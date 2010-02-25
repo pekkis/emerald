@@ -18,15 +18,18 @@ class Admin_Form_LocaleOptions extends ZendX_JQuery_Form
 		$titleElm->setRequired(false);
 		$titleElm->setAllowEmpty(true);
 		
-
 		$startPageElm = new Zend_Form_Element_Select('page_start', array('label' => 'Homepage'));
 		$startPageElm->setRequired(true);
 		$startPageElm->setAllowEmpty(false);
-				
+		
+		$openElm = new Zend_Form_Element_Checkbox('open', array('label' => 'Open'));
+		$openElm->setRequired(false);
+		$openElm->setAllowEmpty(true);
+						
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($localeElm, $titleElm, $startPageElm, $submitElm));
+		$this->addElements(array($localeElm, $titleElm, $startPageElm, $openElm, $submitElm));
 		
 	}
 	
