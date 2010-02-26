@@ -34,10 +34,16 @@ class Emerald_Application_Customer
 	
 	private $_options;
 		
+	private $_identifier;
 	
 	public function __construct($root)
 	{
 		$this->_root = $root;
+		
+		$pinfo = pathinfo($root);
+		$this->_identifier = $pinfo['basename'];
+					
+				
 		$this->_config = new Zend_Config_Ini($this->getRoot() . '/configs/application.ini');
         // $this->_db = Zend_Db::factory('PDO_MYSQL', $this->_config->db->toArray());
 	}
@@ -158,6 +164,18 @@ class Emerald_Application_Customer
     	return $layout;
     }
     
+    
+    
+    public function getIdentifier()
+    {
+    	return $this->_identifier;
+    }
+    
+    
+    public function isRegistered()
+    {
+    	return (bool) $this->getOption('registered');
+    }
     
     
 }
