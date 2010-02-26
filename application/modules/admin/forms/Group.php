@@ -7,7 +7,7 @@ class Admin_Form_Group extends ZendX_JQuery_Form
 				
 		
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/admin/group/save");
+		$this->setAction(URL_BASE . "/admin/group/save");
 		$this->setAttrib('class', 'emerald-json');
 
 		$idElm = new Zend_Form_Element_Hidden('id');

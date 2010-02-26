@@ -5,7 +5,7 @@ $(document).ready(function() {
 	});
 	
 	$("form").jsonSubmit({
-		success: function(msg) { location = '/admin/form/edit/id/' + msg.form_id; }		
+		success: function(msg) { location = Emerald.baseUrl + '/admin/form/edit/id/' + msg.form_id; }		
 	});
 	
 	

@@ -4,11 +4,11 @@ $this->headMeta()->appendHttpEquiv("Content-Type", "text/html; charset=UTF-8");
 $this->headMeta()->appendName("Generator", "Emerald");
 $this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
 $this->jQuery()
-	->addJavascriptFile("/lib/emerald.js");
+	->addJavascriptFile(URL_BASE . "/lib/emerald.js");
 
-$this->headLink()->appendStylesheet('/data/customer.css');
+$this->headLink()->appendStylesheet(URL_BASE . '/data/customer.css');
 
-$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+$this->headScript()->prependFile(URL_BASE . '/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
 
 $this->headMeta()->appendName("description", "Content management built upon Zend Framework.");
 $this->headMeta()->appendName("Author", "Mikko Forsström");
@@ -25,6 +25,13 @@ $this->headTitle()->setSeparator(' - ');
 <?php echo $this->headMeta(); ?>
 <?php print $this->headTitle(); ?>
 <?php echo $this->headLink(); ?>
+<?php echo $this->jQuery(); ?>
+<?php echo $this->headScript(); ?>
+
+<script type="text/javascript">
+Emerald.baseUrl = '<?php echo URL_BASE; ?>';
+</script>
+
 </head>
 
 <body>
@@ -32,7 +39,7 @@ $this->headTitle()->setSeparator(' - ');
 
 <div id="header">
 	<div id="logo">
-		<h1><a href="/">Emerald<sup></sup></a></h1>
+		<h1><a href="<?php echo URL_BASE; ?>/">Emerald<sup></sup></a></h1>
 		<h2>Content management built upon Zend Framework</h2>
 	</div>
 	<div id="menu">

@@ -50,7 +50,7 @@ class Admin_SitemapController extends Emerald_Controller_Action
 		
 		$navimodel = new Core_Model_Navigation();
 		
-		$navigation = $navimodel->getNavigation()->findBy('uri', '/' . $locale->locale);
+		$navigation = $navimodel->getNavigation()->findBy('uri', URL_BASE . '/' . $locale->locale);
 
 		$navigation = new Zend_Navigation(array($navigation));
 		

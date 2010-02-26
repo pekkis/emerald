@@ -5,7 +5,7 @@ class Core_Form_NewsChannel extends ZendX_JQuery_Form
 	public function init()
 	{
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/core/news-channel/save");
+		$this->setAction(URL_BASE . "/core/news-channel/save");
 		
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));

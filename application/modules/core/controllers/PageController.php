@@ -76,11 +76,9 @@ class Core_PageController extends Emerald_Controller_Action
 				$naviModel = new Core_Model_Navigation();
 				$navi = $naviModel->getNavigation();
 
-				$navi = $navi->findBy('uri', '/' . $page->locale);
+				$navi = $navi->findBy('uri', URL_BASE . '/' . $page->locale);
 				
-
-				
-				$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
+				$active = $navi->findBy('uri', URL_BASE . '/' . $page->beautifurl, false);
 				if($active) {
 					$active->setActive(true);
 				}

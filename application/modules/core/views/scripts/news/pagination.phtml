@@ -5,7 +5,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- First page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="/<?php echo $this->page->beautifurl; ?>?page=<?php echo $this->first; ?>">
+  <a href="<?php echo URL_BASE . '/'. $this->page->beautifurl; ?>?page=<?php echo $this->first; ?>">
     <?php echo $this->translate('First'); ?>
   </a> |
 <?php else: ?>
@@ -14,7 +14,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="/<?php echo $this->page->beautifurl; ?>?page=<?php echo $this->previous; ?>">
+  <a href="<?php echo URL_BASE . '/'. $this->page->beautifurl; ?>?page=<?php echo $this->previous; ?>">
     &lt; <?php echo $this->translate('Previous'); ?>
   </a> |
 <?php else: ?>
@@ -23,7 +23,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="/<?php echo $this->page->beautifurl; ?>?page=<?php echo $this->next; ?>">
+  <a href="<?php echo URL_BASE . '/'. $this->page->beautifurl; ?>?page=<?php echo $this->next; ?>">
     <?php echo $this->translate('Next'); ?> &gt;
   </a> |
 <?php else: ?>
@@ -32,7 +32,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- Last page link -->
 <?php if (isset($this->next)): ?>
-  <a href="/<?php echo $this->page->beautifurl; ?>?page=<?php echo $this->last; ?>">
+  <a href="<?php echo URL_BASE . '/'. $this->page->beautifurl; ?>?page=<?php echo $this->last; ?>">
     <?php echo $this->translate('Last'); ?>
   </a>
 <?php else: ?>

@@ -1,4 +1,6 @@
-<?php if($this->writable) { $this->headScript()->appendFile("/lib/core/news/index.js"); } ?>
+<?php if($this->writable) {
+	$this->headScript()->appendFile(URL_BASE . "/lib/core/news/index.js");
+} ?>
 
 <div class="news-channel" id="news-channel-page-<?php echo $this->channel->page_id; ?>">
 

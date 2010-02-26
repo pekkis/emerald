@@ -34,12 +34,12 @@ class Core_MenuController extends Emerald_Controller_Action
 						
 			if($input->page_id) {
 				$page = $this->_pageFromPageId($input->page_id);
-				$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
+				$active = $navi->findBy('uri', URL_BASE . '/' . $page->beautifurl, false);
 				if($active) {
 					$active->setActive(true);
 				}
 				
-				$localeMenu = $navi->findBy('uri', '/' . $page->locale);
+				$localeMenu = $navi->findBy('uri', URL_BASE . '/' . $page->locale);
 				$this->view->menu = $localeMenu;
 			} else {
 				$this->view->menu = $navi;
@@ -74,12 +74,12 @@ class Core_MenuController extends Emerald_Controller_Action
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
 						
-			$active = $navi->findBy('uri', '/' . $page->beautifurl, false);
+			$active = $navi->findBy('uri', URL_BASE . '/' . $page->beautifurl, false);
 			if($active) {
 				$active->setActive(true);
 			}
 			
-			$localeMenu = $navi->findBy('uri', '/' . $page->locale);
+			$localeMenu = $navi->findBy('uri', URL_BASE . '/' . $page->locale);
 			$this->view->menu = $localeMenu;
 			
 			$this->_helper->viewRenderer->setResponseSegment($this->_getParam('rs'));

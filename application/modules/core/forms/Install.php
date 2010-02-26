@@ -6,7 +6,7 @@ class Core_Form_Install extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/core/install/post");
+		$this->setAction(URL_BASE . "/core/install/post");
 		
 		$emailElm = new Zend_Form_Element_Text('email', array('label' => 'E-mail', 'class' => 'w66'));
 		$emailElm->addValidator(new Zend_Validate_StringLength(0, 255));

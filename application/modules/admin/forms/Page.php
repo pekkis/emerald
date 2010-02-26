@@ -6,7 +6,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/admin/page/save");
+		$this->setAction(URL_BASE . "/admin/page/save");
 
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));
@@ -106,7 +106,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$naviModel = new Core_Model_Navigation();
 		$navi = $naviModel->getNavigation();
 						
-		$navi = $navi->findBy("uri", "/" . $locale);
+		$navi = $navi->findBy("uri", URL_BASE . "/" . $locale);
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		
 		$opts = array();

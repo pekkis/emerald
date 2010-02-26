@@ -7,7 +7,7 @@ class Admin_Form_LocaleOptions extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/admin/options/save-locale/format/json");
+		$this->setAction(URL_BASE . "/admin/options/save-locale/format/json");
 
 		$localeElm = new Zend_Form_Element_Hidden('locale');
 		$localeElm->setDecorators(array('ViewHelper'));
@@ -39,7 +39,7 @@ class Admin_Form_LocaleOptions extends ZendX_JQuery_Form
 	{
 		$naviModel = new Core_Model_Navigation();
 		$navi = $naviModel->getNavigation();
-		$navi = $navi->findBy("uri", "/" . $locale);
+		$navi = $navi->findBy("uri", URL_BASE . "/" . $locale);
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		$opts = array();
 		$opts[''] = $locale; 

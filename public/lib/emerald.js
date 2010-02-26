@@ -1,4 +1,7 @@
 Emerald = { };
+
+Emerald.baseUrl = '';
+
 /**
  * Emerald.Popup handles all things popup-related.
  * 
@@ -71,14 +74,14 @@ Emerald.TinyMCE = {
 		options: function(options)
 		{
 			var defaultOptions = {
-				script_url : '/lib/tinymce/jscripts/tiny_mce/tiny_mce.js',
+				script_url : Emerald.baseUrl + '/lib/tinymce/jscripts/tiny_mce/tiny_mce.js',
 				width: "100%",
 				theme : "advanced",
 				file_browser_callback : Emerald.FileManager.open,
 				convert_urls: true,
 				relative_urls: false,
 				content_css: "/data/editor.css",
-				external_link_list_url : "/admin/sitemap/link-list/format/js",
+				external_link_list_url : Emerald.baseUrl + "/admin/sitemap/link-list/format/js",
 				language: Emerald.Localization.getLanguage(),
 				plugins: "table",
 				theme_advanced_buttons2_add : "tablecontrols"

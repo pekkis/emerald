@@ -1,7 +1,7 @@
 <?php 
 $this->headTitle()->append('Locales');
-$this->headScript()->appendFile('/lib/admin/locale/index.js');
-$this->headLink()->appendStylesheet('/lib/admin/locale/index.css');
+$this->headScript()->appendFile(URL_BASE . '/lib/admin/locale/index.js');
+$this->headLink()->appendStylesheet(URL_BASE . '/lib/admin/locale/index.css');
 ?>
 
 <h1><?php echo $this->translate('Locales'); ?></h1>

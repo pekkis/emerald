@@ -7,7 +7,7 @@ class Admin_Form_ApplicationOptions extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction("/admin/options/save-application/format/json");
+		$this->setAction(URL_BASE . "/admin/options/save-application/format/json");
 		
 		
 		

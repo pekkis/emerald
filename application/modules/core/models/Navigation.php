@@ -58,7 +58,7 @@ class Core_Model_Navigation
 		$route = implode(";", $route);
 		$beautifurl = Emerald_Beautifurl::fromArray($beautifurl, $page->locale);
 		
-		$navi->url = "/" . $beautifurl;
+		$navi->url = URL_BASE . "/" . $beautifurl;
 
 		$this->getPageModel()->getTable()->update(
 			array('path' => $route, 'beautifurl' => $beautifurl),
@@ -115,7 +115,7 @@ class Core_Model_Navigation
 					
 					$page = new Zend_Navigation_Page_Uri(
 						array(
-							'uri' => '/' . $locale->locale,
+							'uri' => URL_BASE . '/' . $locale->locale,
 							'label' => $locale->locale,
 							'locale' => $locale->locale,
 						)
@@ -157,7 +157,7 @@ class Core_Model_Navigation
 			// recurse
 			$page = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => '/' . $pageRow->beautifurl,
+					'uri' => URL_BASE . '/' . $pageRow->beautifurl,
 					'label' => $pageRow->title,
 					'locale' => $pageRow->locale,
 					'id' => $pageRow->id,
@@ -189,7 +189,7 @@ class Core_Model_Navigation
 			// recurse
 			$page = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => '/' . $pageRow->beautifurl,
+					'uri' => URL_BASE . '/' . $pageRow->beautifurl,
 					'label' => $pageRow->title,
 					'locale' => $pageRow->locale,
 					'id' => $pageRow->id,

@@ -1,4 +1,5 @@
 <?php 
+
 $start = microtime(true);
 
 set_include_path(realpath(dirname(__FILE__) . '/../library'));
@@ -37,6 +38,8 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 
+
+
 try {
 
 	$application->getBootstrap()
@@ -62,8 +65,11 @@ try {
 	
 	// $front->getDispatcher()->setParam('useDefaultControllerAlways', true);
 	
+
 	
 	$lus = $application->run();
+	
+	
 	
 	
 	$response = $front->getResponse();

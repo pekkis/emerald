@@ -14,12 +14,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->getResource('view')->doctype("XHTML1_TRANSITIONAL");
 		// Zend_Registry::set('Emerald_CacheManager', $this->getResource('cachemanager'));
 		
-		$this->getResource('frontcontroller')->returnResponse(true);
+		// $this->getResource('frontcontroller')->returnResponse(true);
+
+		$front = $this->getResource('frontcontroller');
 		
-		$client = new Zend_Http_Client();
+		define('URL_BASE', $front->getBaseUrl());		
 		
-		$client->setMethod(Zend_Http_Client::POST);
-		$client->setParameterPost('admin', 'true');
 		
 	}
 	

@@ -7,21 +7,26 @@
 		$this->headTitle()->setSeparator(' - ')->append("Emerald");
 		$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
 		
-		$this->jQuery()->addJavascriptFile("/lib/emerald.js");
+		$this->jQuery()->addJavascriptFile(URL_BASE ."/lib/emerald.js");
 		$this->jQuery()->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
-		$this->headLink()->prependStylesheet('/lib/admin/main.css');
+		$this->headLink()->prependStylesheet(URL_BASE . '/lib/admin/main.css');
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssbase/base-min.css');
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css');
-		$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+		$this->headScript()->prependFile(URL_BASE .'/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
 		?>
 		
 		<?php echo $this->headMeta(); ?>
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->jQuery(); ?>
 		<?php echo $this->headScript(); ?>
-		
-		
+				
 		<?php echo $this->headTitle(); ?>
+		
+		<script type="text/javascript">
+		Emerald.baseUrl = '<?php echo URL_BASE; ?>';
+		</script>
+				
+		
 	</head>
 
 	<body id="plain">
