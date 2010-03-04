@@ -3,11 +3,11 @@
 	<head>
 		<?php
 		$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
-		$this->headLink(array('href' => '/lib/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
+		$this->headLink(array('href' => URL_BASE . '/lib/core/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
 		$this->headTitle()->setSeparator(' - ')->append("Emerald");
 		$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
 		
-		$this->jQuery()->addJavascriptFile(URL_BASE ."/lib/emerald.js");
+		$this->jQuery()->addJavascriptFile(URL_BASE ."/lib/core/emerald.js");
 		$this->jQuery()->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
 		$this->headLink()->prependStylesheet(URL_BASE . '/lib/admin/main.css');
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssbase/base-min.css');
@@ -32,7 +32,7 @@
 	<body id="plain">
 		
 		<div id="loading" style="display: none;">
-		<img src="<?php echo URL_BASE; ?>/lib/ajax-loader.gif" class="emerald-icon" />
+		<img src="<?php echo URL_BASE; ?>/lib/core/ajax-loader.gif" class="emerald-icon" />
 		</div>
 	
 		<div id="wrapper">
