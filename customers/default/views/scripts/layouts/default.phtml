@@ -25,12 +25,6 @@ $this->headTitle()->setSeparator(' - ');
 <?php echo $this->headMeta(); ?>
 <?php print $this->headTitle(); ?>
 <?php echo $this->headLink(); ?>
-<?php echo $this->jQuery(); ?>
-<?php echo $this->headScript(); ?>
-
-<script type="text/javascript">
-Emerald.baseUrl = '<?php echo URL_BASE; ?>';
-</script>
 
 </head>
 
@@ -106,6 +100,10 @@ Emerald.baseUrl = '<?php echo URL_BASE; ?>';
 <?php echo $this->jQuery(); ?>
 <?php echo $this->headScript(); ?>
 <?php echo $this->googleAnalytics(); ?>
+
+<script type="text/javascript">
+Emerald.baseUrl = '<?php echo URL_BASE; ?>';
+</script>
 
 </body>
 

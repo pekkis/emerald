@@ -36,7 +36,7 @@
 
 	<body>
 	
-	<div id="loading" style="display: none;">
+	<div id="emerald-loading" style="display: none;">
 		<img src="<?php echo URL_BASE; ?>/lib/core/ajax-loader.gif" class="emerald-icon" />
 	</div>
 	
@@ -60,8 +60,8 @@
 		<div id="breadcrumbs">
 		<?php echo $this->navigation()->breadcrumbs(); ?>
 		</div>
-			
-		<div id="message" title="Obs" class="ui-state-highlight ui-corner-all"> 
+
+		<div id="emerald-message" title="<?php echo $this->translate('Emerald'); ?>" class="ui-state-highlight ui-corner-all"> 
 			<p></p>
 		</div>
 					

@@ -243,7 +243,7 @@ input, textarea, select {
 
 /* emeraldia */
 
-#loading
+#emerald-loading
 {
 	position: absolute;
 	top: 10px;
@@ -252,7 +252,7 @@ input, textarea, select {
 	text-align: left !important;
 }
 	
-	#plain #loading {
+	#plain #emerald-loading {
 	}
 
 

@@ -202,10 +202,10 @@ String.prototype.t = function(params)
 Emerald.message = function(msg)
 {
 	
-	$("#message p").text(msg);
-	$("#message").dialog('open');
+	$("#emerald-message p").text(msg);
+	$("#emerald-message").dialog('open');
 		
-	location = "#message";
+	location = "#emerald-message";
 }
 
 Emerald.Json = { };
@@ -396,10 +396,10 @@ jQuery.fn.jsonSubmit = function(options) {
 
 
 $(document).ready(function()
-{
-	$("#message").hide();
+{		
+	$("#emerald-message").hide();
 	
-	$("#loading").bind("ajaxStart", function(){
+	$("#emerald-loading").bind("ajaxStart", function(){
 		$(this).css('top', $(window).scrollTop());
 		$(this).show();
 	}).bind("ajaxStop", function(){
@@ -415,7 +415,7 @@ $(document).ready(function()
 	
 	$('.popup').live('click', Emerald.Popup.listener);
 
-	$('#message').dialog({ autoOpen: false });
+	$('#emerald-message').dialog({ autoOpen: false });
 	
 
 });
