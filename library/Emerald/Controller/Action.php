@@ -39,7 +39,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	
 	public function preDispatch()
 	{
-		if(self::$_added == 0) {
+		if(self::$_added == 0 && $this->getCustomer()) {
 			$this->view->addBasePath($this->getCustomer()->getRoot() . '/views/');
 			self::$_added = 1;	
 		}
