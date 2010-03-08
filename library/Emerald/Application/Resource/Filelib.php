@@ -18,7 +18,7 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 				
 			$symlinker = new $symlinkerOptions['class']($symlinkerOptions['options']);
 			
-			$this->_filelib = new Emerald_Filelib($options);
+			$filelib = $this->_filelib = new Emerald_Filelib($options);
 
 			$symlinker->setFilelib($this->_filelib);
 			
