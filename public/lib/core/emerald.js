@@ -128,8 +128,6 @@ Emerald.FileManager = {
 			
 			var href= $(this).attr('href');
 			
-
-			
 		    var win = tinyMCEPopup.getWindowArg("window");
     		win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = href;
         	
@@ -169,7 +167,6 @@ Emerald.Localization =
 	 */
 	getLanguage: function()
 	{
-		console.debug(Emerald.Localization._language);
 		return Emerald.Localization._language;
 	},
 	
@@ -184,8 +181,14 @@ Emerald.Localization =
 	{
 		if(Emerald.Localization._localizations[tstr]) 
 		{
-			return Emerald.Localization._localizations[tstr];			
-		}	
+			tstr = Emerald.Localization._localizations[tstr];
+		}
+		
+		if(params) {
+			$.each(params, function(key, value) {
+				tstr = tstr.replace("%" + (key + 1) + "$s", value);
+			})
+		}
 		
 		return tstr;
 	}
