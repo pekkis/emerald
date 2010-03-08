@@ -186,6 +186,7 @@ Emerald.Localization =
 		
 		if(params) {
 			$.each(params, function(key, value) {
+				
 				tstr = tstr.replace("%" + (key + 1) + "$s", value);
 			})
 		}
