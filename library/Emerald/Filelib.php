@@ -52,6 +52,12 @@ class Emerald_Filelib
 	 * @var integer Files per directory
 	 */
 	private $_filesPerDirectory = 500;
+	
+	/**
+	 * @var integer Levels in directory structure
+	 */
+	private $_directoryLevels = 1;
+	
 		
 	/**
 	 * @var integer Octal representation for directory permissions
@@ -344,6 +350,29 @@ class Emerald_Filelib
 		return $this->_filesPerDirectory;
 	}
 	
+	/**
+	 * Sets levels per directory hierarchy
+	 * 
+	 * @param integer $directoryLevels
+	 * @return Emerald_Filelib Filelib
+	 */
+	public function setDirectoryLevels($directoryLevels)
+	{
+		$this->_directoryLevels = $directoryLevels;
+		return $this;
+	}
+	
+	
+	
+	/**
+	 * Returns levels in directory hierarchy
+	 * 
+	 * @return integer
+	 */
+	public function getDirectoryLevels()
+	{
+		return $this->_directoryLevels;
+	}
 	
 	
 	
@@ -403,6 +432,50 @@ class Emerald_Filelib
 	public function getDirectoryId($fileId)
 	{
 		return ceil($fileId / $this->getFilesPerDirectory());	
+		
+		$fileId = 3000000;
+		
+		$directoryLevels = $this->getDirectoryLevels();
+		$filesPerDirectory = $this->getFilesPerDirectory(); 
+
+		if($directoryLevels == 0) {
+			throw new Emerald_Filelib_Exception('Invalid directory levels');
+		}
+		
+		$count = 0;
+		$arr = array();
+		$tmpfileid = $fileId;
+				
+		do {
+			$luss = ceil($tmpfileid / $filesPerDirectory);
+
+			Zend_Debug::dump($luss);
+			
+			$tmpfileid = $tmpfileid - ($luss - 1) * $filesPerDirectory;
+			
+			Zend_Debug::dump($tmpfileid);
+			
+			$arr[] = $luss;
+			
+			$count++;
+			
+		} while($count < $directoryLevels);
+		
+		
+		Zend_Debug::dump($this->getFilesPerDirectory(), 'files per dir');
+		Zend_Debug::dump($this->getDirectoryLevels(), 'levels');
+		
+		Zend_Debug::dump($fileId, 'file id');
+		
+		Zend_Debug::dump(array_reverse($arr));
+		
+		
+		
+
+		die();
+		
+		
+		 	
 	}
 	
 	
