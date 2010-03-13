@@ -1,16 +1,9 @@
 <?php 
 // @todo: this in init head maybe?
-$this->headMeta()->appendHttpEquiv("Content-Type", "text/html; charset=UTF-8");
-$this->headMeta()->appendName("Generator", "Emerald");
-$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
-$this->jQuery()
-	->addJavascriptFile(URL_BASE . "/lib/core/emerald.js");
 
-$this->headLink()->appendStylesheet(URL_BASE . '/data/customer.css');
+$this->emerald()->addEverything();
 
-$this->headScript()->prependFile(URL_BASE . '/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
-
-$this->headMeta()->appendName("description", "Content management built upon Zend Framework.");
+$this->headMeta()->appendName("description", "Mikko Forsström's home page");
 $this->headMeta()->appendName("Author", "Mikko Forsström");
 $this->headMeta()->appendName("Content-Language", "en");
 
@@ -25,7 +18,6 @@ $this->headTitle()->setSeparator(' - ');
 <?php echo $this->headMeta(); ?>
 <?php print $this->headTitle(); ?>
 <?php echo $this->headLink(); ?>
-
 </head>
 
 <body>
@@ -99,7 +91,7 @@ $this->headTitle()->setSeparator(' - ');
 
 <?php echo $this->jQuery(); ?>
 <?php echo $this->headScript(); ?>
-<?php echo $this->googleAnalytics(); ?>
+<?php echo $this->emerald()->googleAnalytics(); ?>
 
 <script type="text/javascript">
 Emerald.baseUrl = '<?php echo URL_BASE; ?>';

@@ -42,7 +42,7 @@ class Emerald_Application_Customer
 		
 		$pinfo = pathinfo($root);
 		$this->_identifier = $pinfo['basename'];
-					
+	
 				
 		$this->_config = new Zend_Config_Ini($this->getRoot() . '/configs/application.ini');
         // $this->_db = Zend_Db::factory('PDO_MYSQL', $this->_config->db->toArray());
