@@ -123,9 +123,7 @@ class Core_PageController extends Emerald_Controller_Action
 				
 
 				$this->view->activePage = $page;
-				
-				Zend_Debug::dump($_SESSION);
-				
+												
 				
 				// $this->getHelper('viewRenderer')->setNoRender();
 				
