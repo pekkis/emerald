@@ -38,7 +38,9 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 
+$options = $application->getOptions();
 
+define('URL_BASE', (isset($options['resources']['frontcontroller']['baseUrl'])) ? $options['resources']['frontcontroller']['baseUrl'] : '' );
 
 try {
 
@@ -46,9 +48,9 @@ try {
 	->bootstrap('server')
 	->bootstrap('modules')
 	->bootstrap('customer')
-	->bootstrap('cache')
 	->bootstrap('db')
 	->bootstrap('customerdb')
+	->bootstrap('cache')
 	->bootstrap('router')
 	->bootstrap('session')
 	->bootstrap('acl')

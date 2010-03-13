@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author pekkis
+ * 
+ * @todo Caching of non-anonymous pages is baaaaad :)
+ *
+ */
 class Emerald_Application_Resource_Cache extends Zend_Application_Resource_ResourceAbstract
 {
 	
@@ -23,11 +29,38 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		Zend_Translate::setCache($globalCache);
 		Zend_Locale::setCache($globalCache);	
 		
+
 		
 		
-		return $cm;				
+		
+		$naviModel = new Core_Model_Navigation();
+		
+		$navi = $naviModel->getNavigation();
+		
+		$navi = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
+		
+		// Zend_Debug::dump($navi);
+		
+		// Zend_Debug::dump($navi);
+		
+		$regexps = array();
+		foreach($navi as $page) {
+			$regexps["^{$page->uri}$"] = array(
+				'cache' => ($page->cache_seconds) ? false : true,
+				'specific_lifetime' => $page->cache_seconds + 500,
+			);
+			
+		}
+		
+		$fopts = $opts['frontend']['page']['options'];
+		$fopts['regexps'] = $regexps;
+		
+		$pageCache = Zend_Cache::factory('Page', $backend, $fopts);		
+		$cm->setCache('page', $pageCache);
+		
+		$pageCache->start();
+
 	}
-	
 	
 	
 	

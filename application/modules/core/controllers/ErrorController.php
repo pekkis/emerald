@@ -6,7 +6,7 @@ class Core_ErrorController extends Emerald_Controller_Action
     	// $this->view->layout()->disableLayout();
     	$errors = $this->_getParam('error_handler');
     	$exception = $errors->exception;
-
+    	    	
     	$this->view->message = $exception->getMessage();
 
     	
@@ -49,19 +49,22 @@ class Core_ErrorController extends Emerald_Controller_Action
     
     public function notFoundAction()
     {
+    	$this->view->responseCode = 404;
     	$this->getResponse()->setHttpResponseCode(404);
     }
     
     
     public function forbiddenAction()
     {
+    	$this->view->responseCode = 401;
     	$this->getResponse()->setHttpResponseCode(401);
     }
 	    
     
     public function internalServerAction()
     {
-		$this->getResponse()->setHttpResponseCode(500);
+		$this->view->responseCode = 500;
+    	$this->getResponse()->setHttpResponseCode(500);
     }
     
     

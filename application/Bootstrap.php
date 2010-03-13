@@ -18,9 +18,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		$front = $this->getResource('frontcontroller');
 		
-		define('URL_BASE', $front->getBaseUrl());		
-		
-		
 	}
 	
 	
@@ -95,7 +92,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			if(!$user) {
 				throw new Emerald_Exception('Something wrong with ur user');
 			}
-			$auth->getStorage()->write($user);
+			// $auth->getStorage()->write($user);
 		}
 				
 		Zend_Registry::set('Emerald_User', $user);

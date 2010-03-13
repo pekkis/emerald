@@ -18,7 +18,12 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		// $parentIdElm->setAutoInsertNotEmptyValidator(false);
 		$parentIdElm->setRequired(false);
 		$parentIdElm->setAllowEmpty(true);
-
+		
+		$redirectIdElm = new Zend_Form_Element_Select('redirect_id', array('label' => 'Redirect to'));
+		// $redirectIdElm->setAutoInsertNotEmptyValidator(false);
+		$redirectIdElm->setRequired(false);
+		$redirectIdElm->setAllowEmpty(true);
+				
 						
 		$layoutElm = new Zend_Form_Element_Select('layout', array('label' => 'Layout', 'class' => 'w66'));
 		// $layoutElm->addValidator(new Zend_Validate_StringLength(0, 255));
@@ -77,7 +82,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($idElm, $localeElm, $parentIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $submitElm));
+		$this->addElements(array($idElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $submitElm));
 
 		
 		$permissionForm = new Admin_Form_PagePermissions();
@@ -110,14 +115,19 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		
 		$opts = array();
-		
 		$opts[$locale] = $locale; 
-		
+
+		$ropts = array();
+		$ropts[''] = 'No redirect';
+				
 		foreach($iter as $navi) {
-			$opts[$navi->id] = str_repeat("-", $iter->getDepth() + 1) . $navi->label;
+			$ropts[$navi->id] = $opts[$navi->id] = str_repeat("-", $iter->getDepth() + 1) . $navi->label;
 		}
 		
 		$this->parent_id->setMultiOptions($opts);
+		$this->redirect_id->setMultiOptions($ropts);
+		
+		$this->redirect_id->setMultiOptions($ropts);
 		$this->locale->setValue($locale);
 		
 	}

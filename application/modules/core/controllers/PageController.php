@@ -26,7 +26,6 @@ class Core_PageController extends Emerald_Controller_Action
 		$validators = array(
 			'id' => array(new Zend_Validate_Int(), 'required' => false, 'allowEmpty' => true),
 			'beautifurl' => array(new Zend_Validate_Regex('(([a-z]{2,3}(_[A-Z]{2})?)/(.*?))'), 'required' => false, 'allowEmpty' => true),
-			'forward' => array(new Zend_Validate_InArray(array(0,1)), 'presence' => 'optional', 'default' => 0) 
 		);
 		
 		try {
@@ -60,6 +59,20 @@ class Core_PageController extends Emerald_Controller_Action
 					throw new Emerald_Exception('Forbidden', 401);				
 				}
 				
+				if($page->redirect_id && $page->redirect_id != $page->id) {
+					
+					$redirectPage = $pageModel->find($page->redirect_id);
+
+					
+					
+					
+					return $this->getHelper('redirector')->gotoUrlAndExit(URL_BASE . '/' . $redirectPage->beautifurl);
+											
+					
+					// $this->_forward('view', 'page', 'core', array('id' => $page->redirect_id ));
+				}
+				
+				
 				$locale = $page->getLocaleItem();
 				
 				// $this->view->pageLocaleObj = $locale;
@@ -76,8 +89,13 @@ class Core_PageController extends Emerald_Controller_Action
 				$naviModel = new Core_Model_Navigation();
 				$navi = $naviModel->getNavigation();
 
-				$navi = $navi->findBy('uri', URL_BASE . '/' . $page->locale);
+				$navi = $navi->findBy('locale_root', $page->locale);
 				
+				if(!$navi) {
+					throw new Emerald_Exception('Locale multifail', 500);
+				}
+				
+												
 				$active = $navi->findBy('uri', URL_BASE . '/' . $page->beautifurl, false);
 				if($active) {
 					$active->setActive(true);
@@ -106,6 +124,7 @@ class Core_PageController extends Emerald_Controller_Action
 
 				$this->view->activePage = $page;
 				
+				Zend_Debug::dump($_SESSION);
 				
 				
 				// $this->getHelper('viewRenderer')->setNoRender();

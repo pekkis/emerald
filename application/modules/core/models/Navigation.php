@@ -104,13 +104,19 @@ class Core_Model_Navigation
 			$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
 			
 			if(!$navi = $cache->load('navigation')) {
+												
 				$navi = new Zend_Navigation();
 		
-				$localeTbl = new Core_Model_DbTable_Locale();
+								
+				$localeModel = new Core_Model_Locale();
+				
 				$pageTbl = new Core_Model_DbTable_Page();
 				
-				$locales = $localeTbl->fetchAll(array(), "locale");
+				$locales = $localeModel->findAll();
 				
+				Zend_Debug::dump($locales);
+				
+								
 				foreach($locales as $locale) {
 					
 					$page = new Zend_Navigation_Page_Uri(
@@ -118,8 +124,20 @@ class Core_Model_Navigation
 							'uri' => URL_BASE . '/' . $locale->locale,
 							'label' => $locale->locale,
 							'locale' => $locale->locale,
+							'locale_root' => $locale->locale,
+							'cache_seconds' => 0,
 						)
 					);
+					
+					
+					if($startPage = $locale->getOption('page_start')) {
+						$startPage = $pageTbl->find($startPage)->current();
+						if($startPage) {
+							$page->uri = URL_BASE . '/' . $startPage->beautifurl;
+							$page->cache_seconds = $startPage->cache_seconds;						
+						}
+					}
+					
 					
 					$page->setResource("locale");
 					$page->setPrivilege('read');
@@ -139,6 +157,8 @@ class Core_Model_Navigation
 			$this->_navigation = $navi;
 			
 		}
+		
+						
 		return $this->_navigation;
 						
 		
@@ -165,6 +185,7 @@ class Core_Model_Navigation
 					'parent_id' => null,
 					'layout' => $pageRow->layout,
 					'shard_id' => $pageRow->shard_id,
+					'cache_seconds' => $pageRow->cache_seconds,
 				)
 			);
 			
@@ -197,6 +218,7 @@ class Core_Model_Navigation
 					'parent_id' => $pageId,
 					'layout' => $pageRow->layout,
 					'shard_id' => $pageRow->shard_id,
+					'cache_seconds' => $pageRow->cache_seconds,
 				)
 			);
 						
