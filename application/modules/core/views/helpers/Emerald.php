@@ -1,5 +1,5 @@
 <?php
-class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
+class Core_View_Helper_Emerald extends Zend_View_Helper_Abstract
 {
 	
 	

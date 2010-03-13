@@ -2,12 +2,11 @@
 /**
  * File(lib) view helper
  * 
- * @package Emerald_View
  * @author pekkis
  * @todo Exception handling, etc
  *
  */
-class Emerald_View_Helper_File extends Zend_View_Helper_Abstract
+class Filelib_View_Helper_File extends Zend_View_Helper_Abstract
 {
 	
 	

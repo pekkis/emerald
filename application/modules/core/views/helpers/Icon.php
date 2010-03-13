@@ -1,5 +1,5 @@
 <?php
-class Emerald_View_Helper_Icon extends Zend_View_Helper_Abstract
+class Core_View_Helper_Icon extends Zend_View_Helper_Abstract
 {
 	static $_iconPath = "/lib/nuvola/";
 	static $_sizes = Array
