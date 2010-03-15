@@ -1,0 +1,93 @@
+<?php 
+// @todo: this in init head maybe?
+
+$this->emerald()->addEverything();
+
+$this->jQuery()
+	->addJavascriptFile('/data/jquery.hashchange.js')
+	->addJavascriptFile('/data/jquery.marquee.js');
+
+$this->headLink()->appendStylesheet('/data/customer.css');
+
+$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+
+$this->headScript()->appendFile("/data/lamantiini.js");
+
+$this->headMeta()->appendName("description", "Mikko Forsströmin pieni ja sievä ovimatto: linkit projekteihin, aktiivisiin ja arkistoituihin.");
+$this->headMeta()->appendName("Author", "Mikko Forsström");
+$this->headMeta()->appendName("Content-Language", "fi");
+$this->headMeta()->appendName("geo.region", "FI-ES");
+$this->headMeta()->appendName("geo.placename", "Vantaa");
+$this->headMeta()->appendName("geo.position", "60.267045;24.857329");
+$this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
+
+?>
+
+<?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
+
+<head>
+<?php echo $this->headMeta()->setIndent(4); ?>
+<?php echo $this->headTitle()->setIndent(4); ?>
+<?php echo $this->headLink()->setIndent(4); ?>
+</head>
+
+<body>
+	
+<canvas id="luss"></canvas>
+	
+<div style="position:absolute;top:0;right:0;margin:0;padding:0"><a href="http://www.eroakirkosta.fi" target="_top"><img src="http://www.eroakirkosta.fi/static/images/enmaksa.gif" alt="eroakirkosta.fi" border="0" title="En maksa kirkollisveroa!" /></a></div>
+	
+<div id="ie-container">
+<div id="outer-container">
+	<div id="inner-container">
+		
+		<div id="logo">
+		
+		<object id="logo-lamantee" data="/data/images/lamantiini-small-v2.svg" type="image/svg+xml"></object>
+		
+		<h1>Lamantiini 2k10</h1>
+				
+		</div>
+		
+		
+				
+		<div id="shadow-container">
+				
+		<div id="container-container">
+		
+		<div id="main-menu">	
+		<div class="menu">
+		<?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 1, 'onlyActiveBranch' => false)); ?>
+		</div>
+		<div class="clearer"></div>	
+		</div>
+
+		
+		<div id="content-container">
+		
+		<?php echo $this->layout()->content; ?>
+		</div>		
+			
+		</div>
+		</div>
+		
+		<div id="footer">
+		<a href="http://emerald.fi">powered by Emerald <?php echo Emerald_Version::VERSION; ?></a> &amp; PostgreSQL
+		</div>
+		
+	
+		
+		
+	</div>
+	
+</div>
+</div>
+
+<?php echo $this->jQuery(); ?>
+<?php echo $this->headScript(); ?>
+<?php echo $this->emerald()->googleAnalytics(); ?>
+
+</body>
+
+</html>
