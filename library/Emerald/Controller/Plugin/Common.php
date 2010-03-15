@@ -23,6 +23,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 		
 		Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
 		Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($user);
+			
 		
 		if($request->getModuleName() == 'admin') {
 			
@@ -54,6 +55,11 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 		} else {
 			$model = new Core_Model_Navigation();
 			$navigation = $model->getNavigation();
+			
+		
+							
+									
+			
 		}
 		
 		
@@ -65,6 +71,17 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 	}
 
 	
+	public function postDispatch()
+	{
+		static $added;
+		if(!$added) {
+			$view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
+			$customer = Zend_Registry::get('Emerald_Customer');
+			$view->addBasePath($customer->getRoot() . '/views/');
+			$added = true;
+		}
+		
+	}
 	
 	
 	

@@ -1,13 +1,23 @@
 <?php
-class Core_Model_LocaleItem extends Emerald_Model_AbstractItem
+class Core_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface
 {
 	
 	private $_optionContainer;
+	
+	
+	public function getResourceId()
+	{
+		return 'Emerald_Locale_' . $this->locale;
+	}
+	
+	
 	
 	public function __toString()
 	{
 		return $this->locale;
 	}
+	
+	
 	
 	
 	protected function _getOptionContainer()
@@ -42,4 +52,27 @@ class Core_Model_LocaleItem extends Emerald_Model_AbstractItem
     }
     
 	
+    public function autoloadAclResource(Zend_Acl $acl)
+	{
+		if(!$acl->has($this)) {
+			$acl->add($this);
+			$model = new Core_Model_DbTable_Permission_Locale_Ugroup();
+	       	$sql = "SELECT ugroup_id, permission FROM permission_locale_ugroup WHERE locale_locale = ?";
+	       	$res = $model->getAdapter()->fetchAll($sql, $this->locale);
+	       	foreach($res as $row) {
+	       		foreach(Emerald_Permission::getAll() as $key => $name) {
+	       			if($key & $row->permission) {
+	       				$role = "Emerald_Group_{$row->ugroup_id}";
+	       				if($acl->hasRole($role)) {
+	       					$acl->allow($role, $this, $name);	
+	       				}
+	       			}
+	       		}
+	       	}
+	       	
+		}		
+	}
+	
+    
+    
 }

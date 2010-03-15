@@ -113,9 +113,6 @@ class Core_Model_Navigation
 				$pageTbl = new Core_Model_DbTable_Page();
 				
 				$locales = $localeModel->findAll();
-				
-				Zend_Debug::dump($locales);
-				
 								
 				foreach($locales as $locale) {
 					
@@ -139,7 +136,7 @@ class Core_Model_Navigation
 					}
 					
 					
-					$page->setResource("locale");
+					$page->setResource("Emerald_Locale_{$locale->locale}");
 					$page->setPrivilege('read');
 					$page->setVisible(true);
 					

@@ -1,5 +1,5 @@
 <?php
-class Admin_Form_Locale extends ZendX_JQuery_Form
+class Admin_Form_LocaleAdd extends ZendX_JQuery_Form
 {
 	
 	
@@ -15,15 +15,20 @@ class Admin_Form_Locale extends ZendX_JQuery_Form
 		
 		$availableLocales = $localeModel->getAvailableLocales();
 		
-		foreach($availableLocales as $al) {
-			$localeElm->addMultiOption($al->locale, $al->locale);
-		}
-		
+
 		$selectedLocalesRaw = $localeModel->findAll();
 		$selectedLocales = array();
 		foreach($selectedLocalesRaw as $localeRaw) {
 			$selectedLocales[] = $localeRaw->locale;			
 		}
+				
+		foreach($availableLocales as $al) {
+			if(!in_array($al->locale, $selectedLocales)) {
+				$localeElm->addMultiOption($al->locale, $al->locale);	
+			}
+		}
+		
+		
 		
 		$localeElm->setValue($selectedLocales);
 							

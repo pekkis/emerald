@@ -9,7 +9,7 @@ class Core_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emeral
 	} 
 	
 	
-	public function __lazyLoadAclResource(Zend_Acl $acl)
+	public function autoloadAclResource(Zend_Acl $acl)
 	{
 			
 		if(!$acl->has($this)) {

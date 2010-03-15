@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	
+	$(".locale-delete").jsonClick({
+		success: function(elm) { elm.parents('tr').remove(); }
+	});
 		
 	$('form').submit(function(){
 						

@@ -56,7 +56,19 @@ class Admin_Model_Navigation
 									
 			$locale = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'label' => 'Locales'));
 			$navi->addPage($locale);
+			
+			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'action' => 'delete', 'label' => 'Delete locale'));
+			$page->setVisible(false);
+			$locale->addPage($page);
+			
+			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'action' => 'edit', 'label' => 'Edit locale'));
+			$page->setVisible(true);
+			$locale->addPage($page);
 
+			$page = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'action' => 'save', 'label' => 'Save locale'));
+			$page->setVisible(false);
+			$locale->addPage($page);
+						
 			$updateLocale = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'locale', 'action' => 'update', 'label' => 'Update locales'));
 			$locale->addPage($updateLocale);
 			

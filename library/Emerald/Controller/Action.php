@@ -35,18 +35,6 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 		return $this->getInvokeArg('bootstrap')->getResource('user');
 	}
 	
-	
-	
-	public function preDispatch()
-	{
-		if(self::$_added == 0 && $this->getCustomer()) {
-			$this->view->addBasePath($this->getCustomer()->getRoot() . '/views/');
-			self::$_added = 1;	
-		}
-	}
-
-	
-	
 	public function postDispatch()
 	{
 		if($rs = $this->_getParam('rs')) {

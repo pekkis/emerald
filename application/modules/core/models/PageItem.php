@@ -36,10 +36,16 @@ class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_
 	
 	
 	
-	public function __lazyLoadAclResource(Zend_Acl $acl)
+	public function autoloadAclResource(Zend_Acl $acl)
 	{
 		if(!$acl->has($this)) {
-			$acl->add($this);
+			
+			if($this->parent_id) {
+				$parent = "Emerald_Page_{$this->parent_id}";
+			} else {
+				$parent = "Emerald_Locale_{$this->locale}";
+			}
+			$acl->addResource($this, $parent);
 			$model = new Core_Model_DbTable_Permission_Page_Ugroup();
 	       	$sql = "SELECT ugroup_id, permission FROM permission_page_ugroup WHERE page_id = ?";
 	       	$res = $model->getAdapter()->fetchAll($sql, $this->id);
@@ -48,7 +54,9 @@ class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_
 	       			if($key & $row->permission) {
 	       				$role = "Emerald_Group_{$row->ugroup_id}";
 	       				if($acl->hasRole($role)) {
-	       					$acl->allow($role, $this, $name);	
+	       					if($acl->isAllowed($role, $parent)) {
+	       						$acl->allow($role, $this, $name);	
+	       					}
 	       				}
 	       			}
 	       		}

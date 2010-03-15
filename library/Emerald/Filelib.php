@@ -312,7 +312,7 @@ class Emerald_Filelib
 	 * @param Emerald_Filelib_FileItem|string $fileType File item or file type
 	 * @return array Array of provided versions
 	 */
-	public function getFileVersions(Core_Model_FileItem $file)
+	public function getFileVersions(Emerald_Filelib_FileItem $file)
 	{
 		$fileType = $file->getType();
 		$profile = $file->profile;
@@ -983,7 +983,7 @@ class Emerald_Filelib
 		}
 		
 		if(!is_readable($path)) {
-			throw new Model_Filelib_Exception('File not readable');
+			throw new Emerald_Filelib_Exception('File not readable');
 		}
 
 		$response->setHeader('Content-Type', $file->mimetype);

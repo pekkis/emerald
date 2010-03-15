@@ -31,6 +31,8 @@ class Core_ErrorController extends Emerald_Controller_Action
             		            		            		
             		if($code == 404) {
             			return $this->_forward('not-found');
+            		} else if($code == 401) {
+            			return $this->_forward('forbidden');
             		}
             		
             		
@@ -63,7 +65,7 @@ class Core_ErrorController extends Emerald_Controller_Action
     
     public function internalServerAction()
     {
-		$this->view->responseCode = 500;
+    	$this->view->responseCode = 500;
     	$this->getResponse()->setHttpResponseCode(500);
     }
     

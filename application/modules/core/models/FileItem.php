@@ -10,18 +10,15 @@ class Core_Model_FileItem extends Emerald_Filelib_FileItem implements Emerald_Ac
 	
 	
 	
-	public function __lazyLoadAclResource(Zend_Acl $acl)
+	public function autoloadAclResource(Zend_Acl $acl)
 	{
 		if(!$acl->has($this)) {
-			
 			$folder = $this->findFolder();
 			if(!$acl->has($folder)) {
-				$folder->__lazyLoadAclResource($acl);
+				$folder->autoloadAclResource($acl);
 			}
-			
 			$acl->addResource($this, $folder);
 		}		
-		
 	}
 	
 

@@ -1,0 +1,12 @@
+<?php 
+$this->headTitle("Edit locale")->headTitle('Locale');
+$this->headScript()->appendFile(URL_BASE . '/lib/admin/locale/edit.js');
+?>
+
+<h1><?php echo $this->translate('Edit Locale'); ?></h1>
+
+<div class="box">
+
+<?php echo $this->form; ?>
+
+</div>

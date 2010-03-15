@@ -9,7 +9,7 @@ class Core_Model_GroupItem extends Emerald_Model_AbstractItem implements Emerald
 	}
 		
 	
-	public function __lazyLoadAclRole(Zend_Acl $acl)
+	public function autoloadAclRole(Zend_Acl $acl)
 	{
 		
 		$acl->addRole($this);

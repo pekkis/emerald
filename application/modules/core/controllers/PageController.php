@@ -46,15 +46,11 @@ class Core_PageController extends Emerald_Controller_Action
 			if($page) {
 				
 				$locale = $page->getLocaleItem();
-				if(!$locale->getOption('open')) {
-					$user = $this->getCurrentUser();
-					if(!$user->inGroup(Core_Model_Group::GROUP_ROOT)) {
-						throw new Emerald_Exception('Not found', 404);	
-					}
-				} 
+				
+				
 				
 				$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
-
+				
 				if(!$readable) {
 					throw new Emerald_Exception('Forbidden', 401);				
 				}
@@ -133,11 +129,9 @@ class Core_PageController extends Emerald_Controller_Action
 			}
 			
 		} catch(Exception $e) {
-			
 			throw new Emerald_Exception($e->getMessage(), $e->getCode() ? $e->getCode() : 404);
 		}
 				
-			
 
 	}
 	

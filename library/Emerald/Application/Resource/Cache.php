@@ -46,8 +46,8 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		$regexps = array();
 		foreach($navi as $page) {
 			$regexps["^{$page->uri}$"] = array(
-				'cache' => ($page->cache_seconds) ? false : true,
-				'specific_lifetime' => $page->cache_seconds + 500,
+				'cache' => ($page->cache_seconds) ? true : false,
+				'specific_lifetime' => $page->cache_seconds,
 			);
 			
 		}

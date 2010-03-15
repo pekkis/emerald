@@ -352,4 +352,9 @@ p:first-child {
  .title {
  	margin-top: 1em;	
  }
+ 
+ 
+ th {
+ 	text-align: left;
+ }
 
