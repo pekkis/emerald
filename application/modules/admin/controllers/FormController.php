@@ -31,9 +31,9 @@ class Admin_FormController extends Emerald_Controller_Action
 		
 		try {
 			$model->delete($item);
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Delete ok');	
+			$this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Delete ok');	
 		} catch(Emerald_Exception $e) {
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Delete failed');
+			$this->view->message = new Emerald_Message(Emerald_Message::ERROR, 'Delete failed');
 		}
 		
 	}
@@ -57,10 +57,10 @@ class Admin_FormController extends Emerald_Controller_Action
 			$item->setFromArray($form->getValues());
 			$model->save($item);
 			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Operation ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Operation ok');
 			$msg->form_id = $item->id;
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Operation failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Operation failed');
 			$msg->errors = $form->getMessages();
 		}
 		
@@ -76,9 +76,9 @@ class Admin_FormController extends Emerald_Controller_Action
 		try {
 			$item = $model->find($this->_getParam('id'));
 			$model->delete($item);
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success.');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success.');
 		} catch(Exception $e) {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail.');
 		}
 		$this->view->message = $msg;
 	}
@@ -101,9 +101,9 @@ class Admin_FormController extends Emerald_Controller_Action
 			$field->order_id = $model->getOrderIdForNewField($formObj);
 			$model->saveField($field);
 			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success.');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success.');
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail.');
 		}
 
 		$this->view->message = $msg;
@@ -154,7 +154,7 @@ class Admin_FormController extends Emerald_Controller_Action
 			
 			$db->commit();
 			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok.');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok.');
 									
 		
 		} catch(Exception $e) {
@@ -163,7 +163,7 @@ class Admin_FormController extends Emerald_Controller_Action
 			
 			$db->rollBack();
 						
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed.');
 			$msg->errors = array_keys($input->getMessages());
 			
 		}

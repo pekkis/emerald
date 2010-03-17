@@ -20,9 +20,9 @@ class Admin_FileController extends Emerald_Controller_Action
 		
 		try {
 			$fl->deleteFile($folder);
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');
 		} catch(Exception $e) {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
 		}
 		$this->view->message = $msg;
 	}

@@ -80,10 +80,10 @@ class Core_NewsItemController extends Emerald_Controller_Action
 
 			$newsItemModel->delete($item);
 						
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Delete ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Delete ok');
 			
 		} catch(Exception $e) {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Delete failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Delete failed');
 		}
 		
 		$this->view->message = $msg;
@@ -119,11 +119,11 @@ class Core_NewsItemController extends Emerald_Controller_Action
 			
 			$model->save($item);
 
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');
 			$msg->saved_item_id = $item->id;
 			
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
 			$msg->errors = $form->getMessages(); 
 		}
 		

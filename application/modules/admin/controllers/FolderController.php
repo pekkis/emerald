@@ -41,9 +41,9 @@ class Admin_FolderController extends Emerald_Controller_Action
 		
 		try {
 			$fl->deleteFolder($folder);
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');
 		} catch(Exception $e) {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
 		}
 		
 		$this->view->message = $msg;
@@ -94,11 +94,11 @@ class Admin_FolderController extends Emerald_Controller_Action
 			
 			// $this->getAcl()->cacheRemove();
 			
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok!');
+			$this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok!');
 			$this->view->message->folder_id = $folder->id;
 			
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
 			$msg->errors = $form->getMessages();
 			$this->view->message = $msg;
 		}

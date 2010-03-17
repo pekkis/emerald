@@ -17,7 +17,7 @@ class Core_UserController extends Emerald_Controller_Action
 
 		$form = new Core_Form_Login();
 		if(!$form->isValid($this->getRequest()->getPost())) {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Check fields');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Check fields');
 			$msg->errors = $form->getMessages(); 
 		} else {
 			
@@ -29,12 +29,12 @@ class Core_UserController extends Emerald_Controller_Action
 
 			$result = $auth->authenticate($adapter);
 			if($result->isValid()) {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Login OK');
+				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Login OK');
 				$userModel = new Core_Model_User();
 				$user = $userModel->find($adapter->getResultRowObject()->id);
 				$auth->getStorage()->write($user);
 			} else {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Login failed.');
+				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Login failed.');
 			}
 		}
 		$this->view->message = $msg;

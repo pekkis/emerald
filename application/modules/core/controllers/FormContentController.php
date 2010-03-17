@@ -124,10 +124,10 @@ class Core_FormContentController extends Emerald_Controller_Action
 			$item->setFromArray($form->getValues());
 			$model->save($item);
 
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');
 			
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
 			$msg->errors = $form->getMessages(); 
 		}
 		
@@ -187,7 +187,7 @@ class Core_FormContentController extends Emerald_Controller_Action
 									
 				$mail->send($transport);
 				
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success!');
+				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success!');
 								
 				$pageModel = new Core_Model_Page();
 				$page = $pageModel->find($formcontent->redirect_page_id);
@@ -198,7 +198,7 @@ class Core_FormContentController extends Emerald_Controller_Action
 				
 			} else {
 				
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail!');
+				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail!');
 				$msg->errors = $zform->getMessages();
 				
 				$this->view->page = $page;
@@ -211,7 +211,7 @@ class Core_FormContentController extends Emerald_Controller_Action
 				
 		} catch(Exception $e) {
 					
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Mail send failure.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Mail send failure.');
 			$msg->exception = $e->getMessage();
 			
 			

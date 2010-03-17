@@ -1,12 +1,12 @@
 <?php
 /**
- * Json message class with predefined message statuses and translation capability.
+ * Message class with predefined message statuses and translation capability.
  * 
  * @package Emerald_Json
  * @author pekkis
  *
  */
-class Emerald_Json_Message
+class Emerald_Message
 {
 	const SUCCESS = 1;
 	const INFO = 2;

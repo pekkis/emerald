@@ -27,10 +27,10 @@ class Admin_FilelibController extends Emerald_Controller_Action
 			
 			$fl->createFolder($folderItem);
 
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Great success');					
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');					
 			
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
 			$msg->errors = $folderForm->getMessages();
 		}
 		$this->view->message = $msg;

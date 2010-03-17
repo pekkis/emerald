@@ -19,9 +19,9 @@ class Admin_PageController extends Emerald_Controller_Action
 		
 		try {
 			$pageModel->delete($page);
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Save ok');	
+			$this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');	
 		} catch(Emerald_Exception $e) {
-			$this->view->message = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Save failed');
+			$this->view->message = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
 		}
 		
 	}
@@ -95,15 +95,15 @@ class Admin_PageController extends Emerald_Controller_Action
 				// $page->setFromArray($form->getValues());
 				$pageModel->save($page);
 
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Ok');
+				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Ok');
 								
 			} else {
-				$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Failed');
+				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Failed');
 				$msg->errors = $form->getMessages(); 
 			} 
 		
 		} else {
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Failed');
 		}		
 		$this->view->message = $msg;
 	}
@@ -144,14 +144,14 @@ class Admin_PageController extends Emerald_Controller_Action
 		
 		if(!$form->isValid($this->_getAllParams())) {
 			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
 			$msg->errors = $form->getMessages(); 
 			
 		} else {
 			$page->setFromArray($form->getValues());
 			$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
 			
-			$msg = new Emerald_Json_Message(Emerald_Json_Message::SUCCESS, 'Ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Ok');
 			$msg->page_id = $page->id;
 		}
 		
