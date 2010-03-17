@@ -27,7 +27,7 @@ body {
 }
 
 
-h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
 	font-family: "Comic Sans Ms";
 }
 
@@ -331,3 +331,28 @@ way to fit your requirements.
 	opacity: 1.0;
 }
 
+
+#manatee-mode-container {
+	opacity: 0.33;
+	position: fixed;
+	bottom: 1em;
+	left: 1em;
+	padding: 0.33em;
+	border: 1px solid #cccccc;
+	background-color: #d7d7d7;
+	
+	-webkit-border-bottom-left-radius: 6px 6px;
+	-webkit-border-bottom-right-radius: 6px 6px;
+	-webkit-border-top-left-radius: 6px 6px;
+	-webkit-border-top-right-radius: 6px 6px;
+	
+	-moz-border-radius-bottomleft: 6px;
+	-moz-border-radius-bottomright: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-topright: 6px;
+	
+}
+
+#manatee-mode-container:hover {
+	opacity: 1;
+}

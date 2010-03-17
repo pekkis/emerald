@@ -14,11 +14,27 @@ Lamantiini.setTitle = function(newTitle)
 };
 
 Lamantiini.naviUpdate = function($link, navitree) {
+			
 	$.each(navitree, function(key, navi) {
 		
+		var truutta = false;
+		
 		if($link.attr('href') == navi.uri) {
+			truutta = true;
 			Lamantiini.setTitle(navi.label);
 			$link.parents('li').addClass('active');
+			
+			var uri = navi.uri;
+			if(navi.redirect_uri) {
+				uri = navi.redirect_uri
+			}
+			
+			$('#content-container').slideUp(500, function() {
+				$('#content-container').load(uri, { 'format': 'html' }, function () {
+					$('#content-container').slideDown(500);
+				});
+			});		
+			
 		}
 		
 		if(navi.pages) {
@@ -27,6 +43,108 @@ Lamantiini.naviUpdate = function($link, navitree) {
 		
 	});
 };
+
+Lamantiini.Mode = {
+	
+	mode: 'oldskool',
+	
+	init: function()
+	{
+		$('#manatee-mode').click(Lamantiini.Mode.toggle);
+		
+		$('#manatee-mode').text(this.mode); 
+		
+		if(Lamantiini.Mode.mode == 'hardcore') {
+			this.execute();
+		}
+		
+	},
+		
+	execute: function() {
+		
+		if(this.mode == 'oldskool') {
+			this.oldskool();
+		} else {
+			this.hardcore();
+		}
+		
+		$('#manatee-mode').text(this.mode); 
+	
+	},
+	
+	toggle: function(evt)
+	{
+		evt.preventDefault();
+		
+		Lamantiini.Mode.mode = (Lamantiini.Mode.mode == 'oldskool') ? 'hardcore' : 'oldskool';
+		$.cookie('manateeMode', Lamantiini.Mode.mode);
+		Lamantiini.Mode.execute();
+	},
+	
+	
+	hardcore: function() {
+	
+		$("body").append($('<canvas id="luss"></canvas>'));
+		
+		$("#logo-lamantee").remove();
+		$("#logo").append('<object id="logo-lamantee" data="/data/images/manatee.svg" type="image/svg+xml"></object>');
+		
+		// $("img[src=/data/images/manatee.png]").attr('href', 'src=/data/images/manatee.svg');
+		
+		Lamantiini.stealFromSakari($('#luss'));
+				
+		// $('.marquee').wrap('<marquee behavior="scroll" scrollamount="1" direction="left" />');
+		// $('marquee').marquee();
+	
+		$('a[href]').live('click', function(e) {
+			
+			if(e.button != 0) {
+				return false;
+			}
+							
+			var $this = $(this);
+			
+			if($this.hasClass('noajax')) {
+				return true;
+			}
+			
+			if($this.attr('href').substr(0, 4) != 'http') {
+				location = "#" + $this.attr('href');
+				return false;
+			} else {
+				alert('external!');
+				return true;
+			}
+			
+			
+			return false;
+		});
+	
+		if(location.hash && location.hash != '/') {
+			$(window).trigger('hashchange');
+		}
+
+	
+	
+	},
+	
+	oldskool: function() {
+		top.location = '/';
+	},
+	
+	get: function() {
+		return Lamantiini.Mode.mode;
+	},
+	
+	
+	set: function() {
+		
+	}
+	
+	
+		
+};
+
 
 
 /**
@@ -75,33 +193,23 @@ Lamantiini.stealFromSakari = function($canvasElement)
 $(window).hashchange(function(){
 	
 	var $link = $('a[href=' + location.hash.substr(1) + ']');
-			
-	
+		
 	// if($link.length) {
-								
-		$('#content-container').slideUp(500, function() {
-				
-			$('#content-container').load($link.attr('href'), { 'format': 'html' }, function () {
-				// $("title").text($link.attr('title'));
-				
-				$('#content-container').slideDown(500);
-				
-				$("li").removeClass('active');
-				
-				if(Lamantiini.navi) {
-					Lamantiini.naviUpdate($link, Lamantiini.navi);
-				} else {
-					$.getJSON("/menu/index", { 'format' : 'json' }, function(r) {
-						Lamantiini.navi = r;
-						Lamantiini.naviUpdate($link, Lamantiini.navi);
-					});
-					
-				}
-				
-				
 
-			});
-		});		
+	$("li").removeClass('active');
+	
+	if(Lamantiini.navi) {
+		Lamantiini.naviUpdate($link, Lamantiini.navi);
+	} else {
+		$.getJSON("/menu/index", { 'format' : 'json' }, function(r) {
+			Lamantiini.navi = r;
+			Lamantiini.naviUpdate($link, Lamantiini.navi);
+		});
+	}
+
+	
+	
+	
 		
 	// }
 	
@@ -112,50 +220,20 @@ $(window).hashchange(function(){
 
 
 $(document).ready(function() {
-				
-	Lamantiini.stealFromSakari($('#luss'));
 	
-	$('#content-container > h3 + div').hide();
-	
-	$('#content-container > h3 + div.active').show();
-	
-	$('#content-container > h3').click(function() {
-		$(this).next('div').toggle();
-	});
-	
-	$('marquee').marquee();
-	
-	
-	
-	$('a[href]').live('click', function(e) {
-						
-		if(e.button != 0) {
-			return false;
-		}
-						
-		var $this = $(this);
+	var manateeMode = $.cookie('manateeMode');
 		
-		if($this.hasClass('noajax')) {
-			return true;
-		}
+	if(manateeMode == 'hardcore') {
+		Lamantiini.Mode.mode = 'hardcore';
+	} else {
+		Lamantiini.Mode.mode = 'oldskool';
 		
-		if($this.attr('href').substr(0, 4) != 'http') {
-			location = "#" + $this.attr('href');
-			return false;
-		} else {
-			alert('external!');
-			return true;
-		}
-		
-		
-		return false;
-	});
-	
-
-	
-	if(location.hash && location.hash != '/') {
-		$(window).trigger('hashchange');
 	}
+	Lamantiini.Mode.init();
+	
+	
+	
+	
 		
 });
 

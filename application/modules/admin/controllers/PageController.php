@@ -157,7 +157,6 @@ class Admin_PageController extends Emerald_Controller_Action
 		
 		
 		$this->view->message = $msg;
-				
 		
 	}
 	

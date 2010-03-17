@@ -5,9 +5,11 @@ $this->emerald()->addEverything();
 
 $this->jQuery()
 	->addJavascriptFile('/data/jquery.hashchange.js')
-	->addJavascriptFile('/data/jquery.marquee.js');
+	->addJavascriptFile('/data/jquery.marquee.js')
+	->addJavascriptFile('/data/jquery.cookie.js');
 
 $this->headLink()->appendStylesheet('/data/customer.css');
+$this->headLink(array('rel' => 'icon', 'href' => '/data/images/manatee-favicon.png'));
 
 $this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
 
@@ -21,6 +23,7 @@ $this->headMeta()->appendName("geo.placename", "Vantaa");
 $this->headMeta()->appendName("geo.position", "60.267045;24.857329");
 $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 
+
 ?>
 
 <?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
@@ -33,8 +36,11 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 </head>
 
 <body>
-	
-<canvas id="luss"></canvas>
+
+<div id="manatee-mode-container">
+<?php echo $this->translate('Manatee Mode')?>&trade;: <a rel="noajax" id="manatee-mode" href="#">undefined</a>
+</div>
+
 	
 <div style="position:absolute;top:0;right:0;margin:0;padding:0"><a href="http://www.eroakirkosta.fi" target="_top"><img src="http://www.eroakirkosta.fi/static/images/enmaksa.gif" alt="eroakirkosta.fi" border="0" title="En maksa kirkollisveroa!" /></a></div>
 	
@@ -44,8 +50,8 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		
 		<div id="logo">
 		
-		<object id="logo-lamantee" data="/data/images/lamantiini-small-v2.svg" type="image/svg+xml"></object>
-		
+		<img id="logo-lamantee" src="/data/images/manatee.png" />
+				
 		<h1>Lamantiini 2k10</h1>
 				
 		</div>
@@ -73,7 +79,8 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		</div>
 		
 		<div id="footer">
-		<a href="http://emerald.fi">powered by Emerald <?php echo Emerald_Version::VERSION; ?></a> &amp; PostgreSQL
+		<a href="http://emerald.fi">powered by <strong>Emerald</strong></a> / PostgreSQL, Zend Framework and jQuery
+		
 		</div>
 		
 	

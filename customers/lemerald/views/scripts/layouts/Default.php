@@ -10,7 +10,7 @@ class Emerald_Layout_Default extends Emerald_Layout
 		
 		// $this->actionToStack('index', 'html-content', 'emerald', array('page' => $this->getPage(), 'block_id' => 3, 'rs' => 'sidebar_two'));
 				
-		$this->actionToStack('index', 'menu', 'core', array('page_id' => $this->getPage()->id, 'extended' => 1, 'rs' => 'navi'));
+		// $this->actionToStack('index', 'menu', 'core', array('page_id' => $this->getPage()->id, 'extended' => 1, 'rs' => 'navi'));
 		
 		$this->shard($this->getPage(), $this->getPage()->shard_id, array('block_id' => 1));
 		

@@ -35,6 +35,21 @@ class Core_Model_Page
 	}
 	
 	
+	public function findAll($where = array(), $order = null, $count = null, $offset = null)
+	{
+		$rows = $this->getTable()->fetchAll($where, $order, $count, $offset);
+		
+		$pages = array();
+		foreach($rows as $row) {
+			$page = new Core_Model_PageItem($row);
+			$this->saveToRegistry($page);
+			$pages[] = $page;
+		}
+		
+		return new ArrayIterator($pages);
+	}
+	
+	
 	public function findByBeautifurl($beautifurl)
 	{
 		if(!$page = $this->findFromRegistry($beautifurl)) {
@@ -78,6 +93,11 @@ class Core_Model_Page
 		if(!is_numeric($page->id)) {
 			$page->id = null;
 		}
+
+		if(!is_numeric($page->redirect_id)) {
+			$page->redirect_id = null;
+		}
+		
 		
 		if(!is_numeric($page->global_id)) {
 			$gpm = new Core_Model_DbTable_PageGlobal();

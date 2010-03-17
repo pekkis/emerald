@@ -164,75 +164,78 @@ class Core_Model_Navigation
 	
 	protected function _recurseLocale(Zend_Navigation_Page $localePage, $locale)
 	{
+		$pageModel = new Core_Model_Page();
 		
-		$pageTbl = new Core_Model_DbTable_Page();
+		$pages = $pageModel->findAll(array("parent_id IS NULL", "locale = ?" => $locale), "order_id");
+				
+		foreach($pages as $page) {
 
-		$pages = $pageTbl->fetchAll(array("parent_id IS NULL", "locale = ?" => $locale), "order_id");
-		
-		foreach($pages as $pageRow) {
-			
 			// recurse
-			$page = new Zend_Navigation_Page_Uri(
+			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => URL_BASE . '/' . $pageRow->beautifurl,
-					'label' => $pageRow->title,
-					'locale' => $pageRow->locale,
-					'id' => $pageRow->id,
-					'global_id' => $pageRow->global_id,
+					'uri' => URL_BASE . '/' . $page->beautifurl,
+					'label' => $page->title,
+					'locale' => $page->locale,
+					'id' => $page->id,
+					'global_id' => $page->global_id,
 					'parent_id' => null,
-					'layout' => $pageRow->layout,
-					'shard_id' => $pageRow->shard_id,
-					'cache_seconds' => $pageRow->cache_seconds,
+					'layout' => $page->layout,
+					'shard_id' => $page->shard_id,
+					'cache_seconds' => $page->cache_seconds,
 				)
 			);
-			
-			$page->setResource("Emerald_Page_{$page->id}");
-			$page->setPrivilege('read');
-			$page->setVisible($pageRow->visibility);
 
-			$this->_recursePage($page, $pageRow->id);
-			$localePage->addPage($page);
+			if($page->redirect_id) {
+				$redirectPage = $pageModel->find($page->redirect_id);
+				$pageRes->redirect_uri = URL_BASE . '/' . $redirectPage->beautifurl; 
+			}
+			
+			$pageRes->setResource("Emerald_Page_{$page->id}");
+			$pageRes->setPrivilege('read');
+			$pageRes->setVisible($page->visibility);
+
+			$this->_recursePage($pageRes, $pageRes->id);
+			$localePage->addPage($pageRes);
 		}
 	}
 	
 	
 	protected function _recursePage($parentPage, $pageId)
 	{
-		$pageTbl = new Core_Model_DbTable_Page();
-
-		$pages = $pageTbl->fetchAll(array("parent_id = ?" => $pageId), "order_id");
+		$pageModel = new Core_Model_Page();
 		
-		foreach($pages as $pageRow) {
-			
+		$pages = $pageModel->findAll(array("parent_id = ?" => $pageId), "order_id");
+				
+		foreach($pages as $page) {
+
 			// recurse
-			$page = new Zend_Navigation_Page_Uri(
+			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => URL_BASE . '/' . $pageRow->beautifurl,
-					'label' => $pageRow->title,
-					'locale' => $pageRow->locale,
-					'id' => $pageRow->id,
-					'global_id' => $pageRow->global_id,
-					'parent_id' => $pageId,
-					'layout' => $pageRow->layout,
-					'shard_id' => $pageRow->shard_id,
-					'cache_seconds' => $pageRow->cache_seconds,
+					'uri' => URL_BASE . '/' . $page->beautifurl,
+					'label' => $page->title,
+					'locale' => $page->locale,
+					'id' => $page->id,
+					'global_id' => $page->global_id,
+					'parent_id' => null,
+					'layout' => $page->layout,
+					'shard_id' => $page->shard_id,
+					'cache_seconds' => $page->cache_seconds,
 				)
 			);
-						
-			$page->setResource("Emerald_Page_{$page->id}");
-			$page->setPrivilege('read');
-			$page->setVisible($pageRow->visibility);
+
+			if($page->redirect_id) {
+				$redirectPage = $pageModel->find($page->redirect_id);
+				$pageRes->redirect_uri = URL_BASE . '/' . $redirectPage->beautifurl; 
+			}
 			
-			$this->_recursePage($page, $pageRow->id);
-			$parentPage->addPage($page);
-			
+			$pageRes->setResource("Emerald_Page_{$page->id}");
+			$pageRes->setPrivilege('read');
+			$pageRes->setVisible($page->visibility);
+
+			$this->_recursePage($pageRes, $pageRes->id);
+			$parentPage->addPage($pageRes);
 		}
 	}
-	
-	
-	
-	
-	
 	
 	
 }

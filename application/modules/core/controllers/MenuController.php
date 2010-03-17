@@ -16,12 +16,10 @@ class Core_MenuController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
-		return;
-		
 		$filters = array(
 		);
 		$validators = array(
-			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'allowEmpty' => true),
+			'locale' => array(new Zend_Validate_StringLength(1, 5), 'presence' => 'optional', 'allowEmpty' => true),
 		);
 						
 		try {
@@ -32,20 +30,12 @@ class Core_MenuController extends Emerald_Controller_Action
 			$naviModel = new Core_Model_Navigation();
 			$navi = $naviModel->getNavigation();
 						
-			if($input->page_id) {
-				$page = $this->_pageFromPageId($input->page_id);
-				$active = $navi->findBy('uri', URL_BASE . '/' . $page->beautifurl, false);
-				if($active) {
-					$active->setActive(true);
-				}
-				
-				$localeMenu = $navi->findBy('uri', URL_BASE . '/' . $page->locale);
-				$this->view->menu = $localeMenu;
+			if($input->locale) {
+				$menu = $navi->findBy('locale_root', $page->locale);
+				$this->view->menu = $menu;
 			} else {
 				$this->view->menu = $navi;
 			}
-			
-			$this->view->getHelper('navigation')->setContainer($navi);						
 			
 			$this->_helper->viewRenderer->setResponseSegment($this->_getParam('rs'));
 		} catch(Exception $e) {

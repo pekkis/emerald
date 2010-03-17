@@ -111,7 +111,7 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$naviModel = new Core_Model_Navigation();
 		$navi = $naviModel->getNavigation();
 						
-		$navi = $navi->findBy("uri", URL_BASE . "/" . $locale);
+		$navi = $navi->findBy("locale_root", $locale);
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		
 		$opts = array();
