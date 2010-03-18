@@ -110,6 +110,9 @@ Lamantiini.Mode = {
 	
 		if(location.hash && location.hash != '/') {
 			$(window).trigger('hashchange');
+		}
+
+	
 	
 	},
 	
