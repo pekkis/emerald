@@ -332,7 +332,7 @@ way to fit your requirements.
 }
 
 
-#manatee-mode-container {
+#manatee-menu {
 	opacity: 0.33;
 	position: fixed;
 	bottom: 1em;
@@ -353,6 +353,6 @@ way to fit your requirements.
 	
 }
 
-#manatee-mode-container:hover {
+#manatee-menu:hover {
 	opacity: 1;
 }

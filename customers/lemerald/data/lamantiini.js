@@ -83,15 +83,13 @@ Lamantiini.Mode = {
 	
 	
 	hardcore: function() {
-	
-		$("body").append($('<canvas id="luss"></canvas>'));
-		
+					
 		$("#logo-lamantee").remove();
 		$("#logo").append('<object id="logo-lamantee" data="/data/images/manatee.svg" type="image/svg+xml"></object>');
 		
 		// $("img[src=/data/images/manatee.png]").attr('href', 'src=/data/images/manatee.svg');
 		
-		Lamantiini.stealFromSakari($('#luss'));
+		
 				
 		// $('.marquee').wrap('<marquee behavior="scroll" scrollamount="1" direction="left" />');
 		// $('marquee').marquee();
@@ -151,39 +149,53 @@ Lamantiini.Mode = {
  * I stole and shamelessly ripped this from Sakari. Thanks, Sakari! Goto http://sakarituominen.com now.
  * 
  */
-Lamantiini.stealFromSakari = function($canvasElement)
+Lamantiini.smallBalls = 
 {
-			
-	try {
-		
-			var canvasElement = $canvasElement.get(0); 
-		
-			var 
-				width = canvasElement.clientWidth,
-				height = canvasElement.clientHeight,
-				canvas = canvasElement.getContext('2d'),
-				x = Math.round(width / 2), // center x
-				y = Math.round(height / 2), // center y
-				d = Math.round(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-				
-			canvasElement.setAttribute('width', width);
-			canvasElement.setAttribute('height', height);
-			
-			// Draw lotsof em smallballs!
-			for (var i = 0; i < 100; i++) {
-				canvas.beginPath();
-				canvas.arc(Math.round(width * Math.random()), Math.round(height * Math.random()), Math.round(20 * Math.random() + 20), 0, Math.PI * 2, true);
-				canvas.closePath();
-				canvas.fillStyle = 'rgba(255, 224, 240, .55)';
-				canvas.fill();
-			}
-			
-		}
-		catch(e) {
-			// canvas multifail!
-		}
-
 	
+	gotBalls: 100,
+	
+	init: function($canvasElement) {
+	
+		try {
+			
+				var canvasElement = $canvasElement.get(0); 
+			
+				var 
+					width = canvasElement.clientWidth,
+					height = canvasElement.clientHeight,
+					canvas = canvasElement.getContext('2d'),
+					x = Math.round(width / 2), // center x
+					y = Math.round(height / 2), // center y
+					d = Math.round(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+					
+				canvasElement.setAttribute('width', width);
+				canvasElement.setAttribute('height', height);
+				
+				// Draw lotsof em manatee balls!
+				for (var i = 0; i < this.gotBalls; i++) {
+					canvas.beginPath();
+					canvas.arc(Math.round(width * Math.random()), Math.round(height * Math.random()), Math.round(20 * Math.random() + 20), 0, Math.PI * 2, true);
+					canvas.closePath();
+					
+					var tussi = 125;
+					var tussi2 = 125;
+					
+					var r = Math.round(tussi * Math.random() + tussi2);
+					var g = Math.round(tussi * Math.random() + tussi2);
+					var b = Math.round(tussi * Math.random() + tussi2);
+					
+					// canvas.fillStyle = 'rgba(255, 224, 240, .55)';
+	
+					canvas.fillStyle = 'rgba(' + r + ', ' + g +', ' + b + ', .55)';
+					canvas.fill();
+				}
+				
+			}
+			catch(e) {
+				// canvas multifail!
+			}
+
+	}
 		
 };
 
@@ -221,6 +233,8 @@ $(window).hashchange(function(){
 
 $(document).ready(function() {
 	
+	Lamantiini.smallBalls.init($('#luss'));
+	
 	var manateeMode = $.cookie('manateeMode');
 		
 	if(manateeMode == 'hardcore') {
@@ -230,7 +244,6 @@ $(document).ready(function() {
 		
 	}
 	Lamantiini.Mode.init();
-	
 	
 	
 	
