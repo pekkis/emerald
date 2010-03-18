@@ -10,7 +10,7 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 	/**
 	 * @var string
 	 **/
-	protected $_roleName;
+	protected $_role;
 
 	/**
 	 * @var array
@@ -20,11 +20,11 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 	/**
 	 * Constructor
 	 *
-	 * @param Emerald_Acl $acl
-	 * @param Emerald_Acl_Role_Interface $role
+	 * @param Zend_Acl $acl
+	 * @param Zend_Acl_Role_Interface $role
 	 * @return void
 	 **/
-	public function __construct(Emerald_Acl $acl, Emerald_Acl_Role_Interface $role)
+	public function __construct(Zend_Acl $acl = null, Zend_Acl_Role_Interface $role = null)
 	{
 		$this->_errorPage = array(
 			'module' => 'default', 
@@ -32,9 +32,13 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 			'action' => 'forbidden'
 		);
 		
-		$this->_role = $role;
-	
-		$this->setAcl($acl);
+		if($acl) {
+			$this->setAcl($acl);
+		}
+		
+		if($role) {
+			$this->setRole($role);
+		}
 
 	}
 
@@ -89,7 +93,7 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 	 * @param string $module
 	 * @return void
 	 **/
-	public function setErrorPage($action = 'forbidden', $controller = 'error', $module = 'core')
+	public function setErrorPage($action = 'forbidden', $controller = 'error', $module = 'default')
 	{
 		$this->_errorPage = array(
 			'module' => $module, 
@@ -117,8 +121,9 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 	 **/
 	public function preDispatch(Zend_Controller_Request_Abstract $request)
 	{
+				
 		$resourceName = $request->getModuleName() . '_' . $request->getControllerName() . '_' . $request->getActionName();
-		
+										
 		// $this->getAcl()->removeRole($this->getRole());
 		
 		try {
@@ -131,9 +136,6 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 			$this->denyAccess();
 			
 		}
-		
-		
-		
 		
 						
 	}
