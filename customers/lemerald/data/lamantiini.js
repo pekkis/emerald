@@ -83,16 +83,6 @@ Lamantiini.Mode = {
 	
 	
 	hardcore: function() {
-					
-		$("#logo-lamantee").remove();
-		$("#logo").append('<object id="logo-lamantee" data="/data/images/manatee.svg" type="image/svg+xml"></object>');
-		
-		// $("img[src=/data/images/manatee.png]").attr('href', 'src=/data/images/manatee.svg');
-		
-		
-				
-		// $('.marquee').wrap('<marquee behavior="scroll" scrollamount="1" direction="left" />');
-		// $('marquee').marquee();
 	
 		$('a[href]').live('click', function(e) {
 			
@@ -120,9 +110,6 @@ Lamantiini.Mode = {
 	
 		if(location.hash && location.hash != '/') {
 			$(window).trigger('hashchange');
-		}
-
-	
 	
 	},
 	
