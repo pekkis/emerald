@@ -7,9 +7,15 @@
 		$this->headTitle()->setSeparator(' - ')->append("Emerald");
 		$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
 		
-		$this->jQuery()->addJavascriptFile(URL_BASE ."/lib/core/emerald.js");
-		$this->jQuery()->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
-		$this->headLink()->prependStylesheet(URL_BASE . '/lib/admin/main.css');
+		$this->jQuery()
+			->addJavascriptFile(URL_BASE . '/lib/ext/jquery.jgrowl.js')
+			->addJavascriptFile(URL_BASE . "/lib/core/emerald.js");
+		
+		$this->jQuery()
+			->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
+			->addStylesheet(URL_BASE . '/lib/ext/jquery.jgrowl.css');
+				
+			$this->headLink()->prependStylesheet(URL_BASE . '/lib/admin/main.css');
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssbase/base-min.css');
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css');
 		$this->headScript()->prependFile(URL_BASE .'/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');

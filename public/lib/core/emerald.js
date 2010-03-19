@@ -203,13 +203,24 @@ String.prototype.t = function(params)
 }
 
 
-Emerald.message = function(msg)
+Emerald.message = function(msg, params)
 {
+	if(typeof(msg) == 'string') {
+		if(!params) {
+			params = { };
+		}
+		return $.jGrowl(msg, params);
+	}
 	
-	$("#emerald-message p").text(msg);
-	$("#emerald-message").dialog('open');
-		
-	location = "#emerald-message";
+	
+	$.jGrowl(msg.message);
+	
+	
+	// message class handling
+	
+	
+	
+	
 }
 
 Emerald.Json = { };
@@ -226,8 +237,8 @@ Emerald.Json.Message = {
 jQuery.fn.jsonClick = function(options) {
 	  
 	var defaultOptions = {
-		success: function(elm) {},
-		failure: function(elm) {}
+		success: function(elm, msg) { Emerald.message(msg); },
+		failure: function(elm, msg) { Emerald.message(msg); }
 	};
 	
 	var finalOptions = jQuery.extend(defaultOptions, options);
@@ -272,8 +283,8 @@ jQuery.fn.jsonClick = function(options) {
 jQuery.fn.jsonSubmit = function(options) {
 	  
 		var defaultOptions = {
-			success: function() {},
-			failure: function() {}
+			success: function(msg) { Emerald.message(msg); },
+			failure: function(msg) { Emerald.message(msg); }
 		};
 		
 		var finalOptions = jQuery.extend(defaultOptions, options);
