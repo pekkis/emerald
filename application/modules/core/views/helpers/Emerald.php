@@ -2,6 +2,10 @@
 class Core_View_Helper_Emerald extends Zend_View_Helper_Abstract
 {
 	
+	private $_user;
+	
+	private $_acl;
+	
 	
 	public function emerald()
 	{
@@ -70,4 +74,53 @@ pageTracker._trackPageview();
 		}
 	
 	}
+	
+	
+	
+	public function getUser()
+	{
+		if(!$this->_user) {
+			$this->_user = Zend_Registry::get('Emerald_User');
+		}
+		return $this->_user;
+	}
+	
+	
+	public function getAcl()
+	{
+		if(!$this->_acl) {
+			$this->_acl = Zend_Registry::get('Emerald_Acl');
+		}
+		return $this->_acl;
+	}
+	
+	
+	
+	public function userIsAllowed($resource, $privilege = null)
+	{
+		if(!$resource) {
+			return false;
+		}
+		
+		$user = $this->getUser();
+		$acl = $this->getAcl();
+		
+		return $acl->isAllowed($user, $resource, $privilege);
+		
+	}
+	
+	
+	public function findActivity($category, $name)
+	{
+		static $model;
+		if(!$model) {
+			$model = new Admin_Model_Activity();
+		}
+		
+		return $model->findByCategoryAndName($category, $name);
+		
+	}
+	
+	
+	
 }

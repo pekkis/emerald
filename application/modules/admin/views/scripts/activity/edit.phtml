@@ -1,0 +1,12 @@
+<?php 
+$this->headTitle()->append('Edit activities');
+$this->headScript()->appendFile(URL_BASE . '/lib/admin/activity/edit.js');
+?>
+
+<h1><?php echo $this->translate('Edit activities'); ?></h1>
+
+<div class="box">
+
+<?php echo $this->form; ?>
+
+</div>

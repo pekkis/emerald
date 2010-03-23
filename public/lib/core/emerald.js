@@ -59,6 +59,9 @@ Emerald.Popup.listener = function(myEvent) {
 	} else if(elm.hasClass('popup-medium')) {
 		features.width = 500;
 		features.height = 500;
+	} else if(elm.hasClass('popup-huge')) {
+		features.width = 1024;
+		features.height = 768;
 	}
 	
 	features.resizable = (elm.hasClass('popup-resizable')) ? 'yes' : 'no';

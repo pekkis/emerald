@@ -12,3 +12,35 @@ CREATE TABLE "permission_locale_ugroup" (
 );
 
 
+CREATE SEQUENCE activity_id_seq;
+
+CREATE TABLE "activity" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('activity_id_seq'),
+  "category" varchar(255) NOT NULL,
+  "name" varchar(255) NOT NULL,CREATE TABLE "permission_activity_ugroup"
+(
+"activity_id" int not null,
+"ugroup_id" int  NOT NULL,
+PRIMARY KEY ("activity_id", "ugroup_id"),
+FOREIGN KEY(activity_id) REFERENCES "activity" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+  PRIMARY KEY ("id"),
+  UNIQUE ("category","name")
+);
+
+
+CREATE TABLE "permission_activity_ugroup"
+(
+"activity_id" int not null,
+"ugroup_id" int  NOT NULL,
+PRIMARY KEY ("activity_id", "ugroup_id"),
+FOREIGN KEY(activity_id) REFERENCES "activity" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO activity (category, name) VALUES ('Administration', 'Edit activity permissions');
+INSERT INTO activity (category, name) VALUES ('Administration', 'Clear caches');
+INSERT INTO activity (category, name) VALUES ('Administration', 'Expose admin panel');
+

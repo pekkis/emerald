@@ -18,9 +18,15 @@ class Admin_Model_Navigation
 			$navi = new Zend_Navigation();
 			
 			$dashboard = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'label' => 'Dashboard'));
-									
 			$navi->addPage($dashboard);
+			
+			$editActivity = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'activity', 'action' => 'edit', 'label' => 'Edit activities'));
+			$dashboard->addPage($editActivity);
 
+			$saveActivity = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'activity', 'action' => 'save', 'label' => 'Save activities'));
+			$saveActivity->setVisible(false);
+			$dashboard->addPage($saveActivity);
+			
 			$users = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'label' => 'Users & groups'));
 			
 			$createUser = new Zend_Navigation_Page_Mvc(array('module' => 'admin', 'controller' => 'user', 'action' => 'create', 'label' => 'Create user'));

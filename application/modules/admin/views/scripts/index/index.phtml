@@ -10,9 +10,10 @@ $this->headScript()->appendFile(URL_BASE . '/lib/admin/index/index.js');
 
 <p><?php echo $this->translate('Welcome to Emerald.'); ?></p>
 
-<h2><?php echo $this->translate('Developer tools'); ?></h2>
+<h2><?php echo $this->translate('Administrator tools'); ?></h2>
 
 <ul>
+<li><a id="edit-activities" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'activity', 'action' => 'edit'), 'default', true); ?>"><?php echo $this->translate('Edit activities'); ?></a></li>
 <li><a id="clear-cache" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'cache', 'action' => 'clear'), 'default', true); ?>"><?php echo $this->translate('Clear caches'); ?></a></li>
 </ul>
 
