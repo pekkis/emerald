@@ -86,7 +86,18 @@ $this->headTitle()->setSeparator(' - ');
 	<?php echo $this->languageSwitcher(array('page' => $this->navigation()->findActive($this->navigation()->getContainer(), 0, 0)))?>
 	
 	
-	<p id="legal">Copyright 2009 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+	<p id="legal">
+	Copyright 2009 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
+	
+	<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('Administration', 'Expose admin panel'))): ?>
+	| <a title="<?php echo $this->translate('Open admin panel'); ?>" class="popup popup-huge" href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
+	<?php endif; ?>
+	
+	</p>
+	
+	
+	
+	
 </div>
 
 <?php echo $this->jQuery(); ?>
