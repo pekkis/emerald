@@ -57,7 +57,7 @@ class Core_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emeral
 		if(!$acl->has($this)) {
 			$acl->add($this);
 			$model = new Core_Model_DbTable_Permission_Locale_Ugroup();
-	       	$sql = "SELECT ugroup_id, permission FROM permission_locale_ugroup WHERE locale_locale = ?";
+	       	$sql = "SELECT ugroup_id, permission FROM emerald_permission_locale_ugroup WHERE locale_locale = ?";
 	       	$res = $model->getAdapter()->fetchAll($sql, $this->locale);
 	       	foreach($res as $row) {
 	       		foreach(Emerald_Permission::getAll() as $key => $name) {

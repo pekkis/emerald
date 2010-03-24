@@ -1,22 +1,20 @@
-ALTER TABLE page ADD COLUMN redirect_id integer NULL;ALTER TABLE
-ALTER TABLE page ADD FOREIGN KEY(redirect_id) REFERENCES page(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE emerald_page ADD COLUMN redirect_id integer NULL;ALTER TABLE
+ALTER TABLE emerald_page ADD FOREIGN KEY(redirect_id) REFERENCES emerald_page(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 	
-CREATE TABLE "permission_locale_ugroup" (
+CREATE TABLE "emerald_permission_locale_ugroup" (
   "locale_locale" varchar(6) NOT NULL,
   "ugroup_id" int  NOT NULL,
   "permission" smallint  NOT NULL,
   PRIMARY KEY ("locale_locale","ugroup_id"),
-  FOREIGN KEY ("locale_locale") REFERENCES "locale" ("locale") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY ("locale_locale") REFERENCES "emerald_locale" ("locale") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("ugroup_id") REFERENCES "emerald_ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE "user" ADD COLUMN expose_admin smallint not null default 0;
+CREATE SEQUENCE emerald_activity_id_seq;
 
-CREATE SEQUENCE activity_id_seq;
-
-CREATE TABLE "activity" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('activity_id_seq'),
+CREATE TABLE "emerald_activity" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_activity_id_seq'),
   "category" varchar(255) NOT NULL,
   "name" varchar(255) NOT NULL,
   PRIMARY KEY ("id"),
@@ -24,16 +22,16 @@ CREATE TABLE "activity" (
 );
 
 
-CREATE TABLE "permission_activity_ugroup"
+CREATE TABLE "emerald_permission_activity_ugroup"
 (
 "activity_id" int not null,
 "ugroup_id" int  NOT NULL,
 PRIMARY KEY ("activity_id", "ugroup_id"),
-FOREIGN KEY(activity_id) REFERENCES "activity" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY(activity_id) REFERENCES "emerald_activity" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY ("ugroup_id") REFERENCES "emerald_ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO activity (category, name) VALUES ('Administration', 'Edit activity permissions');
-INSERT INTO activity (category, name) VALUES ('Administration', 'Clear caches');
-INSERT INTO activity (category, name) VALUES ('Administration', 'Expose admin panel');
+INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Edit activity permissions');
+INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Clear caches');
+INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Expose admin panel');
 

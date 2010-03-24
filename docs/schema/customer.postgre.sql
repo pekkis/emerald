@@ -1,26 +1,26 @@
 
-CREATE TABLE "application_option" (
+CREATE TABLE "emerald_application_option" (
   "identifier" varchar(255) NOT NULL DEFAULT '',
   "strvalue" varchar(255) DEFAULT NULL,
   PRIMARY KEY ("identifier")
 );
 
-CREATE SEQUENCE filelib_folder_id_seq;
+CREATE SEQUENCE emerald_filelib_folder_id_seq;
 
 
-CREATE TABLE "filelib_folder" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('filelib_folder_id_seq'),
+CREATE TABLE "emerald_filelib_folder" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_filelib_folder_id_seq'),
   "parent_id" int  DEFAULT NULL,
   "name" varchar(255) NOT NULL,
   PRIMARY KEY ("id"),
   UNIQUE ("parent_id","name"),
-    FOREIGN KEY ("parent_id") REFERENCES "filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
+    FOREIGN KEY ("parent_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE form_id_seq;
+CREATE SEQUENCE emerald_form_id_seq;
 
 CREATE TABLE "form" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('form_id_seq'),
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_form_id_seq'),
   "name" varchar(255) NOT NULL,
   "description" text NOT NULL,
   "status" smallint  NOT NULL DEFAULT '0',
@@ -28,10 +28,10 @@ CREATE TABLE "form" (
   UNIQUE ("name")
 );
 
-CREATE SEQUENCE form_field_id_seq;
+CREATE SEQUENCE emerald_form_field_id_seq;
 
-CREATE TABLE "form_field" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('form_field_id_seq'),
+CREATE TABLE "emerald_form_field" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_form_field_id_seq'),
   "form_id" int  NOT NULL,
   "type" smallint NOT NULL,
   "order_id" smallint NOT NULL DEFAULT '0',
@@ -39,11 +39,11 @@ CREATE TABLE "form_field" (
   "mandatory" smallint NOT NULL DEFAULT '0',
   "options" text,
   PRIMARY KEY ("id"),
-    FOREIGN KEY ("form_id") REFERENCES "form" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY ("form_id") REFERENCES "emerald_form" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-CREATE TABLE "shard" (
+CREATE TABLE "emerald_shard" (
   "id" int  NOT NULL,
   "name" varchar(255) NOT NULL,
   "module" varchar(255) NOT NULL DEFAULT 'core',
@@ -54,20 +54,20 @@ CREATE TABLE "shard" (
   UNIQUE ("name")
 );
 
-CREATE SEQUENCE ugroup_id_seq;
+CREATE SEQUENCE emerald_ugroup_id_seq;
 
 
-CREATE TABLE "ugroup" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('ugroup_id_seq'),
+CREATE TABLE "emerald_ugroup" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_ugroup_id_seq'),
   "name" varchar(255) NOT NULL,
   PRIMARY KEY ("id"),
   UNIQUE ("name")
 );
 
-CREATE SEQUENCE user_id_seq;
+CREATE SEQUENCE emerald_user_id_seq;
 
-CREATE TABLE "user" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('user_id_seq'),
+CREATE TABLE "emerald_user" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_user_id_seq'),
   "email" varchar(255) NOT NULL,
   "passwd" char(32) NOT NULL,
   "firstname" varchar(255) DEFAULT NULL,
@@ -78,27 +78,27 @@ CREATE TABLE "user" (
 );
 
 
-CREATE TABLE "user_option" (
+CREATE TABLE "emerald_user_option" (
   "user_id" int  NOT NULL,
   "identifier" varchar(255) NOT NULL DEFAULT '',
   "strvalue" varchar(255) DEFAULT NULL,
   PRIMARY KEY ("user_id","identifier"),
-  FOREIGN KEY ("user_id") REFERENCES "user" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY ("user_id") REFERENCES "emerald_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-CREATE TABLE "user_ugroup" (
+CREATE TABLE "emerald_user_ugroup" (
   "user_id" int  NOT NULL,
   "ugroup_id" int  NOT NULL,
   PRIMARY KEY ("user_id","ugroup_id"),
-    FOREIGN KEY ("user_id") REFERENCES "user" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY ("user_id") REFERENCES "emerald_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("ugroup_id") REFERENCES "emerald_ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE filelib_file_id_seq;
+CREATE SEQUENCE emerald_filelib_file_id_seq;
 
-CREATE TABLE "filelib_file" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('filelib_file_id_seq'),
+CREATE TABLE "emerald_filelib_file" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_filelib_file_id_seq'),
   "folder_id" int  NOT NULL,
   "mimetype" varchar(255) NOT NULL,
   "profile" varchar(255) NOT NULL DEFAULT 'default',
@@ -107,51 +107,51 @@ CREATE TABLE "filelib_file" (
   "link" varchar(1000) DEFAULT NULL,
   PRIMARY KEY ("id"),
   UNIQUE ("name","folder_id"),
-      FOREIGN KEY ("folder_id") REFERENCES "filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
+      FOREIGN KEY ("folder_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
-CREATE TABLE "permission_folder_ugroup" (
+CREATE TABLE "emerald_permission_folder_ugroup" (
   "folder_id" int  NOT NULL,
   "ugroup_id" int  NOT NULL,
   "permission" smallint  NOT NULL,
   PRIMARY KEY ("folder_id","ugroup_id"),
-    FOREIGN KEY ("folder_id") REFERENCES "filelib_folder" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY ("folder_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("ugroup_id") REFERENCES "emerald_ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-CREATE TABLE "locale" (
+CREATE TABLE "emerald_locale" (
   "locale" varchar(6) NOT NULL,
   "page_start" int  DEFAULT NULL,
   PRIMARY KEY ("locale")
 );
 
-CREATE TABLE "locale_option" (
+CREATE TABLE "emerald_locale_option" (
   "locale_locale" varchar(6) NOT NULL,
   "identifier" varchar(255) NOT NULL DEFAULT '',
   "strvalue" varchar(255) DEFAULT NULL,
   PRIMARY KEY ("locale_locale","identifier"),
-  FOREIGN KEY ("locale_locale") REFERENCES "locale" ("locale") ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY ("locale_locale") REFERENCES "emerald_locale" ("locale") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE news_channel_id_seq;
+CREATE SEQUENCE emerald_news_channel_id_seq;
 
 
-CREATE SEQUENCE page_global_id_seq;
+CREATE SEQUENCE emerald_page_global_id_seq;
 
-CREATE TABLE page_global
+CREATE TABLE emerald_page_global
 (
-id integer NOT NULL DEFAULT NEXTVAL('page_global_id_seq'),
+id integer NOT NULL DEFAULT NEXTVAL('emerald_page_global_id_seq'),
 PRIMARY KEY(id)
 );
 
-DROP TABLE IF EXISTS page;
+DROP TABLE IF EXISTS emerald_page;
 
-CREATE SEQUENCE page_id_seq;
+CREATE SEQUENCE emerald_page_id_seq;
 
-CREATE TABLE "page" (
-  "id" int NOT NULL DEFAULT NEXTVAL('page_id_seq'),
+CREATE TABLE "emerald_page" (
+  "id" int NOT NULL DEFAULT NEXTVAL('emerald_page_id_seq'),
   "global_id" int NOT NULL,
   "locale" varchar(6) NOT NULL,
   "parent_id" int  DEFAULT NULL,
@@ -167,25 +167,25 @@ CREATE TABLE "page" (
   PRIMARY KEY ("id"),
   UNIQUE ("parent_id","title"),
   UNIQUE ("global_id","locale"),
-  FOREIGN KEY ("global_id") REFERENCES "page_global" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("parent_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("shard_id") REFERENCES "shard" ("id") ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY ("locale") REFERENCES "locale" ("locale") ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY ("global_id") REFERENCES "emerald_page_global" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("parent_id") REFERENCES "emerald_page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("shard_id") REFERENCES "emerald_shard" ("id") ON DELETE NO ACTION ON UPDATE CASCADE,
+  FOREIGN KEY ("locale") REFERENCES "emerald_locale" ("locale") ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-CREATE TABLE "permission_page_ugroup" (
+CREATE TABLE "emerald_permission_page_ugroup" (
   "page_id" int  NOT NULL,
   "ugroup_id" int  NOT NULL,
   "permission" smallint  NOT NULL,
   PRIMARY KEY ("page_id","ugroup_id"),
-    FOREIGN KEY ("page_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("ugroup_id") REFERENCES "ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY ("page_id") REFERENCES "emerald_page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("ugroup_id") REFERENCES "emerald_ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
 
-CREATE TABLE "news_channel" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('news_channel_id_seq'),
+CREATE TABLE "emerald_news_channel" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_news_channel_id_seq'),
   "page_id" int  NOT NULL,
   "items_per_page" smallint NOT NULL DEFAULT '10',
   "link_readmore" varchar(255) NOT NULL,
@@ -204,13 +204,13 @@ CREATE TABLE "news_channel" (
   "status" smallint  NOT NULL DEFAULT '0',
   PRIMARY KEY ("id"),
   UNIQUE ("page_id"),
-  FOREIGN KEY ("page_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY ("page_id") REFERENCES "emerald_page" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE SEQUENCE news_item_id_seq;
+CREATE SEQUENCE emerald_news_item_id_seq;
 
-CREATE TABLE "news_item" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('news_item_id_seq'),
+CREATE TABLE "emerald_news_item" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_news_item_id_seq'),
   "news_channel_id" int  NOT NULL,
   "title" varchar(255) NOT NULL,
   "description" text,
@@ -223,12 +223,12 @@ CREATE TABLE "news_item" (
   "valid_end" timestamp DEFAULT NULL,
   "status" smallint  NOT NULL DEFAULT '0',
   PRIMARY KEY ("id"),
-    FOREIGN KEY ("news_channel_id") REFERENCES "news_channel" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY ("news_channel_id") REFERENCES "emerald_news_channel" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
 
-CREATE TABLE "formcontent" (
+CREATE TABLE "emerald_formcontent" (
   "page_id" int  NOT NULL,
   "form_id" int  DEFAULT NULL,
   "email_subject" varchar(255) NOT NULL,
@@ -236,27 +236,26 @@ CREATE TABLE "formcontent" (
   "email_to" varchar(255) NOT NULL,
   "redirect_page_id" int  NOT NULL,
   PRIMARY KEY ("page_id"),
-      FOREIGN KEY ("page_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY ("form_id") REFERENCES "form" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY ("redirect_page_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY ("page_id") REFERENCES "emerald_page" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY ("form_id") REFERENCES "emerald_form" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY ("redirect_page_id") REFERENCES "emerald_page" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-CREATE TABLE "htmlcontent" (
+CREATE TABLE "emerald_htmlcontent" (
   "page_id" int  NOT NULL,
   "block_id" int  NOT NULL,
   "content" text,
   PRIMARY KEY ("page_id","block_id"),
-  FOREIGN KEY ("page_id") REFERENCES "page" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY ("page_id") REFERENCES "emerald_page" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE locale ADD FOREIGN KEY ("page_start") REFERENCES "page" ("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE emerald_locale ADD FOREIGN KEY ("page_start") REFERENCES "emerald_page" ("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 
-INSERT INTO shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'core', 'html-content', 'index', 3);
-INSERT INTO shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'core', 'form-content', 'index', 3);
-INSERT INTO shard (id, name, module, controller, action, status) VALUES(3, 'News', 'core', 'news', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'core', 'html-content', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'core', 'form-content', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(3, 'News', 'core', 'news', 'index', 3);
 
-
-CREATE UNIQUE INDEX page_beautifurl_idx ON page (beautifurl);
+CREATE UNIQUE INDEX page_beautifurl_idx ON emerald_page (beautifurl);
 

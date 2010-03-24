@@ -47,7 +47,7 @@ class Core_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_
 			}
 			$acl->addResource($this, $parent);
 			$model = new Core_Model_DbTable_Permission_Page_Ugroup();
-	       	$sql = "SELECT ugroup_id, permission FROM permission_page_ugroup WHERE page_id = ?";
+	       	$sql = "SELECT ugroup_id, permission FROM emerald_permission_page_ugroup WHERE page_id = ?";
 	       	$res = $model->getAdapter()->fetchAll($sql, $this->id);
 	       	foreach($res as $row) {
 	       		foreach(Emerald_Permission::getAll() as $key => $name) {

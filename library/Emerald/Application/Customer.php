@@ -177,6 +177,13 @@ class Emerald_Application_Customer
     	return (bool) $this->getOption('registered');
     }
     
+
+    
+       public function isInstalled()
+    {
+    	return (bool) $this->getOption('registered');
+    }
+    
     
 }
 ?>

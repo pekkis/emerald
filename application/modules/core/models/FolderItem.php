@@ -16,7 +16,7 @@ class Core_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emeral
 			
 			$acl->add($this);
 			$model = new Core_Model_DbTable_Permission_Folder_Ugroup();
-	       	$sql = "SELECT ugroup_id, permission FROM permission_folder_ugroup WHERE folder_id = ?";
+	       	$sql = "SELECT ugroup_id, permission FROM emerald_permission_folder_ugroup WHERE folder_id = ?";
 	       	$res = $model->getAdapter()->fetchAll($sql, $this->id);
 	       	
 	       	foreach($res as $row) {

@@ -7,7 +7,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 	{
 		$customer = Zend_Registry::get('Emerald_Customer');
 		
-		if(!$customer->isRegistered()) {
+		if($customer->isInstalled() && !$customer->isRegistered()) {
 			$server = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('server');
 			$server->registerCustomer($customer);
 		}

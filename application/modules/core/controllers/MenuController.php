@@ -23,7 +23,7 @@ class Core_MenuController extends Emerald_Controller_Action
 		);
 						
 		try {
-			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
+			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 
@@ -31,7 +31,7 @@ class Core_MenuController extends Emerald_Controller_Action
 			$navi = $naviModel->getNavigation();
 						
 			if($input->locale) {
-				$menu = $navi->findBy('locale_root', $page->locale);
+				$menu = $navi->findBy('locale_root', $input->locale);
 				$this->view->menu = $menu;
 			} else {
 				$this->view->menu = $navi;

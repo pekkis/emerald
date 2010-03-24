@@ -16,7 +16,7 @@ class Admin_Model_ActivityItem extends Emerald_Model_AbstractItem implements Eme
 		if(!$acl->has($this)) {
 			$acl->addResource($this);
 			$model = new Core_Model_DbTable_Permission_Page_Ugroup();
-	       	$sql = "SELECT ugroup_id FROM permission_activity_ugroup WHERE activity_id = ?";
+	       	$sql = "SELECT ugroup_id FROM emerald_permission_activity_ugroup WHERE activity_id = ?";
 	       	$res = $model->getAdapter()->fetchAll($sql, $this->id);
 	       	foreach($res as $row) {
 				$role = "Emerald_Group_{$row->ugroup_id}";

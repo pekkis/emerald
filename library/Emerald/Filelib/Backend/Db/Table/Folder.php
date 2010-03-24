@@ -1,7 +1,7 @@
 <?php
 class Emerald_Filelib_Backend_Db_Table_Folder extends Zend_Db_Table_Abstract
 {
-	protected $_name = 'filelib_folder';	
+	protected $_name = 'emerald_filelib_folder';	
 	protected $_id = array('id');
 	protected $_rowClass = 'Emerald_Filelib_Backend_Db_Row_Folder';
 		

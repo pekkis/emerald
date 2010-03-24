@@ -10,7 +10,10 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));
-				
+		
+		$globalIdElm = new Zend_Form_Element_Text('global_id');
+		$globalIdElm->setDecorators(array('ViewHelper'));
+		
 		$localeElm = new Zend_Form_Element_Hidden('locale');
 		$localeElm->setDecorators(array('ViewHelper'));
 				
@@ -79,17 +82,40 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		$visibleElm->setAllowEmpty(false);
 		
 		
+		
+		$interLocaleElm = new Zend_Form_Element_Select('interlink_locale');
+		$interLocaleElm->setRequired(false);
+		$interLocaleElm->setAllowEmpty(true);
+
+		$localeModel = new Core_Model_Locale();
+		$locales = $localeModel->findAll();
+		
+		$interLocaleElm->addMultiOption("", '--');
+		foreach($locales as $l) {
+			$interLocaleElm->addMultiOption($l->locale, $l->locale);
+		}
+		
+		$interPageElm = new Zend_Form_Element_Select('interlink_page');
+		$interLocaleElm->setRequired(false);
+		$interLocaleElm->setAllowEmpty(true);
+
+		
+		
+		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($idElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $submitElm));
+		
+		
+		
+		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $submitElm));
 
 		
 		$permissionForm = new Admin_Form_PagePermissions();
 		$permissionForm->setAttrib('id', 'page-permissions');
 		
 		
-		$this->addSubForm($permissionForm, 'page-permissions', 8);
+		$this->addSubForm($permissionForm, 'page-permissions', 10);
 
 		
 		

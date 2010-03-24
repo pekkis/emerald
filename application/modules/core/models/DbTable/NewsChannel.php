@@ -1,7 +1,7 @@
 <?php
 class Core_Model_DbTable_NewsChannel extends Zend_Db_Table_Abstract 
 {
-	protected $_name = 'news_channel';
+	protected $_name = 'emerald_news_channel';
 	protected $_primary = array('id');
 	
 	protected $_referenceMap    = array(

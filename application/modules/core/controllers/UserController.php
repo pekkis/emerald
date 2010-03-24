@@ -22,7 +22,7 @@ class Core_UserController extends Emerald_Controller_Action
 		} else {
 			
 			$auth = Zend_Auth::getInstance();
-			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'user', 'email', 'passwd', 'MD5(?) and status = 1');			
+			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'emerald_user', 'email', 'passwd', 'MD5(?) and status = 1');			
 						
 			$adapter->setIdentity($form->tussi->getValue());
 			$adapter->setCredential($form->loso->getValue());

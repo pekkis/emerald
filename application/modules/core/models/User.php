@@ -50,8 +50,8 @@ class Core_Model_User
 	public function getGroupsFor(Core_Model_UserItem $user)
 	{
 		$tbl = new Core_Model_DbTable_Ugroup();
-		$sel = $tbl->getAdapter()->select()->from("ugroup", "*");
-		$sel->join('user_ugroup', "ugroup.id = user_ugroup.ugroup_id AND user_ugroup.user_id = {$user->id}", null);
+		$sel = $tbl->getAdapter()->select()->from("emerald_ugroup", "*");
+		$sel->join('emerald_user_ugroup', "emerald_ugroup.id = emerald_user_ugroup.ugroup_id AND emerald_user_ugroup.user_id = {$user->id}", null);
 		
 		
 		$res = $tbl->getAdapter()->fetchAll($sel, null, Zend_Db::FETCH_ASSOC);
