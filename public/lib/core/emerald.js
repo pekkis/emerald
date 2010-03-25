@@ -236,12 +236,19 @@ Emerald.Json.Message = {
 
 };
 
+Emerald.Message = {
+		
+		SUCCESS : 1,
+		INFO : 2,
+		ERROR : 4
+
+};
 
 jQuery.fn.jsonClick = function(options) {
 	  
 	var defaultOptions = {
-		success: function(elm, msg) { Emerald.message(msg); },
-		failure: function(elm, msg) { Emerald.message(msg); }
+		success: function(elm, msg) { },
+		failure: function(elm, msg) { }
 	};
 	
 	var finalOptions = jQuery.extend(defaultOptions, options);
@@ -286,8 +293,8 @@ jQuery.fn.jsonClick = function(options) {
 jQuery.fn.jsonSubmit = function(options) {
 	  
 		var defaultOptions = {
-			success: function(msg) { Emerald.message(msg); },
-			failure: function(msg) { Emerald.message(msg); }
+			success: function(msg) {  },
+			failure: function(msg) {  }
 		};
 		
 		var finalOptions = jQuery.extend(defaultOptions, options);
@@ -297,8 +304,10 @@ jQuery.fn.jsonSubmit = function(options) {
 			$this = $(this);
 			$this.data("callback", finalOptions);
 		  
-		  $this.submit(function() {
+		  $this.submit(function(evt) {
 			
+			  console.debug(evt);
+			  
 			  $that = $(this);
 							  
 			$("label", $that).removeClass("error");
@@ -320,39 +329,9 @@ jQuery.fn.jsonSubmit = function(options) {
 				data: $(this).serialize(),
 				success: function(response) 
 				{
-				 	var msg = response.message;
-					// $("input[type=submit], button[type=submit]", $that).attr("disabled", "");
-						
-															
-					var callback = $that.data("callback");
-					
-					if(msg.type == Emerald.Json.Message.ERROR) {
-																		
-						if(msg.errors) {
-																												
-							$.each(msg.errors, function(key, value) {
-								
-								// Catch subforms too
-								$.each(value, function(key2, value2) {
-									if(typeof(value2) == 'object') {
-										$("label[for=" + key2 + "]", $that).addClass("error");
-									}
-								});
-																								
-								$("label[for=" + key + "]", $that).addClass("error");
-							});
-						}
-						
-						callback.failure(msg);						
-					} else {
-						callback.success(msg);
-					}
-					
-					
-					
-					
-					
-					
+				 	Emerald.Messenger.handleFormErrors(response, evt);
+				 	Emerald.Messenger.handleJson(response, evt);
+				 	
 				}
 			});
 			return false;
@@ -411,6 +390,97 @@ jQuery.fn.jsonSubmit = function(options) {
 	};
 
 
+Emerald.Messenger = {
+		
+		handleFormErrors: function(data, evt)
+		{
+			var $that = $(evt.currentTarget);
+			
+			if(data.length != 0) {
+		
+				for(var i in data.messages) {
+					
+					var msg = data.messages[i];
+					
+					if(msg.type == Emerald.Message.ERROR) {
+					
+						if(msg.errors) {
+																					
+							$.each(msg.errors, function(key, value) {
+								// Catch subforms too
+								$.each(value, function(key2, value2) {
+									if(typeof(value2) == 'object') {
+										$("label[for=" + key2 + "]", $that).addClass("error");
+									}
+								});
+								$("label[for=" + key + "]", $that).addClass("error");
+							});
+						}
+					}
+				}
+			}	
+
+	
+		},
+		
+		
+		handleJson: function(data, evt) {
+								
+			var success = [];
+			var info = [];
+			var error = [];
+			if(data.length != 0) {
+				
+				for(var i in data.messages) {
+					
+					var msg = data.messages[i];
+					
+					switch(msg.type) {
+						case Emerald.Message.SUCCESS:
+						Emerald.Messenger.publishMessage(msg.message,'success');
+						break;
+					case Emerald.Message.INFO:
+						Emerald.Messenger.publishMessage(msg.message,'info');
+						break;
+					case Emerald.Message.ERROR:
+						Emerald.Messenger.publishMessage(msg.message,'error');
+						break;
+				}
+					
+				
+				var callback = $(evt.currentTarget).data('callback');
+				if(callback) {
+					if(msg.type == Emerald.Message.ERROR) {
+						callback.failure(msg);						
+					} else {
+						callback.success(msg);
+					}
+				}
+				
+					
+			}
+		}
+	},
+	publishMessage: function(msg,type) {
+		var params = [];
+		switch(type) {
+			case 'error':
+				params.sticky = true;
+				params.theme = 'jgrowl-ERROR';
+				break;
+			case 'info':
+				params.theme = 'jgrowl-INFO';
+				break;
+			case 'success':
+				params.theme = 'jgrowl-SUCCESS';
+				break;
+		}
+		$.jGrowl(msg,params);
+	}
+};
+
+	
+	
 
 
 $(document).ready(function()
