@@ -36,7 +36,7 @@ class Core_NewsChannelController extends Emerald_Controller_Action
 			$form = new Core_Form_NewsChannel();
 			$form->setDefaults($channel->toArray());			
 		
-			
+			$this->view->page = $page;
 			$this->view->form = $form;
 			
 			

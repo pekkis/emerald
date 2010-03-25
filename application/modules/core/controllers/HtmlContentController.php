@@ -48,6 +48,7 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			}
 						
 			$this->view->htmlcontent = $htmlcontent;
+			$this->view->page = $page;
 			
 		} catch(Exception $e) {
 			
@@ -79,14 +80,29 @@ class Core_HtmlcontentController extends Emerald_Controller_Action
 			
 			$htmlModel = new Core_Model_HtmlContent();
 			$htmlcontent = $htmlModel->find($input->page_id, $input->block_id);			
+
+			$page = $this->_pageFromPageId($input->page_id);
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
+				throw new Emerald_Exception('Forbidden', 401);
+			}
 			
+			$pageModel = new Core_Model_Page();
+			$siblings = $pageModel->findSiblings($page); 
+			
+			 
 			$this->view->htmlcontent = $htmlcontent;
 
 			$form = new Core_Form_HtmlContent();
 			$form->setDefaults($htmlcontent->toArray());
+									
+			foreach($siblings as $sibling) {
+				$form->siblings->addMultiOption($sibling->id, $sibling->locale);
+			}
+			$form->siblings->setValue($page->id);
 			
 			$this->view->form = $form;
-						
+
+			$this->view->page = $page;
 			
 		} catch(Exception $e) {
 			throw new Emerald_Exception($e->getMessage(), 500);

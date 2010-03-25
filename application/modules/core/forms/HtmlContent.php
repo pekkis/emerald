@@ -20,9 +20,15 @@ class Core_Form_HtmlContent extends ZendX_JQuery_Form
 		$contentElm = new Zend_Form_Element_Textarea('content', array('label' => 'Content', 'class' => array('tinymce', 'w100')));
 		// $contentElm->setFilters(array(new Emerald_Filter_HtmlSpecialChars()));
 		
+		$siblingsElm = new Zend_Form_Element_Select('siblings', array('label' => 'This block in different locales'));
+		$siblingsElm->setRegisterInArrayValidator(false);
+		$siblingsElm->setRequired(false);
+		$siblingsElm->setAllowEmpty(true);
+		$siblingsElm->setIgnore(true);
+				
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		
-		$this->addElements(array($pageIdElm, $blockIdElm, $contentElm, $submitElm));
+		$this->addElements(array($pageIdElm, $blockIdElm, $contentElm, $siblingsElm, $submitElm));
 		
 		
 	}

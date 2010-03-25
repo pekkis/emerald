@@ -84,9 +84,11 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		
 		
 		$interLocaleElm = new Zend_Form_Element_Select('interlink_locale');
+		$interLocaleElm->setRegisterInArrayValidator(false);
 		$interLocaleElm->setRequired(false);
 		$interLocaleElm->setAllowEmpty(true);
-
+		$interLocaleElm->setIgnore(true);
+		
 		$localeModel = new Core_Model_Locale();
 		$locales = $localeModel->findAll();
 		
@@ -96,8 +98,10 @@ class Admin_Form_Page extends ZendX_JQuery_Form
 		}
 		
 		$interPageElm = new Zend_Form_Element_Select('interlink_page');
-		$interLocaleElm->setRequired(false);
-		$interLocaleElm->setAllowEmpty(true);
+		$interPageElm->setRegisterInArrayValidator(false);
+		$interPageElm->setRequired(false);
+		$interPageElm->setAllowEmpty(true);
+		$interPageElm->setIgnore(true);
 
 		
 		

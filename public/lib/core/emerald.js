@@ -55,7 +55,7 @@ Emerald.Popup.listener = function(myEvent) {
 		features.height = 400;
 	} else if(elm.hasClass('popup-large')) {
 		features.width = 800;
-		features.height = 600;
+		features.height = 650;
 	} else if(elm.hasClass('popup-medium')) {
 		features.width = 500;
 		features.height = 500;
@@ -67,7 +67,7 @@ Emerald.Popup.listener = function(myEvent) {
 	features.resizable = (elm.hasClass('popup-resizable')) ? 'yes' : 'no';
 	features.scrollbars = (elm.hasClass('popup-scrollbars')) ? 'yes' : 'no';
 
-	Emerald.Popup.open(elm.attr('href'), elm.attr('id'), Emerald.Popup.featureStringFromObject(features)); 
+	Emerald.Popup.open(elm.attr('href'), elm.attr('rel'), Emerald.Popup.featureStringFromObject(features)); 
 	return false;
 }
 
@@ -214,8 +214,7 @@ Emerald.message = function(msg, params)
 		}
 		return $.jGrowl(msg, params);
 	}
-	
-	
+		
 	$.jGrowl(msg.message);
 	
 	
@@ -262,7 +261,7 @@ jQuery.fn.jsonClick = function(options) {
 			
 	  $this.data("callback", finalOptions);
 	  
-	  $this.bind(eventName, function() {
+	  $this.bind(eventName, function(evt) {
 		  
 		  $that = $(this);
 		  $.ajax({
@@ -271,13 +270,7 @@ jQuery.fn.jsonClick = function(options) {
 			dataType: "json",
 			success: function(response) 
 			{
-				var msg = response.message;
-				var callback = $that.data("callback");
-				if(msg.type == Emerald.Json.Message.ERROR) {
-					callback.failure($that, msg);						
-				} else {
-					callback.success($that, msg);
-				}
+				Emerald.Messenger.handleJson(response, evt);
 			}
 		});
 		return false;
@@ -305,9 +298,7 @@ jQuery.fn.jsonSubmit = function(options) {
 			$this.data("callback", finalOptions);
 		  
 		  $this.submit(function(evt) {
-			
-			  console.debug(evt);
-			  
+									  
 			  $that = $(this);
 							  
 			$("label", $that).removeClass("error");
@@ -431,6 +422,10 @@ Emerald.Messenger = {
 			var error = [];
 			if(data.length != 0) {
 				
+				if(data.message) {
+					data.messages = [ data.message ];
+				}
+				
 				for(var i in data.messages) {
 					
 					var msg = data.messages[i];
@@ -447,13 +442,12 @@ Emerald.Messenger = {
 						break;
 				}
 					
-				
 				var callback = $(evt.currentTarget).data('callback');
 				if(callback) {
 					if(msg.type == Emerald.Message.ERROR) {
-						callback.failure(msg);						
+						callback.failure(msg, evt);						
 					} else {
-						callback.success(msg);
+						callback.success(msg, evt);
 					}
 				}
 				
@@ -462,8 +456,6 @@ Emerald.Messenger = {
 		}
 	},
 	publishMessage: function(msg,type) {
-		
-		console.debug(msg);
 		
 		var params = [];
 		switch(type) {

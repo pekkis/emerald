@@ -357,4 +357,12 @@ p:first-child {
  th {
  	text-align: left;
  }
+ 
+ .jgrowl-SUCCESS {
+ 	background-color: #FF9999;
+}
+
+.jgrowl-ERROR {
+	background-color: #FF0000;	
+}
 

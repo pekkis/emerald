@@ -142,6 +142,25 @@ class Core_Model_Page
 	
 	
 	
+	public function findSiblings(Core_Model_PageItem $page)
+	{
+		$tbl = $this->getTable();
+		
+		$res = $tbl->fetchAll(array('global_id = ?' => $page->global_id), 'locale ASC');
+		
+		$pages = array();
+		foreach($res as $row) {
+			$pages[] = new Core_Model_PageItem($row->toArray());
+		}
+		
+		return new ArrayIterator($pages);
+		
+		
+	}
+	
+	
+	
+	
 	public function getPermissions(Core_Model_PageItem $page)
 	{
 		$groupModel = new Core_Model_Group();

@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 	
 	$(".delete").jsonClick({
-		success: function(elm) { elm.parent().parent().remove(); }
+		success: function(msg, evt) { $(evt.currentTarget).parent().parent().remove(); }
 	});
 	
 

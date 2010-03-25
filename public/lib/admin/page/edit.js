@@ -27,11 +27,6 @@ $(document).ready(function() {
 	$('#interlink_page').change(function() {
 		
 		if(this.value) {
-			
-			alert(this.value);
-			
-			
-			
 			$("#global_id").val(this.value);
 		}
 		
@@ -41,10 +36,9 @@ $(document).ready(function() {
 	$('#interlink_locale').change(function() {
 		
 		var $this = $(this);
-		
+						
 		$.getJSON("/menu/index", { 'locale': this.value, 'format' : 'json' }, function(r) {
 		
-			console.debug(r);
 			var pages = [];
 			
 			naviUpdate(pages, 1, r.pages);

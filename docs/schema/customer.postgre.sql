@@ -19,7 +19,7 @@ CREATE TABLE "emerald_filelib_folder" (
 
 CREATE SEQUENCE emerald_form_id_seq;
 
-CREATE TABLE "form" (
+CREATE TABLE "emerald_form" (
   "id" int  NOT NULL DEFAULT NEXTVAL('emerald_form_id_seq'),
   "name" varchar(255) NOT NULL,
   "description" text NOT NULL,
