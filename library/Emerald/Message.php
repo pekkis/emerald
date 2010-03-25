@@ -45,7 +45,7 @@ class Emerald_Message
     
     public function toArray()
     {
-    	$arr = parent::toArray();
+    	 $arr = parent::toArray();
     	if(isset($arr['message']) && $arr['message']) {
     		if($translator = $this->getTranslatorContainer()->getTranslator()) {
 				$arr['message'] = $translator->translate($arr['message']);    			
