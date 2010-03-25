@@ -462,6 +462,9 @@ Emerald.Messenger = {
 		}
 	},
 	publishMessage: function(msg,type) {
+		
+		console.debug(msg);
+		
 		var params = [];
 		switch(type) {
 			case 'error':
@@ -501,7 +504,7 @@ $(document).ready(function()
 		}
 	});
 	
-	$('.popup').live('click', Emerald.Popup.listener);
+	$('.emerald-popup').live('click', Emerald.Popup.listener);
 
 	$('#emerald-message').dialog({ autoOpen: false });
 	
