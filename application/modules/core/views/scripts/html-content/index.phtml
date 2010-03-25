@@ -2,7 +2,7 @@
 
 <?php if($this->writable): ?>
 <div class="emerald-controls emerald-controls-html-content" id="emerald-controls-html-content-<?php echo $this->htmlcontent->page_id; ?>-<?php echo $this->htmlcontent->block_id; ?>">
-<a class="popup popup-large popup-resizable popup-scrollbars" 
+<a class="emerald-popup popup-large popup-resizable popup-scrollbars" 
 href="<?php echo $this->url(array('module' => 'core', 'controller' => 'html-content', 'action' => 'edit', 'page_id' => $this->htmlcontent->page_id, 'block_id' => $this->htmlcontent->block_id), 'default', true); ?>">
 <?php echo $this->translate('Edit'); ?>
 </a>
