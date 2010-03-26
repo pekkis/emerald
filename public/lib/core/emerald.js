@@ -498,7 +498,4 @@ $(document).ready(function()
 	
 	$('.emerald-popup').live('click', Emerald.Popup.listener);
 
-	$('#emerald-message').dialog({ autoOpen: false });
-	
-
 });
