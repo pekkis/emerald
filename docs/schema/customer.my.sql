@@ -11,17 +11,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-DROP TABLE IF EXISTS application_option;
+DROP TABLE IF EXISTS emerald_application_option;
 
-CREATE TABLE application_option (
+CREATE TABLE emerald_application_option (
   identifier varchar(255) NOT NULL DEFAULT '',
   strvalue varchar(255) DEFAULT NULL,
   PRIMARY KEY (identifier)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS filelib_file;
+DROP TABLE IF EXISTS emerald_filelib_file;
 
-CREATE TABLE filelib_file (
+CREATE TABLE emerald_filelib_file (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   folder_id int(10) unsigned NOT NULL,
   mimetype varchar(255) NOT NULL,
@@ -34,24 +34,24 @@ CREATE TABLE filelib_file (
   UNIQUE KEY `name` (`name`,folder_id),
   KEY folder_id (folder_id),
   KEY mimetype (mimetype),
-  CONSTRAINT filelib_file_ibfk_1 FOREIGN KEY (folder_id) REFERENCES filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT filelib_file_ibfk_1 FOREIGN KEY (folder_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS filelib_folder;
+DROP TABLE IF EXISTS emerald_filelib_folder;
 
-CREATE TABLE filelib_folder (
+CREATE TABLE emerald_filelib_folder (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   parent_id int(10) unsigned DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY parent_id_name (parent_id,`name`),
   KEY parent_id (parent_id),
-  CONSTRAINT filelib_folder_ibfk_1 FOREIGN KEY (parent_id) REFERENCES filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT filelib_folder_ibfk_1 FOREIGN KEY (parent_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS form;
+DROP TABLE IF EXISTS emerald_form;
 
-CREATE TABLE form (
+CREATE TABLE emerald_form (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   description text NOT NULL,
@@ -60,9 +60,9 @@ CREATE TABLE form (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS form_field;
+DROP TABLE IF EXISTS emerald_form_field;
 
-CREATE TABLE form_field (
+CREATE TABLE emerald_form_field (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   form_id int(10) unsigned NOT NULL,
   `type` tinyint(4) NOT NULL,
@@ -72,12 +72,12 @@ CREATE TABLE form_field (
   `options` text,
   PRIMARY KEY (id),
   KEY form_id (form_id),
-  CONSTRAINT form_field_ibfk_1 FOREIGN KEY (form_id) REFERENCES form (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT form_field_ibfk_1 FOREIGN KEY (form_id) REFERENCES emerald_form (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS formcontent;
+DROP TABLE IF EXISTS emerald_formcontent;
 
-CREATE TABLE formcontent (
+CREATE TABLE emerald_formcontent (
   page_id int(10) unsigned NOT NULL,
   form_id int(10) unsigned DEFAULT NULL,
   email_subject varchar(255) NOT NULL,
@@ -88,56 +88,56 @@ CREATE TABLE formcontent (
   PRIMARY KEY (page_id),
   KEY form_id (form_id),
   KEY redirect_page_id (redirect_page_id),
-  CONSTRAINT formcontent_ibfk_1 FOREIGN KEY (page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT formcontent_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT formcontent_ibfk_2 FOREIGN KEY (form_id) REFERENCES form (id) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT formcontent_ibfk_3 FOREIGN KEY (redirect_page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT formcontent_ibfk_3 FOREIGN KEY (redirect_page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS htmlcontent;
+DROP TABLE IF EXISTS emerald_htmlcontent;
 
-CREATE TABLE htmlcontent (
+CREATE TABLE emerald_htmlcontent (
   page_id int(10) unsigned NOT NULL,
   block_id int(10) unsigned NOT NULL,
   content text,
   PRIMARY KEY (page_id,block_id),
-  CONSTRAINT htmlcontent_ibfk_1 FOREIGN KEY (page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT htmlcontent_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS locale;
+DROP TABLE IF EXISTS emerald_locale;
 
-CREATE TABLE locale (
+CREATE TABLE emerald_locale (
   locale char(6) NOT NULL,
   page_start int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (locale),
   KEY page_start (page_start),
-  CONSTRAINT locale_ibfk_1 FOREIGN KEY (page_start) REFERENCES `page` (id) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT locale_ibfk_1 FOREIGN KEY (page_start) REFERENCES `emerald_page` (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS locale_option;
 
-CREATE TABLE locale_option (
+CREATE TABLE emerald_locale_option (
   locale_locale char(6) NOT NULL,
   identifier varchar(255) NOT NULL DEFAULT '',
   strvalue varchar(255) DEFAULT NULL,
   PRIMARY KEY (locale_locale,identifier),
-  CONSTRAINT locale_option_ibfk_1 FOREIGN KEY (locale_locale) REFERENCES locale (locale) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT locale_option_ibfk_1 FOREIGN KEY (locale_locale) REFERENCES emerald_locale (locale) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS login_redirect;
+DROP TABLE IF EXISTS emerald_login_redirect;
 
 CREATE TABLE login_redirect (
   page_id int(10) unsigned NOT NULL,
   redirect_page_id int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (page_id),
   KEY redirect_page_id (redirect_page_id),
-  CONSTRAINT login_redirect_ibfk_1 FOREIGN KEY (page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT login_redirect_ibfk_2 FOREIGN KEY (redirect_page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT login_redirect_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT login_redirect_ibfk_2 FOREIGN KEY (redirect_page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS news_channel;
 
-CREATE TABLE news_channel (
+CREATE TABLE emerald_news_channel (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   page_id int(10) unsigned NOT NULL,
   items_per_page tinyint(4) NOT NULL DEFAULT '10',
@@ -157,12 +157,12 @@ CREATE TABLE news_channel (
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (id),
   UNIQUE KEY page_id (page_id),
-  CONSTRAINT news_channel_ibfk_1 FOREIGN KEY (page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT news_channel_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS news_item;
+DROP TABLE IF EXISTS emerald_news_item;
 
-CREATE TABLE news_item (
+CREATE TABLE emerald_news_item (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   news_channel_id int(10) unsigned NOT NULL,
   title varchar(255) NOT NULL,
@@ -177,10 +177,10 @@ CREATE TABLE news_item (
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   KEY news_channel_id (news_channel_id),
-  CONSTRAINT news_item_ibfk_1 FOREIGN KEY (news_channel_id) REFERENCES news_channel (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT news_item_ibfk_1 FOREIGN KEY (news_channel_id) REFERENCES emerald_news_channel (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS page_global;
+DROP TABLE IF EXISTS emerald_page_global;
 
 CREATE TABLE page_global
 (
@@ -188,9 +188,9 @@ id integer unsigned NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS page;
+DROP TABLE IF EXISTS emerald_page;
 
-CREATE TABLE `page` (
+CREATE TABLE `emerald_page` (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   global_id integer unsigned NOT NULL,
   locale char(6) NOT NULL,
@@ -211,39 +211,39 @@ CREATE TABLE `page` (
   KEY shard_id (shard_id),
   KEY locale (locale),
   KEY iisiurl_index (beautifurl(255)),
-  CONSTRAINT page_ibfk_1 FOREIGN KEY (id) REFERENCES page_global(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT page_ibfk_2 FOREIGN KEY (parent_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT page_ibfk_3 FOREIGN KEY (shard_id) REFERENCES shard (id) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT page_ibfk_4 FOREIGN KEY (locale) REFERENCES locale (locale) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT page_ibfk_1 FOREIGN KEY (id) REFERENCES emerald_page_global(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT page_ibfk_2 FOREIGN KEY (parent_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT page_ibfk_3 FOREIGN KEY (shard_id) REFERENCES emerald_shard (id) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT page_ibfk_4 FOREIGN KEY (locale) REFERENCES emerald_locale (locale) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS permission_folder_ugroup;
+DROP TABLE IF EXISTS emerald_permission_folder_ugroup;
 
-CREATE TABLE permission_folder_ugroup (
+CREATE TABLE emerald_permission_folder_ugroup (
   folder_id int(10) unsigned NOT NULL,
   ugroup_id int(10) unsigned NOT NULL,
   permission int(10) unsigned NOT NULL,
   PRIMARY KEY (folder_id,ugroup_id),
   KEY ugroup_id (ugroup_id),
-  CONSTRAINT permission_folder_ugroup_ibfk_1 FOREIGN KEY (folder_id) REFERENCES filelib_folder (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT permission_folder_ugroup_ibfk_2 FOREIGN KEY (ugroup_id) REFERENCES ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT permission_folder_ugroup_ibfk_1 FOREIGN KEY (folder_id) REFERENCES emerald_filelib_folder (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT permission_folder_ugroup_ibfk_2 FOREIGN KEY (ugroup_id) REFERENCES emerald_ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS permission_page_ugroup;
+DROP TABLE IF EXISTS emerald_permission_page_ugroup;
 
-CREATE TABLE permission_page_ugroup (
+CREATE TABLE emerald_permission_page_ugroup (
   page_id int(10) unsigned NOT NULL,
   ugroup_id int(10) unsigned NOT NULL,
   permission int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (page_id,ugroup_id),
   KEY ugroup_id (ugroup_id),
-  CONSTRAINT permission_page_ugroup_ibfk_1 FOREIGN KEY (page_id) REFERENCES `page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT permission_page_ugroup_ibfk_2 FOREIGN KEY (ugroup_id) REFERENCES ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT permission_page_ugroup_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT permission_page_ugroup_ibfk_2 FOREIGN KEY (ugroup_id) REFERENCES emerald_ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS shard;
+DROP TABLE IF EXISTS emerald_shard;
 
-CREATE TABLE shard (
+CREATE TABLE emerald_shard (
   id int(10) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   module varchar(255) NOT NULL DEFAULT 'core',
@@ -254,18 +254,18 @@ CREATE TABLE shard (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS ugroup;
+DROP TABLE IF EXISTS emerald_ugroup;
 
-CREATE TABLE ugroup (
+CREATE TABLE emerald_ugroup (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS emerald_user;
 
-CREATE TABLE `user` (
+CREATE TABLE `emerald_user` (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   email varchar(255) NOT NULL,
   passwd char(32) NOT NULL,
@@ -276,29 +276,29 @@ CREATE TABLE `user` (
   UNIQUE KEY email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS user_option;
+DROP TABLE IF EXISTS emerald_user_option;
 
-CREATE TABLE user_option (
+CREATE TABLE emerald_user_option (
   user_id int(10) unsigned NOT NULL,
   identifier varchar(255) NOT NULL DEFAULT '',
   strvalue varchar(255) DEFAULT NULL,
   PRIMARY KEY (user_id,identifier),
-  CONSTRAINT user_option_ibfk_1 FOREIGN KEY (user_id) REFERENCES `user` (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT user_option_ibfk_1 FOREIGN KEY (user_id) REFERENCES `emerald_user` (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `user_ugroup`
 --
 
-DROP TABLE IF EXISTS user_ugroup;
+DROP TABLE IF EXISTS emerald_user_ugroup;
 
-CREATE TABLE user_ugroup (
+CREATE TABLE emerald_user_ugroup (
   user_id int(10) unsigned NOT NULL,
   ugroup_id int(10) unsigned NOT NULL,
   PRIMARY KEY (user_id,ugroup_id),
   KEY group_id (ugroup_id),
-  CONSTRAINT user_ugroup_ibfk_1 FOREIGN KEY (user_id) REFERENCES `user` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT user_ugroup_ibfk_2 FOREIGN KEY (ugroup_id) REFERENCES ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT user_ugroup_ibfk_1 FOREIGN KEY (user_id) REFERENCES `emerald_user` (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT user_ugroup_ibfk_2 FOREIGN KEY (ugroup_id) REFERENCES emerald_ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -307,9 +307,9 @@ CREATE TABLE user_ugroup (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
-INSERT INTO shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'core', 'html-content', 'index', 3);
-INSERT INTO shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'core', 'form-content', 'index', 3);
-INSERT INTO shard (id, name, module, controller, action, status) VALUES(3, 'News', 'core', 'news', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'core', 'html-content', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'core', 'form-content', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(3, 'News', 'core', 'news', 'index', 3);
 
-CREATE UNIQUE INDEX page_beautifurl_idx ON page (beautifurl);
+CREATE UNIQUE INDEX emerald_page_beautifurl_idx ON emerald_page (beautifurl);
 

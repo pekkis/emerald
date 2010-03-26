@@ -1,11 +1,11 @@
 $(document).ready(function() {
 	
 	$(".form-delete").jsonClick({
-		success: function(elm) { elm.parents('tr').remove(); }
+		success: function(msg, evt) { $(evt.currentTarget).parents('tr').remove(); }
 	});
 	
 	$("form").jsonSubmit({
-		success: function(msg) { location = Emerald.baseUrl + '/admin/form/edit/id/' + msg.form_id; }		
+		success: function(msg, evt) { location = Emerald.baseUrl + '/admin/form/edit/id/' + msg.form_id; }		
 	});
 	
 	

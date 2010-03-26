@@ -64,7 +64,7 @@ class Core_Model_Form
 	public function getOrderIdForNewField(Core_Model_FormItem $item)
 	{
 		$tbl = new Core_Model_DbTable_FormField();
-		$max = $tbl->getAdapter()->fetchOne("SELECT MAX(order_id) FROM form_field WHERE form_id = ?", array($item->id));
+		$max = $tbl->getAdapter()->fetchOne("SELECT MAX(order_id) FROM emerald_form_field WHERE form_id = ?", array($item->id));
 		return $max + 1;
 	}
 	

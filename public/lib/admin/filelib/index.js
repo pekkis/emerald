@@ -1,15 +1,15 @@
 $(function() {
 	
 	$("#create-folder").jsonSubmit({
-		success: function(msg) { location.reload(); }
+		success: function(msg, evt) { location.reload(); }
 	});
 	
 	$(".delete-folder").jsonClick({
-		success: function(elm) { location = Emerald.baseUrl + '/admin/filelib'; }
+		success: function(msg, evt) { location = Emerald.baseUrl + '/admin/filelib'; }
 	});
 	
 	$(".delete-file").jsonClick({
-		success: function(elm) { elm.parents('li').remove(); }
+		success: function(msg, evt) { $(evt.currentTarget).parents('li').remove(); }
 	});
 
 	

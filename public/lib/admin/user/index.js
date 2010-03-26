@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 	
 	$('.user-delete, .group-delete').jsonClick({
-		success: function(elm) { elm.parent().remove(); }			
+		success: function(msg, evt) { $(evt.currentTarget).parent().remove(); }			
 	});
 	
 	
