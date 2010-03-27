@@ -28,7 +28,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 	}
 	
 	
-	public function setProfiles($profiles)
+	public function setProfiles(array $profiles)
 	{
 		$this->_profiles = $profiles; 
 	}
