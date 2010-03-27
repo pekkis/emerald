@@ -13,11 +13,26 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 	 * @var Emerald_Filelib Filelib
 	 */
 	protected $_filelib;
+
+	protected $_profiles;
 	
 	public function __construct($options = array())
 	{
 		Emerald_Options::setConstructorOptions($this, $options);
 	}
+	
+	
+	public function getProfiles()
+	{
+		return $this->_profiles;
+	}
+	
+	
+	public function setProfiles($profiles)
+	{
+		$this->_profiles = $profiles; 
+	}
+	
 	
 	/**
 	 * Sets filelib

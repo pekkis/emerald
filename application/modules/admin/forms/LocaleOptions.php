@@ -7,7 +7,7 @@ class Admin_Form_LocaleOptions extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . "/admin/options/save-locale/format/json");
+		$this->setAction(EMERALD_URL_BASE . "/admin/options/save-locale/format/json");
 
 		$localeElm = new Zend_Form_Element_Hidden('locale');
 		$localeElm->setDecorators(array('ViewHelper'));

@@ -7,7 +7,7 @@ class Admin_Form_Folder extends ZendX_JQuery_Form
 				
 		
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . "/admin/folder/save");
+		$this->setAction(EMERALD_URL_BASE . "/admin/folder/save");
 
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));

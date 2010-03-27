@@ -5,7 +5,7 @@ class Admin_Form_Locale extends ZendX_JQuery_Form
 	public function init()
 	{
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . "/admin/locale/save");
+		$this->setAction(EMERALD_URL_BASE . "/admin/locale/save");
 
 		$localeElm = new Zend_Form_Element_Hidden('locale');
 		$localeElm->setDecorators(array('ViewHelper'));

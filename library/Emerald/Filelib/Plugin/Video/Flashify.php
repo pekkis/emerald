@@ -10,7 +10,7 @@
 class Emerald_Filelib_Plugin_Video_Flashify
 extends Emerald_Filelib_Plugin_VersionProvider_Abstract
 {
-	protected $_providesFor = array('video');	
+	protected $_providesFor = array('video', 'application');	
 	
 	
 	/**
@@ -20,9 +20,6 @@ extends Emerald_Filelib_Plugin_VersionProvider_Abstract
 	 */
 	public function createVersion(Emerald_Filelib_FileItem $file)
 	{
-		if($file->getType() != 'video') {
-			throw new Exception('File must be an video');
-		}
 
 		$path = $file->getPath() . '/' . $this->getIdentifier();
 		
@@ -34,6 +31,7 @@ extends Emerald_Filelib_Plugin_VersionProvider_Abstract
    		
    		exec($exec_string); //where exxc is the command used to execute shell comma
 		
+   		   		
 	}
 	
 	

@@ -39,8 +39,14 @@ $application = new Zend_Application(
 );
 
 $options = $application->getOptions();
+if(isset($options['emerald']['constant'])) {
+	
+	foreach($options['emerald']['constant'] as $key => $value) {
+		define('EMERALD_' . $key, $value);
+	}
+}
 
-define('URL_BASE', (isset($options['resources']['frontcontroller']['baseUrl'])) ? $options['resources']['frontcontroller']['baseUrl'] : '' );
+// define('EMERALD_URL_BASE', (isset($options['resources']['frontcontroller']['baseUrl'])) ? $options['resources']['frontcontroller']['baseUrl'] : '' );
 
 try {
 

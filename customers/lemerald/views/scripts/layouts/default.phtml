@@ -4,16 +4,13 @@
 $this->emerald()->addEverything();
 
 $this->jQuery()
-	->addJavascriptFile('/data/jquery.hashchange.js')
-	->addJavascriptFile('/data/jquery.marquee.js')
-	->addJavascriptFile('/data/jquery.cookie.js');
+	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.hashchange.js')
+	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.marquee.js')
+	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.cookie.js');
 
-$this->headLink()->appendStylesheet('/data/customer.css');
-$this->headLink(array('rel' => 'icon', 'href' => '/data/images/manatee-favicon.png'));
+$this->headLink(array('rel' => 'icon', 'href' => EMERALD_URL_BASE_DATA . '/data/images/manatee-favicon.png'));
 
-$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
-
-$this->headScript()->appendFile("/data/lamantiini.js");
+$this->headScript()->appendFile(EMERALD_URL_BASE_DATA . "/data/lamantiini.js");
 
 $this->headMeta()->appendName("description", "Mikko Forsströmin pieni ja sievä ovimatto: linkit projekteihin, aktiivisiin ja arkistoituihin.");
 $this->headMeta()->appendName("Author", "Mikko Forsström");
@@ -55,7 +52,7 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		
 		<div id="logo">
 		
-		<img id="logo-lamantee" src="/data/images/manatee.png" />
+		<img id="logo-lamantee" src="<?php echo EMERALD_URL_BASE_DATA; ?>/data/images/manatee.png" />
 				
 		<h1>Lamantiini 2k10</h1>
 				
@@ -87,7 +84,7 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		<a href="http://emerald.fi">powered by Emerald</a> / PostgreSQL, Zend Framework and jQuery
 		
 		<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('Administration', 'Expose admin panel'))): ?>
-		| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge" href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
+		| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollbars" href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
 		<?php endif; ?>
 		
 		</div>
@@ -103,6 +100,13 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 <?php echo $this->jQuery(); ?>
 <?php echo $this->headScript(); ?>
 <?php echo $this->emerald()->googleAnalytics(); ?>
+
+<script type="text/javascript">
+Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
+Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
+Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
+</script>
+
 
 </body>
 

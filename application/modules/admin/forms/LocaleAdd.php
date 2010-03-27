@@ -7,7 +7,7 @@ class Admin_Form_LocaleAdd extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . "/admin/locale/update/format/json");
+		$this->setAction(EMERALD_URL_BASE . "/admin/locale/update/format/json");
 
 		$localeElm = new Zend_Form_Element_MultiCheckbox('locale');
 		

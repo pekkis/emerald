@@ -25,7 +25,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 			
 			$folderItem = new $className($folderForm->getValues());
 			
-			$fl->createFolder($folderItem);
+			$fl->folder()->create($folderItem);
 
 			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');					
 			
@@ -44,9 +44,9 @@ class Admin_FilelibController extends Emerald_Controller_Action
 		$form = new Admin_Form_FileUpload();
 
 		if($form->isValid($this->getRequest()->getPost())) {
-			$folder = $filelib->findFolder($form->folder_id->getValue());
+			$folder = $filelib->folder()->find($form->folder_id->getValue());
 			$form->file->receive();
-			$file = $filelib->upload($form->file->getFileName(), $folder, $form->profile->getValue());
+			$file = $filelib->file()->upload($form->file->getFileName(), $folder, $form->profile->getValue());
 
 			$this->view->success = true;
 			$this->view->folder_id = $form->folder_id->getValue();
@@ -74,7 +74,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			$this->view->fl = $fl;
 			
-			$folder = $fl->findRootFolder();
+			$folder = $fl->folder()->findRoot();
 			$iter = new Emerald_Filelib_FolderItemIterator($folder);
 			
 			$iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
@@ -86,7 +86,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 			
 			
 			if($input->id) {
-				$activeFolder = $fl->findFolder($input->id);
+				$activeFolder = $fl->folder()->find($input->id);
 				if(!$activeFolder) {
 					throw new Emerald_Exception('Folder not found.', 404);
 				}
@@ -171,40 +171,6 @@ class Admin_FilelibController extends Emerald_Controller_Action
 	}
 	
 	
-	public function deleteAction()
-	{
-		
-		$filters = array();
-		$validators = array(
-			'id' => array('Int', 'default_value' => null)
-		);
-		
-		
-		try {
-			
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();		
-			
-			
-			$file = Emerald_Model::get('Filelib_File')->find($input->id)->current();
-			
-			$folder = $file->getFolder();
-			
-			Emerald_Filelib::getInstance()->delete($file);
-			
-		
-		} catch(Exception $e) {
-			
-			
-			
-			
-			
-		}
-		
-		$this->_redirect("/admin/filelib/index/id/{$folder->id}");
-				
-		
-	}
 	
 	
 
@@ -225,7 +191,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			$this->view->fl = $fl;
 			
-			$folder = $fl->findRootFolder();
+			$folder = $fl->folder()->findRoot();
 			$iter = new Emerald_Filelib_FolderItemIterator($folder);
 			
 			$iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
@@ -233,7 +199,7 @@ class Admin_FilelibController extends Emerald_Controller_Action
 			$this->view->iter = $iter;
 			
 			if($input->id) {
-				$activeFolder = $fl->findFolder($input->id);
+				$activeFolder = $fl->folder()->find($input->id);
 				if(!$activeFolder) {
 					throw new Emerald_Exception('Folder not found.', 404);
 				}

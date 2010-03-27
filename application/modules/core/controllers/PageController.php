@@ -62,7 +62,7 @@ class Core_PageController extends Emerald_Controller_Action
 					
 					
 					
-					return $this->getHelper('redirector')->gotoUrlAndExit(URL_BASE . '/' . $redirectPage->beautifurl);
+					return $this->getHelper('redirector')->gotoUrlAndExit(EMERALD_URL_BASE . '/' . $redirectPage->beautifurl);
 											
 					
 					// $this->_forward('view', 'page', 'core', array('id' => $page->redirect_id ));
@@ -92,7 +92,7 @@ class Core_PageController extends Emerald_Controller_Action
 				}
 				
 												
-				$active = $navi->findBy('uri', URL_BASE . '/' . $page->beautifurl, false);
+				$active = $navi->findBy('uri', EMERALD_URL_BASE . '/' . $page->beautifurl, false);
 				if($active) {
 					$active->setActive(true);
 				}

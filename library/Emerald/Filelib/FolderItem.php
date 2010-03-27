@@ -42,7 +42,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 	 */
 	public function findFiles()
 	{
-		return $this->getFilelib()->findFilesIn($this);
+		return $this->getFilelib()->folder()->findFiles($this);
 	}
 		
 	/**
@@ -53,7 +53,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 	public function findParent()
 	{
 		if($this->parent_id) {
-			return $this->getFilelib()->findFolder($this->parent_id);	
+			return $this->getFilelib()->folder()->find($this->parent_id);	
 		}
 		return false;
 	}
@@ -65,7 +65,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Model_AbstractItem
 	 */
 	public function findSubFolders()
 	{
-		return $this->getFilelib()->findSubFolders($this);
+		return $this->getFilelib()->folder()->findSubFolders($this);
 	}
 	
 	

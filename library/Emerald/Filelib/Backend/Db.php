@@ -156,7 +156,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		try {
 
 			$fileRow = $this->getFileTable()->find($file->id)->current();
-			$fileRow->link = $file->getFilelib()->getSymlinker()->getLink($file, false, true); 
+			$fileRow->link = $file->getProfileObject()->getSymlinker()->getLink($file, false, true); 
 
 			$this->getFileTable()->update(
 				$file->toArray(),
@@ -187,7 +187,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		
 	}
 	
-	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, $profile = 'default')
+	public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, Emerald_Filelib_FileProfile $profile)
 	{
 		$fileItemClass = $this->getFilelib()->getFileItemClass();
 		
@@ -201,14 +201,14 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 			$file->mimetype = $upload->getMimeType();
 			$file->size = $upload->getSize();
 			$file->name = $upload->getOverrideFilename();
-			$file->profile = $profile;	
+			$file->profile = $profile->getIdentifier();	
 			
 			$file->save();
 			
 			$fileItem = new $fileItemClass($file->toArray());
 			$fileItem->setFilelib($this->getFilelib());
-			
-			$fileItem->link = $file->link = $fileItem->getFilelib()->getSymlinker()->getLink($fileItem, false, true);
+									
+			$fileItem->link = $file->link = $profile->getSymlinker()->getLink($fileItem, false, true);
 			
 			$file->save();
 			

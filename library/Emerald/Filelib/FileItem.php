@@ -13,6 +13,21 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	private $_filelib;
 	
+	private $_profileObj;
+	
+	
+	public function setProfileObject(Emerald_Filelib_FileProfile $profileObj)
+	{
+		$this->_profileObj = $profileObj;
+	}
+	
+	
+	public function getProfileObject()
+	{
+		return $this->_profileObj;
+	}
+	
+	
 	
 	/**
 	 * Sets filelib
@@ -42,7 +57,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function findFolder()
 	{
-		return $this->getFilelib()->findFolder($this->folder_id);
+		return $this->getFilelib()->folder()->find($this->folder_id);
 	}
 	
 	
@@ -53,7 +68,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function getType()
 	{
-		return $this->getFilelib()->getFileType($this);
+		return $this->getFilelib()->file()->getType($this);
 	}
 	
 
@@ -77,7 +92,6 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function getPathname()
 	{
-		$fl = $this->getFilelib();
 		return $this->getPath() . '/' . $this->id;
 	}
 	
@@ -91,7 +105,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	public function getRenderPath()
 	{
 		if($this->isAnonymous()) {
-			return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getFilelib()->getSymlinker()->getLink($this, false);
+			return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getProfileObject()->getSymlinker()->getLink($this, false);
 		} else {
 			return $this->getPathname();
 		}
@@ -106,7 +120,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function renderPath($opts = array())
 	{
-		return $this->getFilelib()->renderPath($this, $opts);
+		return $this->getFilelib()->file()->renderPath($this, $opts);
 	}
 		
 	
@@ -118,7 +132,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function render(Zend_Controller_Response_Http $response, $opts = array())
 	{
-		return $this->getFilelib()->render($this, $response, $opts);
+		return $this->getFilelib()->file()->render($this, $response, $opts);
 	}
 
 	
@@ -129,7 +143,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function isAnonymous()
 	{
-		return $this->getFilelib()->fileIsAnonymous($this);
+		return $this->getFilelib()->file()->isAnonymous($this);
 	}
 	
 	
@@ -141,7 +155,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function hasVersion($version)
 	{
-		return $this->getFilelib()->fileHasVersion($this, $version);
+		return $this->getFilelib()->file()->hasVersion($this, $version);
 	}
 	
 	/**
@@ -151,7 +165,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 	 */
 	public function delete()
 	{
-		return $this->getFilelib()->deleteFile($this);
+		return $this->getFilelib()->file()->delete($this);
 	}
 	
 	

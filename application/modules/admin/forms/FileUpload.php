@@ -5,7 +5,7 @@ class Admin_Form_FileUpload extends Zend_Form
         public function init()
         {
                 $this->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
-                $this->setAction(URL_BASE . '/admin/filelib/submit');
+                $this->setAction(EMERALD_URL_BASE . '/admin/filelib/submit');
 				$this->setAttrib('id', 'file-upload');
                 
                 $folderElm = new Zend_Form_Element_Hidden('folder_id');
@@ -16,7 +16,12 @@ class Admin_Form_FileUpload extends Zend_Form
                 $fl = Zend_Registry::get('Emerald_Filelib');
 
                 $profileElm = new Zend_Form_Element_Select('profile', array('label' => 'File profile'));
-                $profileElm->setMultiOptions($fl->getProfiles());
+                
+                foreach($fl->getProfiles() as $profile) {
+                	$profileElm->addMultiOption($profile->getIdentifier(), $profile->getDescription());	
+                }
+                            
+                                
                 $profileElm->setValue('default');
                 $profileElm->setAllowEmpty(false);
                 $profileElm->setRequired(true);

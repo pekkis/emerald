@@ -8,7 +8,7 @@ class Filelib_FileController extends Zend_Controller_Action
 		
 		
 		
-		$file = $fl->findFile($this->_getParam('id'));
+		$file = $fl->file()->find($this->_getParam('id'));
 		
 		
 		

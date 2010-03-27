@@ -55,7 +55,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 		if($this->providesFor($file)) {
 			$fl = $this->getFilelib();
 			
-			$link = $fl->getSymlinker()->getLinkVersion($file, $this, true);
+			$link = $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, true);
 									
 			if(!is_link($link)) {
 
@@ -73,7 +73,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 					$path2 = substr($path, strlen($fl->getPublicRoot()) + 1);
 					$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
 										
-					$fp = dirname($this->getFilelib()->getSymlinker()->getRelativePathTo($file, $depth));
+					$fp = dirname($file->getProfileObject()->getSymlinker()->getRelativePathTo($file, $depth));
 					$fp .= '/' . $this->getIdentifier() . '/' . $file->id;
 					
 					symlink($fp, $link);
@@ -101,7 +101,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 		if($this->providesFor($file)) {
 			$fl = $this->getFilelib();
 			
-			$link = $fl->getSymlinker()->getLinkVersion($file, $this, true);
+			$link = $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, true);
 
 			if(is_link($link)) {
 				unlink($link);			
@@ -114,7 +114,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 	public function getRenderPath(Emerald_Filelib_FileItem $file)
 	{
 		if($file->isAnonymous()) {
-			$link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getFilelib()->getSymlinker()->getLinkVersion($file, $this, false);
+			$link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, false);
 			return $link;
 		} else {
 			$path = $file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id;	
@@ -222,11 +222,10 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 		if(!$this->getExtension()) {
 			throw new Emerald_Filelib_Exception('Version plugin must have a file extension');
 		}
-		
-		
+				
 		foreach($this->getProvidesFor() as $fileType) {
 			foreach($this->getProfiles() as $profile) {
-				$this->getFilelib()->addFileVersion($profile, $fileType, $this->getIdentifier(), $this);
+				$this->getFilelib()->getProfile($profile)->addFileVersion($fileType, $this->getIdentifier(), $this);
 			}
 		}
 		

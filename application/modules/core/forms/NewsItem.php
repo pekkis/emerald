@@ -5,7 +5,7 @@ class Core_Form_NewsItem extends ZendX_JQuery_Form
 	public function init()
 	{
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . "/core/news-item/save");
+		$this->setAction(EMERALD_URL_BASE . "/core/news-item/save");
 		
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));

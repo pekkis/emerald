@@ -2,7 +2,7 @@
 <?php foreach($this->news as $item): ?>
 <?php $date = new Zend_Date($item->valid_start, Zend_Date::ISO_8601); ?>
 <li class="news-headlines <?php if(!$item->isValid()): ?>emerald-invisible<?php endif; ?>">
-<a href="<?php echo URL_BASE . '/'. $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
+<a href="<?php echo EMERALD_URL_BASE . '/'. $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>">
 <?php echo $item->title; ?>
 </a>
 </li>

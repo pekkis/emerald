@@ -9,9 +9,9 @@
 class Emerald_Filelib
 {
 	/**
-	 * @var Emerald_Filelib_Backend_Interface Backend handler
+	 * @var Emerald_Filelib_Backend_Interface Backend
 	 */
-	private $_handler;
+	private $_backend;
 		
 	/**
 	 * @var Emerald_Filelib_Acl_Interface Acl handler
@@ -68,16 +68,6 @@ class Emerald_Filelib
 	 * @var integer Octal representation for file permissions
 	 */
 	private $_filePermission = 0600;
-	
-	/**
-	 * @var Emerald_Filelib_Symlinker Symlinker
-	 */
-	private $_symlinker;
-	
-	/**
-	 * @var array Versions for file types
-	 */
-	private $_fileVersions = array();
 
 	
 	/**
@@ -90,7 +80,13 @@ class Emerald_Filelib
 	 * @var string Folderitem class
 	 */
 	private $_folderItemClass = 'Emerald_Filelib_FolderItem';
-		
+	
+	
+	
+	private $_fileOperator;
+	
+	private $_folderOperator;
+	
 		
 	/**
 	 * @var array Profiles
@@ -101,6 +97,61 @@ class Emerald_Filelib
 	{
 		Emerald_Options::setConstructorOptions($this, $options);
 	}
+	
+	
+	
+	public function addProfile(Emerald_Filelib_FileProfile $profile)
+	{
+		$profile->setFilelib($this);
+		
+		if(!isset($this->_profiles[$profile->getIdentifier()])) {
+			$this->_profiles[$profile->getIdentifier()] = $profile;	
+		}
+	}
+	
+		
+	
+	public function getProfile($identifier)
+	{
+			
+		
+		if($identifier instanceof Emerald_Filelib_FileItem) {
+			$identifier = $identifier->profile;
+		}
+						
+		if(!isset($this->_profiles[$identifier])) {
+			throw new Emerald_Filelib_Exception("File profile '{$identifier}' not found");
+		}
+		
+		return $this->_profiles[$identifier];
+	}
+	
+	public function getProfiles()
+	{
+		return $this->_profiles;
+	}
+	
+	
+	
+	public function file()
+	{
+		if(!$this->_fileOperator) {
+			$this->_fileOperator = new Emerald_Filelib_FileOperator($this);
+		}
+		return $this->_fileOperator;
+	}
+	
+	
+	public function folder()
+	{
+		if(!$this->_folderOperator) {
+			$this->_folderOperator = new Emerald_Filelib_FolderOperator($this);
+		}
+		
+		return $this->_folderOperator;
+	}
+	
+	
 	
 	
 	/**
@@ -145,27 +196,6 @@ class Emerald_Filelib
 	{
 		return $this->_folderItemClass;
 	}
-	
-	
-	/**
-	 * Adds a file profile
-	 * 
-	 * @param string $name Name
-	 * @param string $description Description
-	 */
-	public function addProfile($name, $description) {
-		$this->_profiles[$name] = $description;
-	}
-	
-	/**
-	 * @return array Returns all file profiles
-	 */
-	public function getProfiles()
-	{
-		return $this->_profiles;
-	}
-	
-	
 	
 	
 	/**
@@ -220,37 +250,6 @@ class Emerald_Filelib
 	
 	
 	
-	/**
-	 * Returns symlinker
-	 * 
-	 * @return Emerald_Filelib_Symlinker_Interface
-	 */
-	public function getSymlinker()
-	{
-		if(!$this->_symlinker) {
-			throw new Emerald_Filelib_Exception("Filelib must have a symlinker");
-		}
-		return $this->_symlinker;
-	}
-	
-	
-	/**
-	 * Sets symlinker
-	 * 
-	 * @param Emerald_Filelib_Symlinker_Interface|string $symlinker
-	 * @return Emerald_Filelib Filelib
-	 */
-	public function setSymlinker($symlinker)
-	{
-		if(!$symlinker instanceof Emerald_Filelib_Symlinker_Interface) {
-			$symlinker = new $symlinker($this); 			
-		}
-		
-		$this->_symlinker = $symlinker;
-		
-		return $this;
-	}
-	
 	
 	
 	/**
@@ -262,6 +261,12 @@ class Emerald_Filelib
 	public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
 	{
 		$plugin->setFilelib($this);
+		
+		foreach($plugin->getProfiles() as $profileIdentifier) {
+			$profile = $this->getProfile($profileIdentifier);
+			$profile->addPlugin($plugin);			
+		}
+		
 		$this->_plugins[] = $plugin;
 		
 		$plugin->init();
@@ -278,51 +283,6 @@ class Emerald_Filelib
 	public function getPlugins()
 	{
 		return $this->_plugins;
-	}
-	
-	
-	
-	/**
-	 * Adds a file version
-	 * 
-	 * @param string $profile string File profile
-	 * @param string $fileType string File type
-	 * @param string $versionIdentifier Version identifier
-	 * @param object $versionProvider Version provider reference
-	 * @return Emerald_Filelib Filelib
-	 */
-	public function addFileVersion($profile, $fileType, $versionIdentifier, $versionProvider)
-	{
-		if(!isset($this->_fileVersions[$profile])) {
-			$this->_fileVersions[$profile] = array();
-		}
-		
-		if(!isset($this->_fileVersions[$profile][$fileType])) {
-			$this->_fileVersions[$profile][$fileType] = array();
-		}		
-		$this->_fileVersions[$profile][$fileType][$versionIdentifier] = $versionProvider;
-
-		return $this;
-	}
-	
-	
-	/**
-	 * Returns versions of the specified file
-	 * 
-	 * @param Emerald_Filelib_FileItem|string $fileType File item or file type
-	 * @return array Array of provided versions
-	 */
-	public function getFileVersions(Emerald_Filelib_FileItem $file)
-	{
-		$fileType = $file->getType();
-		$profile = $file->profile;
-		
-		if(!isset($this->_fileVersions[$profile][$fileType])) {
-			$this->_fileVersions[$profile][$fileType] = array();
-		}
-				
-		return array_keys($this->_fileVersions[$profile][$fileType]);
-						
 	}
 	
 	
@@ -577,424 +537,7 @@ class Emerald_Filelib
 	}
 	
 	
-	
-	
-	/**
-	 * Creates a folder
-	 * 
-	 * @param Emerald_Filelib_FolderItem $folder
-	 * @return unknown_type
-	 */
-	public function createFolder(Emerald_Filelib_FolderItem $folder)
-	{
-		return $this->getBackend()->createFolder($folder);
-	}
-	
-	
-	/**
-	 * Deletes a folder
-	 * 
-	 * @param Emerald_Filelib_FolderItem $folder Folder
-	 */
-	public function deleteFolder(Emerald_Filelib_FolderItem $folder)
-	{
-		foreach($folder->findSubFolders() as $childFolder) {
-			$this->deleteFolder($childFolder);
-		}
-
-		foreach($folder->findFiles() as $file) {
-			$this->deleteFile($file);	
-		}
 		
-		$this->getBackend()->deleteFolder($folder);
-	}
-	
-	/**
-	 * Updates a folder
-	 * 
-	 * @param Emerald_Filelib_FolderItem $folder Folder
-	 */
-	public function updateFolder(Emerald_Filelib_FolderItem $folder)
-	{
-		$this->getBackend()->updateFolder($folder);
-
-		foreach($folder->findFiles() as $file) {
-			$this->updateFile($file);
-		}
-		
-		foreach($folder->findSubFolders() as $subFolder) {
-			$this->updateFolder($subFolder);
-		}
-			
-		
-		
-	}
-	
-	
-	/**
-	 * Updates a file
-	 * 
-	 * @param Emerald_Filelib_FileItem $file
-	 * @return unknown_type
-	 */
-	public function updateFile(Emerald_Filelib_FileItem $file)
-	{
-		$this->getSymlinker()->deleteSymlink($file);
-		$this->getBackend()->updateFile($file);
-		if($this->fileIsAnonymous($file)) {
-			$this->getSymlinker()->createSymlink($file);
-		}
-	
-	}
-		
-		
-	/**
-	 * Finds a file
-	 * 
-	 * @param mixed $idFile File id
-	 * @return Emerald_Filelib_FileItem
-	 */
-	public function findFile($id)
-	{
-		$file = $this->getBackend()->findFile($id);
-		
-		if(!$file) {
-			return false;
-		}
-		
-		$file->setFilelib($this);
-		return $file;
-		
-	}
-	
-	/**
-	 * Finds and returns all files
-	 * 
-	 * @return Emerald_Filelib_FileItemIterator
-	 */
-	public function findAllFiles()
-	{
-		$items = $this->getBackend()->findAllFiles();
-		foreach($items as $item) {
-			$item->setFilelib($this);
-		}
-		return $items;
-	}
-
-		
-	/**
-	 * Finds the root folder
-	 * 
-	 * @return Emerald_Filelib_FolderItem
-	 */
-	public function findRootFolder()
-	{
-		$folder = $this->getBackend()->findRootFolder();
-		$folder->setFilelib($this);
-		return $folder;
-	}
-	
-	
-	
-	/**
-	 * Finds a folder
-	 * 
-	 * @param mixed $id Folder id
-	 * @return Emerald_Filelib_FolderItem
-	 */
-	public function findFolder($id)
-	{
-		$folder = $this->getBackend()->findFolder($id);
-		$folder->setFilelib($this);
-		return $folder;
-	}
-	
-	/**
-	 * Finds subfolders
-	 * 
-	 * @param Emerald_Fildlib_FolderItem $folder Folder
-	 * @return Emerald_Filelib_FolderItemIterator
-	 */
-	public function findSubFolders(Emerald_Filelib_FolderItem $folder)
-	{
-		$folders = $this->getBackend()->findSubFolders($folder);
-		foreach($folders as $folder) {
-			$folder->setFilelib($this);
-		}
-		return $folders;
-	}
-
-	
-	/**
-	 * @param Emerald_Filelib_FolderItem $folder Folder
-	 * @return Emerald_Filelib_FileItemIterator Collection of file items
-	 */
-	public function findFilesIn(Emerald_Filelib_FolderItem $folder)
-	{
-		$items = $this->getBackend()->findFilesIn($folder);
-		foreach($items as $item) {
-			$item->setFilelib($this);
-		}
-		
-		return $items;
-	}
-	
-	
-	/**
-	 * Returns whether a file is anonymous
-	 * 
-	 * @todo This is still mock!
-	 * @param Emerald_Filelib_FileItem $file File
-	 * @return boolean
-	 */
-	public function fileIsAnonymous(Emerald_Filelib_FileItem $file)
-	{
-		return $this->getAcl()->isAnonymousReadable($file);
-		
-	}
-		
-	
-	/**
-	 * Gets a new upload
-	 * 
-	 * @param string $path Path to upload file
-	 * @return Emerald_Filelib_FileUpload
-	 */
-	public function getUpload($path)
-	{
-		$upload = new Emerald_Filelib_FileUpload($path);
-		$upload->setFilelib($this);
-		return $upload;		
-	}
-	
-	
-	/**
-	 * Uploads file to filelib.
-	 * 
-	 * @param mixed $upload Uploadable, path or object
-	 * @param Emerald_Filelib_FolderItem $folder 
-	 * @return Emerald_Filelib_FileItem
-	 * @throws Emerald_Filelib_Exception
-	 */
-	public function upload($upload, $folder, $profile = 'default')
-	{
-		if(!$upload instanceof Emerald_Filelib_FileUpload) {
-			$upload = $this->getUpload($upload);
-		}
-		
-		if(!$this->getAcl()->isWriteable($folder)) {
-			throw new Emerald_Filelib_Exception("Folder '{$folder->id}'not writeable");
-		}
-				
-		if(!$upload->canUpload()) {
-			throw new Emerald_Filelib_Exception("Can not upload");
-		}
-		
-		foreach($this->getPlugins() as $plugin) {
-			$upload = $plugin->beforeUpload($upload);
-		}					
-				
-		$file = $this->getBackend()->upload($upload, $folder, $profile);
-		$file->setFilelib($this);
-
-		if(!$file) {
-			throw new Emerald_Filelib_Exception("Can not upload");
-		}
-		
-
-		try {
-			$root = $this->getRoot();
-			$dir = $root . '/' . $this->getDirectoryId($file->id); 
-
-			if(!is_dir($dir)) {
-				@mkdir($dir, $this->getDirectoryPermission(), true);
-			}
-						
-			if(!is_dir($dir) || !is_writable($dir)) {
-				throw new Emerald_Filelib_Exception('Could not write into directory', 500);
-			}
-			
-			$fileTarget = $dir . '/' . $file->id;
-
-			copy($upload->getRealPath(), $fileTarget);
-			chmod($fileTarget, $this->getFilePermission());
-			
-			if(!is_readable($fileTarget)) {
-				throw new Emerald_Filelib_Exception('Could not copy file to folder');
-			}
-								
-		} catch(Exception $e) {
-			// Maybe log here?
-			throw $e;
-		}
-
-		foreach($this->getPlugins() as $plugin) {
-			$upload = $plugin->afterUpload($file);
-		}
-				
-		if($this->getAcl()->isAnonymousReadable($file)) {
-			$this->getSymlinker()->deleteSymlink($file);
-			$this->getSymlinker()->createSymlink($file);			
-		}
-		
-		return $file;
-	}
-	
-	
-	/**
-	 * Deletes a file
-	 * 
-	 * @param Emerald_Filelib_FileItem $file
-	 * @throws Emerald_Filelib_Exception 
-	 */
-	public function deleteFile(Emerald_Filelib_FileItem $file)
-	{
-		try {
-
-			$this->getBackend()->deleteFile($file);
-			$this->getSymlinker()->deleteSymlink($file);
-
-			foreach($this->getPlugins() as $plugin) {
-				if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_Interface && $plugin->providesFor($file)) {
-					$plugin->deleteVersion($file);					
-				}
-			}
-			
-			
-			$path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id; 
-							
-			$fileObj = new SplFileObject($path);
-			if(!$fileObj->isFile() || !$fileObj->isWritable()) {
-				throw new Emerald_Filelib_Exception('Can not delete file');
-			}
-			
-			if(!@unlink($fileObj->getPathname())) {
-				throw new Emerald_Filelib_Exception('Can not delete file');
-			}
-			
-			return true;
-			
-		} catch(Exception $e) {
-			throw new Emerald_Filelib_Exception($e->getMessage());
-		}
-		
-	}
-	
-	
-	/**
-	 * Returns file type of a file
-	 * 
-	 * @param Emerald_Filelib_FileItem File $file item
-	 * @return string File type
-	 */
-	public function getFileType(Emerald_Filelib_FileItem $file)
-	{
-		// @todo Semi-mock until mimetype database is pooped in.
-		$split = explode('/', $file->mimetype);
-		return $split[0];
-	}
-	
-	
-	/**
-	 * Returns whether a file has a certain version
-	 * 
-	 * @param Emerald_Filelib_FileItem $file File item
-	 * @param string $version Version
-	 * @return boolean
-	 */
-	public function fileHasVersion(Emerald_Filelib_FileItem $file, $version)
-	{
-		$filetype = $this->getFileType($file);
-		if(isset($this->_fileVersions[$file->profile][$filetype][$version])) {
-			
-			return true;
-		}
-		return false;
-		
-	}
-	
-	
-	/**
-	 * Returns version provider for a file/version
-	 * 
-	 * @param Emerald_Filelib_FileItem $file File item
-	 * @param string $version Version
-	 * @return object Provider
-	 */
-	public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
-	{
-		$filetype = $this->getFileType($file);
-		return $this->_fileVersions[$file->profile][$filetype][$version];
-	}
-	
-	
-	/**
-	 * Renders a file's path
-	 * 
-	 * @param Emerald_Filelib_FileItem $file
-	 * @param array $opts Options
-	 * @return string File path
-	 */
-	public function renderPath(Emerald_Filelib_FileItem $file, $opts = array())
-	{
-		if(isset($opts['version'])) {
-
-			$version = $opts['version'];
-									
-			if($this->fileHasVersion($file, $version)) {
-				$provider = $this->getVersionProvider($file, $version);
-				$path = $provider->getRenderPath($file); 
-			} else {
-				throw new Emerald_Filelib_Exception("Version '{$version}' is not available");
-			}
-		} else {
-			$path = $file->getRenderPath();	
-		}
-
-		return $path;
-		
-	}
-	
-	
-	
-	/**
-	 * Renders a file to a response
-	 * 
-	 * @param Emerald_Filelib File $file item
-	 * @param Zend_Controller_Response_Http $response Response
-	 * @param array $opts Options
-	 */
-	public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
-	{
-		$path = $this->renderPath($file, $opts);
-				
-		if($this->getAcl()->isAnonymousReadable($file)) {
-			return $response->setRedirect($path, 302);
-		}
-						
-		if(!$this->getAcl()->isReadable($file)) {
-			throw new Emerald_Filelib_Exception('Not readable', 404);
-		}
-		
-		
-		
-		if(isset($opts['download'])) {
-			$response->setHeader('Content-disposition', "attachment; filename={$file->name}");
-		}
-		
-		if(!is_readable($path)) {
-			throw new Emerald_Filelib_Exception('File not readable');
-		}
-
-		$response->setHeader('Content-Type', $file->mimetype);
-
-		
-		
-		
-		readfile($path);
-		
-	}
-	
 	
 	
 	

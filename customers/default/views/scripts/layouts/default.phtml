@@ -25,7 +25,7 @@ $this->headTitle()->setSeparator(' - ');
 
 <div id="header">
 	<div id="logo">
-		<h1><a href="<?php echo URL_BASE; ?>/">Emerald<sup></sup></a></h1>
+		<h1><a href="<?php echo EMERALD_URL_BASE; ?>/">Emerald<sup></sup></a></h1>
 		<h2>Content management built upon Zend Framework</h2>
 	</div>
 	<div id="menu">
@@ -87,10 +87,10 @@ $this->headTitle()->setSeparator(' - ');
 	
 	
 	<p id="legal">
-	Copyright 2009 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
+	Copyright 2010 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
 	
 	<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('Administration', 'Expose admin panel'))): ?>
-	| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge" href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
+	| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollbars" href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
 	<?php endif; ?>
 	
 	</p>
@@ -105,7 +105,9 @@ $this->headTitle()->setSeparator(' - ');
 <?php echo $this->emerald()->googleAnalytics(); ?>
 
 <script type="text/javascript">
-Emerald.baseUrl = '<?php echo URL_BASE; ?>';
+Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
+Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
+Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
 </script>
 
 </body>

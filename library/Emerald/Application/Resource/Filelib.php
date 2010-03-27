@@ -11,18 +11,8 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 			$options = $this->getOptions();
 				
 			
-			
-						
-			$symlinkerOptions = $options['symlinker'];
-			unset($options['symlinker']);
-				
-			$symlinker = new $symlinkerOptions['class']($symlinkerOptions['options']);
-			
-			$filelib = $this->_filelib = new Emerald_Filelib($options);
+			$filelib = new Emerald_Filelib($options);
 
-			$symlinker->setFilelib($this->_filelib);
-			
-			$this->_filelib->setSymlinker($symlinker);
 			
 			if(isset($options['dbResource'])) {
 				$this->getBootstrap()->bootstrap($options['dbResource']);
@@ -31,36 +21,50 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 				$handler = new Emerald_Filelib_Backend_Db();
 				$handler->setDb($db);
 				
-				$this->_filelib->setBackend($handler);
+				$filelib->setBackend($handler);
 												
 				// $options['Db'] = $this->getBootstrap()->getResource($options['DbResource']);
 
 				unset($options['dbResource']);
 			}
 			
-		}
 
-		if(!isset($options['profiles'])) {
-			$options['profiles'] = array('default' => 'Default profile');
-		}
-
-		foreach($options['profiles'] as $name => $description) {
-			$this->_filelib->addProfile($name, $description);
-		}
-		
-		if(isset($options['plugins'])) {
-			
-			foreach($options['plugins'] as $plugin) {
+			if(!isset($options['profiles'])) {
+				$options['profiles'] = array('default' => 'Default profile');
+			}
+	
+			foreach($options['profiles'] as $name => $poptions) {
+										
+				$symlinkerOptions = $poptions['symlinker'];
+				unset($poptions['symlinker']);
+	
+				$symlinker = new $symlinkerOptions['class']($symlinkerOptions['options']);
+									
+				$symlinker->setFilelib($filelib);
+	
+				$profile = new Emerald_Filelib_FileProfile($poptions); 
 				
-				if(!isset($plugin['profiles'])) {
-					$plugin['profiles'] = array_keys($filelib->getProfiles());
-				}
+				$profile->setSymlinker($symlinker);
 				
-				$plugin = new $plugin['type']($plugin);
-				
-				$this->_filelib->addPlugin($plugin);
+				$filelib->addProfile($profile);
 			}
 			
+			if(isset($options['plugins'])) {
+										
+				foreach($options['plugins'] as $plugin) {
+					
+					// If no profiles are defined, use in all profiles.
+					if(!isset($plugin['profiles'])) {
+						$plugin['profiles'] = array_keys($filelib->getProfiles());
+					}
+					
+					$plugin = new $plugin['type']($plugin);
+					$filelib->addPlugin($plugin);
+				}
+				
+			}
+			
+			$this->_filelib = $filelib;
 		}
 		
 		return $this->_filelib;

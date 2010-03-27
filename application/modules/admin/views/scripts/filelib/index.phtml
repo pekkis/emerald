@@ -1,6 +1,6 @@
 <?php
 $this->headTitle()->append('File library');
-$this->headScript()->appendFile(URL_BASE . '/lib/admin/filelib/index.js');
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/admin/filelib/index.js');
 
 ?>
 
@@ -66,11 +66,11 @@ $this->headScript()->appendFile(URL_BASE . '/lib/admin/filelib/index.js');
 <ul>
 <?php foreach($this->files as $file): ?>
 <li>
-<a href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a>
+<a href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a> (<?php echo $file->getType(); ?>)
 [<a class="emerald-confirm delete-file" href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 <br />
 Versions:
-<?php foreach($this->fl->getFileVersions($file) as $fv): ?>
+<?php foreach($file->getProfileObject()->getFileVersions($file) as $fv): ?>
 <a href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id, 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
 <?php endforeach; ?>
 

@@ -18,7 +18,7 @@ $(document).ready(function() {
 				var nid = value.id.split('-')[1];
 				var xoo = { 'order_id': ++count, 'parent_id': parentId };
 			
-				$.post(Emerald.baseUrl + '/admin/page/save-partial/id/' + nid + '/format/json',  xoo , function() {
+				$.post(Emerald.url('/admin/page/save-partial/id/' + nid + '/format/json'),  xoo , function() {
 				
 				});
 							
@@ -39,14 +39,14 @@ $(document).ready(function() {
 	$(".shard").change(function() {
 		$this = $(this);
 		var id = $this.attr('id').split('-')[1];
-		$.post(Emerald.baseUrl + '/admin/page/save-partial/id/' + id + '/format/json', { 'shard_id': $(this).val() }, function() {
+		$.post(Emerald.url('/admin/page/save-partial/id/' + id + '/format/json'), { 'shard_id': $(this).val() }, function() {
 		});
 	});
 	
 	$(".layout").change(function() {
 		$this = $(this);
 		var id = $this.attr('id').split('-')[1];
-		$.post(Emerald.baseUrl + '/admin/page/save-partial/id/' + id + '/format/json', { 'layout': $(this).val() }, function() {
+		$.post(Emerald.url('/admin/page/save-partial/id/' + id + '/format/json'), { 'layout': $(this).val() }, function() {
 		});
 	});
 	
@@ -68,7 +68,7 @@ $(document).ready(function() {
 							
 			var id = $label.parent().parent().attr('id').split('-')[1];
 			
-			$.post(Emerald.baseUrl + '/admin/page/save-partial/id/' + id + '/format/json', { 'title': $(this).val() }, function() {
+			$.post(Emerald.url ('/admin/page/save-partial/id/' + id + '/format/json'), { 'title': $(this).val() }, function() {
 								
 				
 			});

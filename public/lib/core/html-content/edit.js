@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$('#siblings').change(function() {
 		
 		if(this.value) {
-			var url = Emerald.baseUrl + '/core/html-content/edit/page_id/' + this.value + '/block_id/' + $('#block_id').val();
+			var url = Emerald.url('/core/html-content/edit/page_id/' + this.value + '/block_id/' + $('#block_id').val());
 			top.location = url;  
 		}
 		

@@ -5,7 +5,7 @@ class Admin_Form_CreateFolder extends Zend_Form
         public function init()
         {
                 $this->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
-                $this->setAction(URL_BASE . '/admin/filelib/create-folder');
+                $this->setAction(EMERALD_URL_BASE . '/admin/filelib/create-folder');
                 $this->setAttrib('id', 'create-folder');
 
                 $folderElm = new Zend_Form_Element_Hidden('parent_id');

@@ -37,7 +37,7 @@ class Admin_FolderController extends Emerald_Controller_Action
 	{
 			
 		$fl = Zend_Registry::get('Emerald_Filelib');
-		$folder = $fl->findFolder($this->_getParam('id'));
+		$folder = $fl->folder()->find($this->_getParam('id'));
 		
 		try {
 			$fl->deleteFolder($folder);
@@ -55,7 +55,7 @@ class Admin_FolderController extends Emerald_Controller_Action
 	{
 		
 		$fl = Zend_Registry::get('Emerald_Filelib');
-		$folder = $fl->findFolder($this->_getParam('id'));
+		$folder = $fl->folder()->find($this->_getParam('id'));
 				
 		$form = new Admin_Form_Folder(); 
 		$form->setDefaults($folder->toArray());
@@ -82,15 +82,19 @@ class Admin_FolderController extends Emerald_Controller_Action
 		if($form->isValid($this->_getAllParams())) {
 
 			$fl = Zend_Registry::get('Emerald_Filelib');
-			$folder = $fl->findFolder($form->id->getValue());
+			$folder = $fl->folder()->find($form->id->getValue());
 
 			
-			$fl->updateFolder($folder);
+			$folder->name = $form->name->getValue();
+						
+			// $folder->setFromArray($form->getValues());
+			
+			$fl->folder()->update($folder);
 
 			$folderModel = new Core_Model_Folder();
 			$folderModel->savePermissions($folder, $form->getSubForm('folder-permissions')->getValues());
 			
-			$fl->updateFolder($folder);
+			$fl->folder()->update($folder);
 			
 			// $this->getAcl()->cacheRemove();
 			

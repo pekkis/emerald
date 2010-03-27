@@ -16,10 +16,10 @@ class Admin_FileController extends Emerald_Controller_Action
 	{
 			
 		$fl = Zend_Registry::get('Emerald_Filelib');
-		$folder = $fl->findFile($this->_getParam('id'));
+		$file = $fl->file()->find($this->_getParam('id'));
 		
 		try {
-			$fl->deleteFile($folder);
+			$fl->file()->delete($file);
 			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');
 		} catch(Exception $e) {
 			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');

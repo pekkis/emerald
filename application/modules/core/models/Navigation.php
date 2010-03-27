@@ -58,7 +58,7 @@ class Core_Model_Navigation
 		$route = implode(";", $route);
 		$beautifurl = Emerald_Beautifurl::fromArray($beautifurl, $page->locale);
 		
-		$navi->url = URL_BASE . "/" . $beautifurl;
+		$navi->url = EMERALD_URL_BASE . "/" . $beautifurl;
 
 		$this->getPageModel()->getTable()->update(
 			array('path' => $route, 'beautifurl' => $beautifurl),
@@ -118,7 +118,7 @@ class Core_Model_Navigation
 					
 					$page = new Zend_Navigation_Page_Uri(
 						array(
-							'uri' => URL_BASE . '/' . $locale->locale,
+							'uri' => EMERALD_URL_BASE . '/' . $locale->locale,
 							'label' => $locale->locale,
 							'locale' => $locale->locale,
 							'locale_root' => $locale->locale,
@@ -130,7 +130,7 @@ class Core_Model_Navigation
 					if($startPage = $locale->getOption('page_start')) {
 						$startPage = $pageTbl->find($startPage)->current();
 						if($startPage) {
-							$page->uri = URL_BASE . '/' . $startPage->beautifurl;
+							$page->uri = EMERALD_URL_BASE . '/' . $startPage->beautifurl;
 							$page->cache_seconds = $startPage->cache_seconds;						
 						}
 					}
@@ -173,7 +173,7 @@ class Core_Model_Navigation
 			// recurse
 			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => URL_BASE . '/' . $page->beautifurl,
+					'uri' => EMERALD_URL_BASE . '/' . $page->beautifurl,
 					'label' => $page->title,
 					'locale' => $page->locale,
 					'id' => $page->id,
@@ -187,7 +187,7 @@ class Core_Model_Navigation
 
 			if($page->redirect_id) {
 				$redirectPage = $pageModel->find($page->redirect_id);
-				$pageRes->redirect_uri = URL_BASE . '/' . $redirectPage->beautifurl; 
+				$pageRes->redirect_uri = EMERALD_URL_BASE . '/' . $redirectPage->beautifurl; 
 			}
 			
 			$pageRes->setResource("Emerald_Page_{$page->id}");
@@ -211,7 +211,7 @@ class Core_Model_Navigation
 			// recurse
 			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => URL_BASE . '/' . $page->beautifurl,
+					'uri' => EMERALD_URL_BASE . '/' . $page->beautifurl,
 					'label' => $page->title,
 					'locale' => $page->locale,
 					'id' => $page->id,
@@ -225,7 +225,7 @@ class Core_Model_Navigation
 
 			if($page->redirect_id) {
 				$redirectPage = $pageModel->find($page->redirect_id);
-				$pageRes->redirect_uri = URL_BASE . '/' . $redirectPage->beautifurl; 
+				$pageRes->redirect_uri = EMERALD_URL_BASE . '/' . $redirectPage->beautifurl; 
 			}
 			
 			$pageRes->setResource("Emerald_Page_{$page->id}");

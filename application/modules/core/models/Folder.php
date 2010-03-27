@@ -55,7 +55,11 @@ class Core_Model_Folder
 		
 		
 		$acl = Zend_Registry::get('Emerald_Acl');
-		$acl->remove($folder);
+		
+		if($acl->has($folder)) {
+			$acl->remove($folder);	
+		}
+		
 				
 	}
 	

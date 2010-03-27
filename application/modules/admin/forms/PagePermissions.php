@@ -13,13 +13,9 @@ class Admin_Form_PagePermissions extends ZendX_JQuery_Form
 		
 		$groupModel = new Core_Model_Group();
 		$groups = $groupModel->findAll();
-		
-		// Zend_Debug::dump($groups);
-			
 
 		$permissions = Emerald_Permission::getAll();
-			
-			// Zend_Debug::dump($permissions);
+
 		
 		foreach($groups as $group) {
 			$elm = new Zend_Form_Element_MultiCheckbox((string) $group->id, array('label' => $group->name));

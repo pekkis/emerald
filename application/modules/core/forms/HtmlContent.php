@@ -7,7 +7,7 @@ class Core_Form_HtmlContent extends ZendX_JQuery_Form
 	{
 		$this->setAttrib('id', 'htmlcontent');
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . '/core/html-content/save');
+		$this->setAction(EMERALD_URL_BASE . '/core/html-content/save');
 
 
 		

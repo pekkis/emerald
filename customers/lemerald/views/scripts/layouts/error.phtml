@@ -84,6 +84,12 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 <?php echo $this->headScript(); ?>
 <?php echo $this->emerald()->googleAnalytics(); ?>
 
+<script type="text/javascript">
+Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
+Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
+Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
+</script>
+
 </body>
 
 </html>

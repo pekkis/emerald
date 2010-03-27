@@ -37,7 +37,7 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 			
 			// We be doin' de replacin'
 			foreach($matches[0] as $key => $toReplace) {
-				$file = $fl->findFile($matches[1][$key]);
+				$file = $fl->file()->find($matches[1][$key]);
 				if($file && $file->isAnonymous()) {
 					
 					$opts = array();

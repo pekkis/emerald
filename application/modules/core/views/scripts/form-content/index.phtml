@@ -1,5 +1,5 @@
 <?php 
-$this->headScript()->appendFile(URL_BASE . '/lib/core/form-content/index.js');
+$this->headScript()->appendFile(EMERALD_URL_BASE . '/lib/core/form-content/index.js');
 ?>
 
 <?php if($this->form): ?>
@@ -10,7 +10,7 @@ if(!$this->zform) {
 	$this->zform = $this->form->getZendForm();
 }
 
-$this->zform->setAction(URL_BASE . '/'. $this->page->beautifurl . '?a=post');
+$this->zform->setAction(EMERALD_URL_BASE . '/'. $this->page->beautifurl . '?a=post');
 echo $this->zform;
 
 ?>

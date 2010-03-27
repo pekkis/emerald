@@ -5,7 +5,7 @@ class Core_Form_FormContent extends ZendX_JQuery_Form
 	public function init()
 	{
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(URL_BASE . "/core/form-content/save");
+		$this->setAction(EMERALD_URL_BASE . "/core/form-content/save");
 				
 		$pageIdElm = new Zend_Form_Element_Hidden('page_id');		
 		$pageIdElm->setDecorators(array('ViewHelper'));
@@ -54,7 +54,7 @@ class Core_Form_FormContent extends ZendX_JQuery_Form
 		$naviModel = new Core_Model_Navigation();
 		$navi = $naviModel->getNavigation();
 						
-		$navi = $navi->findBy("uri", URL_BASE . "/" . $locale);
+		$navi = $navi->findBy("uri", EMERALD_URL_BASE . "/" . $locale);
 
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		
