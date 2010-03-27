@@ -64,7 +64,7 @@ class Filelib_View_Helper_File extends Zend_View_Helper_Abstract
 		$filelib = $this->getFilelib();		
 		
 		if(!$file instanceof Emerald_Filelib_FileItem) {
-			$file = $filelib->findFile($file);
+			$file = $filelib->file()->find($file);
 		}
 		
 		if(!$file) {
