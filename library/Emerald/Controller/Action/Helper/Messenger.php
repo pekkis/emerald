@@ -24,9 +24,11 @@ class Emerald_Controller_Action_Helper_Messenger extends Zend_Controller_Action_
 	{
 		$this->_addMessage(new Emerald_Message(Emerald_Message::INFO,$message));
 	}
-	public function addError($message)
+	public function addError($message,$errors = false)
 	{
-		$this->_addMessage(new Emerald_Message(Emerald_Message::ERROR,$message));
+		$tmp = new Emerald_Message(Emerald_Message::ERROR,$message);
+		if(!empty($errors)) $tmp->errors = $errors;
+		$this->_addMessage($tmp);
 	}
 	public function getMessages()
 	{
