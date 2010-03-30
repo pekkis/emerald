@@ -1,10 +1,6 @@
 <?php
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+class Bootstrap extends Emerald_Application_Bootstrap_Bootstrap
 {
-	public function addOptions($options)
-	{
-	    return $this->setOptions($this->mergeOptions($this->getOptions(), $options));
-	}
 		
 	private $_translate;
 	

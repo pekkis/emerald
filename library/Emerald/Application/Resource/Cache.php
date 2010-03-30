@@ -32,7 +32,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 
 		
 		
-		
+		/*
 		$naviModel = new EmCore_Model_Navigation();
 		
 		$navi = $naviModel->getNavigation();
@@ -59,6 +59,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		$cm->setCache('page', $pageCache);
 		
 		$pageCache->start();
+		*/
 		
 	}
 	
