@@ -6,7 +6,7 @@ class EmAdmin_Form_FormCreate extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(EMERALD_URL_BASE . "/admin/form/create-post");
+		$this->setAction(EMERALD_URL_BASE . "/em-admin/form/create-post");
 		
 		$nameElm = new Zend_Form_Element_Text('name', array('label' => 'Name', 'class' => 'w66'));
 		$nameElm->addValidator(new Zend_Validate_StringLength(0, 255));

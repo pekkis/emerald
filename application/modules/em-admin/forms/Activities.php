@@ -6,7 +6,7 @@ class EmAdmin_Form_Activities extends ZendX_JQuery_Form
 	public function init()
 	{
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(EMERALD_URL_BASE . "/admin/activity/save");
+		$this->setAction(EMERALD_URL_BASE . "/em-admin/activity/save");
 			
 		
 		$groupModel = new EmCore_Model_Group();

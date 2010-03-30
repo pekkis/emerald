@@ -7,7 +7,7 @@ class EmAdmin_Form_ApplicationOptions extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(EMERALD_URL_BASE . "/admin/options/save-application/format/json");
+		$this->setAction(EMERALD_URL_BASE . "/em-admin/options/save-application/format/json");
 		
 		
 		

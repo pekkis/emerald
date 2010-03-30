@@ -6,7 +6,7 @@ class EmAdmin_Form_Page extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(EMERALD_URL_BASE . "/admin/page/save");
+		$this->setAction(EMERALD_URL_BASE . "/em-admin/page/save");
 
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));

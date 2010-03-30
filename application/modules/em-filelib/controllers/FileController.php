@@ -1,5 +1,5 @@
 <?php
-class Filelib_FileController extends Zend_Controller_Action
+class EmFilelib_FileController extends Zend_Controller_Action
 {
 	
 	public function renderAction()

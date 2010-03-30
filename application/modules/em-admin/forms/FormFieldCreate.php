@@ -6,7 +6,7 @@ class EmAdmin_Form_FormFieldCreate extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
-		$this->setAction(EMERALD_URL_BASE . "/admin/form/field-create");
+		$this->setAction(EMERALD_URL_BASE . "/em-admin/form/field-create");
 		
 
 		$this->setAttrib('id', 'field-create');
