@@ -15,7 +15,7 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 		preg_match_all($regex, $value, $matches);
 
 		if($matches[0]) {
-			$naviModel = new Core_Model_Navigation();
+			$naviModel = new EmCore_Model_Navigation();
 			$navigation = $naviModel->getNavigation();
 			// We be doin' de replacin'
 			foreach($matches[0] as $key => $toReplace) {

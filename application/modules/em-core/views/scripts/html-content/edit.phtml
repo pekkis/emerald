@@ -1,0 +1,19 @@
+<?php
+$this->headTitle("Edit html content")->headTitle($this->page->title);
+
+$this->headScript()->appendFile(EMERALD_URL_BASE . '/lib/tinymce/jscripts/tiny_mce/jquery.tinymce.js');
+$this->headScript()->appendFile(EMERALD_URL_BASE . "/lib/em-core/html-content/edit.js");
+
+$this->layout()->setLayout("plain");
+
+?>
+
+<h2><?php echo $this->translate('Edit html content'); ?></h2>
+
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+var beautifurl = Emerald.url('/<?php echo $this->page->beautifurl; ?>');
+
+</script>
+

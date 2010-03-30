@@ -37,14 +37,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 		$aclHandler = new Emerald_Filelib_Acl_Zend();
 		$aclHandler->setAcl($acl);
-		$aclHandler->setAnonymousRole("Emerald_Group_" . Core_Model_Group::GROUP_ANONYMOUS);
+		$aclHandler->setAnonymousRole("Emerald_Group_" . EmCore_Model_Group::GROUP_ANONYMOUS);
 				
 		$aclHandler->setRole($user);
 		
 		$filelib->setAcl($aclHandler);
 		
-		$filelib->setFileItemClass("Core_Model_FileItem");
-		$filelib->setFolderItemClass("Core_Model_FolderItem");		
+		$filelib->setFileItemClass("EmCore_Model_FileItem");
+		$filelib->setFolderItemClass("EmCore_Model_FolderItem");		
 		
 						
 		
@@ -83,7 +83,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 						
 		$auth = Zend_Auth::getInstance();
 				
-		$userModel = new Core_Model_User();
+		$userModel = new EmCore_Model_User();
 		
 		if($auth->hasIdentity()) {
 			$user = $auth->getIdentity();

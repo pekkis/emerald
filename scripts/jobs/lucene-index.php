@@ -138,7 +138,7 @@ try {
 	define('NEW_INDEX', true);
 }
 
-$naviModel = new Core_Model_Navigation();
+$naviModel = new EmCore_Model_Navigation();
 $navi = $naviModel->getNavigation();
 
 $navi = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);

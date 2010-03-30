@@ -3,13 +3,13 @@
 	<head>
 		<?php 
 		$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
-		$this->headLink(array('href' => '/lib/core/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
+		$this->headLink(array('href' => '/lib/em-core/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
 		$this->headTitle()->setSeparator(' - ')->append("Emerald Admin");
 
 		$this->jQuery()->setCdnVersion('1.4')->setUiCdnVersion('1.7.2')->enable()->uiEnable();
 		$this->jQuery()
 			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
-			->addJavascriptFile(EMERALD_URL_BASE_LIB . "/lib/core/emerald.js");
+			->addJavascriptFile(EMERALD_URL_BASE_LIB . "/lib/em-core/emerald.js");
 			
 			
 		// $this->headLink()->prependStylesheet('/lib/css/admin/emerald_popup.css');
@@ -17,13 +17,13 @@
 			->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css')
 			->addStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css');
 		
-		$this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/admin/main.css');
+		$this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/main.css');
 
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssbase/base-min.css');
 		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css');
 			
 		
-		$this->headScript()->prependFile(EMERALD_URL_BASE . '/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+		$this->headScript()->prependFile(EMERALD_URL_BASE . '/em-core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
 		?>
 		
 		
@@ -46,15 +46,15 @@
 	<body>
 	
 	<div id="emerald-loading" style="display: none;">
-		<img src="<?php echo EMERALD_URL_BASE_LIB; ?>/lib/core/ajax-loader.gif" class="emerald-icon" />
+		<img src="<?php echo EMERALD_URL_BASE_LIB; ?>/lib/em-core/ajax-loader.gif" class="emerald-icon" />
 	</div>
 	
 	<div id="wrapper">
 		<div id="header">
 			<div id="logo">
 				<?php $cusr = Zend_Registry::get('Emerald_User'); ?> 
-				<h1><a href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>">Emerald</a></h1>
-				<h2><a href="<?php echo $this->url(array('module' => 'admin', 'controller' => 'user', 'action' => 'edit', 'id' => $cusr->id), 'default', true); ?>"><?php echo $cusr->email ?> :: <a href="<?php echo $this->url(array('module' => 'core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
+				<h1><a href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>">Emerald</a></h1>
+				<h2><a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'user', 'action' => 'edit', 'id' => $cusr->id), 'default', true); ?>"><?php echo $cusr->email ?> :: <a href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
 			</div>
 			<div id="menu">
 				<?php

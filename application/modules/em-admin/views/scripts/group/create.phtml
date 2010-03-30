@@ -1,0 +1,10 @@
+<?php
+$this->headTitle("Create group")->headTitle("Users & groups");
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . "/lib/em-admin/group/create.js");
+?>
+
+<h1><?php echo $this->translate('Create group'); ?></h1>
+
+<div class="box">
+<?php echo $this->form; ?>
+</div>

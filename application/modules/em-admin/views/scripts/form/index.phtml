@@ -1,0 +1,47 @@
+<?php 
+$this->headTitle()->append('Forms');
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/form/index.js');
+?>
+
+<h1><?php echo $this->translate('Forms'); ?></h1>
+
+<div class="box">
+
+<p>
+<a href="<?php echo $this->url(array('action' => 'create')); ?>"><?php echo $this->translate('Create form'); ?></a>
+</p>
+
+<?php if(!$this->forms->count()): ?>
+
+<p>
+<?php echo $this->translate('No forms'); ?>
+</p>
+
+
+<?php else: ?>
+
+<table class="w100">
+<thead>
+	<tr>
+		<th><?php echo $this->translate('Name'); ?></th>
+		<th><?php echo $this->translate('Description'); ?></th>
+		<th><?php echo $this->translate('Actions'); ?></th>
+	</tr>
+</thead>
+<tbody>
+<?php foreach($this->forms as $form): ?>
+<tr>
+	<td><?php echo $form->name; ?></td>
+	<td><?php echo $form->description; ?></td>
+	<td>
+		<a href="<?php echo $this->url(array('action' => 'edit', 'id' => $form->id)); ?>"><?php echo $this->translate('Edit'); ?></a> |
+		<a class="emerald-confirm form-delete" href="<?php echo $this->url(array('action' => 'delete', 'id' => $form->id)); ?>"><?php echo $this->translate('Delete'); ?></a>
+	</td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<?php endif; ?>
+
+</div>

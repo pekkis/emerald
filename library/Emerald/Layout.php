@@ -118,9 +118,9 @@ abstract class Emerald_Layout
 		
 		try {
 			
-			if(!$page instanceof Core_Model_PageItem) {
+			if(!$page instanceof EmCore_Model_PageItem) {
 
-				$pageModel = new Core_Model_Page();
+				$pageModel = new EmCore_Model_Page();
 				$page = $pageModel->find($page);
 				
 				// prevents unneseccary template errors
@@ -132,7 +132,7 @@ abstract class Emerald_Layout
 			$params = array_merge($requestParams, $params);
 
 			
-			$shardModel = new Core_Model_Shard();
+			$shardModel = new EmCore_Model_Shard();
 			$shard = $shardModel->findByIdentifier($identifier);
 			
 			/*

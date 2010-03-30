@@ -28,7 +28,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	/**
 	 * Returns current user
 	 * 
-	 * @return Core_Model_UserItem
+	 * @return EmCore_Model_UserItem
 	 */
 	public function getCurrentUser()
 	{
@@ -65,7 +65,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	protected function _getPageModel()
 	{
 		if(!self::$_pageModel) {
-			self::$_pageModel = new Core_Model_Page();
+			self::$_pageModel = new EmCore_Model_Page();
 		}
 		
 		return self::$_pageModel;

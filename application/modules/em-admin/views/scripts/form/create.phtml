@@ -1,0 +1,12 @@
+<?php
+$this->headTitle('Create form')->headTitle('Forms');
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/form/create.js');
+?>
+
+<h1><?php echo $this->translate('Create form'); ?></h1>
+
+<div class="box">
+
+<?php echo $this->form; ?>
+
+</div>

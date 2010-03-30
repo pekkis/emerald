@@ -1,0 +1,11 @@
+<?php
+$this->headTitle("Create user")->headTitle("Users & groups");
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . "/lib/em-admin/user/create.js");
+?>
+
+
+<h1><?php echo $this->translate('Create user'); ?></h1>
+
+<div class="box">
+<?php echo $this->form; ?>
+</div>

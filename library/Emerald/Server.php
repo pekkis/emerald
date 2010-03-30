@@ -38,7 +38,7 @@ class Emerald_Server
 	public function registerCustomer(Emerald_Application_Customer $customer)
 	{
 		$db = $this->getDb();
-		$serverModel = new Core_Model_Server($db);
+		$serverModel = new EmCore_Model_Server($db);
 		$serverModel->registerCustomer($customer);
 	}
 	

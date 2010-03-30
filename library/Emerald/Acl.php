@@ -14,11 +14,11 @@ class Emerald_Acl extends Zend_Acl
 	{
 
 		
-        $anonGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ANONYMOUS;
+        $anonGroup = 'Emerald_Group_' . EmCore_Model_Group::GROUP_ANONYMOUS;
         $acl->addRole($anonGroup);
         $acl->deny($anonGroup);
 
-        $rootGroup = 'Emerald_Group_' . Core_Model_Group::GROUP_ROOT; 
+        $rootGroup = 'Emerald_Group_' . EmCore_Model_Group::GROUP_ROOT; 
         $acl->addRole($rootGroup);
         $acl->allow($rootGroup);
         
@@ -34,11 +34,11 @@ class Emerald_Acl extends Zend_Acl
 		if(!$resource instanceof Emerald_Acl_Resource_Interface) {
 			if(preg_match("/^Emerald_Page/", $resource)) {
 				$split = explode("_", $resource, 3);
-				$pageModel = new Core_Model_Page();
+				$pageModel = new EmCore_Model_Page();
 				$resource = $pageModel->find($split[2]);
 			} else if(preg_match("/^Emerald_Locale/", $resource)) {
 				$split = explode("_", $resource, 3);
-				$localeModel = new Core_Model_Locale();
+				$localeModel = new EmCore_Model_Locale();
 				$resource = $localeModel->find($split[2]);
 			} else {
 				throw new Zend_Acl_Exception("Can not autoload resource '{$resource}'");

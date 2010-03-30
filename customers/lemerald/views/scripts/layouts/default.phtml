@@ -86,7 +86,7 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		<a href="http://emerald.fi">powered by Emerald</a> / PostgreSQL, Zend Framework and jQuery
 		
 		<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('Administration', 'Expose admin panel'))): ?>
-		| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollbars" href="<?php echo $this->url(array('module' => 'admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
+		| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollbars" href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
 		<?php endif; ?>
 		
 		</div>

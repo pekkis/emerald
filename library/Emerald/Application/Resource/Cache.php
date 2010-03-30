@@ -33,7 +33,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		
 		
 		
-		$naviModel = new Core_Model_Navigation();
+		$naviModel = new EmCore_Model_Navigation();
 		
 		$navi = $naviModel->getNavigation();
 		

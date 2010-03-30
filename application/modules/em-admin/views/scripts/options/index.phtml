@@ -1,0 +1,49 @@
+<?php
+$this->headTitle()->append('Options');
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . "/lib/em-admin/options/index.js");
+?>
+
+<h1><?php echo $this->translate('Options'); ?></h1>
+
+<div id="tabs">
+
+
+
+<ul>
+	<li><a href="#application-options"><?php echo $this->translate('Application options'); ?></a></li>
+	<li><a href="#locale-options"><?php echo $this->translate('Locale options'); ?></a></li>
+</ul>
+
+<div id="application-options">
+
+<?php echo $this->appForm; ?>
+
+
+</div>
+
+<div id="locale-options">
+
+<div id="accordion">
+
+<?php foreach($this->localeForms as $locale => $localeForm): ?>
+
+<h2><a href="#locale-options-<?php echo $locale; ?>"><?php echo $locale; ?></a></h2>
+
+<div>
+
+<?php echo $localeForm; ?>
+
+</div>
+
+
+<?php endforeach; ?>
+
+
+</div>
+
+
+
+
+
+</div>
+	

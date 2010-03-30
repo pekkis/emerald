@@ -1,0 +1,88 @@
+<?php
+$this->headTitle()->append('File library');
+$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/index.js');
+
+?>
+
+<h1><?php echo $this->translate('File library'); ?></h1>
+
+<div id="sidebar">
+
+<h2><?php echo $this->translate('Folders'); ?></h2>
+
+
+<ul>
+<?php $depth = 0; $first = true; ?>
+
+<?php foreach($this->iter as $folder): ?>
+
+	<?php if($first): ?>
+	<?php $first = false; ?>
+	<?php else: ?>
+	
+	<?php if($this->iter->getDepth() > $depth) echo '<ul>'; ?>
+	<?php if($this->iter->getDepth() < $depth) echo str_repeat('</li></ul>', $depth - $this->iter->getDepth()); ?>
+	<?php if($this->iter->getDepth() == $depth) echo '</li>'; ?>
+	
+	<?php endif; ?>
+		
+	<li>						
+	<?php if($this->folder && $this->folder->id == $folder->id): ?>
+	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
+	
+	<?php if($this->folder->parent_id != null): ?>
+	[<a class="emerald-confirm delete-folder" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'delete', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
+	<?php endif; ?>
+	
+	[<a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'edit', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>]
+	
+	<?php else: ?>
+	<a href="/admin/filelib/index/id/<?php echo $folder->id; ?>">
+	<?php echo $folder->name == 'root' ? '/' : $folder->name; ?>
+	</a>
+	<?php endif; ?>
+	
+	<?php $depth = $this->iter->getDepth(); ?>
+	
+	<?php endforeach; ?>
+	
+	<?php if($depth) echo str_repeat('</li></ul>', $depth); ?>
+	
+</ul>
+
+<?php if($this->folder): ?>
+
+<h3><?php echo $this->translate('Create folder'); ?></h3>
+<?php echo $this->folderForm; ?>
+<?php endif; ?>
+
+</div>
+
+<div> 
+
+<h2><?php echo $this->translate('Files'); ?></h2>
+
+<?php if($this->files): ?>
+<ul>
+<?php foreach($this->files as $file): ?>
+<li>
+<a href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a> (<?php echo $file->getType(); ?>)
+[<a class="emerald-confirm delete-file" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
+<br />
+Versions:
+<?php foreach($file->getProfileObject()->getFileVersions($file) as $fv): ?>
+<a href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id, 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
+<?php endforeach; ?>
+
+</li>
+<?php endforeach; ?>
+</ul>
+
+
+<h3><?php echo $this->translate('Upload file'); ?></h3>
+
+<?php echo $this->form; ?>
+
+<?php endif; ?>
+
+</div>

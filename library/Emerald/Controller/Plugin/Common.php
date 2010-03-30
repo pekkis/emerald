@@ -25,9 +25,9 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 		Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($user);
 			
 		
-		if($request->getModuleName() == 'admin') {
+		if($request->getModuleName() == 'em-admin') {
 			
-			$model = new Admin_Model_Navigation();
+			$model = new EmAdmin_Model_Navigation();
 			$navigation = $model->getNavigation();
 			
 			
@@ -53,7 +53,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 			// $this->view->translate()->setLocale(Zend_Registry::get('Zend_Locale') ? Zend_Registry::get('Zend_Locale') : 'en');
 				
 		} else {
-			$model = new Core_Model_Navigation();
+			$model = new EmCore_Model_Navigation();
 			$navigation = $model->getNavigation();
 			
 		

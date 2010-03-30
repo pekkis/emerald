@@ -5,7 +5,7 @@ class Emerald_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interface
 	private $_channel;
 	
 	
-	public function __construct(Core_Model_NewsChannelItem $channel)
+	public function __construct(EmCore_Model_NewsChannelItem $channel)
 	{
 		$this->_channel = $channel;
 		$this->_channel->items_per_page = 9999;
@@ -35,7 +35,7 @@ class Emerald_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interface
 	{
 		$entries = array();
 		
-		$pageModel = new Core_Model_Page();
+		$pageModel = new EmCore_Model_Page();
 		$page = $pageModel->find($this->_channel->page_id);
 		
 		$request = Zend_Controller_Front::getInstance()->getRequest();
