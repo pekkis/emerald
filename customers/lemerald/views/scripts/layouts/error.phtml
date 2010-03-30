@@ -1,13 +1,16 @@
 <?php 
-// @todo: this in init head maybe?
+// // @todo: this in init head maybe?
 
 $this->emerald()->addEverything();
 
-$this->headLink()->appendStylesheet('/data/customer.css');
+$this->jQuery()
+	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.hashchange.js')
+	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.marquee.js')
+	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.cookie.js');
 
-$this->headScript()->prependFile('/core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+$this->headLink(array('rel' => 'icon', 'href' => EMERALD_URL_BASE_DATA . '/data/images/manatee-favicon.png'));
 
-$this->headScript()->appendFile("/data/lamantiini.js");
+$this->headScript()->appendFile(EMERALD_URL_BASE_DATA . "/data/lamantiini.js");
 
 $this->headMeta()->appendName("description", "Mikko Forsströmin pieni ja sievä ovimatto: linkit projekteihin, aktiivisiin ja arkistoituihin.");
 $this->headMeta()->appendName("Author", "Mikko Forsström");
@@ -16,6 +19,7 @@ $this->headMeta()->appendName("geo.region", "FI-ES");
 $this->headMeta()->appendName("geo.placename", "Vantaa");
 $this->headMeta()->appendName("geo.position", "60.267045;24.857329");
 $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
+
 
 ?>
 
