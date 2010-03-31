@@ -19,7 +19,6 @@ CREATE TABLE emerald_application_option (
   PRIMARY KEY (identifier)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS emerald_filelib_file;
 
 CREATE TABLE emerald_filelib_file (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -37,7 +36,6 @@ CREATE TABLE emerald_filelib_file (
   CONSTRAINT filelib_file_ibfk_1 FOREIGN KEY (folder_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS emerald_filelib_folder;
 
 CREATE TABLE emerald_filelib_folder (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -182,7 +180,7 @@ CREATE TABLE emerald_news_item (
 
 DROP TABLE IF EXISTS emerald_page_global;
 
-CREATE TABLE page_global
+CREATE TABLE emerald_page_global
 (
 id integer unsigned NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id)
