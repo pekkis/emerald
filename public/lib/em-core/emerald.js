@@ -117,7 +117,7 @@ Emerald.FileManager = {
 	open: function(field_name, url, type, win)
 	{
 		tinyMCE.activeEditor.windowManager.open({
-        file : Emerald.url('/admin/filelib/select/type/image'),
+        file : Emerald.url('/em-admin/filelib/select/type/image'),
         width : 800,  // Your dimensions may differ - toy around with them!
         height : 600,
         resizable : "no",
@@ -396,18 +396,24 @@ Emerald.Messenger = {
 		handleFormErrors: function(data, evt)
 		{
 			var $that = $(evt.currentTarget);
-			
+												
 			if(data.length != 0) {
-		
+
+				if(data.message) {
+					data.messages = [ data.message ];
+					delete data.message;
+				}
+				
 				for(var i in data.messages) {
-					
+				
 					var msg = data.messages[i];
 					
 					if(msg.type == Emerald.Message.ERROR) {
-					
 						if(msg.errors) {
 																					
 							$.each(msg.errors, function(key, value) {
+								
+								
 								// Catch subforms too
 								$.each(value, function(key2, value2) {
 									if(typeof(value2) == 'object') {
@@ -434,6 +440,7 @@ Emerald.Messenger = {
 				
 				if(data.message) {
 					data.messages = [ data.message ];
+					delete data.message;
 				}
 				
 				for(var i in data.messages) {

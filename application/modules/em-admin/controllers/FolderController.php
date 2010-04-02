@@ -40,7 +40,7 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
 		$folder = $fl->folder()->find($this->_getParam('id'));
 		
 		try {
-			$fl->deleteFolder($folder);
+			$fl->folder()->delete($folder);
 			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');
 		} catch(Exception $e) {
 			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');

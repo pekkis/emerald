@@ -30,13 +30,13 @@ function _peksu_autoload($what) {
 require_once 'Zend/Application.php';
 
 
-
-
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
+    APPLICATION_PATH . '/configs/emerald.ini'
 );
+
+
 
 $options = $application->getOptions();
 if(isset($options['emerald']['constant'])) {
@@ -45,6 +45,9 @@ if(isset($options['emerald']['constant'])) {
 		define('EMERALD_' . $key, $value);
 	}
 }
+
+
+
 
 // define('EMERALD_URL_BASE', (isset($options['resources']['frontcontroller']['baseUrl'])) ? $options['resources']['frontcontroller']['baseUrl'] : '' );
 
@@ -79,9 +82,9 @@ try {
 	
 	
 	
-	
 	$response = $front->getResponse();
 	
+	/*
 	$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
 	if($cache instanceof Emerald_Cache_Backend_Memcached) {
 		$memcached = $cache->getBackend()->getMemcached();
@@ -89,6 +92,7 @@ try {
 		$cacheKey = $cache->getOption('cache_id_prefix') . $request->getServer('REQUEST_URI');
 		$memcached->set($cacheKey, $response->__toString(), 100);
 	}
+	*/
 	
 	echo $response;	
 	

@@ -33,7 +33,7 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/se
 	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
 		
 	<?php else: ?>
-	<a href="<?php echo URL_BASE; ?>/em-admin/filelib/select/id/<?php echo $folder->id; ?>">
+	<a href="<?php echo EMERALD_URL_BASE; ?>/em-admin/filelib/select/id/<?php echo $folder->id; ?>">
 	<?php echo $folder->name == 'root' ? '/' : $folder->name; ?>
 	</a>
 	<?php endif; ?>
@@ -57,11 +57,11 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/se
 <ul>
 <?php foreach($this->files as $file): ?>
 <li>
-<a class="file" href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a>
+<a class="file" href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a>
 <br />
 Versions:
 <?php foreach($file->getProfileObject()->getFileVersions($file) as $fv): ?>
-<a class="file" href="<?php echo $this->url(array('module' => 'filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id, 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
+<a class="file" href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id, 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
 <?php endforeach; ?>
 
 </li>

@@ -24,7 +24,7 @@ $(document).ready(function() {
 		
 	$('form').jsonSubmit({
 		success: function(msg) {
-			location = Emerald.url('/admin/page/edit/id/' + msg.page_id);
+			location = Emerald.url('/em-admin/page/edit/id/' + msg.page_id);
 		}
 	});
 	

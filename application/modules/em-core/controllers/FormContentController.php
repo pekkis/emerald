@@ -75,21 +75,33 @@ class EmCore_FormContentController extends Emerald_Controller_Action
 			$page = $this->_pageFromPageId($input->page_id);
 			$this->view->page = $page;
 					
+			
+			
+			
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
 				throw new Emerald_Exception('Forbidden', 401);
 			}
-							
+
+			
+			
 			$formContentModel = new EmCore_Model_FormContent();
 			$formcontent = $formContentModel->findByPageId($page->id);
 		
+			
+			
+			
 			$this->view->formcontent = $formcontent;
 
 			$form = new EmCore_Form_FormContent();
+			
+			
+			
 			$form->setDefaults($formcontent->toArray());
 			
 			$form->setLocale($page->locale);
 			
 			$this->view->form = $form;
+			
 			
 			
 		} catch(Exception $e) {

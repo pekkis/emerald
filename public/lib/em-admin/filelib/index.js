@@ -5,7 +5,7 @@ $(function() {
 	});
 	
 	$(".delete-folder").jsonClick({
-		success: function(msg, evt) { location = Emerald.url('/admin/filelib'); }
+		success: function(msg, evt) { location = Emerald.url('/em-admin/filelib'); }
 	});
 	
 	$(".delete-file").jsonClick({

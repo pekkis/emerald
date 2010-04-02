@@ -54,7 +54,7 @@ class EmCore_Form_FormContent extends ZendX_JQuery_Form
 		$naviModel = new EmCore_Model_Navigation();
 		$navi = $naviModel->getNavigation();
 						
-		$navi = $navi->findBy("uri", EMERALD_URL_BASE . "/" . $locale);
+		$navi = $navi->findBy("locale_root", $locale);
 
 		$iter = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
 		
