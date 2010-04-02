@@ -1,5 +1,5 @@
 <?php
-class Bootstrap extends Emerald_Application_Bootstrap_Bootstrap
+class EmBootstrap extends Emerald_Application_Bootstrap_Bootstrap
 {
 		
 	private $_translate;

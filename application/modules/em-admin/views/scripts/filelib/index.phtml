@@ -37,7 +37,7 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/in
 	[<a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'edit', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>]
 	
 	<?php else: ?>
-	<a href="/admin/filelib/index/id/<?php echo $folder->id; ?>">
+	<a href="<?php echo URL_BASE; ?>/em-admin/filelib/index/id/<?php echo $folder->id; ?>">
 	<?php echo $folder->name == 'root' ? '/' : $folder->name; ?>
 	</a>
 	<?php endif; ?>

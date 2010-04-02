@@ -111,54 +111,6 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 			
 			
 			
-			// $folder = new Filelib_Model_FolderIterator($fl, null);
-			
-			
-			// $tree = new RecursiveIteratorIterator($folder, RecursiveIteratorIterator::SELF_FIRST);
-			
-
-			
-			/*
-			$expr = ($input->id) ? $input->id : new Zend_Db_Expr('null');
-			
-			$files = array();
-			if($input->id) {
-				$fileTbl = $fl->getFileTable();
-				$files = $fileTbl->fetchAll(
-					array('folder_id = ?' => $expr)
-				);
-				
-				
-			}
-			*/
-			
-				
-			// $tree = $this->_buildTree();
-
-			/*
-			$token = md5(uniqid(rand(), true));
-			
-			$this->view->token = $token;
-			
-			$this->view->active = $input->id;
-						
-			
-			$this->view->tree = $tree;
-			$this->view->files = $files;
-
-			$this->view->headScript()->appendFile('/lib/js/admin/filelib/index.js');
-			$this->view->headScript()->appendFile('/lib/js/scriptaculous/src/scriptaculous.js');
-			$this->view->headScript()->appendFile('/lib/js/lightbox2/js/lightbox.js');
-			$this->view->headScript()->appendFile('/lib/js/scriptaculous/src/effects.js');
-						
-			$this->view->headLink()->appendStylesheet('/lib/js/lightbox2/css/lightbox.css');
-			
-			$this->view->headScript()->appendFile('/lib/js/jquery/jquery.hoveraction.js');
-			
-			$this->view->headLink()->appendStylesheet('/lib/css/admin/filelib/index.css');
-			
-			*/
-			
 		} catch(Emerald_Exception $e) {
 			throw $e;
 			
