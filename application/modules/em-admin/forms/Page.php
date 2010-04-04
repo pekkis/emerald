@@ -34,15 +34,21 @@ class EmAdmin_Form_Page extends ZendX_JQuery_Form
 		$layoutElm->setAllowEmpty(false);
 		
 		$layouts = Zend_Registry::get('Emerald_Customer')->getLayouts();
+		
+		
 		$layoutOpts = array();
-		foreach($layouts as $layout) {
-			$layoutOpts[$layout] = $layout;
+		foreach($layouts as $key => $layout) {
+			
+			if($key != 'Error') {
+				$layoutOpts[$key] = $layout->getDescription();	
+			}
+			
 		}
 		$layoutElm->setMultiOptions($layoutOpts);
 		
 				
 
-		$shardElm = new Zend_Form_Element_Select('shard_id', array('label' => 'Shard id', 'class' => 'w66'));
+		$shardElm = new Zend_Form_Element_Select('shard_id', array('label' => 'Page type', 'class' => 'w66'));
 		// $shardElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$shardElm->setRequired(true);
 		$shardElm->setAllowEmpty(false);

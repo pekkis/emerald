@@ -253,9 +253,9 @@ CREATE TABLE "emerald_htmlcontent" (
 ALTER TABLE emerald_locale ADD FOREIGN KEY ("page_start") REFERENCES "emerald_page" ("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 
-INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'core', 'html-content', 'index', 3);
-INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'core', 'form-content', 'index', 3);
-INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(3, 'News', 'core', 'news', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(1, 'Html', 'em-core', 'html-content', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(2, 'Form', 'em-core', 'form-content', 'index', 3);
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(3, 'News', 'em-core', 'news', 'index', 3);
 
 CREATE UNIQUE INDEX page_beautifurl_idx ON emerald_page (beautifurl);
 

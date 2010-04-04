@@ -34,7 +34,7 @@ class EmCore_View_Helper_Emerald extends Zend_View_Helper_Abstract
 			->setCdnVersion('1.4')
 			->setUiCdnVersion('1.7.2')
 			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/em-core/emerald.js')
-			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jGrowl.js')
+			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
 			->enable()
 			->uiEnable();
 			
@@ -48,7 +48,7 @@ class EmCore_View_Helper_Emerald extends Zend_View_Helper_Abstract
 	public function addStylesheets()
 	{
 		$this->view->headLink()
-			->appendStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jGrowl.css')
+			->appendStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css')
 			->appendStylesheet(EMERALD_URL_BASE_DATA . '/data/customer.css');
 
 		return $this;

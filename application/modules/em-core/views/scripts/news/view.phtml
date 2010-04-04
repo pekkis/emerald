@@ -22,7 +22,7 @@
 	
 	<?php if($this->writable): ?>
 		<div class="emerald-controls emerald-controls-light">
-		<a id="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollbars"
+		<a id="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
 		href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $this->item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>
 		</div>
 	<?php endif; ?>	

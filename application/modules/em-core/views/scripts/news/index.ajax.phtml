@@ -6,9 +6,9 @@
 
 <?php if($this->writable): ?>
 	<div class="emerald-controls emerald-controls-heavy">
-	<a id="newschannel-edit" class="emerald-popup popup-large popup-resizable popup-scrollbars"
+	<a id="newschannel-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
 	href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-channel', 'action' => 'edit', 'id' => $this->channel->id), 'default', true); ?>"><?php echo $this->translate('Edit newschannel'); ?></a>
-	 | <a id="newsitem-add" class="emerald-popup popup-large popup-resizable popup-scrollbars"
+	 | <a id="newsitem-add" class="emerald-popup popup-large popup-resizable popup-scrollable"
 	 href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-channel', 'action' => 'add-item', 'id' => $this->channel->id), 'default', true); ?>">
 	 <?php echo $this->translate('Add newsitem'); ?>
 	 </a>
@@ -40,7 +40,7 @@ pagination here
 	
 <?php if($this->writable): ?>
 	<div class="emerald-controls emerald-controls-light">
-	<a id="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollbars" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="emerald-confirm news-item-delete" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'delete', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
+	<a id="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollable" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="emerald-confirm news-item-delete" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'delete', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
 	</div>
 <?php endif; ?>	
 	

@@ -145,11 +145,12 @@ class Emerald_Application_Customer
     	
     	foreach($iter as $file) {
     		if($file->isFile() && preg_match("/\.php$/", $file->getFilename())) {
-    			$layouts[] = basename($file->getFilename(), '.php'); 
+    			$layoutName = basename($file->getFilename(), '.php');
+    			$layouts[$layoutName] = $this->getLayout($layoutName);
     		}    		
     	}
-    	
-    	$layouts->asort();
+
+    	ksort($layouts);
     	
     	return $layouts;
     }

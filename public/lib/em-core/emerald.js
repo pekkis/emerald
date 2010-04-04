@@ -75,7 +75,7 @@ Emerald.Popup.listener = function(myEvent) {
 	}
 	
 	features.resizable = (elm.hasClass('popup-resizable')) ? 'yes' : 'no';
-	features.scrollbars = (elm.hasClass('popup-scrollbars')) ? 'yes' : 'no';
+	features.scrollbars = (elm.hasClass('popup-scrollable')) ? 'yes' : 'no';
 
 	Emerald.Popup.open(elm.attr('href'), elm.attr('rel'), Emerald.Popup.featureStringFromObject(features)); 
 	return false;

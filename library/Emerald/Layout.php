@@ -12,6 +12,9 @@ abstract class Emerald_Layout
 	
 	private $_jax = false;
 	
+	private $_description;
+	
+	
 	public function __construct()
 	{
 		$this->_init();
@@ -99,6 +102,29 @@ abstract class Emerald_Layout
 	{
 		return $this->_page;
 	}
+	
+	
+	public function getIdentifier()
+	{
+		$split = explode("_", get_class($this));
+		return array_pop($split);
+		
+	}
+	
+	
+	
+	public function setDescription($description)
+	{
+		$this->_description = $description;
+	}
+	
+	
+	
+	public function getDescription()
+	{
+		return ($this->_description) ? $this->_description : $this->getIdentifier();
+	}
+	
 	
 	public function actionToStack($action, $controller = null, $module = null, array $params = array())
 	{
