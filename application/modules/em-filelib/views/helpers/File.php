@@ -6,7 +6,7 @@
  * @todo Exception handling, etc
  *
  */
-class Filelib_View_Helper_File extends Zend_View_Helper_Abstract
+class EmFilelib_View_Helper_File extends Zend_View_Helper_Abstract
 {
 	
 	
