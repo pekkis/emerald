@@ -1,5 +1,9 @@
 Emerald = { };
 
+Emerald.URL_BASE = '';
+Emerald.URL_BASE_LIB = '';
+Emerald.URL_BASE_DATA = '';
+
 Emerald.url = function(url) {
 	return Emerald.URL_BASE + url;
 }
@@ -94,13 +98,14 @@ Emerald.TinyMCE = {
 				convert_urls: true,
 				relative_urls: false,
 				content_css: "/data/editor.css",
-				external_link_list_url : Emerald.libUrl("/lib/em-admin/sitemap/link-list/format/js"),
-				language: Emerald.Localization.getLanguage(),
+				external_link_list_url : Emerald.url("/lib/em-admin/sitemap/link-list/format/js"),
+				language: Emerald.Localization.getLanguage() ? Emerald.Localization.getLanguage() : 'en' ,
 				plugins: "table",
 				theme_advanced_buttons2_add : "tablecontrols"
 			};
 			
 			var combinedOptions = $.extend(defaultOptions, options);
+			
 			return combinedOptions;
 			
 		}
