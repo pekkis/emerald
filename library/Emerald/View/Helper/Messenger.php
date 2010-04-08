@@ -25,13 +25,13 @@ class Emerald_View_Helper_Messenger extends Zend_View_Helper_Abstract
 		foreach($this->view->messages as $val) {
 			switch($val->type) {
 				case 1:
-					$retval.="Messenger.publishMessage('{$val->message}','success');\n";
+					$retval.="Emerald.Messenger.publishMessage('{$val->message}','success');\n";
 					break;
 				case 2:
-					$retval.="Messenger.publishMessage('{$val->message}','info');\n";
+					$retval.="Emerald.Messenger.publishMessage('{$val->message}','info');\n";
 					break;
 				case 4:
-					$retval.="Messenger.publishMessage('{$val->message}','error');\n";
+					$retval.="Emerald.Messenger.publishMessage('{$val->message}','error');\n";
 					break;
 			}
 		}
