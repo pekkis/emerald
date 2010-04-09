@@ -74,10 +74,11 @@ class Emerald_Db_Adapter_Pdo_Mysqlreplicated extends Zend_Db_Adapter_Pdo_Mysql
 		$this->_inTransaction--;
 	}
 	
-	
-	
-	
-	
+
+    public function quote($value, $type = null)
+    {
+    	return $this->getRandomSlave()->quote($value, $type);
+    }	
 	
 	
 	
