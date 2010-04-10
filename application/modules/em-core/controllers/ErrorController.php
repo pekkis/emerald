@@ -28,10 +28,15 @@ class EmCore_ErrorController extends Emerald_Controller_Action
             default:
            		
             	if($code = $exception->getCode()) {
-            		            		            		
+            		// fixed code below to match http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+					// 401 is unauthorized(and such, requires WWW-Authenticate header field to be sent)
+					// but still handling it wrong for backwards compat.
+					// 403 is forbidden
             		if($code == 404) {
             			return $this->_forward('not-found');
-            		} else if($code == 401) {
+					} elseif($code == 401) {
+						return $this->_forward('forbidden');
+            		} elseif($code == 403) {
             			return $this->_forward('forbidden');
             		}
             		
@@ -58,8 +63,8 @@ class EmCore_ErrorController extends Emerald_Controller_Action
     
     public function forbiddenAction()
     {
-    	$this->view->responseCode = 401;
-    	$this->getResponse()->setHttpResponseCode(401);
+    	$this->view->responseCode = 403;
+    	$this->getResponse()->setHttpResponseCode(403);
     }
 	    
     

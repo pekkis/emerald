@@ -52,7 +52,7 @@ class EmCore_PageController extends Emerald_Controller_Action
 				$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
 				
 				if(!$readable) {
-					throw new Emerald_Exception('Forbidden', 401);				
+					throw new Emerald_Exception('Forbidden', 403);				
 				}
 				
 				if($page->redirect_id && $page->redirect_id != $page->id) {

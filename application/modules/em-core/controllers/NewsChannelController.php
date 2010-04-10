@@ -30,7 +30,7 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 			$page = $this->_pageFromPageId($channel->page_id);
 			
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-				throw new Emerald_Exception('Forbidden', 401);
+				throw new Emerald_Exception('Forbidden', 403);
 			}
 
 			$form = new EmCore_Form_NewsChannel();
@@ -58,7 +58,7 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 
 			$page = $this->_pageFromPageId($form->page_id->getValue());
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-				throw new Emerald_Exception('Forbidden', 401);
+				throw new Emerald_Exception('Forbidden', 403);
 			}
 						
 			$model = new EmCore_Model_NewsChannel();
@@ -101,7 +101,7 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 			$page = $this->_pageFromPageId($channel->page_id);
 			
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-				throw new Emerald_Exception('Forbidden', 401);
+				throw new Emerald_Exception('Forbidden', 403);
 			}
 
 			$form = new EmCore_Form_NewsItem();
