@@ -17,12 +17,13 @@ class Emerald_View_Helper_Messenger extends Zend_View_Helper_Abstract
     }
 	
 	public function Messenger() {
-		if(empty($this->view->messages)) {
+		$this->init();
+		if(empty($this->_messenger->messages)) {
 			return '';
 		}
 		$retval = "<script type=\"text/javascript\">\n";
 		$retval.= "$(document).ready(function() {\n";
-		foreach($this->view->messages as $val) {
+		foreach($this->_messenger->messages as $val) {
 			switch($val->type) {
 				case 1:
 					$retval.="Emerald.Messenger.publishMessage('{$val->message}','success');\n";
