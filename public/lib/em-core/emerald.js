@@ -463,16 +463,17 @@ Emerald.Messenger = {
 						Emerald.Messenger.publishMessage(msg.message,'error');
 						break;
 				}
-					
-				var callback = $(evt.currentTarget).data('callback');
-				if(callback) {
-					if(msg.type == Emerald.Message.ERROR) {
-						callback.failure(msg, evt);						
-					} else {
-						callback.success(msg, evt);
+				
+				if(evt) {
+					var callback = $(evt.currentTarget).data('callback');
+					if(callback) {
+						if(msg.type == Emerald.Message.ERROR) {
+							callback.failure(msg, evt);						
+						} else {
+							callback.success(msg, evt);
+						}
 					}
 				}
-				
 					
 			}
 		}
