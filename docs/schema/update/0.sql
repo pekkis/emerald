@@ -35,3 +35,5 @@ INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Edit ac
 INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Clear caches');
 INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Expose admin panel');
 
+ALTER TABLE emerald_filelib_folder ADD COLUMN visible smallint NOT NULL default 1;
+
