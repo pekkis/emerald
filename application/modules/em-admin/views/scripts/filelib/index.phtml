@@ -15,7 +15,9 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/in
 <?php $depth = 0; $first = true; ?>
 
 <?php foreach($this->iter as $folder): ?>
-
+	
+	<?php if(!$folder->visible) continue; ?>
+	
 	<?php if($first): ?>
 	<?php $first = false; ?>
 	<?php else: ?>

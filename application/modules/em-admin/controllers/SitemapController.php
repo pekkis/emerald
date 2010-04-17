@@ -74,7 +74,7 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 		$layouts = Zend_Registry::get('Emerald_Customer')->getLayouts();
 		$layoutOpts = array();
 		foreach($layouts as $layout) {
-			$layoutOpts[$layout] = $layout;
+			$layoutOpts[$layout->getIdentifier()] = $layout->getIdentifier();
 		}
 		$this->view->layoutOpts = $layoutOpts;
 		
