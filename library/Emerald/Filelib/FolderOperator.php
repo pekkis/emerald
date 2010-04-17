@@ -2,6 +2,10 @@
 class Emerald_Filelib_FolderOperator
 {
 	
+	
+	private $_cache;
+	
+	
 	/**
 	 * Returns backend
 	 * 
@@ -71,6 +75,8 @@ class Emerald_Filelib_FolderOperator
 	{
 		$this->getBackend()->updateFolder($folder);
 
+		$files = $folder->findFiles();
+		
 		foreach($folder->findFiles() as $file) {
 			$this->getFilelib()->file()->update($file);
 		}
@@ -104,9 +110,12 @@ class Emerald_Filelib_FolderOperator
 	 */
 	public function find($id)
 	{
-		$folder = $this->getBackend()->findFolder($id);
-		$folder->setFilelib($this->getFilelib());
-		return $folder;
+		if(!isset($this->_cache[$id])) {
+			$this->_cache[$id] = $this->getBackend()->findFolder($id);
+			$this->_cache[$id]->setFilelib($this->getFilelib());
+		}
+		
+		return $this->_cache[$id];
 	}
 	
 	/**

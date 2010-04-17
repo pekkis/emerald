@@ -149,8 +149,9 @@ class Emerald_Application_Customer
     			$layouts[$layoutName] = $this->getLayout($layoutName);
     		}    		
     	}
-
-    	ksort($layouts);
+    	
+    	
+    	$layouts->ksort();
     	
     	return $layouts;
     }

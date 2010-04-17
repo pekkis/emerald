@@ -18,6 +18,10 @@ class Emerald_Filelib_FileProfile
 	
 	private $_identifier;
 	
+	private $_selectable = true;
+
+	private $_plugins = array();
+	
 	
 	public function __construct($options = array())
 	{
@@ -102,6 +106,18 @@ class Emerald_Filelib_FileProfile
 	public function setIdentifier($identifier)
 	{
 		$this->_identifier = $identifier;
+	}
+
+	
+	public function getSelectable()
+	{
+		return $this->_selectable;
+	}
+	
+	
+	public function setSelectable($selectable)
+	{
+		$this->_selectable = $selectable;
 	}
 	
 	

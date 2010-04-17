@@ -155,8 +155,8 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 	{
 		try {
 
-			$fileRow = $this->getFileTable()->find($file->id)->current();
-			$fileRow->link = $file->getProfileObject()->getSymlinker()->getLink($file, false, true); 
+			// $fileRow = $this->getFileTable()->find($file->id)->current();
+			$file->link = $file->getProfileObject()->getSymlinker()->getLink($file, false, true); 
 
 			$this->getFileTable()->update(
 				$file->toArray(),
@@ -218,9 +218,6 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		
 		} catch(Exception $e) {
 			
-			echo $e;
-			die();
-			
 			$this->getDb()->rollBack();
 			throw new Emerald_Filelib_Exception($e->getMessage());
 		}
@@ -255,10 +252,11 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 		$folders = array();
 		
 		$className = $this->getFilelib()->getFolderItemClass();
-				
+		
 		foreach($folderRows as $folderRow) {
 			$folders[] = new $className($folderRow->toArray());
 		}
+		
 		return new Emerald_Filelib_FolderItemIterator($folders);
 	}
 	

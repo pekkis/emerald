@@ -21,7 +21,7 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 			foreach($matches[0] as $key => $toReplace) {
 				$page = $navigation->findBy('id', $matches[1][$key]);
 				if($page) {
-					$value = str_ireplace($toReplace, $page->uri, $value);	
+					$value = str_ireplace(EMERALD_URL_BASE . $toReplace, $page->uri, $value);	
 				}
 				
 			}
