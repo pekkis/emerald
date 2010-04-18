@@ -5,14 +5,15 @@ class EmCore_Form_Login extends ZendX_JQuery_Form
 	{
 				
 		$this->setMethod(Zend_Form::METHOD_POST);
+		$this->setAttrib('id', 'emerald-form-login');
 		$this->setAction(EMERALD_URL_BASE . "/em-core/user/login");
 		
-		$emailElm = new Zend_Form_Element_Text('tussi', array('label' => 'E-mail', 'class' => 'w66'));
+		$emailElm = new Zend_Form_Element_Text('tussi', array('label' => 'E-mail'));
 		$emailElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$emailElm->setRequired(true);
 		$emailElm->setAllowEmpty(false);
 		
-		$passwdElm = new Zend_Form_Element_Password('loso', array('label' => 'Password', 'class' => 'w66'));
+		$passwdElm = new Zend_Form_Element_Password('loso', array('label' => 'Password'));
 		$passwdElm->addValidator(new Zend_Validate_StringLength(0, 255));
 		$passwdElm->setRequired(true);
 		$passwdElm->setAllowEmpty(true);

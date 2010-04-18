@@ -45,16 +45,17 @@ class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emeral
 			} else {
 				$parent = "Emerald_Locale_{$this->locale}";
 			}
-			$acl->addResource($this, $parent);
+			$acl->addResource($this);
 			$model = new EmCore_Model_DbTable_Permission_Page_Ugroup();
 	       	$sql = "SELECT ugroup_id, permission FROM emerald_permission_page_ugroup WHERE page_id = ?";
 	       	$res = $model->getAdapter()->fetchAll($sql, $this->id);
+	       		       	
 	       	foreach($res as $row) {
 	       		foreach(Emerald_Permission::getAll() as $key => $name) {
 	       			if($key & $row->permission) {
 	       				$role = "Emerald_Group_{$row->ugroup_id}";
 	       				if($acl->hasRole($role)) {
-	       					if($acl->isAllowed($role, $parent)) {
+	       					if($acl->isAllowed($role, $parent, 'read')) {
 	       						$acl->allow($role, $this, $name);	
 	       					}
 	       				}

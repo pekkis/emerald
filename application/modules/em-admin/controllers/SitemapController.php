@@ -98,4 +98,41 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 	}
 	
 	
+	public function copyFromAction()
+	{
+
+		$filters = array();
+		$validators = array(
+			'to' => array('allowEmpty' => false, 'presence' => 'required'),
+			'from' => array('allowEmpty' => false, 'presence' => 'required')
+		);
+		
+		try {
+			$input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
+			$input->process();
+			
+			$localeModel = new EmCore_Model_Locale();
+			
+			
+			$fromLocale = $localeModel->find($input->from);
+			$toLocale = $localeModel->find($input->to);
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $fromLocale, 'read') || !$this->getAcl()->isAllowed($this->getCurrentUser(), $toLocale, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+			}
+			
+			$sitemapModel = new EmAdmin_Model_Sitemap();
+			$copied = $sitemapModel->copySitemap($input->from, $input->to);
+
+			$this->getHelper('redirector')->goto('edit', null, null, array('locale' => $input->to));
+			
+		} catch(Emerald_Exception $e) {
+			throw $e;
+		} catch(Exception $e) {
+			throw new Emerald_Exception('Error', 500);
+		}
+		
+		
+	}
+	
 }

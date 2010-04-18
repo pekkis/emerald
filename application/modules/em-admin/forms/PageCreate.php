@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_Form_Page extends Zend_Form
+class EmAdmin_Form_Page extends ZendX_JQuery_Form
 {
 
 	public function init()
@@ -11,8 +11,8 @@ class EmAdmin_Form_Page extends Zend_Form
 		$idElm = new Zend_Form_Element_Hidden('id');
 		$idElm->setDecorators(array('ViewHelper'));
 		
-		$globalIdElm = new Zend_Form_Element_Text('global_id', array('label' => 'Current global id'));
-		// $globalIdElm->setDecorators(array('ViewHelper'));
+		$globalIdElm = new Zend_Form_Element_Text('global_id');
+		$globalIdElm->setDecorators(array('ViewHelper'));
 		
 		$localeElm = new Zend_Form_Element_Hidden('locale');
 		$localeElm->setDecorators(array('ViewHelper'));
@@ -89,39 +89,49 @@ class EmAdmin_Form_Page extends Zend_Form
 		
 		
 		
-		$interLocaleElm = new Zend_Form_Element_Select('interlink_locale', array('label' => 'Locale'));
+		$interLocaleElm = new Zend_Form_Element_Select('interlink_locale');
 		$interLocaleElm->setRegisterInArrayValidator(false);
 		$interLocaleElm->setRequired(false);
 		$interLocaleElm->setAllowEmpty(true);
 		$interLocaleElm->setIgnore(true);
 		
-		$interPageElm = new Zend_Form_Element_Select('interlink_page', array('label' => 'Page'));
+		$localeModel = new EmCore_Model_Locale();
+		$locales = $localeModel->findAll();
+		
+		$interLocaleElm->addMultiOption("", '--');
+		foreach($locales as $l) {
+			$interLocaleElm->addMultiOption($l->locale, $l->locale);
+		}
+		
+		$interPageElm = new Zend_Form_Element_Select('interlink_page');
 		$interPageElm->setRegisterInArrayValidator(false);
 		$interPageElm->setRequired(false);
 		$interPageElm->setAllowEmpty(true);
 		$interPageElm->setIgnore(true);
 
 		
-		$mirrorElm = new Zend_Form_Element_Checkbox('mirror', array('label' => 'Mirror changes where applicable'));
-		$mirrorElm->addValidator(new Zend_Validate_InArray(array(0, 1)));	
-		$mirrorElm->setRequired(false);
-		$mirrorElm->setAllowEmpty(false);
-		$mirrorElm->setIgnore(true);
-				
+		
+		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
 		
-		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $mirrorElm, $submitElm));
+		
+		
+		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $submitElm));
 
 		
 		$permissionForm = new EmAdmin_Form_PagePermissions();
 		$permissionForm->setAttrib('id', 'page-permissions');
 		
 		
-		$this->addSubForm($permissionForm, 'page-permissions', 9);
-						
-		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 10));
+		$this->addSubForm($permissionForm, 'page-permissions', 10);
+
+		
+		
+		
+		
+		
 		
 		/*
 		$this->view->selectedLocales = $selectedLocales;
@@ -155,18 +165,6 @@ class EmAdmin_Form_Page extends Zend_Form
 		
 		$this->redirect_id->setMultiOptions($ropts);
 		$this->locale->setValue($locale);
-
-		
-		$localeModel = new EmCore_Model_Locale();
-		$locales = $localeModel->findAll();
-		
-		$this->interlink_locale->addMultiOption("", '--');
-		foreach($locales as $l) {
-			if($l != $locale) {
-				$this->interlink_locale->addMultiOption($l->locale, $l->locale);	
-			}
-		}
-		
 		
 	}
 	

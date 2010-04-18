@@ -83,7 +83,11 @@ class EmAdmin_Model_Navigation
 
 			$editSitemap = new Zend_Navigation_Page_Mvc(array('module' => 'em-admin', 'controller' => 'sitemap', 'action' => 'edit', 'label' => 'Edit sitemap'));
 			$sitemap->addPage($editSitemap);
-						
+
+			$copySitemap = new Zend_Navigation_Page_Mvc(array('module' => 'em-admin', 'controller' => 'sitemap', 'action' => 'copy-from', 'label' => 'Copy sitemap from another locale'));
+			$copySitemap->setVisible(false);
+			$sitemap->addPage($copySitemap);
+			
 			$editPage = new Zend_Navigation_Page_Mvc(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'label' => 'Edit page'));
 			$sitemap->addPage($editPage);
 

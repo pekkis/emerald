@@ -83,16 +83,6 @@ form {
 	padding: 0;
 }
 
-fieldset {
-	margin: 0;
-	padding: 0;
-	border: none;
-}
-
-legend {
-	display: none;
-}
-
 input, textarea, select {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
@@ -157,7 +147,6 @@ input, textarea, select {
 }
 
 #logo h2 {
-	dtext-transform: uppercase;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	color: #FFFFFF;
@@ -287,6 +276,16 @@ input, textarea, select {
 	width: 33%;
 }
 
+.w20 {
+	width: 20%;
+}
+
+.w10 {
+	width: 10%;
+}
+
+
+
 dl.zend_form {
 	margin: 0;
 	padding: 0;	
@@ -298,10 +297,6 @@ dl.zend_form dt, dl.zend_form dd {
 }
 
 dl.zend_form dt {
-	margin-top: 1em;	
-}
-
-dl.zend_form dt: {
 	margin-top: 1em;	
 }
 

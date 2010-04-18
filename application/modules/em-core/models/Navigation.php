@@ -56,7 +56,14 @@ class EmCore_Model_Navigation
 		}
 
 		$route = implode(";", $route);
-		$beautifurl = Emerald_Beautifurl::fromArray($beautifurl, $page->locale);
+		
+		$beautifurler = $page->getLocaleItem()->getOption('beautifurler');
+		if(!$beautifurler) {
+			$beautifurler = 'Default';
+		}
+				
+		$beautifurler = Emerald_Beautifurl::factory($beautifurler);
+		$beautifurl = $beautifurler->fromArray($beautifurl, $page->locale);
 		
 		$navi->url = EMERALD_URL_BASE . "/" . $beautifurl;
 

@@ -17,6 +17,10 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		$pageModel = new EmCore_Model_Page();
 		$page = $pageModel->find($this->_getParam('id'));
 		
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		try {
 			$pageModel->delete($page);
 			$this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');	
@@ -33,6 +37,10 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		$pageModel = new EmCore_Model_Page();
 
 		$page = $pageModel->find($this->_getParam('id'));		
+		
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
 		
 		$form = new EmAdmin_Form_Page();
 		$form->setLocale($page->locale);
@@ -56,7 +64,17 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		
 		$form->parent_id->setValue($this->_getParam('id'));
 		$form->order_id->setValue(1);
-		
+
+		if($this->_getParam('id')) {
+			$model = new EmCore_Model_Page();
+			$aclElm = $model->find($this->_getParam('id'));
+		} else {
+			$model = new EmCore_Model_Locale();
+			$aclElm = $model->find($this->_getParam('locale'));
+		}				
+
+		$perms = $model->getPermissions($aclElm);
+				
 		$shardModel = new EmCore_Model_Shard();
 		$shard = $shardModel->findByIdentifier('Html');
 		$form->shard_id->setValue($shard->id);
@@ -64,8 +82,8 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		$form->visibility->setValue(1);
 		
 		$permForm = $form->getSubForm('page-permissions');
-		
-		$permForm->setDefaults(array(EmCore_Model_Group::GROUP_ROOT => array_keys(Emerald_Permission::getAll())));
+			
+		$permForm->setDefaults($perms);
 		
 		$this->view->form = $form;
 		
@@ -120,25 +138,40 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		$form = new EmAdmin_Form_Page();
 		
 		if($this->_getParam('id')) {
+			
+			$action = 'edit';
+			
 			$page = $pageModel->find($this->_getParam('id'));
+			
+			$aclModel = new EmCore_Model_Page();
+			$aclElm = $page;
+			
 			$form->setLocale($page->locale);
-															
 		} else {
 			
+			$action = 'create';
+			
 			$parentId = $this->_getParam('parent_id');
-			
 			$page = new EmCore_Model_PageItem();
-			
 			if(is_numeric($parentId)) {
 				$parentPage = $pageModel->find($this->_getParam('parent_id'));
 				$form->setLocale($parentPage->locale);
+
+				$aclModel = new EmCore_Model_Page();
+				$aclElm = $aclModel->find($parentId);
+				
 			} else {
 				$form->setLocale($parentId);
+				$aclModel = new EmCore_Model_Locale();
+				$aclElm = $aclModel->find($parentId);
 			}
 
 		}
-			
 		
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $aclElm, 'write')) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$naviModel = new EmCore_Model_Navigation();
 		$navi = $naviModel->getNavigation();
 		
@@ -149,7 +182,16 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 			
 		} else {
 			$page->setFromArray($form->getValues());
+			
+			// $pageModel->getTable()->getAdapter()->query("DELETE FROM emerald_page WHERE title = 'xooxerssons'");
+			
 			$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
+					
+			
+			if($form->mirror->getValue()) {
+				$sitemapModel = new EmAdmin_Model_Sitemap();
+				$sitemapModel->mirror($page, $action);
+			}
 			
 			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Ok');
 			$msg->page_id = $page->id;

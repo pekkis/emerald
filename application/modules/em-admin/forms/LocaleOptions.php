@@ -21,11 +21,15 @@ class EmAdmin_Form_LocaleOptions extends ZendX_JQuery_Form
 		$startPageElm = new Zend_Form_Element_Select('page_start', array('label' => 'Homepage'));
 		$startPageElm->setRequired(true);
 		$startPageElm->setAllowEmpty(false);
-						
+
+		$beautifurlElm = new Zend_Form_Element_Text('beautifurler', array('label' => 'Beautifurler', array('class' => 'w66')));
+		$beautifurlElm->setRequired(false);
+		$beautifurlElm->setAllowEmpty(true);
+				
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		$submitElm->setIgnore(true);
 		
-		$this->addElements(array($localeElm, $titleElm, $startPageElm, $submitElm));
+		$this->addElements(array($localeElm, $titleElm, $startPageElm, $beautifurlElm, $submitElm));
 		
 	}
 	

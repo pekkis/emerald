@@ -16,6 +16,9 @@ class EmAdmin_Form_Activities extends ZendX_JQuery_Form
 		
 		$activities = $activityModel->getActivitiesByCategory();
 		
+		
+		
+		
 		foreach($activities as $category => $acts) {
 			
 			$fieldset = array();
@@ -38,7 +41,7 @@ class EmAdmin_Form_Activities extends ZendX_JQuery_Form
 				$fieldset[] = (string) $a->id;
 			}
 						
-			$this->addDisplayGroup($fieldset, $category);
+			$this->addDisplayGroup($fieldset, $category, array('legend' => $category));
 						
 			
 		}

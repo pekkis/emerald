@@ -209,7 +209,7 @@ CREATE TABLE `emerald_page` (
   KEY shard_id (shard_id),
   KEY locale (locale),
   KEY iisiurl_index (beautifurl(255)),
-  CONSTRAINT page_ibfk_1 FOREIGN KEY (id) REFERENCES emerald_page_global(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT page_ibfk_1 FOREIGN KEY (global_id) REFERENCES emerald_page_global(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_2 FOREIGN KEY (parent_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_3 FOREIGN KEY (shard_id) REFERENCES emerald_shard (id) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_4 FOREIGN KEY (locale) REFERENCES emerald_locale (locale) ON DELETE NO ACTION ON UPDATE CASCADE

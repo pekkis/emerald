@@ -1,5 +1,5 @@
 <?php
-class EmCore_View_Helper_Emerald extends Zend_View_Helper_Abstract
+class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
 {
 	
 	private $_user;

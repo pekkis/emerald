@@ -2,6 +2,9 @@
 $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . "/lib/em-admin/sitemap/edit.js");
 $this->headLink()->appendStylesheet(EMERALD_URL_BASE_LIB . "/lib/em-admin/sitemap/edit.css");
 $this->headTitle('Edit sitemap')->headTitle('Sitemap');
+
+$hasMenus = false;
+
 ?>
 
 <h1><?php echo $this->translate('Edit sitemap'); ?></h1>
@@ -42,6 +45,9 @@ $this->headTitle('Edit sitemap')->headTitle('Sitemap');
 	<?php endif; ?>
 
 	<?php if($menu->id): ?>
+	
+	<?php $hasMenus = true; ?>
+	
 	<div class="features">
 	<?php echo $this->formSelect("shard-{$menu->id}", $menu->shard_id, array('class' => 'shard'), $this->shardOpts); ?>
 	<?php echo $this->formSelect("layout-{$menu->id}", $menu->layout, array('class' => 'layout'), $this->layoutOpts); ?>
@@ -82,6 +88,27 @@ $this->headTitle('Edit sitemap')->headTitle('Sitemap');
 	<?php if($depth) echo str_repeat('</li></ul>', $depth); ?>
 	
 </ul>
+
+<?php if(!$hasMenus): ?>
+<?php
+$localeModel = new EmCore_Model_Locale();
+$locale = $localeModel->find($this->locale);
+?>
+
+<?php if($this->emerald()->userIsAllowed($locale, 'write')): ?>
+
+<h2><?php echo $this->translate('Copy sitemap from another locale'); ?></h2>
+
+
+<?php
+$form = new EmAdmin_Form_SitemapCopy();
+$form->setLocale($this->locale);
+echo $form; ?>
+
+
+<?php endif; ?>
+<?php endif; ?>
+
 
 </div>
 

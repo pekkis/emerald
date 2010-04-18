@@ -8,7 +8,7 @@ naviUpdate = function(pages, level, navitree) {
 	$.each(navitree, function(key, navi) {
 		
 		if(navi.id) {
-			pages.push({ key: navi.id, value: "-".repeat(level) + navi.label});
+			pages.push({ key: navi.global_id, value: "-".repeat(level) + navi.label});
 		}
 		
 		

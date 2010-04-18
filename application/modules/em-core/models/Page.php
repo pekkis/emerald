@@ -39,6 +39,7 @@ class EmCore_Model_Page
 	{
 		$rows = $this->getTable()->fetchAll($where, $order, $count, $offset);
 		
+				
 		$pages = array();
 		foreach($rows as $row) {
 			$page = new EmCore_Model_PageItem($row);
@@ -157,6 +158,23 @@ class EmCore_Model_Page
 		
 		
 	}
+	
+	
+	public function findChildren(EmCore_Model_PageItem $page)
+	{
+		$tbl = $this->getTable();
+		
+		$res = $tbl->fetchAll(array('parent_id = ?' => $page->id), 'order_id ASC');
+		
+		$pages = array();
+		foreach($res as $row) {
+			$pages[] = new EmCore_Model_PageItem($row->toArray());
+		}
+		
+		return new ArrayIterator($pages);
+		
+	}
+	
 	
 	
 	
