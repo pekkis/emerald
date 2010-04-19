@@ -45,6 +45,9 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 		if(!$input->locale) {
 			return $this->getHelper('redirector')->gotoRouteAndExit(array('module' => 'em-admin', 'controller' => 'sitemap', 'action' => 'index'));
 		}
+
+		
+		
 		
 		$this->view->locale = $locale;
 		
@@ -77,9 +80,7 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 			$layoutOpts[$layout->getIdentifier()] = $layout->getIdentifier();
 		}
 		$this->view->layoutOpts = $layoutOpts;
-		
-		
-		
+						
 	}
 	
 	

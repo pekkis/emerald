@@ -5,6 +5,7 @@ $this->headTitle('Edit sitemap')->headTitle('Sitemap');
 
 $hasMenus = false;
 
+
 ?>
 
 <h1><?php echo $this->translate('Edit sitemap'); ?></h1>
@@ -15,6 +16,8 @@ $hasMenus = false;
 <?php $depth = 0; $first = true; ?>
 
 <?php foreach($this->sitemap as $menu): ?>
+
+	
 
 	<?php if($first): ?>
 	<?php $first = false; ?>
@@ -56,13 +59,13 @@ $hasMenus = false;
 	
 	<div class="actions">	
 
-	<a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'create', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
+	<a class="emerald-popup popup-large popup-scrollable popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'create', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate($menu->id ? 'Create subpage' : 'Create page'); ?>
 	</a>
 
 	<?php if($menu->id): ?>
 	|
-	<a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
+	<a class="emerald-popup popup-large popup-scrollbars popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
 	<?php echo $this->translate('Edit'); ?>
 	</a>
 
@@ -89,22 +92,27 @@ $hasMenus = false;
 	
 </ul>
 
+
+
 <?php if(!$hasMenus): ?>
 <?php
 $localeModel = new EmCore_Model_Locale();
 $locale = $localeModel->find($this->locale);
+
+
+
 ?>
+
 
 <?php if($this->emerald()->userIsAllowed($locale, 'write')): ?>
 
 <h2><?php echo $this->translate('Copy sitemap from another locale'); ?></h2>
 
-
-<?php
+<?php 
 $form = new EmAdmin_Form_SitemapCopy();
 $form->setLocale($this->locale);
-echo $form; ?>
-
+echo $form;
+?>
 
 <?php endif; ?>
 <?php endif; ?>

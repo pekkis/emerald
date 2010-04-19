@@ -25,7 +25,7 @@ $this->headLink()->appendStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/locale
 		<?php echo $locale->locale; ?>
 	</td>
 	<td>
-		<a href="<?php echo $this->url(array('action' => 'edit', 'id' => $locale->locale)); ?>"><?php echo $this->translate('Edit'); ?></a> |
+		<a class="emerald-popup popup-large" href="<?php echo $this->url(array('action' => 'edit', 'id' => $locale->locale)); ?>"><?php echo $this->translate('Edit'); ?></a> |
 		<a class="emerald-confirm locale-delete" href="<?php echo $this->url(array('action' => 'delete', 'id' => $locale->locale)); ?>"><?php echo $this->translate('Delete'); ?></a>
 	</td>
 </tr>
