@@ -20,6 +20,11 @@ naviUpdate = function(pages, level, navitree) {
 	});
 };
 
+$(window).unload(function() {
+	this.opener.location.reload();
+});
+
+
 $(document).ready(function() {
 		
 	$('form').jsonSubmit();
