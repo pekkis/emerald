@@ -65,7 +65,7 @@ $hasMenus = false;
 
 	<?php if($menu->id): ?>
 	|
-	<a class="emerald-popup popup-large popup-scrollbars popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
+	<a class="emerald-popup popup-large popup-scrollable popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
 	<?php echo $this->translate('Edit'); ?>
 	</a>
 
