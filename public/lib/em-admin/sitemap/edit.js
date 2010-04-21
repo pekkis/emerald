@@ -12,7 +12,9 @@ $(document).ready(function() {
 			
 			var count = 0;
 			
-			$parent.find('li.node').each(function(key, value) {
+			console.debug($parent);
+			
+			$parent.children('ul').children('li').each(function(key, value) {
 				
 				// @todo fix this kludge posting of all items :)
 				var nid = value.id.split('-')[1];
