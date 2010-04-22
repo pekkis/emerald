@@ -46,7 +46,7 @@ $(document).ready(function() {
 		
 		var $this = $(this);
 						
-		$.getJSON("/menu/index", { 'locale': this.value, 'format' : 'json' }, function(r) {
+		$.getJSON("/em-core/menu/index", { 'locale': this.value, 'format' : 'json' }, function(r) {
 		
 			var pages = [];
 			

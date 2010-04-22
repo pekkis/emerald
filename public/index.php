@@ -53,6 +53,7 @@ if(isset($options['emerald']['constant'])) {
 
 try {
 
+	
 	$application->getBootstrap()
 	->bootstrap('server')
 	->bootstrap('modules')
@@ -60,23 +61,29 @@ try {
 	->bootstrap('db')
 	->bootstrap('customerdb')
 	->bootstrap('cache')
-	->bootstrap('router')
 	->bootstrap('session')
-	->bootstrap('acl')
-	->bootstrap('locale')
-	->bootstrap('user')
-	->bootstrap('view')
+	->bootstrap('emacl')
 	->bootstrap('translate')
+	->bootstrap('locale')
+	->bootstrap('router')
+	->bootstrap('emuser')
+	->bootstrap('view')
 	->bootstrap('layout')
 	->bootstrap('filelib')
-	->bootstrap('filelibplugins')
-	->bootstrap('misc');
-
+	->bootstrap('misc')
+	->bootstrap()
+	;
+	
+		
 	$front = Zend_Controller_Front::getInstance();
+	define('URL_BASE', $front->getBaseUrl());
+
 	
 	// $front->getDispatcher()->setParam('useDefaultControllerAlways', true);
 	
 
+	
+	
 	
 	$lus = $application->run();
 	
@@ -94,10 +101,16 @@ try {
 	}
 	*/
 	
+	
 	echo $response;	
 	
-	
 	$end = microtime(true) - $start;
+	// echo $end;
+	die();
+	
+	
+	
+	
 	
 
 	// echo $end;
