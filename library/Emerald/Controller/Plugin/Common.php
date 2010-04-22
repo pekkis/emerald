@@ -18,8 +18,8 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 		$view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
 		$naviHelper = $view->getHelper('Navigation');
 
-		$user = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('user');
-		$acl = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('acl');
+		$user = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('emuser');
+		$acl = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('emacl');
 		
 		Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
 		Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($user);
@@ -29,8 +29,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 			
 			$model = new EmAdmin_Model_Navigation();
 			$navigation = $model->getNavigation();
-			
-			
+						
 			$iter = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
 			foreach($iter as $page) {
 				$resName = "{$page->module}_" . ($page->controller ? $page->controller : 'index') . '_'  . ($page->action ? $page->action : 'index');
@@ -44,9 +43,8 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 			
 			$aclPlugin = new Emerald_Controller_Plugin_Acl($acl, $user);
 			
-			$aclPlugin->setErrorPage('index', 'login', 'default');
-			
-						
+			$aclPlugin->setErrorPage('index', 'login', 'em-core');
+												
 			Zend_Controller_Front::getInstance()->registerPlugin($aclPlugin);
 			
 			// $this->view->translate()->setTranslator(Zend_Registry::get('Zend_Translate'));

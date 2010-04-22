@@ -30,7 +30,7 @@ abstract class Emerald_Layout
 	
 	final protected function _preRun()
 	{
-		$this->_action->getHelper('layout')->setLayout('layouts/' . $this->getLayoutFile());
+		$this->_action->getHelper('layout')->setLayout($this->getLayoutFile());
 		$this->_actionStack = $this->_action->getHelper('actionStack');
 
 		$front = Zend_Controller_Front::getInstance();

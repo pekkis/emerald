@@ -32,7 +32,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	 */
 	public function getCurrentUser()
 	{
-		return $this->getInvokeArg('bootstrap')->getResource('user');
+		return $this->getInvokeArg('bootstrap')->getResource('emuser');
 	}
 	
 	public function postDispatch()
@@ -58,7 +58,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	 */
 	public function getAcl()
 	{
-		return $this->getInvokeArg('bootstrap')->getResource('acl');
+		return $this->getInvokeArg('bootstrap')->getResource('emacl');
 	}
 	
 

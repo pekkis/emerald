@@ -28,8 +28,7 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		Zend_Date::setOptions(array('cache' => $globalCache));
 		Zend_Translate::setCache($globalCache);
 		Zend_Locale::setCache($globalCache);	
-		
-
+		Zend_Currency::setCache($globalCache);	
 		
 		
 		/*
@@ -60,6 +59,8 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 		
 		$pageCache->start();
 		*/
+		
+		return $cm;
 		
 	}
 	
