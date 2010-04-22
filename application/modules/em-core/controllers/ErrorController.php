@@ -3,30 +3,50 @@ class EmCore_ErrorController extends Emerald_Controller_Action
 {
     public function errorAction()
     {
-    	// $this->view->layout()->disableLayout();
     	$errors = $this->_getParam('error_handler');
     	$exception = $errors->exception;
-    	    	
-    	$this->view->message = $exception->getMessage();
-
-    	
-    	$customer = $this->getCustomer();
-    	
-    	$layout = $customer->getLayout('Error');
-    	$layout->setAction($this);
-    	$layout->run();
-    	
-    	
+    	    	    	
     	switch($errors->type)
     	{
     		
     		case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
-            case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
-            	return $this->_forward('not-found');
-            	break;
+   			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
+   			
+   			
+   			
+   			$beautifurl = ltrim($this->getRequest()->getRequestUri(), '/');
+   			
+   			$pageModel = new EmCore_Model_Page();
+   			
+   			$page = $pageModel->findByBeautifurl($beautifurl);
+		
+   			if($page) {
+   				return $this->_forward('view', 'page', 'em-core', array('id' => $page->id));
+   			} else {
+   				$this->view->message = $exception->getMessage();
+		    	$customer = $this->getCustomer();
+		    	$layout = $customer->getLayout('Error');
+		    	$layout->setAction($this);
+		    	$layout->run();
+		    	$this->view->exception = $exception;
+   				
+		    	return $this->_forward('not-found');
+		    	
+   			}
+   				
+   				
+   			
+           	break;
             
             default:
-           		
+
+            	$this->view->message = $exception->getMessage();
+		    	$customer = $this->getCustomer();
+		    	$layout = $customer->getLayout('Error');
+		    	$layout->setAction($this);
+		    	$layout->run();
+		    	$this->view->exception = $exception;
+            	
             	if($code = $exception->getCode()) {
             		// fixed code below to match http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 					// 401 is unauthorized(and such, requires WWW-Authenticate header field to be sent)
@@ -45,9 +65,11 @@ class EmCore_ErrorController extends Emerald_Controller_Action
             	
             	return $this->_forward('internal-server');
     	}
-    	    	    	
-		
-    	$this->view->exception = $exception;
+
+    	
+    	
+    	
+    	    	
     	
     	
     }

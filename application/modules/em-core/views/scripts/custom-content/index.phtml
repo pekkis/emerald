@@ -1,0 +1,21 @@
+<?php 
+if($this->customcontent->action) {
+	echo $this->action($this->customcontent->action, $this->customcontent->controller, $this->customcontent->module);	
+}
+?>
+
+<?php if($this->writable): ?>
+
+<?php
+$model = new EmCore_Model_Page();
+$siblings = $model->findSiblings($this->page);
+?>
+
+<div class="emerald-controls emerald-controls-custom-content" id="emerald-controls-custom-content-<?php echo $this->customcontent->page_id; ?>-<?php echo $this->customcontent->block_id; ?>">
+<a rel="emerald-customcontent-edit" class="emerald-popup popup-large popup-resizable popup-scrollable" 
+href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'custom-content', 'action' => 'edit', 'page_id' => $this->customcontent->page_id, 'block_id' => $this->customcontent->block_id), 'emcore', true); ?>">
+<?php echo $this->translate('Edit'); ?>
+</a>
+
+</div>
+<?php endif; ?>

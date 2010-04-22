@@ -30,8 +30,9 @@ class EmCore_IndexController extends Emerald_Controller_Action
 			$localeModel = new EmCore_Model_Locale();
 			$page = $localeModel->startFrom($this->getCustomer(), $input->locale);
 						
+			
 			// Lets forward instead of redirecting. Url looks easier(tm).
-			$this->_forward('view', 'page', null, array('id' => $page->id));
+			$this->_forward('view', 'page', 'em-core', array('id' => $page->id));
 					
 		} catch(Exception $e) {
 			

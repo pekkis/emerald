@@ -21,7 +21,8 @@ class EmCore_UserController extends Emerald_Controller_Action
 			$msg->errors = $form->getMessages(); 
 		} else {
 			
-			$auth = Zend_Auth::getInstance();
+			$auth = Emerald_Auth::getInstance();
+						
 			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'emerald_user', 'email', 'passwd', 'MD5(?) and status = 1');			
 						
 			$adapter->setIdentity($form->tussi->getValue());

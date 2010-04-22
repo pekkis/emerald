@@ -46,8 +46,7 @@ class EmCore_PageController extends Emerald_Controller_Action
 			if($page) {
 				
 				$locale = $page->getLocaleItem();
-				
-				
+								
 				
 				$readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
 				
@@ -119,8 +118,9 @@ class EmCore_PageController extends Emerald_Controller_Action
 				
 
 				$this->view->activePage = $page;
-												
 				
+				
+								
 				// $this->getHelper('viewRenderer')->setNoRender();
 				
 				
