@@ -1,8 +1,11 @@
 <?php
-class EmCore_Model_Page
+class EmCore_Model_Page extends Emerald_Model_Cacheable
 {
 	
 	static public $registry;
+	
+	protected $_beautifurls;
+	
 	
 	/**
 	 * Returns table
@@ -17,16 +20,52 @@ class EmCore_Model_Page
 		}
 		return $table;
 	}
+
+	
+	public function getCachedBeautifurls()
+	{
+		if(!$this->_beautifurls) {
+			$this->_beautifurls = $this->findCached('beautifurls');
+			if(!$this->_beautifurls) {
+				$this->_beautifurls = array();
+			}			
+		}
 		
+		return $this;
+	}
+	
+	
+	public function storeCachedBeautifurls()
+	{
+		$this->storeCached('beautifurls', $this->_beautifurls);
+		
+		return $this;
+	}
+	
+	
+	public function clearCachedBeautifurls()
+	{
+		$this->clearCached('beautifurls');
+		
+		return $this;
+	}
+	
 	
 	
 	public function find($id)
 	{
 		if(!$page = $this->findFromRegistry($id)) {
-			$pageTbl = $this->getTable();
-			$page = $pageTbl->find($id)->current();
-			$page = ($page) ? new EmCore_Model_PageItem($page) : false;
 			
+			if(!$page = $this->findCached($id)) {
+				$pageTbl = $this->getTable();
+				$page = $pageTbl->find($id)->current();
+				$page = ($page) ? new EmCore_Model_PageItem($page) : false;
+				
+				if($page) {
+					$this->storeCached($page->id, $page);
+				}
+			}
+						
 			if($page) {
 				$this->saveToRegistry($page);	
 			}
@@ -53,16 +92,26 @@ class EmCore_Model_Page
 	
 	public function findByBeautifurl($beautifurl)
 	{
-		if(!$page = $this->findFromRegistry($beautifurl)) {
-			$pageTbl = $this->getTable();
-			$row = $pageTbl->fetchRow(array('beautifurl = ?' => $beautifurl));
-			$page = ($row) ? new EmCore_Model_PageItem($row) : false;
+		
 			
-			if($page) {
-				$this->saveToRegistry($page);
+		$this->getCachedBeautifurls();
+
+		if(isset($this->_beautifurls[$beautifurl])) {
+			return $this->find($this->_beautifurls[$beautifurl]);
+		} else {
+			$pageTbl = $this->getTable();
+			$id = $pageTbl->getAdapter()->fetchOne("SELECT id FROM emerald_page WHERE beautifurl = ?", array($beautifurl));
+
+			if(!$id) {
+				return false;
 			}
+			
+			$this->_beautifurls[$beautifurl] = $id;
+			$this->storeCachedBeautifurls();
+			
+			return $this->find($id);
 		}
-		return $page;
+
 	}
 	
 	
@@ -135,6 +184,15 @@ class EmCore_Model_Page
 			
 		}
 		
+		$this->clearCached($page->id);
+		$this->getCachedBeautifurls();
+		foreach($this->_beautifurls as $key => $id) {
+			if($id == $page->id) {
+				unset($this->_beautifurls[$key]);
+				$this->storeCachedBeautifurls();
+				break;
+			}
+		}		
 
 		$naviModel = new EmCore_Model_Navigation();
 		$naviModel->pageUpdate($page);
@@ -209,6 +267,8 @@ class EmCore_Model_Page
 		if(!$row) {
 			throw new Emerald_Model_Exception('Could not delete');
 		}
+		
+		$this->clearCached($page->id);
 		
 		$row->delete();
 		$naviModel = new EmCore_Model_Navigation();

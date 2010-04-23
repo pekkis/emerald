@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_HtmlContent
+class EmCore_Model_HtmlContent extends Emerald_Model_Cacheable
 {
 	public function getTable()
 	{
@@ -13,9 +13,17 @@ class EmCore_Model_HtmlContent
 	
 	public function find($htmlContentId, $blockId)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($htmlContentId, $blockId)->current();
-		return ($row) ? new EmCore_Model_HtmlContentItem($row->toArray()) : new EmCore_Model_HtmlContentItem(array('page_id' => $htmlContentId, 'block_id' => $blockId, 'content' => ''));
+		if(!$ret = $this->findCached(array($htmlContentId, $blockId))) {
+			$tbl = $this->getTable();
+			$row = $tbl->find($htmlContentId, $blockId)->current();
+			
+			$ret = ($row) ? new EmCore_Model_HtmlContentItem($row->toArray()) : new EmCore_Model_HtmlContentItem(array('page_id' => $htmlContentId, 'block_id' => $blockId, 'content' => ''));
+			if($ret) {
+				$this->storeCached(array($ret->page_id, $ret->block_id), $ret);
+			}
+		}
+		
+		return $ret;
 	}
 		
 	
@@ -28,7 +36,9 @@ class EmCore_Model_HtmlContent
 		if(!$row) {
 			$row = $tbl->createRow();
 		}
-				
+
+		$this->clearCached(array($htmlContent->page_id, $htmlContent->block_id));
+		
 		$row->setFromArray($htmlContent->toArray());
 		$row->save();
 

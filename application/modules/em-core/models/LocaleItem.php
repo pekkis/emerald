@@ -33,24 +33,41 @@ class EmCore_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emer
 	
 	
 	
-	public function getOption($key, $default = null)
+    public function getOptionCache()
     {
-    	return $this->_getOptionContainer()->get($key, $default);
+    	if(!$this->_optionCache) {
+    		$this->_optionCache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
+    	}
+    	return $this->_optionCache;
+    }
+    
+    
+    public function getOption($key)
+    {
+		$options = $this->getOptions();
+		return (isset($options[$key])) ? $options[$key] : false;
     }
     
     
     public function setOption($key, $value)
     {
-    	return $this->_getOptionContainer()->set($key, $value);
+    	$this->_options[$key] = $value;
+    	$this->_getOptionContainer()->$key = $value;
+    	$this->getOptionCache()->remove('locale_options_' . $this->locale);
+    		
     }
-	
-	
     
     public function getOptions()
     {
-    	return $this->_getOptionContainer()->getOptions();
+    	if(!$this->_options) {
+    		if(!$this->_options = $this->getOptionCache()->load('locale_options_' . $this->locale)) {
+    			$this->_options = $this->_getOptionContainer()->getOptions();
+    			$this->getOptionCache()->save($this->_options, 'locale_options_' . $this->locale); 
+    		}
+    	}
+    	return $this->_options;
     }
-    
+	    
 	
     public function autoloadAclResource(Zend_Acl $acl)
 	{

@@ -1,9 +1,14 @@
 <?php
-class EmCore_Model_Shard
+class EmCore_Model_Shard extends Emerald_Model_Cacheable
 {
 
 	const ACTIVE = 1;
 	const INSERTABLE = 2;
+	
+	
+	protected $_shards = array();
+	
+	protected $_shardNames = array();
 	
 	
 	/**
@@ -21,6 +26,31 @@ class EmCore_Model_Shard
 	}
 	
 	
+	protected function _populate()
+	{
+		if(!$this->_shards) {
+			
+			if($data = $this->findCached('data')) {
+				$this->_shards = $data['shards'];
+				$this->_shardNames = $data['shardNames'];
+			} else {
+				$tbl = $this->getTable();
+				$rows = $tbl->fetchAll(array(), 'name ASC');
+				
+				foreach($rows as $row) {
+					$shard = new EmCore_Model_ShardItem($row->toArray());
+					$this->_shards[$shard->id] = $shard;
+					$this->_shardNames[$shard->name] = $shard->id;
+				}
+				
+				$this->storeCached('data', array('shards' => $this->_shards, 'shardNames' => $this->_shardNames));
+
+			}
+						
+		}
+	}
+	
+	
 	/**
 	 * Finds item with primary key
 	 * 
@@ -29,9 +59,8 @@ class EmCore_Model_Shard
 	 */
 	public function find($id)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($id)->current();
-		return ($row) ? new EmCore_Model_ShardItem($row->toArray()) : false;
+		$this->_populate();
+		return (isset($this->_shards[$id])) ? $this->_shards[$id] : false; 
 	}
 	
 	
@@ -43,9 +72,8 @@ class EmCore_Model_Shard
 	 */
 	public function findByName($name)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->fetchRow(array('name = ?' => $name));
-		return ($row) ? new EmCore_Model_ShardItem($row->toArray()) : false;
+		$this->_populate();
+		return (isset($this->_shardNames[$name])) ? $this->_shards[$this->_shardNames[$name]] : false; 
 	}
 	
 	
@@ -56,12 +84,8 @@ class EmCore_Model_Shard
 	 */
 	public function findAll()
 	{
-		$rows = $this->getTable()->fetchAll(array(), 'name ASC');
-		$iter = new ArrayIterator();
-		foreach($rows as $row) {
-			$iter->append(new EmCore_Model_ShardItem($row));
-		}
-		return $iter;
+		$this->_populate();
+		return new ArrayIterator($this->_shards);
 	}	
 	
 

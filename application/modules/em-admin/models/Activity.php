@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_Model_Activity
+class EmAdmin_Model_Activity extends Emerald_Model_Cacheable
 {
 	/**
 	 * Returns table
@@ -92,11 +92,30 @@ class EmAdmin_Model_Activity
 	
 	public function findByCategoryAndName($category, $name)
 	{
-		$res = $this->getTable()->fetchRow(array('category = ?' => $category, "name = ?" => $name));
+		if(!$ret = $this->findCached(array($category, $name))) {
+			$res = $this->getTable()->fetchRow(array('category = ?' => $category, "name = ?" => $name));
+			$ret = ($res) ? new EmAdmin_Model_ActivityItem($res->toArray()) : false;
+			
+			if($ret) {
+				$this->storeCached(array($ret->category, $ret->name), $ret);
+			}
+		}
 		
-		return ($res) ? new EmAdmin_Model_ActivityItem($res->toArray()) : false;
 	}
 	
+	
+	
+	public function getCacheIdentifier($id)
+	{
+		if(is_array($id)) {
+			$id = implode('_', $id);
+		}		
+		
+		$filter = new Zend_Filter_Word_SeparatorToCamelCase();
+		
+		return $this->_cachePrefix . '_' . $filter->filter($id);
+	}
+		
 	
 	
 }

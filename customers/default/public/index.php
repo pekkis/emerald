@@ -1,1 +1,1 @@
-../../../public/index.php
+../../../public/emerald-apc.php

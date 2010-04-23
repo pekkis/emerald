@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Locale
+class EmCore_Model_Locale extends Emerald_Model_Cacheable
 {
 	
 	public function getTable()
@@ -152,16 +152,21 @@ class EmCore_Model_Locale
 		return $this->save($locale);
 	}
 	
-	
-	
+			
 	
 	
 	
 	public function find($id)
 	{
-		$localeTbl = $this->getTable();
-		$localeRow = $localeTbl->find($id)->current();
-		return ($localeRow) ? new EmCore_Model_LocaleItem($localeRow->toArray()) : false;
+		if(!$ret = $this->findCached($id)) {
+			$localeTbl = $this->getTable();
+			$localeRow = $localeTbl->find($id)->current();
+			$ret = ($localeRow) ? new EmCore_Model_LocaleItem($localeRow->toArray()) : false;
+			if($ret) {
+				$this->storeCached($id, $ret);
+			}
+		}
+		return $ret;
 	}
 	
 	
@@ -208,6 +213,7 @@ class EmCore_Model_Locale
 		}
 		$row->setFromArray($locale->toArray());
 		$row->save();
+
 		
 		
 		if($permissions) {
@@ -227,19 +233,19 @@ class EmCore_Model_Locale
 			
 		}
 		
+		$this->clearCached($row->id);
+
 		$acl = Zend_Registry::get('Emerald_Acl');
 		if($acl->has($locale)) {
 			$acl->remove($locale);	
 		}
-				
-		
-		
 		
 	}
 	
 	
 	public function delete(EmCore_Model_LocaleItem $locale)
 	{
+		$this->clearCached($locale->id);
 		$tbl = $this->getTable();
 		$row = $tbl->find($locale->locale)->current();
 		if(!$row) {

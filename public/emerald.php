@@ -1,4 +1,7 @@
 <?php 
+function _emerald_autoload($what) {
+	require_once str_replace('_', '/', $what) . '.php';
+}
 
 $start = microtime(true);
 
@@ -14,21 +17,12 @@ defined('APPLICATION_ENV')
     || define('APPLICATION_ENV',
               (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV')
                                          : 'production'));
-
-function _peksu_autoload($what) {
-
-	require_once str_replace('_', '/', $what) . '.php';
-	
-	
-}
-
-// require_once "Zend/Loader/Autoloader.php";
-// Zend_Loader_Autoloader::getInstance()->setDefaultAutoloader('_peksu_autoload');
-
+                                         
+require_once "Zend/Loader/Autoloader.php";
+Zend_Loader_Autoloader::getInstance()->setDefaultAutoloader('_emerald_autoload');
                                          
 /** Zend_Application */
 require_once 'Zend/Application.php';
-
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(
@@ -36,24 +30,22 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/emerald.ini'
 );
 
-
-
 $options = $application->getOptions();
 if(isset($options['emerald']['constant'])) {
-	
 	foreach($options['emerald']['constant'] as $key => $value) {
 		define('EMERALD_' . $key, $value);
 	}
 }
 
-
-
-
-// define('EMERALD_URL_BASE', (isset($options['resources']['frontcontroller']['baseUrl'])) ? $options['resources']['frontcontroller']['baseUrl'] : '' );
+if($options['pluginCache']) {
+	$classFileIncCache = APPLICATION_PATH . '/../data/pluginLoaderCache.php';
+	if (file_exists($classFileIncCache)) {
+    	include_once $classFileIncCache;
+	}
+	Zend_Loader_PluginLoader::setIncludeFileCache($classFileIncCache);
+}
 
 try {
-
-	
 	$application->getBootstrap()
 	->bootstrap('server')
 	->bootstrap('modules')
@@ -70,50 +62,17 @@ try {
 	->bootstrap('view')
 	->bootstrap('layout')
 	->bootstrap('filelib')
-	->bootstrap('misc')
+	//->bootstrap('misc')
 	->bootstrap()
 	;
 	
-		
-	$front = Zend_Controller_Front::getInstance();
-	define('URL_BASE', $front->getBaseUrl());
+	$application->run();
+	// $response = Zend_Controller_Front::getInstance()->getResponse();
+	// echo $response;	
 
-	
-	// $front->getDispatcher()->setParam('useDefaultControllerAlways', true);
-	
-
-	
-	
-	
-	$lus = $application->run();
-	
-	
-	
-	$response = $front->getResponse();
-	
-	/*
-	$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
-	if($cache instanceof Emerald_Cache_Backend_Memcached) {
-		$memcached = $cache->getBackend()->getMemcached();
-		$request = $front->getRequest();
-		$cacheKey = $cache->getOption('cache_id_prefix') . $request->getServer('REQUEST_URI');
-		$memcached->set($cacheKey, $response->__toString(), 100);
-	}
-	*/
-	
-	
-	echo $response;	
-	
 	$end = microtime(true) - $start;
-	// echo $end;
-	die();
 	
-	
-	
-	
-	
-
-	// echo $end;
+	echo $end;
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 
