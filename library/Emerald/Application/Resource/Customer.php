@@ -18,19 +18,23 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 			throw new Emerald_Exception("Customer not found");
 		}
 		
+		$options = $this->getOptions();
+
+		if(!isset($options['included'])) {
+			$config = $customer->getConfig();
+			$config = $config->toArray();
+			$config['resources']['customer']['included'] = true;
+			$this->getBootstrap()->addOptions($config);
+		}
+		
+		/*
 		$front = $this->getBootstrap()->getResource('frontcontroller');
-		
-		$config = $customer->getConfig();
-		
-		$config = $config->toArray();
-		
-		$this->getBootstrap()->addOptions($config);
-		
 		try {
 		   	$front->addModuleDirectory($customer->getRoot() . '/modules');	
 	    } catch(Exception $e) {
 	       	// There aint no customer specific modules
 	    }
+	    */
 		
 	    Zend_Registry::set('Emerald_Customer', $customer);
 	    

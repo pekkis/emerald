@@ -11,10 +11,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 			$server = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('server');
 			$server->registerCustomer($customer);
 		}
-		
-		$server = Zend_Registry::get('Emerald_Server');
-		$queue = $server->getQueue();
-						
+					
 		$view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
 		$naviHelper = $view->getHelper('Navigation');
 

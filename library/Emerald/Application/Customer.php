@@ -42,9 +42,6 @@ class Emerald_Application_Customer
 		
 		$pinfo = pathinfo($root);
 		$this->_identifier = $pinfo['basename'];
-	
-				
-		$this->_config = new Zend_Config_Ini($this->getRoot() . '/configs/emerald.ini');
 
 	}
 	
@@ -67,6 +64,9 @@ class Emerald_Application_Customer
      */
     public function getConfig()
     {
+    	if(!$this->_config) {
+    		$this->_config = new Zend_Config_Ini($this->getRoot() . '/configs/emerald.ini');	
+    	}
     	return $this->_config;
     }
     

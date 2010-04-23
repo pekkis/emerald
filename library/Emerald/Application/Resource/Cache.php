@@ -8,9 +8,10 @@
 class Emerald_Application_Resource_Cache extends Zend_Application_Resource_ResourceAbstract
 {
 	
-	protected $_globalBackend;
+	protected $backends;
 	
-	
+	protected $frontends;
+		
 	public function init()
 	{
 		
@@ -19,16 +20,20 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 
 		$opts = $this->getOptions();
 		
-		$backend = $this->getGlobalBackend();
-		$globalCache = Zend_Cache::factory('Core', $backend, $opts['frontend']['default']['options']);		
+		foreach($opts['frontend'] as $key => $frontend) {
+			$backend = $this->_getBackend($frontend['backend']);
+			$cache = Zend_Cache::factory($frontend['class'], $backend, $frontend['options']);
+			$cm->setCache($key, $cache);			
+		}
 		
-		$cm->setCache('default', $globalCache);
+		
+		$defaultCache = $cm->getCache('default');
 				
-		Zend_Db_Table_Abstract::setDefaultMetadataCache($globalCache);		
-		Zend_Date::setOptions(array('cache' => $globalCache));
-		Zend_Translate::setCache($globalCache);
-		Zend_Locale::setCache($globalCache);	
-		Zend_Currency::setCache($globalCache);	
+		Zend_Db_Table_Abstract::setDefaultMetadataCache($defaultCache);		
+		Zend_Date::setOptions(array('cache' => $defaultCache));
+		Zend_Translate::setCache($defaultCache);
+		Zend_Locale::setCache($defaultCache);	
+		Zend_Currency::setCache($defaultCache);	
 		
 		
 		/*
@@ -65,15 +70,16 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 	}
 	
 	
-	
-	public function getGlobalBackend()
+	protected function _getBackend($backend)
 	{
-		if(!$this->_globalBackend) {
+		if(!isset($this->_backends[$backend])) {
 			$opts = $this->getOptions();
-			$this->_globalBackend = Zend_Cache::_makeBackend($opts['backend']['default']['name'], $opts['backend']['default']['options'], true, true);
+			$this->_backends[$backend] = Zend_Cache::_makeBackend($opts['backend'][$backend]['name'], $opts['backend'][$backend]['options'], true, true);
 		}
-		return $this->_globalBackend;		
+		
+		return $this->_backends[$backend];
 	}
+	
 	
 	
 }
