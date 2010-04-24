@@ -27,7 +27,7 @@ echo $this->zform;
 <?php endif; ?>
 
 <div class="emerald-controls">
-<a id="form-content-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
+<a rel="form-content-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
 href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'form-content', 'action' => 'edit', 'page_id' => $this->formcontent->page_id), 'default', true); ?>"><?php echo $this->translate('Edit form'); ?></a>
 </div>
 <?php endif; ?>

@@ -313,16 +313,16 @@ jQuery.fn.jsonSubmit = function(options) {
 			$this.data("callback", finalOptions);
 		  
 		  $this.submit(function(evt) {
-									  
+			  
+			  evt.preventDefault();
+			  
 			  $that = $(this);
 							  
 			$("label", $that).removeClass("error");
 			
 			// $("input[type=submit], button[type=submit]", $that).attr("disabled", "disabled");
-						
 			
-			
-			if(this.action.indexOf("?") != -1) {
+			if($(this).attr('action').indexOf("?") != -1) {
 				var addon = '&format=json';
 			} else {
 				var addon = "/format/json";
@@ -330,7 +330,7 @@ jQuery.fn.jsonSubmit = function(options) {
 					
 			 $.ajax({
 				type: "post",
-				url: this.action + addon,
+				url: $(this).attr('action') + addon,
 				dataType: "json",
 				data: $(this).serialize(),
 				success: function(response) 

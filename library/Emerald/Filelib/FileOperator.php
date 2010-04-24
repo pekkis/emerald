@@ -2,6 +2,49 @@
 class Emerald_Filelib_FileOperator
 {
 	
+	protected $_cache;
+	
+	protected $_cachePrefix = 'emerald_filelib_fileoperator';
+	
+	/**
+	 * @return Zend_Cache_Core
+	 */
+	public function getCache()
+	{
+		if(!$this->_cache) {
+			$this->_cache = $this->getFilelib()->getCache();	
+		}
+		return $this->_cache;
+	}
+
+
+	public function getCacheIdentifier($id)
+	{
+		if(is_array($id)) {
+			$id = implode('_', $id);
+		}		
+		return $this->_cachePrefix . '_' . $id;
+	}
+	
+	
+	public function findCached($id) {
+		return $this->getCache()->load($this->getCacheIdentifier($id));
+	}
+
+	
+	public function clearCached($id)
+	{
+		$this->getCache()->remove($this->getCacheIdentifier($id));
+	}
+	
+	
+	public function storeCached($id, $data)
+	{
+		$this->getCache()->save($data, $this->getCacheIdentifier($id));
+	}
+	
+	
+	
 	/**
 	 * Returns backend
 	 * 
@@ -42,10 +85,13 @@ class Emerald_Filelib_FileOperator
 	{
 		$file->getProfileObject()->getSymlinker()->deleteSymlink($file);
 		$this->getBackend()->updateFile($file);
+		$this->storeCached($file->id, $file);
 		
 		if($this->isAnonymous($file)) {
 			$file->getProfileObject()->getSymlinker()->createSymlink($file);
 		}
+		
+		$this->storeCached($file->id, $file);
 	
 	}
 		
@@ -58,7 +104,10 @@ class Emerald_Filelib_FileOperator
 	 */
 	public function find($id)
 	{
-		$file = $this->getBackend()->findFile($id);
+		if(!$file = $this->findCached($id)) {
+			$file = $this->getBackend()->findFile($id);
+			$this->storeCached($file->id, $file);	
+		}
 		
 		if(!$file) {
 			return false;
@@ -202,6 +251,7 @@ class Emerald_Filelib_FileOperator
 		try {
 
 			$this->getBackend()->deleteFile($file);
+			$this->clearCached($file->id);
 			
 			$file->getProfileObject()->getSymlinker()->deleteSymlink($file);
 			foreach($file->getProfileObject()->getPlugins() as $plugin) {

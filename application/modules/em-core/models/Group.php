@@ -71,7 +71,7 @@ class EmCore_Model_Group
 		$row->setFromArray($group->toArray());
 		$row->save();
 		
-		$group->id = $row->id;
+		$group->setFromArray($row->toArray());
 		
 	}
 

@@ -36,3 +36,16 @@ INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Expose 
 ALTER TABLE emerald_filelib_folder ADD COLUMN visible tinyint unsigned NOT NULL default 1;
 
 
+CREATE TABLE emerald_customcontent
+(
+page_id integer unsigned NOT NULL,
+block_id integer unsigned NOT NULL,
+module varchar(255) NULL,
+controller varchar(255) NULL,
+action varchar(255) NULL,
+params varchar(1000) NULL,
+PRIMARY KEY(page_id, block_id),
+FOREIGN KEY(page_id) REFERENCES emerald_page(id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=InnoDB;
+
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (4, 'Custom', 'em-core', 'custom-content', 'index', 3);

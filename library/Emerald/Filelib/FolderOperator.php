@@ -1,9 +1,47 @@
 <?php
 class Emerald_Filelib_FolderOperator
 {
+	protected $_cache;
+	
+	protected $_cachePrefix = 'emerald_filelib_folderoperator';
+	
+	/**
+	 * @return Zend_Cache_Core
+	 */
+	public function getCache()
+	{
+		if(!$this->_cache) {
+			$this->_cache = $this->getFilelib()->getCache();			
+		}
+		return $this->_cache;
+	}
+
+
+	public function getCacheIdentifier($id)
+	{
+		if(is_array($id)) {
+			$id = implode('_', $id);
+		}		
+		return $this->_cachePrefix . '_' . $id;
+	}
 	
 	
-	private $_cache;
+	public function findCached($id) {
+		return $this->getCache()->load($this->getCacheIdentifier($id));
+	}
+
+	
+	public function clearCached($id)
+	{
+		$this->getCache()->remove($this->getCacheIdentifier($id));
+	}
+	
+	
+	public function storeCached($id, $data)
+	{
+		$this->getCache()->save($data, $this->getCacheIdentifier($id));
+	}
+	
 	
 	
 	/**
@@ -64,6 +102,7 @@ class Emerald_Filelib_FolderOperator
 		}
 		
 		$this->getBackend()->deleteFolder($folder);
+		$this->clearCached($folder->id);
 	}
 	
 	/**
@@ -84,6 +123,7 @@ class Emerald_Filelib_FolderOperator
 		foreach($folder->findSubFolders() as $subFolder) {
 			$this->update($subFolder);
 		}
+		$this->storeCached($folder->id, $folder);
 	}
 	
 	
@@ -110,12 +150,11 @@ class Emerald_Filelib_FolderOperator
 	 */
 	public function find($id)
 	{
-		if(!isset($this->_cache[$id])) {
-			$this->_cache[$id] = $this->getBackend()->findFolder($id);
-			$this->_cache[$id]->setFilelib($this->getFilelib());
+		if(!$folder = $this->findCached($id)) {
+			$folder = $this->getBackend()->findFolder($id);
 		}
-		
-		return $this->_cache[$id];
+		$folder->setFilelib($this->getFilelib());
+		return $folder;
 	}
 	
 	/**

@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_NewsChannel
+class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 {
 	
 	
@@ -26,9 +26,16 @@ class EmCore_Model_NewsChannel
 	 */
 	public function find($id)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($id)->current();
-		return ($row) ? new EmCore_Model_NewsChannelItem($row->toArray()) : false;
+		if(!$ret = $this->findCached($id)) {
+			$tbl = $this->getTable();
+			$row = $tbl->find($id)->current();
+			$ret = ($row) ? new EmCore_Model_NewsChannelItem($row->toArray()) : false;
+			
+			$this->storeCached($id, $ret);
+		}
+		
+		return $ret;
+		
 	}
 	
 	
@@ -40,16 +47,18 @@ class EmCore_Model_NewsChannel
 	 */
 	public function findByPageId($pageId)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->fetchRow(array('page_id = ?' => $pageId));
+		if($id = $this->findCached('page_' . $pageId)) {
+			return $this->find($id);
+		}
 		
-		if($row) {
-			$item = new EmCore_Model_NewsChannelItem($row->toArray());
+		$tbl = $this->getTable();
+		$id = $tbl->getAdapter()->fetchOne("SELECT id FROM emerald_news_channel WHERE page_id = ?", array($pageId));
+		
+		if($id) {
+			$this->storeCached('page_' . $pageId, $id);
+			return $this->find($id); 
 		} else {
 
-			$pageModel = new EmCore_Model_Page();
-			$page = $pageModel->find($pageId);
-						
 			$item = new EmCore_Model_NewsChannelItem(
 				array(
 					'id' => null,
@@ -58,16 +67,10 @@ class EmCore_Model_NewsChannel
 					'link_readmore' => Zend_Registry::get('Zend_Translate')->translate('Read more', $page->getLocale())
 				)
 			);
-			
 			$this->save($item);
-			
+			return $item;
 		}
-
-		
-		return $item;
-		
-		
-		
+			
 		
 	}
 	
@@ -87,7 +90,49 @@ class EmCore_Model_NewsChannel
 		$row->save();
 		
 		$channel->setFromArray($row->toArray());
+		
+		$this->storeCached($channel->id, $channel);
+		$this->storeCached('page_' . $channel->page_id, $channel->id);
 				
+	}
+	
+	
+	
+	public function getItems(EmCore_Model_NewsChannelItem $channel, $invalids = false)
+	{
+		if(!$ids = $this->findCached('items_' . $channel->id)) {
+			$db = $this->getTable()->getAdapter();
+			$ids = $db->fetchCol("SELECT id FROM emerald_news_item WHERE news_channel_id = ?", array($channel->id), 'valid_start DESC');
+			
+			$this->storeCached('items_' . $channel->id, $ids);
+		}
+
+		
+		$itemModel = new EmCore_Model_NewsItem();
+		$iter = new ArrayIterator();
+		
+		foreach($ids as $id) {
+			$iter->append($itemModel->find($id));
+		}
+		
+		if($invalids == false) {
+			$iter2 = new EmCore_Model_NewsItemValidityFilterIterator($iter);
+			
+			$iter = new ArrayIterator();
+			foreach($iter2 as $item) {
+				$iter->append($item);
+			}
+		}
+		
+		
+		$adapter = new Zend_Paginator_Adapter_Iterator($iter);
+		$paginator = new Zend_Paginator($adapter);
+		$paginator->setItemCountPerPage($channel->items_per_page);
+		
+		return $paginator;
+		
+		
+		
 	}
 	
 	

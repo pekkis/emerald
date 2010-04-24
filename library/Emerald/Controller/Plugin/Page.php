@@ -18,8 +18,6 @@ class Emerald_Controller_Plugin_Page extends Zend_Controller_Plugin_Abstract
 		$this->getResponse()->setBody($body);
 		
 		
-		
-		
 	}
 	
 	

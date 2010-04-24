@@ -28,16 +28,18 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 		}
 
 		// We be getting de replaces
-		$regex = '/\/filelib\/file\/render\/id\/(\d+)(\/version\/([a-z]+))?/';
+		$regex = '/\/em-filelib\/file\/render\/id\/(\d+)(\/version\/([a-z]+))?/';
 		preg_match_all($regex, $value, $matches);
-
+		
 		if($matches[0]) {
 			
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			
 			// We be doin' de replacin'
 			foreach($matches[0] as $key => $toReplace) {
+				
 				$file = $fl->file()->find($matches[1][$key]);
+												
 				if($file && $file->isAnonymous()) {
 					
 					$opts = array();
@@ -45,7 +47,7 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 						$opts['version'] = $matches[3][$key];
 					}
 					
-					$value = str_ireplace($toReplace, $file->renderPath($opts), $value);	
+					$value = str_ireplace(EMERALD_URL_BASE . $toReplace, $file->renderPath($opts), $value);	
 				}
 				
 			}

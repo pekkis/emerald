@@ -87,7 +87,7 @@ CREATE TABLE emerald_formcontent (
   KEY form_id (form_id),
   KEY redirect_page_id (redirect_page_id),
   CONSTRAINT formcontent_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT formcontent_ibfk_2 FOREIGN KEY (form_id) REFERENCES form (id) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT formcontent_ibfk_2 FOREIGN KEY (form_id) REFERENCES emerald_form (id) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT formcontent_ibfk_3 FOREIGN KEY (redirect_page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

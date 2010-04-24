@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_FormField
+class EmCore_Model_FormField extends Emerald_Model_Cacheable
 {
 	
 	/**
@@ -25,9 +25,17 @@ class EmCore_Model_FormField
 	 */
 	public function find($id)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($id)->current();
-		return ($row) ? new EmCore_Model_FormFieldItem($row->toArray()) : false;
+		if(!$ret = $this->findCached($id)) {
+			$tbl = $this->getTable();
+			$row = $tbl->find($id)->current();
+			$ret = ($row) ? new EmCore_Model_FormFieldItem($row->toArray()) : false;
+			if($ret) {
+				$this->storeCached($ret->id, $ret);
+			}
+		}
+		
+		return $ret;
+		
 	}
 	
 	
@@ -66,6 +74,11 @@ class EmCore_Model_FormField
 		$row->save();
 		
 		$item->setFromArray($row->toArray());
+		
+		$this->storeCached($item->id, $item);
+		$formModel = new EmCore_Model_Form();
+		$formModel->clearCached('fields_' . $item->form_id);
+		
 				
 	}
 
@@ -78,6 +91,12 @@ class EmCore_Model_FormField
 			throw new Emerald_Model_Exception('Could not delete');
 		}
 		$row->delete();
+		
+		$this->clearCached($item->id);
+		$formModel = new EmCore_Model_Form();
+		$formModel->clearCached('fields_' . $item->form_id);
+		
+		
 	}
 	
 	

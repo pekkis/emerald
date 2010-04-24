@@ -87,6 +87,8 @@ class Emerald_Filelib
 	
 	private $_folderOperator;
 	
+	private $_cache;
+	
 		
 	/**
 	 * @var array Profiles
@@ -97,6 +99,28 @@ class Emerald_Filelib
 	{
 		Emerald_Options::setConstructorOptions($this, $options);
 	}
+	
+	
+	public function setCache(Zend_Cache_Core $cache)
+	{
+		$this->_cache = $cache;
+	}
+	
+	
+	public function getCache()
+	{
+		if(!isset($this->_cache)) {
+			$frontendOptions = array(
+			'lifetime' => 7200, // cache lifetime of 2 hours
+			'automatic_serialization' => true
+			);
+			$backendOptions = array(
+			);
+			$this->_cache = Zend_Cache::factory('Core', 'Blackhole', $frontendOptions, $backendOptions);			
+		}
+		return $this->_cache;
+	}
+	
 	
 	
 	

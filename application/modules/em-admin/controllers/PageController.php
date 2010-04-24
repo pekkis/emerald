@@ -183,8 +183,6 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		} else {
 			$page->setFromArray($form->getValues());
 			
-			// $pageModel->getTable()->getAdapter()->query("DELETE FROM emerald_page WHERE title = 'xooxerssons'");
-			
 			$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
 					
 			

@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_FormContent
+class EmCore_Model_FormContent extends Emerald_Model_Cacheable
 {
 	
 	
@@ -26,9 +26,19 @@ class EmCore_Model_FormContent
 	 */
 	public function find($id)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($id)->current();
-		return ($row) ? new EmCore_Model_FormContentItem($row->toArray()) : false;
+		if(!$ret = $this->findCached($id)) {
+
+			$tbl = $this->getTable();
+			$row = $tbl->find($id)->current();
+
+			$ret = ($row) ? new EmCore_Model_FormContentItem($row->toArray()) : false;
+
+			if($ret) {
+				$this->storeCached($ret->page_id, $ret);
+			}
+			
+		}
+		return $ret; 
 	}
 	
 	
@@ -40,33 +50,16 @@ class EmCore_Model_FormContent
 	 */
 	public function findByPageId($pageId)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->fetchRow(array('page_id = ?' => $pageId));
 		
-		if($row) {
-			$item = new EmCore_Model_FormContentItem($row->toArray());
-		} else {
-
-			$pageModel = new EmCore_Model_Page();
-			$page = $pageModel->find($pageId);
-						
-			$item = new EmCore_Model_FormContentItem(
+		if(!$ret = $this->find($pageId)) {
+			return new EmCore_Model_FormContentItem(
 				array(
 					'id' => null,
 					'page_id' => $pageId,
 				)
 			);
-			
-			// $this->save($item);
-			
 		}
-
-		
-		return $item;
-		
-		
-		
-		
+		return $ret;		
 	}
 	
 	
@@ -84,8 +77,10 @@ class EmCore_Model_FormContent
 		}
 		$row->setFromArray($item->toArray());
 		$row->save();
-		
+					
 		$item->setFromArray($row->toArray());
+		
+		$this->clearCached($item->page_id);
 				
 	}
 	

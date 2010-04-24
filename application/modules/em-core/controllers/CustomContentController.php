@@ -46,9 +46,10 @@ class EmCore_CustomContentController extends Emerald_Controller_Action
 									
 			$customcontent = $customModel->find($page->id, $input->block_id);			
 
+			parse_str($customcontent->params, $parsedParams);
 			
 			if(!$writable && $customcontent->module && $customcontent->controller && $customcontent->action) {
-				return $this->_forward($customcontent->action, $customcontent->controller, $customcontent->module);
+				return $this->_forward($customcontent->action, $customcontent->controller, $customcontent->module, $parsedParams);
 			}
 			
 			$this->view->customcontent = $customcontent;
@@ -151,10 +152,6 @@ class EmCore_CustomContentController extends Emerald_Controller_Action
 		
 		
 		$this->view->message = $msg;
-		
-		Zend_Debug::dump($this->view->message);
-		
-		die();
 		
 	}
 	

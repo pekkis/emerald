@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_CustomContent
+class EmCore_Model_CustomContent extends Emerald_Model_Cacheable
 {
 	public function getTable()
 	{
@@ -11,11 +11,21 @@ class EmCore_Model_CustomContent
 	}
 	
 	
-	public function find($customContentId, $blockId)
+	public function find($pageId, $blockId)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($customContentId, $blockId)->current();
-		return ($row) ? new EmCore_Model_CustomContentItem($row->toArray()) : new EmCore_Model_CustomContentItem(array('page_id' => $customContentId, 'block_id' => $blockId));
+		
+		if(!$ret = $this->findCached(array($pageId, $blockId))) {
+			
+			$tbl = $this->getTable();
+			$row = $tbl->find($pageId, $blockId)->current();
+			$ret = ($row) ? new EmCore_Model_CustomContentItem($row->toArray()) : new EmCore_Model_CustomContentItem(array('page_id' => $pageId, 'block_id' => $blockId));
+			
+			$this->storeCached(array($ret->page_id, $ret->block_id), $ret);
+			
+		}
+		
+		return $ret;
+		
 	}
 		
 	
@@ -32,8 +42,10 @@ class EmCore_Model_CustomContent
 		$row->setFromArray($customContent->toArray());
 		$row->save();
 		
-		die('xooxer');
-
+		$customContent->setFromArray($row->toArray());
+		
+		$this->storeCached(array($customContent->page_id, $customContent->block_id), $customContent);
+				
 	}
 	
 	

@@ -9,15 +9,22 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 		if(!$this->_filelib) {
 			
 			$options = $this->getOptions();
-				
+
+			
+			if(isset($options['cache'])) {
+				$cache = Zend_Registry::get('Emerald_CacheManager')->getCache($options['cache']);
+				unset($options['cache']);
+			} else {
+				$cache = false;
+			}
 			
 			$filelib = new Emerald_Filelib($options);
-
 			
 			if(isset($options['dbResource'])) {
 				$this->getBootstrap()->bootstrap($options['dbResource']);
 
 				$db = $this->getBootstrap()->getResource($options['dbResource']);
+				
 				$handler = new Emerald_Filelib_Backend_Db();
 				$handler->setDb($db);
 				
@@ -63,6 +70,11 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 				}
 				
 			}
+			
+			if($cache) {
+				$filelib->setCache($cache);
+			}
+			
 			
 			$this->_filelib = $filelib;
 		}

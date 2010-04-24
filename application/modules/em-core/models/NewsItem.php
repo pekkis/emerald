@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_NewsItem
+class EmCore_Model_NewsItem extends Emerald_Model_Cacheable
 {
 	
 	
@@ -26,9 +26,17 @@ class EmCore_Model_NewsItem
 	 */
 	public function find($id)
 	{
-		$tbl = $this->getTable();
-		$row = $tbl->find($id)->current();
-		return ($row) ? new EmCore_Model_NewsItemItem($row->toArray()) : false;
+		if(!$ret = $this->findCached($id)) {
+			$tbl = $this->getTable();
+			$row = $tbl->find($id)->current();
+			$ret =($row) ? new EmCore_Model_NewsItemItem($row->toArray()) : false;
+			
+			if($ret) {
+				$this->storeCached($id, $ret);
+			}
+		}
+		
+		return $ret;
 	}
 	
 	
@@ -49,6 +57,11 @@ class EmCore_Model_NewsItem
 		$row->save();
 		
 		$item->setFromArray($row->toArray());
+		
+		$this->storeCached($item->id, $item);
+		$channelModel = new EmCore_Model_NewsChannel();
+		$channelModel->clearCached('items_' . $item->news_channel_id);
+		
 	}
 	
 	
@@ -61,6 +74,11 @@ class EmCore_Model_NewsItem
 			throw new Emerald_Model_Exception('Could not delete');
 		}
 		$row->delete();
+		
+		$this->clearCached($item->id);
+		$channelModel = new EmCore_Model_NewsChannel();
+		$channelModel->clearCached('items_' . $item->news_channel_id);
+		
 	}
 	
 	
