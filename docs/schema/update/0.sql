@@ -1,4 +1,4 @@
-ALTER TABLE emerald_page ADD COLUMN redirect_id integer NULL;ALTER TABLE
+ALTER TABLE emerald_page ADD COLUMN redirect_id integer NULL;
 ALTER TABLE emerald_page ADD FOREIGN KEY(redirect_id) REFERENCES emerald_page(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 	

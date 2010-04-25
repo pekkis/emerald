@@ -41,6 +41,7 @@ CREATE TABLE emerald_filelib_folder (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   parent_id int(10) unsigned DEFAULT NULL,
   `name` varchar(255) NOT NULL,
+  visible tinyint unsigned NOT NULL default 1,
   PRIMARY KEY (id),
   UNIQUE KEY parent_id_name (parent_id,`name`),
   KEY parent_id (parent_id),
@@ -122,17 +123,6 @@ CREATE TABLE emerald_locale_option (
   CONSTRAINT locale_option_ibfk_1 FOREIGN KEY (locale_locale) REFERENCES emerald_locale (locale) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS emerald_login_redirect;
-
-CREATE TABLE login_redirect (
-  page_id int(10) unsigned NOT NULL,
-  redirect_page_id int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (page_id),
-  KEY redirect_page_id (redirect_page_id),
-  CONSTRAINT login_redirect_ibfk_1 FOREIGN KEY (page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT login_redirect_ibfk_2 FOREIGN KEY (redirect_page_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS news_channel;
 
 CREATE TABLE emerald_news_channel (
@@ -202,6 +192,7 @@ CREATE TABLE `emerald_page` (
   visibility tinyint(3) unsigned NOT NULL DEFAULT '1',
   cache_seconds integer unsigned NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT '0',
+  redirect_id integer unsigned NULL,
   PRIMARY KEY (id),
   UNIQUE KEY (global_id, locale),
   UNIQUE KEY parent_id_title (parent_id,title),
@@ -212,7 +203,8 @@ CREATE TABLE `emerald_page` (
   CONSTRAINT page_ibfk_1 FOREIGN KEY (global_id) REFERENCES emerald_page_global(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_2 FOREIGN KEY (parent_id) REFERENCES `emerald_page` (id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT page_ibfk_3 FOREIGN KEY (shard_id) REFERENCES emerald_shard (id) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT page_ibfk_4 FOREIGN KEY (locale) REFERENCES emerald_locale (locale) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT page_ibfk_4 FOREIGN KEY (locale) REFERENCES emerald_locale (locale) ON DELETE NO ACTION ON UPDATE CASCADE,
+  FOREIGN KEY(redirect_id) REFERENCES emerald_page(id) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS emerald_permission_folder_ugroup;
@@ -310,4 +302,49 @@ INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(
 INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES(3, 'News', 'em-core', 'news', 'index', 3);
 
 CREATE UNIQUE INDEX emerald_page_beautifurl_idx ON emerald_page (beautifurl);
+
+CREATE TABLE emerald_permission_locale_ugroup (
+  locale_locale varchar(6) NOT NULL,
+  ugroup_id integer unsigned NOT NULL,
+  permission smallint unsigned NOT NULL,
+  PRIMARY KEY (locale_locale,ugroup_id),
+  FOREIGN KEY (locale_locale) REFERENCES emerald_locale (locale) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (ugroup_id) REFERENCES emerald_ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=InnoDB;
+
+CREATE TABLE emerald_activity (
+  id integer unsigned NOT NULL auto_increment,
+  category varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (category,name)
+) engine=innodb;
+
+CREATE TABLE emerald_permission_activity_ugroup
+(
+activity_id int unsigned not null,
+ugroup_id int unsigned NOT NULL,
+PRIMARY KEY (activity_id, ugroup_id),
+FOREIGN KEY(activity_id) REFERENCES emerald_activity (id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (ugroup_id) REFERENCES emerald_ugroup (id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=InnoDB;
+
+INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Edit activity permissions');
+INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Clear caches');
+INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Expose admin panel');
+
+CREATE TABLE emerald_customcontent
+(
+page_id integer unsigned NOT NULL,
+block_id integer unsigned NOT NULL,
+module varchar(255) NULL,
+controller varchar(255) NULL,
+action varchar(255) NULL,
+params varchar(1000) NULL,
+PRIMARY KEY(page_id, block_id),
+FOREIGN KEY(page_id) REFERENCES emerald_page(id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=InnoDB;
+
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (4, 'Custom', 'em-core', 'custom-content', 'index', 3);
+
 

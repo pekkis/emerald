@@ -35,7 +35,6 @@ INSERT INTO emerald_activity (category, name) VALUES ('Administration', 'Expose 
 
 ALTER TABLE emerald_filelib_folder ADD COLUMN visible tinyint unsigned NOT NULL default 1;
 
-
 CREATE TABLE emerald_customcontent
 (
 page_id integer unsigned NOT NULL,

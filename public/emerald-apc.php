@@ -72,35 +72,6 @@ try {
 	if(!$conf) {
 		apc_store($confKey, $application->getOptions());	
 	}
-		
-	// $front = Zend_Controller_Front::getInstance();
-	// define('URL_BASE', $front->getBaseUrl());
-
-	// $front->getDispatcher()->setParam('useDefaultControllerAlways', true);
-	
-	/*
-	$filelib = Zend_Registry::get('Emerald_Filelib');
-	
-	
-	$file = $filelib->file()->find(1);
-	
-	Zend_Debug::dump($file->toArray());
-		
-	
-	$file = $filelib->file()->find(2);
-	Zend_Debug::dump($file->toArray());
-	
-	$file = $filelib->file()->find(3);
-	Zend_Debug::dump($file->toArray());
-	
-	
-	
-	
-	
-	die();
-	*/
-	
-	
 	
 	$application->run();
 	// $response = Zend_Controller_Front::getInstance()->getResponse();
