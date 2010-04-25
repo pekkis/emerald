@@ -11,10 +11,6 @@ class Emerald_Server
 	public function __construct($options)
 	{
 		$this->_options = $options;
-		
-		Zend_Mail::setDefaultTransport(new Zend_Mail_Transport_Smtp($options['smtp']));
-		date_default_timezone_set($options['timezone']);
-		
 	}
 	
 	

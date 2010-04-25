@@ -21,6 +21,7 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 		$options = $this->getOptions();
 
 		if(!isset($options['included'])) {
+						
 			$config = $customer->getConfig();
 			$config = $config->toArray();
 			$config['resources']['customer']['included'] = true;
