@@ -185,6 +185,7 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		}
 		
 		$this->clearCached($page->id);
+		$this->clearCached('page_global_' . $page->global_id);
 		$this->getCachedBeautifurls();
 		foreach($this->_beautifurls as $key => $id) {
 			if($id == $page->id) {
@@ -203,18 +204,18 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 	
 	public function findSiblings(EmCore_Model_PageItem $page)
 	{
-		$tbl = $this->getTable();
-		
-		$res = $tbl->fetchAll(array('global_id = ?' => $page->global_id), 'locale ASC');
-		
-		$pages = array();
-		foreach($res as $row) {
-			$pages[] = new EmCore_Model_PageItem($row->toArray());
+		if(!$siblings = $this->findCached('page_global_' . $page->global_id)) {
+			$pageTbl = $this->getTable();
+			$siblings = $pageTbl->getAdapter()->fetchCol("SELECT id FROM emerald_page WHERE global_id = ?", array($page->global_id), "locale ASC");
+			$this->storeCached('page_global_' . $page->global_id, $siblings);
 		}
 		
+		$pages = array();
+		foreach($siblings as $sid) {
+			$pages[] = $this->find($sid);
+		}
 		return new ArrayIterator($pages);
-		
-		
+	
 	}
 	
 	
