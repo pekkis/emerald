@@ -68,7 +68,8 @@ class Emerald_Application_Resource_View extends Zend_Application_Resource_Resour
     	
     	if (null === $this->_view) {
             $options = $this->getOptions();
-            
+
+            // Custom view class
             if(isset($options['class'])) {
             	$viewClass = $options['class'];
             } else {
@@ -76,6 +77,12 @@ class Emerald_Application_Resource_View extends Zend_Application_Resource_Resour
             }
             
             $this->_view = new $viewClass($options);
+
+            // output caching
+            if(isset($options['cache'])) {
+            	$cache = $this->getBootstrap()->bootstrap('cache')->getResource('cache')->getCache($options['cache']);
+				$this->_view->cache = $cache;            	
+            }
 
             if(isset($options['doctype'])) {
                 $this->_view->doctype()->setDoctype(strtoupper($options['doctype']));
