@@ -3,7 +3,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 {
 	
 	
-	public function dispatchLoopStartup($request)
+	public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
 	{
 		$customer = Zend_Registry::get('Emerald_Customer');
 		
