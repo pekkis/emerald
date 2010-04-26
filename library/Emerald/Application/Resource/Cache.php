@@ -74,6 +74,11 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 	{
 		if(!isset($this->_backends[$backend])) {
 			$opts = $this->getOptions();
+			
+			if(!isset($opts['backend'][$backend]['options'])) {
+				$opts['backend'][$backend]['options'] = array();
+			}
+			
 			$this->_backends[$backend] = Zend_Cache::_makeBackend($opts['backend'][$backend]['name'], $opts['backend'][$backend]['options'], true, true);
 		}
 		
