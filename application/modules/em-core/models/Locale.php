@@ -233,7 +233,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 			
 		}
 		
-		$this->clearCached($row->id);
+		$this->clearCached($locale->locale);
 
 		$acl = Zend_Registry::get('Emerald_Acl');
 		if($acl->has($locale)) {
