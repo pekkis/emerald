@@ -38,9 +38,13 @@ class EmCore_Model_Shard extends Emerald_Model_Cacheable
 				$rows = $tbl->fetchAll(array(), 'name ASC');
 				
 				foreach($rows as $row) {
-					$shard = new EmCore_Model_ShardItem($row->toArray());
+					
+					$className = $row->namespace . '_Model_ShardItem_' . $row->name;
+					$shard = new $className($row->toArray());					
+					
 					$this->_shards[$shard->id] = $shard;
 					$this->_shardNames[$shard->name] = $shard->id;
+					
 				}
 				
 				$this->storeCached('data', array('shards' => $this->_shards, 'shardNames' => $this->_shardNames));
@@ -48,6 +52,7 @@ class EmCore_Model_Shard extends Emerald_Model_Cacheable
 			}
 						
 		}
+		
 	}
 	
 	

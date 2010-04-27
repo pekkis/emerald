@@ -46,6 +46,7 @@ CREATE TABLE "emerald_form_field" (
 
 CREATE TABLE "emerald_shard" (
   "id" int  NOT NULL,
+  "namespace" varchar(255) NOT NULL DEFAULT 'EmCore',
   "name" varchar(255) NOT NULL,
   "module" varchar(255) NOT NULL DEFAULT 'core',
   "controller" varchar(255) NOT NULL DEFAULT 'index',

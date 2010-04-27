@@ -31,7 +31,7 @@
 	</div>
 	
 	<p>
-		<a href="<?php echo EMERALD_URL_BASE . '/'. $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>"><?php echo $this->channel->link_readmore; ?></a>
+		<a href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $this->page->beautifurl, 'a' => 'view', 'id' => $item->id, 'title' => $item->title), "page_{$this->page->id}_news_view"); ?>"><?php echo $this->channel->link_readmore; ?></a>
 	</p>
 	
 <?php if($this->writable): ?>
@@ -49,7 +49,7 @@
 
 <?php if($this->channel->allow_syndication): ?>
 <p>
-<a href="?format=xml">
+<a href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $this->page->beautifurl, 'a' => 'index', 'format' => 'xml', 'mode' => 'rss'), "page_{$this->page->id}_news_feed"); ?>">
 	<img alt="<?php echo $this->translate('RSS-feed'); ?>" title="<?php echo $this->translate('RSS-feed'); ?>" src="<?php echo EMERALD_URL_BASE; ?>/lib/em-core/news/feed-icon-28x28.png" />
 </a>
 </p>

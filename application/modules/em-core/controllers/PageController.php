@@ -32,6 +32,8 @@ class EmCore_PageController extends Emerald_Controller_Action
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 
+
+			
 						
 			$pageModel = new EmCore_Model_Page();
 						

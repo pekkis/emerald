@@ -19,4 +19,13 @@ class EmCore_Model_ShardItem extends Emerald_Model_AbstractItem
 	}
 	
 	
+	public function getRoutes($page)
+	{
+		return array();
+	}
+
+	
+	
+	
+	
 }

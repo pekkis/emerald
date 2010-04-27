@@ -48,3 +48,5 @@ FOREIGN KEY(page_id) REFERENCES emerald_page(id) ON DELETE CASCADE ON UPDATE CAS
 ) engine=InnoDB;
 
 INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (4, 'Custom', 'em-core', 'custom-content', 'index', 3);
+
+ALTER TABLE emerald_shard ADD column namespace varchar(255) NOT NULL default 'EmCore' AFTER id;

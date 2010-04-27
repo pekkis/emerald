@@ -235,6 +235,7 @@ DROP TABLE IF EXISTS emerald_shard;
 
 CREATE TABLE emerald_shard (
   id int(10) unsigned NOT NULL,
+  namespace varchar(255) NOT NULL default 'EmCore',
   `name` varchar(255) NOT NULL,
   module varchar(255) NOT NULL DEFAULT 'core',
   controller varchar(255) NOT NULL DEFAULT 'index',

@@ -25,10 +25,12 @@ class EmCore_NewsController extends Emerald_Controller_Action
 		
 		$filters = array(
 		);
+		
 		$validators = array(
 			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'page' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'default' => 1)
 		);
+						
 						
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
@@ -65,6 +67,9 @@ class EmCore_NewsController extends Emerald_Controller_Action
 			$this->view->news = $news;
 			$this->view->writable = $writable;
 			$this->view->page = $page;
+			
+			
+			
 			
 		} catch(Exception $e) {
 			throw $e;
@@ -174,59 +179,6 @@ class EmCore_NewsController extends Emerald_Controller_Action
 			
 	}
 	
-	
-	
-	
-	public function feedAction()
-	{
-
-		$filters = array();
-		$validators = array(
-			'id' => array('Int', 'presence' => 'required'),		
-			'mode' => array(new Zend_Validate_InArray(array('rss', 'atom')), 'presence' => 'optional', 'default' => 'rss'),
-		);
-
-		
-		
-		try {
-			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-			$input->process();
-						
-			$channelTbl = Emerald_Model::get('NewsChannel');
-			$channel = $channelTbl->find($input->id)->current();
-			
-			if(!$channel->allow_syndication) {
-				throw new Emerald_Exception('Feed not found', 404);
-			}
-			
-			$page = $channel->getPage();
-			$page->assertReadable();
-			$this->view->page = $input->page;
-			
-					
-			
-			$this->getResponse()->setHeader('Content-type', "application/{$input->mode}+xml; charset: UTF-8");
-
-			$this->_helper->layout->disableLayout();
-			$this->_helper->viewRenderer->setNoRender();
-									
-		} catch(Zend_Filter_Exception $e) {
-			throw new Emerald_Exception('Feed not found', 404);
-		} catch(Emerald_Exception $e) {
-			throw new Emerald_Exception($e->getMessage(), $e->getHttpResponseCode());
-		} catch(Exception $e) {
-			throw new Emerald_Exception($e->getMessage(), 500);
-		}
-		
-		
-		
-		
-		
-		
-			
-		
-		
-	}
 	
 	
 	

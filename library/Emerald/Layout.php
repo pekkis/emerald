@@ -154,7 +154,7 @@ abstract class Emerald_Layout
 				if(!$page) return; 
 			}
 						
-			$requestParams = Zend_Controller_Front::getInstance()->getRequest()->getQuery();
+			$requestParams = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 			$params = array_merge($requestParams, $params);
 
 			

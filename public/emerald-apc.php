@@ -61,6 +61,7 @@ try {
 	->bootstrap('translate')
 	->bootstrap('locale')
 	->bootstrap('router')
+	->bootstrap('emrouter')
 	->bootstrap('emuser')
 	->bootstrap('view')
 	->bootstrap('layout')
@@ -79,6 +80,7 @@ try {
 	
 	$end = microtime(true) - $start;
 	// echo $end;
+	// die();
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 

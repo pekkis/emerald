@@ -101,6 +101,9 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
         } else {
         	$this->_memcache = new Memcached();
         }
+        
+        // $this->_memcache->setOption(Memcached::OPT_SERIALIZER, Memcached::SERIALIZER_IGBINARY);
+        
                 
         foreach ($this->_options['servers'] as $server) {
             if (!array_key_exists('port', $server)) {
@@ -178,7 +181,8 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
-        $lifetime = $this->getLifetime($specificLifetime);
+    	
+    	$lifetime = $this->getLifetime($specificLifetime);
         if ($this->_options['compression']) {
             $flag = MEMCACHE_COMPRESSED;
         } else {
