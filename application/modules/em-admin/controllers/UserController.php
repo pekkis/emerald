@@ -13,6 +13,10 @@ class EmAdmin_UserController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		$userModel = new EmCore_Model_User();
 		$this->view->users = $userModel->findAll();
 		
@@ -25,6 +29,11 @@ class EmAdmin_UserController extends Emerald_Controller_Action
 	
 	public function createAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
+		
 		$userModel = new EmCore_Model_User();
 								
 		$form = new EmAdmin_Form_User(); 
@@ -36,6 +45,11 @@ class EmAdmin_UserController extends Emerald_Controller_Action
 	
 	public function deleteAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
+		
 		$userModel = new EmCore_Model_User();
 		$user = $userModel->find($this->_getParam('id'));
 		
@@ -54,6 +68,10 @@ class EmAdmin_UserController extends Emerald_Controller_Action
 	
 	public function editAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		$userModel = new EmCore_Model_User();
 		
 		$user = $userModel->find($this->_getParam('id'));
@@ -77,6 +95,11 @@ class EmAdmin_UserController extends Emerald_Controller_Action
 	
 	public function saveAction()
 	{
+
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$form = new EmAdmin_Form_User();
 		
 		if(!$this->_getParam('id')) {

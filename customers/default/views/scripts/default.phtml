@@ -1,6 +1,7 @@
 <?php 
 // @todo: this in init head maybe?
 
+
 $this->emerald()->addEverything();
 
 $this->headMeta()->appendName("description", "Mikko Forsström's home page");
@@ -89,7 +90,7 @@ $this->headTitle()->setSeparator(' - ');
 	<p id="legal">
 	Copyright 2010 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
 	
-	<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('Administration', 'Expose admin panel'))): ?>
+	<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('administration', 'expose'))): ?>
 	| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollable" href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
 	<?php endif; ?>
 	

@@ -73,6 +73,11 @@ class EmCore_Model_Group
 		
 		$group->setFromArray($row->toArray());
 		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->hasRole($group)) {
+			$acl->removeRole($group);	
+		}
+				
 	}
 
 	
@@ -85,6 +90,13 @@ class EmCore_Model_Group
 		}
 		
 		$row->delete();
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->hasRole($group)) {
+			$acl->removeRole($group);	
+		}
+			
+		
 		
 	}
 	

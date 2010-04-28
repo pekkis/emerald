@@ -11,33 +11,18 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
 		$this->getHelper('ajaxContext')->initContext();
 	}
 	
-	public function indexAction()
-	{
-		$groupModel = new EmCore_Model_Group();
-		$this->view->groups = $groupModel->findAll();
-		
-		$groupModel = new EmCore_Model_Group();
-		$this->view->groups = $groupModel->findAll();
-		
-		
-	}
-	
-	
-	public function createAction()
-	{
-		$groupModel = new EmCore_Model_Group();
-		$form = new EmAdmin_Form_Group();
-				
-		$this->view->form = $form;
-		
-	}
-	
 	
 	public function deleteAction()
 	{
 			
 		$fl = Zend_Registry::get('Emerald_Filelib');
 		$folder = $fl->folder()->find($this->_getParam('id'));
+		
+		
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		
 		try {
 			$fl->folder()->delete($folder);
@@ -56,7 +41,12 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
 		
 		$fl = Zend_Registry::get('Emerald_Filelib');
 		$folder = $fl->folder()->find($this->_getParam('id'));
+
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+		}
 				
+		
 		$form = new EmAdmin_Form_Folder(); 
 		$form->setDefaults($folder->toArray());
 		
@@ -84,7 +74,10 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
 			$fl = Zend_Registry::get('Emerald_Filelib');
 			$folder = $fl->folder()->find($form->id->getValue());
 
-			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+			}
+						
 			$folder->name = $form->name->getValue();
 						
 			// $folder->setFromArray($form->getValues());

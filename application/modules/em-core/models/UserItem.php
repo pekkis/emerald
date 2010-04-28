@@ -30,7 +30,12 @@ class EmCore_Model_UserItem extends Emerald_Model_AbstractItem implements Emeral
 			$gruppen = array();
 			$groupz = $this->getGroups();
 			foreach($groupz as $group) {
-	       		$gruppen[] = $group;
+	       		
+				if(!$acl->hasRole($group)) {
+					$acl->addRole($group, "Emerald_Group_" . EmCore_Model_Group::GROUP_ANONYMOUS);
+				}
+				
+				$gruppen[] = $group;
 	       	}
 	       	$acl->addRole($this, $gruppen);
 		}

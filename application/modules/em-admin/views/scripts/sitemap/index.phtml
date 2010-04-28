@@ -15,7 +15,10 @@ $this->headTitle()->append('Sitemap');
 
 <ul>
 <?php foreach($this->locales as $locale): ?>
+
+<?php if($this->emerald()->userIsAllowed($locale, "read")): ?>
 <li><a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'sitemap', 'action' => 'edit', 'locale' => $locale->locale), 'default', true); ?>"><?php echo $locale->locale; ?></a></li>
+<?php endif; ?>
 <?php endforeach;?>
 </ul>
 

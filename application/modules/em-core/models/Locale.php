@@ -252,6 +252,13 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 			throw new Emerald_Model_Exception('Could not delete');
 		}
 		$row->delete();
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->has($locale)) {
+			$acl->remove($locale);	
+		}
+		
+		
 	}
 	
 	

@@ -121,7 +121,8 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 	 **/
 	public function preDispatch(Zend_Controller_Request_Abstract $request)
 	{
-				
+		return;
+		
 		$resourceName = $request->getModuleName() . '_' . $request->getControllerName() . '_' . $request->getActionName();
 										
 		// $this->getAcl()->removeRole($this->getRole());
@@ -131,6 +132,10 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 				$this->denyAccess();
 			}
 		} catch(Zend_Acl_Exception $e) {
+			
+			echo $e;
+			
+			die();
 			
 			$this->setErrorPage('not-found', 'error', 'default');
 			$this->denyAccess();

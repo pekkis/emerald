@@ -13,8 +13,12 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/index/inde
 <h2><?php echo $this->translate('Administrator tools'); ?></h2>
 
 <ul>
+<?php if($this->emerald()->userIsAllowed("Emerald_Activity_administration___edit_activities")): ?>
 <li><a id="edit-activities" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'activity', 'action' => 'edit'), 'default', true); ?>"><?php echo $this->translate('Edit activities'); ?></a></li>
+<?php endif; ?>
+<?php if($this->emerald()->userIsAllowed("Emerald_Activity_administration___clear_caches")): ?>
 <li><a id="clear-cache" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'cache', 'action' => 'clear'), 'default', true); ?>"><?php echo $this->translate('Clear caches'); ?></a></li>
+<?php endif; ?>
 </ul>
 
 </div>

@@ -1,11 +1,27 @@
 <?php
 class EmAdmin_Model_ActivityItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface
 {
+	static private $_filter;
+	
+	static public function getFilter()
+	{
+		if(!self::$_filter) {
+			$filter = new Zend_Filter();
+			$filter->addFilter(new Zend_Filter_StringToLower('UTF-8'));
+			$filter->addFilter(new Zend_Filter_Word_SeparatorToSeparator(' ', '_'));
+			
+			self::$_filter = $filter;
+		}
+		
+		return self::$_filter;
+	}
+	
+	
 	
 	
 	public function getResourceId()
 	{
-		return 'Emerald_Activity_' . $this->id;
+		return 'Emerald_Activity_' . $this->category . '___' . $this->name;
 	}
 		
 	

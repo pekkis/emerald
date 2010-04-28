@@ -26,7 +26,8 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 			
 			$model = new EmAdmin_Model_Navigation();
 			$navigation = $model->getNavigation();
-						
+
+			/*
 			$iter = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
 			foreach($iter as $page) {
 				$resName = "{$page->module}_" . ($page->controller ? $page->controller : 'index') . '_'  . ($page->action ? $page->action : 'index');
@@ -37,6 +38,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 				$page->setResource($resName);
 				$page->setPrivilege('read');
 			}
+			*/
 			
 			$aclPlugin = new Emerald_Controller_Plugin_Acl($acl, $user);
 			

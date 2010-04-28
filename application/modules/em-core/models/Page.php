@@ -184,8 +184,8 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 			
 		}
 		
-		$this->clearCached($page->id);
-		$this->clearCached('page_global_' . $page->global_id);
+		$this->storeCached($page->id, $page);
+		$this->storeCached('page_global_' . $page->global_id, $page);
 		$this->getCachedBeautifurls();
 		foreach($this->_beautifurls as $key => $id) {
 			if($id == $page->id) {
@@ -197,6 +197,11 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 
 		$naviModel = new EmCore_Model_Navigation();
 		$naviModel->pageUpdate($page);
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->has($page)) {
+			$acl->remove($page);	
+		}
 				
 	}
 	
@@ -274,6 +279,11 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		$row->delete();
 		$naviModel = new EmCore_Model_Navigation();
 		$naviModel->clearNavigation();
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->has($page)) {
+			$acl->remove($page);	
+		}
 		
 	}
 	

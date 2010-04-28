@@ -30,7 +30,7 @@ class Emerald_Acl extends Zend_Acl
 	public function autoloadResource($resource)
 	{
 		
-		// @todo Interface this.
+		// @todo This is a kludge... Must be rethinked to be extensible and stuff. But not in 3.0 series :)
 		if(!$resource instanceof Emerald_Acl_Resource_Interface) {
 			if(preg_match("/^Emerald_Page/", $resource)) {
 				$split = explode("_", $resource, 3);
@@ -40,6 +40,11 @@ class Emerald_Acl extends Zend_Acl
 				$split = explode("_", $resource, 3);
 				$localeModel = new EmCore_Model_Locale();
 				$resource = $localeModel->find($split[2]);
+			} else if(preg_match("/^Emerald_Activity/", $resource)) {
+				$split = explode("_", $resource, 3);
+				$activityModel = new EmAdmin_Model_Activity();
+				$splitted = explode("___", $split[2]);
+				$resource = $activityModel->findByCategoryAndName($splitted[0], $splitted[1]);
 			} else {
 				throw new Zend_Acl_Exception("Can not autoload resource '{$resource}'");
 			}
@@ -91,6 +96,13 @@ class Emerald_Acl extends Zend_Acl
 	public function remove($resource)
 	{
 		parent::remove($resource);
+		$this->cacheSave();
+	}
+	
+	
+	public function removeRole($role)
+	{
+		parent::removeRole($role);
 		$this->cacheSave();
 	}
 	

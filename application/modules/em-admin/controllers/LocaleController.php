@@ -16,6 +16,10 @@ class EmAdmin_LocaleController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_locales")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		$localeModel = new EmCore_Model_Locale();
 
 		$this->view->locales = $localeModel->findAll();
@@ -26,6 +30,11 @@ class EmAdmin_LocaleController extends Emerald_Controller_Action
 	
 	public function updateAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_locales")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
+		
 		$form = new EmAdmin_Form_LocaleAdd();
 		if(!$form->isValid($this->_getAllParams())) {
 			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
@@ -56,6 +65,10 @@ class EmAdmin_LocaleController extends Emerald_Controller_Action
 	
 	public function editAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_locales")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$localeModel = new EmCore_Model_Locale();
 
 		$locale = $localeModel->find($this->_getParam('id'));		
@@ -75,6 +88,10 @@ class EmAdmin_LocaleController extends Emerald_Controller_Action
 	
 	public function deleteAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_locales")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$localeModel = new EmCore_Model_Locale();
 		$locale = $localeModel->find($this->_getParam('id'));
 		
@@ -91,7 +108,10 @@ class EmAdmin_LocaleController extends Emerald_Controller_Action
 	
 	public function saveAction()
 	{
-
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_locales")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		$localeModel = new EmCore_Model_Locale();
 		
 		$form = new EmAdmin_Form_Locale();

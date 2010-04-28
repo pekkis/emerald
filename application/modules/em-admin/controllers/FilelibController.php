@@ -21,8 +21,14 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 		
 		if($folderForm->isValid($this->getRequest()->getParams())) {
 
-			$className = $fl->getFolderItemClass();
+			$parentFolder = $fl->folder()->find($folderForm->parent_id->getValue());
 			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $parentFolder, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+			}
+						
+			$className = $fl->getFolderItemClass();
+						
 			$folderItem = new $className($folderForm->getValues());
 			
 			$fl->folder()->create($folderItem);
@@ -45,6 +51,11 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 
 		if($form->isValid($this->getRequest()->getPost())) {
 			$folder = $filelib->folder()->find($form->folder_id->getValue());
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+			}
+			
 			$form->file->receive();
 			$file = $filelib->file()->upload($form->file->getFileName(), $folder, $form->profile->getValue());
 
@@ -80,16 +91,18 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 			$iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
 			
 			$this->view->iter = $iter;
-			
-			
-			
-			
+						
 			
 			if($input->id) {
 				$activeFolder = $fl->folder()->find($input->id);
 				if(!$activeFolder) {
 					throw new Emerald_Exception('Folder not found.', 404);
 				}
+				
+				if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $activeFolder, 'read')) {
+					throw new Emerald_Exception('Forbidden', 403);
+				}
+				
 				
 				$this->view->folder = $activeFolder;
 				$files = $activeFolder->findFiles();
@@ -129,7 +142,7 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 	public function selectAction()
 	{
 		
-				$filters = array();
+		$filters = array();
 		$validators = array(
 			'id' => array('Int', 'default_value' => null)
 		);

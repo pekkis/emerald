@@ -50,3 +50,13 @@ FOREIGN KEY(page_id) REFERENCES emerald_page(id) ON DELETE CASCADE ON UPDATE CAS
 INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (4, 'Custom', 'em-core', 'custom-content', 'index', 3);
 
 ALTER TABLE emerald_shard ADD column namespace varchar(255) NOT NULL default 'EmCore' AFTER id;
+
+UPDATE emerald_activity SET category = 'administration';
+UPDATE emerald_activity set name = 'expose' WHERE id = 3;
+UPDATE emerald_activity set name = 'edit_activities' WHERE id = 1;
+UPDATE emerald_activity set name = 'clear_caches' WHERE id = 2;
+
+INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_users');
+INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_locales');
+INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_forms');
+INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_options');

@@ -85,6 +85,12 @@ class EmCore_Model_User
 		$row->setFromArray($user->toArray());
 		$row->save();
 		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->hasRole($user)) {
+			$acl->removeRole($user);	
+		}
+		
+		
 		$user->id = $row->id;
 		
 	}
@@ -99,6 +105,12 @@ class EmCore_Model_User
 		}
 		
 		$row->delete();
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->hasRole($user)) {
+			$acl->removeRole($user);	
+		}
+				
 		
 	}
 	
@@ -130,6 +142,13 @@ class EmCore_Model_User
 		}
 		
 		$tbl->getAdapter()->commit();
+		
+		$acl = Zend_Registry::get('Emerald_Acl');
+		if($acl->hasRole($user)) {
+			$acl->removeRole($user);	
+		}
+			
+		
 				
 	}
 	

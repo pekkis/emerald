@@ -163,7 +163,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
 				$this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->id)
 			);
 
-			$file->link = $fileRow->link;
+			$file->link = $file->link;
 			
 		} catch(Exception $e) {
 			throw new Emerald_Filelib_Exception($e->getMessage());

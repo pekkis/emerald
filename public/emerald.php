@@ -72,7 +72,7 @@ try {
 
 	$end = microtime(true) - $start;
 	
-	echo $end;
+	// echo $end;
 	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 

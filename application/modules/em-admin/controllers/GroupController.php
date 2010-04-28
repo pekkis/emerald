@@ -13,6 +13,10 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$groupModel = new EmCore_Model_Group();
 		$this->view->groups = $groupModel->findAll();
 		
@@ -25,6 +29,10 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 	
 	public function createAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$groupModel = new EmCore_Model_Group();
 								
 		$form = new EmAdmin_Form_Group(); 
@@ -36,6 +44,10 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 	
 	public function deleteAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$groupModel = new EmCore_Model_Group();
 		$group = $groupModel->find($this->_getParam('id'));
 		
@@ -54,6 +66,10 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 	
 	public function editAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$groupModel = new EmCore_Model_Group();
 		
 		$group = $groupModel->find($this->_getParam('id'));
@@ -71,9 +87,12 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 	
 	public function saveAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$form = new EmAdmin_Form_Group();
-		
-		
+				
 		if($form->isValid($this->_getAllParams())) {
 			
 			$groupModel = new EmCore_Model_Group();

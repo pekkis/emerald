@@ -16,6 +16,11 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
 	
 	public function indexAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_options")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
+		
 		$filters = array();
 		$validators = array(
 			'locale' => array(new Zend_Validate_Regex('([a-z]{2,3}(_[A-Z]{2})?)'), 'presence' => 'optional'),
@@ -71,6 +76,11 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
 	
 	public function saveApplicationAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_options")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
+		
 		$form = new EmAdmin_Form_ApplicationOptions();
 		if($form->isValid($this->_getAllParams())) {
 			
@@ -94,6 +104,10 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
 	
 	public function saveLocaleAction()
 	{
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_options")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+				
 		$form = new EmAdmin_Form_LocaleOptions();
 		
 		$form->setLocale($this->_getParam('locale'));
@@ -108,7 +122,6 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
 			}
 			
 			$this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');
-			
 			
 		} else {
 			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');

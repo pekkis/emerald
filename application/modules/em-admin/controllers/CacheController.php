@@ -13,6 +13,10 @@ class EmAdmin_CacheController extends Emerald_Controller_Action
 	public function clearAction()
 	{
 
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___clear_caches")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
+		
 		try {
 			
 			$cacheManager = Zend_Registry::get('Emerald_CacheManager');

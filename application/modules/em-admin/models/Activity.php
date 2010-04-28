@@ -75,13 +75,22 @@ class EmAdmin_Model_Activity extends Emerald_Model_Cacheable
 	{
 		$tbl = $this->getPermissionTable();
 		
+				
 		foreach($activityPermissions as $id => $groups) {
+			
+			$activity = $this->find($id);
 			
 			$tbl->delete($tbl->getAdapter()->quoteInto("activity_id = ?", $id));
 			
 			foreach($groups as $groupId) {
 				$tbl->insert(array('activity_id' => $id, 'ugroup_id' => $groupId));
 			}
+
+			$acl = Zend_Registry::get('Emerald_Acl');
+			if($acl->has($activity)) {
+				$acl->remove($activity);
+			}
+			
 			
 		}
 		
@@ -93,6 +102,7 @@ class EmAdmin_Model_Activity extends Emerald_Model_Cacheable
 	public function findByCategoryAndName($category, $name)
 	{
 		if(!$ret = $this->findCached(array($category, $name))) {
+									
 			$res = $this->getTable()->fetchRow(array('category = ?' => $category, "name = ?" => $name));
 			$ret = ($res) ? new EmAdmin_Model_ActivityItem($res->toArray()) : false;
 			
@@ -101,8 +111,29 @@ class EmAdmin_Model_Activity extends Emerald_Model_Cacheable
 			}
 		}
 		
+		return $ret;
+		
 	}
 	
+	
+	/**
+	 * Finds item with primary key
+	 * 
+	 * @param $id
+	 * @return EmAdmin_Model_ActivityItem
+	 */
+	public function find($id)
+	{
+		if(!$ret = $this->findCached($id)) {
+			$tbl = $this->getTable();
+			$row = $tbl->find($id)->current();
+			$ret = ($row) ? new EmAdmin_Model_ActivityItem($row->toArray()) : false;
+			if($ret) {
+				$this->storeCached($id, $ret);
+			}
+		}
+		return $ret;
+	}
 	
 	
 	public function getCacheIdentifier($id)

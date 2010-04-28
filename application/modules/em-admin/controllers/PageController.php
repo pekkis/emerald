@@ -98,12 +98,16 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		
 		if($this->_getParam('id')) {
 			$page = $pageModel->find($this->_getParam('id'));
+		
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
+				throw new Emerald_Exception('Forbidden', 403);
+			}
+			
 			$form->setLocale($page->locale);
 			
 			$naviModel = new EmCore_Model_Navigation();
 			$navi = $naviModel->getNavigation();
-		
-						
+								
 			if($form->isValidPartial($this->_getAllParams())) {
 				foreach($form->getValues() as $key => $value) {
 					if($value) {

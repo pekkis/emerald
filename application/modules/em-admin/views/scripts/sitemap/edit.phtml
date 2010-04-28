@@ -17,6 +17,10 @@ $hasMenus = false;
 
 <?php foreach($this->sitemap as $menu): ?>
 
+	<?php
+	$readable = $this->emerald()->userIsAllowed($menu->resource, 'read');
+	$writable = $this->emerald()->userIsAllowed($menu->resource, 'write');
+	?>
 	
 
 	<?php if($first): ?>
@@ -28,16 +32,24 @@ $hasMenus = false;
 	<?php if($this->sitemap->getDepth() == $depth) echo '</li>'; ?>
 	
 	<?php endif; ?>
-		
-	<li class="node node-level-<?php echo $this->sitemap->getDepth(); ?>" id="page-<?php echo $menu->id; ?>">						
+				
+	<li class="<?php if($writable) echo "emerald-writable "; ?>node node-level-<?php echo $this->sitemap->getDepth(); ?>" id="page-<?php echo $menu->id; ?>">						
+	
+	<?php if($readable): ?>
 		
 	<div class="node-row ui-widget ui-widget-content ui-corner-all">
 		
 	<?php if($menu->id): ?>
-
+	
+	<?php if($writable): ?>
 	<div class="label label-editable">	
 	<span title="<?php echo $this->translate("Double click to edit"); ?>"><?php echo $menu->label; ?></span>
 	</div>
+	<?php else: ?>
+	<div class="label">	
+	<?php echo $menu->label; ?>
+	</div>
+	<?php endif;?>
 
 	<?php else: ?>
 	
@@ -52,18 +64,25 @@ $hasMenus = false;
 	<?php $hasMenus = true; ?>
 	
 	<div class="features">
-	<?php echo $this->formSelect("shard-{$menu->id}", $menu->shard_id, array('class' => 'shard'), $this->shardOpts); ?>
-	<?php echo $this->formSelect("layout-{$menu->id}", $menu->layout, array('class' => 'layout'), $this->layoutOpts); ?>
+	
+	<?php if($writable) $arr = array(); else $arr = array('disabled' => $disabled); ?>
+	
+	<?php echo $this->formSelect("shard-{$menu->id}", $menu->shard_id, $arr + array('class' => 'shard'), $this->shardOpts); ?>
+	<?php echo $this->formSelect("layout-{$menu->id}", $menu->layout, $arr + array('class' => 'layout'), $this->layoutOpts); ?>
 	</div>	
 	<?php endif; ?>
 	
 	<div class="actions">	
-
+	
+	<?php if($writable): ?>
 	<a class="emerald-popup popup-large popup-scrollable popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'create', 'id' => $menu->id, 'locale' => $menu->locale), 'default', true); ?>">
 	<?php echo $this->translate($menu->id ? 'Create subpage' : 'Create page'); ?>
 	</a>
+	<?php endif; ?>
 
 	<?php if($menu->id): ?>
+
+	<?php if($writable): ?>
 	|
 	<a class="emerald-popup popup-large popup-scrollable popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'id' => $menu->id), 'default', true); ?>">
 	<?php echo $this->translate('Edit'); ?>
@@ -76,13 +95,15 @@ $hasMenus = false;
 	</a>
 	<?php endif; ?>
 			
-	
+	<?php endif; ?>	
 			
 	</div>
 	
 	<div class="clear"></div>
 	
 	</div>
+	
+	<?php endif; ?>
 	
 	<?php $depth = $this->sitemap->getDepth(); ?>
 	

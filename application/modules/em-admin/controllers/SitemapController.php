@@ -47,18 +47,23 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 		}
 
 		
-		
+		if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $locale, "read")) {
+			throw new Emerald_Exception('Forbidden', 403);
+		}
 		
 		$this->view->locale = $locale;
 		
 		$navimodel = new EmCore_Model_Navigation();
 		
 		$navigation = $navimodel->getNavigation()->findBy('locale_root',  $locale->locale);
-
 		$navigation = new Zend_Navigation(array($navigation));
-		
 		$navigation = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
 
+		foreach($navigation as $navi) {
+			
+		}
+		
+		
 		
 		
 		$this->view->sitemap = $navigation;

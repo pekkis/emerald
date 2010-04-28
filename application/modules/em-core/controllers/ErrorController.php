@@ -5,7 +5,7 @@ class EmCore_ErrorController extends Emerald_Controller_Action
     {
     	$errors = $this->_getParam('error_handler');
     	$exception = $errors->exception;
-    	    	    	
+    	
     	switch($errors->type)
     	{
     		
@@ -57,6 +57,11 @@ class EmCore_ErrorController extends Emerald_Controller_Action
 					} elseif($code == 401) {
 						return $this->_forward('forbidden');
             		} elseif($code == 403) {
+            			
+            			if($this->_getParam('module') == 'em-admin') {
+            				return $this->_forward('index', 'login', 'em-core');
+            			}
+            			
             			return $this->_forward('forbidden');
             		}
             		
