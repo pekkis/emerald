@@ -28,7 +28,7 @@ class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
 		}
 
 		// We be getting de replaces
-		$regex = '/\/em-filelib\/file\/render\/id\/(\d+)(\/version\/([a-z]+))?/';
+		$regex = '/\/em-filelib\/file\/render\/id\/(\d+)(\/version\/([a-z_]+))?/';
 		preg_match_all($regex, $value, $matches);
 		
 		if($matches[0]) {
