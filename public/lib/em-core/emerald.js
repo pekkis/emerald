@@ -100,7 +100,7 @@ Emerald.TinyMCE = {
 				content_css: "/data/editor.css",
 				external_link_list_url : Emerald.url("/em-admin/sitemap/link-list/format/js"),
 				language: Emerald.Localization.getLanguage() ? Emerald.Localization.getLanguage() : 'en' ,
-				plugins: "table",
+				plugins: "table, advimage",
 				theme_advanced_buttons2_add : "tablecontrols"
 			};
 			

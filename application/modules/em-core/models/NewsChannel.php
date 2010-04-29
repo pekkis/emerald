@@ -59,10 +59,13 @@ class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 			return $this->find($id); 
 		} else {
 
+			$pageModel = new EmCore_Model_Page();
+			$page = $pageModel->find($pageId);
+			
 			$item = new EmCore_Model_NewsChannelItem(
 				array(
 					'id' => null,
-					'page_id' => $pageId,
+					'page_id' => $page->id,
 					'title' => Zend_Registry::get('Zend_Translate')->translate('News', $page->getLocale()), 
 					'link_readmore' => Zend_Registry::get('Zend_Translate')->translate('Read more', $page->getLocale())
 				)

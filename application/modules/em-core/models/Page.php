@@ -114,6 +114,24 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 
 	}
 	
+
+	public function findGlobal($globalId, $locale)
+	{
+		if(!$id = $this->findCached('page_global_' . $globalId . '_locale_' . $locale)) {
+			$pageTbl = $this->getTable();
+			$id = $pageTbl->getAdapter()->fetchOne("SELECT id FROM emerald_page WHERE global_id = ? AND locale = ?", array($globalId, $locale));
+			if(!$id) {
+				return false;
+			}
+			
+			$this->storeCached('page_global_' . $globalId . '_locale_' . $locale, $id);
+		}	
+
+		return $this->find($id);
+
+	}
+	
+	
 	
 	
 	public function findAny($locale = null)
@@ -185,7 +203,9 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		}
 		
 		$this->storeCached($page->id, $page);
-		$this->storeCached('page_global_' . $page->global_id, $page);
+		$this->storeCached('page_global_' . $page->global_id . '_locale_' . $page->locale, $page->id);
+		$this->clearCached('page_global_' . $page->global_id);
+		
 		$this->getCachedBeautifurls();
 		foreach($this->_beautifurls as $key => $id) {
 			if($id == $page->id) {
@@ -202,6 +222,9 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		if($acl->has($page)) {
 			$acl->remove($page);	
 		}
+		
+		$this->getCache()->remove('Emerald_PageRoutes');
+
 				
 	}
 	
@@ -284,6 +307,10 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		if($acl->has($page)) {
 			$acl->remove($page);	
 		}
+		
+		$this->clearCached($page->id, $page);
+		$this->clearCached('page_global_' . $page->global_id . '_locale_' . $page->locale);
+		$this->clearCached('page_global_' . $page->global_id);
 		
 	}
 	

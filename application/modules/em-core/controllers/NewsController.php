@@ -102,12 +102,15 @@ class EmCore_NewsController extends Emerald_Controller_Action
 			'amount' => array('Int', 'presence' => 'optional', 'default' => 3),
 		);
 						
+		
+				
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
 			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
 			$input->process();
 
 			$page = $this->_pageFromPageId($input->page_id);
+
 			
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
 				throw new Emerald_Exception('Forbidden', 403);

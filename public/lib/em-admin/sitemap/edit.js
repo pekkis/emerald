@@ -11,9 +11,7 @@ $(document).ready(function() {
 			var parentId = $parent.attr('id').split('-')[1] ? $parent.attr('id').split('-')[1] : '';
 			
 			var count = 0;
-			
-			console.debug($parent);
-			
+									
 			$parent.children('ul').children('li').each(function(key, value) {
 				
 				// @todo fix this kludge posting of all items :)
