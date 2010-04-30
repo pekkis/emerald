@@ -3,6 +3,7 @@ function _emerald_autoload($what) {
 	require_once str_replace('_', '/', $what) . '.php';
 }
 
+
 $start = microtime(true);
 
 set_include_path(realpath(dirname(__FILE__) . '/../library'));
