@@ -35,7 +35,9 @@ $this->headTitle()->setSeparator(' - ');
 		<h2>Content management built upon Zend Framework</h2>
 	</div>
 	<div id="menu">
+	<?php if($this->page): ?>
 	<?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 0, 'onlyActiveBranch' => false)); ?>
+	<?php endif; ?>
 	</div>
 </div>
 
