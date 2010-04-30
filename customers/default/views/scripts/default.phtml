@@ -3,10 +3,15 @@
 
 
 $this->emerald()->addEverything();
+$this->headScript()->appendFile(EMERALD_URL_BASE_DATA . '/data/customer.js');
 
-$this->headMeta()->appendName("description", "Mikko Forsström's home page");
+$this->jQuery()->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/fancybox/jquery.mousewheel-3.0.2.pack.js');
+$this->jQuery()->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/fancybox/jquery.fancybox-1.3.1.js');
+$this->jQuery()->addStylesheet(EMERALD_URL_BASE_DATA . '/data/fancybox/jquery.fancybox-1.3.1.css');
+
+$this->headMeta()->appendName("description", "Plug-and-pray content management build upon Zend Framework");
 $this->headMeta()->appendName("Author", "Mikko Forsström");
-$this->headMeta()->appendName("Content-Language", "en");
+$this->headMeta()->appendName("Content-Language", Zend_Registry::get('Zend_Locale')->getLanguage());
 
 $this->headTitle()->setSeparator(' - ');
 
@@ -89,11 +94,6 @@ $this->headTitle()->setSeparator(' - ');
 	
 	<p id="legal">
 	Copyright 2010 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
-	
-	<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('administration', 'expose'))): ?>
-	| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollable" href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
-	<?php endif; ?>
-	
 	</p>
 	
 	
@@ -110,6 +110,8 @@ Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
 Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
 Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
 </script>
+
+<?php echo $this->emerald()->toolbar(); ?>
 
 </body>
 

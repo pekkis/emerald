@@ -136,7 +136,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 	
 	public function saveAction()
 	{
-
+		
 		$pageModel = new EmCore_Model_Page();
 		
 		$form = new EmAdmin_Form_Page();
@@ -187,9 +187,9 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		} else {
 			$page->setFromArray($form->getValues());
 			
-			$pageModel->save($page, $form->getSubForm('page-permissions')->getValues());
-					
-			
+			$perms = $form->getSubForm('page-permissions')->getValues();
+			$pageModel->save($page, $perms['pagepermissions']);
+								
 			if($form->mirror->getValue()) {
 				$sitemapModel = new EmAdmin_Model_Sitemap();
 				$sitemapModel->mirror($page, $action);

@@ -1,0 +1,39 @@
+#emerald-toolbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #000000;
+	z-index: 1000;
+	opacity: .5;
+	padding: 0.33em;
+	
+	color: #CCCCCC;
+}
+
+#emerald-toolbar:hover {
+		
+}
+
+#emerald-toolbar a:link, #emerald-toolbar a:visited, #emerald-toolbar a:hover, #emerald-toolbar a:active {
+	color: #CCCCCC;
+	text-decoration: none;
+} 
+
+#emerald-toolbar a:hover {
+	text-decoration: underline;
+}
+
+#emerald-toolbar ul {
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#emerald-toolbar ul li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	margin-right: 0.33em;	
+}
+

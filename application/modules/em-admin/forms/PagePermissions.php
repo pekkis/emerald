@@ -4,12 +4,7 @@ class EmAdmin_Form_PagePermissions extends ZendX_JQuery_Form
 
 	public function init()
 	{
-		
-		// $testElm = new Zend_Form_Element_Checkbox('check', array('label' => 'check'));
-		// $this->addElements(array($testElm));		
-		
-		// $this->addElements(array($idElm, $localeElm, $parentIdElm, $layoutElm, $shardElm, $titleElm, $submitElm));
-
+		$this->setIsArray(true);
 		
 		$groupModel = new EmCore_Model_Group();
 		$groups = $groupModel->findAll();

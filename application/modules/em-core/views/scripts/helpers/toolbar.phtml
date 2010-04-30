@@ -1,0 +1,20 @@
+<div id="emerald-toolbar">
+
+<ul>
+
+<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('administration', 'expose'))): ?>
+<li>
+<a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollable" href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?>
+</a>
+</li>		
+<?php endif; ?>
+
+<li>
+<a title="<?php echo $this->translate('Edit page'); ?>" rel="emerald-edit-page" class="emerald-popup popup-large popup-scrollable popup-resizable" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'page', 'action' => 'edit', 'id' => $this->page->id), 'default', true); ?>">
+<?php echo $this->translate('Edit page'); ?>
+</a>
+</li>
+
+</ul>
+
+</div>

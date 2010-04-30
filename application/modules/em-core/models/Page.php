@@ -185,21 +185,31 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		
 		if($permissions) {
 			
+												
 			$tbl = new EmCore_Model_DbTable_Permission_Page_Ugroup();
 						
 			$tbl->getAdapter()->beginTransaction();
 			
 			$tbl->delete($tbl->getAdapter()->quoteInto("page_id = ?", $page->id));
+						
 			
 			foreach($permissions as $key => $data) {
 				if($data) {
 					$sum = array_sum($data);
-					$tbl->insert(array('page_id' => $page->id, 'ugroup_id' => $key, 'permission' => $sum));
+					
+					try {
+						$tbl->insert(array('page_id' => $page->id, 'ugroup_id' => $key, 'permission' => $sum));	
+					} catch(Exception $e) {
+						echo $e;
+						die();
+					}
+					
 				}
 			}
 			
 			$tbl->getAdapter()->commit();
 			
+						
 		}
 		
 		$this->storeCached($page->id, $page);

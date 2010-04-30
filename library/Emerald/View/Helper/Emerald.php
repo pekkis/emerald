@@ -51,6 +51,10 @@ class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
 			->appendStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css')
 			->appendStylesheet(EMERALD_URL_BASE_DATA . '/data/customer.css');
 
+		if($this->view->page && $this->userIsAllowed($this->view->page, 'write')) {
+			$this->view->headLink()->appendStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/toolbar.css');
+		}
+			
 		return $this;
 	}
 	
@@ -120,6 +124,16 @@ pageTracker._trackPageview();
 		return $model->findByCategoryAndName($category, $name);
 		
 	}
+	
+	
+	public function toolbar()
+	{
+		if($this->view->page && $this->userIsAllowed($this->view->page, 'write')) {
+			return $this->view->render('helpers/toolbar.phtml');
+		}
+		
+	}
+	
 	
 	
 	
