@@ -122,7 +122,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
 			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
 						
 			$channel = $channelModel->findByPageId($page->id);
-			$this->channel->items_per_page = $input->amount;
+			$channel->items_per_page = $input->amount;
 			$this->view->channel = $channel;
 			
 			if(!$readable) {
