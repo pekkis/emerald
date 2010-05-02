@@ -16,7 +16,7 @@ class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap
 	
 	
 	
-	protected function _bootstrap($resource)
+	protected function _bootstrap($resource = null)
 	{
 		if($resource === null) {
 
