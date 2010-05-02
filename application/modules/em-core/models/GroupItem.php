@@ -11,7 +11,7 @@ class EmCore_Model_GroupItem extends Emerald_Model_AbstractItem implements Emera
 	
 	public function autoloadAclRole(Zend_Acl $acl)
 	{
-		$acl->addRole($this, 'Emerald_Group' . EmCore_Model_Group::GROUP_ANONYMOUS);
+		$acl->addRole($this, 'Emerald_Group_' . EmCore_Model_Group::GROUP_ANONYMOUS);
 	}
 	
 	
