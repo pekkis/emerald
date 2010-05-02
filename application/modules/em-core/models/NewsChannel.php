@@ -105,8 +105,7 @@ class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 	{
 		if(!$ids = $this->findCached('items_' . $channel->id)) {
 			$db = $this->getTable()->getAdapter();
-			$ids = $db->fetchCol("SELECT id FROM emerald_news_item WHERE news_channel_id = ?", array($channel->id), 'valid_start DESC');
-			
+			$ids = $db->fetchCol("SELECT id FROM emerald_news_item WHERE news_channel_id = ? ORDER BY valid_start DESC", array($channel->id));
 			$this->storeCached('items_' . $channel->id, $ids);
 		}
 
