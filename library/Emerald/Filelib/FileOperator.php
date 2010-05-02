@@ -128,7 +128,7 @@ class Emerald_Filelib_FileOperator
 		$items = $this->getBackend()->findAllFiles();
 		foreach($items as $item) {
 			$item->setFilelib($this->getFilelib());
-			$file->setProfileObject($this->getFilelib()->getProfile($file->profile));
+			$item->setProfileObject($this->getFilelib()->getProfile($item->profile));
 		}
 		return $items;
 	}

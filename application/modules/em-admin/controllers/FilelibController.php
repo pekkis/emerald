@@ -12,6 +12,34 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 		$this->getHelper('ajaxContext')->initContext();
 	}
 	
+	
+	public function recreateSymlinksAction()
+	{
+		$fl = Zend_Registry::get('Emerald_Filelib');
+		
+		foreach($fl->file()->findAll() as $file) {
+			
+			$file->getProfileObject()->getSymlinker()->deleteSymlink($file);
+			$file->getProfileObject()->getSymlinker()->createSymlink($file);
+			
+			$plugins = $file->getProfileObject()->getPlugins();
+			foreach($plugins as $plugin) {
+				if($plugin instanceof Emerald_Filelib_Plugin_Image_Version) {
+					$plugin->deleteSymlink($file);
+					$plugin->createSymlink($file);
+				}
+				
+				
+			}
+			
+			
+		}
+
+		die('xooxer');
+		
+	}
+	
+	
 		
 	public function createFolderAction()
 	{
