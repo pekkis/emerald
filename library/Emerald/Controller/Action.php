@@ -47,7 +47,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	
 	public function getDb()
 	{
-		return $this->getInvokeArg('bootstrap')->getResource('customerdb');
+		return $this->getInvokeArg('bootstrap')->getResource('emdb');
 	}
 	
 	
