@@ -4,6 +4,8 @@ class Emerald_Application_Resource_Emuser extends Zend_Application_Resource_Reso
 	
 	public function init()
 	{
+		$this->getBootstrap()->bootstrap('modules');
+		
 		$auth = Emerald_Auth::getInstance();
 				
 		$userModel = new EmCore_Model_User();

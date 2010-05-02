@@ -6,6 +6,8 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 
 	public function getFilelib()
 	{
+		$this->getBootstrap()->bootstrap('cache');
+		
 		if(!$this->_filelib) {
 			
 			$options = $this->getOptions();

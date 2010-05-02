@@ -34,7 +34,10 @@ class EmCore_LanglibController extends Emerald_Controller_Action
 			
 			$this->view->messages = $translate->getMessages($input->locale);
 			$this->view->locale = $input->locale;
-			$this->view->language = $locale->getLanguage(); 
+			$this->view->language = $locale->getLanguage();
+			
+			$this->getResponse()->setHeader('Cache-Control', 'public, max-age=3600');
+			
 		} catch(Exception $e){
 			throw new Emerald_Exception('Translations not found');
 		}	

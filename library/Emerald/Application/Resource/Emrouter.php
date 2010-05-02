@@ -1,5 +1,5 @@
 <?php 
-class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Router
 {
 	
 	private $_shardModel;
@@ -22,14 +22,15 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Re
 	
 	public function init()
 	{
+		$router = parent::init();
+		$cache = $this->getBootstrap()->bootstrap('cache')->getResource('cache')->getCache('default');
 		
-		$router = $this->getBootstrap()->getResource('router');
-		$cache = $this->getBootstrap()->getResource('cache')->getCache('default');
-		
-		if(!$pageRoutes = $cache->load('Emerald_PageRoutes')) {
-									
-			$pageRoutes = array();
+		$pageRoutes = $cache->load('Emerald_PageRoutes');
+		if($pageRoutes === false) {
 			
+			$this->getBootstrap()->bootstrap('modules')->bootstrap('emdb');
+			
+			$pageRoutes = array();
 			$naviModel = new EmCore_Model_Navigation();
 			
 			$shardModel = new EmCore_Model_Shard();
@@ -60,10 +61,8 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Re
 		if($pageRoutes) {
 			$router->addRoutes($pageRoutes);	
 		}
-		
-		
-		
-		
+
+		return $router;
 		
 	}
 	

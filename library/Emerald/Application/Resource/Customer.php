@@ -7,8 +7,9 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 		// Console tools may define customer with putenv
 		$customer = (getenv('EMERALD_CUSTOMER')) ? getenv('EMERALD_CUSTOMER') : $_SERVER['HTTP_HOST'];
 		
-		$this->getBootstrap()->bootstrap('frontcontroller');
+		// $this->getBootstrap()->bootstrap('frontcontroller');
 		
+				
 		$path = APPLICATION_PATH . '/../customers/' . $customer ;
 		if(is_dir($path)) {
 			$customer = new Emerald_Application_Customer(realpath($path));
