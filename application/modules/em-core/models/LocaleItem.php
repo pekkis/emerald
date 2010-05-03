@@ -4,6 +4,8 @@ class EmCore_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emer
 	
 	private $_optionContainer;
 	
+	private $_options = array();
+	
 	
 	public function getResourceId()
 	{

@@ -31,8 +31,8 @@ class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
 	public function addScripts()
 	{
 		$this->view->jQuery()
-			->setCdnVersion('1.4')
-			->setUiCdnVersion('1.7.2')
+			->setCdnVersion(Emerald_Version::JQUERY_VERSION)
+			->setUiCdnVersion(Emerald_Version::JQUERY_UI_VERSION)
 			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/em-core/emerald.js')
 			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
 			->enable()

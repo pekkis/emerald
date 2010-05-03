@@ -13,6 +13,11 @@ final class Emerald_Version
      * Emerald version
      */
     const VERSION = '3.0.0-alpha';
+    
+    const JQUERY_VERSION = '1.4.2';
+    
+    const JQUERY_UI_VERSION = '1.8.1'; 
+       
 
     /**
      * Compare the specified Emerald version string $version
