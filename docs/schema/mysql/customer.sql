@@ -259,7 +259,7 @@ DROP TABLE IF EXISTS emerald_user;
 CREATE TABLE `emerald_user` (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   email varchar(255) NOT NULL,
-  passwd char(32) NOT NULL,
+  passwd varchar(255) NOT NULL,
   firstname varchar(255) DEFAULT NULL,
   lastname varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0',

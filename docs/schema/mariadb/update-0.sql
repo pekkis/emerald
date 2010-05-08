@@ -60,3 +60,5 @@ INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_us
 INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_locales');
 INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_forms');
 INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_options');
+
+ALTER TABLE emerald_user CHANGE passwd passwd varchar(255) NOT NULL;

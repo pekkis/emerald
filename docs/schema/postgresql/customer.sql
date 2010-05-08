@@ -71,7 +71,7 @@ CREATE SEQUENCE emerald_user_id_seq;
 CREATE TABLE "emerald_user" (
   "id" int  NOT NULL DEFAULT NEXTVAL('emerald_user_id_seq'),
   "email" varchar(255) NOT NULL,
-  "passwd" char(32) NOT NULL,
+  "passwd" varchar(255) NOT NULL,
   "firstname" varchar(255) DEFAULT NULL,
   "lastname" varchar(255) DEFAULT NULL,
   "status" smallint  NOT NULL DEFAULT '0',
