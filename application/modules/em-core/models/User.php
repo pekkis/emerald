@@ -3,6 +3,38 @@ class EmCore_Model_User
 {
 	const USER_ANONYMOUS = 0;
 	
+	
+	static private $_hashAlgorithm = 'sha512';
+	
+	static private $_hashSalt = '';
+	
+	
+	
+	static public function setHashAlgorithm($algo)
+	{
+		self::$_hashAlgorithm = $algo;
+	}
+	
+	
+	static public function setHashSalt($salt)
+	{
+		self::$_hashSalt = $salt;
+	}
+	
+	
+	public function hash($context, $password)
+	{
+		if(is_object($context)) {
+			$context = $context->email;
+		} elseif(!is_string($context)) {
+			throw new Emerald_Exception('Invalid context for user password hashing');
+		}
+		
+		return hash(self::$_hashAlgorithm, self::$_hashSalt . $context . $password);
+	}
+	
+	
+	
 	/**
 	 * Returns table
 	 * 
@@ -79,7 +111,10 @@ class EmCore_Model_User
 		$row = $tbl->find($user->id)->current();
 		if(!$row) {
 			$row = $tbl->createRow();
-			$row->passwd = md5(uniqid());
+			$row->setFromArray($user->toArray());
+			$row->passwd = $this->hash($user, uniqid());
+		} else {
+			$row->setFromArray($user->toArray());
 		}
 						
 		$row->setFromArray($user->toArray());
@@ -118,9 +153,7 @@ class EmCore_Model_User
 	
 	public function setPassword(EmCore_Model_UserItem $user, $password)
 	{
-								
-		$password = md5($password);
-		
+		$password = $this->hash($user, $password);						
 		$user->passwd = $password;
 		$this->save($user);
 	}
@@ -151,6 +184,31 @@ class EmCore_Model_User
 		
 				
 	}
+	
+	
+	
+	public function authenticate($identity, $credential)
+	{
+		$auth = Emerald_Auth::getInstance();
+		
+		$adapter = new Zend_Auth_Adapter_DbTable($this->getTable()->getAdapter(), 'emerald_user', 'email', 'passwd', '? and status = 1');			
+		$adapter->setIdentity($identity);
+		
+		$adapter->setCredential($this->hash($identity, $credential));
+			
+		$result = $auth->authenticate($adapter);
+		if($result->isValid()) {
+			$userModel = new EmCore_Model_User();
+			$user = $userModel->find($adapter->getResultRowObject()->id);
+			$auth->getStorage()->write($user);
+			
+			return true;
+			
+		}
+		
+		return false;
+	}
+	
 	
 	
 }

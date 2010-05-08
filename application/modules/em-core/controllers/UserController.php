@@ -20,23 +20,15 @@ class EmCore_UserController extends Emerald_Controller_Action
 			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Check fields');
 			$msg->errors = $form->getMessages(); 
 		} else {
-			
-			$auth = Emerald_Auth::getInstance();
-						
-			$adapter = new Zend_Auth_Adapter_DbTable($this->getDb(), 'emerald_user', 'email', 'passwd', 'MD5(?) and status = 1');			
-						
-			$adapter->setIdentity($form->tussi->getValue());
-			$adapter->setCredential($form->loso->getValue());
 
-			$result = $auth->authenticate($adapter);
-			if($result->isValid()) {
+			$model = new EmCore_Model_User();
+
+			if($model->authenticate($form->tussi->getValue(), $form->loso->getValue())) {
 				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Login OK');
-				$userModel = new EmCore_Model_User();
-				$user = $userModel->find($adapter->getResultRowObject()->id);
-				$auth->getStorage()->write($user);
 			} else {
 				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Login failed.');
 			}
+									
 		}
 		$this->view->message = $msg;
 	}	
