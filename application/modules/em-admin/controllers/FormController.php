@@ -72,10 +72,10 @@ class EmAdmin_FormController extends Emerald_Controller_Action
 			$item->setFromArray($form->getValues());
 			$model->save($item);
 			
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Operation ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Form was created.');
 			$msg->form_id = $item->id;
 		} else {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Operation failed');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Form creation failed.');
 			$msg->errors = $form->getMessages();
 		}
 		
@@ -96,9 +96,9 @@ class EmAdmin_FormController extends Emerald_Controller_Action
 		try {
 			$item = $model->find($this->_getParam('id'));
 			$model->delete($item);
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success.');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Field was deleted.');
 		} catch(Exception $e) {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Field delete failed.');
 		}
 		$this->view->message = $msg;
 	}
@@ -126,9 +126,9 @@ class EmAdmin_FormController extends Emerald_Controller_Action
 			$field->order_id = $model->getOrderIdForNewField($formObj);
 			$model->saveField($field);
 			
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success.');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'A field was created.');
 		} else {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Field creation failed.');
 		}
 
 		$this->view->message = $msg;

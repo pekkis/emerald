@@ -40,15 +40,15 @@ class EmAdmin_ActivityController extends Emerald_Controller_Action
 				$activityModel = new EmAdmin_Model_Activity();
 				$activityModel->updatePermissions($form->getValues());
 
-				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success.');
+				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok.');
 			} catch(Exception $e) {
-				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail.');	
+				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed.');	
 			}
 					
 			
 			
 		} else {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail.');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed.');
 		}
 		
 		

@@ -61,10 +61,10 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 			
 			$fl->folder()->create($folderItem);
 
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');					
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Folder creation ok.');					
 			
 		} else {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Folder creation failed.');
 			$msg->errors = $folderForm->getMessages();
 		}
 		$this->view->message = $msg;

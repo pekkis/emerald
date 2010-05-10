@@ -84,6 +84,8 @@ Lamantiini.Mode = {
 	
 	hardcore: function() {
 	
+		$('body').addClass('hardbody');
+		
 		$('a[href]').live('click', function(e) {
 			
 			if(e.button != 0) {

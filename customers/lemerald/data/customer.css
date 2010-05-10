@@ -27,9 +27,6 @@ body {
 }
 
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: "Comic Sans Ms";
-}
 
 #logo {
 	position: relative;
@@ -42,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding-left: 200px;
 }
 
-#logo-lamantee {
+#logo > img, #logo > object {
 	z-index: 9999;
 	position: absolute;
 	top: 0;
@@ -50,9 +47,20 @@ h1, h2, h3, h4, h5, h6 {
 	width: 200px;
 	height: 186px;	
 	background-color: transparent;
-	
-	
 }
+
+#logo > object {
+	display: none;	
+}
+
+body.hardbody #logo > object {
+	display: block;	
+}
+
+body.hardbody #logo > img {
+	display: none;	
+}
+
 
 #logo h1 {
 	font-family: agentorange, "Comic Sans Ms";
@@ -68,9 +76,15 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 auto;
 }
 
+.hardbody #outer-container {
+	-moz-transform: rotate(-3deg);  /* FF3.5+ */
+    -o-transform: rotate(-3deg);  /* Opera 10.5 */
+  	-webkit-transform: rotate(-3deg);  /* Saf3.1+, Chrome */
+}
+
 #inner-container {
 	
-	dpadding: 2em 0;
+	
 }
 
 h2#welcome-marqueer {
@@ -81,12 +95,12 @@ h2#welcome-marqueer {
 
 
 #container-container {
-	
+
+	background-color: rgb(255, 255, 255);
+	background-color: rgba(255, 255, 255, 1);
+		
 	margin-top: -75px;
 	clear: both;
-	
-	background-color: #FFFFFF;
-		
 	border: 5px solid #000000;
 		
 	
@@ -107,7 +121,11 @@ h2#welcome-marqueer {
 }
 
 #content-container {
-	padding: 0 1em;	
+	padding: 1.5em;	
+}
+
+#content-container h1 {
+	margin-top: 0;	
 }
 
 .emerald-controls {
@@ -183,14 +201,8 @@ way to fit your requirements.
 =================================================================== */
 
 #main-menu {
-	margin-bottom: 1em;
 	background: #000000;
-	
-		
 	dborder: 5px solid #000000;
-		
-	
-	
 }
 
 .menu {
@@ -223,7 +235,7 @@ way to fit your requirements.
 	font-size:12px;
 	text-decoration:none;
 	color:#fff;
-	width:138px;
+	width:100px;
 	height:30px;
 	border:1px solid #000;
 	border-width:1px 0 1px 1px;

@@ -1,5 +1,5 @@
 <?php 
-// @todo: this in init head maybe?
+// // @todo: this in init head maybe?
 
 $this->emerald()->addEverything();
 
@@ -8,7 +8,6 @@ $this->jQuery()
 	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.marquee.js')
 	->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/jquery.cookie.js');
 
-	
 $this->headLink(array('rel' => 'icon', 'href' => EMERALD_URL_BASE_DATA . '/data/images/manatee-favicon.png'));
 
 $this->headScript()->appendFile(EMERALD_URL_BASE_DATA . "/data/lamantiini.js");
@@ -29,21 +28,13 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 
 <head>
 <?php echo $this->headMeta()->setIndent(4); ?>
-<?php echo $this->headTitle()->setIndent(4); ?>
+<?php echo $this->headTitle($this->responseCode . ' multifail')->setIndent(4); ?>
 <?php echo $this->headLink()->setIndent(4); ?>
 </head>
 
 <body>
-
+	
 <canvas id="luss"></canvas>
-
-<div id="manatee-menu">
-<?php echo $this->translate('Manatee Menu')?>&trade;
-
-<ul>
-	<li>Mode: <a rel="noajax" id="manatee-mode" href="#">undefined</a></li>
-</div>
-
 	
 <div style="position:absolute;top:0;right:0;margin:0;padding:0"><a href="http://www.eroakirkosta.fi" target="_top"><img src="http://www.eroakirkosta.fi/static/images/enmaksa.gif" alt="eroakirkosta.fi" border="0" title="En maksa kirkollisveroa!" /></a></div>
 	
@@ -53,9 +44,9 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		
 		<div id="logo">
 		
-		<img id="logo-lamantee" src="<?php echo EMERALD_URL_BASE_DATA; ?>/data/images/manatee.png" />
-				
-		<h1>Lamantiini 2k10</h1>
+		<object id="logo-lamantee" data="/data/images/lamantiini-small-v2.svg" type="image/svg+xml"></object>
+		
+		<h1><?php echo $this->responseCode; ?> multifail</h1>
 				
 		</div>
 		
@@ -67,7 +58,7 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		
 		<div id="main-menu">	
 		<div class="menu">
-		<?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 1, 'onlyActiveBranch' => false)); ?>
+		<?php echo $this->layout()->navi; ?>
 		</div>
 		<div class="clearer"></div>	
 		</div>
@@ -82,12 +73,7 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		</div>
 		
 		<div id="footer">
-		<a href="http://emerald.fi">powered by Emerald</a> / PostgreSQL, Zend Framework and jQuery
-		
-		<?php if($this->emerald()->userIsAllowed($this->emerald()->findActivity('Administration', 'Expose admin panel'))): ?>
-		| <a rel="emerald-admin-panel" title="<?php echo $this->translate('Open admin panel'); ?>" class="emerald-popup popup-huge popup-scrollable" href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>"><?php echo $this->translate('Admin panel'); ?></a>		
-		<?php endif; ?>
-		
+		<a href="http://emerald.fi">powered by Emerald</a>
 		</div>
 		
 	
@@ -107,7 +93,6 @@ Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
 Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
 Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
 </script>
-
 
 </body>
 

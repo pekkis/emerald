@@ -199,7 +199,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
 									
 				$mail->send($transport);
 				
-				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success!');
+				$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Form was submitted.');
 								
 				$pageModel = new EmCore_Model_Page();
 				$page = $pageModel->find($formcontent->redirect_page_id);
@@ -210,7 +210,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
 				
 			} else {
 				
-				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail!');
+				$msg = new Emerald_Message(Emerald_Message::ERROR, 'Form posting failed.');
 				$msg->errors = $zform->getMessages();
 				
 				$this->view->page = $page;

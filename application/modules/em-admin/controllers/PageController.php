@@ -181,7 +181,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		
 		if(!$form->isValid($this->_getAllParams())) {
 			
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed.');
 			$msg->errors = $form->getMessages(); 
 			
 		} else {
@@ -195,7 +195,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 				$sitemapModel->mirror($page, $action);
 			}
 			
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok.');
 			$msg->page_id = $page->id;
 		}
 		

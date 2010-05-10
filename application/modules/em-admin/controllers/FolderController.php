@@ -26,9 +26,9 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
 		
 		try {
 			$fl->folder()->delete($folder);
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Great success');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Folder was deleted.');
 		} catch(Exception $e) {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Folder delete failed.');
 		}
 		
 		$this->view->message = $msg;

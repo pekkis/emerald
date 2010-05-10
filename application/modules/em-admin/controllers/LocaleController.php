@@ -123,12 +123,12 @@ class EmAdmin_LocaleController extends Emerald_Controller_Action
 		}
 		
 		if(!$form->isValid($this->_getAllParams())) {
-			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Epic fail');
+			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed.');
 			$msg->errors = $form->getMessages(); 
 		} else {
 			$locale->setFromArray($form->getValues());
 			$localeModel->save($locale, $form->getSubForm('locale-permissions')->getValues());
-			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Ok');
+			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok.');
 			$msg->locale_id = $locale->id;
 		}
 		

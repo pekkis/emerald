@@ -12,7 +12,7 @@ final class Emerald_Version
     /**
      * Emerald version
      */
-    const VERSION = '3.0.0-alpha';
+    const VERSION = '3.0.0-beta';
     
     const JQUERY_VERSION = '1.4.2';
     

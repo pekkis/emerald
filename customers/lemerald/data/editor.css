@@ -3,10 +3,16 @@ body {
 	font-size: 14px;
 }
 
-h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
 	font-family: "Comic Sans Ms";
 }
 
-.marquee {
-	
+.left {
+	float: left;
+	margin: 0 1em 1em 0;
 }
+.right {
+	float: right;
+	margin: 0 0 1em 1em;
+}
+

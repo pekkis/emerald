@@ -32,7 +32,8 @@ class EmCore_InstallController extends Emerald_Controller_Action
 				
 			} else {
 				
-				
+
+				$userModel = new EmCore_Model_User();
 				$groupTbl = new EmCore_Model_DbTable_Ugroup();
 				$userTbl = new EmCore_Model_DbTable_User();
 				$ugTbl = new EmCore_Model_DbTable_UserGroup();
@@ -47,7 +48,7 @@ class EmCore_InstallController extends Emerald_Controller_Action
 					$groupTbl->insert(array('name' => 'Anonymous'));
 					
 					$groupId = $groupTbl->insert(array('name' => 'Root'));
-					$userId = $userTbl->insert(array('email' => $form->email->getValue(), 'passwd' => md5($form->password->getValue()), 'status' => 1));
+					$userId = $userTbl->insert(array('email' => $form->email->getValue(), 'passwd' => $userModel->hash($form->email->getValue(), $form->password->getValue()), 'status' => 1));
 					
 					$ugTbl->insert(array('user_id' => $userId, 'ugroup_id' => $groupId));
 
