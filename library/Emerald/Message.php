@@ -42,7 +42,7 @@ class Emerald_Message
     	$this->_translatorContainer = $translationContainer;
     }
     
-    
+	/*    
     public function toArray()
     {
     	 $arr = parent::toArray();
@@ -53,6 +53,7 @@ class Emerald_Message
     	}
     	return $arr;
     }
+    */
    
     
 }

@@ -57,7 +57,8 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		<object id="logo-lamantee" data="/data/images/lamantiini-small-v2.svg" type="image/svg+xml"></object>
 				
 				
-		<h1>Lamantiini 2k10</h1>
+		<h1>Lamantiini XL</h1>
+		<h2>Faster. Smarter. Deadlier. Beware teh waters!</h2>
 				
 		</div>
 		
@@ -77,9 +78,17 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		
 		<div id="content-container">
 		
-		<?php echo $this->layout()->content; ?>
+		<?php if($this->emerald_layout == 'Front'): ?>
+		<div id="block-sidebar">
+		<?php echo $this->layout()->sidebar; ?>
+		</div>
+		<?php endif; ?>
 		
-						
+		<div id="block-content">
+		<?php echo $this->layout()->content; ?>
+		</div>
+				
+								
 		</div>		
 		
 		<div class="clearer">&nbsp;</div>

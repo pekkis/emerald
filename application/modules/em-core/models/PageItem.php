@@ -2,6 +2,8 @@
 class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface
 {
 
+	private $_shardObj;
+	
 	public function __toString()
 	{
 		return $this->id;
@@ -32,6 +34,16 @@ class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emeral
 		}
 				
 		return $layout;
+	}
+	
+	
+	public function getShardObject()
+	{
+		static $shardModel;
+		if(!$shardModel) {
+			$shardModel = new EmCore_Model_Shard();
+		}
+		return $shardModel->find($this->shard_id);		
 	}
 	
 	

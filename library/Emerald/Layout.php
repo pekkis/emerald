@@ -39,6 +39,8 @@ abstract class Emerald_Layout
 		$stackPlugin = $front->getPlugin('Zend_Controller_Plugin_ActionStack');
 		$stackPlugin->setClearRequestParams(true);
 		
+
+		$this->_action->view->emerald_layout = $this->getIdentifier();
 		
 	}
 	

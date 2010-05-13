@@ -2,20 +2,15 @@
 class EmCore_NewsController extends Emerald_Controller_Action 
 {
 
-	public $contexts = array(
-		'index' => array('xml'),
+	public $ajaxable = array(
+		'index' => array('html'),
+		'headlines' => array('html'),
+		'view' => array('html'),
 	);
-	
-	public $ajaxable = array('index' => array('html'));
 	
 	public function init()
 	{
 		$this->getHelper('ajaxContext')->initContext();
-
-		if(!$this->getHelper('ajaxContext')->getCurrentContext()) {
-			$this->getHelper('contextSwitch')->initContext();	
-		}
-		
 	}
 	
 	

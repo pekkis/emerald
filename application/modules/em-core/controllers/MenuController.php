@@ -4,13 +4,13 @@ class EmCore_MenuController extends Emerald_Controller_Action
 	
 	private $sitemap = null;
 	
-	public $ajaxable = array(
+	public $contexts = array(
         'index'     => array('json'),
     );
 	
 	public function init()
 	{
-		$this->getHelper('ajaxContext')->setAutoJsonSerialization(false)->initContext();
+		$this->getHelper('contextSwitch')->setAutoJsonSerialization(false)->initContext();
 	}
 	
 	
@@ -29,7 +29,7 @@ class EmCore_MenuController extends Emerald_Controller_Action
 
 			$naviModel = new EmCore_Model_Navigation();
 			$navi = $naviModel->getNavigation();
-						
+
 			if($input->locale) {
 				$menu = $navi->findBy('locale_root', $input->locale);
 				$this->view->menu = $menu;

@@ -2,6 +2,7 @@
 class EmCore_FormContentController extends Emerald_Controller_Action 
 {
 	public $ajaxable = array(
+		'index' => array('html'),
 		'save' => array('json'),
 		'post' => array('json'),
 	);

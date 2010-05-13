@@ -1,0 +1,21 @@
+<div class="emerald-response-segment-<?php echo $this->emerald_rs; ?>">
+
+<?php echo $this->htmlcontent->content; ?>
+
+<?php if($this->writable): ?>
+
+<?php
+$model = new EmCore_Model_Page();
+$siblings = $model->findSiblings($this->page);
+?>
+
+<div class="emerald-controls emerald-controls-html-content" id="emerald-controls-html-content-<?php echo $this->htmlcontent->page_id; ?>-<?php echo $this->htmlcontent->block_id; ?>">
+<a rel="emerald-htmlcontent-edit" class="emerald-popup popup-large popup-resizable popup-scrollable" 
+href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'html-content', 'action' => 'edit', 'page_id' => $this->htmlcontent->page_id, 'block_id' => $this->htmlcontent->block_id), 'default', true); ?>">
+<?php echo $this->translate('Edit'); ?>
+</a>
+
+</div>
+<?php endif; ?>
+
+</div>

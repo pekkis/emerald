@@ -1,23 +1,21 @@
-<?php if($this->writable) {
-	$this->headScript()->appendFile(EMERALD_URL_BASE . "/lib/em-core/news/index.js");
-} ?>
+<div class="emerald-response-segment-<?php echo $this->emerald_rs; ?>">
+
+<?php if($this->writable) { $this->headScript()->appendFile(EMERALD_URL_BASE . "/lib/em-core/news/index.js"); } ?>
 
 <div class="news-channel" id="news-channel-page-<?php echo $this->channel->page_id; ?>">
 
 <?php if($this->writable): ?>
 	<div class="emerald-controls emerald-controls-heavy">
-	<a id="newschannel-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
+	<a rel="newschannel-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
 	href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-channel', 'action' => 'edit', 'id' => $this->channel->id), 'default', true); ?>"><?php echo $this->translate('Edit newschannel'); ?></a>
-	 | <a id="newsitem-add" class="emerald-popup popup-large popup-resizable popup-scrollable"
+	 | <a rel="newsitem-add" class="emerald-popup popup-large popup-resizable popup-scrollable"
 	 href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-channel', 'action' => 'add-item', 'id' => $this->channel->id), 'default', true); ?>">
 	 <?php echo $this->translate('Add newsitem'); ?>
 	 </a>
 	</div>
 <?php endif; ?>
 
-<p>
-pagination here
-</p>
+<?php echo $this->paginationControl($this->news, 'Sliding', 'news/pagination.phtml', array('page' => $this->page)); ?>
 
 <?php foreach($this->news as $item): ?>
 
@@ -26,39 +24,40 @@ pagination here
 <div class="news-item <?php if(!$item->isValid()): ?> emerald-invisible news-item-invalid <?php endif; ?>">
 
 	<h2>
-	<?php echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>,
-	<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?>: <?php echo $item->title; ?>
+	<?php echo $date->get(Zend_Date::DATETIME_SHORT, $this->page->getLocale()) ?>: 
+	<?php echo $item->title; ?>
 	</h2>
 	
-	<div class="newsItemContent">
+	<div class="description">
 	<?php echo $item->description; ?>
 	</div>
 	
 	<p>
-		<a href="/<?php echo $this->page->beautifurl; ?>?a=view&amp;id=<?php echo $item->id; ?>"><?php echo $this->channel->link_readmore; ?></a>
+		<a href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $this->page->beautifurl, 'a' => 'view', 'id' => $item->id, 'title' => $item->title), "page_{$this->page->id}_news_view"); ?>"><?php echo $this->channel->link_readmore; ?></a>
 	</p>
 	
 <?php if($this->writable): ?>
 	<div class="emerald-controls emerald-controls-light">
-	<a id="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollable" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="emerald-confirm news-item-delete" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'delete', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
+	<a rel="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollable" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a> | <a class="emerald-confirm news-item-delete" href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'delete', 'id' => $item->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>
 	</div>
-<?php endif; ?>	
+
+	<?php endif; ?>	
 	
 </div>
 
 <?php endforeach; ?>
 
-<p>
-pagination here
-</p>
+<?php echo $this->paginationControl($this->news, 'Sliding', 'news/pagination.phtml', array('page' => $this->page)); ?>
 
 <?php if($this->channel->allow_syndication): ?>
 <p>
-<a class="noajax" href="<?php echo $this->page->beautifurl; ?>?format=xml">
-	<img alt="<?php echo $this->translate('RSS-feed'); ?>" title="<?php echo $this->translate('RSS feed'); ?>" src="/lib/em-core/news/feed-icon-28x28.png" />
+<a href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $this->page->beautifurl, 'a' => 'index', 'format' => 'xml', 'mode' => 'rss'), "page_{$this->page->id}_news_feed"); ?>">
+	<img alt="<?php echo $this->translate('RSS-feed'); ?>" title="<?php echo $this->translate('RSS-feed'); ?>" src="<?php echo EMERALD_URL_BASE; ?>/lib/em-core/news/feed-icon-28x28.png" />
 </a>
 </p>
 <?php endif; ?>
 
+</div>
 
 </div>
+

@@ -1,0 +1,35 @@
+<div class="emerald-response-segment-<?php echo $this->emerald_rs; ?>">
+
+<div class="news-item-view">
+	
+	<?php $date = new Zend_Date($this->item->valid_start, Zend_Date::ISO_8601); ?>
+	
+	<div class="news-item <?php if(!$this->item->isValid()): ?> emerald-invisible <?php endif; ?>">
+	
+		<h2>
+		<?php echo $date->get(Zend_Date::DATE_MEDIUM, $this->page->getLocale()) ?>
+		<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?> <?php echo $this->item->title; ?>
+		</h2>
+		
+		<div class="description">
+		<?php echo $this->item->description; ?>
+		</div>
+		
+		<div class="article">
+		<?php echo $this->item->article; ?>
+		</div>
+		
+		
+	</div>
+	
+	<?php if($this->writable): ?>
+		<div class="emerald-controls emerald-controls-light">
+		<a rel="newsitem-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
+		href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'news-item', 'action' => 'edit', 'id' => $this->item->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>
+		</div>
+	<?php endif; ?>	
+
+
+</div>
+
+</div>

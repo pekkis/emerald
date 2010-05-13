@@ -2,10 +2,11 @@
 class EmCore_Model_Navigation
 {
 
-	private $_navigation;
+	static private $_navigation;
 	
 	private $_pageModel;
 	
+	private $_shardModel;
 	
 	/**
 	 * Returns page model
@@ -21,6 +22,19 @@ class EmCore_Model_Navigation
 		
 	}
 	
+	/**
+	 * Returns shard model
+	 * 
+	 * @return EmCore_Model_Shard
+	 */
+	public function getShardModel()
+	{
+		if(!$this->_shardModel) {
+			$this->_shardModel = new EmCore_Model_Shard();	
+		}
+		return $this->_shardModel;
+		
+	}
 	
 	
 	public function pageUpdate(EmCore_Model_PageItem $page)
@@ -72,9 +86,8 @@ class EmCore_Model_Navigation
 			$this->getPageModel()->getTable()->getAdapter()->quoteInto("id = ?", $page->id)
 		);
 
-		$this->_navigation = null;
-		
-		
+		self::$_navigation = null;
+				
 		if($pages = $navi->getPages()) {
 			foreach($pages as $child) {
 				$childPage = $this->getPageModel()->find($child->id);
@@ -94,9 +107,18 @@ class EmCore_Model_Navigation
 		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
 		$cache->remove('navigation');
 		
-		$this->_navigation = null;
+		self::$_navigation = null;
 		return $this;
 	}
+	
+
+	
+	public function saveNavigation()
+	{
+		$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
+		$cache->save(self::$_navigation, 'navigation');
+	}
+	
 	
 	
 	/**
@@ -106,7 +128,7 @@ class EmCore_Model_Navigation
 	 */
 	public function getNavigation()
 	{
-		if(!$this->_navigation) {
+		if(!self::$_navigation) {
 
 			$cache = Zend_Registry::get('Emerald_CacheManager')->getCache('default');
 			
@@ -158,12 +180,11 @@ class EmCore_Model_Navigation
 			}			
 			
 			
-			$this->_navigation = $navi;
+			self::$_navigation = $navi;
 			
 		}
-		
 						
-		return $this->_navigation;
+		return self::$_navigation;
 						
 		
 	}
@@ -200,7 +221,9 @@ class EmCore_Model_Navigation
 			$pageRes->setResource("Emerald_Page_{$page->id}");
 			$pageRes->setPrivilege('read');
 			$pageRes->setVisible($page->visibility);
-
+			
+			// $this->_pagesFromShard($pageRes);
+			
 			$this->_recursePage($pageRes, $pageRes->id);
 			$localePage->addPage($pageRes);
 		}
@@ -239,10 +262,26 @@ class EmCore_Model_Navigation
 			$pageRes->setPrivilege('read');
 			$pageRes->setVisible($page->visibility);
 
+			// $this->_pagesFromShard($pageRes);
+			
 			$this->_recursePage($pageRes, $pageRes->id);
 			$parentPage->addPage($pageRes);
 		}
 	}
 	
 	
+
+	public function navigationFromShard(Zend_Navigation_Page $parentPage)
+	{
+	
+		$shard = $this->getShardModel()->find($parentPage->shard_id);
+		$pages = $shard->getNavigation($parentPage);
+		if($pages) {
+			$parentPage->addPages($pages);
+		}
+				
+	}
+	
 }
+
+

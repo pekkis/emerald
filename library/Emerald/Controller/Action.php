@@ -39,6 +39,9 @@ class Emerald_Controller_Action extends Zend_Controller_Action
 	{
 		if($rs = $this->_getParam('rs')) {
 			$this->getHelper('viewRenderer')->setResponseSegment($rs);
+			$this->view->emerald_rs = $this->_getParam('rs');
+		} else {
+			$this->view->emerald_rs = 'content';
 		}
 		
 		

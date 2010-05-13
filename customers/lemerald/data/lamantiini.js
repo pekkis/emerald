@@ -28,11 +28,34 @@ Lamantiini.naviUpdate = function($link, navitree) {
 			if(navi.redirect_uri) {
 				uri = navi.redirect_uri
 			}
-			
 			$('#content-container').slideUp(500, function() {
-				$('#content-container').load(uri, { 'format': 'html' }, function () {
+				$.get( uri, { 'format': 'html' }, function (html) {
+										
+					var $html = $("<div>" + html + "</div>");
+					
+					$("#block-content").empty();
+					$(".emerald-response-segment-content", $html).each(function(key, html) {
+						$("#block-content").append(html);
+					});
+					
+					var insert;
+					if($(".emerald-response-segment-sidebar", $html).length) {
+						
+						if(!$("#block-sidebar").length) {
+							$("#block-content").before($('<div id="block-sidebar"></div>'));
+						} else {
+							$("#block-sidebar").empty();
+						}
+					
+						$(".emerald-response-segment-sidebar", $html).each(function(key, html) {
+							$("#block-sidebar").append(html);
+						});
+					} else {
+						$("#block-sidebar").remove();
+					}
+					
 					$('#content-container').slideDown(500);
-				});
+				}, 'html');
 			});		
 			
 		}

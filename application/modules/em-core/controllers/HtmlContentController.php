@@ -4,6 +4,7 @@ class EmCore_HtmlcontentController extends Emerald_Controller_Action
 
 	public $ajaxable = array(
 		'save' => array('json'),
+		'index' => array('html'),
 	);
 	
 	public function init()
