@@ -25,6 +25,8 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
 		$router = parent::init();
 		$cache = $this->getBootstrap()->bootstrap('cache')->getResource('cache')->getCache('default');
 		
+		$this->getBootstrap()->bootstrap('translate');
+		
 		$pageRoutes = $cache->load('Emerald_PageRoutes');
 		
 		if($pageRoutes === false) {
@@ -58,6 +60,10 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
 				}
 			}
 			
+			if($pageRoutes) {
+				$router->addRoutes($pageRoutes);	
+			}
+			
 			$cache->save($pageRoutes, 'Emerald_PageRoutes');
 			
 			foreach($navi as $page) {
@@ -69,12 +75,15 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
 			
 						
 			
+		} else {
+
+			if($pageRoutes) {
+				$router->addRoutes($pageRoutes);	
+			}
+			
 		}
 
 	
-		if($pageRoutes) {
-			$router->addRoutes($pageRoutes);	
-		}
 		
 				
 		// Zend_Debug::dump($naviModel->getNavigation());
