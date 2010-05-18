@@ -54,7 +54,7 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 	
 	public function find($id)
 	{
-		if(!$page = $this->findFromRegistry($id)) {
+		//if(!$page = $this->findFromRegistry($id)) {
 			
 			if(!$page = $this->findCached($id)) {
 				$pageTbl = $this->getTable();
@@ -66,10 +66,10 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 				}
 			}
 						
-			if($page) {
-				$this->saveToRegistry($page);	
-			}
-		}
+			// if($page) {
+			//$this->saveToRegistry($page);	
+			// }
+		// }
 		return $page;
 	}
 	

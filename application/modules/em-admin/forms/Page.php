@@ -75,7 +75,12 @@ class EmAdmin_Form_Page extends Zend_Form
 		$titleElm->addValidator(new Zend_Validate_StringLength(1, 255));
 		$titleElm->setRequired(true);
 		$titleElm->setAllowEmpty(false);
-		
+
+		$customUrlElm = new Zend_Form_Element_Text('customurl', array('label' => 'Custom link', 'class' => 'w66'));
+		$customUrlElm->addValidator(new Zend_Validate_StringLength(1, 255));
+		$customUrlElm->setRequired(false);
+		$customUrlElm->setAllowEmpty(true);
+				
 		$orderIdElm = new Zend_Form_Element_Text('order_id', array('label' => 'Weight'));
 		$orderIdElm->addValidator(new Zend_Validate_Int(), new Zend_Validate_Between(1, 10000));
 		$orderIdElm->setRequired(true);
@@ -112,16 +117,16 @@ class EmAdmin_Form_Page extends Zend_Form
 		$submitElm->setIgnore(true);
 		
 		
-		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $orderIdElm, $visibleElm, $mirrorElm, $submitElm));
+		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $customUrlElm, $orderIdElm, $visibleElm, $mirrorElm, $submitElm));
 
 		
 		$permissionForm = new EmAdmin_Form_PagePermissions();
 		$permissionForm->setAttrib('id', 'page-permissions');
 		
 		
-		$this->addSubForm($permissionForm, 'page-permissions', 9);
+		$this->addSubForm($permissionForm, 'page-permissions', 10);
 						
-		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 10));
+		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 11));
 		
 		/*
 		$this->view->selectedLocales = $selectedLocales;

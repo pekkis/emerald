@@ -201,7 +201,7 @@ class EmCore_Model_Navigation
 			// recurse
 			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => EMERALD_URL_BASE . '/' . $page->beautifurl,
+					'uri' => ($page->customurl) ? $page->customurl : EMERALD_URL_BASE . '/' . $page->beautifurl,
 					'label' => $page->title,
 					'locale' => $page->locale,
 					'id' => $page->id,
@@ -241,7 +241,7 @@ class EmCore_Model_Navigation
 			// recurse
 			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
-					'uri' => EMERALD_URL_BASE . '/' . $page->beautifurl,
+					'uri' => ($page->customurl) ? $page->customurl : EMERALD_URL_BASE . '/' . $page->beautifurl,
 					'label' => $page->title,
 					'locale' => $page->locale,
 					'id' => $page->id,

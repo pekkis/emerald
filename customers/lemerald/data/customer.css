@@ -17,15 +17,44 @@ canvas {
 }
 
 
+html {
+
+		
+}
+
+
 html, body {
 	margin: 0;
 	padding: 0;
 }
 
 body {
+	
+	
 	background-color: #e0e9ff;
 	padding: 1em;
 	font-size: 14px;
+	
+}
+
+canvas {
+	
+	background: -webkit-gradient(
+	    linear,
+	    left top,
+	    left bottom,
+	    color-stop(0, rgb(224,233,255)),
+	    color-stop(0.88, rgb(178,201,255))
+	);
+	
+	background: -moz-linear-gradient(
+	    center top,
+	    rgb(224,233,255) 0%,
+	    rgb(178,201,255) 88%
+	);
+
+	
+	
 }
 
 
@@ -122,9 +151,9 @@ h2#welcome-marqueer {
 	-moz-border-radius-topleft: 16px;
 	-moz-border-radius-topright: 16px;
 	
-	-moz-box-shadow: #666 16px 16px 1em 0;
-	-webkit-box-shadow: #666 16px 16px 1em 0;
-	box-shadow: #666 16px 16px 1em 0;
+	-moz-box-shadow: rgba(0,0,0, .5) 16px 16px 1em 0;
+	-webkit-box-shadow: rgba(0,0,0, .5) 16px 16px 1em 0;
+	box-shadow: rgba(0,0,0, .5) 16px 16px 1em 0;
 	
 }
 
@@ -191,15 +220,17 @@ h2#welcome-marqueer {
 #block-sidebar {
 	width: 20em;
 	float: right;	
-	border: 1px dotted #0000FF;
+	
 }
 
 #block-content {
-	border: 1px dashed #00FF00;	
+		
 }
 
 #block-sidebar + #block-content { 
 	margin-right: 22em;
+	border-right: 2px dotted #000;
+	padding-right: 2em;
 }
 
 

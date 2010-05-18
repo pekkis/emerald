@@ -187,6 +187,7 @@ CREATE TABLE `emerald_page` (
   layout varchar(255) DEFAULT 'Default',
   title varchar(255) NOT NULL,
   beautifurl varchar(1000) DEFAULT NULL,
+  customurl varchar(1000) DEFAULT NULL,
   path varchar(255) NULL,
   shard_id int(10) unsigned NOT NULL,
   visibility tinyint(3) unsigned NOT NULL DEFAULT '1',

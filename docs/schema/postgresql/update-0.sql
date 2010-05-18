@@ -54,3 +54,5 @@ INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES 
 ALTER TABLE emerald_shard ADD column namespace varchar(255) NOT NULL default 'EmCore';
 
 ALTER TABLE emerald_user ALTER passwd TYPE varchar(255);
+
+ALTER TABLE emerald_page ADD COLUMN customurl varchar(1000) DEFAULT NULL;
