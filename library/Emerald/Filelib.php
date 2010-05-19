@@ -109,6 +109,7 @@ class Emerald_Filelib
 	
 	public function getCache()
 	{
+
 		if(!isset($this->_cache)) {
 			$frontendOptions = array(
 			'lifetime' => 7200, // cache lifetime of 2 hours
@@ -116,6 +117,8 @@ class Emerald_Filelib
 			);
 			$backendOptions = array(
 			);
+			
+			require_once "Zend/Cache/Backend/BlackHole.php";
 			$this->_cache = Zend_Cache::factory('Core', 'BlackHole', $frontendOptions, $backendOptions);			
 		}
 		return $this->_cache;
