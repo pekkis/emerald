@@ -70,7 +70,7 @@ $this->headMeta()->appendName("ICBM", "60.267045, 24.857329");
 		
 		<div id="main-menu">	
 		<div class="menu">
-		<?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 1, 'onlyActiveBranch' => false)); ?>
+		<?php echo $this->navigation()->menu()->setUseTranslator(false)->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 1, 'onlyActiveBranch' => false)); ?>
 		</div>
 		<div class="clearer"></div>	
 		</div>

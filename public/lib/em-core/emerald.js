@@ -125,9 +125,10 @@ Emerald.FileManager = {
         file : Emerald.url('/em-admin/filelib/select/type/image'),
         width : 800,  // Your dimensions may differ - toy around with them!
         height : 600,
-        resizable : "no",
-        inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
-        close_previous : "no"
+        resizable : true,
+        inline : true,  // This parameter only has an effect if you use the inlinepopups plugin!
+        close_previous : false,
+        scrollbars: true
 	    }, {
 	        window : win,
 	        input : field_name
