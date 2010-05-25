@@ -65,7 +65,7 @@ $hasMenus = false;
 	
 	<div class="features">
 	
-	<?php if($writable) $arr = array(); else $arr = array('disabled' => $disabled); ?>
+	<?php if($writable) $arr = array(); else $arr = array('disabled' => 'disabled'); ?>
 	
 	<?php echo $this->formSelect("shard-{$menu->id}", $menu->shard_id, $arr + array('class' => 'shard'), $this->shardOpts); ?>
 	<?php echo $this->formSelect("layout-{$menu->id}", $menu->layout, $arr + array('class' => 'layout'), $this->layoutOpts); ?>
