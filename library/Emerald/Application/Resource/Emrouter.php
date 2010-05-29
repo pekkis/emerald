@@ -66,12 +66,14 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
 			
 			$cache->save($pageRoutes, 'Emerald_PageRoutes');
 			
+			/*
 			foreach($navi as $page) {
 				if($page->id && $page->shard_id && ($page->parent_id != $page->id)) {
 					$naviModel->navigationFromShard($page);
 				}
 				$naviModel->saveNavigation();
-			}		
+			}
+			*/	
 			
 						
 			
