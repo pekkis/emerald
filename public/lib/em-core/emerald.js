@@ -91,7 +91,7 @@ Emerald.TinyMCE = {
 		options: function(options)
 		{
 			var defaultOptions = {
-				script_url : Emerald.libUrl('/lib/tinymce/jscripts/tiny_mce/tiny_mce.js'),
+				script_url : Emerald.libUrl('/lib/ext/tinymce/jscripts/tiny_mce/tiny_mce.js'),
 				width: "100%",
 				theme : "advanced",
 				file_browser_callback : Emerald.FileManager.open,
