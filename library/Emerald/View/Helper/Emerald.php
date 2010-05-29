@@ -39,7 +39,7 @@ class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
 			->setCdnVersion(Emerald_Version::JQUERY_VERSION)
 			->setUiCdnVersion(Emerald_Version::JQUERY_UI_VERSION)
 			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
-			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/underscore.js')
+			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/underscore-min.js')
 			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/em-core/emerald.js')
 			->enable()
 			->uiEnable();
