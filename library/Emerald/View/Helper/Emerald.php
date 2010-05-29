@@ -28,6 +28,11 @@ class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
 	}
 	
 	
+	public function addTinyMCE()
+	{
+		$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/ext/tinymce/jscripts/tiny_mce/jquery.tinymce.js');
+	}
+	
 	public function addScripts()
 	{
 		$this->view->jQuery()
