@@ -3,6 +3,8 @@ $this->headTitle()->append('File library');
 $this->layout()->setLayout('emerald-plain');
 $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/select.js');
 
+$this->emerald()->addTinyMCE();
+
 ?>
 
 <h1><?php echo $this->translate('File library'); ?></h1>
