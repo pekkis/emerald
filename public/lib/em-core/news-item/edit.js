@@ -6,6 +6,10 @@ $(document).ready(function() {
 			window.opener.location.reload();
 		}
 	});
+	
+    $("#valid_start_date").datepicker({"dateFormat":"yy-mm-dd"});
+    $("#valid_end_date").datepicker({"dateFormat":"yy-mm-dd"});
+	
 });
 
 

@@ -38,7 +38,21 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 			}
 
 			$form = new EmCore_Form_NewsItem();
-			$form->setDefaults($item->toArray());			
+			
+			$darr = $item->toArray();
+
+			$split = explode(" ", $darr['valid_start']);
+			
+			$darr['valid_start_date'] = $split[0];
+			$darr['valid_start_time'] = $split[1];
+
+			$split = explode(" ", $darr['valid_end']);
+			
+			$darr['valid_end_date'] = $split[0];
+			$darr['valid_end_time'] = $split[1];
+			
+			
+			$form->setDefaults($darr);			
 					
 			$this->view->form = $form;
 			$this->view->page = $page;
@@ -98,7 +112,8 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 	{
 		$form = new EmCore_Form_NewsItem();
 		if($form->isValid($this->getRequest()->getPost())) {
-						
+
+			
 			$channelModel = new EmCore_Model_NewsChannel();
 			$channel = $channelModel->find($form->news_channel_id->getValue());
 			
@@ -109,13 +124,16 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 			}
 						
 			$model = new EmCore_Model_NewsItem();
-			
-					
+								
 			if(!$form->id->getValue() || !$item = $model->find($form->id->getValue())) {
 				$item = new EmCore_Model_NewsItemItem();
 			}
 			
-			$item->setFromArray($form->getValues());
+			$values = $form->getValues();
+			$values['valid_start'] = $values['valid_start_date'] . ' ' . $values['valid_start_time']; 
+			$values['valid_end'] = $values['valid_end_date'] . ' ' . $values['valid_end_time'];
+						
+			$item->setFromArray($values);
 			
 			$model->save($item);
 

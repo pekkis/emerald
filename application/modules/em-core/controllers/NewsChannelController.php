@@ -55,7 +55,6 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 		$form = new EmCore_Form_NewsChannel();
 		
 		if($form->isValid($this->getRequest()->getPost())) {
-
 			$page = $this->_pageFromPageId($form->page_id->getValue());
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
 				throw new Emerald_Exception('Forbidden', 403);
@@ -65,6 +64,9 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 			
 			$item = $model->find($form->id->getValue());		
 			
+			
+			$values = $form->getValues();
+			
 			$item->setFromArray($form->getValues());
 			
 			$model->save($item);
@@ -73,7 +75,8 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 			
 		} else {
 			$msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
-			$msg->errors = $form->getMessages(); 
+			$msg->errors = $form->getMessages();
+
 		}
 		
 		$this->view->message = $msg;
@@ -111,11 +114,13 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 			
 			$now = new DateTime();
 			
-			$form->valid_start->setValue($now->format('Y-m-d'));
+			$form->valid_start_date->setValue($now->format('Y-m-d'));
+			$form->valid_start_time->setValue($now->format('H:i:s'));
 			
 			$now->modify("+ {$channel->default_months_valid} months");
 			
-			$form->valid_end->setValue($now->format('Y-m-d'));
+			$form->valid_end_date->setValue($now->format('Y-m-d'));
+			$form->valid_end_time->setValue($now->format('H:i:s'));
 			
 			$form->status->setValue(1);
 			
