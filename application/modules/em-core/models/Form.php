@@ -78,6 +78,18 @@ class EmCore_Model_Form extends Emerald_Model_Cacheable
 	}
 	
 	
+	public function findFieldById(EmCore_Model_FormItem $item, $id)
+	{
+		foreach($this->getFields($item) as $field) {
+			if($field->id == $id) {
+				return $field;
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	public function getOrderIdForNewField(EmCore_Model_FormItem $item)
 	{
 		$tbl = new EmCore_Model_DbTable_FormField();

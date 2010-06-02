@@ -20,7 +20,7 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 			switch($field->type) {
 				
 				case 2:
-					$elm = new Zend_Form_Element_Textarea("form-{$this->id}-field-{$field->id}", array('label' => $field->title));
+					$elm = new Zend_Form_Element_Textarea("form_{$this->id}_field_{$field->id}", array('label' => $field->title));
 					$elm->addValidator(new Zend_Validate_StringLength(0, 1000));
 					if($field->mandatory) {
 						$elm->setRequired(true);
@@ -32,7 +32,7 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 					break;
 					
 				case 3:
-					$elm = new Zend_Form_Element_Select("form-{$this->id}-field-{$field->id}", array('label' => $field->title));
+					$elm = new Zend_Form_Element_Select("form_{$this->id}_field_{$field->id}", array('label' => $field->title));
 					$opts = array("" => "") + explode("\n", trim($field->options));
 					$elm->setMultiOptions($opts);
 					if($field->mandatory) {
@@ -45,7 +45,7 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 					break;
 							
 				case 4:
-					$elm = new Zend_Form_Element_Multiselect("form-{$this->id}-field-{$field->id}", array('label' => $field->title));
+					$elm = new Zend_Form_Element_Multiselect("form_{$this->id}_field_{$field->id}", array('label' => $field->title));
 					$opts = array("" => "") + explode("\n", trim($field->options));
 					$elm->setMultiOptions($opts);
 					if($field->mandatory) {
@@ -58,7 +58,7 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 					break;
 				
 				case 5:
-					$elm = new Zend_Form_Element_Radio("form-{$this->id}-field-{$field->id}", array('label' => $field->title));
+					$elm = new Zend_Form_Element_Radio("form_{$this->id}_field_{$field->id}", array('label' => $field->title));
 					$opts = explode("\n", trim($field->options));
 					$elm->setMultiOptions($opts);
 					if($field->mandatory) {
@@ -71,7 +71,7 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 					break;
 					
 				case 6:
-					$elm = new Zend_Form_Element_Checkbox("form-{$this->id}-field-{$field->id}", array('label' => $field->title));
+					$elm = new Zend_Form_Element_Checkbox("form_{$this->id}_field_{$field->id}", array('label' => $field->title));
 					if($field->mandatory) {
 						$elm->setRequired(true);
 						$elm->setAllowEmpty(false);
@@ -82,7 +82,7 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 					break;
 					
 					default:
-					$elm = new Zend_Form_Element_Text("form-{$this->id}-field-{$field->id}", array('label' => $field->title));
+					$elm = new Zend_Form_Element_Text("form_{$this->id}_field_{$field->id}", array('label' => $field->title));
 					$elm->addValidator(new Zend_Validate_StringLength(0, 255));
 					if($field->mandatory) {
 						$elm->setRequired(true);
@@ -115,5 +115,10 @@ class EmCore_Model_FormItem extends Emerald_Model_AbstractItem
 		return $model->getFields($this); 
 	}
 	
+	public function findFieldById($id)
+	{
+		$model = new EmCore_Model_Form();
+		return $model->findFieldById($this, $id); 
+	}
 	
 }

@@ -178,24 +178,33 @@ class EmCore_FormContentController extends Emerald_Controller_Action
 			
 			if($zform->isValid($this->getRequest()->getPost())) {
 				
-
-
+								
 				$mail = new Zend_Mail('UTF8');
 					
 				$mail->setSubject($formcontent->email_subject);
 				$mail->setFrom($formcontent->email_from);
 				$mail->addTo($formcontent->email_to);
 					
+				
+				
+				
 				$rows = array();
 				foreach($zform->getValues() as $key => $fieldVal) {
+
 					if(is_array($fieldVal)) {
 						$fieldVal = implode(', ', $fieldVal);
 					}
-					$rows[] = $key . ': ' . $fieldVal;					
-				}
 					
-				$mesg = implode("\n", $rows);
+					$split = explode('_', $key);
+					
+					$fitem = $form->findFieldById(array_pop($split));
+					if($fitem) {
+						$rows[] = $fitem->title . ': ' . $fieldVal;	
+					}					
+										
+				}
 
+				$mesg = implode("\n", $rows);
 				$mail->setBodyText($mesg);
 									
 				$mail->send($transport);
