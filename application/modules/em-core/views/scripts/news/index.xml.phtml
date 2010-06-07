@@ -2,3 +2,4 @@
 $builder = new Emerald_Feed_Builder_NewsChannel($this->channel);
 $feed = Zend_Feed::importBuilder($builder, 'rss');
 echo $feed->saveXML();
+die();

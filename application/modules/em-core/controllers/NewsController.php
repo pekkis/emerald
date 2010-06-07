@@ -2,15 +2,16 @@
 class EmCore_NewsController extends Emerald_Controller_Action 
 {
 
-	public $ajaxable = array(
-		'index' => array('html'),
+	public $contexts = array(
+		'index' => array('html', 'xml'),
 		'headlines' => array('html'),
 		'view' => array('html'),
 	);
 	
 	public function init()
 	{
-		$this->getHelper('ajaxContext')->initContext();
+		$this->getHelper('contextSwitch')->addContext('html', array('suffix' => 'ajax'))->initContext();
+		
 	}
 	
 	
@@ -48,8 +49,6 @@ class EmCore_NewsController extends Emerald_Controller_Action
 						
 			$channel = $channelModel->findByPageId($page->id);
 			$this->view->channel = $channel;
-			
-			
 			
 			if(!$readable) {
 				throw new Emerald_Exception('Forbidden', 403);				
