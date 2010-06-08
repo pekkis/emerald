@@ -10,8 +10,11 @@ class EmCore_NewsController extends Emerald_Controller_Action
 	
 	public function init()
 	{
-		$this->getHelper('contextSwitch')->addContext('html', array('suffix' => 'ajax'))->initContext();
-		
+		$contextSwitch = $this->_helper->getHelper('ContextSwitch');
+		if (!$contextSwitch->hasContext('html')) {
+			$contextSwitch->addContext('html', array('suffix' => 'ajax'));
+		}
+		$contextSwitch->initContext();
 	}
 	
 	
