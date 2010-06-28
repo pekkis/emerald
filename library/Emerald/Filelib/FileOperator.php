@@ -106,7 +106,10 @@ class Emerald_Filelib_FileOperator
 	{
 		if(!$file = $this->findCached($id)) {
 			$file = $this->getBackend()->findFile($id);
-			$this->storeCached($file->id, $file);	
+			
+			if($file) {
+				$this->storeCached($file->id, $file);	
+			}
 		}
 		
 		if(!$file) {

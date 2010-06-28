@@ -63,11 +63,18 @@ abstract class Emerald_Filelib_Symlinker_Abstract
 			if(!is_dir($path)) {
 				mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
 			}
-			
+									
 			if($fl->getRelativePathToRoot()) {
 				
 				$path2 = substr($path, strlen($fl->getPublicRoot()) + 1);
-				$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
+				
+				// If the link goes to the root dir, $path2 is false and fuxors the depth without a check.
+				if($path2 === false) {
+					$depth = 0;
+				} else {
+					$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
+				}
+				
 				// Relative linking requires some movin'n groovin.
 				$oldCwd = getcwd();
 				chdir($path);
@@ -132,7 +139,7 @@ abstract class Emerald_Filelib_Symlinker_Abstract
 		}
 		
 		$sltr = str_repeat("../", $levelsDown) . $sltr;
-				
+		
 		$path = $file->getPathname();
 		$path = substr($path, strlen($fl->getRoot()));
 		

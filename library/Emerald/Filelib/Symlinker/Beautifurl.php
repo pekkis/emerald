@@ -72,10 +72,9 @@ implements Emerald_Filelib_Symlinker_Interface
 			if($this->getExcludeRoot()) {
 				array_shift($beautifurl);
 			}
-			
-			
+						
 			$beautifurl = implode(DIRECTORY_SEPARATOR, $beautifurl);
-			
+									
 			$file->link = $beautifurl;
 			
 		}

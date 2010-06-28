@@ -71,8 +71,14 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
 					chdir($path);
 					
 					$path2 = substr($path, strlen($fl->getPublicRoot()) + 1);
-					$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
-										
+					
+					// If the link goes to the root dir, $path2 is false and fuxors the depth without a check.
+					if($path2 === false) {
+						$depth = 0;
+					} else {
+						$depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
+					}
+																			
 					$fp = dirname($file->getProfileObject()->getSymlinker()->getRelativePathTo($file, $depth));
 					$fp .= '/' . $this->getIdentifier() . '/' . $file->id;
 					
