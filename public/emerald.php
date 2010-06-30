@@ -38,12 +38,6 @@ $application = new Zend_Application(
 $timer->time('application init end');
 
 $options = $application->getOptions();
-if(isset($options['emerald']['constant'])) {
-	foreach($options['emerald']['constant'] as $key => $value) {
-		define('EMERALD_' . $key, $value);
-	}
-}
-
 if($options['pluginCache']) {
 	$classFileIncCache = APPLICATION_PATH . '/../data/pluginLoaderCache.php';
 	if (file_exists($classFileIncCache)) {

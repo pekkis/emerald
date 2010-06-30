@@ -22,11 +22,17 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 		$options = $this->getOptions();
 
 		if(!isset($options['included'])) {
-						
 			$config = $customer->getConfig();
 			$config = $config->toArray();
 			$config['resources']['customer']['included'] = true;
 			$this->getBootstrap()->addOptions($config);
+		}
+
+		$options = $this->getBootstrap()->getOptions();
+		if(isset($options['emerald']['constant'])) {
+			foreach($options['emerald']['constant'] as $key => $value) {
+				define('EMERALD_' . $key, $value);
+			}
 		}
 		
 		/*
