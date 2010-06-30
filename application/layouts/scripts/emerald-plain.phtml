@@ -16,9 +16,7 @@
 			->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/' . Emerald_Version::JQUERY_UI_VERSION . '/themes/smoothness/jquery-ui.css')
 			->addStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css');
 				
-			$this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/main.css');
-		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssbase/base-min.css');
-		// $this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css');
+		$this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/main.css');
 		$this->headScript()->prependFile(EMERALD_URL_BASE .'/em-core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
 		?>
 		
