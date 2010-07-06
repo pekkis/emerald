@@ -116,7 +116,7 @@ class Emerald_Filelib
 			);
 			$backendOptions = array(
 			);
-			$this->_cache = Zend_Cache::factory('Core', 'BlackHole', $frontendOptions, $backendOptions);			
+			$this->_cache = Zend_Cache::factory('Core', 'Black_Hole', $frontendOptions, $backendOptions);
 		}
 		return $this->_cache;
 	}
