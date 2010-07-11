@@ -194,6 +194,7 @@ class EmCore_Model_User
 		$adapter = new Zend_Auth_Adapter_DbTable($this->getTable()->getAdapter(), 'emerald_user', 'email', 'passwd', '? and status = 1');			
 		$adapter->setIdentity($identity);
 		
+		
 		$adapter->setCredential($this->hash($identity, $credential));
 			
 		$result = $auth->authenticate($adapter);

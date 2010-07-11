@@ -30,15 +30,20 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 				$this->_beautifurls = array();
 			}			
 		}
-		
-		return $this;
+		return $this->_beautifurls;
 	}
+	
+	
+	public function setCachedBeautifurls(array $beautifurls)
+	{
+		$this->_beautifurls = $beautifurls;
+	}
+	
 	
 	
 	public function storeCachedBeautifurls()
 	{
 		$this->storeCached('beautifurls', $this->_beautifurls);
-		
 		return $this;
 	}
 	
@@ -144,6 +149,8 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 			$sel->where("locale = ?", $locale);
 		}
 		
+		$sel->order("id ASC");
+		
 		$page = $pageTbl->fetchRow($sel);
 		return ($page) ? new EmCore_Model_PageItem($page) : false;
 		
@@ -212,10 +219,6 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 						
 		}
 		
-		$this->storeCached($page->id, $page);
-		$this->storeCached('page_global_' . $page->global_id . '_locale_' . $page->locale, $page->id);
-		$this->clearCached('page_global_' . $page->global_id);
-		
 		$this->getCachedBeautifurls();
 		foreach($this->_beautifurls as $key => $id) {
 			if($id == $page->id) {
@@ -227,6 +230,10 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 
 		$naviModel = new EmCore_Model_Navigation();
 		$naviModel->pageUpdate($page);
+
+		$this->storeCached($page->id, $page);
+		$this->storeCached('page_global_' . $page->global_id . '_locale_' . $page->locale, $page->id);
+		$this->clearCached('page_global_' . $page->global_id);
 		
 		$acl = Zend_Registry::get('Emerald_Acl');
 		if($acl->has($page)) {

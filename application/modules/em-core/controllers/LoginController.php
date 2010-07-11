@@ -39,12 +39,7 @@ class EmCore_LoginController extends Emerald_Controller_Action
 			throw $e;
 		}
 		
-			
-		
-		
 	}
-	
-	
 	
 	
 	public function indexAction()

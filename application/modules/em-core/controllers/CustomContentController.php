@@ -11,7 +11,6 @@ class EmCore_CustomContentController extends Emerald_Controller_Action
 		$this->getHelper('ajaxContext')->initContext();
 	}
 	
-
 	
 	public function indexAction()
 	{
@@ -27,44 +26,27 @@ class EmCore_CustomContentController extends Emerald_Controller_Action
 			$input->process();
 			
 			$page = $this->_pageFromPageId($input->page_id);
-			
 			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
 				throw new Emerald_Exception('Forbidden', 403);
 			}
 			
-			
-			
 			$writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
-			
-			$this->view->writable = $writable;
-
-			
 						
-			
-			
 			$customModel = new EmCore_Model_CustomContent();
-									
 			$customcontent = $customModel->find($page->id, $input->block_id);			
-
 			parse_str($customcontent->params, $parsedParams);
-			
+
+			// If not writable, just do a redirect
 			if(!$writable && $customcontent->module && $customcontent->controller && $customcontent->action) {
 				return $this->_forward($customcontent->action, $customcontent->controller, $customcontent->module, $parsedParams);
 			}
 			
+			$this->view->writable = $writable;
 			$this->view->customcontent = $customcontent;
 			$this->view->page = $page;
-			
-			
-			
-			
-			
-			
+						
 		} catch(Exception $e) {
-			
 			throw $e;
-			
-			
 		}
 		
 	}

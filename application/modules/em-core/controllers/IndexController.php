@@ -1,15 +1,7 @@
 <?php
-/**
- * Index controller tries to find page, any page, to forward to. When it does not find,
- * it throws an exception. Maybe they could automagically be handled?!?
- *
- */
 class EmCore_IndexController extends Emerald_Controller_Action
 {
-	/**
-	 * Many come here. Some get forwarded, others get thrown as exceptions.
-	 *
-	 */
+
 	public function indexAction()
 	{
 		$filters = array();
@@ -21,7 +13,8 @@ class EmCore_IndexController extends Emerald_Controller_Action
 			
 			$input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
 			$input->process();
-			
+
+			// @todo: Can this be moved to error controller?
 			$installed = $this->getCustomer()->getOption('installed');
 			if(!$installed) {
 				return $this->getHelper('redirector')->gotoRouteAndExit(array('action' => 'index', 'controller' => 'install', 'module' => 'em-core'), 'default', true);
@@ -29,13 +22,10 @@ class EmCore_IndexController extends Emerald_Controller_Action
 			
 			$localeModel = new EmCore_Model_Locale();
 			$page = $localeModel->startFrom($this->getCustomer(), $input->locale);
-						
-			
-			// Lets forward instead of redirecting. Url looks easier(tm).
-			$this->_forward('view', 'page', 'em-core', array('id' => $page->id));
-					
+
+			$this->getHelper('redirector')->gotoUrlAndExit('/' . $page->beautifurl);
+												
 		} catch(Exception $e) {
-			
 			throw $e;
 		}
 				

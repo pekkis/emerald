@@ -1,7 +1,18 @@
 <?php
+/**
+ * Locale model
+ * 
+ * @author pekkis
+ *
+ */
 class EmCore_Model_Locale extends Emerald_Model_Cacheable
 {
 	
+	/**
+	 * Returns table
+	 * 
+	 * @return EmCore_Model_DbTable_Locale
+	 */
 	public function getTable()
 	{
 		static $table;
@@ -14,6 +25,12 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 	
 	
 	
+	/**
+	 * Updates site locales
+	 * 
+	 * @param array $locales Array of locales
+	 * @return boolean Success or not
+	 */
 	public function updateSiteLocales(array $locales)
 	{
 		$selectedLocalesRaw = $this->findAll();
@@ -23,16 +40,9 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 		}
 			
 		$addLocales = array_diff($locales, $selectedLocales);
-		// $deleteLocales = array_diff($selectedLocales, $locales);
 
 		try {
 			$this->getTable()->getAdapter()->beginTransaction();
-
-			/*
-			if($deleteLocales) {
-				$this->getTable()->delete($this->getTable()->getAdapter()->quoteInto("locale IN (?)", $deleteLocales));
-			}
-			*/
 			
 			foreach($addLocales as $addLocale) {
 				$this->getTable()->insert(array('locale' => $addLocale));
@@ -54,30 +64,28 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 	}
 	
 	
+	/**
+	 * Returns all available locales.
+	 * 
+	 * @return array Array of locale.
+	 */
 	public function getAvailableLocales()
 	{
 		$locales = array_keys(Zend_Locale::getLocaleList());
 
+		// Filter evil locales.
+		// @todo Filteriterator?
 		$forbidden = array('root', 'auto', 'environment', 'browser', 'sr_YU', 'und', 'und_ZZ');
-		
-		$common = array('fi', 'fi_FI', 'sv', 'sv_SE', 'en', 'en_US', 'en_UK');
-		
 		$availables = array();
-
 		foreach($locales as $locale) {
-
 			if(!in_array($locale, $forbidden)) {
 				$available = new stdClass();
 				$available->locale = $locale;
-				$available->class = (in_array($locale, $common)) ? 'common' : 'uncommon';
 			}
-						
 			$availables[] = $available;			
-			
 		}
 		
 		ksort($availables);
-		
 		return $availables;
 		
 	}
@@ -85,75 +93,65 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 	
 	
 	
+	/**
+	 * Find a start page for customer
+	 * 
+	 * @param Emerald_Application_Customer $customer Customer
+	 * @param EmCore_Model_Locale $locale Locale
+	 * @throws Emerald_Model_Exception
+	 * @return EmCore_Model_PageItem
+	 */
 	public function startFrom(Emerald_Application_Customer $customer, $locale = null)
 	{
-			
-								
-		
+		// If locale, use it, if no locale, try to find one somehow.
 		if($locale) {
 			$locale = $this->find($locale);
-						
-			
 			if(!$locale) {
 				throw new Emerald_Model_Exception('Invalid locale');
 			}
-			
 		} else {
 			$locale = $this->findDefault($customer);
-			
 			if(!$locale) {
+				// Last resort: find locale, ANY locale and set it default.
 				$locale = $this->findAny($customer);
-				
 				if(!$locale) {
 					throw new Emerald_Model_Exception('No locales', 404);
 				}
-				
 				$this->setDefault($customer, $locale);
-				
 			}
-			
 		}			
-
-		
+		// Find default page for any found locale. 
 		$page = $this->findDefaultPage($customer, $locale);
-		
 		return $page;
 	}
 
 	
 	
+	/**
+	 * Finds and returns a default page for a locale.
+	 * 
+	 * @param Emerald_Application_Customer $customer Customer
+	 * @param EmCore_Model_LocaleItem $locale Locale
+	 * @throws Emerald_Model_Exception
+	 * @return EmCore_Model_PageItem
+	 */
 	public function findDefaultPage(Emerald_Application_Customer $customer, EmCore_Model_LocaleItem $locale)
 	{
 		$pageModel = new EmCore_Model_Page();
 		
-				
+		// Use locale option if available, if not then find any and set it default. 
 		if($ps = $locale->getOption('page_start')) {
 			$page = $pageModel->find($ps);
 		} else {
 			$page = $pageModel->findAny($locale);
-			
 			if(!$page) {
 				throw new Emerald_Model_Exception('No pages');
 			}
-			
-			$this->setDefaultPage($customer, $locale, $page);
-			
+			$locale->setOption('page_start', $page->id);
 		}		
-				
 		return $page;
 		
 	}
-	
-	
-	
-	public function setDefaultPage(Emerald_Application_Customer $customer, EmCore_Model_LocaleItem $locale, EmCore_Model_PageItem $page)
-	{
-		$locale->page_start = $page->id;
-		return $this->save($locale);
-	}
-	
-			
-	
 	
 	
 	public function find($id)
@@ -192,9 +190,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 		foreach($rows as $row) {
 			$locales->append(new EmCore_Model_LocaleItem($row));
 		}
-		
 		return $locales;
-		
 	}
 	
 	
@@ -213,8 +209,6 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 		}
 		$row->setFromArray($locale->toArray());
 		$row->save();
-
-		
 		
 		if($permissions) {
 			
@@ -257,8 +251,6 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 		if($acl->has($locale)) {
 			$acl->remove($locale);	
 		}
-		
-		
 	}
 	
 	
@@ -270,10 +262,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
 		$permissions = Emerald_Permission::getAll();
 
 		$perms = array();
-		
 		$acl = Zend_Registry::get('Emerald_Acl');
-						
-		
 		foreach($groups as $group) {
 			foreach($permissions as $permKey => $permName) {
 				if($acl->isAllowed($group, $locale, $permName)) {

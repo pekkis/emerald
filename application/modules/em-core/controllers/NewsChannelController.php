@@ -64,7 +64,6 @@ class EmCore_NewsChannelController extends Emerald_Controller_Action
 			
 			$item = $model->find($form->id->getValue());		
 			
-			
 			$values = $form->getValues();
 			
 			$item->setFromArray($form->getValues());

@@ -1,14 +1,10 @@
 <?php
 class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface
 {
-
-	private $_shardObj;
-	
 	public function __toString()
 	{
 		return $this->id;
 	}
-	
 	
 	public function getResourceId()
 	{
@@ -28,11 +24,9 @@ class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emeral
 	public function getLayoutObject($action = null)
 	{
 		$layout = Zend_Registry::get('Emerald_Customer')->getLayout($this->layout);	
-		
 		if($action) {
 			$layout->setAction($action);
 		}
-				
 		return $layout;
 	}
 	

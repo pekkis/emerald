@@ -8,18 +8,13 @@ class EmCore_ErrorController extends Emerald_Controller_Action
     	
     	switch($errors->type)
     	{
-    		
-    		case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
+    		// In case of internal ZF not found exceptions, fallback and try to find an Emerald page.
+	   		case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
    			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
    			
-   			
-   			
    			$beautifurl = ltrim($this->getRequest()->getRequestUri(), '/');
-   			
    			$pageModel = new EmCore_Model_Page();
-   			
    			$page = $pageModel->findByBeautifurl($beautifurl);
-		
    			if($page) {
    				return $this->_forward('view', 'page', 'em-core', array('id' => $page->id));
    			} else {
@@ -29,24 +24,17 @@ class EmCore_ErrorController extends Emerald_Controller_Action
 		    	$layout->setAction($this);
 		    	$layout->run();
 		    	$this->view->exception = $exception;
-   				
 		    	return $this->_forward('not-found');
-		    	
    			}
-   				
-   				
-   			
            	break;
             
             default:
-
             	$this->view->message = $exception->getMessage();
 		    	$customer = $this->getCustomer();
 		    	$layout = $customer->getLayout('Error');
 		    	$layout->setAction($this);
 		    	$layout->run();
 		    	$this->view->exception = $exception;
-            	
             	if($code = $exception->getCode()) {
             		// fixed code below to match http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 					// 401 is unauthorized(and such, requires WWW-Authenticate header field to be sent)
@@ -58,27 +46,16 @@ class EmCore_ErrorController extends Emerald_Controller_Action
 						return $this->_forward('forbidden');
             		} elseif($code == 403) {
             			
+            			// If admin and forbidden, redirect to login.
             			if($this->_getParam('module') == 'em-admin') {
             				return $this->_forward('index', 'login', 'em-core');
             			}
-            			
             			return $this->_forward('forbidden');
             		}
-            		
-            		
             	}
-            	
             	return $this->_forward('internal-server');
     	}
-
-    	
-    	
-    	
-    	    	
-    	
-    	
     }
-    
     
     
     public function notFoundAction()
@@ -100,7 +77,5 @@ class EmCore_ErrorController extends Emerald_Controller_Action
     	$this->view->responseCode = 500;
     	$this->getResponse()->setHttpResponseCode(500);
     }
-    
-    
     
 }

@@ -39,14 +39,9 @@ class EmCore_Model_Navigation
 	
 	public function pageUpdate(EmCore_Model_PageItem $page)
 	{
-		// Zend_Debug::Dump($page->id, "UPDATING");
-		
 		$navi = $this->clearNavigation()->getNavigation();
-		
 
-		
 		$navi = $navi->findBy("id", $page->id);
-
 		$route = array();
 		$beautifurl = array();
 
@@ -81,11 +76,29 @@ class EmCore_Model_Navigation
 		
 		$navi->url = EMERALD_URL_BASE . "/" . $beautifurl;
 
+		$page->path = $route;
+		$page->beautifurl = $beautifurl;
+		
 		$this->getPageModel()->getTable()->update(
 			array('path' => $route, 'beautifurl' => $beautifurl),
 			$this->getPageModel()->getTable()->getAdapter()->quoteInto("id = ?", $page->id)
 		);
 
+		$beautifurls = $this->getPageModel()->getCachedBeautifurls();
+		foreach($beautifurls as $key => $id) {
+			if($id == $page->id) {
+				unset($beautifurls[$key]);
+				$this->getPageModel()->storeCachedBeautifurls();
+				break;
+			}
+		}		
+
+		$this->getPageModel()->storeCached($page->id, $page);
+		$this->getPageModel()->storeCached('page_global_' . $page->global_id . '_locale_' . $page->locale, $page->id);
+		$this->getPageModel()->clearCached('page_global_' . $page->global_id);
+				
+		$this->getPageModel()->storeCached($page->id, $page);
+		
 		self::$_navigation = null;
 				
 		if($pages = $navi->getPages()) {
@@ -94,7 +107,6 @@ class EmCore_Model_Navigation
 				$this->pageUpdate($childPage);
 			}
 		}
-		
 		$navi = $this->clearNavigation()->getNavigation();
 		
 		

@@ -51,7 +51,6 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 			$darr['valid_end_date'] = $split[0];
 			$darr['valid_end_time'] = $split[1];
 			
-			
 			$form->setDefaults($darr);			
 					
 			$this->view->form = $form;

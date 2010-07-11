@@ -102,7 +102,7 @@ class EmCore_HtmlcontentController extends Emerald_Controller_Action
 			$form->siblings->setValue($page->id);
 			
 			$this->view->form = $form;
-
+			
 			$this->view->page = $page;
 			
 		} catch(Exception $e) {

@@ -72,34 +72,16 @@ class EmCore_NewsController extends Emerald_Controller_Action
 			throw $e;
 		}
 		
-		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public function headlinesAction()
 	{
-		
-		
-		$filters = array(
-		);
+		$filters = array();
 		$validators = array(
 			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
 			'amount' => array('Int', 'presence' => 'optional', 'default' => 3),
 		);
-						
-		
 				
 		try {
 			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());

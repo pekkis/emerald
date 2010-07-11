@@ -56,3 +56,5 @@ ALTER TABLE emerald_shard ADD column namespace varchar(255) NOT NULL default 'Em
 ALTER TABLE emerald_user ALTER passwd TYPE varchar(255);
 
 ALTER TABLE emerald_page ADD COLUMN customurl varchar(1000) DEFAULT NULL;
+
+ALTER TABLE emerald_locale DROP COLUMN page_start;

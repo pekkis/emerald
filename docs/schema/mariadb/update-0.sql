@@ -64,3 +64,5 @@ INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_op
 ALTER TABLE emerald_user CHANGE passwd passwd varchar(255) NOT NULL;
 
 ALTER TABLE emerald_page ADD COLUMN customurl varchar(1000) DEFAULT NULL AFTER beautifurl;
+
+ALTER TABLE emerald_locale DROP COLUMN page_start;
