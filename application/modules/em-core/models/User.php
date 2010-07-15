@@ -8,8 +8,8 @@ class EmCore_Model_User
 	
 	static private $_hashSalt = '';
 	
-	
-	
+	protected static $_table = 'EmCore_Model_DbTable_User'; 
+		
 	static public function setHashAlgorithm($algo)
 	{
 		self::$_hashAlgorithm = $algo;
@@ -32,23 +32,6 @@ class EmCore_Model_User
 		
 		return hash(self::$_hashAlgorithm, self::$_hashSalt . $context . $password);
 	}
-	
-	
-	
-	/**
-	 * Returns table
-	 * 
-	 * @return EmCore_Model_DbTable_User
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_User();
-		}
-		return $table;
-	}
-
 	
 	public function findAll()
 	{

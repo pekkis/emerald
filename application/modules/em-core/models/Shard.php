@@ -4,27 +4,12 @@ class EmCore_Model_Shard extends Emerald_Model_Cacheable
 
 	const ACTIVE = 1;
 	const INSERTABLE = 2;
-	
-	
+		
 	protected $_shards = array();
 	
 	protected $_shardNames = array();
 	
-	
-	/**
-	 * Returns table
-	 * 
-	 * @return Zend_Db_Table_Abstract
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_Shard();
-		}
-		return $table;
-	}
-	
+	protected static $_table = 'EmCore_Model_DbTable_Shard'; 
 	
 	protected function _populate()
 	{

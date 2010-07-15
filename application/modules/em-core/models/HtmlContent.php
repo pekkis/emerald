@@ -1,15 +1,7 @@
 <?php
 class EmCore_Model_HtmlContent extends Emerald_Model_Cacheable
 {
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_HtmlContent();
-		}
-		return $table;
-	}
-	
+	protected static $_table = 'EmCore_Model_DbTable_HtmlContent'; 
 	
 	public function find($htmlContentId, $blockId)
 	{

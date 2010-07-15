@@ -1,22 +1,7 @@
 <?php
 class EmCore_Model_NewsItem extends Emerald_Model_Cacheable
 {
-	
-	
-	/**
-	 * Returns table
-	 * 
-	 * @return Zend_Db_Table_Abstract
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_NewsItem();
-		}
-		return $table;
-	}
-	
+	protected static $_table = 'EmCore_Model_DbTable_NewsItem'; 
 	
 	/**
 	 * Finds item with primary key

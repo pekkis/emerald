@@ -2,25 +2,9 @@
 class EmCore_Model_Page extends Emerald_Model_Cacheable
 {
 	
-	static public $registry;
-	
 	protected $_beautifurls;
 	
-	
-	/**
-	 * Returns table
-	 * 
-	 * @return Zend_Db_Table_Abstract
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_Page();
-		}
-		return $table;
-	}
-
+	protected static $_table = 'EmCore_Model_DbTable_Page';
 	
 	public function getCachedBeautifurls()
 	{
@@ -59,22 +43,14 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 	
 	public function find($id)
 	{
-		//if(!$page = $this->findFromRegistry($id)) {
-			
-			if(!$page = $this->findCached($id)) {
-				$pageTbl = $this->getTable();
-				$page = $pageTbl->find($id)->current();
-				$page = ($page) ? new EmCore_Model_PageItem($page) : false;
-				
-				if($page) {
-					$this->storeCached($page->id, $page);
-				}
+		if(!$page = $this->findCached($id)) {
+			$pageTbl = $this->getTable();
+			$page = $pageTbl->find($id)->current();
+			$page = ($page) ? new EmCore_Model_PageItem($page) : false;
+			if($page) {
+				$this->storeCached($page->id, $page);
 			}
-						
-			// if($page) {
-			//$this->saveToRegistry($page);	
-			// }
-		// }
+		}
 		return $page;
 	}
 	
@@ -82,12 +58,9 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 	public function findAll($where = array(), $order = null, $count = null, $offset = null)
 	{
 		$rows = $this->getTable()->fetchAll($where, $order, $count, $offset);
-		
-				
 		$pages = array();
 		foreach($rows as $row) {
 			$page = new EmCore_Model_PageItem($row);
-			$this->saveToRegistry($page);
 			$pages[] = $page;
 		}
 		
@@ -331,48 +304,6 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		
 	}
 	
-	
-	
-	/**
-	 * Returns page registry
-	 * 
-	 * @return Zend_Registry
-	 */
-	public function getRegistry()
-	{
-		if(!self::$registry) {
-			self::$registry = new Zend_Registry();
-		}
-		
-		return self::$registry;
-		
-	}
-	
-	
-	public function findFromRegistry($identifier)
-	{
-		$registry = $this->getRegistry();
-		
-		if(!is_numeric($identifier)) {
-			if(!$registry->isRegistered($identifier)) {
-				return false;
-			}
-			$identifier = $registry->get($identifier);
-		}
-		
-		if($registry->isRegistered($identifier)) {
-			return $registry->get($identifier);	
-		}
-		return false;
-	}
-	
-	
-	public function saveToRegistry(EmCore_Model_PageItem $page)
-	{
-		$registry = $this->getRegistry();
-		$registry->set($page->id, $page);
-		$registry->set($page->beautifurl, $page->id);
-	}
 	
 	
 }

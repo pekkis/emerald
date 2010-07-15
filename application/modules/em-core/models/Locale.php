@@ -8,22 +8,7 @@
 class EmCore_Model_Locale extends Emerald_Model_Cacheable
 {
 	
-	/**
-	 * Returns table
-	 * 
-	 * @return EmCore_Model_DbTable_Locale
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_Locale();
-		}
-		
-		return $table;
-	}
-	
-	
+	protected static $_table = 'EmCore_Model_DbTable_Locale'; 
 	
 	/**
 	 * Updates site locales

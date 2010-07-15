@@ -4,16 +4,7 @@ class EmCore_Model_Group
 	const GROUP_ANONYMOUS = 1;
 	const GROUP_ROOT = 2;
 	
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_Ugroup();
-		}
-		
-		return $table;
-	}
-	
+	protected static $_table = 'EmCore_Model_DbTable_Ugroup'; 
 
 	public function find($id)
 	{

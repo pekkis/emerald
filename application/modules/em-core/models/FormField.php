@@ -1,21 +1,7 @@
 <?php
 class EmCore_Model_FormField extends Emerald_Model_Cacheable
 {
-	
-	/**
-	 * Returns table
-	 * 
-	 * @return Zend_Db_Table_Abstract
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_FormField();
-		}
-		return $table;
-	}
-	
+	protected static $_table = 'EmCore_Model_DbTable_FormField'; 
 	
 	/**
 	 * Finds item with primary key

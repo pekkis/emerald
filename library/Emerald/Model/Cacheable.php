@@ -1,5 +1,5 @@
 <?php
-abstract class Emerald_Model_Cacheable
+abstract class Emerald_Model_Cacheable extends Emerald_Model_AbstractModel
 {
 	private $_cache;
 	

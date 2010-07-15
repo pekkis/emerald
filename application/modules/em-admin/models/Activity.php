@@ -1,19 +1,7 @@
 <?php
 class EmAdmin_Model_Activity extends Emerald_Model_Cacheable
 {
-	/**
-	 * Returns table
-	 * 
-	 * @return Zend_Db_Table_Abstract
-	 */
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmAdmin_Model_DbTable_Activity();
-		}
-		return $table;
-	}
+	protected static $_table = 'EmAdmin_Model_DbTable_Activity'; 
 
 	/**
 	 * Returns table

@@ -1,15 +1,7 @@
 <?php
 class EmCore_Model_CustomContent extends Emerald_Model_Cacheable
 {
-	public function getTable()
-	{
-		static $table;
-		if(!$table) {
-			$table = new EmCore_Model_DbTable_CustomContent();
-		}
-		return $table;
-	}
-	
+	protected static $_table = 'EmCore_Model_DbTable_CustomContent'; 
 	
 	public function find($pageId, $blockId)
 	{
@@ -27,8 +19,6 @@ class EmCore_Model_CustomContent extends Emerald_Model_Cacheable
 		return $ret;
 		
 	}
-		
-	
 	
 	public function save(EmCore_Model_CustomContentItem $customContent)
 	{
