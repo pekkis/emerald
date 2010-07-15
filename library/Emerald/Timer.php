@@ -10,6 +10,13 @@ class Emerald_Timer implements IteratorAggregate
 	
 	private $_events = array();
 		
+	
+	
+	/**
+	 * Enter description here ...
+	 * @param unknown_type $name
+	 * @return Emerald_Timer
+	 */
 	static public function getTimer($name) {
 		if(!isset(self::$_timers[$name])) {
 			self::$_timers[$name] = new self();
