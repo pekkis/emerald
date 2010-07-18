@@ -195,6 +195,7 @@ CREATE TABLE `emerald_page` (
   cache_seconds integer unsigned NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT '0',
   redirect_id integer unsigned NULL,
+  taggable_id integer NULL,
   PRIMARY KEY (id),
   UNIQUE KEY (global_id, locale),
   UNIQUE KEY parent_id_title (parent_id,title),
@@ -388,5 +389,8 @@ CREATE INDEX taggable_type_idx ON emerald_taggable (type);
 
 ALTER TABLE emerald_news_item ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE NO ACTION ON UPDATE CASCADE;
 
+ALTER TABLE emerald_page ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (5, 'Tag Cloud', 'em-core', 'tag', 'cloud', 3);
 
 

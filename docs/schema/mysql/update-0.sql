@@ -98,5 +98,12 @@ CREATE INDEX taggable_type_idx ON emerald_taggable (type);
 ALTER TABLE emerald_news_item ADD COLUMN taggable_id integer unsigned NULL;
 ALTER TABLE emerald_news_item ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE NO ACTION ON UPDATE CASCADE;
 
+ALTER TABLE emerald_page ADD COLUMN taggable_id integer NULL;
+ALTER TABLE emerald_page ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (5, 'Tag Cloud', 'em-core', 'tag', 'cloud', 3);
+
+
+
 
 
