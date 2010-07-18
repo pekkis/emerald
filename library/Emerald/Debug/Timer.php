@@ -1,5 +1,5 @@
 <?php
-class Emerald_Timer implements IteratorAggregate
+class Emerald_Debug_Timer implements IteratorAggregate
 {
 	
 	static private $_timers = array();
@@ -15,7 +15,7 @@ class Emerald_Timer implements IteratorAggregate
 	/**
 	 * Enter description here ...
 	 * @param unknown_type $name
-	 * @return Emerald_Timer
+	 * @return Emerald_Debug_Timer
 	 */
 	static public function getTimer($name) {
 		if(!isset(self::$_timers[$name])) {
