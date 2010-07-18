@@ -34,7 +34,7 @@ abstract class Emerald_Model_AbstractModel
 		} else {
 			$rawDependencies = $this->getRawDependencies();
 			if(!isset($rawDependencies[$dependency])) {
-				throw new Emerald_Model_Exception("Dependency '{$dependency}' not found.");
+				throw new Emerald_Model_Exception("Dependency {$dependency}' not found for " . get_class($this));
 			}
 			$this->_dependencies[$dependency] = $rawDependencies[$dependency]();
 			return $this->_dependencies[$dependency]; 			
@@ -49,7 +49,7 @@ abstract class Emerald_Model_AbstractModel
 			return $this->getDependency($dependency);
 		}
 		
-		throw new Emerald_Model_Exception("Magic method '{$method}' not callable.");
+		throw new Emerald_Model_Exception("Magic method " . get_class($this) . "::{$method} not callable.");
 		
 	}
 	
