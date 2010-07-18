@@ -343,3 +343,25 @@ html>body #footer {
 	margin: 1em 0;	
 }
 
+
+
+/* tag cloud */
+
+ul.Zend_Tag_Cloud {
+	text-align: left;	
+}
+
+ul.Zend_Tag_Cloud li {
+	display: inline;
+	list-style-type: none;	
+}
+
+#sidebar li ul.Zend_Tag_Cloud li a {
+	margin: 0;
+	padding: 0;
+	background: none;
+}
+
+#sidebar li ul.Zend_Tag_Cloud li a:hover {
+	text-decoration: underline;
+}

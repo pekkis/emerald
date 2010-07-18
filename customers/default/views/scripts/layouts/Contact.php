@@ -9,8 +9,4 @@ class Emerald_Layout_Contact extends Emerald_Layout
 		$this->actionToStack('index', 'html-content', 'emerald', array('page_id' => $this->getPage()->id, 'block_id' => 4, 'rs' => ''));
 	}
 	
-	protected function _runAjax()
-	{
-		$this->shard($this->getPage(), $this->getPage()->shard_id, array('block_id' => 1));
-	}
 }
