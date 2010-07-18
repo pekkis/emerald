@@ -49,6 +49,16 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		$permForm = $form->getSubForm('page-permissions');
 		$permissions = $pageModel->getPermissions($page);
 		$permForm->setDefaults($permissions);
+		
+		$tagForm = $form->getSubForm('tags');
+		// No taggable, make it
+		if(!$page->getTaggableId()) {
+			$taggableModel = new EmCore_Model_Taggable();
+			$taggableModel->registerFor($page);
+			$newsItemModel->save($page);
+		}
+		$tagForm->setTaggable($page->getTaggable());
+		
 				
 		$this->view->form = $form;
 				
@@ -188,6 +198,15 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 			$page->setFromArray($form->getValues());
 			
 			$perms = $form->getSubForm('page-permissions')->getValues();
+
+			// Tags
+			$tags = $form->getSubForm('tags')->getValues();
+			$taggableModel = new EmCore_Model_Taggable();
+			
+			$taggable = $taggableModel->registerFor($page);
+			$taggable->setFromString($tags['tags']['tags']);
+			$taggableModel->save($taggable);
+			
 			$pageModel->save($page, $perms['pagepermissions']);
 								
 			if($form->mirror->getValue()) {

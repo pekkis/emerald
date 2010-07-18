@@ -55,7 +55,6 @@ class EmCore_Form_NewsItem extends ZendX_JQuery_Form
 
 		$taggableModel = new EmCore_Model_Taggable();
 		$tagForm = $taggableModel->getForm();
-
 		$this->addSubForm($tagForm, 'tags', 5);
 		
 		

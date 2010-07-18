@@ -129,7 +129,38 @@ class EmCore_NewsController extends Emerald_Controller_Action
 		
 	}
 	
-	
+	public function tagCloudAction()
+	{
+		
+		$filters = array();
+		$validators = array(
+			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
+			'amount' => array('Int', 'presence' => 'optional', 'default' => 3),
+		);
+				
+		try {
+			$input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
+			$input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+			$input->process();
+
+			$page = $this->_pageFromPageId($input->page_id);
+			
+			if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
+				throw new Emerald_Exception('Forbidden', 403);
+			}
+			
+			$channelModel = new EmCore_Model_NewsChannel();
+			$channel = $channelModel->findByPageId($page->id);
+			
+			$cloud = $channelModel->getTagCloud($channel);
+			
+			$this->view->cloud = $cloud;
+			
+		} catch(Exception $e) {
+			throw $e;
+		}
+			
+	}
 	
 	
 	

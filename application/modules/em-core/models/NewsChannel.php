@@ -3,6 +3,13 @@ class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 {
 	protected static $_table = 'EmCore_Model_DbTable_NewsChannel'; 
 	
+	protected function _getRawDependencies()
+	{
+		return parent::_getRawDependencies() + array('router' => function() { return Zend_Controller_Front::getInstance()->getRouter(); });
+	}
+	
+	
+	
 	/**
 	 * Finds item with primary key
 	 * 
@@ -120,6 +127,60 @@ class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 		$paginator->setItemCountPerPage($channel->items_per_page);
 		
 		return $paginator;
+		
+		
+		
+	}
+	
+	
+	public function getTagCloud(EmCore_Model_NewsChannelItem $channel)
+	{
+		
+		$items = $channel->getItems(false);
+		
+		$tags = array();
+		
+		foreach($items as $item) {
+			if($item->getTaggable()) {
+				foreach($item->getTaggable()->tags as $tag) {
+					
+					if(!isset($tags[$tag])) {
+						$tags[$tag] = 1;
+					} else {
+						$tags[$tag]++;
+					}
+					
+				}
+			}
+			
+		}
+		
+		ksort($tags, SORT_LOCALE_STRING);
+		
+		
+		$router = $this->getRouter();
+		
+		$tagItems = array();
+
+		$url = $channel->getPage();
+		
+		foreach($tags as $title => $weight) {
+			$tagItem = new Zend_Tag_Item(array('title' => $title, 'weight' => $weight));
+
+			$url = $router->assemble(array(
+				'page' => 1,
+				'tag' => $title,
+			), "page_{$channel->getPage()->id}_news_index");		
+			
+			$tagItem->setParam('url', $url);
+						
+			$tagItems[] = $tagItem;
+		}
+		
+		$cloud = new Zend_Tag_Cloud(array('tags' => $tagItems));
+		
+		
+		return $cloud;
 		
 		
 		

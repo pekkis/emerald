@@ -125,8 +125,16 @@ class EmAdmin_Form_Page extends Zend_Form
 		
 		
 		$this->addSubForm($permissionForm, 'page-permissions', 10);
-						
-		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 11));
+
+		$taggableModel = new EmCore_Model_Taggable();
+		$tagForm = $taggableModel->getForm();
+		$this->addSubForm($tagForm, 'tags', 11);
+		
+		
+		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 12));
+
+		
+		
 		
 		/*
 		$this->view->selectedLocales = $selectedLocales;

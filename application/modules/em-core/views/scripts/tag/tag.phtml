@@ -1,0 +1,10 @@
+<?php if($this->descriptors->count()): ?>
+<dl>
+<?php foreach($this->descriptors as $descriptor): ?>
+	<dt><?php echo $descriptor->getTitle(); ?></dt>
+	<dt><?php echo $descriptor->getDescription(); ?></dt>
+<?php endforeach; ?>
+</dl>
+<?php endif; ?>
+
+

@@ -54,14 +54,12 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 			$form->setDefaults($darr);
 
 			$tagForm = $form->getSubForm('tags');
-			
 			// No taggable, make it
 			if(!$item->getTaggableId()) {
 				$taggableModel = new EmCore_Model_Taggable();
 				$taggableModel->registerFor($item);
 				$newsItemModel->save($item);
 			}
-			
 			$tagForm->setTaggable($item->getTaggable());
 								
 			$this->view->form = $form;

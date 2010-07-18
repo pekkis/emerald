@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface
+class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Resource_Interface, Emerald_Model_TaggableItemInterface
 {
 	public function __toString()
 	{
@@ -71,6 +71,30 @@ class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emeral
 		}		
 	}
 	
+	public function getTaggable()
+	{
+		$taggableModel = new EmCore_Model_Taggable();
+		return $taggableModel->findFor($this);
+	}
+		
+	
+	public function getTaggableId()
+	{
+		return $this->taggable_id;
+	}
+
+	
+	public function setTaggableId($taggableId)
+	{
+		$this->taggable_id = $taggableId;
+	}
+	
+	
+	
+	public function getType()
+	{
+		return 'EmCore_Model_Page';
+	}	
 	
 	
 	

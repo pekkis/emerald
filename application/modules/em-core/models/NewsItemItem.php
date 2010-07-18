@@ -28,7 +28,7 @@ class EmCore_Model_NewsItemItem extends Emerald_Model_AbstractItem implements Em
 		
 	}
 	
-	
+		
 	public function getTaggable()
 	{
 		$taggableModel = new EmCore_Model_Taggable();

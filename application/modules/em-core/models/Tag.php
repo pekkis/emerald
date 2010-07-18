@@ -18,7 +18,8 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 			$this->storeCached($id, $ret);
 			
 			if($ret) {
-				$this->storeCached('name_' . $ret->name, $ret);
+				$cname = str_replace(' ', '____', $ret->name);
+				$this->storeCached('name_' . $cname, $ret->id);
 			}
 			
 		}
@@ -28,7 +29,8 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 	
 	public function findByName($name)
 	{
-		if($id = $this->findCached('name_' . $name)) {
+		$cname = str_replace(' ', '____', $name);
+		if($id = $this->findCached('name_' . $cname)) {
 			return $this->find($id);
 		}
 				
@@ -38,10 +40,10 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 			$tag = new EmCore_Model_TagItem();
 			$tag->name = $name;
 			$this->save($tag);
-			$this->storeCached('name_' . $tag->name, $tag->id);
+			$this->storeCached('name_' . $cname, $tag->id);
 			return $tag;
 		}
-		$this->storeCached('name_' . $name, $id);
+		$this->storeCached('name_' . $cname, $id);
 		return $this->find($id);
 	}
 	
@@ -62,6 +64,9 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 		$item->setFromArray($row->toArray());
 		
 		$this->storeCached($item->id, $item);
+		
+		$cname = str_replace(' ', '____', $item->name);
+		$this->storeCached('name_' . $cname, $item->id);
 				
 	}
 	
@@ -73,6 +78,9 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 			throw new Emerald_Model_Exception('Could not delete');
 		}
 		$row->delete();
+		
+		$cname = str_replace(' ', '____', $item->name);
+		$this->clearCached('name_' . $cname);
 		$this->clearCached($item->id);
 	}
 	

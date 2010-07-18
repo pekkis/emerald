@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Page extends Emerald_Model_Cacheable
+class EmCore_Model_Page extends Emerald_Model_Cacheable implements Emerald_Model_TaggerModelInterface
 {
 	
 	protected $_beautifurls;
@@ -53,6 +53,38 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable
 		}
 		return $page;
 	}
+	
+	
+	public function findTagger(EmCore_Model_TaggableItem $taggable)
+	{
+		if($id = $this->findCached('taggable_id_' . $taggable->id)) {
+			return $this->find($id);
+		}
+				
+		$tbl = $this->getTable();
+		$id = $tbl->getAdapter()->fetchOne("SELECT id FROM emerald_page WHERE taggable_id = ?", array($taggable->id));
+		if(!$id) {
+			return false;
+		}
+		$this->storeCached('taggable_id_' . $taggable->id, $id);
+		return $this->find($id);
+	}
+	
+	
+	public function findDescriptor(EmCore_Model_TaggableItem $taggable)
+	{
+		if(!$tagger = $this->findTagger($taggable)) {
+			return false;
+		}
+		
+		$ret = new EmCore_Model_TaggableDescriptor(array(
+			'title' => $tagger->title,
+			'url' => '/' . $tagger->beautifurl,
+		));		
+		
+		return $ret;		
+	}
+	
 	
 	
 	public function findAll($where = array(), $order = null, $count = null, $offset = null)
