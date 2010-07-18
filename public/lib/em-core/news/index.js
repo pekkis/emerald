@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	$('.news-item-delete').jsonClick({ success: function(elm) { elm.parents('.news-item').remove(); }});
+	$('.news-item-delete').jsonClick({ success: function(msg, evt) { $(evt.currentTarget).parents('.news-item').remove(); }});
 });
 
 

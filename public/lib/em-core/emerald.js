@@ -262,8 +262,8 @@ Emerald.Message = {
 jQuery.fn.jsonClick = function(options) {
 	  
 	var defaultOptions = {
-		success: function(elm, msg) { },
-		failure: function(elm, msg) { }
+		success: function(msg, evt) { },
+		failure: function(msg, evt) { }
 	};
 	
 	var finalOptions = jQuery.extend(defaultOptions, options);
