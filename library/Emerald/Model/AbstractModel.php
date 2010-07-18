@@ -1,46 +1,43 @@
 <?php
 abstract class Emerald_Model_AbstractModel
 {
-	protected $_injectables = array();
+	protected $_dependencies = array();
 
-	protected $_rawInjectables;
+	protected $_rawDependencies;
 	
 	protected static $_table = null; 
 	
 		
-	public function getRawInjectables()
+	public function getRawDependencies()
 	{
-		if(!$this->_rawInjectables) {
-									
-			$this->_rawInjectables = $this->_getRawInjectables();
-			
+		if(!$this->_rawDependencies) {
+			$this->_rawDependencies = $this->_getRawDependencies();
 		}
-		
-		return $this->_rawInjectables;
+		return $this->_rawDependencies;
 	}
 	
 	
-	protected function _getRawInjectables()
+	protected function _getRawDependencies()
 	{
-		$rawInjectables = array();
+		$rawDependencies = array();
 		if($table = static::$_table) {
-			$rawInjectables['table'] = function() use ($table) { return new $table; };
+			$rawDependencies['table'] = function() use ($table) { return new $table; };
 		}
-		return $rawInjectables;
+		return $rawDependencies;
 	}
 	
 	
-	public function getInjectable($injectable)
+	public function getDependency($dependency)
 	{
-		if(isset($this->_injectables[$injectable])) {
-			return $this->_injectables[$injectable];
+		if(isset($this->_dependencies[$dependency])) {
+			return $this->_dependencies[$dependency];
 		} else {
-			$rawInjectables = $this->getRawInjectables();
-			if(!isset($rawInjectables[$injectable])) {
-				throw new Emerald_Model_Exception("Injectable '{$injectable}' not found.");
+			$rawDependencies = $this->getRawDependencies();
+			if(!isset($rawDependencies[$dependency])) {
+				throw new Emerald_Model_Exception("Dependency '{$dependency}' not found.");
 			}
-			$this->_injectables[$injectable] = $rawInjectables[$injectable]();
-			return $this->_injectables[$injectable]; 			
+			$this->_dependencies[$dependency] = $rawDependencies[$dependency]();
+			return $this->_dependencies[$dependency]; 			
 		}
 	}
 		
@@ -48,8 +45,8 @@ abstract class Emerald_Model_AbstractModel
 	public function __call($method, $args)
 	{
 		if(substr($method, 0, 3) == 'get') {
-			$injectable = lcfirst(substr($method, 3));
-			return $this->getInjectable($injectable);
+			$dependency = lcfirst(substr($method, 3));
+			return $this->getDependency($dependency);
 		}
 		
 		throw new Emerald_Model_Exception("Magic method '{$method}' not callable.");
