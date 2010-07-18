@@ -66,3 +66,37 @@ ALTER TABLE emerald_user CHANGE passwd passwd varchar(255) NOT NULL;
 ALTER TABLE emerald_page ADD COLUMN customurl varchar(1000) DEFAULT NULL AFTER beautifurl;
 
 ALTER TABLE emerald_locale DROP COLUMN page_start;
+
+
+CREATE TABLE emerald_tag
+(
+id integer unsigned NOT NULL auto_increment,
+name varchar(255) NOT NULL,
+PRIMARY KEY(id),
+UNIQUE(name)
+) engine=XtraDB;
+
+CREATE TABLE emerald_taggable
+(
+id integer unsigned NOT NULL auto_increment,
+type varchar(255) NOT NULL,
+PRIMARY KEY(id)
+) engine=xtraDB;
+
+CREATE TABLE emerald_taggable_tag
+(
+taggable_id integer unsigned NOT NULL,
+tag_id integer unsigned NOT NULL,
+PRIMARY KEY(taggable_id, tag_id),
+FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY(tag_id) REFERENCES emerald_tag(id) ON DELETE CASCADE ON UPDATE CASCADE
+) engine=XtraDB;
+
+CREATE INDEX taggable_type_idx ON emerald_taggable (type);
+
+ALTER TABLE emerald_news_item ADD COLUMN taggable_id integer unsigned NULL;
+ALTER TABLE emerald_news_item ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+
+
+

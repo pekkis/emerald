@@ -220,6 +220,7 @@ CREATE TABLE "emerald_news_item" (
   "title" varchar(255) NOT NULL,
   "description" text,
   "article" text,
+  "taggable_id" integer DEFAULT NULL,
   "author" varchar(255) DEFAULT NULL,
   "category" varchar(255) DEFAULT NULL,
   "comments" varchar(255) DEFAULT NULL,
@@ -320,4 +321,39 @@ INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_us
 INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_locales');
 INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_forms');
 INSERT INTO emerald_activity (category, name) VALUES ('administration', 'edit_options');
+
+
+CREATE SEQUENCE emerald_tag_id_seq;
+
+CREATE TABLE emerald_tag
+(
+id integer NOT NULL DEFAULT NEXTVAL('emerald_tag_id_seq'),
+name varchar(255) NOT NULL,
+PRIMARY KEY(id),
+UNIQUE(name)
+);
+
+CREATE SEQUENCE emerald_taggable_id_seq;
+
+CREATE TABLE emerald_taggable
+(
+id integer NOT NULL DEFAULT NEXTVAL('emerald_taggable_id_seq'),
+type varchar(255) NOT NULL,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE emerald_taggable_tag
+(
+taggable_id integer NOT NULL,
+tag_id integer NOT NULL,
+PRIMARY KEY(taggable_id, tag_id),
+FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY(tag_id) REFERENCES emerald_tag(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE INDEX taggable_type_idx ON emerald_taggable (type);
+
+ALTER TABLE emerald_news_item ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggable(id) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+
 
