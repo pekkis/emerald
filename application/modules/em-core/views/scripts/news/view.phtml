@@ -9,6 +9,15 @@
 		<?php echo $date->get(Zend_Date::TIME_SHORT, $this->page->getLocale()); ?> <?php echo $this->item->title; ?>
 		</h2>
 		
+		<?php if($this->item->getTaggable() && $this->item->getTaggable()->count()): ?>
+		<p class="tags">
+		<?php foreach($this->item->getTaggable()->tags as $tag): ?>
+		<a href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $this->page->beautifurl, 'a' => 'index', 'page' => 1, 'tag' => $tag), "page_{$this->page->id}_news_index"); ?>"><?php echo $tag; ?></a>
+		<?php endforeach; ?>
+		</p>
+		<?php endif; ?>
+	
+		
 		<div class="description">
 		<?php echo $this->item->description; ?>
 		</div>

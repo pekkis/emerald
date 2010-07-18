@@ -86,14 +86,13 @@ class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 	
 	
 	
-	public function getItems(EmCore_Model_NewsChannelItem $channel, $invalids = false)
+	public function getItems(EmCore_Model_NewsChannelItem $channel, $invalids = false, $tag = null)
 	{
 		if(!$ids = $this->findCached('items_' . $channel->id)) {
 			$db = $this->getTable()->getAdapter();
 			$ids = $db->fetchCol("SELECT id FROM emerald_news_item WHERE news_channel_id = ? ORDER BY valid_start DESC", array($channel->id));
 			$this->storeCached('items_' . $channel->id, $ids);
 		}
-
 		
 		$itemModel = new EmCore_Model_NewsItem();
 		$iter = new ArrayIterator();
@@ -101,18 +100,22 @@ class EmCore_Model_NewsChannel extends Emerald_Model_Cacheable
 		foreach($ids as $id) {
 			$iter->append($itemModel->find($id));
 		}
-		
+
 		if($invalids == false) {
-			$iter2 = new EmCore_Model_NewsItemValidityFilterIterator($iter);
-			
-			$iter = new ArrayIterator();
-			foreach($iter2 as $item) {
-				$iter->append($item);
-			}
+			$iter = new EmCore_Model_NewsItemValidityFilterIterator($iter);
+		}
+				
+		if($tag) {
+			$iter = new EmCore_Model_TagFilterIterator($iter, $tag);
 		}
 		
+		$iter2 = new ArrayIterator();
+		foreach($iter as $item) {
+			$iter2->append($item);
+		}
+			
 		
-		$adapter = new Zend_Paginator_Adapter_Iterator($iter);
+		$adapter = new Zend_Paginator_Adapter_Iterator($iter2);
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage($channel->items_per_page);
 		

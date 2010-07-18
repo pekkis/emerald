@@ -51,8 +51,19 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 			$darr['valid_end_date'] = $split[0];
 			$darr['valid_end_time'] = $split[1];
 			
-			$form->setDefaults($darr);			
-					
+			$form->setDefaults($darr);
+
+			$tagForm = $form->getSubForm('tags');
+			
+			// No taggable, make it
+			if(!$item->getTaggableId()) {
+				$taggableModel = new EmCore_Model_Taggable();
+				$taggableModel->registerFor($item);
+				$newsItemModel->save($item);
+			}
+			
+			$tagForm->setTaggable($item->getTaggable());
+								
 			$this->view->form = $form;
 			$this->view->page = $page;
 			
@@ -133,9 +144,17 @@ class EmCore_NewsItemController extends Emerald_Controller_Action
 			$values['valid_end'] = $values['valid_end_date'] . ' ' . $values['valid_end_time'];
 						
 			$item->setFromArray($values);
+
+			// Tags
+			$tags = $form->getSubForm('tags')->getValues();
+			$taggableModel = new EmCore_Model_Taggable();
+			
+			$taggable = $taggableModel->registerFor($item);
+			$taggable->setFromString($tags['tags']['tags']);
+			$taggableModel->save($taggable);
 			
 			$model->save($item);
-
+			
 			$msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');
 			$msg->saved_item_id = $item->id;
 			

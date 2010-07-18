@@ -46,14 +46,19 @@ class EmCore_Form_NewsItem extends ZendX_JQuery_Form
 		$expireTimeElm->setRequired(true);
 		$expireTimeElm->setAllowEmpty(false);
 		$expireTimeElm->addValidator(new Emerald_Validate_Time());
-		
-		
+
+						
 		$statusElm = new Zend_Form_Element_Checkbox('status', array('label' => 'Active'));
-		
 		$submitElm = new Zend_Form_Element_Submit('submit', array('label' => 'Save'));
 		
 		$this->addElements(array($idElm, $channelIdElm, $titleElm, $descriptionElm, $articleElm, $publishElm, $publishTimeElm, $expireElm, $expireTimeElm, $statusElm, $submitElm));
-				
+
+		$taggableModel = new EmCore_Model_Taggable();
+		$tagForm = $taggableModel->getForm();
+
+		$this->addSubForm($tagForm, 'tags', 5);
+		
+		
 	}
 		
 	

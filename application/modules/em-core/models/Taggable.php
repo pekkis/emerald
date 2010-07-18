@@ -74,6 +74,7 @@ class EmCore_Model_Taggable extends Emerald_Model_Cacheable
 		$this->save($taggable);
 		$item->setTaggableId($taggable->id);
 		
+		return $taggable;
 		
 	}
 	

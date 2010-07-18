@@ -1,37 +1,3 @@
 <div class="emerald-response-segment-<?php echo $this->emerald_rs; ?>">
-
-<?php 
-$this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-core/form-content/index.js');
-?>
-
-<?php if($this->form): ?>
-
-<?php
-
-if(!$this->zform) {
-	$this->zform = $this->form->getZendForm();
-}
-
-$this->zform->setAction(EMERALD_URL_BASE . '/'. $this->page->beautifurl . '?a=post');
-echo $this->zform;
-
-?>
-
-<?php endif; ?>
-
-
-<?php if($this->writable): ?>
-
-<?php if(!$this->form): ?>
-<p>
-<?php echo $this->translate('No form selected.'); ?>
-</p>
-<?php endif; ?>
-
-<div class="emerald-controls">
-<a rel="form-content-edit" class="emerald-popup popup-large popup-resizable popup-scrollable"
-href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'form-content', 'action' => 'edit', 'page_id' => $this->formcontent->page_id), 'default', true); ?>"><?php echo $this->translate('Edit form'); ?></a>
-</div>
-<?php endif; ?>
-
+<?php include './index.phtml'; ?>
 </div>

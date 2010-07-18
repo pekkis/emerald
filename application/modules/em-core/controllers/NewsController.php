@@ -27,7 +27,8 @@ class EmCore_NewsController extends Emerald_Controller_Action
 		
 		$validators = array(
 			'page_id' => array(new Zend_Validate_Int(), 'presence' => 'required', 'allowEmpty' => false),
-			'page' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'default' => 1)
+			'page' => array(new Zend_Validate_Int(), 'presence' => 'optional', 'allowEmpty' => false, 'default' => 1),
+			'tag' => array(new Zend_Validate_StringLength(0, 255), 'presence' => 'optional', 'allowEmpty' => true, 'default' => '')
 		);
 						
 						
@@ -57,7 +58,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
 				throw new Emerald_Exception('Forbidden', 403);				
 			}
 						
-			$news = $channel->getItems($writable);
+			$news = $channel->getItems($writable, $input->tag);
 			$news->setCurrentPageNumber($input->page);
 
 			$this->view->channel = $channel;
@@ -69,6 +70,12 @@ class EmCore_NewsController extends Emerald_Controller_Action
 			
 			
 		} catch(Exception $e) {
+			
+			Zend_Debug::dump($input->getMessages());
+			
+			echo $e;
+			die();
+			
 			throw $e;
 		}
 		

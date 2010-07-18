@@ -16,10 +16,10 @@ class EmCore_Model_NewsChannelItem extends Emerald_Model_AbstractItem
 	}
 		
 	
-	public function getItems($invalids = false)
+	public function getItems($invalids = false, $tag = null)
 	{
 		$model = new EmCore_Model_NewsChannel();
-		return $model->getItems($this, $invalids);			
+		return $model->getItems($this, $invalids, $tag);			
 	}
 	
 	

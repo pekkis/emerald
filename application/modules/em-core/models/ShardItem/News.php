@@ -10,10 +10,9 @@ class EmCore_Model_ShardItem_News extends EmCore_Model_ShardItem
 		$feedRoute = $page->uri . '/@feed/:mode';
 		$feedRoute = new Zend_Controller_Router_Route($feedRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => ltrim($page->uri, '/'), 'a' => 'index', 'format' => 'xml'), array('mode' => "atom|rss"));
 
-		$indexRoute = $page->uri . '/@index/:page';
-		$indexRoute = new Zend_Controller_Router_Route($indexRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => ltrim($page->uri, '/'), 'a' => 'index'), array('id' => '\d+'));
-		
-		
+		$indexRoute = $page->uri . '/@index/:page/:tag';
+		$indexRoute = new Zend_Controller_Router_Route($indexRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => ltrim($page->uri, '/'), 'tag' => '', 'page' => '1', 'a' => 'index'), array('id' => '\d+'));
+				
 		return array(
 			"page_{$page->id}_news_feed" => $feedRoute,
 			"page_{$page->id}_news_index" => $indexRoute,
