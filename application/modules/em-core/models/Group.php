@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Group
+class EmCore_Model_Group extends Emerald_Model_AbstractModel
 {
 	const GROUP_ANONYMOUS = 1;
 	const GROUP_ROOT = 2;

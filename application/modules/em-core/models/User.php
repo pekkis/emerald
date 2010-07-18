@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_User
+class EmCore_Model_User extends Emerald_Model_AbstractModel
 {
 	const USER_ANONYMOUS = 0;
 	
