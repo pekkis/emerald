@@ -107,10 +107,7 @@ DROP TABLE IF EXISTS emerald_locale;
 
 CREATE TABLE emerald_locale (
   locale char(6) NOT NULL,
-  page_start int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (locale),
-  KEY page_start (page_start),
-  CONSTRAINT locale_ibfk_1 FOREIGN KEY (page_start) REFERENCES `emerald_page` (id) ON DELETE SET NULL ON UPDATE CASCADE
+  PRIMARY KEY (locale)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS locale_option;

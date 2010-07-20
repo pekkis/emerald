@@ -5,7 +5,6 @@ function _emerald_autoload($what) {
 
 set_include_path(realpath(dirname(__FILE__) . '/../library'));
 
-require_once 'Emerald/Timer.php';
 
 // Define path to application directory
 defined('APPLICATION_PATH')

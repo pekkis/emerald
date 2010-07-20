@@ -125,7 +125,6 @@ CREATE TABLE "emerald_permission_folder_ugroup" (
 
 CREATE TABLE "emerald_locale" (
   "locale" varchar(6) NOT NULL,
-  "page_start" int  DEFAULT NULL,
   PRIMARY KEY ("locale")
 );
 
