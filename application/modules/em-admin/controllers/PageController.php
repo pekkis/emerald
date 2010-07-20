@@ -55,10 +55,11 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 		if(!$page->getTaggableId()) {
 			$taggableModel = new EmCore_Model_Taggable();
 			$taggableModel->registerFor($page);
-			$newsItemModel->save($page);
+			$pageModel->save($page);
 		}
+
 		$tagForm->setTaggable($page->getTaggable());
-		
+
 				
 		$this->view->form = $form;
 				

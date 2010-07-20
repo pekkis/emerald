@@ -35,9 +35,9 @@ class EmCore_Form_Tags extends Zend_Form_SubForm
 	
 	public function setTaggable(EmCore_Model_TaggableItem $taggable)
 	{
-
-		$this->tags->setValue(implode(', ', $taggable->getIterator()->getArrayCopy()));
-		
+		if($taggable->count()) {
+			$this->tags->setValue(implode(', ', $taggable->getIterator()->getArrayCopy()));
+		}	
 	}
 	
 	
