@@ -52,6 +52,7 @@ class EmCore_TagController extends Emerald_Controller_Action
 			
 			$descriptors = $taggableModel->findDescriptorsFor($input->tag);
 			
+			$this->view->page_id = $page->id;
 			$this->view->descriptors = $descriptors;
 		
 		} catch(Exception $e) {

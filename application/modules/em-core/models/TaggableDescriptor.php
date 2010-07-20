@@ -2,6 +2,8 @@
 class EmCore_Model_TaggableDescriptor
 {
 	private $_taggable;
+
+	private $_locale;
 	
 	private $_title;
 	
@@ -15,6 +17,18 @@ class EmCore_Model_TaggableDescriptor
 		Emerald_Options::setConstructorOptions($this, $options);
 	}
 
+	
+	public function getLocale()
+	{
+		return $this->_locale;
+	}
+
+	
+	public function setLocale($locale)
+	{
+		$this->_locale = $locale;
+	}
+	
 	
 	public function getTitle()
 	{

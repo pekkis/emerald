@@ -1,8 +1,14 @@
 <?php if($this->descriptors->count()): ?>
-<dl>
+<dl class="site-tag-index">
 <?php foreach($this->descriptors as $descriptor): ?>
-	<dt><?php echo $descriptor->getTitle(); ?></dt>
-	<dt><?php echo $descriptor->getDescription(); ?></dt>
+	<dt>
+		<?php if($descriptor->getUrl()): ?>
+		<a href="<?php echo EMERALD_URL_BASE; ?><?php echo $descriptor->getUrl(); ?>"><?php echo $descriptor->getTitle(); ?></a>
+		<?php else: ?>
+		<?php echo $descriptor->getTitle(); ?>
+		<?php endif; ?>
+	</dt>
+	<dd><?php echo $descriptor->getDescription(); ?></dd>
 <?php endforeach; ?>
 </dl>
 <?php endif; ?>

@@ -348,7 +348,9 @@ html>body #footer {
 /* tag cloud */
 
 ul.Zend_Tag_Cloud {
-	text-align: left;	
+	text-align: left;
+	margin: 0;
+	padding: 0;
 }
 
 ul.Zend_Tag_Cloud li {
@@ -365,3 +367,13 @@ ul.Zend_Tag_Cloud li {
 #sidebar li ul.Zend_Tag_Cloud li a:hover {
 	text-decoration: underline;
 }
+
+.site-tag-index dt {
+	font-size: 20px;
+}
+
+.site-tag-index dd {
+	font-style: italic;
+	margin-bottom: 1em;	
+}
+
