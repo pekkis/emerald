@@ -9,6 +9,9 @@ class EmCore_Form_Tags extends Zend_Form_SubForm
 		$this->setLegend('Tags');
 
 		$elm = new Zend_Form_Element_Text('tags', array('label' => 'Tags', 'class' => 'w100'));
+		$elm->addFilter(new Zend_Filter_Null());
+		$elm->setRequired(false);
+		$elm->setAllowEmpty(true);
 		
 		$this->addElement($elm);
 		

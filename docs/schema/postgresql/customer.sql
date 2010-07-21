@@ -168,6 +168,7 @@ CREATE TABLE "emerald_page" (
   "redirect_id" integer NULL,
   "taggable_id" integer NULL,
   "status" smallint  NOT NULL DEFAULT '0',
+  "class_css" varchar(255) DEFAULT NULL,
   PRIMARY KEY ("id"),
   UNIQUE ("parent_id","title"),
   UNIQUE ("global_id","locale"),

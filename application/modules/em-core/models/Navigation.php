@@ -195,7 +195,13 @@ class EmCore_Model_Navigation
 			self::$_navigation = $navi;
 			
 		}
-						
+
+		
+		/*
+		Zend_Debug::dump(self::$_navigation->toArray());
+		
+		die();
+		*/
 		return self::$_navigation;
 						
 		
@@ -205,11 +211,13 @@ class EmCore_Model_Navigation
 	protected function _recurseLocale(Zend_Navigation_Page $localePage, $locale)
 	{
 		$pageModel = new EmCore_Model_Page();
+		$taggableModel = new EmCore_Model_Taggable();
 		
 		$pages = $pageModel->findAll(array("parent_id IS NULL", "locale = ?" => $locale), "order_id");
 				
 		foreach($pages as $page) {
 
+			
 			// recurse
 			$pageRes = new Zend_Navigation_Page_Uri(
 				array(
@@ -230,6 +238,18 @@ class EmCore_Model_Navigation
 				$pageRes->redirect_uri = EMERALD_URL_BASE . '/' . $redirectPage->beautifurl; 
 			}
 			
+			if(($taggable = $taggableModel->findFor($page)) && $taggable->count()) {
+				
+				// Zend_Debug::dump($taggable->tags);
+				
+				$pageRes->tags = $taggable->tags;
+			}
+
+			if($page->class_css) {
+				$pageRes->class = $page->class_css;
+			}
+						
+			
 			$pageRes->setResource("Emerald_Page_{$page->id}");
 			$pageRes->setPrivilege('read');
 			$pageRes->setVisible($page->visibility);
@@ -245,6 +265,7 @@ class EmCore_Model_Navigation
 	protected function _recursePage($parentPage, $pageId)
 	{
 		$pageModel = new EmCore_Model_Page();
+		$taggableModel = new EmCore_Model_Taggable();
 		
 		$pages = $pageModel->findAll(array("parent_id = ?" => $pageId), "order_id");
 				
@@ -269,6 +290,15 @@ class EmCore_Model_Navigation
 				$redirectPage = $pageModel->find($page->redirect_id);
 				$pageRes->redirect_uri = EMERALD_URL_BASE . '/' . $redirectPage->beautifurl; 
 			}
+
+			if(($taggable = $taggableModel->findFor($page)) && $taggable->count()) {
+				$pageRes->tags = $taggable->tags;
+			}
+
+			if($page->class_css) {
+				$pageRes->class = $page->class_css;
+			}
+			
 			
 			$pageRes->setResource("Emerald_Page_{$page->id}");
 			$pageRes->setPrivilege('read');

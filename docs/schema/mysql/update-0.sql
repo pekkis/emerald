@@ -103,6 +103,7 @@ ALTER TABLE emerald_page ADD FOREIGN KEY(taggable_id) REFERENCES emerald_taggabl
 
 INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES (5, 'Tag Cloud', 'em-core', 'tag', 'cloud', 3);
 
+ALTER TABLE emerald_page ADD COLUMN class_css varchar(255) DEFAULT NULL;
 
 
 

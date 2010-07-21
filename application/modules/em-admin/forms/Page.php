@@ -80,6 +80,12 @@ class EmAdmin_Form_Page extends Zend_Form
 		$customUrlElm->addValidator(new Zend_Validate_StringLength(1, 255));
 		$customUrlElm->setRequired(false);
 		$customUrlElm->setAllowEmpty(true);
+
+		$classElm = new Zend_Form_Element_Text('class_css', array('label' => 'Class', 'class' => 'w66'));
+		$classElm->addFilter(new Zend_Filter_Null());
+		$classElm->addValidator(new Zend_Validate_StringLength(0, 255));
+		$classElm->setRequired(false);
+		$classElm->setAllowEmpty(true);
 				
 		$orderIdElm = new Zend_Form_Element_Text('order_id', array('label' => 'Weight'));
 		$orderIdElm->addValidator(new Zend_Validate_Int(), new Zend_Validate_Between(1, 10000));
@@ -117,14 +123,14 @@ class EmAdmin_Form_Page extends Zend_Form
 		$submitElm->setIgnore(true);
 		
 		
-		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $customUrlElm, $orderIdElm, $visibleElm, $mirrorElm, $submitElm));
+		$this->addElements(array($idElm, $interLocaleElm, $interPageElm, $globalIdElm, $localeElm, $parentIdElm, $redirectIdElm, $layoutElm, $shardElm, $titleElm, $customUrlElm, $classElm, $orderIdElm, $visibleElm, $mirrorElm, $submitElm));
 
 		
 		$permissionForm = new EmAdmin_Form_PagePermissions();
 		$permissionForm->setAttrib('id', 'page-permissions');
 		
 		
-		$this->addSubForm($permissionForm, 'page-permissions', 10);
+		$this->addSubForm($permissionForm, 'page-permissions', 11);
 
 		$taggableModel = new EmCore_Model_Taggable();
 		$tagForm = $taggableModel->getForm();

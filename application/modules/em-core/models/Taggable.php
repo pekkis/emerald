@@ -52,7 +52,7 @@ class EmCore_Model_Taggable extends Emerald_Model_Cacheable
 				$res = $this->getTable()->getAdapter()->fetchCol($sel, array(), Zend_Db::FETCH_ASSOC);
 				
 				sort($res, SORT_LOCALE_STRING);
-												
+
 				$ret->tags = $res;
 			}
 			

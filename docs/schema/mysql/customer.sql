@@ -193,6 +193,7 @@ CREATE TABLE `emerald_page` (
   `status` int(11) NOT NULL DEFAULT '0',
   redirect_id integer unsigned NULL,
   taggable_id integer NULL,
+  class_css varchar(255) DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY (global_id, locale),
   UNIQUE KEY parent_id_title (parent_id,title),

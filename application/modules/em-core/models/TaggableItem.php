@@ -22,6 +22,11 @@ class EmCore_Model_TaggableItem extends Emerald_Model_AbstractItem implements Co
 	
 	public function setFromString($str, $separator = ',')
 	{
+		if(!$str) {
+			$this->tags = array();
+			return;
+		}
+		
 		$split = explode($separator, $str);
 		array_walk($split, function(&$value, $key) { $value = trim($value); });
 		$this->tags = array_unique($split);
