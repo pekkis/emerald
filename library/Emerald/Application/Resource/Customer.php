@@ -35,6 +35,8 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 			}
 		}
 		
+		Zend_Registry::set('Emerald_Config', $options);
+		
 		/*
 		$front = $this->getBootstrap()->getResource('frontcontroller');
 		try {

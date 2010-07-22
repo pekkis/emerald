@@ -7,6 +7,18 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 	{
 		$customer = Zend_Registry::get('Emerald_Customer');
 		
+		$config = Zend_Registry::get('Emerald_Config');
+		if(isset($config['emerald']['maintenance']['enabled']) && $config['emerald']['maintenance']['enabled'] == true) {
+			
+			
+			$request->setModuleName('em-core');
+			$request->setControllerName('error');
+			$request->setActionName('maintenance');
+								
+			// throw new Emerald_Exception('Site is down due maintenance', 503);
+		}
+		
+		
 		if($customer->isInstalled() && !$customer->isRegistered()) {
 			$server = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('server');
 			$server->registerCustomer($customer);
@@ -66,6 +78,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 		
 				
 	}
+	
 	
 	
 	
