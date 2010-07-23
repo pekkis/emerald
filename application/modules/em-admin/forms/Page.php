@@ -134,10 +134,10 @@ class EmAdmin_Form_Page extends Zend_Form
 
 		$taggableModel = new EmCore_Model_Taggable();
 		$tagForm = $taggableModel->getForm();
-		$this->addSubForm($tagForm, 'tags', 11);
+		$this->addSubForm($tagForm, 'tags', 12);
 		
 		
-		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 12));
+		$this->addDisplayGroup(array('global_id', 'interlink_locale', 'interlink_page', 'mirror'), 'interlink', array('legend' => 'Interlinking', 'order' => 13));
 
 		
 		

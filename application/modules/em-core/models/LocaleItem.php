@@ -62,7 +62,8 @@ class EmCore_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emer
     public function getOptions()
     {
     	if(!$this->_options) {
-    		if(!$this->_options = $this->getOptionCache()->load('locale_options_' . $this->locale)) {
+    		$this->_options = $this->getOptionCache()->load('locale_options_' . $this->locale);
+    		if($this->_options === false) {
     			$this->_options = $this->_getOptionContainer()->getOptions();
     			$this->getOptionCache()->save($this->_options, 'locale_options_' . $this->locale); 
     		}

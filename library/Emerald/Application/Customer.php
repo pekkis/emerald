@@ -116,9 +116,10 @@ class Emerald_Application_Customer
     public function getOptions()
     {
     	if(!$this->_options) {
-    		if(!$this->_options = $this->getOptionCache()->load('application_options')) {
+    		$this->_options = $this->getOptionCache()->load('application_options');
+    		if($this->_options === false) {
     			$this->_options = $this->_getOptionContainer()->getOptions();
-    			$this->getOptionCache()->save($this->_options, 'application_options'); 
+    			$this->getOptionCache()->save($this->_options, 'application_options');
     		}
     	}
     	return $this->_options;
