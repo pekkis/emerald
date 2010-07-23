@@ -95,16 +95,16 @@ class EmCore_ErrorController extends Emerald_Controller_Action
     	}
     	
     	$this->getResponse()->setHeader('Retry-After', $retryAfter);
-    	$this->_runErrorLayout();
+    	$this->_runErrorLayout((isset($config['emerald']['maintenance']['layout'])) ? $config['emerald']['maintenance']['layout'] : 'Error');
     	
     }
    
     
     
-    private function _runErrorLayout()
+    private function _runErrorLayout($layout = 'Error')
     {
  		$customer = $this->getCustomer();
-		$layout = $customer->getLayout('Error');
+		$layout = $customer->getLayout($layout);
 		$layout->setAction($this);
 		$layout->run();
     	
