@@ -1,64 +1,64 @@
 <?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<?php
-		
-		$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
-		$this->headLink(array('href' => EMERALD_URL_BASE_LIB . '/lib/em-core/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
-		$this->headTitle()->setSeparator(' - ')->append("Emerald Admin");
-		$this->jQuery()->setCdnVersion(Emerald_Version::JQUERY_VERSION)->setUiCdnVersion(Emerald_Version::JQUERY_UI_VERSION)->enable()->uiEnable();
-		
-		$this->jQuery()
-			->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
-			->addJavascriptFile(EMERALD_URL_BASE_LIB . "/lib/em-core/emerald.js");
-		
-		$this->jQuery()
-			->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/' . Emerald_Version::JQUERY_UI_VERSION . '/themes/smoothness/jquery-ui.css')
-			->addStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css');
-				
-		$this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/main.css');
-		$this->headScript()->prependFile(EMERALD_URL_BASE .'/em-core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
-		?>
-		
-		<?php echo $this->headMeta(); ?>
-		<?php echo $this->headLink(); ?>
-		<?php echo $this->jQuery(); ?>
-		<?php echo $this->headScript(); ?>
-				
-		<?php echo $this->headTitle(); ?>
-		
-		<script type="text/javascript">
+<head>
+<?php
+
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+$this->headLink(array('href' => EMERALD_URL_BASE_LIB . '/lib/em-core/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
+$this->headTitle()->setSeparator(' - ')->append("Emerald Admin");
+$this->jQuery()->setCdnVersion(Emerald_Version::JQUERY_VERSION)->setUiCdnVersion(Emerald_Version::JQUERY_UI_VERSION)->enable()->uiEnable();
+
+$this->jQuery()
+->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
+->addJavascriptFile(EMERALD_URL_BASE_LIB . "/lib/em-core/emerald.js");
+
+$this->jQuery()
+->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/' . Emerald_Version::JQUERY_UI_VERSION . '/themes/smoothness/jquery-ui.css')
+->addStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css');
+
+$this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/main.css');
+$this->headScript()->prependFile(EMERALD_URL_BASE .'/em-core/langlib/index/locale/' . Zend_Registry::get('Zend_Locale') . '/format/js');
+?>
+
+<?php echo $this->headMeta(); ?>
+<?php echo $this->headLink(); ?>
+<?php echo $this->jQuery(); ?>
+<?php echo $this->headScript(); ?>
+
+<?php echo $this->headTitle(); ?>
+
+<script type="text/javascript">
 		Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
 		Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
 		Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
 		</script>
-				
-		
-	</head>
 
-	<body id="plain">
-		
-		<div id="emerald-loading" style="display: none;">
-		<img src="<?php echo EMERALD_URL_BASE_LIB; ?>/lib/em-core/ajax-loader.gif" class="emerald-icon" />
-		</div>
-	
-		<div id="wrapper">
-			<div id="header">
-				<div id="logo">
-					<h1><a href="/">Emerald<sup></sup></a></h1>
-				</div>
-			</div>
-		</div>	
-	
-	<div id="page">
-	<div id="page-content">
-		<?php echo $this->layout()->content; ?>
-	</div>
-	</div>
 
-	<div id="emerald-message" title="<?php echo $this->translate('Emerald'); ?>" class="ui-state-highlight ui-corner-all"> 
-		<p></p>
-	</div>
+</head>
 
-	</body>
+<body id="plain">
+
+<div id="emerald-loading" style="display: none;"><img
+    src="<?php echo EMERALD_URL_BASE_LIB; ?>/lib/em-core/ajax-loader.gif"
+    class="emerald-icon" /></div>
+
+<div id="wrapper">
+<div id="header">
+<div id="logo">
+<h1><a href="/">Emerald<sup></sup></a></h1>
+</div>
+</div>
+</div>
+
+<div id="page">
+<div id="page-content"><?php echo $this->layout()->content; ?></div>
+</div>
+
+<div id="emerald-message"
+    title="<?php echo $this->translate('Emerald'); ?>"
+    class="ui-state-highlight ui-corner-all">
+<p></p>
+</div>
+
+</body>
 </html>
