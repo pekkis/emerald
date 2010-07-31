@@ -1,4 +1,4 @@
-<?php 
+<?php
 // @todo: this in init head maybe?
 
 
@@ -30,34 +30,28 @@ $this->headTitle()->setSeparator(' - ');
 <div id="wrapper">
 
 <div id="header">
-	<div id="logo">
-		<h1><a href="<?php echo EMERALD_URL_BASE; ?>/">Emerald<sup></sup></a></h1>
-		<h2>Content management for Zend Framework</h2>
-	</div>
-	<div id="menu">
-	<?php if($this->page): ?>
-	<?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 0, 'onlyActiveBranch' => false)); ?>
-	<?php endif; ?>
-	</div>
+<div id="logo">
+<h1><a href="<?php echo EMERALD_URL_BASE; ?>/">Emerald<sup></sup></a></h1>
+<h2>Content management for Zend Framework</h2>
+</div>
+<div id="menu"><?php if($this->page): ?> <?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth' => 0, 'maxDepth' => 0, 'onlyActiveBranch' => false)); ?>
+<?php endif; ?></div>
 </div>
 
 </div>
 
 
 <div id="page">
-	
-	<div id="content">
-		
-		<div class="post">
-		<?php echo $this->layout()->pre_content; ?>	
-		<?php echo $this->layout()->content; ?>
-		<?php echo $this->layout()->post_content; ?>
-		</div>
-	</div>
 
-	<div id="sidebar">
-		<ul>
-			<!-- 
+<div id="content">
+
+<div class="post"><?php echo $this->layout()->pre_content; ?> <?php echo $this->layout()->content; ?>
+<?php echo $this->layout()->post_content; ?></div>
+</div>
+
+<div id="sidebar">
+<ul>
+    <!-- 
 			<li id="search">
 				<h2><b class="text1">Search</b></h2>
 				<form method="get" action="">
@@ -68,46 +62,36 @@ $this->headTitle()->setSeparator(' - ');
 				</form>
 			</li>
 			 -->
-			
-			<?php if(($active = $this->navigation()->findActive($this->navigation()->getContainer(), 0, 0)) && $subnavi = $this->navigation()->menu()->renderMenu($active['page'], array('minDepth' => 0, 'maxDepth' => 0, 'onlyActiveBranch' => false))): ?>
-			<li>
-			<h2><?php echo $active['page']->label; ?></h2>
-			<?php echo $subnavi; ?>
-			</li>
-			<?php endif; ?>
-			
-			<li>
-			<?php echo $this->layout()->sidebar_one; ?>
-			</li>
-			<li>
-			<?php echo $this->layout()->sidebar_two; ?>
-			</li>
-			<li>
-			<?php echo $this->layout()->sidebar_three; ?>
-			</li>
-		</ul>
-	</div>
 
-	<div style="clear: both;">&nbsp;</div>
+<?php if(($active = $this->navigation()->findActive($this->navigation()->getContainer(), 0, 0)) && $subnavi = $this->navigation()->menu()->renderMenu($active['page'], array('minDepth' => 0, 'maxDepth' => 0, 'onlyActiveBranch' => false))): ?>
+    <li>
+    <h2><?php echo $active['page']->label; ?></h2>
+    <?php echo $subnavi; ?></li>
+    <?php endif; ?>
+
+    <li><?php echo $this->layout()->sidebar_one; ?></li>
+    <li><?php echo $this->layout()->sidebar_two; ?></li>
+    <li><?php echo $this->layout()->sidebar_three; ?></li>
+</ul>
 </div>
 
-<div id="footer">
-	
-	<?php // echo $this->languageSwitcher(array('page' => $this->navigation()->findActive($this->navigation()->getContainer(), 0, 0)))?>
-	
-	
-	<p id="legal">
-	Copyright 2010 Mikko Forsström. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.
-	</p>
-	
-	
-	
-	
+<div style="clear: both;">&nbsp;</div>
 </div>
 
-<?php echo $this->jQuery(); ?>
-<?php echo $this->headScript(); ?>
-<?php echo $this->emerald()->googleAnalytics(); ?>
+<div id="footer"><?php // echo $this->languageSwitcher(array('page' => $this->navigation()->findActive($this->navigation()->getContainer(), 0, 0)))?>
+
+
+<p id="legal">Copyright 2010 Mikko Forsström. Design by <a
+    href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+
+
+
+
+</div>
+
+    <?php echo $this->jQuery(); ?>
+    <?php echo $this->headScript(); ?>
+    <?php echo $this->emerald()->googleAnalytics(); ?>
 
 <script type="text/javascript">
 Emerald.URL_BASE = '<?php echo EMERALD_URL_BASE; ?>';
@@ -115,7 +99,7 @@ Emerald.URL_BASE_LIB = '<?php echo EMERALD_URL_BASE_LIB; ?>';
 Emerald.URL_BASE_DATA = '<?php echo EMERALD_URL_BASE_DATA; ?>';
 </script>
 
-<?php echo $this->emerald()->toolbar(); ?>
+    <?php echo $this->emerald()->toolbar(); ?>
 
 </body>
 
