@@ -18,7 +18,8 @@ class Emerald_Spl_CallbackFilterIterator extends FilterIterator
 
     public function accept()
     {
-        return $this->_callback($this->current());
+        $callback = $this->_callback;
+        return $callback($this->current());
     }
 
 
