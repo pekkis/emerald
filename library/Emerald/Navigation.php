@@ -2,10 +2,9 @@
 class Emerald_Navigation extends Zend_Navigation
 {
     /**
-     * Returns a child page matching $property == $value, or null if not found
+     * Returns a child page by a callback
      *
-     * @param  string $property           name of property to match against
-     * @param  mixed  $value              value to match property against
+     * @param  callback $callback           name of property to match against
      * @return Zend_Navigation_Page|null  matching page or null
      */
     public function findOneByCallback($callback)
@@ -22,11 +21,10 @@ class Emerald_Navigation extends Zend_Navigation
     }
 
     /**
-     * Returns all child pages matching $property == $value, or an empty array
+     * Returns all child pages by callback, or an empty array
      * if no pages are found
      *
-     * @param  string $property  name of property to match against
-     * @param  mixed  $value     value to match property against
+     * @param  callback $callback  callback
      * @return array             array containing only Zend_Navigation_Page
      *                           instances
      */
@@ -48,8 +46,8 @@ class Emerald_Navigation extends Zend_Navigation
     /**
      * Returns page(s) by callback
      *
-     * @param  string $callback  name of callback
-     * @param  bool   $all       [optional] whether an array of all matching
+     * @param  callback $callback  name of callback
+     * @param  bool $all       [optional] whether an array of all matching
      *                           pages should be returned, or only the first.
      *                           If true, an array will be returned, even if not
      *                           matching pages are found. If false, null will
@@ -65,7 +63,7 @@ class Emerald_Navigation extends Zend_Navigation
             return $this->findOneByCallback($property, $value);
         }
     }
-    
+
 
 
 }

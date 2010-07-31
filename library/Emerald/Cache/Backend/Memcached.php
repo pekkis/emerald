@@ -59,12 +59,12 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
             'retry_interval' => self::DEFAULT_RETRY_INTERVAL,
             'status' => self::DEFAULT_STATUS,
             'failure_callback' => self::DEFAULT_FAILURE_CALLBACK
-        )),
+    )),
         'compression' => false,
         'compatibility' => false,
         'persistent' => self::DEFAULT_PERSISTENT,
         'persistent_uniqid' => self::DEFAULT_PERSISTENT_UNIQID
-        
+
     );
 
     /**
@@ -83,8 +83,8 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
      */
     public function __construct(array $options = array())
     {
-       if (!extension_loaded('memcached')) {
-        	Zend_Cache::throwException('The memcache extension must be loaded for using this backend !');
+        if (!extension_loaded('memcached')) {
+            Zend_Cache::throwException('The memcache extension must be loaded for using this backend !');
         }
         parent::__construct($options);
         if (isset($this->_options['servers'])) {
@@ -95,16 +95,16 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
             }
             $this->setOption('servers', $value);
         }
-		
+
         if($this->_options['persistent']) {
-        	$this->_memcache = new Memcached($this->_options['persistent_uniqid']);	
+            $this->_memcache = new Memcached($this->_options['persistent_uniqid']);
         } else {
-        	$this->_memcache = new Memcached();
+            $this->_memcache = new Memcached();
         }
-        
+
         // $this->_memcache->setOption(Memcached::OPT_SERIALIZER, Memcached::SERIALIZER_IGBINARY);
-        
-                
+
+
         foreach ($this->_options['servers'] as $server) {
             if (!array_key_exists('port', $server)) {
                 $server['port'] = self::DEFAULT_PORT;
@@ -181,8 +181,8 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
-    	
-    	$lifetime = $this->getLifetime($specificLifetime);
+         
+        $lifetime = $this->getLifetime($specificLifetime);
         if ($this->_options['compression']) {
             $flag = MEMCACHE_COMPRESSED;
         } else {
@@ -238,9 +238,9 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
                 $this->_log(self::TAGS_UNSUPPORTED_BY_CLEAN_OF_MEMCACHED_BACKEND);
                 break;
-               default:
+            default:
                 Zend_Cache::throwException('Invalid mode for clean() method');
-                   break;
+                break;
         }
     }
 
@@ -467,11 +467,11 @@ class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend
             'get_list' => false
         );
     }
-    
-    
+
+
     public function getMemcached()
     {
-    	return $this->_memcache;
+        return $this->_memcache;
     }
 
 }

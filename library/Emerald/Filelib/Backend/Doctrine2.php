@@ -31,7 +31,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
     private $_em;
 
     public function __construct(Doctrine\ORM\EntityManager $em, $fileEntityName,
-        $folderEntityName
+    $folderEntityName
     ) {
         $this->_em               = $em;
         $this->_fileEntityName   = $fileEntityName;
@@ -90,8 +90,8 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select('f')
-           ->from($this->_fileEntityName, 'f')
-           ->orderBy('f.id', 'ASC');
+        ->from($this->_fileEntityName, 'f')
+        ->orderBy('f.id', 'ASC');
 
         $files = array();
 
@@ -113,8 +113,8 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select('f')
-           ->from($this->_fileEntityName, 'f')
-           ->where('f.folder = :folder');
+        ->from($this->_fileEntityName, 'f')
+        ->where('f.folder = :folder');
 
         $qb->setParameter('folder', $folder->id);
 
@@ -137,13 +137,13 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
     {
         try {
             $file->link = $file->getProfileObject()
-                               ->getSymlinker()->getLink($file, false, true);
+            ->getSymlinker()->getLink($file, false, true);
 
             $fileRow = $this->_em->getReference($this->_fileEntityName,
-                                                $file->id);
+            $file->id);
 
             $fileRow->setFolder($this->_em->getReference($this->_folderEntityName,
-                                                         $file->folder_id));
+            $file->folder_id));
 
             $fileRow->setMimetype($file->mimetype);
             $fileRow->setProfile($file->profile);
@@ -200,8 +200,8 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select('f')
-           ->from($this->_folderEntityName, 'f')
-           ->where('f.parent IS NULL');
+        ->from($this->_folderEntityName, 'f')
+        ->where('f.parent IS NULL');
 
         $folder = $qb->getQuery()->getSingleResult();
 
@@ -221,8 +221,8 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select('f')
-           ->from($this->_folderEntityName, 'f')
-           ->where('f.parent = :folder');
+        ->from($this->_folderEntityName, 'f')
+        ->where('f.parent = :folder');
 
         $qb->setParameter('folder', $folder->id);
 
@@ -251,7 +251,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
 
             if ($folder->parent_id) {
                 $folderRow->setParent($this->_em->getReference($this->_folderEntityName,
-                                                               $folder->parent_id));
+                $folder->parent_id));
             }
 
             $folderRow->setName($folder->name);
@@ -278,11 +278,11 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
     {
         try {
             $folderRow = $this->_em->getReference($this->_folderEntityName,
-                                                  $folder->id);
+            $folder->id);
 
             if ($folder->parent_id) {
                 $folderRow->setParent($this->_em->getReference($this->_folderEntityName,
-                                                               $folder->parent_id));
+                $folder->parent_id));
             } else {
                 $folderRow->removeParent();
             }
@@ -323,8 +323,8 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
      * @throws Emerald_Filelib_Exception  When fails
      */
     public function upload(Emerald_Filelib_FileUpload $upload,
-        Emerald_Filelib_FolderItem $folder,
-        Emerald_Filelib_FileProfile $profile
+    Emerald_Filelib_FolderItem $folder,
+    Emerald_Filelib_FileProfile $profile
     ){
         try {
             $conn = $this->_em->getConnection();
@@ -333,7 +333,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
             $file = new $this->_fileEntityName();
 
             $file->setFolder($this->_em->getReference($this->_folderEntityName,
-                                                      $folder->id));
+            $folder->id));
             $file->setMimetype($upload->getMimeType());
             $file->setSize($upload->getSize());
             $file->setName($upload->getOverrideFilename());
@@ -343,7 +343,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
             $this->_em->flush();
 
 
-    		$fileItemClass = $this->getFilelib()->getFileItemClass();
+            $fileItemClass = $this->getFilelib()->getFileItemClass();
 
             $fileItem = new $fileItemClass($this->_fileToArray($file));
             $fileItem->setFilelib($this->getFilelib());

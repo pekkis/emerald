@@ -1,7 +1,7 @@
 <?php
 /**
  * Emerald model exception
- * 
+ *
  * @package Emerald_Model
  * @author pekkis
  *

@@ -5,7 +5,7 @@ require_once 'Zend/Validate/Abstract.php';
 
 /**
  * Validates a datetime (for db, from select box combo)
- * 
+ *
  * @todo: Validates in name only... Cant do it now :(
  *
  */
@@ -22,7 +22,7 @@ class Emerald_Validate_Time extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID        => "'%value%' does not appear to be a valid datetime"
+    self::INVALID        => "'%value%' does not appear to be a valid datetime"
     );
 
     /**
@@ -35,7 +35,7 @@ class Emerald_Validate_Time extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-    	$valueString = (string) $value;
+        $valueString = (string) $value;
 
         $this->_setValue($valueString);
 

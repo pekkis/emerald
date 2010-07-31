@@ -7,6 +7,6 @@ class Emerald_Exception extends Zend_Exception
 {
 
 
-	
+
 }
 

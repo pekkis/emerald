@@ -148,6 +148,6 @@ class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-    	return htmlspecialchars((string) $value, $this->_quoteStyle, $this->_charset, $this->_doubleEncode);
+        return htmlspecialchars((string) $value, $this->_quoteStyle, $this->_charset, $this->_doubleEncode);
     }
 }

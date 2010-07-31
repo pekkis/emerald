@@ -1,7 +1,7 @@
 <?php
 class Emerald_TranslatorContainer
 {
-	/**
+    /**
      * @var Zend_Translate
      */
     protected $_translator;
@@ -17,9 +17,9 @@ class Emerald_TranslatorContainer
      * @var bool
      */
     protected $_translatorDisabled = false;
-	
-	
-        
+
+
+
 
     /**
      * Set translator object
@@ -123,6 +123,6 @@ class Emerald_TranslatorContainer
     {
         return $this->_translatorDisabled;
     }
- 
-    
+
+
 }
