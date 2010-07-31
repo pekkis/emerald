@@ -1,51 +1,48 @@
 #sitemap li.node {
-	clear: both;
-	margin: 0.25em 0;	
+    clear: both;
+    margin: 0.25em 0;
 }
 
 ul {
-	margin: 0;
-	list-style-type: none;
-	display: block;
-	padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: block;
+    padding: 0;
 }
 
 ul ul {
-	padding-left: 1em;
+    padding-left: 1em;
 }
-
 
 li {
-	list-style-type: none;
+    list-style-type: none;
 }
 
-	#sitemap li.node > div.node-row > div {
-		padding: 0.25em;
-	}
+#sitemap li.node>div.node-row>div {
+    padding: 0.25em;
+}
 
 #sitemap .label {
-	float: left;
-	width: 10em;
+    float: left;
+    width: 10em;
 }
 
 #sitemap .node-row {
-	cursor: move;	
+    cursor: move;
 }
 
-#sitemap .label > span {
-	cursor: crosshair;	
+#sitemap .label>span {
+    cursor: crosshair;
 }
 
-#sitemap .label > input {
-	width: 9em;
+#sitemap .label>input {
+    width: 9em;
 }
 
 #sitemap .actions {
-	float: left;	
+    float: left;
 }
 
 #sitemap .features {
-	float: left;	
+    float: left;
 }
-
-

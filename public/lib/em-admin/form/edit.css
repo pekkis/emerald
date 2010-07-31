@@ -1,27 +1,25 @@
-
 .form-sortable {
-	cursor: move;
-	margin: 0.5em 0;
+    cursor: move;
+    margin: 0.5em 0;
 }
 
 .form-sortable table td div {
-	padding: 0.33em;
+    padding: 0.33em;
 }
 
 .type {
-	width: 11em;
+    width: 11em;
 }
 
 .ftitle {
-	width: 15em;
+    width: 15em;
 }
 
 .mandatory {
-	width: 15em;
+    width: 15em;
 }
 
 .options {
-	width: 13em;
+    width: 13em;
 }
-
 .
