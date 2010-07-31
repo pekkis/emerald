@@ -5,7 +5,6 @@ function _emerald_autoload($what) {
 
 set_include_path(realpath(dirname(__FILE__) . '/../library'));
 
-
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH',
@@ -16,17 +15,23 @@ defined('APPLICATION_ENV')
     || define('APPLICATION_ENV',
               (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV')
                                          : 'production'));
-                      
-require_once "Zend/Loader/Autoloader.php";
-Zend_Loader_Autoloader::getInstance()->setDefaultAutoloader('_emerald_autoload');
+
+// Define application config cache
+defined('APPLICATION_CONFIG_CACHE')
+    || define('APPLICATION_CONFIG_CACHE',
+              (getenv('APPLICATION_CONFIG_CACHE') ? getenv('APPLICATION_CONFIG_CACHE')
+                                         : 'none'));
                                          
-/** Zend_Application */
-require_once 'Zend/Application.php';
+require_once 'Emerald/Application.php';
 
 // Create application, bootstrap, and run
-$application = new Zend_Application(
+$application = new Emerald_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/emerald.ini'
+    APPLICATION_PATH . '/configs/emerald.ini',
+    array(
+    	'type' => APPLICATION_CONFIG_CACHE,
+    	'key' => 'application_config_' . getenv('EMERALD_CUSTOMER')
+    )
 );
 
 $options = $application->getOptions();
@@ -40,9 +45,7 @@ if($options['pluginCache']) {
 
 try {
 	$application->getBootstrap()->bootstrap();
-
 	$application->run();
-	
 } catch(Exception $e) {
 	echo "<pre>Emerald threw you with an exception: " . $e . "</pre>"; 
 	
