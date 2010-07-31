@@ -8,7 +8,9 @@ class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap
             if(!isset($this->_run['customer'])) {
                 $this->bootstrap('customer');
             }
+            
             $ret = parent::_bootstrap($resource);
+            
             return $ret;
 
         }
@@ -21,5 +23,15 @@ class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap
         return $this->setOptions($this->mergeOptions($this->getOptions(), $options));
     }
 
+    /*
+    protected function _executeResource($resource)
+    {
+        Emerald_Debug_Timer::getTimer('luss')->time("Bootstrap '{$resource}' begin");
+        parent::_executeResource($resource);
+        Emerald_Debug_Timer::getTimer('luss')->time("Bootstrap '{$resource}' end");
+    }
+    */
+    
+    
 
 }

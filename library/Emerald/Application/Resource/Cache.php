@@ -14,11 +14,11 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 
     public function init()
     {
-
+                
+        $opts = $this->getOptions();
+                
         $cm = new Emerald_Cache_Manager();
         Zend_Registry::set('Emerald_CacheManager', $cm);
-
-        $opts = $this->getOptions();
 
         foreach($opts['frontend'] as $key => $frontend) {
             $backend = $this->_getBackend($frontend['backend']);
@@ -26,15 +26,12 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
             $cm->setCache($key, $cache);
         }
 
-
-        $defaultCache = $cm->getCache('default');
-
-        Zend_Db_Table_Abstract::setDefaultMetadataCache($defaultCache);
-        Zend_Date::setOptions(array('cache' => $defaultCache));
-        Zend_Translate::setCache($defaultCache);
-        Zend_Locale::setCache($defaultCache);
-        Zend_Currency::setCache($defaultCache);
-
+        if(isset($opts['framework'])) {
+            foreach($opts['framework'] as $key => $cache) {
+                $method = '_init' . ucfirst($key);
+                $this->$method($cm->getCache($cache));
+            }
+        }
 
         /*
          $naviModel = new EmCore_Model_Navigation();
@@ -85,6 +82,38 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
         return $this->_backends[$backend];
     }
 
-
+    
+    
+    protected function _initTable(Zend_Cache_Core $cache)
+    {
+        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+    }
+    
+    protected function _initDate(Zend_Cache_Core $cache)
+    {
+        Zend_Date::setOptions(array('cache' => $cache));
+    }
+    
+    
+    protected function _initTranslate(Zend_Cache_Core $cache)
+    {
+        Zend_Translate::setCache($cache);
+    }
+    
+    protected function _initLocale(Zend_Cache_Core $cache)
+    {
+        Zend_Locale::setCache($cache);
+    }
+    
+    
+    protected function _initCurrency(Zend_Cache_Core $cache)
+    {
+        Zend_Currency::setCache($cache);
+    }
+    
+    
+    
+            
+    
 
 }

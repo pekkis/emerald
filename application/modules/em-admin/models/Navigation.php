@@ -15,7 +15,7 @@ class EmAdmin_Model_Navigation
     {
         if(!$this->_navigation) {
             	
-            $navi = new Zend_Navigation();
+            $navi = new Emerald_Navigation();
             	
             /* dashboard */
             	

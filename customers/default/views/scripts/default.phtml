@@ -1,7 +1,4 @@
 <?php
-// @todo: this in init head maybe?
-
-
 $this->emerald()->addEverything();
 $this->headScript()->appendFile(EMERALD_URL_BASE_DATA . '/data/customer.js');
 
@@ -9,7 +6,7 @@ $this->jQuery()->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/fancybox/jquer
 $this->jQuery()->addJavascriptFile(EMERALD_URL_BASE_DATA . '/data/fancybox/jquery.fancybox-1.3.1.js');
 $this->jQuery()->addStylesheet(EMERALD_URL_BASE_DATA . '/data/fancybox/jquery.fancybox-1.3.1.css');
 
-$this->headMeta()->appendName("description", "Plug-and-pray content management build upon Zend Framework");
+$this->headMeta()->appendName("description", "Plug-and-pray content management for Zend Framework");
 $this->headMeta()->appendName("Author", "Mikko Forsström");
 $this->headMeta()->appendName("Content-Language", Zend_Registry::get('Zend_Locale')->getLanguage());
 
@@ -18,6 +15,7 @@ $this->headTitle()->setSeparator(' - ');
 ?>
 
 <?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -45,8 +43,11 @@ $this->headTitle()->setSeparator(' - ');
 
 <div id="content">
 
-<div class="post"><?php echo $this->layout()->pre_content; ?> <?php echo $this->layout()->content; ?>
-<?php echo $this->layout()->post_content; ?></div>
+<div class="post">
+<?php echo $this->layout()->pre_content; ?>
+<?php echo $this->layout()->content; ?>
+<?php echo $this->layout()->post_content; ?>
+</div>
 </div>
 
 <div id="sidebar">

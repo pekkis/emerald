@@ -10,43 +10,73 @@
 class Emerald_Acl extends Zend_Acl
 {
 
-    static public function initialize(Zend_Acl $acl, Emerald_Application_Customer $customer)
+    private $_cache;
+    
+    private $_resourceAutoloaders = array();
+
+    private $_roleAutoloaders = array();
+    
+    public function addResourceAutoloader($regex, $callback)
     {
-
-
-        $anonGroup = 'Emerald_Group_' . EmCore_Model_Group::GROUP_ANONYMOUS;
-        $acl->addRole($anonGroup);
-        $acl->deny($anonGroup);
-
-        $rootGroup = 'Emerald_Group_' . EmCore_Model_Group::GROUP_ROOT;
-        $acl->addRole($rootGroup);
-        $acl->allow($rootGroup);
-
-        return $acl;
-
+        if(!is_callable($callback)) {
+            throw new Emerald_Exception("Acl autoloader callback is not callable");
+        }
+        
+        if(!is_array($regex)) {
+            $regex = array($regex);
+        }
+        
+        foreach($regex as $regx) {
+            $this->_resourceAutoloaders[$regx] = $callback;    
+        }
     }
 
-
+    
+    public function removeResourceAutoloader($regex)
+    {
+        if(isset($this->_resourceAutoloaders[$regex])) {
+            unset($this->_resourceAutoloaders[$regex]);
+        }
+    }
+    
+    public function addRoleAutoloader($regex, $callback)
+    {
+        if(!is_callable($callback)) {
+            throw new Emerald_Exception("Acl role autoloader callback is not callable");
+        }
+        
+        if(!is_array($regex)) {
+            $regex = array($regex);
+        }
+        
+        foreach($regex as $regx) {
+            $this->_roleAutoloaders[$regx] = $callback;    
+        }
+        
+    }
+    
+    
+    public function removeRoleAutoloader($regex)
+    {
+        if(isset($this->_roleAutoloaders[$regex])) {
+            unset($this->_roleAutoloaders[$regex]);
+        }
+    }
+    
+    
     public function autoloadResource($resource)
     {
-
-        // @todo This is a kludge... Must be rethinked to be extensible and stuff. But not in 3.0 series :)
         if(!$resource instanceof Emerald_Acl_Resource_Interface) {
-            if(preg_match("/^Emerald_Page/", $resource)) {
-                $split = explode("_", $resource, 3);
-                $pageModel = new EmCore_Model_Page();
-                $resource = $pageModel->find($split[2]);
-            } else if(preg_match("/^Emerald_Locale/", $resource)) {
-                $split = explode("_", $resource, 3);
-                $localeModel = new EmCore_Model_Locale();
-                $resource = $localeModel->find($split[2]);
-            } else if(preg_match("/^Emerald_Activity/", $resource)) {
-                $split = explode("_", $resource, 3);
-                $activityModel = new EmAdmin_Model_Activity();
-                $splitted = explode("___", $split[2]);
-                $resource = $activityModel->findByCategoryAndName($splitted[0], $splitted[1]);
-            } else {
-                throw new Zend_Acl_Exception("Can not autoload resource '{$resource}'");
+            $origResource = $resource;
+            foreach($this->_resourceAutoloaders as $regex => $callback) {
+                if(preg_match($regex, $resource)) {
+                    $resource = call_user_func($callback, $resource);
+                    break;
+                }            
+            }
+            
+            if(!$resource instanceof Emerald_Acl_Resource_Interface) {
+                throw new Emerald_Exception("Could not autoload Acl resource '{$origResource}'");
             }
         }
 
@@ -59,6 +89,31 @@ class Emerald_Acl extends Zend_Acl
     }
 
 
+    public function autoloadRole($role)
+    {
+        if(!$role instanceof Emerald_Acl_Role_Interface) {
+            throw new Zend_Acl_Exception("Can not autoload role '{$role}'");
+        }
+        
+        $origRole = $role;
+        foreach($this->_roleAutoloaders as $regex => $callback) {
+            if(preg_match($regex, $role)) {
+                $role = call_user_func($callback, $role);
+                break;
+            }            
+        }
+        
+        if(!$role instanceof Emerald_Acl_Role_Interface) {
+            throw new Emerald_Exception("Could not autoload Acl role '{$origResource}'");
+        }
+        
+        if(!$this->hasRole($role)) {
+            $role->autoloadAclRole($this);
+            $this->cacheSave();
+        }
+        
+    }
+    
 
 
     public function addResource($resource, $parent = null)
@@ -77,11 +132,7 @@ class Emerald_Acl extends Zend_Acl
     {
 
         if(!$this->hasRole($role)) {
-            if(!$role instanceof Emerald_Acl_Role_Interface) {
-                throw new Zend_Acl_Exception("Can not autoload role '{$role}'");
-            }
-            $role->autoloadAclRole($this);
-            $this->cacheSave();
+            $this->autoloadRole($role);
         }
 
         if(!$this->has($resource)) {
@@ -105,20 +156,53 @@ class Emerald_Acl extends Zend_Acl
         parent::removeRole($role);
         $this->cacheSave();
     }
+    
+    
+    public function removeAll()
+    {
+        parent::removeAll();
+        $this->cacheSave();
+    }
 
+    
+    public function removeRoleAll()
+    {
+        parent::removeRoleAll();
+        $this->cacheSave();
+    }
 
+    
+    public function getCache()
+    {
+        return $this->_cache;
+    }
+    
+    
+    public function setCache(Zend_Cache_Core $cache)
+    {
+        $this->_cache = $cache;
+    }
 
+    
+    public static function cacheLoad(Zend_Cache_Core $cache)
+    {
+        $acl = $cache->load('Emerald_Acl');
+        if($acl) {
+            $acl->setcache($cache);
+        }
+        return $acl;
+    } 
+    
 
     public function cacheSave()
     {
-        Zend_Registry::get('Emerald_CacheManager')->getCache('default')->save($this, 'acl');
+        $this->getCache()->save($this, 'Emerald_Acl');
     }
-
 
 
     public function cacheRemove()
     {
-        Zend_Registry::get('Emerald_CacheManager')->getCache('default')->remove('acl');
+        $this->getCache()->remove('Emerald_Acl');
     }
 
 
