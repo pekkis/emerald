@@ -2,6 +2,14 @@
 require_once "Zend/Application.php";
 require_once "Zend/Debug.php";
 
+
+/**
+ * A config-caching extension of Zend_Application
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application extends Zend_Application
 {
     private $_isCached = false;
@@ -31,7 +39,7 @@ class Emerald_Application extends Zend_Application
 
     public function run()
     {
-        if(!$this->_isCached && $this->_cache['type'] !== 'none') {
+        if(!$this->isCached() && $this->_cache['type'] !== 'none') {
             $this->_cacheSave();
         }
 
@@ -40,6 +48,12 @@ class Emerald_Application extends Zend_Application
     }
 
 
+    public function isCached()
+    {
+        return $this->_isCached;
+    }
+    
+    
     private function _cacheLoad()
     {
         switch($this->_cache['type']) {

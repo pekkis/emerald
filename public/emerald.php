@@ -31,18 +31,15 @@ defined('APPLICATION_CONFIG_CACHE')
 : 'none'));
  
  
-// require_once "Zend/Loader/Autoloader.php";
-// Zend_Loader_Autoloader::getInstance()->;
 
 // require_once "Emerald/Debug/Timer.php";
 // $timer = Emerald_Debug_Timer::getTimer('luss');
 
 // $timer->time('application start');
 
-/** Zend_Application */
-require_once 'Emerald/Application.php';
-
 // Create application, bootstrap, and run
+require_once "Emerald/Application.php";
+
 $application = new Emerald_Application(
 APPLICATION_ENV,
 APPLICATION_PATH . '/configs/emerald.ini',
@@ -76,6 +73,8 @@ try {
 
 
     $application->run();
+    
+    // Zend_Debug::dump(Zend_Loader_Autoloader::getInstance()->getAutoloaders());
 
 } catch(Exception $e) {
     echo "<pre>Emerald threw you with an exception: " . $e . "</pre>";

@@ -1,8 +1,14 @@
 <?php
+/**
+ * Crude autoloader for default Emerald ACL resources based on legacy code
+ * 
+ * @author pekkis
+ * @package Emerald_Acl
+ * @todo Optimize and differentiate
+ *
+ */
 class Emerald_Acl_Autoloader
 {
-    
-    
     public function autoloadResource($resource)
     {
         if(preg_match("/^Emerald_Page/", $resource)) {

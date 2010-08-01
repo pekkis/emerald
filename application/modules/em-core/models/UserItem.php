@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_UserItem extends Emerald_Model_AbstractItem implements Emerald_Acl_Role_Interface
+class EmCore_Model_UserItem extends Emerald_Model_AbstractItem implements Emerald_Acl_RoleInterface
 {
 
 
