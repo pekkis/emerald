@@ -1,7 +1,18 @@
 <?php
+/**
+ * Emerald server
+ * 
+ * @package Emerald_Server
+ * @author pekkis
+ *
+ */
 class Emerald_Server
 {
 
+    /**
+     * Options
+     * @var array
+     */
     private $_options;
 
     private $_db;

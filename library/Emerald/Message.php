@@ -2,7 +2,7 @@
 /**
  * Message class with predefined message statuses and translation capability.
  *
- * @package Emerald_Json
+ * @package Emerald_Message
  * @author pekkis
  *
  */
@@ -12,15 +12,25 @@ class Emerald_Message
     const INFO = 2;
     const ERROR = 4;
 
-
+    /**
+     * Translator container
+     * @var Emerald_TranslatorContainer
+     */
     protected $_translatorContainer = null;
 
-
+    /**
+     * Type(s)
+     * @var integer
+     */
     public $type;
 
+    /**
+     * Message
+     * @var string
+     */
     public $message;
 
-
+    
     public function __construct($type, $message)
     {
         $this->type = $type;
@@ -28,6 +38,11 @@ class Emerald_Message
     }
 
 
+    /**
+     * Returns translator container
+     * 
+     * @return Emerald_TranslatorContainer
+     */
     public function getTranslatorContainer()
     {
         if(!$this->_translatorContainer) {
@@ -37,24 +52,15 @@ class Emerald_Message
     }
 
 
-    public function setTranslationContainer(Emerald_TranslationContainer $translationContainer)
+    /**
+     * Sets translator container
+     * 
+     * @param Emerald_TranslationContainer $translationContainer
+     */
+    public function setTranslatorContainer(Emerald_TranslationContainer $translationContainer)
     {
         $this->_translatorContainer = $translationContainer;
     }
-
-    /*
-     public function toArray()
-     {
-     $arr = parent::toArray();
-    	if(isset($arr['message']) && $arr['message']) {
-    	if($translator = $this->getTranslatorContainer()->getTranslator()) {
-    	$arr['message'] = $translator->translate($arr['message']);
-    	}
-    	}
-    	return $arr;
-    	}
-    	*/
-     
 
 }
 ?>

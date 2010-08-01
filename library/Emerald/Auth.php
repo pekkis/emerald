@@ -1,4 +1,11 @@
 <?php
+/**
+ * Auth wrapper
+ * 
+ * @author pekkis
+ * @package Emerald_Auth
+ *
+ */
 class Emerald_Auth
 {
 

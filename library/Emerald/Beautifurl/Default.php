@@ -1,4 +1,11 @@
 <?php
+/**
+ * Default beautifurler
+ * 
+ * @author pekkis
+ * @package Emerald_Beautifurl
+ *
+ */
 class Emerald_Beautifurl_Default
 {
     private $_options = array();
@@ -9,10 +16,10 @@ class Emerald_Beautifurl_Default
 
 
     /**
-     * Make a beautifurl from a string
+     * Makes and returns beautifurl from a string
      *
      * @param string $str Source string
-     * @param string $beautifier String to use for spacing
+     * @param string $beautifier Spacify with
      * @return string
      */
     public function fromString($str, $beautifier = '-')
@@ -31,6 +38,14 @@ class Emerald_Beautifurl_Default
     }
 
 
+    /**
+     * Makes and returns a beautifurl from an array
+     * 
+     * @param array $fragments Fugly fragments
+     * @param string $prepend Optionally prepend with
+     * @param string $beautifier Spacify with
+     * @return string
+     */
     public function fromArray(array $fragments, $prepend = null, $beautifier = '-')
     {
         $beautifulFragments = array();

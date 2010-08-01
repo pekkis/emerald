@@ -1,4 +1,11 @@
 <?php
+/**
+ * Translator container
+ * 
+ * @author pekkis
+ * @package Emerald_Translate
+ *
+ */
 class Emerald_TranslatorContainer
 {
     /**

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Beautifurler factory
+ * 
+ * @author pekkis
+ * @package Emerald_Beautifurl
+ *
+ */
 class Emerald_Beautifurl
 {
 

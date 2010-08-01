@@ -1,10 +1,11 @@
 <?php
 require_once "Zend/Application.php";
-require_once "Zend/Debug.php";
-
 
 /**
  * A config-caching extension of Zend_Application
+ * 
+ * Supports automagical caching of .ini type application configurations in either array or apc format.
+ * Good for both ease of maintenance and speed.
  * 
  * @author pekkis
  * @package Emerald_Application
@@ -12,16 +13,34 @@ require_once "Zend/Debug.php";
  */
 class Emerald_Application extends Zend_Application
 {
+    /**
+     * Config is cached or not
+     * @var boolean
+     */
     private $_isCached = false;
 
+    /**
+     * Cache options
+     * @var array
+     */
     private $_cache;
 
+    /**
+     * Loaded options
+     * @var mixed
+     */
     private $_loptions;
 
+    /**
+     * Config defaults
+     * @var unknown_type
+     */
     private $_defaults = array(
 		'type' => 'none',
+        'key' => 'dawn',
     );
 
+    
     public function __construct($environment, $options = null, $cache = array())
     {
         $this->_loptions = $options;
@@ -32,28 +51,26 @@ class Emerald_Application extends Zend_Application
         }
 
         return parent::__construct($environment, $options);
-
     }
 
+    
 
 
-    public function run()
-    {
-        if(!$this->isCached() && $this->_cache['type'] !== 'none') {
-            $this->_cacheSave();
-        }
-
-        return parent::run();
-
-    }
-
-
+    /**
+     * Returns whether the application config is in a cached state or not
+     * @return boolean
+     */
     public function isCached()
     {
         return $this->_isCached;
     }
     
     
+    /**
+     * Tries to load config from cache.
+     * 
+     * @throws Zend_Application_Exception
+     */
     private function _cacheLoad()
     {
         switch($this->_cache['type']) {
@@ -67,7 +84,7 @@ class Emerald_Application extends Zend_Application
                 break;
             default:
                 require_once("Zend/Application/Exception.php");
-                throw new Zend_Application_Exception('Unsupported config cache type');
+                throw new Zend_Application_Exception("Unsupported config cache type '{$this->_cache['type']}'");
         }
 
         if($noptions) {
@@ -78,6 +95,14 @@ class Emerald_Application extends Zend_Application
 
     }
 
+    /**
+     * Saves application config from the cache.
+     * 
+     * Saves application config to the cache. Gets options from the bootstrap, not the application,
+     * because the alterations made in bootstrapping do not get back to the app.
+     * 
+     * @throws Zend_Application_Exception
+     */
     private function _cacheSave()
     {
         switch($this->_cache['type']) {
@@ -91,13 +116,23 @@ class Emerald_Application extends Zend_Application
                 break;
             default:
                 require_once("Zend/Application/Exception.php");
-                throw new Zend_Application_Exception('Unsupported config cache type');
+                throw new Zend_Application_Exception("Unsupported config cache type '{$this->_cache['type']}'");
         }
-
-
 
     }
 
+    
+    
+    /**
+     * @see Zend_Application::run()
+     */
+    public function run()
+    {
+        if(!$this->isCached() && $this->_cache['type'] !== 'none') {
+            $this->_cacheSave();
+        }
+        return parent::run();
+    }
 
 }
 

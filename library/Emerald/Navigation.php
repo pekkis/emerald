@@ -1,4 +1,11 @@
 <?php
+/**
+ * Extends Zend_Navigation with callback finders
+ * 
+ * @author pekkis
+ * @package Emerald_Navigation
+ *
+ */
 class Emerald_Navigation extends Zend_Navigation
 {
     /**

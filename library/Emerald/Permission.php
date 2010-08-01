@@ -1,6 +1,9 @@
 <?php
 /**
- * Emerald permission
+ * Permissions
+ * 
+ * @package Emerald_Permission
+ * @author pekkis
  *
  */
 class Emerald_Permission
@@ -9,22 +12,32 @@ class Emerald_Permission
     const WRITE = 2;
     const READ = 4;
 
-    // const PUBLISH = 8;
-
-
+    /**
+     * Permissions
+     * @var array
+     */
     private static $_permissions = array(
-    1 => 'execute',
-    2 => 'write',
-    4 => 'read',
-    // 8 => 'publish',
+        self::EXECUTE => 'execute',
+        self::WRITE => 'write',
+        self::READ => 'read',
     );
 
+    /**
+     * Returns all permissions
+     * 
+     * @return array
+     */
     public static function getAll()
     {
         return self::$_permissions;
     }
 
 
+    /**
+     * Returns a human-readable name for a permission id
+     * @param integer $id
+     * @return string
+     */
     public static function getName($id)
     {
         return self::$_permissions[$id];

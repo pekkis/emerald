@@ -34,11 +34,6 @@ class Emerald_Filelib
     private $_publicDirectoryPrefix = '';
 
     /**
-     * @var string Path to magic file (for PHP 5.2)
-     */
-    private $_magic;
-
-    /**
      * @var array Array of installed plugins
      */
     private $_plugins = array();
@@ -58,7 +53,6 @@ class Emerald_Filelib
      */
     private $_directoryLevels = 1;
 
-
     /**
      * @var integer Octal representation for directory permissions
      */
@@ -69,24 +63,32 @@ class Emerald_Filelib
      */
     private $_filePermission = 0600;
 
-
     /**
      * @var string Fileitem class
      */
     private $_fileItemClass = 'Emerald_Filelib_FileItem';
-
 
     /**
      * @var string Folderitem class
      */
     private $_folderItemClass = 'Emerald_Filelib_FolderItem';
 
-
-
+    /**
+     * File operator
+     * @var Emerald_Filelib_FileOperator
+     */
     private $_fileOperator;
 
+    /**
+     * Folder operator
+     * @var Emerald_Filelib_FolderOperator
+     */
     private $_folderOperator;
-
+    
+    /**
+     * Cache
+     * @var Zend_Cache_Core
+     */
     private $_cache;
 
 
@@ -101,12 +103,22 @@ class Emerald_Filelib
     }
 
 
+    /**
+     * Sets cache
+     * @param Zend_Cache_Core $cache
+     * @return Emerald_Filelib
+     */
     public function setCache(Zend_Cache_Core $cache)
     {
         $this->_cache = $cache;
+        return $this;
     }
 
 
+    /**
+     * Returns cache. If cache does not exist, init a black hole cache
+     * @return Zend_Cache_Core
+     */
     public function getCache()
     {
         if(!isset($this->_cache)) {
@@ -122,8 +134,12 @@ class Emerald_Filelib
     }
 
 
-
-
+    /**
+     * Adds a file profile
+     * 
+     * @param Emerald_Filelib_FileProfile $profile
+     * @return Emerald_Filelib
+     */
     public function addProfile(Emerald_Filelib_FileProfile $profile)
     {
         $profile->setFilelib($this);
@@ -131,14 +147,21 @@ class Emerald_Filelib
         if(!isset($this->_profiles[$profile->getIdentifier()])) {
             $this->_profiles[$profile->getIdentifier()] = $profile;
         }
+        
+        return $this;
     }
 
 
 
+    /**
+     * Returns a file profile
+     * 
+     * @param string $identifier File profile identifier
+     * @throws Emerald_Filelib_Exception
+     * @return Emerald_Filelib_FileProfile
+     */
     public function getProfile($identifier)
     {
-        	
-
         if($identifier instanceof Emerald_Filelib_FileItem) {
             $identifier = $identifier->profile;
         }
@@ -150,6 +173,11 @@ class Emerald_Filelib
         return $this->_profiles[$identifier];
     }
 
+    /**
+     * Returns all file profiles
+     * 
+     * @return array Array of file profiles
+     */
     public function getProfiles()
     {
         return $this->_profiles;
@@ -157,6 +185,11 @@ class Emerald_Filelib
 
 
 
+    /**
+     * Returns the file operator
+     * 
+     * @return Emerald_Filelib_FileOperator
+     */
     public function file()
     {
         if(!$this->_fileOperator) {
@@ -166,6 +199,11 @@ class Emerald_Filelib
     }
 
 
+    /**
+     * Returns the folder operator
+     * 
+     * @return Emerald_Filelib_FolderOperator
+     */
     public function folder()
     {
         if(!$this->_folderOperator) {
@@ -176,16 +214,16 @@ class Emerald_Filelib
     }
 
 
-
-
     /**
      * Sets fileitem class
      *
      * @param string $fileItemClass Class name
+     * @return Emerald_Filelib
      */
     public function setFileItemClass($fileItemClass)
     {
         $this->_fileItemClass = $fileItemClass;
+        return $this;
     }
 
 
@@ -204,10 +242,12 @@ class Emerald_Filelib
      * Sets folderitem class
      *
      * @param string $folderItemClass Class name
+     * @return Emerald_Filelib
      */
     public function setFolderItemClass($folderItemClass)
     {
         $this->_folderItemClass = $folderItemClass;
+        return $this;
     }
 
 
@@ -225,12 +265,14 @@ class Emerald_Filelib
     /**
      * Sets backend
      *
-     * @param Emerald_Filelib_Backend_Interface $handler
+     * @param Emerald_Filelib_Backend_Interface $backend
+     * @return Emerald_Filelib
      */
     public function setBackend(Emerald_Filelib_Backend_Interface $backend)
     {
         $backend->setFilelib($this);
         $this->_backend = $backend;
+        return $this;
     }
 
 
@@ -253,7 +295,7 @@ class Emerald_Filelib
      * Sets symbolic link from public to private root
      *
      * @param string $relativePathToRoot
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib
      */
     public function setRelativePathToRoot($relativePathToRoot)
     {
@@ -273,14 +315,11 @@ class Emerald_Filelib
     }
 
 
-
-
-
     /**
      * Adds a plugin
      *
      * @param Emerald_Filelib_Plugin_Interface Plugin $plugin
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib
      */
     public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
     {
@@ -296,7 +335,6 @@ class Emerald_Filelib
         $plugin->init();
 
         return $this;
-
     }
 
     /**
@@ -309,20 +347,17 @@ class Emerald_Filelib
         return $this->_plugins;
     }
 
-
-
     /**
      * Sets files per directory
      *
      * @param integer $filesPerDirectory
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib
      */
     public function setFilesPerDirectory($filesPerDirectory)
     {
         $this->_filesPerDirectory = $filesPerDirectory;
+        return $this;
     }
-
-
 
     /**
      * Returns files per directory
@@ -338,7 +373,7 @@ class Emerald_Filelib
      * Sets levels per directory hierarchy
      *
      * @param integer $directoryLevels
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib
      */
     public function setDirectoryLevels($directoryLevels)
     {
@@ -437,32 +472,6 @@ class Emerald_Filelib
 
     }
 
-
-
-    /**
-     * Sets magic file
-     *
-     * @param string $magic Path to magic file
-     * @return Emerald_Filelib Filelib
-     */
-    public function setMagic($magic)
-    {
-        $this->_magic = $magic;
-        return $this;
-    }
-
-
-    /**
-     * Returns path to magic file
-     *
-     * @return string
-     */
-    public function getMagic()
-    {
-        return $this->_magic;
-    }
-
-
     /**
      * Sets root
      *
@@ -559,10 +568,6 @@ class Emerald_Filelib
         }
         return $this->_acl;
     }
-
-
-
-
 
 
 }
