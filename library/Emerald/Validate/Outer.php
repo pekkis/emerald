@@ -42,8 +42,8 @@ class Emerald_Validate_Outer implements Zend_Validate_Interface
         return $this->getValidator()->getErrors();
     }
 
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
-        return $this->getValidator()->isValid($value);
+        return $this->getValidator()->isValid($value, $context);
     }
 }
