@@ -1,17 +1,29 @@
 <?php
 class EmCore_Model_ShardItem_News extends EmCore_Model_ShardItem
 {
-	public function getRoutes($page)
+
+    public function getPageModel()
+    {
+        if(!$this->_pageModel) {
+            $this->_pageModel = new EmCore_Model_Page();
+        }
+        
+        return $this->_pageModel;
+    }
+
+
+    public function getRoutes($page)
 	{
-		
-		$viewRoute = $page->uri . '/:id/:title';
-		$viewRoute = new Zend_Controller_Router_Route($viewRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => ltrim($page->uri, '/'), 'a' => 'view'), array('id' => '\d+'));
+        $pageItem = $this->getPageModel()->find($page->id);
 
-		$feedRoute = $page->uri . '/@feed/:mode';
-		$feedRoute = new Zend_Controller_Router_Route($feedRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => ltrim($page->uri, '/'), 'a' => 'index', 'format' => 'xml'), array('mode' => "atom|rss"));
+		$viewRoute = '/' . $pageItem->beautifurl . '/:id/:title';
+        $viewRoute = new Zend_Controller_Router_Route($viewRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $pageItem->beautifurl, 'a' => 'view'), array('id' => '\d+'));
 
-		$indexRoute = $page->uri . '/@index/:page';
-		$indexRoute = new Zend_Controller_Router_Route($indexRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => ltrim($page->uri, '/'), 'a' => 'index'), array('id' => '\d+'));
+		$feedRoute = '/' . $pageItem->beautifurl . '/@feed/:mode';
+		$feedRoute = new Zend_Controller_Router_Route($feedRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $pageItem->beautifurl, 'a' => 'index', 'format' => 'xml'), array('mode' => "atom|rss"));
+
+		$indexRoute = '/' . $pageItem->beautifurl . '/@index/:page';
+		$indexRoute = new Zend_Controller_Router_Route($indexRoute, array('module' => 'em-core', 'controller' => 'page', 'action' => 'view', 'beautifurl' => $pageItem->beautifurl, 'a' => 'index'), array('id' => '\d+'));
 		
 		
 		return array(
