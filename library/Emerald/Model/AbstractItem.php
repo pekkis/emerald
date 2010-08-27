@@ -133,14 +133,14 @@ abstract class Emerald_Model_AbstractItem
 	{
 		if(preg_match('/^get/', $func)) {
 			$filter = new Zend_Filter_Word_CamelCaseToUnderscore();
-			$field = lcfirst(substr($func, 3));
+			$field = $this->lcfirst(substr($func, 3));
 			$field = $filter->filter($field);
 			return $this->$field;
 		}		
 
 		if(preg_match('/^set/', $func)) {
 			$filter = new Zend_Filter_Word_CamelCaseToUnderscore();
-			$field = lcfirst(substr($func, 3));
+			$field = $this->lcfirst(substr($func, 3));
 			$field = $filter->filter($field);
 			$this->$field = $args[0];
 		}		
@@ -148,7 +148,18 @@ abstract class Emerald_Model_AbstractItem
 		throw new Emerald_Model_Exception("Method '{$func}' does not exist");
 	}
 	
-	
+	/**
+     * Replacement for the PHP 5.3 lcfirst
+     *
+     * @param string $str
+     * @return string
+     */
+    function lcfirst($str) {
+        $before = substr($str, 0, 1);
+        $after = substr($str, 1, strlen($str) - 1);
+        
+        return strtolower($before) . $after;
+    }
 	
 
 }
