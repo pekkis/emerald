@@ -93,7 +93,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
     public function getRenderPath(Emerald_Filelib_FileItem $file)
     {
         if($file->isAnonymous()) {
-            $link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, false);
+            $link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this);
         } else {
             $link = $this->getFilelib()->getStorage()->retrieveVersion($file, $this);
         }

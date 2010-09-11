@@ -40,9 +40,9 @@ implements Emerald_Filelib_Symlinker_Interface
 
 
 
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version, $prefix = true)
+    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
-        $link = $this->getLink($file, $prefix);
+        $link = $this->getLink($file);
         $pinfo = pathinfo($link);
         $link = ($pinfo['dirname'] === '.' ? '' : $pinfo['dirname'] . '/') . $pinfo['filename'] . '-' . $version->getIdentifier();
         $link .= '.' . $version->getExtension();
@@ -51,7 +51,7 @@ implements Emerald_Filelib_Symlinker_Interface
     }
 
 
-    public function getLink(Emerald_Filelib_FileItem $file, $prefix = true, $force = false)
+    public function getLink(Emerald_Filelib_FileItem $file, $force = false)
     {
         if($force || !isset($file->link)) {
             	
@@ -79,12 +79,6 @@ implements Emerald_Filelib_Symlinker_Interface
             $file->link = $beautifurl;
 
         }
-        	
-        /*
-        if($prefix) {
-            return $this->getFilelib()->getPublicRoot() . '/' . $file->link;
-        }
-        */
 
         return $file->link;
 

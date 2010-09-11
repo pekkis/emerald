@@ -12,7 +12,7 @@ extends Emerald_Filelib_Symlinker_Abstract
 implements Emerald_Filelib_Symlinker_Interface
 {
 
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version, $prefix = true)
+    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
         $link = $this->getLink($file, $prefix);
 
@@ -24,7 +24,7 @@ implements Emerald_Filelib_Symlinker_Interface
     }
 
 
-    public function getLink(Emerald_Filelib_FileItem $file, $prefix = true)
+    public function getLink(Emerald_Filelib_FileItem $file)
     {
         $url = array();
         $url[] = $this->getFilelib()->getDirectoryId($file->id);
@@ -36,10 +36,6 @@ implements Emerald_Filelib_Symlinker_Interface
         $url[] = $name;
 
         $url = implode(DIRECTORY_SEPARATOR, $url);
-
-        if($prefix) {
-            $url = $this->getFilelib()->getPublicRoot() . '/' . $url;
-        }
 
         return $url;
 

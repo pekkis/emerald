@@ -45,33 +45,5 @@ abstract class Emerald_Filelib_Symlinker_Abstract
     }
 
 
-    /**
-     * Creates symlink(s) for a file
-     *
-     * @param Emerald_Filelib_FileItem $file
-     */
-    public function createSymlink(Emerald_Filelib_FileItem $file)
-    {
-
-        
-        die('destructo!');
-        
-    }
-
-
-    /**
-     * Deletes symlink(s) for a file
-     *
-     * @param Emerald_Filelib_FileItem $file File item
-     */
-    public function deleteSymlink(Emerald_Filelib_FileItem $file)
-    {
-
-        die('newver again!!!!');
-        
-
-    }
-
-
 
 }
