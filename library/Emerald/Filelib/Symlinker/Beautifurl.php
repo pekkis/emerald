@@ -44,8 +44,9 @@ implements Emerald_Filelib_Symlinker_Interface
     {
         $link = $this->getLink($file, $prefix);
         $pinfo = pathinfo($link);
-        $link = $pinfo['dirname'] . '/' . $pinfo['filename'] . '-' . $version->getIdentifier();
+        $link = ($pinfo['dirname'] === '.' ? '' : $pinfo['dirname'] . '/') . $pinfo['filename'] . '-' . $version->getIdentifier();
         $link .= '.' . $version->getExtension();
+        
         return $link;
     }
 
@@ -74,15 +75,16 @@ implements Emerald_Filelib_Symlinker_Interface
             }
 
             $beautifurl = implode(DIRECTORY_SEPARATOR, $beautifurl);
-            	
+           
             $file->link = $beautifurl;
-            	
+
         }
         	
-
+        /*
         if($prefix) {
             return $this->getFilelib()->getPublicRoot() . '/' . $file->link;
         }
+        */
 
         return $file->link;
 

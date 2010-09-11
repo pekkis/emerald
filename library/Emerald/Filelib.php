@@ -14,54 +14,20 @@ class Emerald_Filelib
     private $_backend;
 
     /**
+     * @var Emerald_Filelib_Storage_Interface Storage
+     */
+    private $_storage;
+        
+    /**
      * @var Emerald_Filelib_Acl_Interface Acl handler
      */
     private $_acl;
 
-    /**
-     * @var string Physical root
-     */
-    private $_root;
-
-    /**
-     * @var string Physical public root
-     */
-    private $_publicRoot;
-
-    /**
-     * @var string Public root prefix from web root.
-     */
-    private $_publicDirectoryPrefix = '';
 
     /**
      * @var array Array of installed plugins
      */
     private $_plugins = array();
-
-    /**
-     * @var string Relative path from public to private root
-     */
-    private $_relativePathToRoot;
-
-    /**
-     * @var integer Files per directory
-     */
-    private $_filesPerDirectory = 500;
-
-    /**
-     * @var integer Levels in directory structure
-     */
-    private $_directoryLevels = 1;
-
-    /**
-     * @var integer Octal representation for directory permissions
-     */
-    private $_directoryPermission = 0700;
-
-    /**
-     * @var integer Octal representation for file permissions
-     */
-    private $_filePermission = 0600;
 
     /**
      * @var string Fileitem class
@@ -90,8 +56,12 @@ class Emerald_Filelib
      * @var Zend_Cache_Core
      */
     private $_cache;
+    
+    private $_tempDir;
 
-
+    private $_publicDirectoryPrefix = '/files';
+    
+    
     /**
      * @var array Profiles
      */
@@ -102,6 +72,34 @@ class Emerald_Filelib
         Emerald_Options::setConstructorOptions($this, $options);
     }
 
+    
+    public function setPublicDirectoryPrefix($publicDirectoryPrefix)
+    {
+        $this->_publicDirectoryPrefix = $publicDirectoryPrefix;
+        return $this;
+    }
+    
+    
+    public function getPublicDirectoryPrefix()
+    {
+        return $this->_publicDirectoryPrefix;
+    }
+    
+    
+    
+    public function getTempDir()
+    {
+        return $this->_tempDir ?: sys_get_temp_dir();
+    }
+    
+    
+    public function setTempDir($tempDir)
+    {
+        $this->_tempDir = $tempDir;
+    }
+    
+    
+    
 
     /**
      * Sets cache
@@ -261,6 +259,36 @@ class Emerald_Filelib
         return $this->_folderItemClass;
     }
 
+    
+    /**
+     * Sets storage
+     *
+     * @param Emerald_Filelib_Storage_Interface $storage
+     * @return Emerald_Filelib
+     */
+    public function setStorage(Emerald_Filelib_Storage_StorageInterface $storage)
+    {
+        $storage->setFilelib($this);
+        $this->_storage = $storage;
+        return $this;
+    }
+
+
+    /**
+     * Returns storage
+     *
+     * @return Emerald_Filelib_Storage_Interface
+     */
+    public function getStorage()
+    {
+        if(!$this->_storage) {
+            throw new Emerald_Filelib_Exception('Filelib storage not set');
+        }
+
+        return $this->_storage;
+    }
+    
+    
 
     /**
      * Sets backend
@@ -291,28 +319,6 @@ class Emerald_Filelib
     }
 
 
-    /**
-     * Sets symbolic link from public to private root
-     *
-     * @param string $relativePathToRoot
-     * @return Emerald_Filelib
-     */
-    public function setRelativePathToRoot($relativePathToRoot)
-    {
-        $this->_relativePathToRoot = $relativePathToRoot;
-        return $this;
-    }
-
-
-    /**
-     * Returns symbolic link from public to private root
-     *
-     * @return string
-     */
-    public function getRelativePathToRoot()
-    {
-        return $this->_relativePathToRoot;
-    }
 
 
     /**
@@ -345,201 +351,6 @@ class Emerald_Filelib
     public function getPlugins()
     {
         return $this->_plugins;
-    }
-
-    /**
-     * Sets files per directory
-     *
-     * @param integer $filesPerDirectory
-     * @return Emerald_Filelib
-     */
-    public function setFilesPerDirectory($filesPerDirectory)
-    {
-        $this->_filesPerDirectory = $filesPerDirectory;
-        return $this;
-    }
-
-    /**
-     * Returns files per directory
-     *
-     * @return integer
-     */
-    public function getFilesPerDirectory()
-    {
-        return $this->_filesPerDirectory;
-    }
-
-    /**
-     * Sets levels per directory hierarchy
-     *
-     * @param integer $directoryLevels
-     * @return Emerald_Filelib
-     */
-    public function setDirectoryLevels($directoryLevels)
-    {
-        $this->_directoryLevels = $directoryLevels;
-        return $this;
-    }
-
-
-
-    /**
-     * Returns levels in directory hierarchy
-     *
-     * @return integer
-     */
-    public function getDirectoryLevels()
-    {
-        return $this->_directoryLevels;
-    }
-
-
-
-    /**
-     * Sets directory permission
-     *
-     * @param integer $directoryPermission
-     * @return Emerald_Filelib Filelib
-     */
-    public function setDirectoryPermission($directoryPermission)
-    {
-        $this->_directoryPermission = octdec($directoryPermission);
-        return $this;
-    }
-
-
-    /**
-     * Returns directory permission
-     *
-     * @return integer
-     */
-    public function getDirectoryPermission()
-    {
-        return $this->_directoryPermission;
-    }
-
-    /**
-     * Sets file permission
-     *
-     * @param integer $filePermission
-     * @return Emerald_Filelib Filelib
-     */
-    public function setFilePermission($filePermission)
-    {
-        $this->_filePermission = octdec($filePermission);
-        return $this;
-    }
-
-    /**
-     * Returns file permission
-     *
-     * @return integer
-     */
-    public function getFilePermission()
-    {
-        return $this->_filePermission;
-    }
-
-
-
-    /**
-     * Returns directory identifier (path) for specified file id
-     *
-     * @param integer $fileId File id
-     * @return string
-     */
-    public function getDirectoryId($fileId)
-    {
-
-        $directoryLevels = $this->getDirectoryLevels() + 1;
-        $filesPerDirectory = $this->getFilesPerDirectory();
-
-        if($directoryLevels < 1) {
-            throw new Emerald_Filelib_Exception("Invalid number of directory levels ('{$directoryLevels}')");
-        }
-
-        $arr = array();
-        $tmpfileid = $fileId - 1;
-
-        for($count = 1; $count <= $directoryLevels; ++$count) {
-            $lus = $tmpfileid / pow($filesPerDirectory, $directoryLevels - $count);
-            $tmpfileid = $tmpfileid % pow($filesPerDirectory, $directoryLevels - $count);
-            $arr[] = floor($lus) + 1;
-        }
-
-        $puuppa = array_pop($arr);
-        return implode(DIRECTORY_SEPARATOR, $arr);
-
-    }
-
-    /**
-     * Sets root
-     *
-     * @param string $root
-     * @return Emerald_Filelib Filelib
-     */
-    public function setRoot($root)
-    {
-        $this->_root = $root;
-    }
-
-
-    /**
-     * Returns root
-     *
-     * @return string
-     */
-    public function getRoot()
-    {
-        return $this->_root;
-    }
-
-
-    /**
-     * Sets web access prefix
-     *
-     * @param string $publicDirectoryPrefix
-     * @return Emerald_Filelib Filelib
-     */
-    public function setPublicDirectoryPrefix($publicDirectoryPrefix)
-    {
-        $this->_publicDirectoryPrefix = $publicDirectoryPrefix;
-        return $this;
-    }
-
-
-    /**
-     * Returns web access prefix
-     *
-     * @return string
-     */
-    public function getPublicDirectoryPrefix()
-    {
-        return $this->_publicDirectoryPrefix;
-    }
-
-
-    /**
-     * Sets public root
-     *
-     * @param string $publicRoot
-     * @return Emerald_Filelib Filelib
-     */
-    public function setPublicRoot($publicRoot)
-    {
-        $this->_publicRoot = $publicRoot;
-        return $this;
-    }
-
-
-    /**
-     * Returns public root
-     *
-     * @return string
-     */
-    public function getPublicRoot()
-    {
-        return $this->_publicRoot;
     }
 
 

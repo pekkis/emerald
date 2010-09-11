@@ -40,7 +40,7 @@ interface Emerald_Filelib_Symlinker_Interface
      *
      * @param Emerald_Filelib_FileItem $file
      */
-    public function createSymlink(Emerald_Filelib_FileItem $file);
+    // public function createSymlink(Emerald_Filelib_FileItem $file);
 
     /**
      * Deletes symlink(s) for a file
@@ -56,7 +56,7 @@ interface Emerald_Filelib_Symlinker_Interface
      * @param $levelsDown How many levels down from public root
      * @return string
      */
-    public function getRelativePathTo(Emerald_Filelib_FileItem $file, $levelsDown = 0);
+    // public function getRelativePathTo(Emerald_Filelib_FileItem $file, $levelsDown = 0);
 
 
 }

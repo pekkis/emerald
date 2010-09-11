@@ -47,35 +47,28 @@ interface Emerald_Filelib_Plugin_Interface
      */
     public function afterUpload(Emerald_Filelib_FileItem $file);
 
-    /**
-     * Runs before delete
-     *
-     * @param Emerald_Filelib_FileItem $file
-     */
-    public function beforeDelete(Emerald_Filelib_FileItem $file);
-
 
     /**
      * Runs after successful delete.
      *
      * @param Emerald_Filelib_FileItem $file
      */
-    public function afterDelete(Emerald_Filelib_FileItem $file);
+    public function onDelete(Emerald_Filelib_FileItem $file);
 
 
     /**
-     * Runs on symlink creation
+     * Runs on publish
      *
      * @param Emerald_Filelib_FileItem $file
      */
-    public function createSymlink(Emerald_Filelib_FileItem $file);
+    public function onPublish(Emerald_Filelib_FileItem $file);
 
 
     /**
-     * Runs on symlink delete
+     * Runs on unpublish
      *
      * @param Emerald_Filelib_FileItem $file
      */
-    public function deleteSymlink(Emerald_Filelib_FileItem $file);
+    public function onUnpublish(Emerald_Filelib_FileItem $file);
 
 }

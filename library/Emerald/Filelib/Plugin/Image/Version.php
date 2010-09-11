@@ -74,8 +74,9 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
         if($file->getType() != 'image') {
             throw new Exception('File must be an image');
         }
-
-        $img = new Imagick($file->getPathname());
+   
+        $img = new Imagick($this->getFilelib()->getStorage()->retrieve($file)->getPathname());
+        
         $scaleOptions = $this->getScaleOptions();
         $scaleMethod = $scaleOptions['method'];
         unset($scaleOptions['method']);
@@ -86,11 +87,12 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
         }
 
         call_user_func_array(array($img, $scaleMethod), $scaleOptions);
-        $path = $file->getPath() . '/' . $this->getIdentifier();
-        if(!is_dir($path)) {
-            mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
-        }
-        $img->writeImage($path . '/' . $file->id);
+        
+        $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
+        $img->writeImage($tmp);
+        
+        $this->getFilelib()->getStorage()->storeVersion($file, $this, $tmp);        
+        
     }
 
 

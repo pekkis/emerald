@@ -73,28 +73,6 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
 
 
 
-    /**
-     * Returns file's directory
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        $fl = $this->getFilelib();
-        return $fl->getRoot() . '/' .  $fl->getDirectoryId($this->id);
-    }
-
-
-    /**
-     * Returns path to file.
-     *
-     * @return string
-     */
-    public function getPathname()
-    {
-        return $this->getPath() . '/' . $this->id;
-    }
-
 
 
     /**
@@ -105,9 +83,9 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
     public function getRenderPath()
     {
         if($this->isAnonymous()) {
-            return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getProfileObject()->getSymlinker()->getLink($this, false);
+            return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getProfileObject()->getSymlinker()->getLink($this); 
         } else {
-            return $this->getPathname();
+            return $this->getFilelib()->getPublicDirectoryPrefix()->retrieve($this)->getPathname();
         }
     }
 

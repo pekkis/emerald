@@ -50,70 +50,43 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
     }
 
 
-    public function createSymlink(Emerald_Filelib_FileItem $file)
+    public function onPublish(Emerald_Filelib_FileItem $file)
     {
-        if($this->providesFor($file)) {
-            $fl = $this->getFilelib();
-            	
-            $link = $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, true);
-            	
-            if(!is_link($link)) {
-
-                $path = dirname($link);
-                if(!is_dir($path)) {
-                    mkdir($path, $this->getFilelib()->getDirectoryPermission(), true);
-                }
-
-                if($fl->getRelativePathToRoot()) {
-
-                    // Relative linking requires some movin'n groovin.
-                    $oldCwd = getcwd();
-                    chdir($path);
-                    	
-                    $path2 = substr($path, strlen($fl->getPublicRoot()) + 1);
-                    	
-                    // If the link goes to the root dir, $path2 is false and fuxors the depth without a check.
-                    if($path2 === false) {
-                        $depth = 0;
-                    } else {
-                        $depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
-                    }
-                    	
-                    $fp = dirname($file->getProfileObject()->getSymlinker()->getRelativePathTo($file, $depth));
-                    $fp .= '/' . $this->getIdentifier() . '/' . $file->id;
-                    	
-                    symlink($fp, $link);
-                    	
-                    chdir($oldCwd);
-
-                } else {
-                    symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
-                }
-
-            }
+        if(!$this->providesFor($file)) {
+            return;
         }
+
+        $this->getFilelib()->getStorage()->publishVersion($file, $this);
+
     }
 
+    
+    public function onUnpublish(Emerald_Filelib_FileItem $file)
+    {
+        if(!$this->providesFor($file)) {
+            return;
+        }
+
+        $this->getFilelib()->getStorage()->unpublishVersion($file, $this);
+        
+    }
+    
+    
+    public function onDelete(Emerald_Filelib_FileItem $file)
+    {
+        if(!$this->providesFor($file)) {
+            return;
+        }
+        $this->deleteVersion($file);
+
+    }
+    
 
     public function deleteVersion(Emerald_Filelib_FileItem $file)
     {
-        $path = $file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id;
-        unlink($path);
+        $this->getFilelib()->getStorage()->deleteVersion($file, $this);
     }
 
-
-    public function deleteSymlink(Emerald_Filelib_FileItem $file)
-    {
-        if($this->providesFor($file)) {
-            $fl = $this->getFilelib();
-            	
-            $link = $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, true);
-
-            if(is_link($link)) {
-                unlink($link);
-            }
-        }
-    }
 
 
 
@@ -121,11 +94,10 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
     {
         if($file->isAnonymous()) {
             $link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $this, false);
-            return $link;
         } else {
-            $path = $file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id;
+            $link = $this->getFilelib()->getStorage()->retrieveVersion($file, $this);
         }
-        return $path;
+        return $link;
     }
 
 

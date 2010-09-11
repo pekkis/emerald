@@ -11,7 +11,6 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
         if(!$this->_filelib) {
             	
             $options = $this->getOptions();
-
             	
             if(isset($options['cache'])) {
                 $this->getBootstrap()->bootstrap('cache');
@@ -20,7 +19,10 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
             } else {
                 $cache = false;
             }
-            	
+           
+            $storageOptions = $options['storage'];
+            unset($options['storage']);
+
             $filelib = new Emerald_Filelib($options);
             	
             if(isset($options['dbResource'])) {
@@ -37,7 +39,13 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 
                 unset($options['dbResource']);
             }
-            	
+
+            
+            
+            $storageOptions = $this->_handleStorageOptions($storageOptions);
+                        
+            $storage = new $storageOptions['type']($storageOptions['options']);
+            $filelib->setStorage($storage);
 
             if(!isset($options['profiles'])) {
                 $options['profiles'] = array('default' => 'Default profile');
@@ -101,6 +109,21 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
         return $filelib;
     }
 
+    
+    
+    private function _handleStorageOptions($storageOptions)
+    {
+        if($storageOptions['type'] == 'Emerald_Filelib_Storage_Gridfs') {
+            if(isset($storageOptions['options']['resource'])) {
+                $storageOptions['options']['mongo'] = $this->getBootstrap()->bootstrap('mongo')->getResource('mongo');
+                unset($storageOptions['resource']);
+            }
+        }
+        
+        return $storageOptions;
+        
+        
+    }
 
 
 

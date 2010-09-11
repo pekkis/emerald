@@ -63,16 +63,14 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
     public function afterUpload(Emerald_Filelib_FileItem $file)
     { }
 
-    public function beforeDelete(Emerald_Filelib_FileItem $file)
+    public function onDelete(Emerald_Filelib_FileItem $file)
     { }
-
-    public function afterDelete(Emerald_Filelib_FileItem $file)
+    
+    public function onPublish(Emerald_Filelib_FileItem $file)
     { }
-
-    public function deleteSymlink(Emerald_Filelib_FileItem $file)
+    
+    public function onUnpublish(Emerald_Filelib_FileItem $file)
     { }
-
-    public function createSymlink(Emerald_Filelib_FileItem $file)
-    { }
+    
 
 }

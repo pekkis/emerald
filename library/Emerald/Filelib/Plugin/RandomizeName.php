@@ -49,6 +49,8 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
         $upload->setOverrideFilename($newname);
         return $upload;
     }
+    
+    
 
 }
 

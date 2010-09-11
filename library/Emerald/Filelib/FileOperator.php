@@ -83,12 +83,15 @@ class Emerald_Filelib_FileOperator
      */
     public function update(Emerald_Filelib_FileItem $file)
     {
-        $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
+        $this->unpublish($file);        
+        // $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
+        
         $this->getBackend()->updateFile($file);
         $this->storeCached($file->id, $file);
 
         if($this->isAnonymous($file)) {
-            $file->getProfileObject()->getSymlinker()->createSymlink($file);
+            $this->publish($file);
+            //$file->getProfileObject()->getSymlinker()->createSymlink($file);
         }
 
         $this->storeCached($file->id, $file);
@@ -202,42 +205,25 @@ class Emerald_Filelib_FileOperator
         if(!$file) {
             throw new Emerald_Filelib_Exception("Can not upload");
         }
-
-
+        
         try {
-            $root = $this->getFilelib()->getRoot();
-            $dir = $root . '/' . $this->getFilelib()->getDirectoryId($file->id);
+            
+            $this->getFilelib()->getStorage()->store($upload, $file);
 
-            if(!is_dir($dir)) {
-                @mkdir($dir, $this->getFilelib()->getDirectoryPermission(), true);
+            foreach($file->getProfileObject()->getPlugins() as $plugin) {
+                $upload = $plugin->afterUpload($file);
             }
 
-            if(!is_dir($dir) || !is_writable($dir)) {
-                throw new Emerald_Filelib_Exception('Could not write into directory', 500);
+            if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
+                $this->publish($file);
             }
-            	
-            $fileTarget = $dir . '/' . $file->id;
-
-            copy($upload->getRealPath(), $fileTarget);
-            chmod($fileTarget, $this->getFilelib()->getFilePermission());
-            	
-            if(!is_readable($fileTarget)) {
-                throw new Emerald_Filelib_Exception('Could not copy file to folder');
-            }
-
+            
+            
         } catch(Exception $e) {
             // Maybe log here?
             throw $e;
         }
 
-        foreach($file->getProfileObject()->getPlugins() as $plugin) {
-            $upload = $plugin->afterUpload($file);
-        }
-
-        if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
-            $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
-            $file->getProfileObject()->getSymlinker()->createSymlink($file);
-        }
 
         return $file;
     }
@@ -253,25 +239,16 @@ class Emerald_Filelib_FileOperator
     {
         try {
 
+            $this->unpublish($file);
+            
             $this->getBackend()->deleteFile($file);
             $this->clearCached($file->id);
-            	
-            $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
+            $this->getFilelib()->getStorage()->delete($file);
+
             foreach($file->getProfileObject()->getPlugins() as $plugin) {
                 if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_Interface && $plugin->providesFor($file)) {
-                    $plugin->deleteVersion($file);
+                    $plugin->onDelete($file);
                 }
-            }
-            	
-            $path = $this->getFilelib()->getRoot() . '/' . $this->getFilelib()->getDirectoryId($file->id) . '/' . $file->id;
-            	
-            $fileObj = new SplFileObject($path);
-            if(!$fileObj->isFile() || !$fileObj->isWritable()) {
-                throw new Emerald_Filelib_Exception('Can not delete file');
-            }
-            	
-            if(!@unlink($fileObj->getPathname())) {
-                throw new Emerald_Filelib_Exception('Can not delete file');
             }
             	
             return true;
@@ -367,7 +344,6 @@ class Emerald_Filelib_FileOperator
     public function render(Emerald_Filelib_FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
     {
         $path = $this->renderPath($file, $opts);
-
         if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
             return $response->setRedirect($path, 302);
         }
@@ -392,7 +368,24 @@ class Emerald_Filelib_FileOperator
 
     }
 
-
-
+    
+    public function publish(Emerald_Filelib_FileItem $file)
+    {
+                        
+        $this->getFilelib()->getStorage()->publish($file);
+        foreach($file->getProfileObject()->getPlugins() as $plugin) {
+            $plugin->onPublish($file);
+        }
+    }
+    
+    public function unpublish(Emerald_Filelib_FileItem $file)
+    {
+        $this->getFilelib()->getStorage()->unpublish($file);
+        foreach($file->getProfileObject()->getPlugins() as $plugin) {
+            $plugin->onUnpublish($file);
+        }
+        
+    }
+    
 
 }
