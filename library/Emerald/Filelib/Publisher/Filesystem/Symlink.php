@@ -33,8 +33,6 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
     }
     
     
-    
-    
     /**
      * Returns relative link from the public to private root
      *
@@ -93,7 +91,7 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
                 symlink($this->getRelativePathTo($file, $depth), $link);
                 chdir($oldCwd);
             } else {
-                symlink($file->getPathname(), $link);
+                symlink($this->getFilelib()->getStorage()->retrieve($file), $link);
             }
         }
 
@@ -140,11 +138,7 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
                 chdir($oldCwd);
 
             } else {
-                
-                die('do this! fix it now!');
-                
-                
-                symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
+                symlink($this->getFilelib()->getStorage()->retrieveVersion($file, $version), $link);                
             }
 
         }
@@ -162,8 +156,6 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
         
     }
     
-
-    
     public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
@@ -173,9 +165,6 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
         }
         
     }
-    
-    
-    
     
     
 }
