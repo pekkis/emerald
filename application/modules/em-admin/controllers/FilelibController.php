@@ -101,7 +101,7 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 
         $filters = array();
         $validators = array(
-			'id' => array('Int', 'default_value' => null)
+			'id' => array('default_value' => null)
         );
 
 

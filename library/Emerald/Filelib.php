@@ -350,6 +350,7 @@ class Emerald_Filelib
     public function setBackend(Emerald_Filelib_Backend_Interface $backend)
     {
         $backend->setFilelib($this);
+        $backend->init();
         $this->_backend = $backend;
         return $this;
     }

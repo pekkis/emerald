@@ -9,19 +9,9 @@
 interface Emerald_Filelib_Backend_Interface
 {
 
-    /**
-     * Sets filelib
-     *
-     * @param Emerald_Filelib $filelib
-     */
-    public function setFilelib(Emerald_Filelib $filelib);
-
-    /**
-     * Returns filelib
-     *
-     * @return Emerald_Filelib
-     */
-    public function getFilelib();
+    public function init();
+    
+    
 
     /**
      * Finds folder

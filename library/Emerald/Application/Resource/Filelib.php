@@ -29,9 +29,19 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
             if(!isset($publisherOptions['options'])) {
                 $publisherOptions['options'] = array();
             }
-            
+
+            $backendOptions = $options['backend'];
+            unset($options['backend']);
+
+            $backendOptions = $this->_handleBackendOptions($backendOptions);
+
             $filelib = new Emerald_Filelib($options);
-            	
+                        
+            $backend = new $backendOptions['type']($backendOptions['options']);
+
+            $filelib->setBackend($backend);
+            
+            /*
             if(isset($options['dbResource'])) {
                 $this->getBootstrap()->bootstrap($options['dbResource']);
 
@@ -46,7 +56,7 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 
                 unset($options['dbResource']);
             }
-
+            */
             
             
             $storageOptions = $this->_handleStorageOptions($storageOptions);
@@ -125,7 +135,7 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
     {
         if($storageOptions['type'] == 'Emerald_Filelib_Storage_Gridfs') {
             if(isset($storageOptions['options']['resource'])) {
-                $storageOptions['options']['mongo'] = $this->getBootstrap()->bootstrap('mongo')->getResource('mongo');
+                $storageOptions['options']['mongo'] = $this->getBootstrap()->bootstrap($storageOptions['options']['resource'])->getResource($storageOptions['options']['resource']);
                 unset($storageOptions['resource']);
             }
         }
@@ -136,7 +146,25 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
     }
 
 
-
+    private function _handleBackendOptions($backendOptions)
+    {
+        if($backendOptions['type'] == 'Emerald_Filelib_Backend_Db') {
+            if(isset($backendOptions['options']['resource'])) {
+                $backendOptions['options']['db'] = $this->getBootstrap()->bootstrap($backendOptions['options']['resource'])->getResource($backendOptions['options']['resource']);
+                unset($backendOptions['resource']);
+            }
+        } elseif($backendOptions['type'] == 'Emerald_Filelib_Backend_Mongo') {
+            if(isset($backendOptions['options']['resource'])) {
+                $backendOptions['options']['mongo'] = $this->getBootstrap()->bootstrap($backendOptions['options']['resource'])->getResource($backendOptions['options']['resource']);
+                unset($backendOptions['resource']);
+            }
+        }
+        
+        return $backendOptions;
+        
+        
+    }
+    
 
 
 

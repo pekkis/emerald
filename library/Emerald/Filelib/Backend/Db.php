@@ -6,13 +6,8 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
+class Emerald_Filelib_Backend_Db extends Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_Interface
 {
-
-    /**
-     * @var Emerald_Filelib Filelib
-     */
-    private $_filelib;
 
     /**
      * @var Zend_Db_Adapter_Abstract Zend Db adapter
@@ -28,27 +23,6 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
      * @var Emerald_Filelib_Backend_Db_Table_Folder Folder table
      */
     private $_folderTable;
-
-
-    /**
-     * Sets filelib
-     *
-     * @param Emerald_Filelib $filelib
-     */
-    public function setFilelib(Emerald_Filelib $filelib)
-    {
-        $this->_filelib = $filelib;
-    }
-
-    /**
-     * Returns filelib
-     *
-     * @return Emerald_Filelib Filelib
-     */
-    public function getFilelib()
-    {
-        return $this->_filelib;
-    }
 
 
     /**

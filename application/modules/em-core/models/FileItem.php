@@ -12,6 +12,10 @@ class EmCore_Model_FileItem extends Emerald_Filelib_FileItem implements Emerald_
 
     public function autoloadAclResource(Zend_Acl $acl)
     {
+        $acl->add($this);
+        return;     
+        
+        
         if(!$acl->has($this)) {
             $folder = $this->findFolder();
             if(!$acl->has($folder)) {

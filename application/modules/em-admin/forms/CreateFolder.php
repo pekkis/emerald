@@ -9,7 +9,7 @@ class EmAdmin_Form_CreateFolder extends Zend_Form
         $this->setAttrib('id', 'create-folder');
 
         $folderElm = new Zend_Form_Element_Hidden('parent_id');
-        $folderElm->addValidator(new Zend_Validate_Int());
+        // $folderElm->addValidator(new Zend_Validate_Int());
         $folderElm->setRequired(true);
         $folderElm->setAllowEmpty(false);
 
