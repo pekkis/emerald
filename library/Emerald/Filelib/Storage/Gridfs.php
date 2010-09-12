@@ -9,6 +9,8 @@ class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract im
     
     private $_gridFs;
     
+    private $_tempFiles = array();
+    
     public function setMongo(MongoDB $mongo)
     {
         $this->_mongo = $mongo;
@@ -110,16 +112,28 @@ class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract im
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $file->write($tmp);
         
-        return new Emerald_FileObject($tmp);
+        $fo = new Emerald_FileObject($tmp);
         
+        $this->_registerTempFile($fo);
+        
+        return $fo;
         
     }
     
     
+    private function _registerTempFile(Emerald_FileObject $fo)
+    {
+        $this->_tempFiles[] = $fo;
+    }
     
     
     
-    
+    public function __destruct()
+    {
+        foreach($this->_tempFiles as $tempFile) {
+            // unlink($tempFile->getPathname());
+        }
+    }
     
     
     

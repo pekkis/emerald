@@ -1,5 +1,5 @@
 <?php
-class Emerald_Filelib_Publisher_Symlink extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
+class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
 {
     
     

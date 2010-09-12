@@ -1,5 +1,5 @@
 <?php
-class Emerald_Filelib_Publisher_Copy extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
+class Emerald_Filelib_Publisher_Filesystem_Copy extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
 {
     
     public function publish(Emerald_Filelib_FileItem $file)
