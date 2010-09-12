@@ -137,7 +137,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
     {
         try {
             $file->link = $file->getProfileObject()
-            ->getSymlinker()->getLink($file, true);
+            ->getLinker()->getLink($file, true);
 
             $fileRow = $this->_em->getReference($this->_fileEntityName,
             $file->id);
@@ -348,7 +348,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
             $fileItem = new $fileItemClass($this->_fileToArray($file));
             $fileItem->setFilelib($this->getFilelib());
 
-            $fileItem->link = $profile->getSymlinker()->getLink($fileItem, true);
+            $fileItem->link = $profile->getLinker()->getLink($fileItem, true);
 
             $file->setLink($fileItem->link);
 

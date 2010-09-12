@@ -1,15 +1,15 @@
 <?php
 /**
- * This symlinker creates magnificent beautifurls from the directory names
+ * This linker creates magnificent beautifurls from the directory names
  * and structure.
  *
  * @package Emerald_Filelib
  * @author pekkis
  *
  */
-class Emerald_Filelib_Symlinker_Beautifurl
-extends Emerald_Filelib_Symlinker_Abstract
-implements Emerald_Filelib_Symlinker_Interface
+class Emerald_Filelib_Linker_Beautifurl
+extends Emerald_Filelib_Linker_Abstract
+implements Emerald_Filelib_Linker_Interface
 {
 
     /**
@@ -84,6 +84,8 @@ implements Emerald_Filelib_Symlinker_Interface
 
     }
 
+    
+    
 
 
 }

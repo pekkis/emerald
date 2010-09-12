@@ -12,11 +12,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * @var string Physical public root
      */
     private $_publicRoot;
-
-    /**
-     * @var string Public root prefix from web root.
-     */
-    private $_publicDirectoryPrefix = '';
     
     /**
      * @var string Relative path from public to private root
@@ -214,31 +209,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         return $this->_root;
     }
 
-
-    /**
-     * Sets web access prefix
-     *
-     * @param string $publicDirectoryPrefix
-     * @return Emerald_Filelib Filelib
-     */
-    public function setPublicDirectoryPrefix($publicDirectoryPrefix)
-    {
-        $this->_publicDirectoryPrefix = $publicDirectoryPrefix;
-        return $this;
-    }
-
-
-    /**
-     * Returns web access prefix
-     *
-     * @return string
-     */
-    public function getPublicDirectoryPrefix()
-    {
-        return $this->_publicDirectoryPrefix;
-    }
-
-
     /**
      * Sets public root
      *
@@ -297,9 +267,9 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     {
         
         $fl = $this->getFilelib();
-        $symlinker = $file->getProfileObject()->getSymlinker();
+        $linker = $file->getProfileObject()->getLinker();
         
-        $link = $this->getPublicRoot() . '/' . $symlinker->getLink($file, true);
+        $link = $this->getPublicRoot() . '/' . $linker->getLink($file, true);
         
         if(!is_link($link)) {
             $path = dirname($link);
@@ -330,8 +300,8 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         }
 
         /*
-        $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
-        $file->getProfileObject()->getSymlinker()->createSymlink($file);
+        $file->getProfileObject()->getLinker()->deleteSymlink($file);
+        $file->getProfileObject()->getLinker()->createSymlink($file);
         */
         
     }
@@ -409,7 +379,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     {
         $fl = $this->getFilelib();
             
-        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $version);
+        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         
         if(!is_link($link)) {
 
@@ -459,7 +429,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     public function unpublish(Emerald_Filelib_FileItem $file)
     {
         // $fl = $this->getFilelib();
-        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getSymlinker()->getLink($file);
+        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
         if(is_link($link)) {
             unlink($link);
         }
@@ -470,7 +440,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     
     public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
-        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getSymlinker()->getLinkVersion($file, $version);
+        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
 
         if(is_link($link)) {
             unlink($link);

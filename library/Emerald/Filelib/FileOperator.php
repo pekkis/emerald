@@ -84,14 +84,14 @@ class Emerald_Filelib_FileOperator
     public function update(Emerald_Filelib_FileItem $file)
     {
         $this->unpublish($file);        
-        // $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
+        // $file->getProfileObject()->getLinker()->deleteSymlink($file);
         
         $this->getBackend()->updateFile($file);
         $this->storeCached($file->id, $file);
 
         if($this->isAnonymous($file)) {
             $this->publish($file);
-            //$file->getProfileObject()->getSymlinker()->createSymlink($file);
+            //$file->getProfileObject()->getLinker()->createSymlink($file);
         }
 
         $this->storeCached($file->id, $file);

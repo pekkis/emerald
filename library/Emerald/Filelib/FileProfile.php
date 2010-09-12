@@ -4,9 +4,9 @@ class Emerald_Filelib_FileProfile
     private $_filelib;
 
     /**
-     * @var Emerald_Filelib_Symlinker Symlinker
+     * @var Emerald_Filelib_Linker Linker
      */
-    private $_symlinker;
+    private $_linker;
 
     /**
      * @var array Versions for file types
@@ -53,32 +53,35 @@ class Emerald_Filelib_FileProfile
 
 
     /**
-     * Returns symlinker
+     * Returns linker
      *
-     * @return Emerald_Filelib_Symlinker_Interface
+     * @return Emerald_Filelib_Linker_Interface
      */
-    public function getSymlinker()
+    public function getLinker()
     {
-        if(!$this->_symlinker) {
-            throw new Emerald_Filelib_Exception("File profile must have a symlinker");
+        if(!$this->_linker) {
+            throw new Emerald_Filelib_Exception("File profile must have a linker");
         }
-        return $this->_symlinker;
+        return $this->_linker;
     }
 
 
     /**
-     * Sets symlinker
+     * Sets linker
      *
-     * @param Emerald_Filelib_Symlinker_Interface|string $symlinker
+     * @param Emerald_Filelib_Linker_Interface|string $linker
      * @return Emerald_Filelib Filelib
      */
-    public function setSymlinker($symlinker)
+    public function setLinker($linker)
     {
-        if(!$symlinker instanceof Emerald_Filelib_Symlinker_Interface) {
-            $symlinker = new $symlinker($this);
-        }
+        if(!$linker instanceof Emerald_Filelib_Linker_Interface) {
+            $linker = new $linker($this);
 
-        $this->_symlinker = $symlinker;
+        }
+        
+        // $linker->setFilelib($this->getFilelib());
+        $linker->init();
+        $this->_linker = $linker;
 
         return $this;
     }

@@ -1,5 +1,5 @@
 <?php
-interface Emerald_Filelib_Symlinker_Interface
+interface Emerald_Filelib_Linker_Interface
 {
 
     /**
@@ -9,6 +9,9 @@ interface Emerald_Filelib_Symlinker_Interface
      */
     public function __construct($options = array());
 
+    
+    public function setFilelib(Emerald_Filelib $filelib);
+    
     /**
      * Returns filelib
      *
@@ -35,5 +38,8 @@ interface Emerald_Filelib_Symlinker_Interface
      */
     public function getLink(Emerald_Filelib_FileItem $file);
 
+    
+    public function init();
+    
 
 }

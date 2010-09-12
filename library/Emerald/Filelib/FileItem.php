@@ -83,7 +83,7 @@ class Emerald_Filelib_FileItem extends Emerald_Model_AbstractItem
     public function getRenderPath()
     {
         if($this->isAnonymous()) {
-            return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getProfileObject()->getSymlinker()->getLink($this); 
+            return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getProfileObject()->getLinker()->getLink($this); 
         } else {
             return $this->getFilelib()->getPublicDirectoryPrefix()->retrieve($this)->getPathname();
         }

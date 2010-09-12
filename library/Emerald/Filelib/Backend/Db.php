@@ -156,7 +156,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
         try {
 
             // $fileRow = $this->getFileTable()->find($file->id)->current();
-            $file->link = $file->getProfileObject()->getSymlinker()->getLink($file, true);
+            $file->link = $file->getProfileObject()->getLinker()->getLink($file, true);
 
             $this->getFileTable()->update(
             $file->toArray(),
@@ -208,7 +208,7 @@ class Emerald_Filelib_Backend_Db implements Emerald_Filelib_Backend_Interface
             $fileItem = new $fileItemClass($file->toArray());
             $fileItem->setFilelib($this->getFilelib());
             	
-            $fileItem->link = $file->link = $profile->getSymlinker()->getLink($fileItem, true);
+            $fileItem->link = $file->link = $profile->getLinker()->getLink($fileItem, true);
             	
             $file->save();
             	

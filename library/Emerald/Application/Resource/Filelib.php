@@ -53,16 +53,16 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
 
             foreach($options['profiles'] as $name => $poptions) {
 
-                $symlinkerOptions = $poptions['symlinker'];
-                unset($poptions['symlinker']);
+                $linkerOptions = $poptions['linker'];
+                unset($poptions['linker']);
 
-                $symlinker = new $symlinkerOptions['class']($symlinkerOptions['options']);
+                $linker = new $linkerOptions['class']($linkerOptions['options']);
                 	
-                $symlinker->setFilelib($filelib);
+                $linker->setFilelib($filelib);
 
                 $profile = new Emerald_Filelib_FileProfile($poptions);
 
-                $profile->setSymlinker($symlinker);
+                $profile->setLinker($linker);
 
                 $filelib->addProfile($profile);
             }

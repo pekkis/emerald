@@ -1,12 +1,12 @@
 <?php
 /**
- * An abstract symlinker class with common methods implemented.
+ * An abstract linker class with common methods implemented.
  *
  * @package Emerald_Filelib
  * @author pekkis
  *
  */
-abstract class Emerald_Filelib_Symlinker_Abstract
+abstract class Emerald_Filelib_Linker_Abstract
 {
 
     /**
@@ -33,7 +33,6 @@ abstract class Emerald_Filelib_Symlinker_Abstract
     }
 
 
-
     /**
      * Returns filelib
      *
@@ -44,6 +43,9 @@ abstract class Emerald_Filelib_Symlinker_Abstract
         return $this->_filelib;
     }
 
+    public function init()
+    { }
+    
 
 
 }
