@@ -94,11 +94,6 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
                 symlink($this->getFilelib()->getStorage()->retrieve($file), $link);
             }
         }
-
-        /*
-        $file->getProfileObject()->getLinker()->deleteSymlink($file);
-        $file->getProfileObject()->getLinker()->createSymlink($file);
-        */
         
     }
     

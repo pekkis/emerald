@@ -78,6 +78,12 @@ class Emerald_Filelib
     }
 
     
+    /**
+     * Sets public directory prefix
+     * 
+     * @param string $publicDirectoryPrefix
+     * @return Emerald_Filelib
+     */
     public function setPublicDirectoryPrefix($publicDirectoryPrefix)
     {
         $this->_publicDirectoryPrefix = $publicDirectoryPrefix;
@@ -85,6 +91,11 @@ class Emerald_Filelib
     }
     
     
+    /**
+     * Returns public directory prefix
+     * 
+     * @return string
+     */
     public function getPublicDirectoryPrefix()
     {
         return $this->_publicDirectoryPrefix;
@@ -92,12 +103,20 @@ class Emerald_Filelib
     
     
     
+    /**
+     * Returns temp dir for filelib
+     * @return string
+     */
     public function getTempDir()
     {
         return $this->_tempDir ?: sys_get_temp_dir();
     }
     
     
+    /**
+     * Sets temp dir for filelib
+     * @param string $tempDir
+     */
     public function setTempDir($tempDir)
     {
         $this->_tempDir = $tempDir;
@@ -268,7 +287,7 @@ class Emerald_Filelib
     /**
      * Sets storage
      *
-     * @param Emerald_Filelib_Storage_Interface $storage
+     * @param Emerald_Filelib_Storage_StorageInterface $storage
      * @return Emerald_Filelib
      */
     public function setStorage(Emerald_Filelib_Storage_StorageInterface $storage)
@@ -282,7 +301,7 @@ class Emerald_Filelib
     /**
      * Returns storage
      *
-     * @return Emerald_Filelib_Storage_Interface
+     * @return Emerald_Filelib_Storage_StorageInterface
      */
     public function getStorage()
     {
@@ -349,9 +368,6 @@ class Emerald_Filelib
 
         return $this->_backend;
     }
-
-
-
 
     /**
      * Adds a plugin
