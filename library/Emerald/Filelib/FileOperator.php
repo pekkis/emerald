@@ -372,7 +372,7 @@ class Emerald_Filelib_FileOperator
     public function publish(Emerald_Filelib_FileItem $file)
     {
                         
-        $this->getFilelib()->getStorage()->publish($file);
+        $this->getFilelib()->getPublisher()->publish($file);
         foreach($file->getProfileObject()->getPlugins() as $plugin) {
             $plugin->onPublish($file);
         }
@@ -380,7 +380,7 @@ class Emerald_Filelib_FileOperator
     
     public function unpublish(Emerald_Filelib_FileItem $file)
     {
-        $this->getFilelib()->getStorage()->unpublish($file);
+        $this->getFilelib()->getPublisher()->unpublish($file);
         foreach($file->getProfileObject()->getPlugins() as $plugin) {
             $plugin->onUnpublish($file);
         }

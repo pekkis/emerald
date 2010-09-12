@@ -56,7 +56,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
             return;
         }
 
-        $this->getFilelib()->getStorage()->publishVersion($file, $this);
+        $this->getFilelib()->getPublisher()->publishVersion($file, $this);
 
     }
 
@@ -67,7 +67,7 @@ implements Emerald_Filelib_Plugin_VersionProvider_Interface
             return;
         }
 
-        $this->getFilelib()->getStorage()->unpublishVersion($file, $this);
+        $this->getFilelib()->getPublisher()->unpublishVersion($file, $this);
         
     }
     

@@ -101,8 +101,8 @@ foreach($files as $file) {
 		}
 
 		if($recreateSymlinks) {
-			$filelib->getSymlinker()->deleteSymlink($file);
-			$filelib->getSymlinker()->createSymlink($file);
+			$filelib->getLinker()->deleteSymlink($file);
+			$filelib->getLinker()->createSymlink($file);
 		}
 	}
 

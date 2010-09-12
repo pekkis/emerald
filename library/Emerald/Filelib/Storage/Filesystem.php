@@ -1,22 +1,11 @@
 <?php
 class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstract implements Emerald_Filelib_Storage_StorageInterface
 {
-    
 
     /**
      * @var string Physical root
      */
     private $_root;
-
-    /**
-     * @var string Physical public root
-     */
-    private $_publicRoot;
-    
-    /**
-     * @var string Relative path from public to private root
-     */
-    private $_relativePathToRoot;
 
     /**
      * @var integer Files per directory
@@ -39,28 +28,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     private $_filePermission = 0600;
     
        
-    /**
-     * Sets symbolic link from public to private root
-     *
-     * @param string $relativePathToRoot
-     * @return Emerald_Filelib
-     */
-    public function setRelativePathToRoot($relativePathToRoot)
-    {
-        $this->_relativePathToRoot = $relativePathToRoot;
-        return $this;
-    }
-
-
-    /**
-     * Returns symbolic link from public to private root
-     *
-     * @return string
-     */
-    public function getRelativePathToRoot()
-    {
-        return $this->_relativePathToRoot;
-    }
 
     /**
      * Sets files per directory
@@ -209,29 +176,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         return $this->_root;
     }
 
-    /**
-     * Sets public root
-     *
-     * @param string $publicRoot
-     * @return Emerald_Filelib Filelib
-     */
-    public function setPublicRoot($publicRoot)
-    {
-        $this->_publicRoot = $publicRoot;
-        return $this;
-    }
-
-
-    /**
-     * Returns public root
-     *
-     * @return string
-     */
-    public function getPublicRoot()
-    {
-        return $this->_publicRoot;
-    }
-    
     
     
     public function store(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FileItem $file)
@@ -263,103 +207,9 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     
     
     
-    public function publish(Emerald_Filelib_FileItem $file)
-    {
-        
-        $fl = $this->getFilelib();
-        $linker = $file->getProfileObject()->getLinker();
-        
-        $link = $this->getPublicRoot() . '/' . $linker->getLink($file, true);
-        
-        if(!is_link($link)) {
-            $path = dirname($link);
-                
-            if(!is_dir($path)) {
-                mkdir($path, $this->getDirectoryPermission(), true);
-            }
-                
-            if($this->getRelativePathToRoot()) {
-
-                $path2 = substr($path, strlen($this->getPublicRoot()) + 1);
-
-                // If the link goes to the root dir, $path2 is false and fuxors the depth without a check.
-                if($path2 === false) {
-                    $depth = 0;
-                } else {
-                    $depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
-                }
-
-                // Relative linking requires some movin'n groovin.
-                $oldCwd = getcwd();
-                chdir($path);
-                symlink($this->getRelativePathTo($file, $depth), $link);
-                chdir($oldCwd);
-            } else {
-                symlink($file->getPathname(), $link);
-            }
-        }
-
-        /*
-        $file->getProfileObject()->getLinker()->deleteSymlink($file);
-        $file->getProfileObject()->getLinker()->createSymlink($file);
-        */
-        
-    }
-    
-    /**
-     * Returns relative link from the public to private root
-     *
-     * @param Emerald_Filelib_File $file File item
-     * @param $levelsDown How many levels down from root
-     * @return string
-     */
-    public function getRelativePathTo(Emerald_Filelib_FileItem $file, $levelsDown = 0)
-    {
-        $sltr = $this->getRelativePathToRoot();
-        
-        if(!$sltr) {
-            throw new Emerald_Filelib_Exception('Relative path must be set!');
-        }
-        $sltr = str_repeat("../", $levelsDown) . $sltr;
-                
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id;
-        
-        $path = substr($path, strlen($this->getRoot()));
-        $sltr = $sltr . $path;
-        
-        return $sltr;
-    }
     
     
-        /**
-     * Returns relative link from the public to private root
-     *
-     * @param Emerald_Filelib_File $file File item
-     * @param $levelsDown How many levels down from root
-     * @return string
-     */
-    public function dddgetRelativePathTo(Emerald_Filelib_FileItem $file, $levelsDown = 0)
-    {
-        $fl = $this->getFilelib();
-
-        $sltr = $fl->getRelativePathToRoot();
-
-        if(!$sltr) {
-            throw new Emerald_Filelib_Exception('Relative path must be set!');
-        }
-
-        $sltr = str_repeat("../", $levelsDown) . $sltr;
-
-        $path = $file->getPathname();
-        $path = substr($path, strlen($fl->getRoot()));
-
-        $sltr = $sltr . $path;
-
-        return $sltr;
-
-    }
     
-
     
     
     public function storeVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version, $tempFile)
@@ -373,81 +223,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         copy($tempFile, $path . '/' . $file->id);
         
     }
-    
-    
-    public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
-    {
-        $fl = $this->getFilelib();
-            
-        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
-        
-        if(!is_link($link)) {
-
-            $path = dirname($link);
-            if(!is_dir($path)) {
-                mkdir($path, $this->getDirectoryPermission(), true);
-            }
-
-            if($this->getRelativePathToRoot()) {
-
-                // Relative linking requires some movin'n groovin.
-                $oldCwd = getcwd();
-                chdir($path);
-                    
-                $path2 = substr($path, strlen($this->getPublicRoot()) + 1);
-                    
-                // If the link goes to the root dir, $path2 is false and fuxors the depth without a check.
-                if($path2 === false) {
-                    $depth = 0;
-                } else {
-                    $depth = sizeof(explode(DIRECTORY_SEPARATOR, $path2));
-                }
-                
-                $fp = dirname($this->getRelativePathTo($file, $depth));
-                $fp .= '/' . $version->getIdentifier() . '/' . $file->id;
-                
-                symlink($fp, $link);
-                    
-                chdir($oldCwd);
-
-            } else {
-                
-                die('do this! fix it now!');
-                
-                
-                symlink($file->getPath() . '/' . $this->getIdentifier() . '/' . $file->id, $link);
-            }
-
-        }
-        
-        
-    }
-    
-    
-    
-    
-    public function unpublish(Emerald_Filelib_FileItem $file)
-    {
-        // $fl = $this->getFilelib();
-        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
-        if(is_link($link)) {
-            unlink($link);
-        }
-        
-    }
-    
-
-    
-    public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
-    {
-        $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
-
-        if(is_link($link)) {
-            unlink($link);
-        }
-        
-    }
-    
     
     public function retrieve(Emerald_Filelib_FileItem $file)
     {

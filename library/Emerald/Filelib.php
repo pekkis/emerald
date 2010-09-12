@@ -14,10 +14,15 @@ class Emerald_Filelib
     private $_backend;
 
     /**
-     * @var Emerald_Filelib_Storage_Interface Storage
+     * @var Emerald_Filelib_Storage_StorageInterface Storage
      */
     private $_storage;
-        
+
+    /**
+     * @var Emerald_Filelib_Publisher_PublisherInterface Publisher
+     */
+    private $_publisher;
+    
     /**
      * @var Emerald_Filelib_Acl_Interface Acl handler
      */
@@ -288,6 +293,33 @@ class Emerald_Filelib
         return $this->_storage;
     }
     
+    /**
+     * Sets publisher
+     *
+     * @param Emerald_Filelib_Publisher_Interface $publisher
+     * @return Emerald_Filelib
+     */
+    public function setPublisher(Emerald_Filelib_Publisher_PublisherInterface $publisher)
+    {
+        $publisher->setFilelib($this);
+        $this->_publisher = $publisher;
+        return $this;
+    }
+
+
+    /**
+     * Returns publisher
+     *
+     * @return Emerald_Filelib_Publisher_PublisherInterface
+     */
+    public function getPublisher()
+    {
+        if(!$this->_publisher) {
+            throw new Emerald_Filelib_Exception('Filelib Publisher not set');
+        }
+
+        return $this->_publisher;
+    }
     
 
     /**

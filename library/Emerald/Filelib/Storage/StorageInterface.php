@@ -19,14 +19,6 @@ interface Emerald_Filelib_Storage_StorageInterface
     
     public function storeVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version, $tempFile);
     
-    public function publish(Emerald_Filelib_FileItem $file);
-        
-    public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
-    
-    public function unpublish(Emerald_Filelib_FileItem $file);
-    
-    public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
-    
     public function retrieve(Emerald_Filelib_FileItem $file);
     
     public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);

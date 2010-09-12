@@ -19,8 +19,8 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 
         foreach($fl->file()->findAll() as $file) {
             	
-            $file->getProfileObject()->getSymlinker()->deleteSymlink($file);
-            $file->getProfileObject()->getSymlinker()->createSymlink($file);
+            $file->getProfileObject()->getLinker()->deleteSymlink($file);
+            $file->getProfileObject()->getLinker()->createSymlink($file);
             	
             $plugins = $file->getProfileObject()->getPlugins();
             foreach($plugins as $plugin) {

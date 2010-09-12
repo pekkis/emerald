@@ -23,6 +23,13 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
             $storageOptions = $options['storage'];
             unset($options['storage']);
 
+            $publisherOptions = $options['publisher'];
+            unset($options['publisher']);
+
+            if(!isset($publisherOptions['options'])) {
+                $publisherOptions['options'] = array();
+            }
+            
             $filelib = new Emerald_Filelib($options);
             	
             if(isset($options['dbResource'])) {
@@ -43,10 +50,13 @@ class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_Res
             
             
             $storageOptions = $this->_handleStorageOptions($storageOptions);
-                        
             $storage = new $storageOptions['type']($storageOptions['options']);
             $filelib->setStorage($storage);
 
+            
+            $publisher = new $publisherOptions['type']($publisherOptions['options']);
+            $filelib->setPublisher($publisher);                
+                        
             if(!isset($options['profiles'])) {
                 $options['profiles'] = array('default' => 'Default profile');
             }
