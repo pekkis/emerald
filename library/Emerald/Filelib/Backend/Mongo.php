@@ -155,6 +155,8 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
             $file['profile'] = $profile->getIdentifier();
                 
             $this->getMongo()->files->insert($file);
+            
+            $this->getMongo()->files->ensureIndex(array('folder_id' => 1, 'name' => 1), array('unique' => true));
                             
             $fileItem = new $fileItemClass($file);
             
@@ -167,8 +169,6 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
             return $this->_addId($fileItem);
 
         } catch(Exception $e) {
-                
-            $this->getDb()->rollBack();
             throw new Emerald_Filelib_Exception($e->getMessage());
         }
     	
@@ -184,11 +184,9 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function createFolder(Emerald_Filelib_FolderItem $folder)
     {
-            	
     	$arr = $folder->toArray();
-    	
     	$this->getMongo()->folders->insert($arr);
-
+    	$this->getMongo()->folders->ensureIndex(array('name' => 1), array('unique' => true));
     	$folder->setFromArray($arr);
     	
     	return $this->_addId($folder);
