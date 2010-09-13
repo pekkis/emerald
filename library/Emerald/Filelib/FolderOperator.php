@@ -82,7 +82,8 @@ class Emerald_Filelib_FolderOperator
      */
     public function create(Emerald_Filelib_FolderItem $folder)
     {
-        return $this->getBackend()->createFolder($folder);
+        $folder = $this->getBackend()->createFolder($folder);
+        $folder->setFilelib($this->getFilelib());
     }
 
 

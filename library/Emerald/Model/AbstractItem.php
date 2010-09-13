@@ -149,6 +149,14 @@ abstract class Emerald_Model_AbstractItem
     }
 
 
+    
+    public function __unset($key)
+    {
+    	if(isset($this->_data[$key])) {
+            
+    		unset($this->_data[$key]);    		
+    	}
+    }
 
 
 }

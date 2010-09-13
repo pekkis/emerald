@@ -69,7 +69,20 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function findAllFiles()
     {
-        die('xooxer');
+        $mongo = $this->getMongo();
+
+        $fileItemClass = $this->getFilelib()->getFileItemClass();
+        $res = $mongo->files->find();
+        
+        $files = array();
+
+        foreach($res as $row) {
+            $file = new $fileItemClass($row);
+            $this->_addId($file);
+            $files[] = $file;
+        }
+                
+        return $files;        
     }
     
 
@@ -81,7 +94,17 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function findFile($id)
     {
-        die('xooxer1');
+        $mongo = $this->getMongo();
+                
+        $file = $mongo->files->findOne(array('_id' => new MongoId($id)));
+        
+        if($file) {
+            $className = $this->getFilelib()->getFileItemClass();
+            $file = new $className($file);
+            $this->_addId($file);    
+        }
+        
+        return $file;
     }
     
     /**
@@ -100,7 +123,7 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
         $files = array();
 
         foreach($res as $row) {
-            $file = new $fileItemClass($row->toArray());
+            $file = new $fileItemClass($row);
             $this->_addId($file);
             $files[] = $file;
         }
@@ -118,7 +141,38 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, Emerald_Filelib_FileProfile $profile)
     {
-        die('xooxer3');
+
+        $fileItemClass = $this->getFilelib()->getFileItemClass();
+
+        try {
+
+            $file = array();
+
+            $file['folder_id'] = $folder->id;
+            $file['mimetype'] = $upload->getMimeType();
+            $file['size'] = $upload->getSize();
+            $file['name'] = $upload->getOverrideFilename();
+            $file['profile'] = $profile->getIdentifier();
+                
+            $this->getMongo()->files->insert($file);
+                            
+            $fileItem = new $fileItemClass($file);
+            
+            // @todo: Why here?
+            $fileItem->setFilelib($this->getFilelib());
+            $fileItem->link = $file['link'] = $profile->getLinker()->getLink($fileItem, true);
+            
+            $this->getMongo()->files->update(array('_id' => $fileItem->_id), $file);
+                       
+            return $this->_addId($fileItem);
+
+        } catch(Exception $e) {
+                
+            $this->getDb()->rollBack();
+            throw new Emerald_Filelib_Exception($e->getMessage());
+        }
+    	
+    	
     }
     
     /**
@@ -130,7 +184,15 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function createFolder(Emerald_Filelib_FolderItem $folder)
     {
-        die('xooxer4');
+            	
+    	$arr = $folder->toArray();
+    	
+    	$this->getMongo()->folders->insert($arr);
+
+    	$folder->setFromArray($arr);
+    	
+    	return $this->_addId($folder);
+    	
     }
     
 
@@ -142,7 +204,8 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function deleteFolder(Emerald_Filelib_FolderItem $folder)
     {
-        die('xooxer5');
+        $this->getMongo()->folders->remove(array('_id' => $folder->_id));
+    
     }
     
     /**
@@ -153,7 +216,7 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function deleteFile(Emerald_Filelib_FileItem $file)
     {
-        die('xooxer6');
+        $this->getMongo()->files->remove(array('_id' => $file->_id));
     }
     
     /**
@@ -164,7 +227,18 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function updateFolder(Emerald_Filelib_FolderItem $folder)
     {
-        die('xooxer7');
+        $this->_stripId($folder);
+    	
+    	$arr = $folder->toArray();
+        
+        $this->getMongo()->folders->update(array('_id' => $arr['_id']), $arr);
+                        
+        $folder->setFromArray($arr);
+        
+        return $this->_addId($folder);
+        
+        
+        
     }
     
     /**
@@ -175,7 +249,16 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
      */
     public function updateFile(Emerald_Filelib_FileItem $file)
     {
-        die('xooxer8');
+        $this->_stripId($file);
+        
+        $arr = $file->toArray();
+        
+        $this->getMongo()->files->update(array('_id' => $arr['_id']), $arr);
+                        
+        $file->setFromArray($arr);
+        
+        return $this->_addId($file);
+        
     }
     
 
@@ -199,7 +282,7 @@ class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstr
                 'visible' => 1,
             );
             
-            $mongo->folders->save($arr);
+            $mongo->folders->save($root);
                         
         }
         
