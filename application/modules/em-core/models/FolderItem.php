@@ -11,12 +11,9 @@ class EmCore_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emer
 
     public function autoloadAclResource(Zend_Acl $acl)
     {
-        $acl->add($this);
-        return;  	
-        
         if(!$acl->has($this)) {
             	
-            $acl->add($this);
+            $acl->addResource($this);
             $model = new EmCore_Model_DbTable_Permission_Folder_Ugroup();
             $sql = "SELECT ugroup_id, permission FROM emerald_permission_folder_ugroup WHERE folder_id = ?";
             $res = $model->getAdapter()->fetchAll($sql, $this->id);

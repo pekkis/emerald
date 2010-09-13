@@ -43,7 +43,6 @@ class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_Resou
         
         // If defined, initialize filelib.
         
-        /*
         if($this->_options['initFilelib'] == true) {
             
             $filelib = $this->getBootstrap()->getResource('filelib');
@@ -59,11 +58,6 @@ class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_Resou
             $filelib->setFileItemClass("EmCore_Model_FileItem");
             $filelib->setFolderItemClass("EmCore_Model_FolderItem");
         }
-        */
-
-        $filelib = $this->getBootstrap()->getResource('filelib');
-        $filelib->setFileItemClass("EmCore_Model_FileItem");
-        $filelib->setFolderItemClass("EmCore_Model_FolderItem");
         
         Zend_Registry::set('Emerald_Acl', $acl);
 
