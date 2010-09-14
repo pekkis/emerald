@@ -232,7 +232,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
             throw new Emerald_Filelib_Exception('Could not retrieve file');
         }
         
-        return new Emerald_FileObject($path);
+        return new Emerald_Spl_FileObject($path);
         
     }
     
@@ -245,7 +245,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
             throw new Emerald_Filelib_Exception('Could not retrieve file');
         }
         
-        return new Emerald_FileObject($path);
+        return new Emerald_Spl_FileObject($path);
         
     }
     

@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_FileUpload extends Emerald_FileObject
+class Emerald_Filelib_FileUpload extends Emerald_Spl_FileObject
 {
     /**
      * @var string Override filename

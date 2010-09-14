@@ -112,7 +112,7 @@ class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract im
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $file->write($tmp);
         
-        $fo = new Emerald_FileObject($tmp);
+        $fo = new Emerald_Spl_FileObject($tmp);
         
         $this->_registerTempFile($fo);
         
@@ -121,7 +121,7 @@ class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract im
     }
     
     
-    private function _registerTempFile(Emerald_FileObject $fo)
+    private function _registerTempFile(Emerald_Spl_FileObject $fo)
     {
         $this->_tempFiles[] = $fo;
     }
