@@ -57,14 +57,5 @@ class Emerald_Filelib_FileUpload extends Emerald_FileObject
         return ($this->_overrideFilename) ? $this->_overrideFilename : $this->getFilename();
     }
 
-    /**
-     * Returns whether the file can be uploaded
-     *
-     * @todo Non-mock
-     */
-    public function canUpload()
-    {
-        return true;
-    }
 
 }

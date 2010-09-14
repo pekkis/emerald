@@ -6,6 +6,27 @@ class Emerald_Filelib_FileOperator
 
     protected $_cachePrefix = 'emerald_filelib_fileoperator';
 
+    protected $_uploader;    
+    
+    
+    
+    public function getUploader()
+    {
+        if(!$this->_uploader) {
+        	$this->_uploader = new Emerald_Filelib_Uploader();
+        }
+        return $this->_uploader;
+    }
+
+    
+    public function setUploader(Emerald_Filelib_Uploader $uploader)
+    {
+    	$this->_uploader = $uploader;
+    	return $this;
+    }
+    
+    
+    
     /**
      * @return Zend_Cache_Core
      */
@@ -95,6 +116,8 @@ class Emerald_Filelib_FileOperator
         }
 
         $this->storeCached($file->id, $file);
+        
+        return $this;
 
     }
 
@@ -184,11 +207,12 @@ class Emerald_Filelib_FileOperator
             $upload = $this->prepareUpload($upload);
         }
 
+        
         if(!$this->getFilelib()->getAcl()->isWriteable($folder)) {
             throw new Emerald_Filelib_Exception("Folder '{$folder->id}'not writeable");
         }
 
-        if(!$upload->canUpload()) {
+        if(!$this->getUploader()->isAccepted($upload)) {
             throw new Emerald_Filelib_Exception("Can not upload");
         }
 
