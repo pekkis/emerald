@@ -1,4 +1,11 @@
 <?php
+/**
+ * RecursiveFilterIterator with a callback
+ * 
+ * @author pekkis
+ * @package Emerald_Spl
+ *
+ */
 class Emerald_Spl_CallbackRecursiveFilterIterator extends RecursiveFilterIterator
 {
 

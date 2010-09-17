@@ -31,7 +31,7 @@ class Emerald_Filelib_FileUpload extends Emerald_Spl_FileObject
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_Filelib
+     * @return Emerald_Filelib
      */
     public function getFilelib()
     {
@@ -39,9 +39,9 @@ class Emerald_Filelib_FileUpload extends Emerald_Spl_FileObject
     }
 
     /**
-     * Overrides real filename with the specified filename.
+     * Overrides real filename
      *
-     * @param string
+     * @param string Overriding filename
      */
     public function setOverrideFilename($filename)
     {
@@ -49,7 +49,9 @@ class Emerald_Filelib_FileUpload extends Emerald_Spl_FileObject
     }
 
     /**
-     * Returns override filename
+     * Returns filename, overridden if defined, default if not
+     *
+     * @return string Filename
      *
      */
     public function getOverrideFilename()

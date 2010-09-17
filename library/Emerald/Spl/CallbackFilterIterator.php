@@ -1,4 +1,11 @@
 <?php
+/**
+ * FilterIterator with a callback
+ * 
+ * @author pekkis
+ * @package Emerald_Spl
+ *
+ */
 class Emerald_Spl_CallbackFilterIterator extends FilterIterator
 {
 
@@ -21,8 +28,6 @@ class Emerald_Spl_CallbackFilterIterator extends FilterIterator
         $callback = $this->_callback;
         return $callback($this->current());
     }
-
-
 
 }
 

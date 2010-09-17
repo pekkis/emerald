@@ -1,6 +1,16 @@
 <?php
+/**
+ * File profile
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_FileProfile
 {
+    /**
+     * @var Emerald_Filelib
+     */
     private $_filelib;
 
     /**
@@ -12,22 +22,32 @@ class Emerald_Filelib_FileProfile
      * @var array Versions for file types
      */
     private $_fileVersions = array();
-
-
+    
+    /**
+     * @var string Human readable identifier
+     */
     private $_description;
 
+    /**
+     * @var string Machine readable identifier
+     */
     private $_identifier;
 
+    /**
+     * @var boolean Selectable (in uis for example)
+     */
     private $_selectable = true;
 
+    /**
+     * @var array Array of plugins
+     */
     private $_plugins = array();
 
-
+    
     public function __construct($options = array())
     {
         Emerald_Options::setConstructorOptions($this, $options);
     }
-
 
     /**
      * Sets filelib
@@ -49,9 +69,6 @@ class Emerald_Filelib_FileProfile
         return $this->_filelib;
     }
 
-
-
-
     /**
      * Returns linker
      *
@@ -60,7 +77,7 @@ class Emerald_Filelib_FileProfile
     public function getLinker()
     {
         if(!$this->_linker) {
-            throw new Emerald_Filelib_Exception("File profile must have a linker");
+            throw new Emerald_Filelib_Exception("File profile '{$this->getIdentifier()}' does not have a linker");
         }
         return $this->_linker;
     }
@@ -78,46 +95,72 @@ class Emerald_Filelib_FileProfile
             $linker = new $linker($this);
 
         }
-        
-        // $linker->setFilelib($this->getFilelib());
         $linker->init();
         $this->_linker = $linker;
 
         return $this;
     }
 
-
-
+    /**
+     * Sets human readable identifier
+     * 
+     * @param string $description
+     */
     public function setDescription($description)
     {
         $this->_description = $description;
     }
 
 
+    /**
+     * Returns human readable identifier
+     * 
+     * @return string
+     */
     public function getDescription()
     {
         return $this->_description;
     }
 
 
+    /**
+     * Returns identifier
+     * 
+     * @return string
+     */
     public function getIdentifier()
     {
         return $this->_identifier;
     }
 
 
+    /**
+     * Sets identifier
+     * 
+     * @param string $identifier
+     */
     public function setIdentifier($identifier)
     {
         $this->_identifier = $identifier;
     }
 
 
+    /**
+     * Returns whether profile is selectable
+     * 
+     * @return boolean
+     */
     public function getSelectable()
     {
         return $this->_selectable;
     }
 
 
+    /**
+     * Sets whether the profile is selectable
+     * 
+     * @param boolean $selectable
+     */
     public function setSelectable($selectable)
     {
         $this->_selectable = $selectable;
@@ -128,7 +171,7 @@ class Emerald_Filelib_FileProfile
      * Adds a plugin
      *
      * @param Emerald_Filelib_Plugin_Interface Plugin $plugin
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileProfile
      */
     public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
     {
@@ -150,15 +193,13 @@ class Emerald_Filelib_FileProfile
     /**
      * Adds a file version
      *
-     * @param string $profile string File profile
      * @param string $fileType string File type
      * @param string $versionIdentifier Version identifier
      * @param object $versionProvider Version provider reference
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileProfile
      */
     public function addFileVersion($fileType, $versionIdentifier, $versionProvider)
     {
-
         if(!isset($this->_fileVersions[$fileType])) {
             $this->_fileVersions[$fileType] = array();
         }
@@ -169,9 +210,9 @@ class Emerald_Filelib_FileProfile
 
 
     /**
-     * Returns versions of the specified file
+     * Returns all defined versions of a file
      *
-     * @param Emerald_Filelib_FileItem|string $fileType File item or file type
+     * @param Emerald_Filelib_FileItem $fileType File item
      * @return array Array of provided versions
      */
     public function getFileVersions(Emerald_Filelib_FileItem $file)
@@ -210,7 +251,7 @@ class Emerald_Filelib_FileProfile
      *
      * @param Emerald_Filelib_FileItem $file File item
      * @param string $version Version
-     * @return object Provider
+     * @return Emerald_Filelib_Plugin_VersionProvider_Abstract Provider
      */
     public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
     {

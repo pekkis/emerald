@@ -28,7 +28,6 @@ class Emerald_Filelib
      */
     private $_acl;
 
-
     /**
      * @var array Array of installed plugins
      */
@@ -61,11 +60,20 @@ class Emerald_Filelib
      * @var Zend_Cache_Core
      */
     private $_cache;
-    
+        
+    /**
+     * Temporary directory
+     * 
+     * @var string
+     */
     private $_tempDir;
-
-    private $_publicDirectoryPrefix = '/files';
     
+    /**
+     * Public prefix for accessing the files
+     * 
+     * @var unknown_type
+     */
+    private $_publicDirectoryPrefix = '/files';
     
     /**
      * @var array Profiles
@@ -76,7 +84,6 @@ class Emerald_Filelib
     {
         Emerald_Options::setConstructorOptions($this, $options);
     }
-
     
     /**
      * Sets public directory prefix
@@ -90,7 +97,6 @@ class Emerald_Filelib
         return $this;
     }
     
-    
     /**
      * Returns public directory prefix
      * 
@@ -101,8 +107,6 @@ class Emerald_Filelib
         return $this->_publicDirectoryPrefix;
     }
     
-    
-    
     /**
      * Returns temp dir for filelib
      * @return string
@@ -112,7 +116,6 @@ class Emerald_Filelib
         return $this->_tempDir ?: sys_get_temp_dir();
     }
     
-    
     /**
      * Sets temp dir for filelib
      * @param string $tempDir
@@ -121,9 +124,6 @@ class Emerald_Filelib
     {
         $this->_tempDir = $tempDir;
     }
-    
-    
-    
 
     /**
      * Sets cache
@@ -135,7 +135,6 @@ class Emerald_Filelib
         $this->_cache = $cache;
         return $this;
     }
-
 
     /**
      * Returns cache. If cache does not exist, init a black hole cache
@@ -155,7 +154,6 @@ class Emerald_Filelib
         return $this->_cache;
     }
 
-
     /**
      * Adds a file profile
      * 
@@ -172,8 +170,6 @@ class Emerald_Filelib
         
         return $this;
     }
-
-
 
     /**
      * Returns a file profile
@@ -205,8 +201,6 @@ class Emerald_Filelib
         return $this->_profiles;
     }
 
-
-
     /**
      * Returns the file operator
      * 
@@ -219,7 +213,6 @@ class Emerald_Filelib
         }
         return $this->_fileOperator;
     }
-
 
     /**
      * Returns the folder operator
@@ -234,7 +227,6 @@ class Emerald_Filelib
 
         return $this->_folderOperator;
     }
-
 
     /**
      * Sets fileitem class
@@ -428,7 +420,5 @@ class Emerald_Filelib
         }
         return $this->_acl;
     }
-
-
+    
 }
-?>

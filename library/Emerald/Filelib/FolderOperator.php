@@ -1,11 +1,35 @@
 <?php
+/**
+ * Operates on folders
+ * 
+ * @package Emerald_Filelib
+ * @author pekkis
+ * 
+ */
 class Emerald_Filelib_FolderOperator
 {
+    /**
+     * @var Zend_Cache_Core
+     */
     protected $_cache;
 
-    protected $_cachePrefix = 'emerald_filelib_folderoperator';
-
     /**
+     * Cache prefix
+     * 
+     * @var string
+     */
+    protected $_cachePrefix = 'emerald_filelib_folderoperator';
+   
+    public function __construct(Emerald_Filelib $filelib)
+    {
+        $this->_filelib = $filelib;
+        $this->_backend = $filelib->getBackend();
+    }
+        
+    
+    /**
+     * Returns cache
+     * 
      * @return Zend_Cache_Core
      */
     public function getCache()
@@ -17,6 +41,12 @@ class Emerald_Filelib_FolderOperator
     }
 
 
+    /**
+     * Returns cache identifier
+     * 
+     * @param mixed $id Id
+     * @return string
+     */
     public function getCacheIdentifier($id)
     {
         if(is_array($id)) {
@@ -26,23 +56,38 @@ class Emerald_Filelib_FolderOperator
     }
 
 
+    /**
+     * Tries to load folder from cache, returns object on success.
+     * 
+     * @param mixed $id
+     * @return mixed 
+     */
     public function findCached($id) {
         return $this->getCache()->load($this->getCacheIdentifier($id));
     }
 
 
+    /**
+     * Clears cache for id
+     * 
+     * @param mixed $id
+     */
     public function clearCached($id)
     {
         $this->getCache()->remove($this->getCacheIdentifier($id));
     }
 
 
+    /**
+     * Stores folder to cache
+     * 
+     * @param mixed $id
+     * @param mixed $data
+     */
     public function storeCached($id, $data)
     {
         $this->getCache()->save($data, $this->getCacheIdentifier($id));
     }
-
-
 
     /**
      * Returns backend
@@ -54,7 +99,6 @@ class Emerald_Filelib_FolderOperator
         return $this->_backend;
     }
 
-
     /**
      * Returns filelib
      *
@@ -64,15 +108,6 @@ class Emerald_Filelib_FolderOperator
     {
         return $this->_filelib;
     }
-
-
-    public function __construct(Emerald_Filelib $filelib)
-    {
-        $this->_filelib = $filelib;
-        $this->_backend = $filelib->getBackend();
-    }
-
-
 
     /**
      * Creates a folder

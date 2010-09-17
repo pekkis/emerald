@@ -1,15 +1,34 @@
 <?php
+/**
+ * Operates on files
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_FileOperator
 {
 
+    /**
+     * @var Zend_Cache_Core
+     */
     protected $_cache;
 
+    /**
+     * @var string
+     */
     protected $_cachePrefix = 'emerald_filelib_fileoperator';
 
+    /**
+     * @var Emerald_Filelib_Uploader
+     */
     protected $_uploader;    
-    
-    
-    
+        
+    /**
+     * Returns uploader
+     * 
+     * @return Emerald_Filelib_Uploader
+     */
     public function getUploader()
     {
         if(!$this->_uploader) {
@@ -17,17 +36,22 @@ class Emerald_Filelib_FileOperator
         }
         return $this->_uploader;
     }
-
     
+    /**
+     * Sets uploader
+     * 
+     * @param Emerald_Filelib_Uploader $uploader
+     * @return Emerald_Filelib_FileOperator
+     */
     public function setUploader(Emerald_Filelib_Uploader $uploader)
     {
     	$this->_uploader = $uploader;
     	return $this;
     }
     
-    
-    
     /**
+     * Returns cache
+     * 
      * @return Zend_Cache_Core
      */
     public function getCache()
@@ -39,6 +63,12 @@ class Emerald_Filelib_FileOperator
     }
 
 
+    /**
+     * Returns cache identifier
+     * 
+     * @param mixed $id Id
+     * @return string
+     */
     public function getCacheIdentifier($id)
     {
         if(is_array($id)) {
@@ -48,23 +78,38 @@ class Emerald_Filelib_FileOperator
     }
 
 
+    /**
+     * Tries to load file from cache, returns object on success.
+     * 
+     * @param mixed $id
+     * @return mixed 
+     */
     public function findCached($id) {
         return $this->getCache()->load($this->getCacheIdentifier($id));
     }
 
 
+    /**
+     * Clears cache for id
+     * 
+     * @param mixed $id
+     */
     public function clearCached($id)
     {
         $this->getCache()->remove($this->getCacheIdentifier($id));
     }
 
 
+    /**
+     * Stores file to cache
+     * 
+     * @param mixed $id
+     * @param mixed $data
+     */
     public function storeCached($id, $data)
     {
         $this->getCache()->save($data, $this->getCacheIdentifier($id));
     }
-
-
 
     /**
      * Returns backend
