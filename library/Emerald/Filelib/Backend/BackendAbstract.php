@@ -31,10 +31,7 @@ abstract class Emerald_Filelib_Backend_BackendAbstract
         return $this->_filelib;
     }
     
-    
-    
     public function init()
     { }
-    
     
 }

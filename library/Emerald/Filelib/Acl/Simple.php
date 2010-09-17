@@ -1,4 +1,11 @@
 <?php
+/**
+ * Simple ACL allows everything to everyone
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Acl_Simple implements Emerald_Filelib_Acl_Interface
 {
 
