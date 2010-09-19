@@ -1,15 +1,12 @@
 <?php
 /**
- * This linker creates magnificent beautifurls from the directory names
- * and structure.
+ * Creates beautifurls(tm) from the virtual directory structure and names.
  *
  * @package Emerald_Filelib
  * @author pekkis
  *
  */
-class Emerald_Filelib_Linker_Beautifurl
-extends Emerald_Filelib_Linker_Abstract
-implements Emerald_Filelib_Linker_Interface
+class Emerald_Filelib_Linker_Beautifurl extends Emerald_Filelib_Linker_Abstract implements Emerald_Filelib_Linker_Interface
 {
 
     /**

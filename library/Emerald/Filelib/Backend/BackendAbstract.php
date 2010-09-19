@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract backend implementing common methods
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 abstract class Emerald_Filelib_Backend_BackendAbstract
 {
     /**

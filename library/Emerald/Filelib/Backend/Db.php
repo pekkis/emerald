@@ -1,6 +1,6 @@
 <?php
 /**
- * Database backend for filelib.
+ * Zend Db backend for filelib.
  *
  * @package Emerald_Filelib
  * @author pekkis

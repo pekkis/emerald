@@ -38,6 +38,11 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
         $this->_folderEntityName = $folderEntityName;
     }
 
+    
+    public function init()
+    { }
+    
+    
     /**
      * Sets filelib
      *

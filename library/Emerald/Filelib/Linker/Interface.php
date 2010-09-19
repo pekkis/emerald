@@ -1,4 +1,11 @@
 <?php
+/**
+ * Linker interface
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 interface Emerald_Filelib_Linker_Interface
 {
 
@@ -20,25 +27,26 @@ interface Emerald_Filelib_Linker_Interface
     public function getFilelib();
 
     /**
-     * Returns a versioned link
+     * Returns link for a version of a file
      *
      * @param Emerald_Filelib_FileItem $file
      * @param Emerald_Filelib_Plugin_VersionProvider_Interface $version Version plugin
-     * @param boolean $prefix Prefix with public directory prefix
      * @return string Versioned link
      */
     public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
 
     /**
-     * Returns a link
+     * Returns a link for a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @param boolean $prefix Prefix with public directory prefix
      * @return string Link
      */
     public function getLink(Emerald_Filelib_FileItem $file);
 
     
+    /**
+     * Initialization is run when a linker is set to filelib.
+     */
     public function init();
     
 

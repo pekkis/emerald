@@ -9,9 +9,10 @@
 interface Emerald_Filelib_Backend_Interface
 {
 
+    /**
+     * Initialization. Is run when backend is set to filelib.
+     */
     public function init();
-    
-    
 
     /**
      * Finds folder

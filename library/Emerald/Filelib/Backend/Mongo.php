@@ -1,4 +1,11 @@
 <?php
+/**
+ * MongoDB backend for Filelib
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_Interface
 {
     
