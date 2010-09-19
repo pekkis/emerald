@@ -8,7 +8,6 @@
  */
 class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_Abstract
 {
-
     /**
      * @var array Imagemagick options
      */
@@ -29,7 +28,6 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
         $this->_imageMagickOptions = $imageMagickOptions;
     }
 
-
     /**
      * Returns imagemagick options
      *
@@ -39,7 +37,6 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
     {
         return $this->_imageMagickOptions;
     }
-
 
     /**
      * Sets target file's extension
@@ -51,7 +48,6 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
         $this->_targetExtension = $targetExtension;
     }
 
-
     /**
      * Returns target file extension
      *
@@ -62,8 +58,6 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
         return $this->_targetExtension;
     }
 
-
-
     public function beforeUpload(Emerald_Filelib_FileUpload $upload)
     {
         $oldUpload = $upload;
@@ -71,7 +65,7 @@ class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_A
         $mimetype = $oldUpload->getMimeType();
         if(preg_match("/^image/", $mimetype)) {
 
-            $tempnam = tempnam(sys_get_temp_dir(), 'filelib');
+            $tempnam = tempnam($this->getFilelib()->getTempDir(), 'filelib');
             	
             $img = new Imagick($oldUpload->getPathname());
             	

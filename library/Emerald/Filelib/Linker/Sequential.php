@@ -1,13 +1,13 @@
 <?php
 /**
- * Sequential linker creates a sequential link with n levels of directories and m files per directory
+ * Sequential linker creates a sequential link with n levels of directories with m files per directory
  *
  * @package Emerald_Filelib
  * @author pekkis
  * @author Petri Mahanen
  *
  */
-class Emerald_Filelib_Linker_Mirror extends Emerald_Filelib_Linker_Abstract implements Emerald_Filelib_Linker_Interface
+class Emerald_Filelib_Linker_Sequential extends Emerald_Filelib_Linker_Abstract implements Emerald_Filelib_Linker_Interface
 {
 
     /**
@@ -24,7 +24,7 @@ class Emerald_Filelib_Linker_Mirror extends Emerald_Filelib_Linker_Abstract impl
      * Sets files per directory
      *
      * @param integer $filesPerDirectory
-     * @return Emerald_Filelib_Linker_Mirror
+     * @return Emerald_Filelib_Linker_Sequential
      */
     public function setFilesPerDirectory($filesPerDirectory)
     {
@@ -46,7 +46,7 @@ class Emerald_Filelib_Linker_Mirror extends Emerald_Filelib_Linker_Abstract impl
      * Sets levels per directory hierarchy
      *
      * @param integer $directoryLevels
-     * @return Emerald_Filelib_Linker_Mirror
+     * @return Emerald_Filelib_Linker_Sequential
      */
     public function setDirectoryLevels($directoryLevels)
     {

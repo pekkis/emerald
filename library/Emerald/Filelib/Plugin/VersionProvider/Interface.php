@@ -6,14 +6,30 @@
  * @package Emerald_Filelib
  *
  */
-interface Emerald_Filelib_Plugin_VersionProvider_Interface
+interface Emerald_Filelib_Plugin_VersionProvider_Interface extends Emerald_Filelib_Plugin_Interface
 {
+    /**
+     * Sets file extension
+     *
+     * @param string $extension File extension
+     */
+    public function setExtension($extension);
 
-    public function setProfiles(array $profiles);
-
-    public function getProfiles();
-
-
+    /**
+     * Returns the plugins file extension
+     *
+     * @return string
+     */
+    public function getExtension();
+    
+    /**
+     * Returns render path
+     * 
+     * @param Emerald_Filelib_FileItem $file
+     * @todo This whole method is ambiguous. Rethinking required.
+     */
+    public function getRenderPath(Emerald_Filelib_FileItem $file);
+    
     /**
      * Sets file types for this version plugin.
      *
@@ -36,7 +52,6 @@ interface Emerald_Filelib_Plugin_VersionProvider_Interface
      */
     public function providesFor(Emerald_Filelib_FileItem $file);
 
-
     /**
      * Sets version identifier
      *
@@ -57,23 +72,5 @@ interface Emerald_Filelib_Plugin_VersionProvider_Interface
      * @return string
      */
     public function getRenderPath(Emerald_Filelib_FileItem $file);
-
-    /**
-     * Concrete version creator code
-     *
-     * @param $file
-     * @return unknown_type
-     */
-    public function createVersion(Emerald_Filelib_FileItem $file);
-
-
-    /**
-     * Concrete version deletor code
-     *
-     * @param $file
-     * @return unknown_type
-     */
-    public function deleteVersion(Emerald_Filelib_FileItem $file);
-
-
+    
 }

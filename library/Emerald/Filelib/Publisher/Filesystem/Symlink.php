@@ -1,16 +1,21 @@
 <?php
+/**
+ * Publishes files in a filesystem by creating a symlink to the original file in the filesystem storage
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
 {
-    
     
     /**
      * @var string Relative path from public to private root
      */
     private $_relativePathToRoot;
     
-    
     /**
-     * Sets symbolic link from public to private root
+     * Sets path from public to private root
      *
      * @param string $relativePathToRoot
      * @return Emerald_Filelib
@@ -21,9 +26,8 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
         return $this;
     }
 
-
     /**
-     * Returns symbolic link from public to private root
+     * Returns path from public to private root
      *
      * @return string
      */
@@ -31,10 +35,9 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
     {
         return $this->_relativePathToRoot;
     }
-    
-    
+        
     /**
-     * Returns relative link from the public to private root
+     * Returns relative path from link to file in storage
      *
      * @param Emerald_Filelib_File $file File item
      * @param $levelsDown How many levels down from root
@@ -56,8 +59,6 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
         
         return $sltr;
     }
-    
-    
     
     public function publish(Emerald_Filelib_FileItem $file)
     {
@@ -143,24 +144,18 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
     
     public function unpublish(Emerald_Filelib_FileItem $file)
     {
-        // $fl = $this->getFilelib();
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
         if(is_link($link)) {
             unlink($link);
         }
-        
     }
     
     public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
-
         if(is_link($link)) {
             unlink($link);
         }
-        
     }
     
-    
 }
-

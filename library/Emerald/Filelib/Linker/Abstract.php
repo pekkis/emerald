@@ -43,6 +43,9 @@ abstract class Emerald_Filelib_Linker_Abstract
         return $this->_filelib;
     }
 
+    /**
+     * Initialization is run once when linker is set to filelib
+     */
     public function init()
     { }
     

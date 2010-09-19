@@ -4,6 +4,7 @@
  * 
  * @author pekkis
  * @package Emerald_Filelib
+ * @todo Prototype, to be error-proofed
  *
  */
 class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_Interface

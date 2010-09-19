@@ -1,4 +1,11 @@
 <?php
+/**
+ * Does absolutely nothing when files are published. Surprisingly it always succeeds.
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Publisher_Nothing
 {
     

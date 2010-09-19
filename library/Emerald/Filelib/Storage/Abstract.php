@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract storage convenience base class with common methods implemented
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 abstract class Emerald_Filelib_Storage_Abstract
 {
     /**

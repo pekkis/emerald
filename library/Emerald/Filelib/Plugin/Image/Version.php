@@ -15,7 +15,6 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
      */
     protected $_scaleOptions = array();
 
-
     /**
      * Sets ImageMagick options
      *
@@ -25,7 +24,6 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
     {
         $this->_imageMagickOptions = $imageMagickOptions;
     }
-
 
     /**
      * Return ImageMagick options
@@ -37,10 +35,6 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
         return $this->_imageMagickOptions;
     }
 
-
-
-
-
     /**
      * Sets scale options
      *
@@ -50,7 +44,6 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
     {
         $this->_scaleOptions = $scaleOptions;
     }
-
 
     /**
      * Returns scale options
@@ -62,10 +55,8 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
         return $this->_scaleOptions;
     }
 
-
-
     /**
-     * Creates version. Potentially overwrites old one.
+     * Creates and stores version
      *
      * @param Emerald_FileItem $file
      */
@@ -94,10 +85,5 @@ class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_Versio
         $this->getFilelib()->getStorage()->storeVersion($file, $this, $tmp);        
         
     }
-
-
-
-
-
 
 }

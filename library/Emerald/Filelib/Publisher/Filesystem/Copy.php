@@ -1,10 +1,16 @@
 <?php
+/**
+ * Publishes files in a filesystem by retrieving them from storage and creating a copy
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Publisher_Filesystem_Copy extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
 {
     
     public function publish(Emerald_Filelib_FileItem $file)
     {
-        
         $fl = $this->getFilelib();
         $linker = $file->getProfileObject()->getLinker();
         
@@ -23,7 +29,6 @@ class Emerald_Filelib_Publisher_Filesystem_Copy extends Emerald_Filelib_Publishe
             chmod($link, $this->getFilePermission());            
             
         }
-        
     }
     
     public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
@@ -42,10 +47,7 @@ class Emerald_Filelib_Publisher_Filesystem_Copy extends Emerald_Filelib_Publishe
             $tmp = $this->getFilelib()->getStorage()->retrieveVersion($file, $version);
             copy($tmp, $link);
             chmod($link, $this->getFilePermission());            
-            
         }
-        
-        
     }
     
     public function unpublish(Emerald_Filelib_FileItem $file)
@@ -55,7 +57,6 @@ class Emerald_Filelib_Publisher_Filesystem_Copy extends Emerald_Filelib_Publishe
             unlink($link);
         }
     }
-
     
     public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
@@ -65,6 +66,4 @@ class Emerald_Filelib_Publisher_Filesystem_Copy extends Emerald_Filelib_Publishe
         }
     }
     
-    
 }
-

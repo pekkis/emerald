@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract convenience publisher base class implementing common methods
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 abstract class Emerald_Filelib_Publisher_Abstract
 {
     /**

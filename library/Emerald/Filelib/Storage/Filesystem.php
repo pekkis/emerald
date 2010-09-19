@@ -1,7 +1,13 @@
 <?php
+/**
+ * Stores files in a filesystem
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstract implements Emerald_Filelib_Storage_StorageInterface
 {
-
     /**
      * @var string Physical root
      */
@@ -26,8 +32,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * @var integer Octal representation for file permissions
      */
     private $_filePermission = 0600;
-    
-       
 
     /**
      * Sets files per directory
@@ -63,8 +67,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         return $this;
     }
 
-
-
     /**
      * Returns levels in directory hierarchy
      *
@@ -74,8 +76,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     {
         return $this->_directoryLevels;
     }
-
-
 
     /**
      * Sets directory permission
@@ -88,7 +88,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         $this->_directoryPermission = octdec($directoryPermission);
         return $this;
     }
-
 
     /**
      * Returns directory permission
@@ -122,8 +121,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         return $this->_filePermission;
     }
 
-
-
     /**
      * Returns directory identifier (path) for specified file id
      *
@@ -132,7 +129,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      */
     public function getDirectoryId($fileId)
     {
-
         $directoryLevels = $this->getDirectoryLevels() + 1;
         $filesPerDirectory = $this->getFilesPerDirectory();
 
@@ -151,7 +147,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
 
         $puuppa = array_pop($arr);
         return implode(DIRECTORY_SEPARATOR, $arr);
-
     }
 
     /**
@@ -165,7 +160,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         $this->_root = $root;
     }
 
-
     /**
      * Returns root
      *
@@ -175,8 +169,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
     {
         return $this->_root;
     }
-
-    
     
     public function store(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FileItem $file)
     {
@@ -199,18 +191,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         if(!is_readable($fileTarget)) {
             throw new Emerald_Filelib_Exception('Could not copy file to folder');
         }
-        
-        
-                
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     public function storeVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version, $tempFile)
     {
@@ -221,7 +202,6 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         }
                  
         copy($tempFile, $path . '/' . $file->id);
-        
     }
     
     public function retrieve(Emerald_Filelib_FileItem $file)
@@ -233,9 +213,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         }
         
         return new Emerald_Spl_FileObject($path);
-        
     }
-    
     
     public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
@@ -246,10 +224,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         }
         
         return new Emerald_Spl_FileObject($path);
-        
     }
-    
-    
     
     public function delete(Emerald_Filelib_FileItem $file)
     {
@@ -270,8 +245,4 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         unlink($path);
     }
-    
-    
 }
-
-

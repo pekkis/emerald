@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract filesystem publisher base class
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 abstract class Emerald_Filelib_Publisher_Filesystem extends Emerald_Filelib_Publisher_Abstract
 {
     /**

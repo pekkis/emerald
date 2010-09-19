@@ -1,10 +1,10 @@
 <?php
 /**
- * Prototype test plugin for video versioning
+ * Prototype proof-of-concept test plugin for video versioning
  *
  * @package Emerald_Filelib
  * @author pekkis
- * @todo Abstract to generic ffmpeg plugin
+ * @todo This is just a proof a concept
  *
  */
 class Emerald_Filelib_Plugin_Video_Flashify
@@ -12,12 +12,6 @@ extends Emerald_Filelib_Plugin_VersionProvider_Abstract
 {
     protected $_providesFor = array('video', 'application');
 
-
-    /**
-     * Creates version. Potentially overwrites old one.
-     *
-     * @param Emerald_FileItem $file
-     */
     public function createVersion(Emerald_Filelib_FileItem $file)
     {
 

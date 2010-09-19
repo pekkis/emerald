@@ -1,6 +1,7 @@
 <?php
 /**
- * Randomizes uploads' file names before uploading
+ * Randomizes all uploads' file names before uploading. Ensures that same file may be uploaded
+ * to the same directory many times.
  *
  * @package Emerald_Filelib
  * @author pekkis
@@ -14,7 +15,6 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
      */
     protected $_prefix = '';
 
-
     /**
      * Sets prefix
      *
@@ -25,7 +25,6 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
         $this->_prefix = $prefix;
     }
 
-
     /**
      * Returns prefix
      *
@@ -35,7 +34,6 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
     {
         return $this->_prefix;
     }
-
 
     public function beforeUpload(Emerald_Filelib_FileUpload $upload)
     {
@@ -49,8 +47,6 @@ class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstra
         $upload->setOverrideFilename($newname);
         return $upload;
     }
-    
-    
 
 }
 
