@@ -222,6 +222,7 @@ class EmCore_Model_Navigation
             $pageRes = new Zend_Navigation_Page_Uri(
             array(
 					'uri' => ($page->customurl) ? $page->customurl : EMERALD_URL_BASE . '/' . $page->beautifurl,
+                    'beautifurl' => $page->beautifurl,
 					'label' => $page->title,
 					'locale' => $page->locale,
 					'id' => $page->id,
@@ -275,7 +276,8 @@ class EmCore_Model_Navigation
             $pageRes = new Zend_Navigation_Page_Uri(
             array(
 					'uri' => ($page->customurl) ? $page->customurl : EMERALD_URL_BASE . '/' . $page->beautifurl,
-					'label' => $page->title,
+                    'beautifurl' => $page->beautifurl,
+                    'label' => $page->title,
 					'locale' => $page->locale,
 					'id' => $page->id,
 					'global_id' => $page->global_id,
