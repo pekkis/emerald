@@ -1,4 +1,11 @@
 <?php
+/**
+ * Folder table
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Backend_Db_Table_Folder extends Zend_Db_Table_Abstract
 {
     protected $_name = 'emerald_filelib_folder';

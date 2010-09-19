@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Publisher_Nothing
+class Emerald_Filelib_Publisher_Nothing extends Emerald_Filelib_Publisher_Abstract implements Emerald_Filelib_Publisher_PublisherInterface
 {
     
     public function publish(Emerald_Filelib_FileItem $file)

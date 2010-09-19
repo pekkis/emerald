@@ -1,4 +1,11 @@
 <?php
+/**
+ * Folder row
+ * 
+ * @author pekkis
+ * @package Emerald_Filelib
+ *
+ */
 class Emerald_Filelib_Backend_Db_Row_Folder extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resource_Interface
 {
 
