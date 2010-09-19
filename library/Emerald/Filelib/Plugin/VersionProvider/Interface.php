@@ -66,11 +66,5 @@ interface Emerald_Filelib_Plugin_VersionProvider_Interface extends Emerald_Filel
      */
     public function getIdentifier();
 
-    /**
-     * Returns version identifier
-     *
-     * @return string
-     */
-    public function getRenderPath(Emerald_Filelib_FileItem $file);
     
 }
