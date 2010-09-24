@@ -6,7 +6,7 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
     {
         // Console tools may define customer with putenv
         $customer = (getenv('EMERALD_CUSTOMER')) ? getenv('EMERALD_CUSTOMER') : $_SERVER['HTTP_HOST'];
-
+        
         // $this->getBootstrap()->bootstrap('frontcontroller');
 
 
@@ -15,7 +15,7 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
             $customer = new Emerald_Application_Customer(realpath($path));
         }
 
-        if(!$customer) {
+        if(!($customer instanceof Emerald_Application_Customer)) {
             throw new Emerald_Exception("Customer not found");
         }
 
