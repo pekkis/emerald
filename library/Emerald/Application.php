@@ -9,6 +9,7 @@ require_once "Zend/Application.php";
  * 
  * @author pekkis
  * @package Emerald_Application
+ * @todo Add more cache backends (Xcache, Zend Server etc)
  *
  */
 class Emerald_Application extends Zend_Application

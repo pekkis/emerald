@@ -11,18 +11,22 @@ class Emerald_Beautifurl
 
     static private $_beautifurlers = array();
 
-    static public function factory($beautifurlClass) {
+    static public function factory($beautifurlIdentifier = 'Default') {
 
-        if(!isset(self::$_beautifurlers[$beautifurlClass])) {
+        if(!$beautifurlIdentifier) {
+            $beautifurlIdentifier = 'Default';
+        }
+                
+        if(!isset(self::$_beautifurlers[$beautifurlIdentifier])) {
 
-            $split = explode(";", $beautifurlClass);
+            $split = explode(";", $beautifurlIdentifier);
             (isset($split[1])) ? parse_str($split[1], $options) : $options = array();
             	
             $className = "Emerald_Beautifurl_" . $split[0];
-            self::$_beautifurlers[$beautifurlClass] = new $className($options);
+            self::$_beautifurlers[$beautifurlIdentifier] = new $className($options);
         }
 
-        return self::$_beautifurlers[$beautifurlClass];
+        return self::$_beautifurlers[$beautifurlIdentifier];
 
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface for autoloading Acl role
+ * Interface for an autoloading Acl role
  * 
  * @package Emerald_Acl
  * @author pekkis

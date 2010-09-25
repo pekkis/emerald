@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface for autoloading Acl resource
+ * Interface for an autoloading Acl resource
  * 
  * @package Emerald_Acl
  * @author pekkis

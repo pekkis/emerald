@@ -6,14 +6,52 @@
  * @package Emerald_Beautifurl
  *
  */
-class Emerald_Beautifurl_Default
+class Emerald_Beautifurl_Default extends Emerald_Beautifurl_BeautifurlAbstract implements Emerald_Beautifurl_BeautifurlInterface
 {
-    private $_options = array();
-
-    public function __construct($options = array()) {
-        $this->_options = $options;
+    
+    /**
+     * @var string
+     */
+    private $_skipReplaces = false;
+    
+    /**
+     * Sets whether to skip all character replacings
+     * 
+     * @param boolean $skipReplaces
+     */
+    public function setSkipReplaces($skipReplaces)
+    {
+        $this->_skipReplaces = $skipReplaces;
     }
 
+    
+    /**
+     * Returns whether to skip all character replacings
+     * 
+     * @return boolean
+     */
+    public function getSkipReplaces()
+    {
+        return $this->_skipReplaces;
+    }
+       
+    
+    public function beautify($fugly)
+    {
+        if(is_array($fugly)) {
+            return $this->_fromArray($fugly);
+        }
+        
+        $fugly = explode($this->getSeparator(), $fugly);
+
+        if (sizeof($fugly) == 1) {
+            return $this->_fromString($fugly[0]);
+        }
+        
+        return $this->_fromArray($fugly);
+    }
+    
+    
 
     /**
      * Makes and returns beautifurl from a string
@@ -22,10 +60,11 @@ class Emerald_Beautifurl_Default
      * @param string $beautifier Spacify with
      * @return string
      */
-    public function fromString($str, $beautifier = '-')
+    private function _fromString($str)
     {
-
-        if(isset($this->_options['skip']) && $this->_options['skip'] == 1) {
+        $beautifier = $this->getSpaceBeautifier();        
+        
+        if ($this->getSkipReplaces()) {
             return $str;
         }
 
@@ -46,18 +85,16 @@ class Emerald_Beautifurl_Default
      * @param string $beautifier Spacify with
      * @return string
      */
-    public function fromArray(array $fragments, $prepend = null, $beautifier = '-')
+    private function _fromArray(array $fragments)
     {
+        $beautifier = $this->getSpaceBeautifier();
+        
         $beautifulFragments = array();
-        foreach($fragments as $fragment) {
-            $beautifulFragments[] = $this->fromString($fragment, $beautifier);
+        foreach ($fragments as $fragment) {
+            $beautifulFragments[] = $this->_fromString($fragment, $beautifier);
         }
 
-        if($prepend) {
-            array_unshift($beautifulFragments, $prepend);
-        }
-
-        $beautifurl = implode('/', $beautifulFragments);
+        $beautifurl = implode($this->getSeparator(), $beautifulFragments);
         return $beautifurl;
 
     }
