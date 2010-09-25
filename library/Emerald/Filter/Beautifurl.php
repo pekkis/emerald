@@ -1,7 +1,9 @@
 <?php
 /**
- * beautifurl filter replaces page controllers view action calls with corresponding beautifurls(tm).
+ * Beautifurl filter replaces page and file view action calls with corresponding beautifurls(tm).
  *
+ * @author pekkis
+ * @package Emerald_Filter
  * @todo: optimize, cache, conquer world.
  */
 class Emerald_Filter_Beautifurl implements Zend_Filter_Interface

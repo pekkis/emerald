@@ -17,16 +17,16 @@ class EmCore_UserController extends Emerald_Controller_Action
 
         $form = new EmCore_Form_Login();
         if(!$form->isValid($this->getRequest()->getPost())) {
-            $msg = new Emerald_Message(Emerald_Message::ERROR, 'Check fields');
+            $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Check fields');
             $msg->errors = $form->getMessages();
         } else {
 
             $model = new EmCore_Model_User();
 
             if($model->authenticate($form->tussi->getValue(), $form->loso->getValue())) {
-                $msg = new Emerald_Message(Emerald_Message::SUCCESS, 'Login OK');
+                $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, 'Login OK');
             } else {
-                $msg = new Emerald_Message(Emerald_Message::ERROR, 'Login failed.');
+                $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Login failed.');
             }
             	
         }

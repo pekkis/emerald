@@ -22,14 +22,9 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
                 
         $opts = $this->getOptions();
                 
-        $cm = new Emerald_Cache_Manager();
+        $cm = $this->getBootstrap()->bootstrap('cachemanager')->getResource('cachemanager');
         Zend_Registry::set('Emerald_CacheManager', $cm);
 
-        foreach($opts['frontend'] as $key => $frontend) {
-            $backend = $this->_getBackend($frontend['backend']);
-            $cache = Zend_Cache::factory($frontend['class'], $backend, $frontend['options']);
-            $cm->setCache($key, $cache);
-        }
 
         if(isset($opts['framework'])) {
             foreach($opts['framework'] as $key => $cache) {

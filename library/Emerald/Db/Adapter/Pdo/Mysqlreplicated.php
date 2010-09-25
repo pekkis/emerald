@@ -1,4 +1,11 @@
 <?php
+/**
+ * Prototype replicated PDO Mysql adapter
+ * 
+ * @author pekkis
+ * @package Emerald_Db
+ *
+ */
 class Emerald_Db_Adapter_Pdo_Mysqlreplicated extends Zend_Db_Adapter_Pdo_Mysql
 {
 

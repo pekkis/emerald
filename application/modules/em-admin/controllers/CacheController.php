@@ -24,10 +24,10 @@ class EmAdmin_CacheController extends Emerald_Controller_Action
                 $cache->clean();
             }
 
-            $msg = new Emerald_Message(Emerald_Message::SUCCESS, "All caches were cleared.");
+            $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, "All caches were cleared.");
             	
         } catch(Exception $e) {
-            $msg = new Emerald_Message(Emerald_Message::ERROR, "Cleaning the caches failed.");
+            $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, "Cleaning the caches failed.");
         }
 
         $this->view->message = $msg;

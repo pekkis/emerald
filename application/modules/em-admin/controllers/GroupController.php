@@ -53,9 +53,9 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 
         try {
             $groupModel->delete($group);
-            $this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');
+            $this->view->message = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, 'Save ok');
         } catch(Emerald_Exception $e) {
-            $this->view->message = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
+            $this->view->message = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Save failed');
         }
 
 
@@ -105,11 +105,11 @@ class EmAdmin_GroupController extends Emerald_Controller_Action
 
             $groupModel->save($group);
 
-            $this->view->message = new Emerald_Message(Emerald_Message::SUCCESS, 'Save ok');
+            $this->view->message = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, 'Save ok');
             $this->view->message->group_id = $group->id;
             	
         } else {
-            $msg = new Emerald_Message(Emerald_Message::ERROR, 'Save failed');
+            $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }

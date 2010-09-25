@@ -1,4 +1,11 @@
 <?php
+/**
+ * CMS specific Newsitem feed builder
+ * 
+ * @author pekkis
+ * @package Emerald_Cms
+ *
+ */
 class Emerald_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interface
 {
 

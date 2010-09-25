@@ -1,18 +1,9 @@
 <?php
-
 /**
- * Emerald
- *
- * @category  Emerald
- * @package   Emerald_Filter
- * @license   New BSD License
- */
-
-
-/**
- * @category Emerald
+ * HtmlSpecialChars filter
+ * 
+ * @author pekkis
  * @package  Emerald_Filter
- * @license  New BSD License
  */
 class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
 {

@@ -1,8 +1,9 @@
 <?php
 /**
- * Zend DB:s metadata cache is so incredibly stupid that is almost unbelievable.
+ * Zend DB's metadata cache is so incredibly stupid that is almost unbelievable. This fixes the stupidity.
  *
  * @author pekkis
+ * @package Emerald_Db
  *
  */
 class Emerald_Db_Table_Abstract extends Zend_Db_Table_Abstract
