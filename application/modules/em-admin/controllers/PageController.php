@@ -38,7 +38,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
 
         $page = $pageModel->find($this->_getParam('id'));
 
-        if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
+        if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
             throw new Emerald_Exception('Forbidden', 403);
         }
 
