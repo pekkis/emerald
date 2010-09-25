@@ -1,4 +1,11 @@
 <?php
+/**
+ * CMS specific user initialization
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Resource_Emuser extends Zend_Application_Resource_ResourceAbstract
 {
 
@@ -7,6 +14,7 @@ class Emerald_Application_Resource_Emuser extends Zend_Application_Resource_Reso
         $this->getBootstrap()->bootstrap('modules');
 
         $options = $this->getOptions();
+        
         EmCore_Model_User::setHashAlgorithm($options['hash']['algorithm']);
         EmCore_Model_User::setHashSalt($options['hash']['salt']);
 

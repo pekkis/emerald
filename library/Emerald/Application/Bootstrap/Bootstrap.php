@@ -1,4 +1,11 @@
 <?php
+/**
+ * Emerald CMS specific bootstrap ensures that customer is bootstrap always and first.
+ *  
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
@@ -8,30 +15,22 @@ class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap
             if(!isset($this->_run['customer'])) {
                 $this->bootstrap('customer');
             }
-            
             $ret = parent::_bootstrap($resource);
-            
             return $ret;
-
         }
-
         $ret = parent::_bootstrap($resource);
     }
 
-    public function addOptions($options)
+    
+    /**
+     * Adds options
+     * 
+     * @param array $options
+     * @return Emerald_Application_Bootstrap_Bootstrap
+     */
+    public function addOptions(array $options)
     {
         return $this->setOptions($this->mergeOptions($this->getOptions(), $options));
     }
-
-    /*
-    protected function _executeResource($resource)
-    {
-        Emerald_Debug_Timer::getTimer('luss')->time("Bootstrap '{$resource}' begin");
-        parent::_executeResource($resource);
-        Emerald_Debug_Timer::getTimer('luss')->time("Bootstrap '{$resource}' end");
-    }
-    */
-    
-    
 
 }

@@ -1,10 +1,17 @@
 <?php
+/**
+ * Initializes Emerald Server
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Resource_Server extends Zend_Application_Resource_ResourceAbstract
 {
 
-    private $_db;
-
-
+    /**
+     * @return Emerald_Server
+     */
     public function init()
     {
         $options = $this->getOptions();
@@ -12,10 +19,6 @@ class Emerald_Application_Resource_Server extends Zend_Application_Resource_Reso
         Zend_Registry::set('Emerald_Server', $server);
         return $server;
     }
-
-
-
-
 
 
 }

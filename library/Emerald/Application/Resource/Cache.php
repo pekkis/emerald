@@ -1,8 +1,10 @@
 <?php
 /**
+ * Cache resource
+ * 
  * @author pekkis
- *
- * @todo Caching of non-anonymous pages is baaaaad :)
+ * @package Emerald_Application
+ * @todo The whole Zend Cache is soooo retarded. This does not work as it should work.
  *
  */
 class Emerald_Application_Resource_Cache extends Zend_Application_Resource_ResourceAbstract
@@ -12,6 +14,9 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
 
     protected $frontends;
 
+    /**
+     * @return Emerald_Cache_Manager
+     */
     public function init()
     {
                 

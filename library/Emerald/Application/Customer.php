@@ -1,40 +1,56 @@
 <?php
+/**
+ * Customer
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Customer
 {
     /**
-     * Array of customer roots.
-     *
-     * @var array
+     * @var string Identifier
+     */
+    private $_identifier;
+        
+    /**
+     * @var string Root directory
+     */
+    private $_root;
+    
+    /**
+     * @var array Array of specialized roots
      */
     private $_roots = array(
 		'layouts' => 'views/scripts/layouts',
     );
 
-    private $_root;
-
     /**
-     * Config
-     *
-     * @var Zend_Config_Xml
+     * @var Zend_Config Configuration
      */
     private $_config;
 
 
+    /**
+     * @var Zend_Cache_Core Option cache
+     */
     private $_optionCache;
 
 
     /**
-     * Db
-     *
      * @var Zend_Db_Adapter_Pdo_Mysql
      */
     private $_db;
 
+    /**
+     * @var Emerald_Db_OptionContainer Option container
+     */
     private $_optionContainer;
 
-    private $_options;
-
-    private $_identifier;
+    /**
+     * @var array Options
+     */
+    private $_options = array();
 
     public function __construct($root)
     {
@@ -45,16 +61,24 @@ class Emerald_Application_Customer
 
     }
 
-
+    
+    public function getIdentifier()
+    {
+        return $this->_identifier;
+    }
+    
     /**
-     * Returns customer roots
+     * Returns the customer's root directory, or a specialized root if specified
      *
-     * @param string $specified Specified root
-     * @return string root directory
+     * @param string $specified Specialized root
+     * @return string Root directory
      */
     public function getRoot($specified = null)
     {
-        return (!$specified) ? $this->_root : $this->_root . '/' . $this->_roots[$specified];
+        if($specified) {
+            return $this->_root . '/' . $this->_roots[$specified]; 
+        }
+        return $this->_root; 
     }
 
     /**
@@ -82,13 +106,22 @@ class Emerald_Application_Customer
 
 
 
-    public function setDb($db)
+    /**
+     * Sets db
+     * 
+     * @param unknown_type $db
+     */
+    public function setDb(Zend_Db_Adapter_Abstract $db)
     {
-
         $this->_db = $db;
     }
 
 
+    /**
+     * Returns option cache
+     * 
+     * @return Zend_Cache_Core
+     */
     public function getOptionCache()
     {
         if(!$this->_optionCache) {
@@ -98,6 +131,12 @@ class Emerald_Application_Customer
     }
 
 
+    /**
+     * Returns option
+     * 
+     * @param string $key
+     * @return mixed Option value or false
+     */
     public function getOption($key)
     {
         $options = $this->getOptions();
@@ -105,6 +144,12 @@ class Emerald_Application_Customer
     }
 
 
+    /**
+     * Sets option
+     * 
+     * @param string $key Key
+     * @param mixed $value Value
+     */
     public function setOption($key, $value)
     {
         $this->_options[$key] = $value;
@@ -113,6 +158,11 @@ class Emerald_Application_Customer
 
     }
 
+    /**
+     * Returns all options
+     * 
+     * @return array
+     */
     public function getOptions()
     {
         if(!$this->_options) {
@@ -127,6 +177,11 @@ class Emerald_Application_Customer
 
 
 
+    /**
+     * Returns option container
+     * 
+     * @return Emerald_Db_OptionContainer
+     */
     protected function _getOptionContainer()
     {
         if(!$this->_optionContainer) {
@@ -138,27 +193,33 @@ class Emerald_Application_Customer
     }
 
 
+    /**
+     * Returns all available layout classes
+     * 
+     * @return ArrayObject
+     */
     public function getLayouts()
     {
         $iter = new DirectoryIterator($this->getRoot() . '/views/scripts/layouts');
-         
         $layouts = new ArrayObject();
-         
         foreach($iter as $file) {
             if($file->isFile() && preg_match("/\.php$/", $file->getFilename())) {
                 $layoutName = basename($file->getFilename(), '.php');
                 $layouts[$layoutName] = $this->getLayout($layoutName);
             }
         }
-         
-         
         $layouts->ksort();
-         
         return $layouts;
     }
 
 
 
+    /**
+     * Returns the specified layout object
+     * 
+     * @param string $layout Layout name
+     * @return Emerald_Layout
+     */
     public function getLayout($layout)
     {
         require_once $this->getRoot() . "/views/scripts/layouts/{$layout}.php";
@@ -169,12 +230,11 @@ class Emerald_Application_Customer
 
 
 
-    public function getIdentifier()
-    {
-        return $this->_identifier;
-    }
-
-
+    /**
+     * Returns whether the customer is registered to the server
+     * 
+     * @return boolean
+     */
     public function isRegistered()
     {
         return (bool) $this->getOption('registered');
@@ -182,10 +242,20 @@ class Emerald_Application_Customer
 
 
 
+    /**
+     * Returns whether the customer is installed
+     * 
+     * @return boolean
+     * @todo Is this a bug?
+     */
     public function isInstalled()
     {
         return (bool) $this->getOption('registered');
     }
+    
+    
+    
+
 
 
 }

@@ -1,10 +1,9 @@
 <?php
 /**
- * Crude autoloader for default Emerald ACL resources based on legacy code
+ * Crude 1st generation autoloader for default Emerald ACL resources (based on legacy hard-code)
  * 
  * @author pekkis
  * @package Emerald_Acl
- * @todo Optimize and differentiate
  *
  */
 class Emerald_Acl_Autoloader

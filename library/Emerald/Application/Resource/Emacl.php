@@ -1,4 +1,11 @@
 <?php
+/**
+ * CMS specific ACL initialization
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_ResourceAbstract
 {
 
@@ -41,8 +48,7 @@ class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_Resou
             array($autoloader, 'autoloadResource')
         );
         
-        // If defined, initialize filelib.
-        
+        // If defined, initialize filelib's ACL
         if($this->_options['initFilelib'] == true) {
             
             $filelib = $this->getBootstrap()->getResource('filelib');

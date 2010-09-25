@@ -1,9 +1,24 @@
 <?php
+/**
+ * CMS specific router initialization
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Router
 {
 
+    /**
+     * @var EmCore_Model_Shard
+     */
     private $_shardModel;
 
+    /**
+     * Returns shard model
+     * 
+     * @return EmCore_Model_Shard
+     */
     public function getShardModel()
     {
         if(!$this->_shardModel) {
@@ -11,15 +26,22 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
         }
     }
 
-
-    public function getShard($page)
+    /**
+     * Returns shard item for a page
+     * 
+     * @param Zend_Navigation_Page $page
+     * @return EmCore_Model_ShardItem
+     */
+    public function getShard(Zend_Navigation_Page $page)
     {
         $shardItem = $this->getShardModel()->find($page->shard_id);
         return $shardItem;
 
     }
 
-
+    /**
+     * @return Zend_Controller_Router_Abstract
+     */
     public function init()
     {
         $router = parent::init();
@@ -27,8 +49,8 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
 
         $this->getBootstrap()->bootstrap('translate');
 
+        // Try to fetch page routes from cache, if not go to loop de loop, fetch and cache 'em.
         $pageRoutes = $cache->load('Emerald_PageRoutes');
-
         if($pageRoutes === false) {
             	
             $this->getBootstrap()->bootstrap('modules')->bootstrap('emdb');
@@ -41,22 +63,13 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
             $navi = $naviModel->getNavigation();
             	
             $navi = new RecursiveIteratorIterator($navi, RecursiveIteratorIterator::SELF_FIRST);
-            	
             foreach($navi as $page) {
-
                 if($page->id && $page->shard_id) {
-
                     $shard = $this->getShard($page);
-
                     $routes = $shard->getRoutes($page);
-
                     foreach($routes as $name => $route) {
                         $pageRoutes[$name] = $route;
                     }
-                    	
-                    	
-                    // $naviModel->navigationFromShard($page);
-                    	
                 }
             }
             	
@@ -75,27 +88,13 @@ class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Ro
              }
              */
             	
-
-            	
         } else {
-
             if($pageRoutes) {
                 $router->addRoutes($pageRoutes);
             }
-            	
         }
-
-
-
-
-        // Zend_Debug::dump($naviModel->getNavigation());
-
-        // Zend_Debug::dump($navi->getInnerIterator());
-
-
+        
         return $router;
-
     }
-
 
 }

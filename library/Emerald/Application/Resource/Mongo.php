@@ -1,4 +1,12 @@
 <?php
+/**
+ * Mongo resource
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ * @todo Multiple mongoloids
+ *
+ */
 class Emerald_Application_Resource_Mongo extends Zend_Application_Resource_ResourceAbstract
 {
     protected $_options = array(
@@ -10,6 +18,9 @@ class Emerald_Application_Resource_Mongo extends Zend_Application_Resource_Resou
 		'connect'  => true,
     );
 
+    /**
+     * @return MongoDb
+     */
     public function init()
     {
         $options = $this->getOptions();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Auth wrapper
+ * Simple Auth wrapper to ensure that no clash happens with the host application
  * 
  * @author pekkis
  * @package Emerald_Auth

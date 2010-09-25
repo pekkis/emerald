@@ -1,14 +1,21 @@
 <?php
+/**
+ * Customer initialization resource
+ * 
+ * @author pekkis
+ * @package Emerald_Application
+ *
+ */
 class Emerald_Application_Resource_Customer extends Zend_Application_Resource_ResourceAbstract
 {
 
+    /**
+     * @return Emerald_Application_Customer
+     */
     public function init()
     {
-        // Console tools may define customer with putenv
+        // Customer may be defined as env variable. Otherwise it is guessed via http host
         $customer = (getenv('EMERALD_CUSTOMER')) ? getenv('EMERALD_CUSTOMER') : $_SERVER['HTTP_HOST'];
-        
-        // $this->getBootstrap()->bootstrap('frontcontroller');
-
 
         $path = APPLICATION_PATH . '/../customers/' . $customer ;
         if(is_dir($path)) {
@@ -21,6 +28,7 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 
         $options = $this->getOptions();
 
+        // If options aren't cached, customer specific options are fetched and merged with baseline options
         if(!isset($options['included'])) {
             $config = $customer->getConfig();
             $config = $config->toArray();
@@ -28,6 +36,7 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
             $this->getBootstrap()->addOptions($config);
         }
 
+        // Emerald constants are set after the merge
         $options = $this->getBootstrap()->getOptions();
         if(isset($options['emerald']['constant'])) {
             foreach($options['emerald']['constant'] as $key => $value) {
@@ -35,17 +44,8 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
             }
         }
 
+        // Config and customer are conveniently registered
         Zend_Registry::set('Emerald_Config', $options);
-
-        /*
-         $front = $this->getBootstrap()->getResource('frontcontroller');
-         try {
-         $front->addModuleDirectory($customer->getRoot() . '/modules');
-         } catch(Exception $e) {
-         // There aint no customer specific modules
-         }
-         */
-
         Zend_Registry::set('Emerald_Customer', $customer);
          
         return $customer;
