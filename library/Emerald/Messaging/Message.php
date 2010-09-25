@@ -2,11 +2,11 @@
 /**
  * Message class with predefined message statuses and translation capability.
  *
- * @package Emerald_Message
+ * @package Emerald_Messaging
  * @author pekkis
  *
  */
-class Emerald_Message
+class Emerald_Messaging_Message
 {
     const SUCCESS = 1;
     const INFO = 2;

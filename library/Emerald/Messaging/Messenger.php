@@ -2,20 +2,20 @@
 /**
  * Messenger wraps messages
  *
- * @package Emerald_Message
+ * @package Emerald_Messaging
  * @author pekkis
- * @todo Is this used? Is this necessary or even reasonable?
+ * @todo Is this used? Is this necessary or even smart?
  *
  */
-class Emerald_Messenger extends ArrayObject
+class Emerald_Messaging_Messenger extends ArrayObject
 {
 
     /**
      * Appends a message
      * 
-     * @param Emerald_Message $message
+     * @param Emerald_Messaging_Message $message
      */
-    public function addMessage(Emerald_Message $message)
+    public function addMessage(Emerald_Messaging_Message $message)
     {
         $this->append($message);
     }
