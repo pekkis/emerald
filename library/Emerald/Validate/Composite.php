@@ -1,6 +1,7 @@
 <?php
 /**
  * @author Eevert Saukkokoski <eevert.saukkokoski@brainalliance.com>
+ * @package Emerald_Validate
  */
 abstract class Emerald_Validate_Composite implements Zend_Validate_Interface
 {

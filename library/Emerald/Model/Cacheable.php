@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cacheable base model
+ * 
+ * @author pekkis
+ * @package Emerald_Model
+ *
+ */
 abstract class Emerald_Model_Cacheable extends Emerald_Model_AbstractModel
 {
     private $_cache;

@@ -1,4 +1,11 @@
 <?php
+/**
+ * ACL plugin
+ * 
+ * @author pekkis
+ * @package Emerald_Controller
+ *
+ */
 class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
 
@@ -8,12 +15,12 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
     protected $_acl;
 
     /**
-     * @var string
+     * @var mixed Role
      **/
     protected $_role;
 
     /**
-     * @var array
+     * @var array Error page attributes
      **/
     protected $_errorPage;
 
@@ -121,28 +128,20 @@ class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
      **/
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        return;
-
         $resourceName = $request->getModuleName() . '_' . $request->getControllerName() . '_' . $request->getActionName();
-
-        // $this->getAcl()->removeRole($this->getRole());
-
         try {
             if (!$this->getAcl()->isAllowed($this->getRole(), $resourceName)) {
                 $this->denyAccess();
             }
         } catch(Zend_Acl_Exception $e) {
-            	
+            
             echo $e;
-            	
+            
             die();
-            	
+            
             $this->setErrorPage('not-found', 'error', 'default');
             $this->denyAccess();
-            	
         }
-
-
     }
 
     /**

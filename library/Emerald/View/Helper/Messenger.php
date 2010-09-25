@@ -1,4 +1,11 @@
 <?php
+/**
+ * Messaging view helper
+ * 
+ * @author Jorma Tuomainen <jorma.tuomainen@brainalliance.com>
+ * @package Emerald_View
+ *
+ */
 class Emerald_View_Helper_Messenger extends Zend_View_Helper_Abstract
 {
     protected $_messenger = null;
@@ -11,12 +18,7 @@ class Emerald_View_Helper_Messenger extends Zend_View_Helper_Abstract
         }
     }
 
-    public function setView(Zend_View_Interface $view)
-    {
-        $this->view = $view;
-    }
-
-    public function Messenger() {
+    public function messenger() {
         $this->init();
         if(empty($this->_messenger->messages)) {
             return '';

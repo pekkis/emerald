@@ -1,4 +1,11 @@
 <?php
+/**
+ * Emerald multipurpose view helper
+ * 
+ * @author pekkis
+ * @package Emerald_View
+ *
+ */
 class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
 {
 

@@ -3,6 +3,7 @@
  * Wraps a validator
  *
  * @author Eevert Saukkokoski <eevert.saukkokoski@brainalliance.com>
+ * @package Emerald_Validate
  */
 class Emerald_Validate_Outer implements Zend_Validate_Interface
 {

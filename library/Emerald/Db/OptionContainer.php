@@ -1,4 +1,11 @@
 <?php
+/**
+ * DB option container
+ * 
+ * @author pekkis
+ * @package Emerald_Db
+ *
+ */
 class Emerald_Db_OptionContainer
 {
 

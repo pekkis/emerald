@@ -1,4 +1,11 @@
 <?php
+/**
+ * Common controller plugin
+ * 
+ * @author pekkis
+ * @package Emerald_Controller
+ *
+ */
 class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 {
 
@@ -6,24 +13,23 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
         $customer = Zend_Registry::get('Emerald_Customer');
-
         $config = Zend_Registry::get('Emerald_Config');
+        
+        // If maintenance mode is active, forward to maintenance error
         if(isset($config['emerald']['maintenance']['enabled']) && $config['emerald']['maintenance']['enabled'] == true) {
-            	
-            	
             $request->setModuleName('em-core');
             $request->setControllerName('error');
             $request->setActionName('maintenance');
-
-            // throw new Emerald_Exception('Site is down due maintenance', 503);
+            return;
         }
 
-
+        // Register customer after installation
         if($customer->isInstalled() && !$customer->isRegistered()) {
             $server = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('server');
             $server->registerCustomer($customer);
         }
-        	
+
+        // Initialize navigation stuff        
         $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
         $naviHelper = $view->getHelper('Navigation');
 
@@ -32,31 +38,17 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($user);
-        	
-
+        
+        // Define which navi to register to navi container (admin or site)
         if($request->getModuleName() == 'em-admin') {
             	
             $model = new EmAdmin_Model_Navigation();
             $navigation = $model->getNavigation();
-
-            /*
-             $iter = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
-             foreach($iter as $page) {
-             $resName = "{$page->module}_" . ($page->controller ? $page->controller : 'index') . '_'  . ($page->action ? $page->action : 'index');
-
-             if(!$acl->has($resName)) {
-             $acl->addResource($resName);
-             }
-             $page->setResource($resName);
-             $page->setPrivilege('read');
-             }
-             */
             	
-            $aclPlugin = new Emerald_Controller_Plugin_Acl($acl, $user);
-            	
-            $aclPlugin->setErrorPage('index', 'login', 'em-core');
+            // $aclPlugin = new Emerald_Controller_Plugin_Acl($acl, $user);
+            // $aclPlugin->setErrorPage('index', 'login', 'em-core');
 
-            Zend_Controller_Front::getInstance()->registerPlugin($aclPlugin);
+            // Zend_Controller_Front::getInstance()->registerPlugin($aclPlugin);
             	
             // $this->view->translate()->setTranslator(Zend_Registry::get('Zend_Translate'));
             // $this->view->translate()->setLocale(Zend_Registry::get('Zend_Locale') ? Zend_Registry::get('Zend_Locale') : 'en');
@@ -65,12 +57,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
             $model = new EmCore_Model_Navigation();
             $navigation = $model->getNavigation();
             	
-
-            	
-            	
-            	
         }
-
 
         $naviHelper->setContainer($navigation);
 

@@ -1,8 +1,9 @@
 <?php
 /**
- * Filters internal links to beautifurls. Plugin is registered when a page is rendered.
+ * Filters internal links to beautifurls when a page is rendered
  *
  * @author pekkis
+ * @package Emerald_Controller
  *
  */
 class Emerald_Controller_Plugin_Page extends Zend_Controller_Plugin_Abstract

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Messenger helper
+ * 
+ * @author jorma.tuomainen
+ * @package Emerald_Messaging
+ *
+ */
 class Emerald_Controller_Action_Helper_Messenger extends Zend_Controller_Action_Helper_Abstract
 {
     protected $_messenger = null;

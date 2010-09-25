@@ -1,12 +1,9 @@
 <?php
-
-require_once 'Zend/Validate/Abstract.php';
-
-
 /**
  * Validates a datetime (for db, from select box combo)
  *
- * @todo: Validates in name only... Cant do it now :(
+ * @package Emerald_Validate
+ * @author pekkis
  *
  */
 class Emerald_Validate_Datetime extends Zend_Validate_Abstract

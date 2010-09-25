@@ -4,6 +4,7 @@
  * validator based on the switch validator's return value
  *
  * @author Eevert Saukkokoski <eevert.saukkokoski@brainalliance.com>
+ * @package Emerald_Validate
  */
 class Emerald_Validate_Switch extends Emerald_Validate_Outer
 {

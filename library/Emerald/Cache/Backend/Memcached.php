@@ -1,4 +1,12 @@
 <?php
+/**
+ * Prototype Memcached backend for Zend Cache
+ * 
+ * @author pekkis
+ * @package Emerald_Cache
+ * @todo JUST A PROTOTYPE
+ *
+ */
 class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
     /**

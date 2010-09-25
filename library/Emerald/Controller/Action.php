@@ -1,6 +1,6 @@
 <?php
 /**
- * Emerald controller action
+ * CMS specific controller action
  *
  * @package Emerald_Controller
  * @author pekkis
@@ -8,11 +8,10 @@
  */
 class Emerald_Controller_Action extends Zend_Controller_Action
 {
-    private static $_added = 0;
-
-
+    /**
+     * @var EmCore_Model_Page
+     */
     protected static $_pageModel;
-
 
     /**
      * Returns customer
@@ -24,7 +23,6 @@ class Emerald_Controller_Action extends Zend_Controller_Action
         return $this->getInvokeArg('bootstrap')->getResource('customer');
     }
 
-
     /**
      * Returns current user
      *
@@ -35,6 +33,9 @@ class Emerald_Controller_Action extends Zend_Controller_Action
         return $this->getInvokeArg('bootstrap')->getResource('emuser');
     }
 
+    /** 
+     * Assigns correct response segments
+     */
     public function postDispatch()
     {
         if($rs = $this->_getParam('rs')) {
@@ -43,16 +44,17 @@ class Emerald_Controller_Action extends Zend_Controller_Action
         } else {
             $this->view->emerald_rs = 'content';
         }
-
-
     }
 
-
+    /**
+     * Returns db
+     * 
+     * @return Zend_Db_Adapter_Abstract
+     */
     public function getDb()
     {
         return $this->getInvokeArg('bootstrap')->getResource('emdb');
     }
-
 
     /**
      * Returns ACL
@@ -64,7 +66,11 @@ class Emerald_Controller_Action extends Zend_Controller_Action
         return $this->getInvokeArg('bootstrap')->getResource('emacl');
     }
 
-
+    /**
+     * Returns page model
+     * 
+     * @return EmCore_Model_Page
+     */
     protected function _getPageModel()
     {
         if(!self::$_pageModel) {
@@ -74,12 +80,15 @@ class Emerald_Controller_Action extends Zend_Controller_Action
         return self::$_pageModel;
     }
 
-
+    /**
+     * Returns page from page id
+     * 
+     * @param int $pageId
+     * @return EmCore_Model_PageItem
+     */
     protected function _pageFromPageId($pageId)
     {
         return $this->_getPageModel()->find($pageId);
     }
 
-
 }
-?>

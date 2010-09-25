@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract model base class providing dependency injection
+ * 
+ * @author pekkis
+ * @package Emerald_Model
+ *
+ */
 abstract class Emerald_Model_AbstractModel
 {
     protected $_dependencies = array();
