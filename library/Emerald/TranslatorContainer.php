@@ -25,9 +25,6 @@ class Emerald_TranslatorContainer
      */
     protected $_translatorDisabled = false;
 
-
-
-
     /**
      * Set translator object
      *

@@ -228,8 +228,6 @@ class Emerald_Application_Customer
         return $layout;
     }
 
-
-
     /**
      * Returns whether the customer is registered to the server
      * 
@@ -239,8 +237,6 @@ class Emerald_Application_Customer
     {
         return (bool) $this->getOption('registered');
     }
-
-
 
     /**
      * Returns whether the customer is installed
@@ -252,10 +248,6 @@ class Emerald_Application_Customer
     {
         return (bool) $this->getOption('registered');
     }
-    
-    
-    
-
 
 
 }

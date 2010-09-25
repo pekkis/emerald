@@ -1,9 +1,25 @@
 <?php
+/**
+ * Extends Zend View so customer paths may always override global view scripts
+ * 
+ * @author pekkis
+ * @package Emerald_View
+ * @todo Could this somehow be done lighter?
+ *
+ */
 class Emerald_View extends Zend_View
 {
 
+    /**
+     * @var string Customer script path
+     */
     protected $_customerPath;
 
+    /**
+     * Returns customer script path
+     * 
+     * @return string
+     */
     protected function _getCustomerScriptPath()
     {
         if(!$this->_customerPath) {
@@ -22,10 +38,11 @@ class Emerald_View extends Zend_View
      */
     protected function _script($name)
     {
+        // This is Emerald's kludge
         $paths = $this->getScriptPaths();
-
         array_unshift($paths, $this->_getCustomerScriptPath());
-
+        // Emerald's kludge ends.
+        
         if ($this->isLfiProtectionOn() && preg_match('#\.\.[\\\/]#', $name)) {
             require_once 'Zend/View/Exception.php';
             $e = new Zend_View_Exception('Requested scripts may not include parent directory traversal ("../", "..\\" notation)');

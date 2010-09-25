@@ -4,7 +4,7 @@
  *
  * @package Emerald_Message
  * @author pekkis
- * @todo Is this used? Is this necessary? Or even reasonable?
+ * @todo Is this used? Is this necessary or even reasonable?
  *
  */
 class Emerald_Messenger extends ArrayObject
