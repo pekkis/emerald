@@ -29,7 +29,7 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 
     public function findByName($name)
     {
-        $cname = str_replace(' ', '____', $name);
+        $cname = md5(str_replace(' ', '____', $name));
         if($id = $this->findCached('name_' . $cname)) {
             return $this->find($id);
         }
@@ -65,7 +65,7 @@ class EmCore_Model_Tag extends Emerald_Model_Cacheable
 
         $this->storeCached($item->id, $item);
 
-        $cname = str_replace(' ', '____', $item->name);
+        $cname = md5(str_replace(' ', '____', $item->name));
         $this->storeCached('name_' . $cname, $item->id);
 
     }
