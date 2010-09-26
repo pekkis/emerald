@@ -1,17 +1,28 @@
 <VirtualHost *:80>
         ServerAdmin admin@drkobros.com
-        DocumentRoot /opt/local/apache2/htdocs/emerald
+        DocumentRoot /wwwroot/htdocs/emerald
+
+        # axis-of-evil.org is always localhost
         ServerName emerald.axis-of-evil.org
 
-		# Mode (production/staging/development etc)
-        SetEnv APPLICATION_ENV development
+        # Mode (production/staging/development etc)
+        SetEnv APPLICATION_ENV production
 
-		# Emerald needs mod_rewrite
+        # Customer definition
+        # SetEnv EMERALD_CUSTOMER emerald
+
+        # Application config cache (none/array/apc)
+        # SetEnv APPLICATION_CONFIG_CACHE apc
+
+        # Emerald needs mod_rewrite
         RewriteEngine On
         RewriteCond %{REQUEST_URI} !\.(js|ico|gif|jpg|jpeg|png|css|html|htm|xml|zip|gz|txt|ini|doc|ico)$
+        RewriteCond %{REQUEST_URI} !^/tracker
         RewriteRule ^/(.*?)$ /index.php
 
         CustomLog logs/access_log_emerald combined
         ErrorLog logs/error_log_emerald
 
 </VirtualHost>
+
+
