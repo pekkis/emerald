@@ -6,7 +6,7 @@
  * @package Emerald_Beautifurl
  *
  */
-class Emerald_Beautifurl_BeautifurlAbstract
+abstract class Emerald_Beautifurl_BeautifurlAbstract implements Emerald_Beautifurl_BeautifurlInterface
 {
     
     /**
