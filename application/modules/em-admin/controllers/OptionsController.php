@@ -17,7 +17,7 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
     public function indexAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_options")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -64,7 +64,7 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
 
             	
         } catch(Exception $e) {
-            throw new Emerald_Exception($e->getMessage(), 500);
+            throw new Emerald_Common_Exception($e->getMessage(), 500);
         }
 
 
@@ -77,7 +77,7 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
     public function saveApplicationAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_options")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -105,7 +105,7 @@ class EmAdmin_OptionsController extends Emerald_Controller_Action
     public function saveLocaleAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_options")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $form = new EmAdmin_Form_LocaleOptions();

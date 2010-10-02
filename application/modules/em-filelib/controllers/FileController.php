@@ -8,7 +8,7 @@ class EmFilelib_FileController extends Zend_Controller_Action
 
         $file = $fl->file()->find($this->_getParam('id'));
         if(!$file) {
-            throw new Emerald_Exception('File not found', 404);
+            throw new Emerald_Common_Exception('File not found', 404);
         }
 
         $version = $this->_getParam('version');
@@ -26,7 +26,7 @@ class EmFilelib_FileController extends Zend_Controller_Action
         try {
             $file->render($this->getResponse(), $opts);
         } catch(Exception $e) {
-            throw new Emerald_Exception('File not found', 404);
+            throw new Emerald_Common_Exception('File not found', 404);
         }
 
         $this->_helper->layout->disableLayout();

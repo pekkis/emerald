@@ -15,7 +15,7 @@ class EmAdmin_ActivityController extends Emerald_Controller_Action
     public function editAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_activities")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $activityModel = new EmAdmin_Model_Activity();
@@ -29,7 +29,7 @@ class EmAdmin_ActivityController extends Emerald_Controller_Action
     public function saveAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_activities")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
         	
 

@@ -16,7 +16,7 @@ class EmCore_Model_Server
         try {
             $table->insert(array('identifier' => $customer->getIdentifier()));
         } catch(Exception $e) {
-            throw new Emerald_Exception(500, "Could not register customer '{$customer->getIdentifier()} to server.'");
+            throw new Emerald_Common_Exception(500, "Could not register customer '{$customer->getIdentifier()} to server.'");
         }
 
         $customer->setOption('registered', 1);

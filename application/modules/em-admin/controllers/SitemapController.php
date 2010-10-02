@@ -36,7 +36,7 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
             $input = new Zend_Filter_Input(array(), $validators, $this->_getAllParams());
             $input->process();
         } catch(Exception $e) {
-            throw new Emerald_Exception('Not Found', 404);
+            throw new Emerald_Common_Exception('Not Found', 404);
         }
 
         $localeModel = new EmCore_Model_Locale();
@@ -48,7 +48,7 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $locale, "read")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $this->view->locale = $locale;
@@ -124,7 +124,7 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
             $toLocale = $localeModel->find($input->to);
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $fromLocale, 'read') || !$this->getAcl()->isAllowed($this->getCurrentUser(), $toLocale, 'write')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $sitemapModel = new EmAdmin_Model_Sitemap();
@@ -132,10 +132,10 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
 
             $this->getHelper('redirector')->goto('edit', null, null, array('locale' => $input->to));
             	
-        } catch(Emerald_Exception $e) {
+        } catch(Emerald_Common_Exception $e) {
             throw $e;
         } catch(Exception $e) {
-            throw new Emerald_Exception('Error', 500);
+            throw new Emerald_Common_Exception('Error', 500);
         }
 
 

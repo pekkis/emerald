@@ -43,8 +43,8 @@ class Emerald_Cms_View_Helper_Emerald extends Zend_View_Helper_Abstract
     public function addScripts()
     {
         $this->view->jQuery()
-        ->setCdnVersion(Emerald_Version::JQUERY_VERSION)
-        ->setUiCdnVersion(Emerald_Version::JQUERY_UI_VERSION)
+        ->setCdnVersion(Emerald_Cms_Version::JQUERY_VERSION)
+        ->setUiCdnVersion(Emerald_Cms_Version::JQUERY_UI_VERSION)
         ->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
         ->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/underscore-min.js')
         ->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/em-core/emerald.js')

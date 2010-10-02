@@ -18,13 +18,13 @@ class EmAdmin_PageController extends Emerald_Controller_Action
         $page = $pageModel->find($this->_getParam('id'));
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         try {
             $pageModel->delete($page);
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
-        } catch(Emerald_Exception $e) {
+        } catch(Emerald_Common_Exception $e) {
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
         }
 
@@ -39,7 +39,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
         $page = $pageModel->find($this->_getParam('id'));
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $form = new EmAdmin_Form_Page();
@@ -111,7 +111,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
             $page = $pageModel->find($this->_getParam('id'));
 
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $form->setLocale($page->locale);
@@ -184,7 +184,7 @@ class EmAdmin_PageController extends Emerald_Controller_Action
         }
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $aclElm, 'write')) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $naviModel = new EmCore_Model_Navigation();

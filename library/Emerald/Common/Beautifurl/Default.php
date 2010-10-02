@@ -3,10 +3,10 @@
  * Default beautifurler
  * 
  * @author pekkis
- * @package Emerald_Beautifurl
+ * @package Emerald_Common_Beautifurl
  *
  */
-class Emerald_Beautifurl_Default extends Emerald_Beautifurl_BeautifurlAbstract
+class Emerald_Common_Beautifurl_Default extends Emerald_Common_Beautifurl_BeautifurlAbstract
 {
     
     /**

@@ -273,7 +273,7 @@ abstract class Emerald_Cms_Layout
                 $pageModel = new EmCore_Model_Page();
                 $page = $pageModel->find($page);
                 if(!$page) {
-                    throw new Emerald_Exception('Invalid page');
+                    throw new Emerald_Common_Exception('Invalid page');
                 }
             }
 
@@ -285,7 +285,7 @@ abstract class Emerald_Cms_Layout
                 $shardModel = new EmCore_Model_Shard();
                 $shard = $shardModel->findByIdentifier($shard);
                 if(!$shard) {
-                    throw new Emerald_Exception('Invalid shard');
+                    throw new Emerald_Common_Exception('Invalid shard');
                 }
             }
             	

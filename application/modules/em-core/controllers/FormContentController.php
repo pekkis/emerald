@@ -29,7 +29,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
             $this->view->page = $page;
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $writable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write');
@@ -70,7 +70,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
             $this->view->page = $page;
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $formContentModel = new EmCore_Model_FormContent();
@@ -98,7 +98,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
 
         $page = $this->_pageFromPageId($this->_getParam('page_id'));
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'write')) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $this->view->page = $page;
@@ -141,7 +141,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
             	
             $page = $this->_pageFromPageId($this->_getParam('page_id'));
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $formContentModel = new EmCore_Model_FormContent();

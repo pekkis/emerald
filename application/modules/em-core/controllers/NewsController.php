@@ -40,7 +40,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
             $page = $this->_pageFromPageId($input->page_id);
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
 
             	
@@ -55,7 +55,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
             $this->view->channel = $channel;
             	
             if(!$readable) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
 
             $news = $channel->getItems($writable, $input->tag);
@@ -99,7 +99,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
 
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $channelModel = new EmCore_Model_NewsChannel();
@@ -112,7 +112,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
             $this->view->channel = $channel;
             	
             if(!$readable) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
 
             $news = $channel->getItems($writable);
@@ -146,7 +146,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
             $page = $this->_pageFromPageId($input->page_id);
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $channelModel = new EmCore_Model_NewsChannel();
@@ -187,7 +187,7 @@ class EmCore_NewsController extends Emerald_Controller_Action
             	
             $page = $channel->getPage();
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             $this->view->page = $page;
             $writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $page, 'write');

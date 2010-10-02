@@ -36,12 +36,12 @@ class EmCore_PageController extends Emerald_Controller_Action
             } elseif($id = $input->id) {
                 $page = $pageModel->find($id);
             } else {
-                throw new Emerald_Exception('Page not found', 404);
+                throw new Emerald_Common_Exception('Page not found', 404);
             }
             	
             // No page naturally throws 404 exception.
             if(!$page) {
-                throw new Emerald_Exception('Page not found', 404);
+                throw new Emerald_Common_Exception('Page not found', 404);
             }
 
             $locale = $page->getLocaleItem();
@@ -49,7 +49,7 @@ class EmCore_PageController extends Emerald_Controller_Action
             // Check permissions
             $readable = $this->getAcl()->isAllowed($this->getCurrentUser(), $page, 'read');
             if(!$readable) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
 
             // Check for redirect flag and redirect when present
@@ -64,7 +64,7 @@ class EmCore_PageController extends Emerald_Controller_Action
             // Activate current page in zend navi
             $navi = $navi->findBy('locale_root', $page->locale);
             if(!$navi) {
-                throw new Emerald_Exception('Locale multifail', 500);
+                throw new Emerald_Common_Exception('Locale multifail', 500);
             }
             $active = $navi->findBy('uri', EMERALD_URL_BASE . '/' . $page->beautifurl, false);
             if($active) {
@@ -91,7 +91,7 @@ class EmCore_PageController extends Emerald_Controller_Action
             $this->view->activePage = $page;
             	
         } catch(Exception $e) {
-            throw new Emerald_Exception($e->getMessage(), $e->getCode() ? $e->getCode() : 404);
+            throw new Emerald_Common_Exception($e->getMessage(), $e->getCode() ? $e->getCode() : 404);
         }
 
 

@@ -3,10 +3,10 @@
  * Abstract convenience base class for beautifurlers
  * 
  * @author pekkis
- * @package Emerald_Beautifurl
+ * @package Emerald_Common_Beautifurl
  *
  */
-abstract class Emerald_Beautifurl_BeautifurlAbstract implements Emerald_Beautifurl_BeautifurlInterface
+abstract class Emerald_Common_Beautifurl_BeautifurlAbstract implements Emerald_Common_Beautifurl_BeautifurlInterface
 {
     
     /**

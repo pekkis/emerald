@@ -25,7 +25,7 @@ class Emerald_Cms_Application_Resource_Emuser extends Zend_Application_Resource_
             $userModel = new EmCore_Model_User();
             $user = $userModel->findAnonymous();
             if(!$user) {
-                throw new Emerald_Exception('Something wrong with ur user');
+                throw new Emerald_Common_Exception('Something wrong with ur user');
             }
         }
 

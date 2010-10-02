@@ -18,7 +18,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function indexAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $formModel = new EmCore_Model_Form();
@@ -30,7 +30,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function deleteAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $model = new EmCore_Model_Form();
@@ -39,7 +39,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
         try {
             $model->delete($item);
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Delete ok');
-        } catch(Emerald_Exception $e) {
+        } catch(Emerald_Common_Exception $e) {
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Delete failed');
         }
 
@@ -49,7 +49,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function createAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -61,7 +61,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function createPostAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $form = new EmAdmin_Form_FormCreate();
@@ -87,7 +87,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function fieldDeleteAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -109,7 +109,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function fieldCreateAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -141,7 +141,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function saveAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -208,7 +208,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
     public function editAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_forms")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -226,7 +226,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
             $formModel = new EmCore_Model_Form();
 
             if(!$form = $formModel->find($input->id)) {
-                throw new Emerald_Exception('Invalid form', 404);
+                throw new Emerald_Common_Exception('Invalid form', 404);
             }
             	
             	

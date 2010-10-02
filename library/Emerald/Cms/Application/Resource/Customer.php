@@ -23,7 +23,7 @@ class Emerald_Cms_Application_Resource_Customer extends Zend_Application_Resourc
         }
 
         if(!($customer instanceof Emerald_Common_Application_Customer)) {
-            throw new Emerald_Exception("Customer not found");
+            throw new Emerald_Common_Exception("Customer not found");
         }
 
         $options = $this->getOptions();

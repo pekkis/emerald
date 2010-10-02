@@ -52,7 +52,7 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
             $parentFolder = $fl->folder()->find($folderForm->parent_id->getValue());
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $parentFolder, 'write')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
 
             $className = $fl->getFolderItemClass();
@@ -81,7 +81,7 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
             $folder = $filelib->folder()->find($form->folder_id->getValue());
             	
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
             	
             $form->file->receive();
@@ -124,11 +124,11 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
             if($input->id) {
                 $activeFolder = $fl->folder()->find($input->id);
                 if(!$activeFolder) {
-                    throw new Emerald_Exception('Folder not found.', 404);
+                    throw new Emerald_Common_Exception('Folder not found.', 404);
                 }
 
                 if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $activeFolder, 'read')) {
-                    throw new Emerald_Exception('Forbidden', 403);
+                    throw new Emerald_Common_Exception('Forbidden', 403);
                 }
 
 
@@ -152,11 +152,11 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
             	
             	
             	
-        } catch(Emerald_Exception $e) {
+        } catch(Emerald_Common_Exception $e) {
             throw $e;
             	
         } catch(Exception $e) {
-            throw new Emerald_Exception($e, 500);
+            throw new Emerald_Common_Exception($e, 500);
         }
 
 
@@ -194,7 +194,7 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
             if($input->id) {
                 $activeFolder = $fl->folder()->find($input->id);
                 if(!$activeFolder) {
-                    throw new Emerald_Exception('Folder not found.', 404);
+                    throw new Emerald_Common_Exception('Folder not found.', 404);
                 }
 
                 $this->view->folder = $activeFolder;
@@ -207,11 +207,11 @@ class EmAdmin_FilelibController extends Emerald_Controller_Action
 
             }
             	
-        } catch(Emerald_Exception $e) {
+        } catch(Emerald_Common_Exception $e) {
             throw $e;
             	
         } catch(Exception $e) {
-            throw new Emerald_Exception($e, 500);
+            throw new Emerald_Common_Exception($e, 500);
         }
 
 

@@ -27,7 +27,7 @@ class EmCore_Model_User extends Emerald_Cms_Model_AbstractModel
         if(is_object($context)) {
             $context = $context->email;
         } elseif(!is_string($context)) {
-            throw new Emerald_Exception('Invalid context for user password hashing');
+            throw new Emerald_Common_Exception('Invalid context for user password hashing');
         }
 
         return hash(self::$_hashAlgorithm, self::$_hashSalt . $context . $password);

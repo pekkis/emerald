@@ -3,10 +3,10 @@
  * Beautifurl factory
  * 
  * @author pekkis
- * @package Emerald_Beautifurl
+ * @package Emerald_Common_Beautifurl
  *
  */
-class Emerald_Beautifurl
+class Emerald_Common_Beautifurl
 {
 
     static private $_beautifurlers = array();
@@ -15,7 +15,7 @@ class Emerald_Beautifurl
      * Factors a beautifurler from an identifier string
      * 
      * @param string $beautifurlIdentifier Identifier string: ClassName ; Options as a query string 
-     * @return Emerald_Beautifurl_BeautifurlInterface
+     * @return Emerald_Common_Beautifurl_BeautifurlInterface
      */
     static public function factory($beautifurlIdentifier = 'Default') {
 
@@ -30,7 +30,7 @@ class Emerald_Beautifurl
             $split = explode(";", $beautifurlIdentifier);
             (isset($split[1])) ? parse_str($split[1], $options) : $options = array();
             	
-            $className = "Emerald_Beautifurl_" . $split[0];
+            $className = "Emerald_Common_Beautifurl_" . $split[0];
             self::$_beautifurlers[$beautifurlIdentifier] = new $className($options);
         }
 

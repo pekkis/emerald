@@ -39,7 +39,7 @@ class EmCore_LanglibController extends Emerald_Controller_Action
             $this->getResponse()->setHeader('Cache-Control', 'public, max-age=3600');
             	
         } catch(Exception $e){
-            throw new Emerald_Exception('Translations not found');
+            throw new Emerald_Common_Exception('Translations not found');
         }
 
 

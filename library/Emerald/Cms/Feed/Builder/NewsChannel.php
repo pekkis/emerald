@@ -28,7 +28,7 @@ class Emerald_Cms_Feed_Builder_NewsChannel implements Zend_Feed_Builder_Interfac
 
         $header = new Zend_Feed_Builder_Header($this->_channel->title, $feedUrl);
         $header->setDescription($this->_channel->description);
-        $header->setGenerator("Emerald " . Emerald_Version::VERSION);
+        $header->setGenerator("Emerald " . Emerald_Cms_Version::VERSION);
 
         $date = new DateTime($this->_channel->modified);
 

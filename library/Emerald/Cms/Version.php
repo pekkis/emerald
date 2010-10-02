@@ -2,12 +2,12 @@
 /**
  * Stores the version identifiers of different Emerald components
  *
- * @package Emerald_Version
+ * @package Emerald_Cms_Version
  * @author pekkis
  * @id $Id$
  *
  */
-final class Emerald_Version
+final class Emerald_Cms_Version
 {
     const VERSION = '3.0.0-beta5';
 

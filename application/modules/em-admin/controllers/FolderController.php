@@ -20,7 +20,7 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
 
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -43,7 +43,7 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
         $folder = $fl->folder()->find($this->_getParam('id'));
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -75,7 +75,7 @@ class EmAdmin_FolderController extends Emerald_Controller_Action
             $folder = $fl->folder()->find($form->id->getValue());
 
             if(!$this->getAcl()->isAllowed($this->getCurrentUser(), $folder, 'write')) {
-                throw new Emerald_Exception('Forbidden', 403);
+                throw new Emerald_Common_Exception('Forbidden', 403);
             }
 
             $folder->name = $form->name->getValue();

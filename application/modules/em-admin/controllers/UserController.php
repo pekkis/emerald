@@ -14,7 +14,7 @@ class EmAdmin_UserController extends Emerald_Controller_Action
     public function indexAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $userModel = new EmCore_Model_User();
@@ -30,7 +30,7 @@ class EmAdmin_UserController extends Emerald_Controller_Action
     public function createAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -46,7 +46,7 @@ class EmAdmin_UserController extends Emerald_Controller_Action
     public function deleteAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
 
@@ -56,7 +56,7 @@ class EmAdmin_UserController extends Emerald_Controller_Action
         try {
             $userModel->delete($user);
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
-        } catch(Emerald_Exception $e) {
+        } catch(Emerald_Common_Exception $e) {
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
         }
 
@@ -69,7 +69,7 @@ class EmAdmin_UserController extends Emerald_Controller_Action
     public function editAction()
     {
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $userModel = new EmCore_Model_User();
@@ -97,7 +97,7 @@ class EmAdmin_UserController extends Emerald_Controller_Action
     {
 
         if(!$this->getAcl()->isAllowed($this->getCurrentUser(), "Emerald_Activity_administration___edit_users")) {
-            throw new Emerald_Exception('Forbidden', 403);
+            throw new Emerald_Common_Exception('Forbidden', 403);
         }
 
         $form = new EmAdmin_Form_User();
