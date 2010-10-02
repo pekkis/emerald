@@ -6,7 +6,7 @@
  * @package Emerald_Acl
  *
  */
-class Emerald_Acl_Autoloader
+class Emerald_Cms_Acl_Autoloader
 {
     public function autoloadResource($resource)
     {

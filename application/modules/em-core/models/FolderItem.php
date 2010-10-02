@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emerald_Acl_ResourceInterface
+class EmCore_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emerald_Common_Acl_ResourceInterface
 {
 
 

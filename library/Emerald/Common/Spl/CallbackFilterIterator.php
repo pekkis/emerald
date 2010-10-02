@@ -1,12 +1,13 @@
 <?php
+
 /**
  * FilterIterator with a callback
  * 
  * @author pekkis
- * @package Emerald_Spl
+ * @package Emerald_Common_Spl
  *
  */
-class Emerald_Spl_CallbackFilterIterator extends FilterIterator
+class Emerald_Common_Spl_CallbackFilterIterator extends FilterIterator
 {
 
     private $_callback;

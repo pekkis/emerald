@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Acl_ResourceInterface, Emerald_Model_TaggableItemInterface
+class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emerald_Common_Acl_ResourceInterface, Emerald_Model_TaggableItemInterface
 {
     public function __toString()
     {

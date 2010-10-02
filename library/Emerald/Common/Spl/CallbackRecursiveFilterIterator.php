@@ -3,10 +3,10 @@
  * RecursiveFilterIterator with a callback
  * 
  * @author pekkis
- * @package Emerald_Spl
+ * @package Emerald_Common_Spl
  *
  */
-class Emerald_Spl_CallbackRecursiveFilterIterator extends RecursiveFilterIterator
+class Emerald_Common_Spl_CallbackRecursiveFilterIterator extends RecursiveFilterIterator
 {
 
     private $_callback;

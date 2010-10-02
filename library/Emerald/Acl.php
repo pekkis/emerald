@@ -99,13 +99,13 @@ class Emerald_Acl extends Zend_Acl
     /**
      * Autoloads a resource
      * 
-     * @param Emerald_Acl_ResourceInterface|string $resource
+     * @param Emerald_Common_Acl_ResourceInterface|string $resource
      * @throws Zend_Acl_Exception
-     * @return Emerald_Acl_ResourceInterface
+     * @return Emerald_Common_Acl_ResourceInterface
      */
     public function autoloadResource($resource)
     {
-        if(!$resource instanceof Emerald_Acl_ResourceInterface) {
+        if(!$resource instanceof Emerald_Common_Acl_ResourceInterface) {
             
             // Not of the interface, iterate all autoloaders and autoload when match
             $origResource = $resource;
@@ -116,7 +116,7 @@ class Emerald_Acl extends Zend_Acl
                 }            
             }
             
-            if(!$resource instanceof Emerald_Acl_ResourceInterface) {
+            if(!$resource instanceof Emerald_Common_Acl_ResourceInterface) {
                 throw new Zend_Acl_Exception("Could not autoload Acl resource '{$origResource}'");
             }
         }
@@ -134,11 +134,11 @@ class Emerald_Acl extends Zend_Acl
      * Autoloads role
      * @param unknown_type $role
      * @throws Zend_Acl_Exception
-     * @returns Emerald_Acl_RoleInterface
+     * @returns Emerald_Common_Acl_RoleInterface
      */
     public function autoloadRole($role)
     {
-        if(!$role instanceof Emerald_Acl_RoleInterface) {
+        if(!$role instanceof Emerald_Common_Acl_RoleInterface) {
             throw new Zend_Acl_Exception("Can not autoload role '{$role}'");
         }
         
@@ -150,7 +150,7 @@ class Emerald_Acl extends Zend_Acl
             }            
         }
         
-        if(!$role instanceof Emerald_Acl_RoleInterface) {
+        if(!$role instanceof Emerald_Common_Acl_RoleInterface) {
             throw new Zend_Acl_Exception("Could not autoload Acl role '{$origResource}'");
         }
         

@@ -6,7 +6,7 @@
  * @author pekkis
  * 
  */
-interface Emerald_Acl_ResourceInterface extends Zend_Acl_Resource_Interface
+interface Emerald_Common_Acl_ResourceInterface extends Zend_Acl_Resource_Interface
 {
     public function autoloadAclResource(Zend_Acl $acl);
 }

@@ -38,7 +38,7 @@ class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_Resou
         }
         
         // Register Emerald's autoloading resources
-        $autoloader = new Emerald_Acl_Autoloader();
+        $autoloader = new Emerald_Cms_Acl_Autoloader();
         $acl->addResourceAutoloader(
             array(
                 "/^Emerald_Page/",
