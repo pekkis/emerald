@@ -10,7 +10,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 {
 
     /**
-     * @var Emerald_Filelib Filelib
+     * @var Emerald_Filelib_FileLibrary Filelib
      */
     protected $_filelib;
 

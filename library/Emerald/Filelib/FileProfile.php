@@ -9,7 +9,7 @@
 class Emerald_Filelib_FileProfile
 {
     /**
-     * @var Emerald_Filelib
+     * @var Emerald_Filelib_FileLibrary
      */
     private $_filelib;
 

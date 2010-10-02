@@ -10,7 +10,7 @@ class Emerald_Filelib_Uploader
 {
 
     /**
-     * @var Emerald_Filelib
+     * @var Emerald_Filelib_FileLibrary
      */
     private $_filelib;
 

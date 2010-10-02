@@ -9,7 +9,7 @@
 class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
 {
     /**
-     * @var Emerald_Filelib Filelib
+     * @var Emerald_Filelib_FileLibrary Filelib
      */
     private $_filelib;
 

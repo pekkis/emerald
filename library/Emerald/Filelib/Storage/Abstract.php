@@ -9,7 +9,7 @@
 abstract class Emerald_Filelib_Storage_Abstract
 {
     /**
-     * @var Emerald_Filelib Filelib
+     * @var Emerald_Filelib_FileLibrary Filelib
      */
     private $_filelib;
     

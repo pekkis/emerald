@@ -11,7 +11,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
 {
 
     /**
-     * @var Emerald_Filelib
+     * @var Emerald_Filelib_FileLibrary
      */
     protected $_filelib;
 

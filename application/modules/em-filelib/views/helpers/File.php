@@ -18,7 +18,7 @@ class EmFilelib_View_Helper_File extends Zend_View_Helper_Abstract
 	/**
 	 * Filelib
 	 * 
-	 * @var Emerald_Filelib
+	 * @var Emerald_Filelib_FileLibrary
 	 */
 	private $_filelib;
 	

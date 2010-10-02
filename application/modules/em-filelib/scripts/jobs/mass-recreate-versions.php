@@ -74,7 +74,7 @@ foreach($bootstraps as $b) {
 
 $recreateSymlinks = $opts->s;
 
-/** @var Emerald_Filelib */
+/** @var Emerald_Filelib_FileLibrary */
 $filelib = Zend_Registry::get('Emerald_Filelib');
 
 $files = $filelib->file()->findAll();
