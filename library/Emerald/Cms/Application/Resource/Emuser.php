@@ -3,10 +3,10 @@
  * CMS specific user initialization
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Cms_Application
  *
  */
-class Emerald_Application_Resource_Emuser extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Cms_Application_Resource_Emuser extends Zend_Application_Resource_ResourceAbstract
 {
 
     public function init()

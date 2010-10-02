@@ -16,7 +16,7 @@ class Emerald_Controller_Action extends Zend_Controller_Action
     /**
      * Returns customer
      *
-     * @return Emerald_Application_Customer
+     * @return Emerald_Common_Application_Customer
      */
     public function getCustomer()
     {

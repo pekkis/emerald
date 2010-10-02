@@ -3,11 +3,11 @@
  * Mongo resource
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  * @todo Multiple mongoloids
  *
  */
-class Emerald_Application_Resource_Mongo extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Common_Application_Resource_Mongo extends Zend_Application_Resource_ResourceAbstract
 {
     protected $_options = array(
 		'hostname' => '127.0.0.1',

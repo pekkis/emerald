@@ -81,12 +81,12 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
     /**
      * Find a start page for customer
      *
-     * @param Emerald_Application_Customer $customer Customer
+     * @param Emerald_Common_Application_Customer $customer Customer
      * @param EmCore_Model_Locale $locale Locale
      * @throws Emerald_Model_Exception
      * @return EmCore_Model_PageItem
      */
-    public function startFrom(Emerald_Application_Customer $customer, $locale = null)
+    public function startFrom(Emerald_Common_Application_Customer $customer, $locale = null)
     {
         // If locale, use it, if no locale, try to find one somehow.
         if($locale) {
@@ -115,12 +115,12 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
     /**
      * Finds and returns a default page for a locale.
      *
-     * @param Emerald_Application_Customer $customer Customer
+     * @param Emerald_Common_Application_Customer $customer Customer
      * @param EmCore_Model_LocaleItem $locale Locale
      * @throws Emerald_Model_Exception
      * @return EmCore_Model_PageItem
      */
-    public function findDefaultPage(Emerald_Application_Customer $customer, EmCore_Model_LocaleItem $locale)
+    public function findDefaultPage(Emerald_Common_Application_Customer $customer, EmCore_Model_LocaleItem $locale)
     {
         $pageModel = new EmCore_Model_Page();
 
@@ -153,14 +153,14 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
     }
 
 
-    public function findDefault(Emerald_Application_Customer $customer)
+    public function findDefault(Emerald_Common_Application_Customer $customer)
     {
         $defaultLocale = $customer->getOption('default_locale');
         return ($defaultLocale) ? $this->find($defaultLocale) : false;
     }
 
 
-    public function findAny(Emerald_Application_Customer $customer)
+    public function findAny(Emerald_Common_Application_Customer $customer)
     {
         $localeTbl = $this->getTable();
         $localeRow = $localeTbl->fetchRow();
@@ -179,7 +179,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
     }
 
 
-    public function setDefault(Emerald_Application_Customer $customer, EmCore_Model_LocaleItem $locale)
+    public function setDefault(Emerald_Common_Application_Customer $customer, EmCore_Model_LocaleItem $locale)
     {
         return $customer->setOption('default_locale', $locale);
     }

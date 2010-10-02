@@ -3,10 +3,10 @@
  * Customer
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  *
  */
-class Emerald_Application_Customer
+class Emerald_Common_Application_Customer
 {
     /**
      * @var string Identifier

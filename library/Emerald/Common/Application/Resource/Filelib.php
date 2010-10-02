@@ -3,11 +3,11 @@
  * Filelib initialization
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  * @todo Some kind of initializer stuff for converting resources to init
  *
  */
-class Emerald_Application_Resource_Filelib extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resource_ResourceAbstract
 {
 
     /**

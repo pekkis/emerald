@@ -38,9 +38,9 @@ defined('APPLICATION_CONFIG_CACHE')
 // $timer->time('application start');
 
 // Create application, bootstrap, and run
-require_once "Emerald/Application.php";
+require_once "Emerald/Common/Application.php";
 
-$application = new Emerald_Application(
+$application = new Emerald_Common_Application(
 APPLICATION_ENV,
 APPLICATION_PATH . '/configs/emerald.ini',
 array(

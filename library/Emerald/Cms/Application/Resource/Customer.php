@@ -3,14 +3,14 @@
  * Customer initialization resource
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Cms_Application
  *
  */
-class Emerald_Application_Resource_Customer extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Cms_Application_Resource_Customer extends Zend_Application_Resource_ResourceAbstract
 {
 
     /**
-     * @return Emerald_Application_Customer
+     * @return Emerald_Common_Application_Customer
      */
     public function init()
     {
@@ -19,10 +19,10 @@ class Emerald_Application_Resource_Customer extends Zend_Application_Resource_Re
 
         $path = APPLICATION_PATH . '/../customers/' . $customer ;
         if(is_dir($path)) {
-            $customer = new Emerald_Application_Customer(realpath($path));
+            $customer = new Emerald_Common_Application_Customer(realpath($path));
         }
 
-        if(!($customer instanceof Emerald_Application_Customer)) {
+        if(!($customer instanceof Emerald_Common_Application_Customer)) {
             throw new Emerald_Exception("Customer not found");
         }
 

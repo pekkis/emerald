@@ -9,7 +9,7 @@ class EmCore_Model_Server
     }
 
 
-    public function registerCustomer(Emerald_Application_Customer $customer)
+    public function registerCustomer(Emerald_Common_Application_Customer $customer)
     {
         $table = new EmCore_Model_Server_DbTable_Customer($this->_db);
 

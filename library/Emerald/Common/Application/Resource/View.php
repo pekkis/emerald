@@ -3,10 +3,10 @@
  * Better view resource 
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  *
  */
-class Emerald_Application_Resource_View extends Zend_Application_Resource_View
+class Emerald_Common_Application_Resource_View extends Zend_Application_Resource_View
 {
 
     /**

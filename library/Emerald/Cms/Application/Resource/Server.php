@@ -3,10 +3,10 @@
  * Initializes Emerald Server
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Cms_Application
  *
  */
-class Emerald_Application_Resource_Server extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Common_Application_Resource_Server extends Zend_Application_Resource_ResourceAbstract
 {
 
     /**

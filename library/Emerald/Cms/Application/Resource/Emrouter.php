@@ -3,10 +3,10 @@
  * CMS specific router initialization
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Cms_Application
  *
  */
-class Emerald_Application_Resource_Emrouter extends Zend_Application_Resource_Router
+class Emerald_Cms_Application_Resource_Emrouter extends Zend_Application_Resource_Router
 {
 
     /**

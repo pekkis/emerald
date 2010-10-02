@@ -8,11 +8,11 @@ require_once "Zend/Application.php";
  * Good for both ease of maintenance and speed.
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  * @todo Add more cache backends (Xcache, Zend Server etc)
  *
  */
-class Emerald_Application extends Zend_Application
+class Emerald_Common_Application extends Zend_Application
 {
     /**
      * Config is cached or not

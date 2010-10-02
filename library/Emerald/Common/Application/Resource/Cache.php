@@ -3,11 +3,11 @@
  * Cache resource
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  * @todo The whole Zend Cache is soooo retarded. This does not work as it should work.
  *
  */
-class Emerald_Application_Resource_Cache extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Common_Application_Resource_Cache extends Zend_Application_Resource_ResourceAbstract
 {
 
     protected $backends;

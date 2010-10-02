@@ -10,10 +10,10 @@ class EmCore_Model_Install
     /**
      * Installs a new Emerald customer
      *
-     * @param Emerald_Application_Customer $customer Customer
+     * @param Emerald_Common_Application_Customer $customer Customer
      * @param EmCore_Form_Install $form Install form
      */
-    public function install(Emerald_Application_Customer $customer, EmCore_Form_Install $form)
+    public function install(Emerald_Common_Application_Customer $customer, EmCore_Form_Install $form)
     {
         $userModel = new EmCore_Model_User();
         $groupTbl = new EmCore_Model_DbTable_Ugroup();

@@ -3,10 +3,10 @@
  * Emerald CMS specific bootstrap ensures that customer is bootstrap always and first.
  *  
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Common_Application
  *
  */
-class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+class Emerald_Common_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
     protected function _bootstrap($resource = null)
@@ -26,7 +26,7 @@ class Emerald_Application_Bootstrap_Bootstrap extends Zend_Application_Bootstrap
      * Adds options
      * 
      * @param array $options
-     * @return Emerald_Application_Bootstrap_Bootstrap
+     * @return Emerald_Common_Application_Bootstrap_Bootstrap
      */
     public function addOptions(array $options)
     {

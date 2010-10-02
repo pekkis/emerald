@@ -3,10 +3,10 @@
  * CMS specific ACL initialization
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Cms_Application
  *
  */
-class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_ResourceAbstract
+class Emerald_Cms_Application_Resource_Emacl extends Zend_Application_Resource_ResourceAbstract
 {
 
     public function init()

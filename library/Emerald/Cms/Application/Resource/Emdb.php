@@ -3,10 +3,10 @@
  * Extended db resource sets the customer's db and correct fetch mode
  * 
  * @author pekkis
- * @package Emerald_Application
+ * @package Emerald_Cms_Application
  *
  */
-class Emerald_Application_Resource_Emdb extends Zend_Application_Resource_Db
+class Emerald_Cms_Application_Resource_Emdb extends Zend_Application_Resource_Db
 {
 
     protected $_customer;
@@ -26,7 +26,7 @@ class Emerald_Application_Resource_Emdb extends Zend_Application_Resource_Db
 
 
     /**
-     * @return Emerald_Application_Customer
+     * @return Emerald_Common_Application_Customer
      */
     public function getCustomer()
     {
