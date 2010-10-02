@@ -1,5 +1,5 @@
 <?php
-class EmCore_TagController extends Emerald_Controller_Action
+class EmCore_TagController extends Emerald_Cms_Controller_Action
 {
 
 

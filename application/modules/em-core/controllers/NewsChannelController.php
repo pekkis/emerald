@@ -1,5 +1,5 @@
 <?php
-class EmCore_NewsChannelController extends Emerald_Controller_Action
+class EmCore_NewsChannelController extends Emerald_Cms_Controller_Action
 {
     public $ajaxable = array(
 		'save' => array('json'),

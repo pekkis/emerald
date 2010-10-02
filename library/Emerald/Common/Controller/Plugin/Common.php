@@ -3,10 +3,10 @@
  * Common controller plugin
  * 
  * @author pekkis
- * @package Emerald_Controller
+ * @package Emerald_Common_Controller
  *
  */
-class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
+class Emerald_Common_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 {
 
 
@@ -45,7 +45,7 @@ class Emerald_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
             $model = new EmAdmin_Model_Navigation();
             $navigation = $model->getNavigation();
             	
-            // $aclPlugin = new Emerald_Controller_Plugin_Acl($acl, $user);
+            // $aclPlugin = new Emerald_Common_Controller_Plugin_Acl($acl, $user);
             // $aclPlugin->setErrorPage('index', 'login', 'em-core');
 
             // Zend_Controller_Front::getInstance()->registerPlugin($aclPlugin);

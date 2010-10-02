@@ -6,7 +6,7 @@
  * @package Emerald_Common_Messaging
  *
  */
-class Emerald_Controller_Action_Helper_Messenger extends Zend_Controller_Action_Helper_Abstract
+class Emerald_Common_Controller_Action_Helper_Messenger extends Zend_Controller_Action_Helper_Abstract
 {
     protected $_messenger = null;
 

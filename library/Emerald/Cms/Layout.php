@@ -16,7 +16,7 @@ abstract class Emerald_Cms_Layout
 
     /**
      * Action context
-     * @var Emerald_Controller_Action
+     * @var Emerald_Cms_Controller_Action
      */
     private $_action;
 
@@ -165,9 +165,9 @@ abstract class Emerald_Cms_Layout
     /**
      * Sets action context
      * 
-     * @param Emerald_Controller_Action $action
+     * @param Emerald_Cms_Controller_Action $action
      */
-    public function setAction(Emerald_Controller_Action $action)
+    public function setAction(Emerald_Cms_Controller_Action $action)
     {
         $this->_action = $action;
     }
@@ -176,7 +176,7 @@ abstract class Emerald_Cms_Layout
     /**
      * Returns action context
      * 
-     * @return Emerald_Controller_Action
+     * @return Emerald_Cms_Controller_Action
      */
     public function getAction()
     {

@@ -1,5 +1,5 @@
 <?php
-class EmCore_UserController extends Emerald_Controller_Action
+class EmCore_UserController extends Emerald_Cms_Controller_Action
 {
 
     public $ajaxable = array(

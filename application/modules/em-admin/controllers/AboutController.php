@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_AboutController extends Emerald_Controller_Action
+class EmAdmin_AboutController extends Emerald_Cms_Controller_Action
 {
 
 

@@ -1,5 +1,5 @@
 <?php
-class EmCore_IndexController extends Emerald_Controller_Action
+class EmCore_IndexController extends Emerald_Cms_Controller_Action
 {
 
     public function indexAction()

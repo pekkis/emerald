@@ -3,10 +3,10 @@
  * Filters internal links to beautifurls when a page is rendered
  *
  * @author pekkis
- * @package Emerald_Controller
+ * @package Emerald_Common_Controller
  *
  */
-class Emerald_Controller_Plugin_Page extends Zend_Controller_Plugin_Abstract
+class Emerald_Common_Controller_Plugin_Page extends Zend_Controller_Plugin_Abstract
 {
 
     public function dispatchLoopShutdown()

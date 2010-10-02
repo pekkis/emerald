@@ -1,5 +1,5 @@
 <?php
-class EmCore_InstallController extends Emerald_Controller_Action
+class EmCore_InstallController extends Emerald_Cms_Controller_Action
 {
 
     public function preDispatch()

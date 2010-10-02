@@ -2,11 +2,11 @@
 /**
  * CMS specific controller action
  *
- * @package Emerald_Controller
+ * @package Emerald_Common_Controller
  * @author pekkis
  *
  */
-class Emerald_Controller_Action extends Zend_Controller_Action
+class Emerald_Cms_Controller_Action extends Zend_Controller_Action
 {
     /**
      * @var EmCore_Model_Page

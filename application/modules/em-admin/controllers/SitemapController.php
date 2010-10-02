@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_SitemapController extends Emerald_Controller_Action
+class EmAdmin_SitemapController extends Emerald_Cms_Controller_Action
 {
 
     public $contexts = array(

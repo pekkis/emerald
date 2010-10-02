@@ -1,5 +1,5 @@
 <?php
-class EmCore_PageController extends Emerald_Controller_Action
+class EmCore_PageController extends Emerald_Cms_Controller_Action
 {
     public $ajaxable = array(
         'view'     => array('html'),
@@ -80,7 +80,7 @@ class EmCore_PageController extends Emerald_Controller_Action
             $tpl->setNoRender(true);
             	
             // Register
-            $this->getFrontController()->registerPlugin(new Emerald_Controller_Plugin_Page());
+            $this->getFrontController()->registerPlugin(new Emerald_Common_Controller_Plugin_Page());
 
             if($this->getHelper('ajaxContext')->getCurrentContext() || $this->getHelper('contextSwitch')->getCurrentContext()) {
                 $tpl->runAjax();

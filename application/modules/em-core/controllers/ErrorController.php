@@ -1,5 +1,5 @@
 <?php
-class EmCore_ErrorController extends Emerald_Controller_Action
+class EmCore_ErrorController extends Emerald_Cms_Controller_Action
 {
     const RETRY_AFTER_SECONDS = 120;
 

@@ -3,10 +3,10 @@
  * ACL plugin
  * 
  * @author pekkis
- * @package Emerald_Controller
+ * @package Emerald_Common_Controller
  *
  */
-class Emerald_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
+class Emerald_Common_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
 {
 
     /**

@@ -1,5 +1,5 @@
 <?php
-class EmCore_LanglibController extends Emerald_Controller_Action
+class EmCore_LanglibController extends Emerald_Cms_Controller_Action
 {
 
     public $contexts = array(

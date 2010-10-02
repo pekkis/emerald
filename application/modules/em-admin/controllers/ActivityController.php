@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_ActivityController extends Emerald_Controller_Action
+class EmAdmin_ActivityController extends Emerald_Cms_Controller_Action
 {
 
     public $ajaxable = array(
