@@ -78,9 +78,9 @@ class EmCore_PageController extends Emerald_Cms_Controller_Action
             $tpl = $page->getLayoutObject($this);
             $tpl->setPage($page);
             $tpl->setNoRender(true);
-            	
+                        
             // Register
-            $this->getFrontController()->registerPlugin(new Emerald_Cms_Controller_Plugin_Common());
+            $this->getFrontController()->registerPlugin(new Emerald_Cms_Controller_Plugin_Page());
 
             if($this->getHelper('ajaxContext')->getCurrentContext() || $this->getHelper('contextSwitch')->getCurrentContext()) {
                 $tpl->runAjax();
