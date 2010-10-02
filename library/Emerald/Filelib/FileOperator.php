@@ -133,7 +133,7 @@ class Emerald_Filelib_FileOperator
     }
 
 
-    public function __construct(Emerald_Filelib $filelib)
+    public function __construct(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
         $this->_backend = $filelib->getBackend();

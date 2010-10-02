@@ -20,7 +20,7 @@ class Emerald_Filelib_FolderOperator
      */
     protected $_cachePrefix = 'emerald_filelib_folderoperator';
    
-    public function __construct(Emerald_Filelib $filelib)
+    public function __construct(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
         $this->_backend = $filelib->getBackend();

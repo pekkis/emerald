@@ -29,7 +29,7 @@ class Emerald_Filelib_Uploader
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib $filelib)
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }

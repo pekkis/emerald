@@ -49,7 +49,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
      * @param  Emerald_Filelib                   $filelib
      * @return Emerald_Filelib_Backend_Doctrine2
      */
-    public function setFilelib(Emerald_Filelib $filelib)
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
 

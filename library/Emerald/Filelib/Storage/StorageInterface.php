@@ -14,7 +14,7 @@ interface Emerald_Filelib_Storage_StorageInterface
      *
      * @return Emerald_Filelib_FileLibrary Filelib
      */
-    public function setFilelib(Emerald_Filelib $filelib);
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib);
 
     /**
      * Returns filelib

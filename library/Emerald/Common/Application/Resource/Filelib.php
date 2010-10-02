@@ -52,7 +52,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
 
             $backendOptions = $this->_handleBackendOptions($backendOptions);
 
-            $filelib = new Emerald_Filelib($options);
+            $filelib = new Emerald_Filelib_FileLibrary($options);
             
             $backend = new $backendOptions['type']($backendOptions['options']);
             $filelib->setBackend($backend);

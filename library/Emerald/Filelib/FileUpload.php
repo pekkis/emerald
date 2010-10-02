@@ -23,7 +23,7 @@ class Emerald_Filelib_FileUpload extends Emerald_Common_Spl_FileObject
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib $filelib)
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }

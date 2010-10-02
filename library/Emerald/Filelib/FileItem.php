@@ -34,7 +34,7 @@ class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib $filelib)
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }

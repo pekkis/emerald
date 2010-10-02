@@ -14,7 +14,7 @@ interface Emerald_Filelib_Plugin_Interface
      *
      * @param Emerald_Filelib $filelib Filelib
      */
-    public function setFilelib(Emerald_Filelib $filelib);
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib);
 
     /**
      * Returns filelib

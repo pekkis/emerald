@@ -17,7 +17,7 @@ interface Emerald_Filelib_Linker_Interface
     public function __construct($options = array());
 
     
-    public function setFilelib(Emerald_Filelib $filelib);
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib);
     
     /**
      * Returns filelib

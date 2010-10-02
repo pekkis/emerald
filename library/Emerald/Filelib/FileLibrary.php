@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib
+class Emerald_Filelib_FileLibrary
 {
     /**
      * @var Emerald_Filelib_Backend_Interface Backend

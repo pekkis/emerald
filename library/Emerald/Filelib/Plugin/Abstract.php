@@ -49,7 +49,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib $filelib)
+    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
