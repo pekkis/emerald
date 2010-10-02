@@ -6,7 +6,7 @@ $(document).ready(function() {
 	if(window.opener.location.pathname != beautifurl) {
 		window.opener.location.pathname = beautifurl;
 	}
-	
+			
 	$(".tinymce").tinymce(Emerald.TinyMCE.options());
 	
 	$('form').jsonSubmit({

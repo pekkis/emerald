@@ -9,7 +9,7 @@
  */
 final class Emerald_Cms_Version
 {
-    const VERSION = '3.0.0-beta5';
+    const VERSION = '3.0.0-milestone1';
 
     const JQUERY_VERSION = '1.4.2';
 

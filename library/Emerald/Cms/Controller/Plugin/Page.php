@@ -6,7 +6,7 @@
  * @package Emerald_Common_Controller
  *
  */
-class Emerald_Common_Controller_Plugin_Page extends Zend_Controller_Plugin_Abstract
+class Emerald_Cms_Controller_Plugin_Common extends Zend_Controller_Plugin_Abstract
 {
 
     public function dispatchLoopShutdown()
