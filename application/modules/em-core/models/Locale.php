@@ -5,7 +5,7 @@
  * @author pekkis
  *
  */
-class EmCore_Model_Locale extends Emerald_Model_Cacheable
+class EmCore_Model_Locale extends Emerald_Cms_Model_Cacheable
 {
 
     protected static $_table = 'EmCore_Model_DbTable_Locale';
@@ -83,7 +83,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
      *
      * @param Emerald_Common_Application_Customer $customer Customer
      * @param EmCore_Model_Locale $locale Locale
-     * @throws Emerald_Model_Exception
+     * @throws Emerald_Cms_Model_Exception
      * @return EmCore_Model_PageItem
      */
     public function startFrom(Emerald_Common_Application_Customer $customer, $locale = null)
@@ -92,7 +92,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
         if($locale) {
             $locale = $this->find($locale);
             if(!$locale) {
-                throw new Emerald_Model_Exception('Invalid locale');
+                throw new Emerald_Cms_Model_Exception('Invalid locale');
             }
         } else {
             $locale = $this->findDefault($customer);
@@ -100,7 +100,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
                 // Last resort: find locale, ANY locale and set it default.
                 $locale = $this->findAny($customer);
                 if(!$locale) {
-                    throw new Emerald_Model_Exception('No locales', 404);
+                    throw new Emerald_Cms_Model_Exception('No locales', 404);
                 }
                 $this->setDefault($customer, $locale);
             }
@@ -117,7 +117,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
      *
      * @param Emerald_Common_Application_Customer $customer Customer
      * @param EmCore_Model_LocaleItem $locale Locale
-     * @throws Emerald_Model_Exception
+     * @throws Emerald_Cms_Model_Exception
      * @return EmCore_Model_PageItem
      */
     public function findDefaultPage(Emerald_Common_Application_Customer $customer, EmCore_Model_LocaleItem $locale)
@@ -130,7 +130,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
         } else {
             $page = $pageModel->findAny($locale);
             if(!$page) {
-                throw new Emerald_Model_Exception('No pages');
+                throw new Emerald_Cms_Model_Exception('No pages');
             }
             $locale->setOption('page_start', $page->id);
         }
@@ -228,7 +228,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
         $tbl = $this->getTable();
         $row = $tbl->find($locale->locale)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
         $row->delete();
 

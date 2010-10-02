@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Folder extends Emerald_Model_AbstractModel
+class EmCore_Model_Folder extends Emerald_Cms_Model_AbstractModel
 {
 
 

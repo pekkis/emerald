@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_NewsItem extends Emerald_Model_Cacheable implements Emerald_Model_TaggerModelInterface
+class EmCore_Model_NewsItem extends Emerald_Cms_Model_Cacheable implements Emerald_Cms_Model_TaggerModelInterface
 {
     protected static $_table = 'EmCore_Model_DbTable_NewsItem';
 
@@ -61,7 +61,7 @@ class EmCore_Model_NewsItem extends Emerald_Model_Cacheable implements Emerald_M
         $tbl = $this->getTable();
         $row = $tbl->find($item->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
         $row->delete();
 

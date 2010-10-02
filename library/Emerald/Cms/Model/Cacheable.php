@@ -3,10 +3,10 @@
  * Cacheable base model
  * 
  * @author pekkis
- * @package Emerald_Model
+ * @package Emerald_Cms_Model
  *
  */
-abstract class Emerald_Model_Cacheable extends Emerald_Model_AbstractModel
+abstract class Emerald_Cms_Model_Cacheable extends Emerald_Cms_Model_AbstractModel
 {
     private $_cache;
 

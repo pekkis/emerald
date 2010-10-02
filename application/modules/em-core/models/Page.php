@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Page extends Emerald_Model_Cacheable implements Emerald_Model_TaggerModelInterface
+class EmCore_Model_Page extends Emerald_Cms_Model_Cacheable implements Emerald_Cms_Model_TaggerModelInterface
 {
 
     protected $_beautifurls;
@@ -316,7 +316,7 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable implements Emerald_Model
         $tbl = $this->getTable();
         $row = $tbl->find($page->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
 
         $this->clearCached($page->id);

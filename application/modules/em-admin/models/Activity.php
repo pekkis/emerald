@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_Model_Activity extends Emerald_Model_Cacheable
+class EmAdmin_Model_Activity extends Emerald_Cms_Model_Cacheable
 {
     protected static $_table = 'EmAdmin_Model_DbTable_Activity';
 

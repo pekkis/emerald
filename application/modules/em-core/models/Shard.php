@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Shard extends Emerald_Model_Cacheable
+class EmCore_Model_Shard extends Emerald_Cms_Model_Cacheable
 {
 
     const ACTIVE = 1;

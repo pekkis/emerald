@@ -3,10 +3,10 @@
  * TaggerModel interface
  * 
  * @author pekkis
- * @package Emerald_Model
+ * @package Emerald_Cms_Model
  *
  */
-interface Emerald_Model_TaggerModelInterface
+interface Emerald_Cms_Model_TaggerModelInterface
 {
     public function findTagger(EmCore_Model_TaggableItem $taggable);
 

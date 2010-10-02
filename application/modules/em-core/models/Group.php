@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Group extends Emerald_Model_AbstractModel
+class EmCore_Model_Group extends Emerald_Cms_Model_AbstractModel
 {
     const GROUP_ANONYMOUS = 1;
     const GROUP_ROOT = 2;
@@ -77,7 +77,7 @@ class EmCore_Model_Group extends Emerald_Model_AbstractModel
         $tbl = $this->getTable();
         $row = $tbl->find($group->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
 
         $row->delete();

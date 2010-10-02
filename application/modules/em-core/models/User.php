@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_User extends Emerald_Model_AbstractModel
+class EmCore_Model_User extends Emerald_Cms_Model_AbstractModel
 {
     const USER_ANONYMOUS = 0;
 
@@ -119,7 +119,7 @@ class EmCore_Model_User extends Emerald_Model_AbstractModel
         $tbl = $this->getTable();
         $row = $tbl->find($user->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
 
         $row->delete();

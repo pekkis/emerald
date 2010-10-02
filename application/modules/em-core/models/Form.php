@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Form extends Emerald_Model_Cacheable
+class EmCore_Model_Form extends Emerald_Cms_Model_Cacheable
 {
 
     protected static $_table = 'EmCore_Model_DbTable_Form';
@@ -137,7 +137,7 @@ class EmCore_Model_Form extends Emerald_Model_Cacheable
         $tbl = new EmCore_Model_DbTable_FormField();
         $row = $tbl->find($item->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
         $row->delete();
 
@@ -150,7 +150,7 @@ class EmCore_Model_Form extends Emerald_Model_Cacheable
         $tbl = $this->getTable();
         $row = $tbl->find($item->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
         $row->delete();
 

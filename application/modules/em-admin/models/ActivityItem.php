@@ -1,5 +1,5 @@
 <?php
-class EmAdmin_Model_ActivityItem extends Emerald_Model_AbstractItem implements Emerald_Common_Acl_ResourceInterface
+class EmAdmin_Model_ActivityItem extends Emerald_Cms_Model_AbstractItem implements Emerald_Common_Acl_ResourceInterface
 {
     static private $_filter;
 

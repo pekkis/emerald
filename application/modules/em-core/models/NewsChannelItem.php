@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_NewsChannelItem extends Emerald_Model_AbstractItem
+class EmCore_Model_NewsChannelItem extends Emerald_Cms_Model_AbstractItem
 {
 
 

@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_FormContent extends Emerald_Model_Cacheable
+class EmCore_Model_FormContent extends Emerald_Cms_Model_Cacheable
 {
     protected static $_table = 'EmCore_Model_DbTable_FormContent';
 

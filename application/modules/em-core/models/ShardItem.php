@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_ShardItem extends Emerald_Model_AbstractItem
+class EmCore_Model_ShardItem extends Emerald_Cms_Model_AbstractItem
 {
 
     private $_router;

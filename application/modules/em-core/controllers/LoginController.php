@@ -24,7 +24,7 @@ class EmCore_LoginController extends Emerald_Controller_Action
             $this->view->user = $this->getCurrentUser();
             $this->view->page = $input->page;
 
-            $loginTbl = Emerald_Model::get('LoginRedirect');
+            $loginTbl = Emerald_Cms_Model::get('LoginRedirect');
             if($res = $loginTbl->find($input->page->id)->current()) {
                 $page = Emerald_Page::find($res->redirect_page_id);
                 $redirectUrl = $page->beautifurl;

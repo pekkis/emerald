@@ -3,10 +3,10 @@
  * TaggableItem interface
  * 
  * @author pekkis
- * @package Emerald_Model
+ * @package Emerald_Cms_Model
  *
  */
-interface Emerald_Model_TaggableItemInterface
+interface Emerald_Cms_Model_TaggableItemInterface
 {
     public function getTaggable();
 

@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_Taggable extends Emerald_Model_Cacheable
+class EmCore_Model_Taggable extends Emerald_Cms_Model_Cacheable
 {
     protected static $_table = 'EmCore_Model_DbTable_Taggable';
 
@@ -16,8 +16,8 @@ class EmCore_Model_Taggable extends Emerald_Model_Cacheable
     {
         if(!isset($this->_taggerModel[$taggable->type])) {
             $model = new $taggable->type;
-            if(!$model instanceof Emerald_Model_TaggerModelInterface) {
-                throw new Emerald_Model_Exception(get_class($model) . " does not implement TaggerModelInterface");
+            if(!$model instanceof Emerald_Cms_Model_TaggerModelInterface) {
+                throw new Emerald_Cms_Model_Exception(get_class($model) . " does not implement TaggerModelInterface");
             }
             $this->_taggerModel[$taggable->type] = $model;
             	
@@ -204,7 +204,7 @@ class EmCore_Model_Taggable extends Emerald_Model_Cacheable
 
 
 
-    public function findFor(Emerald_Model_TaggableItemInterface $item)
+    public function findFor(Emerald_Cms_Model_TaggableItemInterface $item)
     {
         $id = $item->getTaggableId();
         if($id) {
@@ -213,7 +213,7 @@ class EmCore_Model_Taggable extends Emerald_Model_Cacheable
     }
 
 
-    public function registerFor(Emerald_Model_TaggableItemInterface $item)
+    public function registerFor(Emerald_Cms_Model_TaggableItemInterface $item)
     {
         if($item->getTaggableId()) {
             return $this->findFor($item);
@@ -277,7 +277,7 @@ class EmCore_Model_Taggable extends Emerald_Model_Cacheable
         $tbl = $this->getTable();
         $row = $tbl->find($item->id)->current();
         if(!$row) {
-            throw new Emerald_Model_Exception('Could not delete');
+            throw new Emerald_Cms_Model_Exception('Could not delete');
         }
         $row->delete();
 

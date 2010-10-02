@@ -2,12 +2,12 @@
 /**
  * Abstract model item class
  *
- * @package Emerald_Model
+ * @package Emerald_Cms_Model
  * @author pekkis
  *
  *
  */
-abstract class Emerald_Model_AbstractItem
+abstract class Emerald_Cms_Model_AbstractItem
 {
 
     /**
@@ -35,7 +35,7 @@ abstract class Emerald_Model_AbstractItem
         }
 
         if(!is_array($data)) {
-            throw new Emerald_Model_Exception('Supplied data must be an array');
+            throw new Emerald_Cms_Model_Exception('Supplied data must be an array');
         }
 
         foreach($data as $key => $value) {
@@ -104,7 +104,7 @@ abstract class Emerald_Model_AbstractItem
      *
      * @param string $key Key
      * @return mixed
-     * @throws Emerald_Model_Exception
+     * @throws Emerald_Cms_Model_Exception
      */
     public function __get($key)
     {
@@ -113,7 +113,7 @@ abstract class Emerald_Model_AbstractItem
             if(!$this->_enforceFieldIntegrity) {
                 return null;
             }
-            throw new Emerald_Model_Exception("Field '{$key}' not set");
+            throw new Emerald_Cms_Model_Exception("Field '{$key}' not set");
             	
         }
         return $this->_data[$key];
@@ -145,7 +145,7 @@ abstract class Emerald_Model_AbstractItem
             $this->$field = $args[0];
         }
 
-        throw new Emerald_Model_Exception("Method '{$func}' does not exist");
+        throw new Emerald_Cms_Model_Exception("Method '{$func}' does not exist");
     }
 
 

@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_HtmlContent extends Emerald_Model_Cacheable
+class EmCore_Model_HtmlContent extends Emerald_Cms_Model_Cacheable
 {
     protected static $_table = 'EmCore_Model_DbTable_HtmlContent';
 

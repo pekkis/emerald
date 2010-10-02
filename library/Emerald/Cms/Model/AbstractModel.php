@@ -3,10 +3,10 @@
  * Abstract model base class providing dependency injection
  * 
  * @author pekkis
- * @package Emerald_Model
+ * @package Emerald_Cms_Model
  *
  */
-abstract class Emerald_Model_AbstractModel
+abstract class Emerald_Cms_Model_AbstractModel
 {
     protected $_dependencies = array();
 
@@ -41,7 +41,7 @@ abstract class Emerald_Model_AbstractModel
         } else {
             $rawDependencies = $this->getRawDependencies();
             if(!isset($rawDependencies[$dependency])) {
-                throw new Emerald_Model_Exception("Dependency {$dependency}' not found for " . get_class($this));
+                throw new Emerald_Cms_Model_Exception("Dependency {$dependency}' not found for " . get_class($this));
             }
             $this->_dependencies[$dependency] = $rawDependencies[$dependency]();
             return $this->_dependencies[$dependency];
@@ -56,7 +56,7 @@ abstract class Emerald_Model_AbstractModel
             return $this->getDependency($dependency);
         }
 
-        throw new Emerald_Model_Exception("Magic method " . get_class($this) . "::{$method} not callable.");
+        throw new Emerald_Cms_Model_Exception("Magic method " . get_class($this) . "::{$method} not callable.");
 
     }
 

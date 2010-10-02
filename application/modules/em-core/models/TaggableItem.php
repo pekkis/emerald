@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_TaggableItem extends Emerald_Model_AbstractItem implements Countable, IteratorAggregate
+class EmCore_Model_TaggableItem extends Emerald_Cms_Model_AbstractItem implements Countable, IteratorAggregate
 {
 
     public function count()

@@ -15,8 +15,8 @@ class EmCore_Model_TagFilterIterator extends FilterIterator
     {
         $item = $this->getInnerIterator()->current();
 
-        if(!$item instanceof Emerald_Model_TaggableItemInterface) {
-            throw new Emerald_Exception('TagFilterIterator only accepts instances of Emerald_Model_TaggableItemInterface');
+        if(!$item instanceof Emerald_Cms_Model_TaggableItemInterface) {
+            throw new Emerald_Exception('TagFilterIterator only accepts instances of Emerald_Cms_Model_TaggableItemInterface');
         }
 
         if(!$item->getTaggable()) {

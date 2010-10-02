@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_NewsItemItem extends Emerald_Model_AbstractItem implements Emerald_Model_TaggableItemInterface
+class EmCore_Model_NewsItemItem extends Emerald_Cms_Model_AbstractItem implements Emerald_Cms_Model_TaggableItemInterface
 {
     public function getChannel()
     {

@@ -1,5 +1,5 @@
 <?php
-class EmCore_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emerald_Common_Acl_ResourceInterface
+class EmCore_Model_LocaleItem extends Emerald_Cms_Model_AbstractItem implements Emerald_Common_Acl_ResourceInterface
 {
 
     private $_optionContainer;
