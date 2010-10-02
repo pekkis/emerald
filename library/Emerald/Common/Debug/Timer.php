@@ -3,10 +3,10 @@
  * Timer component for benchmarking
  * 
  * @author pekkis
- * @package Emerald_Debug
+ * @package Emerald_Common_Debug
  *
  */
-class Emerald_Debug_Timer implements IteratorAggregate
+class Emerald_Common_Debug_Timer implements IteratorAggregate
 {
 
     /**
@@ -28,7 +28,7 @@ class Emerald_Debug_Timer implements IteratorAggregate
      * Returns a timer
      * 
      * @param string $name Timer name
-     * @return Emerald_Debug_Timer
+     * @return Emerald_Common_Debug_Timer
      */
     static public function getTimer($name) {
         if(!isset(self::$_timers[$name])) {

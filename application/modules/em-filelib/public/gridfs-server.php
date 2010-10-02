@@ -25,7 +25,7 @@ defined('APPLICATION_CONFIG_CACHE')
  
 
 // require_once "Emerald/Debug/Timer.php";
-// $timer = Emerald_Debug_Timer::getTimer('luss');
+// $timer = Emerald_Common_Debug_Timer::getTimer('luss');
 
 // $timer->time('application start');
 

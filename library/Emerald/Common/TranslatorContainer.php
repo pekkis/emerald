@@ -6,7 +6,7 @@
  * @package Emerald_Translate
  *
  */
-class Emerald_TranslatorContainer
+class Emerald_Common_TranslatorContainer
 {
     /**
      * @var Zend_Translate

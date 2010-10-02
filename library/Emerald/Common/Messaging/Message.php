@@ -2,11 +2,11 @@
 /**
  * Message class with predefined message statuses and translation capability.
  *
- * @package Emerald_Messaging
+ * @package Emerald_Common_Messaging
  * @author pekkis
  *
  */
-class Emerald_Messaging_Message
+class Emerald_Common_Messaging_Message
 {
     const SUCCESS = 1;
     const INFO = 2;
@@ -14,7 +14,7 @@ class Emerald_Messaging_Message
 
     /**
      * Translator container
-     * @var Emerald_TranslatorContainer
+     * @var Emerald_Common_TranslatorContainer
      */
     protected $_translatorContainer = null;
 
@@ -41,12 +41,12 @@ class Emerald_Messaging_Message
     /**
      * Returns translator container
      * 
-     * @return Emerald_TranslatorContainer
+     * @return Emerald_Common_TranslatorContainer
      */
     public function getTranslatorContainer()
     {
         if(!$this->_translatorContainer) {
-            $this->_translatorContainer = new Emerald_TranslatorContainer();
+            $this->_translatorContainer = new Emerald_Common_TranslatorContainer();
         }
         return $this->_translatorContainer;
     }

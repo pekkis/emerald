@@ -123,11 +123,11 @@ class EmCore_CustomContentController extends Emerald_Controller_Action
             	
             $model->save($customcontent);
 
-            $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, 'Save ok');
+            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
             	
             	
         } else {
-            $message = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Save failed');
+            $message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
             $message->errors = array_keys($form->getMessages());
         }
 

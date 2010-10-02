@@ -55,9 +55,9 @@ class EmAdmin_UserController extends Emerald_Controller_Action
 
         try {
             $userModel->delete($user);
-            $this->view->message = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, 'Save ok');
+            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
         } catch(Emerald_Exception $e) {
-            $this->view->message = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Save failed');
+            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
         }
 
 
@@ -126,12 +126,12 @@ class EmAdmin_UserController extends Emerald_Controller_Action
             }
             	
             	
-            $this->view->message = new Emerald_Messaging_Message(Emerald_Messaging_Message::SUCCESS, 'Save ok');
+            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
             $this->view->message->user_id = $user->id;
             	
             	
         } else {
-            $msg = new Emerald_Messaging_Message(Emerald_Messaging_Message::ERROR, 'Save failed');
+            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }
