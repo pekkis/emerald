@@ -1,9 +1,9 @@
 <?php
 /**
  * @author Eevert Saukkokoski <eevert.saukkokoski@brainalliance.com>
- * @package Emerald_Validate
+ * @package Emerald_Common_Validate
  */
-abstract class Emerald_Validate_Composite implements Zend_Validate_Interface
+abstract class Emerald_Common_Validate_Composite implements Zend_Validate_Interface
 {
     /**
      * @var array

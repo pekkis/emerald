@@ -10,7 +10,7 @@ class EmCore_LoginController extends Emerald_Controller_Action
         $filters = array(
         );
         $validators = array(
-			'page' => array(new Emerald_Validate_InstanceOf('Emerald_Page'), 'presence' => 'required'),
+			'page' => array(new Emerald_Common_Validate_InstanceOf('Emerald_Page'), 'presence' => 'required'),
         );
 
         try {

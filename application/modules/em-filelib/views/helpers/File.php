@@ -39,7 +39,7 @@ class EmFilelib_View_Helper_File extends Zend_View_Helper_Abstract
 	/**
 	 * Returns self
 	 * 
-	 * @return Emerald_View_Helper_File
+	 * @return Emerald_Common_View_Helper_File
 	 */
 	public function file()
 	{

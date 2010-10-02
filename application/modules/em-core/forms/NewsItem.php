@@ -35,7 +35,7 @@ class EmCore_Form_NewsItem extends ZendX_JQuery_Form
         $publishTimeElm = new Zend_Form_Element_Text('valid_start_time', array('label' => 'Publish time (hh:mm:ss)'));
         $publishTimeElm->setRequired(true);
         $publishTimeElm->setAllowEmpty(false);
-        $publishTimeElm->addValidator(new Emerald_Validate_Time());
+        $publishTimeElm->addValidator(new Emerald_Common_Validate_Time());
 
         $expireElm = new Zend_Form_Element_Text('valid_end_date', array('label' => 'Expiration date'));
         $expireElm->setRequired(true);
@@ -45,7 +45,7 @@ class EmCore_Form_NewsItem extends ZendX_JQuery_Form
         $expireTimeElm = new Zend_Form_Element_Text('valid_end_time', array('label' => 'Expiration time (hh:mm:ss)'));
         $expireTimeElm->setRequired(true);
         $expireTimeElm->setAllowEmpty(false);
-        $expireTimeElm->addValidator(new Emerald_Validate_Time());
+        $expireTimeElm->addValidator(new Emerald_Common_Validate_Time());
 
 
         $statusElm = new Zend_Form_Element_Checkbox('status', array('label' => 'Active'));

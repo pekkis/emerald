@@ -3,10 +3,10 @@
  * Messaging view helper
  * 
  * @author Jorma Tuomainen <jorma.tuomainen@brainalliance.com>
- * @package Emerald_View
+ * @package Emerald_Common_View
  *
  */
-class Emerald_View_Helper_Messenger extends Zend_View_Helper_Abstract
+class Emerald_Common_View_Helper_Messenger extends Zend_View_Helper_Abstract
 {
     protected $_messenger = null;
 

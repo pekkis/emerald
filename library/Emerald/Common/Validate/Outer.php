@@ -3,9 +3,9 @@
  * Wraps a validator
  *
  * @author Eevert Saukkokoski <eevert.saukkokoski@brainalliance.com>
- * @package Emerald_Validate
+ * @package Emerald_Common_Validate
  */
-class Emerald_Validate_Outer implements Zend_Validate_Interface
+class Emerald_Common_Validate_Outer implements Zend_Validate_Interface
 {
     /**
      * Inner validator

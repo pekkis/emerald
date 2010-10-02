@@ -1,9 +1,9 @@
 <?php
 /**
  * @author Eevert Saukkokoski <eevert.saukkokoski@brainalliance.com>
- * @package Emerald_Validate
+ * @package Emerald_Common_Validate
  */
-class Emerald_Validate_Or extends Emerald_Validate_Composite
+class Emerald_Common_Validate_Or extends Emerald_Common_Validate_Composite
 {
     public function isValid($value)
     {

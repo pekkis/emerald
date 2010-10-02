@@ -3,11 +3,11 @@
  * Extends Zend View so customer paths may always override global view scripts
  * 
  * @author pekkis
- * @package Emerald_View
+ * @package Emerald_Common_View
  * @todo Could this somehow be done lighter?
  *
  */
-class Emerald_View extends Zend_View
+class Emerald_Common_View extends Zend_View
 {
 
     /**

@@ -3,10 +3,10 @@
  * Emerald multipurpose view helper
  * 
  * @author pekkis
- * @package Emerald_View
+ * @package Emerald_Cms_View
  *
  */
-class Emerald_View_Helper_Emerald extends Zend_View_Helper_Abstract
+class Emerald_Cms_View_Helper_Emerald extends Zend_View_Helper_Abstract
 {
 
     private $_user;

@@ -1,12 +1,12 @@
 <?php
 /**
- * Validates a time
+ * Validates a datetime (for db, from select box combo)
  *
- * @package Emerald_Validate
+ * @package Emerald_Common_Validate
  * @author pekkis
  *
  */
-class Emerald_Validate_Time extends Zend_Validate_Abstract
+class Emerald_Common_Validate_Datetime extends Zend_Validate_Abstract
 {
     /**
      * Validation failure message key for when the value does not appear to be a valid date
@@ -36,7 +36,7 @@ class Emerald_Validate_Time extends Zend_Validate_Abstract
 
         $this->_setValue($valueString);
 
-        if (!preg_match('/^\d{2}:\d{2}(:\d{2})?$/', $valueString)) {
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$/', $valueString)) {
             $this->_error();
             return false;
         }
