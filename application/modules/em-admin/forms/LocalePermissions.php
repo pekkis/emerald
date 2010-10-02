@@ -7,7 +7,7 @@ class EmAdmin_Form_LocalePermissions extends ZendX_JQuery_Form
         $groupModel = new EmCore_Model_Group();
         $groups = $groupModel->findAll();
 
-        $permissions = Emerald_Permission::getAll();
+        $permissions = Emerald_Cms_Permission::getAll();
 
         foreach($groups as $group) {
             $elm = new Zend_Form_Element_MultiCheckbox((string) $group->id, array('label' => $group->name));

@@ -3,10 +3,10 @@
  * Beautifurl filter replaces page and file view action calls with corresponding beautifurls(tm).
  *
  * @author pekkis
- * @package Emerald_Filter
+ * @package Emerald_Common_Filter
  * @todo: optimize, cache, conquer world.
  */
-class Emerald_Filter_Beautifurl implements Zend_Filter_Interface
+class Emerald_Cms_Filter_Beautifurl implements Zend_Filter_Interface
 {
 
     public function filter($value)

@@ -244,7 +244,7 @@ class EmCore_Model_Locale extends Emerald_Model_Cacheable
         $groupModel = new EmCore_Model_Group();
         $groups = $groupModel->findAll();
 
-        $permissions = Emerald_Permission::getAll();
+        $permissions = Emerald_Cms_Permission::getAll();
 
         $perms = array();
         $acl = Zend_Registry::get('Emerald_Acl');

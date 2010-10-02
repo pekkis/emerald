@@ -57,7 +57,7 @@ class EmCore_Model_PageItem extends Emerald_Model_AbstractItem implements Emeral
             $res = $model->getAdapter()->fetchAll($sql, $this->id);
 
             foreach($res as $row) {
-                foreach(Emerald_Permission::getAll() as $key => $name) {
+                foreach(Emerald_Cms_Permission::getAll() as $key => $name) {
                     if($key & $row->permission) {
                         $role = "Emerald_Group_{$row->ugroup_id}";
                         if($acl->hasRole($role)) {

@@ -9,7 +9,7 @@ class EmCore_Model_Folder extends Emerald_Model_AbstractModel
         $groupModel = new EmCore_Model_Group();
         $groups = $groupModel->findAll();
 
-        $permissions = Emerald_Permission::getAll();
+        $permissions = Emerald_Cms_Permission::getAll();
 
         $perms = array();
 

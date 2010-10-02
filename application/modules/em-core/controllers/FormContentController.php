@@ -23,7 +23,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
         try {
             	
             $input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
-            $input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+            $input->setDefaultEscapeFilter(new Emerald_Common_Filter_HtmlSpecialChars());
 
             $page = $this->_pageFromPageId($input->page_id);
             $this->view->page = $page;
@@ -64,7 +64,7 @@ class EmCore_FormContentController extends Emerald_Controller_Action
 
         try {
             $input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
-            $input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+            $input->setDefaultEscapeFilter(new Emerald_Common_Filter_HtmlSpecialChars());
 
             $page = $this->_pageFromPageId($input->page_id);
             $this->view->page = $page;

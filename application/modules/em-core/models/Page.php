@@ -293,7 +293,7 @@ class EmCore_Model_Page extends Emerald_Model_Cacheable implements Emerald_Model
         $groupModel = new EmCore_Model_Group();
         $groups = $groupModel->findAll();
 
-        $permissions = Emerald_Permission::getAll();
+        $permissions = Emerald_Cms_Permission::getAll();
 
         $perms = array();
 

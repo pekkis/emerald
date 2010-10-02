@@ -163,7 +163,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
         try {
 
             $input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-            $input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+            $input->setDefaultEscapeFilter(new Emerald_Common_Filter_HtmlSpecialChars());
             $input->process();
 
             	
@@ -220,7 +220,7 @@ class EmAdmin_FormController extends Emerald_Controller_Action
         try {
 
             $input = new Zend_Filter_Input($filters, $validators, $this->_getAllParams());
-            $input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+            $input->setDefaultEscapeFilter(new Emerald_Common_Filter_HtmlSpecialChars());
             $input->process();
 
             $formModel = new EmCore_Model_Form();

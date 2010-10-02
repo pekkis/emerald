@@ -19,7 +19,7 @@ class EmCore_Model_FolderItem extends Emerald_Filelib_FolderItem implements Emer
             $res = $model->getAdapter()->fetchAll($sql, $this->id);
              
             foreach($res as $row) {
-                foreach(Emerald_Permission::getAll() as $key => $name) {
+                foreach(Emerald_Cms_Permission::getAll() as $key => $name) {
                     if($key & $row->permission) {
                         $role = "Emerald_Group_{$row->ugroup_id}";
                         if($acl->hasRole($role)) {

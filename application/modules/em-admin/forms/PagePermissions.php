@@ -9,7 +9,7 @@ class EmAdmin_Form_PagePermissions extends ZendX_JQuery_Form
         $groupModel = new EmCore_Model_Group();
         $groups = $groupModel->findAll();
 
-        $permissions = Emerald_Permission::getAll();
+        $permissions = Emerald_Cms_Permission::getAll();
 
 
         foreach($groups as $group) {

@@ -3,9 +3,9 @@
  * HtmlSpecialChars filter
  * 
  * @author pekkis
- * @package  Emerald_Filter
+ * @package  Emerald_Common_Filter
  */
-class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
+class Emerald_Common_Filter_HtmlSpecialChars implements Zend_Filter_Interface
 {
     /**
      * Character set. Corresponds to third htmlspecialchars() argument
@@ -45,7 +45,7 @@ class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
      * Set options
      *
      * @param  array                           $options
-     * @return Emerald_Filter_HtmlSpecialChars
+     * @return Emerald_Common_Filter_HtmlSpecialChars
      */
     public function setOptions(array $options)
     {
@@ -74,7 +74,7 @@ class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
      * Sets the charset option
      *
      * @param  string                          $charset
-     * @return Emerald_Filter_HtmlSpecialChars
+     * @return Emerald_Common_Filter_HtmlSpecialChars
      */
     public function setCharset($charset)
     {
@@ -97,7 +97,7 @@ class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
      * Sets the doubleEncode option
      *
      * @param  boolean                         $doubleEncode
-     * @return Emerald_Filter_HtmlSpecialChars
+     * @return Emerald_Common_Filter_HtmlSpecialChars
      */
     public function setDoubleEncode($doubleEncode)
     {
@@ -120,7 +120,7 @@ class Emerald_Filter_HtmlSpecialChars implements Zend_Filter_Interface
      * Sets the quoteStyle option
      *
      * @param  integer                         $quoteStyle
-     * @return Emerald_Filter_HtmlSpecialChars
+     * @return Emerald_Common_Filter_HtmlSpecialChars
      */
     public function setQuoteStyle($quoteStyle)
     {

@@ -18,7 +18,7 @@ class EmCore_Form_HtmlContent extends ZendX_JQuery_Form
         $blockIdElm->setDecorators(array('ViewHelper'));
 
         $contentElm = new Zend_Form_Element_Textarea('content', array('label' => 'Content', 'class' => array('tinymce', 'w100')));
-        // $contentElm->setFilters(array(new Emerald_Filter_HtmlSpecialChars()));
+        // $contentElm->setFilters(array(new Emerald_Common_Filter_HtmlSpecialChars()));
 
         $siblingsElm = new Zend_Form_Element_Select('siblings', array('label' => 'This block in different locales'));
         $siblingsElm->setRegisterInArrayValidator(false);

@@ -80,7 +80,7 @@ class EmCore_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emer
             $sql = "SELECT ugroup_id, permission FROM emerald_permission_locale_ugroup WHERE locale_locale = ?";
             $res = $model->getAdapter()->fetchAll($sql, $this->locale);
             foreach($res as $row) {
-                foreach(Emerald_Permission::getAll() as $key => $name) {
+                foreach(Emerald_Cms_Permission::getAll() as $key => $name) {
                     if($key & $row->permission) {
                         $role = "Emerald_Group_{$row->ugroup_id}";
                         if($acl->hasRole($role)) {

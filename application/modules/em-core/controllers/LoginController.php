@@ -15,7 +15,7 @@ class EmCore_LoginController extends Emerald_Controller_Action
 
         try {
             $input = new Zend_Filter_Input($filters, $validators, $this->getRequest()->getUserParams());
-            $input->setDefaultEscapeFilter(new Emerald_Filter_HtmlSpecialChars());
+            $input->setDefaultEscapeFilter(new Emerald_Common_Filter_HtmlSpecialChars());
             $input->process();
             	
             $writable = Zend_Registry::get('Emerald_Acl')->isAllowed($this->getCurrentUser(), $input->page, 'write');
