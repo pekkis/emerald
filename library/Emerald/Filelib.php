@@ -89,7 +89,7 @@ class Emerald_Filelib
      * Sets public directory prefix
      * 
      * @param string $publicDirectoryPrefix
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setPublicDirectoryPrefix($publicDirectoryPrefix)
     {
@@ -128,7 +128,7 @@ class Emerald_Filelib
     /**
      * Sets cache
      * @param Zend_Cache_Core $cache
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setCache(Zend_Cache_Core $cache)
     {
@@ -158,7 +158,7 @@ class Emerald_Filelib
      * Adds a file profile
      * 
      * @param Emerald_Filelib_FileProfile $profile
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function addProfile(Emerald_Filelib_FileProfile $profile)
     {
@@ -232,7 +232,7 @@ class Emerald_Filelib
      * Sets fileitem class
      *
      * @param string $fileItemClass Class name
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setFileItemClass($fileItemClass)
     {
@@ -256,7 +256,7 @@ class Emerald_Filelib
      * Sets folderitem class
      *
      * @param string $folderItemClass Class name
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setFolderItemClass($folderItemClass)
     {
@@ -280,7 +280,7 @@ class Emerald_Filelib
      * Sets storage
      *
      * @param Emerald_Filelib_Storage_StorageInterface $storage
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setStorage(Emerald_Filelib_Storage_StorageInterface $storage)
     {
@@ -308,7 +308,7 @@ class Emerald_Filelib
      * Sets publisher
      *
      * @param Emerald_Filelib_Publisher_Interface $publisher
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setPublisher(Emerald_Filelib_Publisher_PublisherInterface $publisher)
     {
@@ -337,7 +337,7 @@ class Emerald_Filelib
      * Sets backend
      *
      * @param Emerald_Filelib_Backend_Interface $backend
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setBackend(Emerald_Filelib_Backend_Interface $backend)
     {
@@ -366,7 +366,7 @@ class Emerald_Filelib
      * Adds a plugin
      *
      * @param Emerald_Filelib_Plugin_Interface Plugin $plugin
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
     {
@@ -399,7 +399,7 @@ class Emerald_Filelib
      * Sets acl handler
      *
      * @param Emerald_Filelib_Acl_Interface $acl
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setAcl(Emerald_Filelib_Acl_Interface $acl)
     {

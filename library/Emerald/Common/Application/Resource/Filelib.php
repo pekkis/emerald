@@ -18,7 +18,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
     /**
      * Returns filelib
      * 
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {
@@ -102,7 +102,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
     }
 
     /**
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function init()
     {

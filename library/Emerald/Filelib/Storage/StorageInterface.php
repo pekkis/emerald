@@ -12,14 +12,14 @@ interface Emerald_Filelib_Storage_StorageInterface
     /**
      * Sets filelib
      *
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setFilelib(Emerald_Filelib $filelib);
 
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function getFilelib();
     

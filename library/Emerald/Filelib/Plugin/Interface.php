@@ -19,7 +19,7 @@ interface Emerald_Filelib_Plugin_Interface
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib();
     

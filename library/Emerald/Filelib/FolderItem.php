@@ -27,7 +27,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function getFilelib()
     {

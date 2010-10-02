@@ -42,7 +42,7 @@ class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {

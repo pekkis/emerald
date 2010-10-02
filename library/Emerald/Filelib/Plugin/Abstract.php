@@ -57,7 +57,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {

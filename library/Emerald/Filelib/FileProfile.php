@@ -87,7 +87,7 @@ class Emerald_Filelib_FileProfile
      * Sets linker
      *
      * @param Emerald_Filelib_Linker_Interface|string $linker
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setLinker($linker)
     {

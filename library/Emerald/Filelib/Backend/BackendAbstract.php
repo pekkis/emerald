@@ -31,7 +31,7 @@ abstract class Emerald_Filelib_Backend_BackendAbstract
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {

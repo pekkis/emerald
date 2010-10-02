@@ -22,7 +22,7 @@ interface Emerald_Filelib_Linker_Interface
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib();
 

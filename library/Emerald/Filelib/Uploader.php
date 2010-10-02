@@ -37,7 +37,7 @@ class Emerald_Filelib_Uploader
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {

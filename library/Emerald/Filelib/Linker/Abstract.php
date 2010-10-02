@@ -36,7 +36,7 @@ abstract class Emerald_Filelib_Linker_Abstract
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {

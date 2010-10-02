@@ -18,7 +18,7 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
      * Sets path from public to private root
      *
      * @param string $relativePathToRoot
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setRelativePathToRoot($relativePathToRoot)
     {

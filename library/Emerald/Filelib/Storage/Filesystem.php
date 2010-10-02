@@ -37,7 +37,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * Sets files per directory
      *
      * @param integer $filesPerDirectory
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setFilesPerDirectory($filesPerDirectory)
     {
@@ -59,7 +59,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * Sets levels per directory hierarchy
      *
      * @param integer $directoryLevels
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function setDirectoryLevels($directoryLevels)
     {
@@ -81,7 +81,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * Sets directory permission
      *
      * @param integer $directoryPermission
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setDirectoryPermission($directoryPermission)
     {
@@ -103,7 +103,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * Sets file permission
      *
      * @param integer $filePermission
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setFilePermission($filePermission)
     {
@@ -153,7 +153,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
      * Sets root
      *
      * @param string $root
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setRoot($root)
     {

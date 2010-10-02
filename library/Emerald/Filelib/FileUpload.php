@@ -31,7 +31,7 @@ class Emerald_Filelib_FileUpload extends Emerald_Common_Spl_FileObject
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib
+     * @return Emerald_Filelib_FileLibrary
      */
     public function getFilelib()
     {

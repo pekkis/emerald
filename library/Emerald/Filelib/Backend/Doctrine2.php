@@ -59,7 +59,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib Filelib
+     * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function getFilelib()
     {
