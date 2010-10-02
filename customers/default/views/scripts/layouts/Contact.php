@@ -1,5 +1,5 @@
 <?php
-class Emerald_Layout_Contact extends Emerald_Layout
+class Emerald_Cms_Layout_Contact extends Emerald_Cms_Layout
 {
     protected function _run()
     {

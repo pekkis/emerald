@@ -19,7 +19,7 @@ abstract class Emerald_Filelib_Linker_Abstract
      */
     public function __construct($options = array())
     {
-        Emerald_Options::setConstructorOptions($this, $options);
+        Emerald_Common_Options::setConstructorOptions($this, $options);
     }
 
 

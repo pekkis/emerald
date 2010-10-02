@@ -18,7 +18,7 @@ class Emerald_Cms_Application_Resource_Emuser extends Zend_Application_Resource_
         EmCore_Model_User::setHashAlgorithm($options['hash']['algorithm']);
         EmCore_Model_User::setHashSalt($options['hash']['salt']);
 
-        $auth = Emerald_Auth::getInstance();
+        $auth = Emerald_Cms_Auth::getInstance();
         if($auth->hasIdentity()) {
             $user = $auth->getIdentity();
         } else {

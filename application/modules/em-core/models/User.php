@@ -172,7 +172,7 @@ class EmCore_Model_User extends Emerald_Cms_Model_AbstractModel
 
     public function authenticate($identity, $credential)
     {
-        $auth = Emerald_Auth::getInstance();
+        $auth = Emerald_Cms_Auth::getInstance();
 
         $adapter = new Zend_Auth_Adapter_DbTable($this->getTable()->getAdapter(), 'emerald_user', 'email', 'passwd', '? and status = 1');
         $adapter->setIdentity($identity);

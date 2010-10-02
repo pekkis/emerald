@@ -20,7 +20,7 @@ abstract class Emerald_Beautifurl_BeautifurlAbstract implements Emerald_Beautifu
     private $_separator = '/';
 
     public function __construct($options = array()) {
-        Emerald_Options::setConstructorOptions($this, $options);
+        Emerald_Common_Options::setConstructorOptions($this, $options);
     }
     
     /**

@@ -82,7 +82,7 @@ class Emerald_Filelib
 
     public function __construct($options = array())
     {
-        Emerald_Options::setConstructorOptions($this, $options);
+        Emerald_Common_Options::setConstructorOptions($this, $options);
     }
     
     /**

@@ -1,5 +1,5 @@
 <?php 
-class Emerald_Layout_Default extends Emerald_Layout
+class Emerald_Cms_Layout_Default extends Emerald_Cms_Layout
 {
 	
 	

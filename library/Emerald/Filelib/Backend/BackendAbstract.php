@@ -15,7 +15,7 @@ abstract class Emerald_Filelib_Backend_BackendAbstract
     
     public function __construct($options)
     {
-        Emerald_Options::setConstructorOptions($this, $options);
+        Emerald_Common_Options::setConstructorOptions($this, $options);
     }
         
     /**

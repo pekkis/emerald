@@ -3,10 +3,10 @@
  * Layout object
  *
  * @author pekkis
- * @package Emerald_Layout
+ * @package Emerald_Cms_Layout
  *
  */
-abstract class Emerald_Layout
+abstract class Emerald_Cms_Layout
 {
     /**
      * Page context

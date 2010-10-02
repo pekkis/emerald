@@ -134,7 +134,7 @@ class EmCore_Model_Navigation
     /**
      * Returns the whole site navi
      *
-     * @return Emerald_Navigation
+     * @return Emerald_Common_Navigation
      */
     public function getNavigation()
     {
@@ -144,7 +144,7 @@ class EmCore_Model_Navigation
             	
             if(!$navi = $cache->load('navigation')) {
 
-                $navi = new Emerald_Navigation();
+                $navi = new Emerald_Common_Navigation();
 
 
                 $localeModel = new EmCore_Model_Locale();

@@ -56,7 +56,7 @@ class EmAdmin_SitemapController extends Emerald_Controller_Action
         $navimodel = new EmCore_Model_Navigation();
 
         $navigation = $navimodel->getNavigation()->findBy('locale_root',  $locale->locale);
-        $navigation = new Emerald_Navigation(array($navigation));
+        $navigation = new Emerald_Common_Navigation(array($navigation));
         $navigation = new RecursiveIteratorIterator($navigation, RecursiveIteratorIterator::SELF_FIRST);
 
         foreach($navigation as $navi) {

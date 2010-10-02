@@ -218,12 +218,12 @@ class Emerald_Common_Application_Customer
      * Returns the specified layout object
      * 
      * @param string $layout Layout name
-     * @return Emerald_Layout
+     * @return Emerald_Cms_Layout
      */
     public function getLayout($layout)
     {
         require_once $this->getRoot() . "/views/scripts/layouts/{$layout}.php";
-        $className = "Emerald_Layout_{$layout}";
+        $className = "Emerald_Cms_Layout_{$layout}";
         $layout = new $className();
         return $layout;
     }

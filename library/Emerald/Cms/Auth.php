@@ -3,10 +3,10 @@
  * Simple Auth wrapper to ensure that no clash happens with the host application
  * 
  * @author pekkis
- * @package Emerald_Auth
+ * @package Emerald_Cms_Auth
  *
  */
-class Emerald_Auth
+class Emerald_Cms_Auth
 {
 
     /**

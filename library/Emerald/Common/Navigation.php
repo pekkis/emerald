@@ -3,10 +3,10 @@
  * Extends Zend_Navigation with callback finders
  * 
  * @author pekkis
- * @package Emerald_Navigation
+ * @package Emerald_Common_Navigation
  *
  */
-class Emerald_Navigation extends Zend_Navigation
+class Emerald_Common_Navigation extends Zend_Navigation
 {
     /**
      * Returns a child page by a callback
