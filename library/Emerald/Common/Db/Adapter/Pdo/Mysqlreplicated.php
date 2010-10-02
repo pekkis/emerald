@@ -3,10 +3,10 @@
  * Prototype replicated PDO Mysql adapter
  * 
  * @author pekkis
- * @package Emerald_Db
+ * @package Emerald_Common_Db
  *
  */
-class Emerald_Db_Adapter_Pdo_Mysqlreplicated extends Zend_Db_Adapter_Pdo_Mysql
+class Emerald_Common_Db_Adapter_Pdo_Mysqlreplicated extends Zend_Db_Adapter_Pdo_Mysql
 {
 
     protected $_inTransaction = 0;

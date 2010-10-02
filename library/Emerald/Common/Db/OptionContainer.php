@@ -3,10 +3,10 @@
  * DB option container
  * 
  * @author pekkis
- * @package Emerald_Db
+ * @package Emerald_Common_Db
  *
  */
-class Emerald_Db_OptionContainer
+class Emerald_Common_Db_OptionContainer
 {
 
 

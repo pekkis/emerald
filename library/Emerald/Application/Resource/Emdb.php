@@ -19,7 +19,7 @@ class Emerald_Application_Resource_Emdb extends Zend_Application_Resource_Db
         $db = parent::init();
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
         $this->getCustomer()->setDb($db);
-        Zend_Registry::set('Emerald_Db', $db);
+        Zend_Registry::set('Emerald_Common_Db', $db);
         return $db;
     }
 

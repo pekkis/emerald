@@ -3,10 +3,10 @@
  * Zend DB's metadata cache is so incredibly stupid that is almost unbelievable. This fixes the stupidity.
  *
  * @author pekkis
- * @package Emerald_Db
+ * @package Emerald_Common_Db
  *
  */
-class Emerald_Db_Table_Abstract extends Zend_Db_Table_Abstract
+class Emerald_Common_Db_Table_Abstract extends Zend_Db_Table_Abstract
 {
 
     static private $_metadataData = array();

@@ -43,7 +43,7 @@ class Emerald_Application_Customer
     private $_db;
 
     /**
-     * @var Emerald_Db_OptionContainer Option container
+     * @var Emerald_Common_Db_OptionContainer Option container
      */
     private $_optionContainer;
 
@@ -180,12 +180,12 @@ class Emerald_Application_Customer
     /**
      * Returns option container
      * 
-     * @return Emerald_Db_OptionContainer
+     * @return Emerald_Common_Db_OptionContainer
      */
     protected function _getOptionContainer()
     {
         if(!$this->_optionContainer) {
-            $this->_optionContainer = new Emerald_Db_OptionContainer();
+            $this->_optionContainer = new Emerald_Common_Db_OptionContainer();
             $this->_optionContainer->setTable(new EmCore_Model_DbTable_Application_Option);
 
         }

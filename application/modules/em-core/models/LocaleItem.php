@@ -25,7 +25,7 @@ class EmCore_Model_LocaleItem extends Emerald_Model_AbstractItem implements Emer
     protected function _getOptionContainer()
     {
         if(!$this->_optionContainer) {
-            $this->_optionContainer = new Emerald_Db_OptionContainer($this);
+            $this->_optionContainer = new Emerald_Common_Db_OptionContainer($this);
             $this->_optionContainer->setTable(new EmCore_Model_DbTable_Locale_Option);
             $this->_optionContainer->setWhereConditions(array('locale_locale' => $this->locale));
             	
