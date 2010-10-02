@@ -2,11 +2,11 @@
 /**
  * Permissions
  * 
- * @package Emerald_Permission
+ * @package Emerald_Cms_Permission
  * @author pekkis
  *
  */
-class Emerald_Permission
+class Emerald_Cms_Permission
 {
     const EXECUTE = 1;
     const WRITE = 2;

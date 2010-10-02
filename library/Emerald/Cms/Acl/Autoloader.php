@@ -3,7 +3,6 @@
  * Crude 1st generation autoloader for default Emerald ACL resources (based on legacy hard-code)
  * 
  * @author pekkis
- * @package Emerald_Acl
  *
  */
 class Emerald_Cms_Acl_Autoloader

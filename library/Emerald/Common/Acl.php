@@ -3,10 +3,9 @@
  * Autoloading, autocaching extension of Zend_Acl
  *
  * @author pekkis
- * @package Emerald_Acl
  *
  */
-class Emerald_Acl extends Zend_Acl
+class Emerald_Common_Acl extends Zend_Acl
 {
 
     /**
@@ -189,7 +188,7 @@ class Emerald_Acl extends Zend_Acl
      * Retrieves and initializes acl from cache
      * 
      * @param Zend_Cache_Core $cache
-     * @return Emerald_Acl|false Cache on success
+     * @return Emerald_Common_Acl|false Cache on success
      */
     public static function cacheLoad(Zend_Cache_Core $cache)
     {

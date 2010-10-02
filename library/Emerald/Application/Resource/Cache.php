@@ -35,5 +35,37 @@ class Emerald_Application_Resource_Cache extends Zend_Application_Resource_Resou
         return $cm;
 
     }
+    
+    protected function _initTable(Zend_Cache_Core $cache)
+    {
+        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+    }
+    
+    protected function _initDate(Zend_Cache_Core $cache)
+    {
+        Zend_Date::setOptions(array('cache' => $cache));
+    }
+    
+    
+    protected function _initTranslate(Zend_Cache_Core $cache)
+    {
+        Zend_Translate::setCache($cache);
+    }
+    
+    protected function _initLocale(Zend_Cache_Core $cache)
+    {
+        Zend_Locale::setCache($cache);
+    }
+    
+    
+    protected function _initCurrency(Zend_Cache_Core $cache)
+    {
+        Zend_Currency::setCache($cache);
+    }
+    
+    
+    
+            
+    
 
 }

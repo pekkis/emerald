@@ -10,13 +10,13 @@ class Emerald_Application_Resource_Server extends Zend_Application_Resource_Reso
 {
 
     /**
-     * @return Emerald_Server
+     * @return Emerald_Cms_Server
      */
     public function init()
     {
         $options = $this->getOptions();
-        $server = new Emerald_Server($options);
-        Zend_Registry::set('Emerald_Server', $server);
+        $server = new Emerald_Cms_Server($options);
+        Zend_Registry::set('Emerald_Cms_Server', $server);
         return $server;
     }
 

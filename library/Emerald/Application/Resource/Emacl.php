@@ -18,11 +18,11 @@ class Emerald_Application_Resource_Emacl extends Zend_Application_Resource_Resou
         $customer = $this->getBootstrap()->getResource('customer');
 
         $cache = Zend_Registry::get('Emerald_CacheManager')->getCache($options['cache']);
-        if(!$acl = Emerald_Acl::cacheLoad($cache)) {
+        if(!$acl = Emerald_Common_Acl::cacheLoad($cache)) {
             
             // Failed to load from cache, initialize from scratch.
             
-            $acl = new Emerald_Acl();
+            $acl = new Emerald_Common_Acl();
             
             // Add default groups
             $anonGroup = 'Emerald_Group_' . EmCore_Model_Group::GROUP_ANONYMOUS;

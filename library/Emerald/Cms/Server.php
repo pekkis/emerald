@@ -2,11 +2,11 @@
 /**
  * Emerald server
  * 
- * @package Emerald_Server
+ * @package Emerald_Cms_Server
  * @author pekkis
  *
  */
-class Emerald_Server
+class Emerald_Cms_Server
 {
 
     /**

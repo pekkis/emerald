@@ -2,7 +2,6 @@
 /**
  * Interface for an autoloading Acl resource
  * 
- * @package Emerald_Acl
  * @author pekkis
  * 
  */

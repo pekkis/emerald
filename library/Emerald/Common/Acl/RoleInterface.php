@@ -2,7 +2,6 @@
 /**
  * Interface for an autoloading Acl role
  * 
- * @package Emerald_Acl
  * @author pekkis
  * 
  */
