@@ -3,11 +3,11 @@
  * Prototype Memcached backend for Zend Cache
  * 
  * @author pekkis
- * @package Emerald_Cache
+ * @package Emerald_Common_Cache
  * @todo JUST A PROTOTYPE
  *
  */
-class Emerald_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
+class Emerald_Common_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
 {
     /**
      * Default Values

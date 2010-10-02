@@ -15,7 +15,7 @@ class Emerald_Common_Application_Resource_Cache extends Zend_Application_Resourc
     protected $frontends;
 
     /**
-     * @return Emerald_Cache_Manager
+     * @return Zend_Cache_Manager
      */
     public function init()
     {
