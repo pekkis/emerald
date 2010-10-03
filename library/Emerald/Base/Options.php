@@ -2,12 +2,12 @@
 /**
  * Unified object option setter. Somewhat follows a one-time ZF 2.0 proposition.
  *
- * @package Emerald_Common_Options
+ * @package Emerald_Base_Options
  * @author pekkis
  * @todo Is this reasonable?
  *
  */
-class Emerald_Common_Options
+class Emerald_Base_Options
 {
 
     /**

@@ -4,10 +4,10 @@
  * FilterIterator with a callback
  * 
  * @author pekkis
- * @package Emerald_Common_Spl
+ * @package Emerald_Base_Spl
  *
  */
-class Emerald_Common_Spl_CallbackFilterIterator extends FilterIterator
+class Emerald_Base_Spl_CallbackFilterIterator extends FilterIterator
 {
 
     private $_callback;

@@ -3,10 +3,10 @@
  * Abstract convenience base class for beautifurlers
  * 
  * @author pekkis
- * @package Emerald_Common_Beautifurl
+ * @package Emerald_Base_Beautifurl
  *
  */
-abstract class Emerald_Common_Beautifurl_BeautifurlAbstract implements Emerald_Common_Beautifurl_BeautifurlInterface
+abstract class Emerald_Base_Beautifurl_BeautifurlAbstract implements Emerald_Base_Beautifurl_BeautifurlInterface
 {
     
     /**
@@ -20,7 +20,7 @@ abstract class Emerald_Common_Beautifurl_BeautifurlAbstract implements Emerald_C
     private $_separator = '/';
 
     public function __construct($options = array()) {
-        Emerald_Common_Options::setConstructorOptions($this, $options);
+        Emerald_Base_Options::setConstructorOptions($this, $options);
     }
     
     /**

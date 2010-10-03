@@ -2,11 +2,11 @@
 /**
  * Extends SplFileObject to offer mime type detection via Fileinfo extension.
  *
- * @package Emerald_Common_Spl
+ * @package Emerald_Base_Spl
  * @author pekkis
  *
  */
-class Emerald_Common_Spl_FileObject extends SplFileObject
+class Emerald_Base_Spl_FileObject extends SplFileObject
 {
     /**
      * @var string Mimetype is cached here

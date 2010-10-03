@@ -100,14 +100,14 @@ class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract im
      * Writes a mongo file to temporary file and registers it as an internal temp file
      * 
      * @param MongoGridFSFile $file
-     * @return Emerald_Common_Spl_FileObject
+     * @return Emerald_Base_Spl_FileObject
      */
     private function _toTemp(MongoGridFSFile $file)
     {
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $file->write($tmp);
         
-        $fo = new Emerald_Common_Spl_FileObject($tmp);
+        $fo = new Emerald_Base_Spl_FileObject($tmp);
         
         $this->_registerTempFile($fo);
         
@@ -118,9 +118,9 @@ class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract im
     /**
      * Registers an internal temp file
      * 
-     * @param Emerald_Common_Spl_FileObject $fo
+     * @param Emerald_Base_Spl_FileObject $fo
      */
-    private function _registerTempFile(Emerald_Common_Spl_FileObject $fo)
+    private function _registerTempFile(Emerald_Base_Spl_FileObject $fo)
     {
         $this->_tempFiles[] = $fo;
     }

@@ -15,7 +15,7 @@ abstract class Emerald_Filelib_Publisher_Abstract implements Emerald_Filelib_Pub
     
     public function __construct($options = array())
     {
-        Emerald_Common_Options::setConstructorOptions($this, $options);
+        Emerald_Base_Options::setConstructorOptions($this, $options);
     }
     
     /**

@@ -68,7 +68,7 @@ class EmCore_Model_Navigation
 
         $beautifurler = $page->getLocaleItem()->getOption('beautifurler');
 
-        $beautifurler = Emerald_Common_Beautifurl::factory($beautifurler);
+        $beautifurler = Emerald_Base_Beautifurl::factory($beautifurler);
         
         $beautifurl = $page->locale . '/' . $beautifurler->beautify($beautifurl);
 

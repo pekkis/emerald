@@ -3,10 +3,10 @@
  * Interface for beautifurlers
  * 
  * @author pekkis
- * @package Emerald_Common_Beautifurl
+ * @package Emerald_Base_Beautifurl
  *
  */
-interface Emerald_Common_Beautifurl_BeautifurlInterface
+interface Emerald_Base_Beautifurl_BeautifurlInterface
 {
 
     /**
