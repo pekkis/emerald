@@ -1,13 +1,16 @@
 <?php
 
+namespace Emerald\Base\Spl;
+
+use \FilterIterator, \BadMethodCallException;
+
 /**
  * FilterIterator with a callback
  * 
  * @author pekkis
- * @package Emerald_Base_Spl
  *
  */
-class Emerald_Base_Spl_CallbackFilterIterator extends FilterIterator
+class CallbackFilterIterator extends FilterIterator
 {
 
     private $_callback;

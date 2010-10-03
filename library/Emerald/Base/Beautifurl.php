@@ -3,7 +3,6 @@
  * Beautifurl factory
  * 
  * @author pekkis
- * @package Emerald_Base_Beautifurl
  *
  */
 class Emerald_Base_Beautifurl

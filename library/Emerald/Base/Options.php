@@ -1,13 +1,14 @@
 <?php
+
+namespace Emerald\Base;
+
 /**
  * Unified object option setter. Somewhat follows a one-time ZF 2.0 proposition.
  *
- * @package Emerald_Base_Options
  * @author pekkis
- * @todo Is this reasonable?
  *
  */
-class Emerald_Base_Options
+class Options
 {
 
     /**

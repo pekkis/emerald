@@ -15,7 +15,7 @@ abstract class Emerald_Filelib_Backend_BackendAbstract implements Emerald_Fileli
     
     public function __construct($options)
     {
-        Emerald_Base_Options::setConstructorOptions($this, $options);
+        Emerald\Base\Options::setConstructorOptions($this, $options);
     }
         
     /**

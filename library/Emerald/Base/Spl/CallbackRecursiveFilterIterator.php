@@ -1,12 +1,16 @@
 <?php
+
+namespace Emerald\Base\Spl;
+
+use \RecursiveFilterIterator, \BadMethodCallException;
+
 /**
  * RecursiveFilterIterator with a callback
  * 
  * @author pekkis
- * @package Emerald_Base_Spl
  *
  */
-class Emerald_Base_Spl_CallbackRecursiveFilterIterator extends RecursiveFilterIterator
+class CallbackRecursiveFilterIterator extends RecursiveFilterIterator
 {
 
     private $_callback;

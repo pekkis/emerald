@@ -212,7 +212,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
             throw new Emerald_Filelib_Exception('Could not retrieve file');
         }
         
-        return new Emerald_Base_Spl_FileObject($path);
+        return new Emerald\Base\Spl\FileObject($path);
     }
     
     public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
@@ -223,7 +223,7 @@ class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstrac
             throw new Emerald_Filelib_Exception('Could not retrieve file');
         }
         
-        return new Emerald_Base_Spl_FileObject($path);
+        return new Emerald\Base\Spl\FileObject($path);
     }
     
     public function delete(Emerald_Filelib_FileItem $file)

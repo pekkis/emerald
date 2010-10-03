@@ -1,12 +1,16 @@
 <?php
+
+namespace Emerald\Base\Spl;
+
+use \SplFileObject, \finfo;
+
 /**
  * Extends SplFileObject to offer mime type detection via Fileinfo extension.
  *
- * @package Emerald_Base_Spl
  * @author pekkis
  *
  */
-class Emerald_Base_Spl_FileObject extends SplFileObject
+class FileObject extends SplFileObject
 {
     /**
      * @var string Mimetype is cached here

@@ -1,4 +1,7 @@
 <?php
+
+use \Emerald\Base\Options;
+
 /**
  * Emerald filelib
  *
@@ -82,7 +85,7 @@ class Emerald_Filelib_FileLibrary
 
     public function __construct($options = array())
     {
-        Emerald_Base_Options::setConstructorOptions($this, $options);
+        Options::setConstructorOptions($this, $options);
     }
     
     /**

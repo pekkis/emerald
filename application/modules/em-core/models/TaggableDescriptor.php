@@ -14,7 +14,7 @@ class EmCore_Model_TaggableDescriptor
 
     public function __construct($options = array())
     {
-        Emerald_Base_Options::setConstructorOptions($this, $options);
+        Emerald\Base\Options::setConstructorOptions($this, $options);
     }
 
 

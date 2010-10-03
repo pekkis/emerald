@@ -21,7 +21,7 @@ abstract class Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin
 
     public function __construct($options = array())
     {
-        Emerald_Base_Options::setConstructorOptions($this, $options);
+        Emerald\Base\Options::setConstructorOptions($this, $options);
     }
 
     /** 

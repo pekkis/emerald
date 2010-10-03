@@ -114,7 +114,7 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
      * Retrieves a file and temporarily stores it somewhere so it can be read.
      * 
      * @param Emerald_Filelib_FileItem $file
-     * @return Emerald_Base_Spl_FileObject
+     * @return Emerald\Base\Spl\FileObject
      */
     public function retrieve(Emerald_Filelib_FileItem $file)
     {
@@ -128,7 +128,7 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
      * 
      * @param Emerald_Filelib_FileItem $file
      * @param Emerald_Filelib_VersionProvider_Interface $version
-     * @return Emerald_Base_Spl_FileObject
+     * @return Emerald\Base\Spl\FileObject
      */
     public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
     {
@@ -165,7 +165,7 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
      * Writes a mongo file to temporary file and registers it as an internal temp file
      * 
      * @param MongoGridFSFile $file
-     * @return Emerald_Base_Spl_FileObject
+     * @return Emerald\Base\Spl\FileObject
      */
     private function _toTemp($file)
     {
@@ -173,7 +173,7 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
         
         file_put_contents($tmp, $file);
         
-        $fo = new Emerald_Base_Spl_FileObject($tmp);
+        $fo = new Emerald\Base\Spl\FileObject($tmp);
         
         $this->_registerTempFile($fo);
         
@@ -184,9 +184,9 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
     /**
      * Registers an internal temp file
      * 
-     * @param Emerald_Base_Spl_FileObject $fo
+     * @param Emerald\Base\Spl\FileObject $fo
      */
-    private function _registerTempFile(Emerald_Base_Spl_FileObject $fo)
+    private function _registerTempFile(Emerald\Base\Spl\FileObject $fo)
     {
         $this->_tempFiles[] = $fo;
     }

@@ -44,7 +44,7 @@ interface Emerald_Filelib_Storage_StorageInterface
      * Retrieves a file and temporarily stores it somewhere so it can be read.
      * 
      * @param Emerald_Filelib_FileItem $file
-     * @return Emerald_Base_Spl_FileObject
+     * @return Emerald\Base\Spl\FileObject
      */
     public function retrieve(Emerald_Filelib_FileItem $file);
     
@@ -53,7 +53,7 @@ interface Emerald_Filelib_Storage_StorageInterface
      * 
      * @param Emerald_Filelib_FileItem $file
      * @param Emerald_Filelib_VersionProvider_Interface $version
-     * @return Emerald_Base_Spl_FileObject
+     * @return Emerald\Base\Spl\FileObject
      */
     public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
     
