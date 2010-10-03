@@ -1,12 +1,14 @@
 <?php
+
+namespace Emerald\Base\Beautifurl;
+
 /**
  * Interface for beautifurlers
  * 
  * @author pekkis
- * @package Emerald_Base_Beautifurl
  *
  */
-interface Emerald_Base_Beautifurl_BeautifurlInterface
+interface BeautifurlInterface
 {
 
     /**

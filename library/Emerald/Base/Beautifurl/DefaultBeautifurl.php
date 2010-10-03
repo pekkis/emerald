@@ -1,12 +1,14 @@
 <?php
+
+namespace Emerald\Base\Beautifurl;
+
 /**
  * Default beautifurler
  * 
  * @author pekkis
- * @package Emerald_Base_Beautifurl
  *
  */
-class Emerald_Base_Beautifurl_Default extends Emerald_Base_Beautifurl_BeautifurlAbstract
+class DefaultBeautifurl extends BeautifurlAbstract
 {
     
     /**

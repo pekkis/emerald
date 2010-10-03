@@ -1,12 +1,16 @@
 <?php
+
+namespace Emerald\Base\Beautifurl;
+
+use Emerald\Base\Options;
+
 /**
  * Abstract convenience base class for beautifurlers
  * 
  * @author pekkis
- * @package Emerald_Base_Beautifurl
  *
  */
-abstract class Emerald_Base_Beautifurl_BeautifurlAbstract implements Emerald_Base_Beautifurl_BeautifurlInterface
+abstract class BeautifurlAbstract implements BeautifurlInterface
 {
     
     /**
@@ -20,7 +24,7 @@ abstract class Emerald_Base_Beautifurl_BeautifurlAbstract implements Emerald_Bas
     private $_separator = '/';
 
     public function __construct($options = array()) {
-        Emerald\Base\Options::setConstructorOptions($this, $options);
+        Options::setConstructorOptions($this, $options);
     }
     
     /**
