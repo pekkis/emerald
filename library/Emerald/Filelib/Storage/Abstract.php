@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-abstract class Emerald_Filelib_Storage_Abstract
+abstract class Emerald_Filelib_Storage_Abstract implements Emerald_Filelib_Storage_StorageInterface
 {
     /**
      * @var Emerald_Filelib_FileLibrary Filelib

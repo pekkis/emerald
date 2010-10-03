@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-abstract class Emerald_Filelib_Linker_Abstract
+abstract class Emerald_Filelib_Linker_Abstract implements Emerald_Filelib_Linker_Interface
 {
 
     /**
