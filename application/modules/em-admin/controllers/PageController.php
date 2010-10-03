@@ -23,9 +23,9 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
 
         try {
             $pageModel->delete($page);
-            $this->view->message = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::SUCCESS, 'Save ok');
+            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
         } catch(Emerald_Common_Exception $e) {
-            $this->view->message = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::ERROR, 'Save failed');
+            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
         }
 
     }
@@ -128,15 +128,15 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
                 // $page->setFromArray($form->getValues());
                 $pageModel->save($page);
 
-                $msg = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::SUCCESS, 'Ok');
+                $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Ok');
 
             } else {
-                $msg = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::ERROR, 'Failed');
+                $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Failed');
                 $msg->errors = $form->getMessages();
             }
 
         } else {
-            $msg = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::ERROR, 'Failed');
+            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Failed');
         }
         $this->view->message = $msg;
     }
@@ -192,7 +192,7 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
 
         if(!$form->isValid($this->_getAllParams())) {
             	
-            $msg = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::ERROR, 'Save failed.');
+            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed.');
             $msg->errors = $form->getMessages();
             	
         } else {
@@ -215,7 +215,7 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
                 $sitemapModel->mirror($page, $action);
             }
             	
-            $msg = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::SUCCESS, 'Save ok.');
+            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok.');
             $msg->page_id = $page->id;
         }
 

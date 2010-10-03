@@ -135,11 +135,11 @@ class EmCore_HtmlcontentController extends Emerald_Cms_Controller_Action
             	
             $model->save($htmlcontent);
 
-            $msg = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::SUCCESS, 'Save ok');
+            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
             	
             	
         } else {
-            $message = new Emerald_Base_Messaging_Message(Emerald_Base_Messaging_Message::ERROR, 'Save failed');
+            $message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
             $message->errors = array_keys($input->getMessages());
         }
 

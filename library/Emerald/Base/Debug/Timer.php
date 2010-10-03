@@ -1,12 +1,17 @@
 <?php
+
+namespace Emerald\Base\Debug;
+
+use \IteratorAggregate, \ArrayIterator;
+
+
 /**
  * Timer component for benchmarking
  * 
  * @author pekkis
- * @package Emerald_Base_Debug
  *
  */
-class Emerald_Base_Debug_Timer implements IteratorAggregate
+class Timer implements IteratorAggregate
 {
 
     /**
