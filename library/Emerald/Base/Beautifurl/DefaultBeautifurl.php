@@ -8,7 +8,7 @@ namespace Emerald\Base\Beautifurl;
  * @author pekkis
  *
  */
-class DefaultBeautifurl extends BeautifurlAbstract
+class DefaultBeautifurl extends AbstractBeautifurl
 {
     
     /**

@@ -8,7 +8,7 @@ namespace Emerald\Base\Beautifurl;
  * @author pekkis
  *
  */
-class BeautifurlFactory
+class Beautifurl
 {
 
     static private $_beautifurlers = array();

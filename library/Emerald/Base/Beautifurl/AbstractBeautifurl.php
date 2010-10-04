@@ -10,7 +10,7 @@ use Emerald\Base\Options;
  * @author pekkis
  *
  */
-abstract class BeautifurlAbstract implements BeautifurlInterface
+abstract class AbstractBeautifurl implements BeautifurlInterface
 {
     
     /**

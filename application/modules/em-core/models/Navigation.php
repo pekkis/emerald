@@ -1,6 +1,6 @@
 <?php
 
-use Emerald\Base\Beautifurl\BeautifurlFactory;
+use Emerald\Base\Beautifurl\Beautifurl;
 
 class EmCore_Model_Navigation
 {
@@ -71,7 +71,7 @@ class EmCore_Model_Navigation
 
         $beautifurler = $page->getLocaleItem()->getOption('beautifurler');
 
-        $beautifurler = BeautifurlFactory::factory($beautifurler);
+        $beautifurler = Beautifurl::factory($beautifurler);
         
         $beautifurl = $page->locale . '/' . $beautifurler->beautify($beautifurl);
 

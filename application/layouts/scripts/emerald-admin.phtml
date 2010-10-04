@@ -50,7 +50,7 @@ $this->headScript()->prependFile(EMERALD_URL_BASE . '/em-core/langlib/index/loca
 <h1><a
     href="<?php echo $this->url(array('module' => 'em-admin'), 'default', true); ?>">Emerald</a></h1>
 <h2><a
-    href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'user', 'action' => 'edit', 'id' => $cusr->id), 'default', true); ?>"><?php echo $cusr->email ?>
+    href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'user', 'action' => 'edit', 'id' => $cusr->id), 'default', true); ?>"><?php echo $cusr->email ?></a>
 :: <a
     href="<?php echo $this->url(array('module' => 'em-core', 'controller' => 'user', 'action' => 'logout'), 'default', true); ?>"><?php echo $this->translate('Logout'); ?></a></h2>
 </div>
