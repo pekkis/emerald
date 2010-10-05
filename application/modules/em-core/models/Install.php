@@ -19,7 +19,7 @@ class EmCore_Model_Install
         $groupTbl = new EmCore_Model_DbTable_Ugroup();
         $userTbl = new EmCore_Model_DbTable_User();
         $ugTbl = new EmCore_Model_DbTable_UserGroup();
-        $folderTbl = new Emerald_Filelib_Backend_ZendDbBackend_Table_Folder();
+        $folderTbl = new Emerald_Filelib_Backend_ZendDb_Table_Folder();
 
         $db = $groupTbl->getAdapter();
 
