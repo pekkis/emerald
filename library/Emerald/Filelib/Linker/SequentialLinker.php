@@ -7,7 +7,7 @@
  * @author Petri Mahanen
  *
  */
-class Emerald_Filelib_Linker_Sequential extends Emerald_Filelib_Linker_Abstract implements Emerald_Filelib_Linker_Interface
+class Emerald_Filelib_Linker_SequentialLinker extends Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_Linker_LinkerInterface
 {
 
     /**
@@ -24,7 +24,7 @@ class Emerald_Filelib_Linker_Sequential extends Emerald_Filelib_Linker_Abstract 
      * Sets files per directory
      *
      * @param integer $filesPerDirectory
-     * @return Emerald_Filelib_Linker_Sequential
+     * @return Emerald_Filelib_Linker_SequentialLinker
      */
     public function setFilesPerDirectory($filesPerDirectory)
     {
@@ -46,7 +46,7 @@ class Emerald_Filelib_Linker_Sequential extends Emerald_Filelib_Linker_Abstract 
      * Sets levels per directory hierarchy
      *
      * @param integer $directoryLevels
-     * @return Emerald_Filelib_Linker_Sequential
+     * @return Emerald_Filelib_Linker_SequentialLinker
      */
     public function setDirectoryLevels($directoryLevels)
     {
@@ -97,7 +97,7 @@ class Emerald_Filelib_Linker_Sequential extends Emerald_Filelib_Linker_Abstract 
     
     
     
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
+    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getLink($file);
 

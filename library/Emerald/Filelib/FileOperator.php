@@ -315,7 +315,7 @@ class Emerald_Filelib_FileOperator
             $this->getFilelib()->getStorage()->delete($file);
 
             foreach($file->getProfileObject()->getPlugins() as $plugin) {
-                if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_Interface && $plugin->providesFor($file)) {
+                if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface && $plugin->providesFor($file)) {
                     $plugin->onDelete($file);
                 }
             }

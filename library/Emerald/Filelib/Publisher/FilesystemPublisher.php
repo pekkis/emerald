@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-abstract class Emerald_Filelib_Publisher_Filesystem extends Emerald_Filelib_Publisher_Abstract
+abstract class Emerald_Filelib_Publisher_FilesystemPublisher extends Emerald_Filelib_Publisher_AbstractPublisher
 {
     /**
      * @var integer Octal representation for directory permissions

@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-interface Emerald_Filelib_Plugin_VersionProvider_Interface extends Emerald_Filelib_Plugin_Interface
+interface Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface extends Emerald_Filelib_Plugin_PluginInterface
 {
     /**
      * Sets file extension

@@ -7,8 +7,8 @@
  * @todo This is just a proof a concept
  *
  */
-class Emerald_Filelib_Plugin_Video_Flashify
-extends Emerald_Filelib_Plugin_VersionProvider_Abstract
+class Emerald_Filelib_Plugin_Video_FlashifyPlugin
+extends Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider
 {
     protected $_providesFor = array('video', 'application');
 

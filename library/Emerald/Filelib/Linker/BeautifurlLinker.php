@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Linker_Beautifurl extends Emerald_Filelib_Linker_Abstract implements Emerald_Filelib_Linker_Interface
+class Emerald_Filelib_Linker_BeautifurlLinker extends Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_Linker_LinkerInterface
 {
 
     /**
@@ -37,7 +37,7 @@ class Emerald_Filelib_Linker_Beautifurl extends Emerald_Filelib_Linker_Abstract 
 
 
 
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
+    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getLink($file);
         $pinfo = pathinfo($link);

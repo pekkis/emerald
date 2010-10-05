@@ -7,7 +7,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Plugin_RandomizeName extends Emerald_Filelib_Plugin_Abstract
+class Emerald_Filelib_Plugin_RandomizeNamePlugin extends Emerald_Filelib_Plugin_AbstractPlugin
 {
 
     /**

@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-abstract class Emerald_Filelib_Plugin_VersionProvider_Abstract extends Emerald_Filelib_Plugin_Abstract implements Emerald_Filelib_Plugin_VersionProvider_Interface
+abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider extends Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface
 {
     /**
      * @var string Version identifier

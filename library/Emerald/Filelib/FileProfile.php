@@ -72,7 +72,7 @@ class Emerald_Filelib_FileProfile
     /**
      * Returns linker
      *
-     * @return Emerald_Filelib_Linker_Interface
+     * @return Emerald_Filelib_Linker_LinkerInterface
      */
     public function getLinker()
     {
@@ -86,12 +86,12 @@ class Emerald_Filelib_FileProfile
     /**
      * Sets linker
      *
-     * @param Emerald_Filelib_Linker_Interface|string $linker
+     * @param Emerald_Filelib_Linker_LinkerInterface|string $linker
      * @return Emerald_Filelib_FileLibrary Filelib
      */
     public function setLinker($linker)
     {
-        if(!$linker instanceof Emerald_Filelib_Linker_Interface) {
+        if(!$linker instanceof Emerald_Filelib_Linker_LinkerInterface) {
             $linker = new $linker($this);
 
         }
@@ -170,10 +170,10 @@ class Emerald_Filelib_FileProfile
     /**
      * Adds a plugin
      *
-     * @param Emerald_Filelib_Plugin_Interface Plugin $plugin
+     * @param Emerald_Filelib_Plugin_PluginInterface Plugin $plugin
      * @return Emerald_Filelib_FileProfile
      */
-    public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
+    public function addPlugin(Emerald_Filelib_Plugin_PluginInterface $plugin)
     {
         $this->_plugins[] = $plugin;
         return $this;
@@ -251,7 +251,7 @@ class Emerald_Filelib_FileProfile
      *
      * @param Emerald_Filelib_FileItem $file File item
      * @param string $version Version
-     * @return Emerald_Filelib_Plugin_VersionProvider_Abstract Provider
+     * @return Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider Provider
      */
     public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
     {

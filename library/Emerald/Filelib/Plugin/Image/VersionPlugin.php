@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Plugin_Image_Version extends Emerald_Filelib_Plugin_VersionProvider_Abstract
+class Emerald_Filelib_Plugin_Image_VersionPlugin extends Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider
 {
     protected $_providesFor = array('image');
 

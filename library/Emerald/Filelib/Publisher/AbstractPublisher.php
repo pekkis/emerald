@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-abstract class Emerald_Filelib_Publisher_Abstract implements Emerald_Filelib_Publisher_PublisherInterface
+abstract class Emerald_Filelib_Publisher_AbstractPublisher implements Emerald_Filelib_Publisher_PublisherInterface
 {
     /**
      * @var Emerald_Filelib_FileLibrary Filelib

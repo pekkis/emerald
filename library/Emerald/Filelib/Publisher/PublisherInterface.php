@@ -19,9 +19,9 @@ interface Emerald_Filelib_Publisher_PublisherInterface
      * Publishes a version of a file
      * 
      * @param Emerald_Filelib_FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_Interface $version
+     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
      */
-    public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
+    public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version);
     
     /**
      * Unpublishes a file
@@ -34,8 +34,8 @@ interface Emerald_Filelib_Publisher_PublisherInterface
      * Unpublishes a version of a file
      * 
      * @param Emerald_Filelib_FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_Interface $version
+     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
      */
-    public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
+    public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version);
     
 }

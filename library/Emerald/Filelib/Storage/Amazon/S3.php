@@ -101,10 +101,10 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
      * Stores a version of a file
      * 
      * @param Emerald_Filelib_FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_Interface $version
+     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
      * @param unknown_type $tempFile File to be stored
      */
-    public function storeVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version, $tempFile)
+    public function storeVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version, $tempFile)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->putFile($tempFile, $object);
@@ -130,7 +130,7 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
      * @param Emerald_Filelib_VersionProvider_Interface $version
      * @return Emerald\Base\Spl\FileObject
      */
-    public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
+    public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $ret = $this->getStorage()->getObject($object);
@@ -152,9 +152,9 @@ class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract
      * Deletes a version of a file
      * 
      * @param Emerald_Filelib_FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_Interface $version
+     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
      */
-    public function deleteVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
+    public function deleteVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->removeObject($object);

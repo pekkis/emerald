@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publisher_Filesystem implements Emerald_Filelib_Publisher_PublisherInterface
+class Emerald_Filelib_Publisher_FilesystemPublisher_SymlinkPublisher extends Emerald_Filelib_Publisher_FilesystemPublisher implements Emerald_Filelib_Publisher_PublisherInterface
 {
     
     /**
@@ -98,7 +98,7 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
         
     }
     
-    public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
+    public function publishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $fl = $this->getFilelib();
             
@@ -150,7 +150,7 @@ class Emerald_Filelib_Publisher_Filesystem_Symlink extends Emerald_Filelib_Publi
         }
     }
     
-    public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version)
+    public function unpublishVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         if(is_link($link)) {

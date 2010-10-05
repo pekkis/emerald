@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-interface Emerald_Filelib_Linker_Interface
+interface Emerald_Filelib_Linker_LinkerInterface
 {
 
     /**
@@ -30,10 +30,10 @@ interface Emerald_Filelib_Linker_Interface
      * Returns link for a version of a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_Interface $version Version plugin
+     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version Version plugin
      * @return string Versioned link
      */
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_Interface $version);
+    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version);
 
     /**
      * Returns a link for a file

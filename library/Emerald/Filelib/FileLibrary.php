@@ -368,10 +368,10 @@ class Emerald_Filelib_FileLibrary
     /**
      * Adds a plugin
      *
-     * @param Emerald_Filelib_Plugin_Interface Plugin $plugin
+     * @param Emerald_Filelib_Plugin_PluginInterface Plugin $plugin
      * @return Emerald_Filelib_FileLibrary
      */
-    public function addPlugin(Emerald_Filelib_Plugin_Interface $plugin)
+    public function addPlugin(Emerald_Filelib_Plugin_PluginInterface $plugin)
     {
         $plugin->setFilelib($this);
 

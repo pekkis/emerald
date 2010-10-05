@@ -24,7 +24,7 @@ class EmAdmin_FilelibController extends Emerald_Cms_Controller_Action
             	
             $plugins = $file->getProfileObject()->getPlugins();
             foreach($plugins as $plugin) {
-                if($plugin instanceof Emerald_Filelib_Plugin_Image_Version) {
+                if($plugin instanceof Emerald_Filelib_Plugin_Image_VersionPlugin) {
                     $plugin->deleteSymlink($file);
                     $plugin->createSymlink($file);
                 }

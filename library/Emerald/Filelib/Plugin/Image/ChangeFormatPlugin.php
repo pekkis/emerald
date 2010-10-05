@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Plugin_Image_ChangeFormat extends Emerald_Filelib_Plugin_Abstract
+class Emerald_Filelib_Plugin_Image_ChangeFormatPlugin extends Emerald_Filelib_Plugin_AbstractPlugin
 {
     /**
      * @var array Imagemagick options
