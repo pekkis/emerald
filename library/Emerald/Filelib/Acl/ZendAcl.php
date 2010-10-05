@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Acl_Zend implements Emerald_Filelib_Acl_Interface
+class Emerald_Filelib_Acl_ZendAcl implements Emerald_Filelib_Acl_AclInterface
 {
 
     /**

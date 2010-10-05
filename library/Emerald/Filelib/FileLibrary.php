@@ -12,7 +12,7 @@ use \Emerald\Base\Options;
 class Emerald_Filelib_FileLibrary
 {
     /**
-     * @var Emerald_Filelib_Backend_Interface Backend
+     * @var Emerald_Filelib_Backend_BackendInterface Backend
      */
     private $_backend;
 
@@ -27,7 +27,7 @@ class Emerald_Filelib_FileLibrary
     private $_publisher;
     
     /**
-     * @var Emerald_Filelib_Acl_Interface Acl handler
+     * @var Emerald_Filelib_Acl_AclInterface Acl handler
      */
     private $_acl;
 
@@ -339,10 +339,10 @@ class Emerald_Filelib_FileLibrary
     /**
      * Sets backend
      *
-     * @param Emerald_Filelib_Backend_Interface $backend
+     * @param Emerald_Filelib_Backend_BackendInterface $backend
      * @return Emerald_Filelib_FileLibrary
      */
-    public function setBackend(Emerald_Filelib_Backend_Interface $backend)
+    public function setBackend(Emerald_Filelib_Backend_BackendInterface $backend)
     {
         $backend->setFilelib($this);
         $backend->init();
@@ -354,7 +354,7 @@ class Emerald_Filelib_FileLibrary
     /**
      * Returns backend
      *
-     * @return Emerald_Filelib_Backend_Interface
+     * @return Emerald_Filelib_Backend_BackendInterface
      */
     public function getBackend()
     {
@@ -401,10 +401,10 @@ class Emerald_Filelib_FileLibrary
     /**
      * Sets acl handler
      *
-     * @param Emerald_Filelib_Acl_Interface $acl
+     * @param Emerald_Filelib_Acl_AclInterface $acl
      * @return Emerald_Filelib_FileLibrary Filelib
      */
-    public function setAcl(Emerald_Filelib_Acl_Interface $acl)
+    public function setAcl(Emerald_Filelib_Acl_AclInterface $acl)
     {
         $this->_acl = $acl;
         return $this;
@@ -414,12 +414,12 @@ class Emerald_Filelib_FileLibrary
     /**
      * Returns acl handler
      *
-     * @return Emerald_Filelib_Acl_Interface
+     * @return Emerald_Filelib_Acl_AclInterface
      */
     public function getAcl()
     {
         if(!$this->_acl) {
-            $this->_acl = new Emerald_Filelib_Acl_Simple();
+            $this->_acl = new Emerald_Filelib_Acl_SimpleAcl();
         }
         return $this->_acl;
     }

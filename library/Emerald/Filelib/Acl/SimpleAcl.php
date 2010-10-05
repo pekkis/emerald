@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Acl_Simple implements Emerald_Filelib_Acl_Interface
+class Emerald_Filelib_Acl_SimpleAcl implements Emerald_Filelib_Acl_AclInterface
 {
 
     public function isReadable($resource)

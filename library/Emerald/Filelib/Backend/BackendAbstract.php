@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-abstract class Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_Interface
+abstract class Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_BackendInterface
 {
     /**
      * @var Emerald_Filelib_FileLibrary Filelib

@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-interface Emerald_Filelib_Acl_Interface
+interface Emerald_Filelib_Acl_AclInterface
 {
 
     /**

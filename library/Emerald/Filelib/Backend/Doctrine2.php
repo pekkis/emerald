@@ -7,7 +7,7 @@
  * @package  Emerald_Filelib
  * @author   Mikko Hirvonen
  */
-class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Interface
+class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_BackendInterface
 {
     /**
      * File entity name

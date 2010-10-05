@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-interface Emerald_Filelib_Backend_Interface
+interface Emerald_Filelib_Backend_BackendInterface
 {
 
     /**

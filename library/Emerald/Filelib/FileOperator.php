@@ -114,7 +114,7 @@ class Emerald_Filelib_FileOperator
     /**
      * Returns backend
      *
-     * @return Emerald_Filelib_Backend_Interface
+     * @return Emerald_Filelib_Backend_BackendInterface
      */
     public function getBackend()
     {

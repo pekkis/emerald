@@ -130,7 +130,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
 
     private function _handleBackendOptions($backendOptions)
     {
-        if ($backendOptions['type'] == 'Emerald_Filelib_Backend_Db') {
+        if ($backendOptions['type'] == 'Emerald_Filelib_Backend_ZendDb') {
             if (isset($backendOptions['options']['resource'])) {
                 $backendOptions['options']['db'] = $this->getBootstrap()->bootstrap($backendOptions['options']['resource'])->getResource($backendOptions['options']['resource']);
                 unset($backendOptions['resource']);
