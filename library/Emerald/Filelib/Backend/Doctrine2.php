@@ -7,7 +7,7 @@
  * @package  Emerald_Filelib
  * @author   Mikko Hirvonen
  */
-class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_BackendInterface
+class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backend_BackendInterface
 {
     /**
      * File entity name
@@ -47,7 +47,7 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Backe
      * Sets filelib
      *
      * @param  Emerald_Filelib                   $filelib
-     * @return Emerald_Filelib_Backend_Doctrine2
+     * @return Emerald_Filelib_Backend_Doctrine2Backend
      */
     public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
     {

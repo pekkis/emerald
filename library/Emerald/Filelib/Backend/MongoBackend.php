@@ -7,7 +7,7 @@
  * @todo Prototype, to be error-proofed
  *
  */
-class Emerald_Filelib_Backend_Mongo extends Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_BackendInterface
+class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_AbstractBackend implements Emerald_Filelib_Backend_BackendInterface
 {
     
     private $_mongo;

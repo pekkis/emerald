@@ -6,7 +6,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Backend_ZendDb extends Emerald_Filelib_Backend_BackendAbstract implements Emerald_Filelib_Backend_BackendInterface
+class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_AbstractBackend implements Emerald_Filelib_Backend_BackendInterface
 {
 
     /**
@@ -15,12 +15,12 @@ class Emerald_Filelib_Backend_ZendDb extends Emerald_Filelib_Backend_BackendAbst
     private $_db;
 
     /**
-     * @var Emerald_Filelib_Backend_ZendDb_Table_File File table
+     * @var Emerald_Filelib_Backend_ZendDbBackend_Table_File File table
      */
     private $_fileTable;
 
     /**
-     * @var Emerald_Filelib_Backend_ZendDb_Table_Folder Folder table
+     * @var Emerald_Filelib_Backend_ZendDbBackend_Table_Folder Folder table
      */
     private $_folderTable;
 
@@ -55,12 +55,12 @@ class Emerald_Filelib_Backend_ZendDb extends Emerald_Filelib_Backend_BackendAbst
     /**
      * Returns file table
      *
-     * @return Emerald_Filelib_Backend_ZendDb_Table_Folder
+     * @return Emerald_Filelib_Backend_ZendDbBackend_Table_Folder
      */
     public function getFileTable()
     {
         if(!$this->_fileTable) {
-            $this->_fileTable = new Emerald_Filelib_Backend_ZendDb_Table_File($this->getDb());
+            $this->_fileTable = new Emerald_Filelib_Backend_ZendDbBackend_Table_File($this->getDb());
         }
         return $this->_fileTable;
     }
@@ -68,12 +68,12 @@ class Emerald_Filelib_Backend_ZendDb extends Emerald_Filelib_Backend_BackendAbst
     /**
      * Returns folder table
      *
-     * @return Emerald_Filelib_Backend_ZendDb_Table_Folder
+     * @return Emerald_Filelib_Backend_ZendDbBackend_Table_Folder
      */
     public function getFolderTable()
     {
         if(!$this->_folderTable) {
-            $this->_folderTable = new Emerald_Filelib_Backend_ZendDb_Table_Folder($this->getDb());
+            $this->_folderTable = new Emerald_Filelib_Backend_ZendDbBackend_Table_Folder($this->getDb());
         }
 
         return $this->_folderTable;
