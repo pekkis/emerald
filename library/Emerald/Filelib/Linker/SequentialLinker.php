@@ -78,7 +78,7 @@ class Emerald_Filelib_Linker_SequentialLinker extends Emerald_Filelib_Linker_Abs
         $filesPerDirectory = $this->getFilesPerDirectory();
 
         if($directoryLevels < 1) {
-            throw new Emerald_Filelib_Exception("Invalid number of directory levels ('{$directoryLevels}')");
+            throw new Emerald_Filelib_FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
         }
 
         $arr = array();

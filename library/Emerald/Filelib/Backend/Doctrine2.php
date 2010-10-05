@@ -136,7 +136,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * Updates a file
      *
      * @param  Emerald_Filelib_FileItem  $file
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function updateFile(Emerald_Filelib_FileItem $file)
     {
@@ -158,7 +158,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
 
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     }
 
@@ -166,7 +166,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * Deletes a file
      *
      * @param  Emerald_Filelib_FileItem  $file
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function deleteFile(Emerald_Filelib_FileItem $file)
     {
@@ -176,7 +176,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $this->_em->remove($fileRow);
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     }
 
@@ -247,7 +247,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      *
      * @param  Emerald_Filelib_FolderItem $folder
      * @return Emerald_Filelib_FolderItem Created folder
-     * @throws Emerald_Filelib_Exception  When fails
+     * @throws Emerald_Filelib_FilelibException  When fails
      */
     public function createFolder(Emerald_Filelib_FolderItem $folder)
     {
@@ -269,7 +269,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
 
             return $folder;
         } catch (Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     }
 
@@ -277,7 +277,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * Updates a folder
      *
      * @param  Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_Exception  When fails
+     * @throws Emerald_Filelib_FilelibException  When fails
      */
     public function updateFolder(Emerald_Filelib_FolderItem $folder)
     {
@@ -297,7 +297,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
 
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     }
 
@@ -305,7 +305,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * Deletes a folder
      *
      * @param  Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_Exception  When fails
+     * @throws Emerald_Filelib_FilelibException  When fails
      */
     public function deleteFolder(Emerald_Filelib_FolderItem $folder)
     {
@@ -315,7 +315,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $this->_em->remove($folder);
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     }
 
@@ -325,7 +325,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * @param  Emerald_Filelib_FileUpload $upload Fileobject to upload
      * @param  Emerald_Filelib_FolderItem $folder Folder
      * @return Emerald_Filelib_FileItem   File item
-     * @throws Emerald_Filelib_Exception  When fails
+     * @throws Emerald_Filelib_FilelibException  When fails
      */
     public function upload(Emerald_Filelib_FileUpload $upload,
     Emerald_Filelib_FolderItem $folder,
@@ -366,7 +366,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
         } catch (Exception $e) {
             $conn->rollback();
 
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     }
 

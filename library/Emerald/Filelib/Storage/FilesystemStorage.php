@@ -133,7 +133,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         $filesPerDirectory = $this->getFilesPerDirectory();
 
         if($directoryLevels < 1) {
-            throw new Emerald_Filelib_Exception("Invalid number of directory levels ('{$directoryLevels}')");
+            throw new Emerald_Filelib_FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
         }
 
         $arr = array();
@@ -180,7 +180,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         }
 
         if(!is_dir($dir) || !is_writable($dir)) {
-            throw new Emerald_Filelib_Exception('Could not write into directory', 500);
+            throw new Emerald_Filelib_FilelibException('Could not write into directory', 500);
         }
             
         $fileTarget = $dir . '/' . $file->id;
@@ -189,7 +189,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         chmod($fileTarget, $this->getFilePermission());
             
         if(!is_readable($fileTarget)) {
-            throw new Emerald_Filelib_Exception('Could not copy file to folder');
+            throw new Emerald_Filelib_FilelibException('Could not copy file to folder');
         }
     }
     
@@ -209,7 +209,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id;
         
         if(!is_file($path)) {
-            throw new Emerald_Filelib_Exception('Could not retrieve file');
+            throw new Emerald_Filelib_FilelibException('Could not retrieve file');
         }
         
         return new Emerald\Base\Spl\FileObject($path);
@@ -220,7 +220,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         
         if(!is_file($path)) {
-            throw new Emerald_Filelib_Exception('Could not retrieve file');
+            throw new Emerald_Filelib_FilelibException('Could not retrieve file');
         }
         
         return new Emerald\Base\Spl\FileObject($path);
@@ -232,10 +232,10 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
             
         $fileObj = new SplFileObject($path);
         if(!$fileObj->isFile() || !$fileObj->isWritable()) {
-            throw new Emerald_Filelib_Exception('Can not delete file');
+            throw new Emerald_Filelib_FilelibException('Can not delete file');
         }
         if(!@unlink($fileObj->getPathname())) {
-            throw new Emerald_Filelib_Exception('Can not delete file');
+            throw new Emerald_Filelib_FilelibException('Can not delete file');
         }
     }
     

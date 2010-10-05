@@ -29,11 +29,11 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     public function init()
     {
         if(!$this->getIdentifier()) {
-            throw new Emerald_Filelib_Exception('Version plugin must have an identifier');
+            throw new Emerald_Filelib_FilelibException('Version plugin must have an identifier');
         }
 
         if(!$this->getExtension()) {
-            throw new Emerald_Filelib_Exception('Version plugin must have a file extension');
+            throw new Emerald_Filelib_FilelibException('Version plugin must have a file extension');
         }
 
         foreach($this->getProvidesFor() as $fileType) {

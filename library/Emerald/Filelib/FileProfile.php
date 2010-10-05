@@ -77,7 +77,7 @@ class Emerald_Filelib_FileProfile
     public function getLinker()
     {
         if(!$this->_linker) {
-            throw new Emerald_Filelib_Exception("File profile '{$this->getIdentifier()}' does not have a linker");
+            throw new Emerald_Filelib_FilelibException("File profile '{$this->getIdentifier()}' does not have a linker");
         }
         return $this->_linker;
     }

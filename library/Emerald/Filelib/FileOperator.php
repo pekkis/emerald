@@ -244,7 +244,7 @@ class Emerald_Filelib_FileOperator
      * @param mixed $upload Uploadable, path or object
      * @param Emerald_Filelib_FolderItem $folder
      * @return Emerald_Filelib_FileItem
-     * @throws Emerald_Filelib_Exception
+     * @throws Emerald_Filelib_FilelibException
      */
     public function upload($upload, $folder, $profile = 'default')
     {
@@ -254,11 +254,11 @@ class Emerald_Filelib_FileOperator
 
         
         if(!$this->getFilelib()->getAcl()->isWriteable($folder)) {
-            throw new Emerald_Filelib_Exception("Folder '{$folder->id}'not writeable");
+            throw new Emerald_Filelib_FilelibException("Folder '{$folder->id}'not writeable");
         }
 
         if(!$this->getUploader()->isAccepted($upload)) {
-            throw new Emerald_Filelib_Exception("Can not upload");
+            throw new Emerald_Filelib_FilelibException("Can not upload");
         }
 
         $profile = $this->getFilelib()->getProfile($profile);
@@ -272,7 +272,7 @@ class Emerald_Filelib_FileOperator
         $file->setProfileObject($profile);
         	
         if(!$file) {
-            throw new Emerald_Filelib_Exception("Can not upload");
+            throw new Emerald_Filelib_FilelibException("Can not upload");
         }
         
         try {
@@ -302,7 +302,7 @@ class Emerald_Filelib_FileOperator
      * Deletes a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_Exception
+     * @throws Emerald_Filelib_FilelibException
      */
     public function delete(Emerald_Filelib_FileItem $file)
     {
@@ -323,7 +323,7 @@ class Emerald_Filelib_FileOperator
             return true;
             	
         } catch(Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
 
     }
@@ -391,7 +391,7 @@ class Emerald_Filelib_FileOperator
                 $provider = $this->getVersionProvider($file, $version);
                 $path = $provider->getRenderPath($file);
             } else {
-                throw new Emerald_Filelib_Exception("Version '{$version}' is not available");
+                throw new Emerald_Filelib_FilelibException("Version '{$version}' is not available");
             }
         } else {
             $path = $file->getRenderPath();
@@ -418,7 +418,7 @@ class Emerald_Filelib_FileOperator
         }
 
         if(!$this->getFilelib()->getAcl()->isReadable($file)) {
-            throw new Emerald_Filelib_Exception('Not readable', 404);
+            throw new Emerald_Filelib_FilelibException('Not readable', 404);
         }
 
 
@@ -428,7 +428,7 @@ class Emerald_Filelib_FileOperator
         }
 
         if(!is_readable($path)) {
-            throw new Emerald_Filelib_Exception('File not readable');
+            throw new Emerald_Filelib_FilelibException('File not readable');
         }
 
         $response->setHeader('Content-Type', $file->mimetype);

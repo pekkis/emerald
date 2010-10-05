@@ -48,7 +48,7 @@ class Emerald_Filelib_Publisher_FilesystemPublisher_SymlinkPublisher extends Eme
         $sltr = $this->getRelativePathToRoot();
         
         if(!$sltr) {
-            throw new Emerald_Filelib_Exception('Relative path must be set!');
+            throw new Emerald_Filelib_FilelibException('Relative path must be set!');
         }
         $sltr = str_repeat("../", $levelsDown) . $sltr;
                 

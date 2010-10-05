@@ -178,7 +178,7 @@ class Emerald_Filelib_FileLibrary
      * Returns a file profile
      * 
      * @param string $identifier File profile identifier
-     * @throws Emerald_Filelib_Exception
+     * @throws Emerald_Filelib_FilelibException
      * @return Emerald_Filelib_FileProfile
      */
     public function getProfile($identifier)
@@ -188,7 +188,7 @@ class Emerald_Filelib_FileLibrary
         }
 
         if(!isset($this->_profiles[$identifier])) {
-            throw new Emerald_Filelib_Exception("File profile '{$identifier}' not found");
+            throw new Emerald_Filelib_FilelibException("File profile '{$identifier}' not found");
         }
 
         return $this->_profiles[$identifier];
@@ -301,7 +301,7 @@ class Emerald_Filelib_FileLibrary
     public function getStorage()
     {
         if(!$this->_storage) {
-            throw new Emerald_Filelib_Exception('Filelib storage not set');
+            throw new Emerald_Filelib_FilelibException('Filelib storage not set');
         }
 
         return $this->_storage;
@@ -329,7 +329,7 @@ class Emerald_Filelib_FileLibrary
     public function getPublisher()
     {
         if(!$this->_publisher) {
-            throw new Emerald_Filelib_Exception('Filelib Publisher not set');
+            throw new Emerald_Filelib_FilelibException('Filelib Publisher not set');
         }
 
         return $this->_publisher;
@@ -359,7 +359,7 @@ class Emerald_Filelib_FileLibrary
     public function getBackend()
     {
         if(!$this->_backend) {
-            throw new Emerald_Filelib_Exception('Filelib backend not set');
+            throw new Emerald_Filelib_FilelibException('Filelib backend not set');
         }
 
         return $this->_backend;

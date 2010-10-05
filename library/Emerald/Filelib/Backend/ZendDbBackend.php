@@ -45,7 +45,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     public function getDb()
     {
         if(!$this->_db) {
-            throw new Emerald_Filelib_Exception('Db handler has no db');
+            throw new Emerald_Filelib_FilelibException('Db handler has no db');
         }
 
         return $this->_db;
@@ -93,7 +93,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             return $folder;
             	
         } catch(Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
 
 
@@ -105,7 +105,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
         try {
             $this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->id));
         } catch(Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
 
     }
@@ -119,7 +119,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             );
             	
         } catch(Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
 
     }
@@ -140,7 +140,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             $file->link = $file->link;
             	
         } catch(Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
 
     }
@@ -156,7 +156,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             return true;
         } catch(Exception $e) {
             $this->getDb()->rollBack();
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
 
     }
@@ -193,7 +193,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
         } catch(Exception $e) {
             	
             $this->getDb()->rollBack();
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
         	
         	

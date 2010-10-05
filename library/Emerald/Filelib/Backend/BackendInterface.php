@@ -59,7 +59,7 @@ interface Emerald_Filelib_Backend_BackendInterface
      * @param Emerald_Filelib_FileUpload $upload Fileobject to upload
      * @param Emerald_Filelib_FolderItem $folder Folder
      * @return Emerald_Filelib_FileItem File item
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, Emerald_Filelib_FileProfile $profile);
 
@@ -68,7 +68,7 @@ interface Emerald_Filelib_Backend_BackendInterface
      *
      * @param Emerald_Filelib_FolderItem $folder
      * @return Emerald_Filelib_FolderItem Created folder
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function createFolder(Emerald_Filelib_FolderItem $folder);
 
@@ -77,7 +77,7 @@ interface Emerald_Filelib_Backend_BackendInterface
      * Deletes a folder
      *
      * @param Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function deleteFolder(Emerald_Filelib_FolderItem $folder);
 
@@ -85,7 +85,7 @@ interface Emerald_Filelib_Backend_BackendInterface
      * Deletes a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function deleteFile(Emerald_Filelib_FileItem $file);
 
@@ -93,7 +93,7 @@ interface Emerald_Filelib_Backend_BackendInterface
      * Updates a folder
      *
      * @param Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function updateFolder(Emerald_Filelib_FolderItem $folder);
 
@@ -101,7 +101,7 @@ interface Emerald_Filelib_Backend_BackendInterface
      * Updates a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function updateFile(Emerald_Filelib_FileItem $file);
 

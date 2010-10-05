@@ -145,7 +145,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * @param Emerald_Filelib_FileUpload $upload Fileobject to upload
      * @param Emerald_Filelib_FolderItem $folder Folder
      * @return Emerald_Filelib_FileItem File item
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, Emerald_Filelib_FileProfile $profile)
     {
@@ -177,7 +177,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
             return $this->_addId($fileItem);
 
         } catch(Exception $e) {
-            throw new Emerald_Filelib_Exception($e->getMessage());
+            throw new Emerald_Filelib_FilelibException($e->getMessage());
         }
     	
     	
@@ -188,7 +188,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      *
      * @param Emerald_Filelib_FolderItem $folder
      * @return Emerald_Filelib_FolderItem Created folder
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function createFolder(Emerald_Filelib_FolderItem $folder)
     {
@@ -206,7 +206,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * Deletes a folder
      *
      * @param Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function deleteFolder(Emerald_Filelib_FolderItem $folder)
     {
@@ -218,7 +218,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * Deletes a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function deleteFile(Emerald_Filelib_FileItem $file)
     {
@@ -229,7 +229,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * Updates a folder
      *
      * @param Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function updateFolder(Emerald_Filelib_FolderItem $folder)
     {
@@ -251,7 +251,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * Updates a file
      *
      * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_Exception When fails
+     * @throws Emerald_Filelib_FilelibException When fails
      */
     public function updateFile(Emerald_Filelib_FileItem $file)
     {
