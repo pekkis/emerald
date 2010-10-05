@@ -115,7 +115,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
     
     private function _handleStorageOptions($storageOptions)
     {
-        if ($storageOptions['type'] == 'Emerald_Filelib_Storage_Gridfs') {
+        if ($storageOptions['type'] == 'Emerald_Filelib_Storage_GridfsStorage') {
             if (isset($storageOptions['options']['resource'])) {
                 $storageOptions['options']['mongo'] = $this->getBootstrap()->bootstrap($storageOptions['options']['resource'])->getResource($storageOptions['options']['resource']);
                 unset($storageOptions['resource']);

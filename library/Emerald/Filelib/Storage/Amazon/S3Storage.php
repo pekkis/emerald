@@ -1,5 +1,5 @@
 <?php
-class Emerald_Filelib_Storage_Amazon_S3 extends Emerald_Filelib_Storage_Abstract implements Emerald_Filelib_Storage_StorageInterface
+class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_AbstractStorage implements Emerald_Filelib_Storage_StorageInterface
 {
     
     

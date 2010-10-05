@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Storage_Filesystem extends Emerald_Filelib_Storage_Abstract implements Emerald_Filelib_Storage_StorageInterface
+class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_AbstractStorage implements Emerald_Filelib_Storage_StorageInterface
 {
     /**
      * @var string Physical root

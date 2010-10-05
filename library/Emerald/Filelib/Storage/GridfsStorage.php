@@ -6,7 +6,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Storage_Gridfs extends Emerald_Filelib_Storage_Abstract implements Emerald_Filelib_Storage_StorageInterface
+class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_AbstractStorage implements Emerald_Filelib_Storage_StorageInterface
 {
     /**
      * @var MongoDB Mongo reference
