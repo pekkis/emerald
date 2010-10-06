@@ -25,10 +25,10 @@ interface Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface extend
     /**
      * Returns render path
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      * @todo This whole method is ambiguous. Rethinking required.
      */
-    public function getRenderPath(Emerald_Filelib_FileItem $file);
+    public function getRenderPath(Emerald\Filelib\FileItem $file);
     
     /**
      * Sets file types for this version plugin.
@@ -47,10 +47,10 @@ interface Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface extend
     /**
      * Returns whether the plugin provides a version for a file.
      *
-     * @param Emerald_Filelib_FileItem $file File item
+     * @param Emerald\Filelib\FileItem $file File item
      * @return boolean
      */
-    public function providesFor(Emerald_Filelib_FileItem $file);
+    public function providesFor(Emerald\Filelib\FileItem $file);
 
     /**
      * Sets version identifier

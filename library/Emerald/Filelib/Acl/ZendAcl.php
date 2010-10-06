@@ -1,4 +1,9 @@
 <?php
+
+namespace Emerald\Filelib\Acl;
+
+use \Zend_Acl;
+
 /**
  * Zend ACL for Filelib
  * 
@@ -6,7 +11,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Acl_ZendAcl implements Emerald_Filelib_Acl_AclInterface
+class ZendAcl implements AclInterface
 {
 
     /**
@@ -27,7 +32,7 @@ class Emerald_Filelib_Acl_ZendAcl implements Emerald_Filelib_Acl_AclInterface
     /**
      * Sets ACL
      * 
-     * @param Zend_Acl $acl
+     * @param \Zend_Acl $acl
      */
     public function setAcl(Zend_Acl $acl)
     {
@@ -37,7 +42,7 @@ class Emerald_Filelib_Acl_ZendAcl implements Emerald_Filelib_Acl_AclInterface
     /**
      * Returns ACL
      * 
-     * @return Zend_Acl
+     * @return \Zend_Acl
      */
     public function getAcl()
     {

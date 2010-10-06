@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Folder item
  *
@@ -6,11 +9,11 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
+class FolderItem extends AbstractItem
 {
 
     /**
-     * @var Emerald_Filelib_FileLibrary Filelib
+     * @var Emerald\Filelib\FileLibrary Filelib
      */
     private $_filelib;
 
@@ -19,7 +22,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -27,7 +30,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary Filelib
+     * @return Emerald\Filelib\FileLibrary Filelib
      */
     public function getFilelib()
     {
@@ -38,7 +41,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
     /**
      * Returns files in folder
      *
-     * @return Emerald_Filelib_FileItemIterator
+     * @return Emerald\Filelib\FileItemIterator
      */
     public function findFiles()
     {
@@ -48,7 +51,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
     /**
      * Returns parent folder
      *
-     * @return Emerald_Filelib_FolderItem|false
+     * @return Emerald\Filelib\FolderItem|false
      */
     public function findParent()
     {
@@ -61,7 +64,7 @@ class Emerald_Filelib_FolderItem extends Emerald_Filelib_AbstractItem
     /**
      * Finds subfolders
      *
-     * @return Emerald_Filelib_FolderItemIterator
+     * @return Emerald\Filelib\FolderItemIterator
      */
     public function findSubFolders()
     {

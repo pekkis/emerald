@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Acl;
+
 /**
  * Simple ACL allows everything to everyone
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Acl_SimpleAcl implements Emerald_Filelib_Acl_AclInterface
+class SimpleAcl implements AclInterface
 {
 
     public function isReadable($resource)

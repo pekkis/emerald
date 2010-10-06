@@ -9,7 +9,7 @@
 abstract class Emerald_Filelib_Backend_AbstractBackend implements Emerald_Filelib_Backend_BackendInterface
 {
     /**
-     * @var Emerald_Filelib_FileLibrary Filelib
+     * @var Emerald\Filelib\FileLibrary Filelib
      */
     private $_filelib;
     
@@ -23,7 +23,7 @@ abstract class Emerald_Filelib_Backend_AbstractBackend implements Emerald_Fileli
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -31,7 +31,7 @@ abstract class Emerald_Filelib_Backend_AbstractBackend implements Emerald_Fileli
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {

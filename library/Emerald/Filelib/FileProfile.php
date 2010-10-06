@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * File profile
  * 
@@ -6,10 +9,10 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_FileProfile
+class FileProfile
 {
     /**
-     * @var Emerald_Filelib_FileLibrary
+     * @var Emerald\Filelib\FileLibrary
      */
     private $_filelib;
 
@@ -54,7 +57,7 @@ class Emerald_Filelib_FileProfile
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -77,7 +80,7 @@ class Emerald_Filelib_FileProfile
     public function getLinker()
     {
         if(!$this->_linker) {
-            throw new Emerald_Filelib_FilelibException("File profile '{$this->getIdentifier()}' does not have a linker");
+            throw new Emerald\Filelib\FilelibException("File profile '{$this->getIdentifier()}' does not have a linker");
         }
         return $this->_linker;
     }
@@ -87,7 +90,7 @@ class Emerald_Filelib_FileProfile
      * Sets linker
      *
      * @param Emerald_Filelib_Linker_LinkerInterface|string $linker
-     * @return Emerald_Filelib_FileLibrary Filelib
+     * @return Emerald\Filelib\FileLibrary Filelib
      */
     public function setLinker($linker)
     {
@@ -171,7 +174,7 @@ class Emerald_Filelib_FileProfile
      * Adds a plugin
      *
      * @param Emerald_Filelib_Plugin_PluginInterface Plugin $plugin
-     * @return Emerald_Filelib_FileProfile
+     * @return Emerald\Filelib\FileProfile
      */
     public function addPlugin(Emerald_Filelib_Plugin_PluginInterface $plugin)
     {
@@ -196,7 +199,7 @@ class Emerald_Filelib_FileProfile
      * @param string $fileType string File type
      * @param string $versionIdentifier Version identifier
      * @param object $versionProvider Version provider reference
-     * @return Emerald_Filelib_FileProfile
+     * @return Emerald\Filelib\FileProfile
      */
     public function addFileVersion($fileType, $versionIdentifier, $versionProvider)
     {
@@ -212,10 +215,10 @@ class Emerald_Filelib_FileProfile
     /**
      * Returns all defined versions of a file
      *
-     * @param Emerald_Filelib_FileItem $fileType File item
+     * @param Emerald\Filelib\FileItem $fileType File item
      * @return array Array of provided versions
      */
-    public function getFileVersions(Emerald_Filelib_FileItem $file)
+    public function getFileVersions(Emerald\Filelib\FileItem $file)
     {
         $fileType = $file->getType();
 
@@ -232,11 +235,11 @@ class Emerald_Filelib_FileProfile
     /**
      * Returns whether a file has a certain version
      *
-     * @param Emerald_Filelib_FileItem $file File item
+     * @param Emerald\Filelib\FileItem $file File item
      * @param string $version Version
      * @return boolean
      */
-    public function fileHasVersion(Emerald_Filelib_FileItem $file, $version)
+    public function fileHasVersion(Emerald\Filelib\FileItem $file, $version)
     {
         $filetype = $this->getFilelib()->file()->getType($file);
 
@@ -249,11 +252,11 @@ class Emerald_Filelib_FileProfile
     /**
      * Returns version provider for a file/version
      *
-     * @param Emerald_Filelib_FileItem $file File item
+     * @param Emerald\Filelib\FileItem $file File item
      * @param string $version Version
      * @return Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider Provider
      */
-    public function getVersionProvider(Emerald_Filelib_FileItem $file, $version)
+    public function getVersionProvider(Emerald\Filelib\FileItem $file, $version)
     {
         $filetype = $this->getFilelib()->file()->getType($file);
         return $this->_fileVersions[$filetype][$version];

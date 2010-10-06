@@ -54,7 +54,7 @@ class Emerald_Cms_Application_Resource_Emacl extends Zend_Application_Resource_R
             $filelib = $this->getBootstrap()->getResource('filelib');
             $user = $this->getBootstrap()->getResource('emuser');
             
-            $aclHandler = new Emerald_Filelib_Acl_ZendAcl();
+            $aclHandler = new Emerald\Filelib\Acl\ZendAcl();
             $aclHandler->setAcl($acl);
             $aclHandler->setAnonymousRole("Emerald_Group_" . EmCore_Model_Group::GROUP_ANONYMOUS);
             	

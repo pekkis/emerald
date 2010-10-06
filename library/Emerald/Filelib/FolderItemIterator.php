@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Folder item iterator
  *  
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_FolderItemIterator extends Emerald_Filelib_ItemIterator implements RecursiveIterator
+class FolderItemIterator extends Emerald\Filelib\ItemIterator implements \RecursiveIterator
 {
 
     public function hasChildren()

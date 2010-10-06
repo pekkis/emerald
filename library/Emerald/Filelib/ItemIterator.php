@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Filelib item iterator extends ArrayIterator to implement toArray method.
  *
@@ -6,7 +9,7 @@
  * @author pekkis
  *
  */
-abstract class Emerald_Filelib_ItemIterator extends ArrayIterator
+abstract class ItemIterator extends \ArrayIterator
 {
 
     public function __construct($array)

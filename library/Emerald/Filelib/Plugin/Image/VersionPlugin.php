@@ -60,7 +60,7 @@ class Emerald_Filelib_Plugin_Image_VersionPlugin extends Emerald_Filelib_Plugin_
      *
      * @param Emerald_FileItem $file
      */
-    public function createVersion(Emerald_Filelib_FileItem $file)
+    public function createVersion(Emerald\Filelib\FileItem $file)
     {
         if($file->getType() != 'image') {
             throw new Exception('File must be an image');

@@ -37,7 +37,7 @@ class Emerald_Filelib_Linker_BeautifurlLinker extends Emerald_Filelib_Linker_Abs
 
 
 
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function getLinkVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getLink($file);
         $pinfo = pathinfo($link);
@@ -48,7 +48,7 @@ class Emerald_Filelib_Linker_BeautifurlLinker extends Emerald_Filelib_Linker_Abs
     }
 
 
-    public function getLink(Emerald_Filelib_FileItem $file, $force = false)
+    public function getLink(Emerald\Filelib\FileItem $file, $force = false)
     {
         if($force || !isset($file->link)) {
             	

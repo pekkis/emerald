@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Uploadable file
  *
@@ -6,7 +9,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_FileUpload extends Emerald\Base\Spl\FileObject
+class FileUpload extends Emerald\Base\Spl\FileObject
 {
     /**
      * @var string Override filename
@@ -23,7 +26,7 @@ class Emerald_Filelib_FileUpload extends Emerald\Base\Spl\FileObject
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -31,7 +34,7 @@ class Emerald_Filelib_FileUpload extends Emerald\Base\Spl\FileObject
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {

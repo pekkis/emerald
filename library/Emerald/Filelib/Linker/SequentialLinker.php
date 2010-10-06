@@ -78,7 +78,7 @@ class Emerald_Filelib_Linker_SequentialLinker extends Emerald_Filelib_Linker_Abs
         $filesPerDirectory = $this->getFilesPerDirectory();
 
         if($directoryLevels < 1) {
-            throw new Emerald_Filelib_FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
+            throw new Emerald\Filelib\FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
         }
 
         $arr = array();
@@ -97,7 +97,7 @@ class Emerald_Filelib_Linker_SequentialLinker extends Emerald_Filelib_Linker_Abs
     
     
     
-    public function getLinkVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function getLinkVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getLink($file);
 
@@ -109,7 +109,7 @@ class Emerald_Filelib_Linker_SequentialLinker extends Emerald_Filelib_Linker_Abs
     }
 
 
-    public function getLink(Emerald_Filelib_FileItem $file)
+    public function getLink(Emerald\Filelib\FileItem $file)
     {
         $url = array();
         $url[] = $this->getDirectoryId($file->id);

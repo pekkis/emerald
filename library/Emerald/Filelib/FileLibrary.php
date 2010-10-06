@@ -1,15 +1,16 @@
 <?php
 
+namespace Emerald\Filelib;
+
 use \Emerald\Base\Options;
 
 /**
  * Emerald filelib
  *
- * @package Emerald_Filelib
  * @author pekkis
  *
  */
-class Emerald_Filelib_FileLibrary
+class FileLibrary
 {
     /**
      * @var Emerald_Filelib_Backend_BackendInterface Backend
@@ -27,7 +28,7 @@ class Emerald_Filelib_FileLibrary
     private $_publisher;
     
     /**
-     * @var Emerald_Filelib_Acl_AclInterface Acl handler
+     * @var Emerald\Filelib\Acl\AclInterface Acl handler
      */
     private $_acl;
 
@@ -39,22 +40,22 @@ class Emerald_Filelib_FileLibrary
     /**
      * @var string Fileitem class
      */
-    private $_fileItemClass = 'Emerald_Filelib_FileItem';
+    private $_fileItemClass = 'Emerald\Filelib\FileItem';
 
     /**
      * @var string Folderitem class
      */
-    private $_folderItemClass = 'Emerald_Filelib_FolderItem';
+    private $_folderItemClass = 'Emerald\Filelib\FolderItem';
 
     /**
      * File operator
-     * @var Emerald_Filelib_FileOperator
+     * @var Emerald\Filelib\FileOperator
      */
     private $_fileOperator;
 
     /**
      * Folder operator
-     * @var Emerald_Filelib_FolderOperator
+     * @var Emerald\Filelib\FolderOperator
      */
     private $_folderOperator;
     
@@ -92,7 +93,7 @@ class Emerald_Filelib_FileLibrary
      * Sets public directory prefix
      * 
      * @param string $publicDirectoryPrefix
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setPublicDirectoryPrefix($publicDirectoryPrefix)
     {
@@ -131,7 +132,7 @@ class Emerald_Filelib_FileLibrary
     /**
      * Sets cache
      * @param Zend_Cache_Core $cache
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setCache(Zend_Cache_Core $cache)
     {
@@ -160,10 +161,10 @@ class Emerald_Filelib_FileLibrary
     /**
      * Adds a file profile
      * 
-     * @param Emerald_Filelib_FileProfile $profile
-     * @return Emerald_Filelib_FileLibrary
+     * @param Emerald\Filelib\FileProfile $profile
+     * @return Emerald\Filelib\FileLibrary
      */
-    public function addProfile(Emerald_Filelib_FileProfile $profile)
+    public function addProfile(Emerald\Filelib\FileProfile $profile)
     {
         $profile->setFilelib($this);
 
@@ -178,17 +179,17 @@ class Emerald_Filelib_FileLibrary
      * Returns a file profile
      * 
      * @param string $identifier File profile identifier
-     * @throws Emerald_Filelib_FilelibException
-     * @return Emerald_Filelib_FileProfile
+     * @throws Emerald\Filelib\FilelibException
+     * @return Emerald\Filelib\FileProfile
      */
     public function getProfile($identifier)
     {
-        if($identifier instanceof Emerald_Filelib_FileItem) {
+        if($identifier instanceof Emerald\Filelib\FileItem) {
             $identifier = $identifier->profile;
         }
 
         if(!isset($this->_profiles[$identifier])) {
-            throw new Emerald_Filelib_FilelibException("File profile '{$identifier}' not found");
+            throw new Emerald\Filelib\FilelibException("File profile '{$identifier}' not found");
         }
 
         return $this->_profiles[$identifier];
@@ -207,12 +208,12 @@ class Emerald_Filelib_FileLibrary
     /**
      * Returns the file operator
      * 
-     * @return Emerald_Filelib_FileOperator
+     * @return Emerald\Filelib\FileOperator
      */
     public function file()
     {
         if(!$this->_fileOperator) {
-            $this->_fileOperator = new Emerald_Filelib_FileOperator($this);
+            $this->_fileOperator = new Emerald\Filelib\FileOperator($this);
         }
         return $this->_fileOperator;
     }
@@ -220,12 +221,12 @@ class Emerald_Filelib_FileLibrary
     /**
      * Returns the folder operator
      * 
-     * @return Emerald_Filelib_FolderOperator
+     * @return Emerald\Filelib\FolderOperator
      */
     public function folder()
     {
         if(!$this->_folderOperator) {
-            $this->_folderOperator = new Emerald_Filelib_FolderOperator($this);
+            $this->_folderOperator = new Emerald\Filelib\FolderOperator($this);
         }
 
         return $this->_folderOperator;
@@ -235,7 +236,7 @@ class Emerald_Filelib_FileLibrary
      * Sets fileitem class
      *
      * @param string $fileItemClass Class name
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setFileItemClass($fileItemClass)
     {
@@ -259,7 +260,7 @@ class Emerald_Filelib_FileLibrary
      * Sets folderitem class
      *
      * @param string $folderItemClass Class name
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setFolderItemClass($folderItemClass)
     {
@@ -283,7 +284,7 @@ class Emerald_Filelib_FileLibrary
      * Sets storage
      *
      * @param Emerald_Filelib_Storage_StorageInterface $storage
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setStorage(Emerald_Filelib_Storage_StorageInterface $storage)
     {
@@ -301,7 +302,7 @@ class Emerald_Filelib_FileLibrary
     public function getStorage()
     {
         if(!$this->_storage) {
-            throw new Emerald_Filelib_FilelibException('Filelib storage not set');
+            throw new Emerald\Filelib\FilelibException('Filelib storage not set');
         }
 
         return $this->_storage;
@@ -311,7 +312,7 @@ class Emerald_Filelib_FileLibrary
      * Sets publisher
      *
      * @param Emerald_Filelib_Publisher_Interface $publisher
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setPublisher(Emerald_Filelib_Publisher_PublisherInterface $publisher)
     {
@@ -329,7 +330,7 @@ class Emerald_Filelib_FileLibrary
     public function getPublisher()
     {
         if(!$this->_publisher) {
-            throw new Emerald_Filelib_FilelibException('Filelib Publisher not set');
+            throw new Emerald\Filelib\FilelibException('Filelib Publisher not set');
         }
 
         return $this->_publisher;
@@ -340,7 +341,7 @@ class Emerald_Filelib_FileLibrary
      * Sets backend
      *
      * @param Emerald_Filelib_Backend_BackendInterface $backend
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function setBackend(Emerald_Filelib_Backend_BackendInterface $backend)
     {
@@ -359,7 +360,7 @@ class Emerald_Filelib_FileLibrary
     public function getBackend()
     {
         if(!$this->_backend) {
-            throw new Emerald_Filelib_FilelibException('Filelib backend not set');
+            throw new Emerald\Filelib\FilelibException('Filelib backend not set');
         }
 
         return $this->_backend;
@@ -369,7 +370,7 @@ class Emerald_Filelib_FileLibrary
      * Adds a plugin
      *
      * @param Emerald_Filelib_Plugin_PluginInterface Plugin $plugin
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function addPlugin(Emerald_Filelib_Plugin_PluginInterface $plugin)
     {
@@ -401,10 +402,10 @@ class Emerald_Filelib_FileLibrary
     /**
      * Sets acl handler
      *
-     * @param Emerald_Filelib_Acl_AclInterface $acl
-     * @return Emerald_Filelib_FileLibrary Filelib
+     * @param Emerald\Filelib\Acl\AclInterface $acl
+     * @return Emerald\Filelib\FileLibrary Filelib
      */
-    public function setAcl(Emerald_Filelib_Acl_AclInterface $acl)
+    public function setAcl(Emerald\Filelib\Acl\AclInterface $acl)
     {
         $this->_acl = $acl;
         return $this;
@@ -414,12 +415,12 @@ class Emerald_Filelib_FileLibrary
     /**
      * Returns acl handler
      *
-     * @return Emerald_Filelib_Acl_AclInterface
+     * @return Emerald\Filelib\Acl\AclInterface
      */
     public function getAcl()
     {
         if(!$this->_acl) {
-            $this->_acl = new Emerald_Filelib_Acl_SimpleAcl();
+            $this->_acl = new Emerald\Filelib\Acl\SimpleAcl();
         }
         return $this->_acl;
     }

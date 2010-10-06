@@ -114,7 +114,7 @@ class EmAdmin_FilelibController extends Emerald_Cms_Controller_Action
             $this->view->fl = $fl;
             	
             $folder = $fl->folder()->findRoot();
-            $iter = new Emerald_Filelib_FolderItemIterator($folder);
+            $iter = new Emerald\Filelib\FolderItemIterator($folder);
             	
             $iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
             	
@@ -185,7 +185,7 @@ class EmAdmin_FilelibController extends Emerald_Cms_Controller_Action
             $this->view->fl = $fl;
             	
             $folder = $fl->folder()->findRoot();
-            $iter = new Emerald_Filelib_FolderItemIterator($folder);
+            $iter = new Emerald\Filelib\FolderItemIterator($folder);
             	
             $iter = new RecursiveIteratorIterator($iter, RecursiveIteratorIterator::SELF_FIRST);
             	

@@ -58,7 +58,7 @@ class Emerald_Filelib_Plugin_Image_ChangeFormatPlugin extends Emerald_Filelib_Pl
         return $this->_targetExtension;
     }
 
-    public function beforeUpload(Emerald_Filelib_FileUpload $upload)
+    public function beforeUpload(Emerald\Filelib\FileUpload $upload)
     {
         $oldUpload = $upload;
 

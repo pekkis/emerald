@@ -12,7 +12,7 @@ extends Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider
 {
     protected $_providesFor = array('video', 'application');
 
-    public function createVersion(Emerald_Filelib_FileItem $file)
+    public function createVersion(Emerald\Filelib\FileItem $file)
     {
 
         $path = $file->getPath() . '/' . $this->getIdentifier();

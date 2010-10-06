@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Operates on folders
  * 
@@ -6,7 +9,7 @@
  * @author pekkis
  * 
  */
-class Emerald_Filelib_FolderOperator
+class FolderOperator
 {
     /**
      * @var Zend_Cache_Core
@@ -20,7 +23,7 @@ class Emerald_Filelib_FolderOperator
      */
     protected $_cachePrefix = 'emerald_filelib_folderoperator';
    
-    public function __construct(Emerald_Filelib_FileLibrary $filelib)
+    public function __construct(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
         $this->_backend = $filelib->getBackend();
@@ -102,7 +105,7 @@ class Emerald_Filelib_FolderOperator
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -112,10 +115,10 @@ class Emerald_Filelib_FolderOperator
     /**
      * Creates a folder
      *
-     * @param Emerald_Filelib_FolderItem $folder
+     * @param Emerald\Filelib\FolderItem $folder
      * @return unknown_type
      */
-    public function create(Emerald_Filelib_FolderItem $folder)
+    public function create(Emerald\Filelib\FolderItem $folder)
     {
         $folder = $this->getBackend()->createFolder($folder);
         $folder->setFilelib($this->getFilelib());
@@ -125,9 +128,9 @@ class Emerald_Filelib_FolderOperator
     /**
      * Deletes a folder
      *
-     * @param Emerald_Filelib_FolderItem $folder Folder
+     * @param Emerald\Filelib\FolderItem $folder Folder
      */
-    public function delete(Emerald_Filelib_FolderItem $folder)
+    public function delete(Emerald\Filelib\FolderItem $folder)
     {
         foreach($folder->findSubFolders() as $childFolder) {
             $this->delete($childFolder);
@@ -144,9 +147,9 @@ class Emerald_Filelib_FolderOperator
     /**
      * Updates a folder
      *
-     * @param Emerald_Filelib_FolderItem $folder Folder
+     * @param Emerald\Filelib\FolderItem $folder Folder
      */
-    public function update(Emerald_Filelib_FolderItem $folder)
+    public function update(Emerald\Filelib\FolderItem $folder)
     {
         $this->getBackend()->updateFolder($folder);
 
@@ -167,7 +170,7 @@ class Emerald_Filelib_FolderOperator
     /**
      * Finds the root folder
      *
-     * @return Emerald_Filelib_FolderItem
+     * @return Emerald\Filelib\FolderItem
      */
     public function findRoot()
     {
@@ -182,7 +185,7 @@ class Emerald_Filelib_FolderOperator
      * Finds a folder
      *
      * @param mixed $id Folder id
-     * @return Emerald_Filelib_FolderItem
+     * @return Emerald\Filelib\FolderItem
      */
     public function find($id)
     {
@@ -197,9 +200,9 @@ class Emerald_Filelib_FolderOperator
      * Finds subfolders
      *
      * @param Emerald_Fildlib_FolderItem $folder Folder
-     * @return Emerald_Filelib_FolderItemIterator
+     * @return Emerald\Filelib\FolderItemIterator
      */
-    public function findSubFolders(Emerald_Filelib_FolderItem $folder)
+    public function findSubFolders(Emerald\Filelib\FolderItem $folder)
     {
         $folders = $this->getBackend()->findSubFolders($folder);
         foreach($folders as $folder) {
@@ -210,10 +213,10 @@ class Emerald_Filelib_FolderOperator
 
 
     /**
-     * @param Emerald_Filelib_FolderItem $folder Folder
-     * @return Emerald_Filelib_FileItemIterator Collection of file items
+     * @param Emerald\Filelib\FolderItem $folder Folder
+     * @return Emerald\Filelib\FileItemIterator Collection of file items
      */
-    public function findFiles(Emerald_Filelib_FolderItem $folder)
+    public function findFiles(Emerald\Filelib\FolderItem $folder)
     {
         $items = $this->getBackend()->findFilesIn($folder);
         foreach($items as $item) {

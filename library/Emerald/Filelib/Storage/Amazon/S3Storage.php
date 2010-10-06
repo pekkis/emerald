@@ -88,10 +88,10 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Stores an uploaded file
      * 
-     * @param Emerald_Filelib_FileUpload $upload
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileUpload $upload
+     * @param Emerald\Filelib\FileItem $file
      */
-    public function store(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FileItem $file)
+    public function store(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FileItem $file)
     {
         $object = $this->_getPath($file);
         $this->getStorage()->putFile($upload->getPathname(), $object);
@@ -100,11 +100,11 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Stores a version of a file
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
      * @param unknown_type $tempFile File to be stored
      */
-    public function storeVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version, $tempFile)
+    public function storeVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version, $tempFile)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->putFile($tempFile, $object);
@@ -113,10 +113,10 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Retrieves a file and temporarily stores it somewhere so it can be read.
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      * @return Emerald\Base\Spl\FileObject
      */
-    public function retrieve(Emerald_Filelib_FileItem $file)
+    public function retrieve(Emerald\Filelib\FileItem $file)
     {
         $object = $this->_getPath($file);
         $ret = $this->getStorage()->getObject($object);
@@ -126,11 +126,11 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Retrieves a version of a file and temporarily stores it somewhere so it can be read.
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      * @param Emerald_Filelib_VersionProvider_Interface $version
      * @return Emerald\Base\Spl\FileObject
      */
-    public function retrieveVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function retrieveVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $ret = $this->getStorage()->getObject($object);
@@ -140,9 +140,9 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Deletes a file
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      */
-    public function delete(Emerald_Filelib_FileItem $file)
+    public function delete(Emerald\Filelib\FileItem $file)
     {
         $object = $this->_getPath($file);
         $this->getStorage()->removeObject($object);
@@ -151,10 +151,10 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Deletes a version of a file
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
      */
-    public function deleteVersion(Emerald_Filelib_FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function deleteVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->removeObject($object);

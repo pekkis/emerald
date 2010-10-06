@@ -10,7 +10,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
 {
 
     /**
-     * @var Emerald_Filelib_FileLibrary Filelib
+     * @var Emerald\Filelib\FileLibrary Filelib
      */
     protected $_filelib;
 
@@ -27,7 +27,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
      * Sets filelib
      *
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -36,7 +36,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {

@@ -29,11 +29,11 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     public function init()
     {
         if(!$this->getIdentifier()) {
-            throw new Emerald_Filelib_FilelibException('Version plugin must have an identifier');
+            throw new Emerald\Filelib\FilelibException('Version plugin must have an identifier');
         }
 
         if(!$this->getExtension()) {
-            throw new Emerald_Filelib_FilelibException('Version plugin must have a file extension');
+            throw new Emerald\Filelib\FilelibException('Version plugin must have a file extension');
         }
 
         foreach($this->getProvidesFor() as $fileType) {
@@ -47,10 +47,10 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     /**
      * Returns render path
      * 
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      * @todo This whole method is ambiguous. Rethinking required.
      */
-    public function getRenderPath(Emerald_Filelib_FileItem $file)
+    public function getRenderPath(Emerald\Filelib\FileItem $file)
     {
         if($file->isAnonymous()) {
             $link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $this);
@@ -103,10 +103,10 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     /**
      * Returns whether the plugin provides a version for a file.
      *
-     * @param Emerald_Filelib_FileItem $file File item
+     * @param Emerald\Filelib\FileItem $file File item
      * @return boolean
      */
-    public function providesFor(Emerald_Filelib_FileItem $file)
+    public function providesFor(Emerald\Filelib\FileItem $file)
     {
         if(in_array($file->getType(), $this->getProvidesFor())) {
             if(in_array($file->profile, $this->getProfiles())) {
@@ -139,7 +139,7 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     }
 
         
-    public function afterUpload(Emerald_Filelib_FileItem $file)
+    public function afterUpload(Emerald\Filelib\FileItem $file)
     {
         if($this->providesFor($file)) {
             $this->createVersion($file);
@@ -147,7 +147,7 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     }
 
 
-    public function onPublish(Emerald_Filelib_FileItem $file)
+    public function onPublish(Emerald\Filelib\FileItem $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -158,7 +158,7 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     }
 
     
-    public function onUnpublish(Emerald_Filelib_FileItem $file)
+    public function onUnpublish(Emerald\Filelib\FileItem $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -168,7 +168,7 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
         
     }
     
-    public function onDelete(Emerald_Filelib_FileItem $file)
+    public function onDelete(Emerald\Filelib\FileItem $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -180,10 +180,10 @@ abstract class Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider ex
     /**
      * Deletes a version
      * 
-     * @param $file Emerald_Filelib_FileItem
+     * @param $file Emerald\Filelib\FileItem
      * 
      */
-    public function deleteVersion(Emerald_Filelib_FileItem $file)
+    public function deleteVersion(Emerald\Filelib\FileItem $file)
     {
         $this->getFilelib()->getStorage()->deleteVersion($file, $this);
     }

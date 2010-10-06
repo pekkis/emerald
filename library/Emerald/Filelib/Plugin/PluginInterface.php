@@ -14,12 +14,12 @@ interface Emerald_Filelib_Plugin_PluginInterface
      *
      * @param Emerald_Filelib $filelib Filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib);
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib);
 
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib();
     
@@ -45,37 +45,37 @@ interface Emerald_Filelib_Plugin_PluginInterface
     /**
      * Runs before upload
      *
-     * @param Emerald_Filelib_FileUpload $upload
-     * @return Emerald_Filelib_FileUpload
+     * @param Emerald\Filelib\FileUpload $upload
+     * @return Emerald\Filelib\FileUpload
      */
-    public function beforeUpload(Emerald_Filelib_FileUpload $upload);
+    public function beforeUpload(Emerald\Filelib\FileUpload $upload);
 
     /**
      * Runs after succesful upload.
      *
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      */
-    public function afterUpload(Emerald_Filelib_FileItem $file);
+    public function afterUpload(Emerald\Filelib\FileItem $file);
 
     /**
      * Runs after successful delete.
      *
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      */
-    public function onDelete(Emerald_Filelib_FileItem $file);
+    public function onDelete(Emerald\Filelib\FileItem $file);
 
     /**
      * Runs on publish
      *
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      */
-    public function onPublish(Emerald_Filelib_FileItem $file);
+    public function onPublish(Emerald\Filelib\FileItem $file);
 
     /**
      * Runs on unpublish
      *
-     * @param Emerald_Filelib_FileItem $file
+     * @param Emerald\Filelib\FileItem $file
      */
-    public function onUnpublish(Emerald_Filelib_FileItem $file);
+    public function onUnpublish(Emerald\Filelib\FileItem $file);
 
 }

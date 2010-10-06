@@ -18,14 +18,14 @@ class EmFilelib_View_Helper_File extends Zend_View_Helper_Abstract
 	/**
 	 * Filelib
 	 * 
-	 * @var Emerald_Filelib_FileLibrary
+	 * @var Emerald\Filelib\FileLibrary
 	 */
 	private $_filelib;
 	
 	/**
 	 * Returns filelib
 	 * 
-	 * @return Emerald_Filelib_FileLibrary
+	 * @return Emerald\Filelib\FileLibrary
 	 */
 	public function getFilelib()
 	{
@@ -63,7 +63,7 @@ class EmFilelib_View_Helper_File extends Zend_View_Helper_Abstract
 	{
 		$filelib = $this->getFilelib();		
 		
-		if(!$file instanceof Emerald_Filelib_FileItem) {
+		if(!$file instanceof Emerald\Filelib\FileItem) {
 			$file = $filelib->file()->find($file);
 		}
 		

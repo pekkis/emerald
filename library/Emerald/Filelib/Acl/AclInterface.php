@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Acl;
+
 /**
  * Interface for building an ACL implementation for Filelib
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-interface Emerald_Filelib_Acl_AclInterface
+interface AclInterface
 {
 
     /**

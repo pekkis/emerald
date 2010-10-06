@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Emerald filelib exception
  *
@@ -6,4 +9,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_FilelibException extends Zend_Exception {}
+class FilelibException extends \Exception
+{
+
+}

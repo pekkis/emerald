@@ -28,7 +28,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * Finds folder
      *
      * @param integer $id
-     * @return Emerald_Filelib_FolderItem|false
+     * @return Emerald\Filelib\FolderItem|false
      */
     public function findFolder($id)
     {
@@ -48,10 +48,10 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Finds subfolders of a folder
      *
-     * @param Emerald_Filelib_FolderItem $id
-     * @return Emerald_Filelib_FolderItemIterator
+     * @param Emerald\Filelib\FolderItem $id
+     * @return Emerald\Filelib\FolderItemIterator
      */
-    public function findSubFolders(Emerald_Filelib_FolderItem $folder)
+    public function findSubFolders(Emerald\Filelib\FolderItem $folder)
     {
         $mongo = $this->getMongo();
 
@@ -66,14 +66,14 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
             $folders[] = $folder;
         }
         
-        return new Emerald_Filelib_FolderItemIterator($folders);        
+        return new Emerald\Filelib\FolderItemIterator($folders);        
     }
     
 
     /**
      * Finds all files
      *
-     * @return Emerald_Filelib_FileItemIterator
+     * @return Emerald\Filelib\FileItemIterator
      */
     public function findAllFiles()
     {
@@ -98,7 +98,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
      * Finds a file
      *
      * @param integer $id
-     * @return Emerald_Filelib_FileItem|false
+     * @return Emerald\Filelib\FileItem|false
      */
     public function findFile($id)
     {
@@ -118,10 +118,10 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Finds a file
      *
-     * @param Emerald_Filelib_FolderItem $folder
-     * @return Emerald_Filelib_FileItemIterator
+     * @param Emerald\Filelib\FolderItem $folder
+     * @return Emerald\Filelib\FileItemIterator
      */
-    public function findFilesIn(Emerald_Filelib_FolderItem $folder)
+    public function findFilesIn(Emerald\Filelib\FolderItem $folder)
     {
         $mongo = $this->getMongo();
 
@@ -142,12 +142,12 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Uploads a file
      *
-     * @param Emerald_Filelib_FileUpload $upload Fileobject to upload
-     * @param Emerald_Filelib_FolderItem $folder Folder
-     * @return Emerald_Filelib_FileItem File item
-     * @throws Emerald_Filelib_FilelibException When fails
+     * @param Emerald\Filelib\FileUpload $upload Fileobject to upload
+     * @param Emerald\Filelib\FolderItem $folder Folder
+     * @return Emerald\Filelib\FileItem File item
+     * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function upload(Emerald_Filelib_FileUpload $upload, Emerald_Filelib_FolderItem $folder, Emerald_Filelib_FileProfile $profile)
+    public function upload(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FolderItem $folder, Emerald\Filelib\FileProfile $profile)
     {
 
         $fileItemClass = $this->getFilelib()->getFileItemClass();
@@ -177,7 +177,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
             return $this->_addId($fileItem);
 
         } catch(Exception $e) {
-            throw new Emerald_Filelib_FilelibException($e->getMessage());
+            throw new Emerald\Filelib\FilelibException($e->getMessage());
         }
     	
     	
@@ -186,11 +186,11 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Creates a folder
      *
-     * @param Emerald_Filelib_FolderItem $folder
-     * @return Emerald_Filelib_FolderItem Created folder
-     * @throws Emerald_Filelib_FilelibException When fails
+     * @param Emerald\Filelib\FolderItem $folder
+     * @return Emerald\Filelib\FolderItem Created folder
+     * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function createFolder(Emerald_Filelib_FolderItem $folder)
+    public function createFolder(Emerald\Filelib\FolderItem $folder)
     {
     	$arr = $folder->toArray();
     	$this->getMongo()->folders->insert($arr);
@@ -205,10 +205,10 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Deletes a folder
      *
-     * @param Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_FilelibException When fails
+     * @param Emerald\Filelib\FolderItem $folder
+     * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFolder(Emerald_Filelib_FolderItem $folder)
+    public function deleteFolder(Emerald\Filelib\FolderItem $folder)
     {
         $this->getMongo()->folders->remove(array('_id' => $folder->_id));
     
@@ -217,10 +217,10 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Deletes a file
      *
-     * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_FilelibException When fails
+     * @param Emerald\Filelib\FileItem $file
+     * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFile(Emerald_Filelib_FileItem $file)
+    public function deleteFile(Emerald\Filelib\FileItem $file)
     {
         $this->getMongo()->files->remove(array('_id' => $file->_id));
     }
@@ -228,10 +228,10 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Updates a folder
      *
-     * @param Emerald_Filelib_FolderItem $folder
-     * @throws Emerald_Filelib_FilelibException When fails
+     * @param Emerald\Filelib\FolderItem $folder
+     * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function updateFolder(Emerald_Filelib_FolderItem $folder)
+    public function updateFolder(Emerald\Filelib\FolderItem $folder)
     {
         $this->_stripId($folder);
     	
@@ -250,10 +250,10 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Updates a file
      *
-     * @param Emerald_Filelib_FileItem $file
-     * @throws Emerald_Filelib_FilelibException When fails
+     * @param Emerald\Filelib\FileItem $file
+     * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function updateFile(Emerald_Filelib_FileItem $file)
+    public function updateFile(Emerald\Filelib\FileItem $file)
     {
         $this->_stripId($file);
         
@@ -272,7 +272,7 @@ class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_Abstr
     /**
      * Finds the root folder
      *
-     * @return Emerald_Filelib_FolderItem
+     * @return Emerald\Filelib\FolderItem
      */
     public function findRootFolder()
     {

@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * File item
  *
@@ -6,17 +9,17 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
+class FileItem extends Emerald\Filelib\AbstractItem
 {
     /**
-     * @var Emerald_Filelib_FileLibrary Filelib
+     * @var Emerald\Filelib\FileLibrary Filelib
      */
     private $_filelib;
 
     private $_profileObj;
 
 
-    public function setProfileObject(Emerald_Filelib_FileProfile $profileObj)
+    public function setProfileObject(Emerald\Filelib\FileProfile $profileObj)
     {
         $this->_profileObj = $profileObj;
     }
@@ -34,7 +37,7 @@ class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -42,7 +45,7 @@ class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -53,7 +56,7 @@ class Emerald_Filelib_FileItem extends Emerald_Filelib_AbstractItem
     /**
      * Finds and returns folder
      *
-     * @return Emerald_Filelib_FolderItem|false
+     * @return Emerald\Filelib\FolderItem|false
      */
     public function findFolder()
     {

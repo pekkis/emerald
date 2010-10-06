@@ -11,14 +11,14 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
 {
 
     /**
-     * @var Emerald_Filelib_FileLibrary
+     * @var Emerald\Filelib\FileLibrary
      */
     protected $_filelib;
 
     /**
      * Returns filelib
      * 
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -52,7 +52,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
 
             $backendOptions = $this->_handleBackendOptions($backendOptions);
 
-            $filelib = new Emerald_Filelib_FileLibrary($options);
+            $filelib = new Emerald\Filelib\FileLibrary($options);
             
             $backend = new $backendOptions['type']($backendOptions['options']);
             $filelib->setBackend($backend);
@@ -75,7 +75,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
                 $linker = new $linkerOptions['class']($linkerOptions['options']);
                 $linker->setFilelib($filelib);
 
-                $profile = new Emerald_Filelib_FileProfile($poptions);
+                $profile = new Emerald\Filelib\FileProfile($poptions);
                 $profile->setLinker($linker);
                 $filelib->addProfile($profile);
             }
@@ -102,7 +102,7 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
     }
 
     /**
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function init()
     {

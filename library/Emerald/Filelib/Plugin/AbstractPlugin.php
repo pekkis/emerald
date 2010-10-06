@@ -10,7 +10,7 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
 {
 
     /**
-     * @var Emerald_Filelib_FileLibrary Filelib
+     * @var Emerald\Filelib\FileLibrary Filelib
      */
     protected $_filelib;
 
@@ -49,7 +49,7 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald_Filelib_FileLibrary $filelib)
+    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -57,7 +57,7 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
     /**
      * Returns filelib
      *
-     * @return Emerald_Filelib_FileLibrary
+     * @return Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -67,21 +67,21 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
     public function init()
     { }
 
-    public function beforeUpload(Emerald_Filelib_FileUpload $upload)
+    public function beforeUpload(Emerald\Filelib\FileUpload $upload)
     {
         return $upload;
     }
 
-    public function afterUpload(Emerald_Filelib_FileItem $file)
+    public function afterUpload(Emerald\Filelib\FileItem $file)
     { }
 
-    public function onDelete(Emerald_Filelib_FileItem $file)
+    public function onDelete(Emerald\Filelib\FileItem $file)
     { }
     
-    public function onPublish(Emerald_Filelib_FileItem $file)
+    public function onPublish(Emerald\Filelib\FileItem $file)
     { }
     
-    public function onUnpublish(Emerald_Filelib_FileItem $file)
+    public function onUnpublish(Emerald\Filelib\FileItem $file)
     { }
     
 

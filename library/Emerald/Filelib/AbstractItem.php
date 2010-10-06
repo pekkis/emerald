@@ -1,13 +1,15 @@
 <?php
+
+namespace Emerald\Filelib;
+
 /**
  * Abstract filelib item class
  *
- * @package Filelib_Cms_Model
  * @author pekkis
  *
  *
  */
-abstract class Emerald_Filelib_AbstractItem
+abstract class AbstractItem
 {
 
     /**
@@ -35,7 +37,7 @@ abstract class Emerald_Filelib_AbstractItem
         }
 
         if(!is_array($data)) {
-            throw new Emerald_Cms_Model_Exception('Supplied data must be an array');
+            throw new Emerald\Filelib\FilelibException('Supplied data must be an array');
         }
 
         foreach($data as $key => $value) {
@@ -104,7 +106,7 @@ abstract class Emerald_Filelib_AbstractItem
      *
      * @param string $key Key
      * @return mixed
-     * @throws Emerald_Cms_Model_Exception
+     * @throws Emerald\Filelib\FilelibException
      */
     public function __get($key)
     {
@@ -113,7 +115,7 @@ abstract class Emerald_Filelib_AbstractItem
             if(!$this->_enforceFieldIntegrity) {
                 return null;
             }
-            throw new Emerald_Cms_Model_Exception("Field '{$key}' not set");
+            throw new Emerald\Filelib\FilelibException("Field '{$key}' not set");
             	
         }
         return $this->_data[$key];
@@ -145,7 +147,7 @@ abstract class Emerald_Filelib_AbstractItem
             $this->$field = $args[0];
         }
 
-        throw new Emerald_Cms_Model_Exception("Method '{$func}' does not exist");
+        throw new Emerald\Filelib\FilelibException("Method '{$func}' does not exist");
     }
 
 
