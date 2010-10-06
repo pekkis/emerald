@@ -35,10 +35,10 @@ interface Emerald_Filelib_Storage_StorageInterface
      * Stores a version of a file
      * 
      * @param Emerald\Filelib\FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
      * @param unknown_type $tempFile File to be stored
      */
-    public function storeVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version, $tempFile);
+    public function storeVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile);
     
     /**
      * Retrieves a file and temporarily stores it somewhere so it can be read.
@@ -55,7 +55,7 @@ interface Emerald_Filelib_Storage_StorageInterface
      * @param Emerald_Filelib_VersionProvider_Interface $version
      * @return Emerald\Base\Spl\FileObject
      */
-    public function retrieveVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version);
+    public function retrieveVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version);
     
     /**
      * Deletes a file
@@ -68,8 +68,8 @@ interface Emerald_Filelib_Storage_StorageInterface
      * Deletes a version of a file
      * 
      * @param Emerald\Filelib\FileItem $file
-     * @param Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
      */
-    public function deleteVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version);
+    public function deleteVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version);
     
 }

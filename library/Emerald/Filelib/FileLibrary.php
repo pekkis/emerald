@@ -23,7 +23,7 @@ class FileLibrary
     private $_storage;
 
     /**
-     * @var \\Emerald\Filelib\Publisher\PublisherInterface Publisher
+     * @var \Emerald\Filelib\Publisher\PublisherInterface Publisher
      */
     private $_publisher;
     
@@ -311,7 +311,7 @@ class FileLibrary
     /**
      * Sets publisher
      *
-     * @param \\Emerald\Filelib\Publisher\Interface $publisher
+     * @param \Emerald\Filelib\Publisher\Interface $publisher
      * @return \Emerald\Filelib\FileLibrary
      */
     public function setPublisher(\Emerald\Filelib\Publisher\PublisherInterface $publisher)
@@ -325,7 +325,7 @@ class FileLibrary
     /**
      * Returns publisher
      *
-     * @return \\Emerald\Filelib\Publisher\PublisherInterface
+     * @return \Emerald\Filelib\Publisher\PublisherInterface
      */
     public function getPublisher()
     {
@@ -369,10 +369,10 @@ class FileLibrary
     /**
      * Adds a plugin
      *
-     * @param \Emerald_Filelib_Plugin_PluginInterface Plugin $plugin
+     * @param \Emerald\Filelib\Plugin\PluginInterface Plugin $plugin
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function addPlugin(\Emerald_Filelib_Plugin_PluginInterface $plugin)
+    public function addPlugin(\Emerald\Filelib\Plugin\PluginInterface $plugin)
     {
         $plugin->setFilelib($this);
 

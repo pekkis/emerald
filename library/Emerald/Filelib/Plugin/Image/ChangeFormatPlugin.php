@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Plugin\Image;
+
 /**
  * Changes images' formats before uploading them.
  *
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Plugin_Image_ChangeFormatPlugin extends Emerald_Filelib_Plugin_AbstractPlugin
+class ChangeFormatPlugin extends \Emerald\Filelib\Plugin\AbstractPlugin
 {
     /**
      * @var array Imagemagick options
@@ -58,7 +61,7 @@ class Emerald_Filelib_Plugin_Image_ChangeFormatPlugin extends Emerald_Filelib_Pl
         return $this->_targetExtension;
     }
 
-    public function beforeUpload(Emerald\Filelib\FileUpload $upload)
+    public function beforeUpload(\Emerald\Filelib\FileUpload $upload)
     {
         $oldUpload = $upload;
 

@@ -34,7 +34,7 @@ class CopyPublisher extends \Emerald\Filelib\Publisher\FilesystemPublisher imple
         }
     }
     
-    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $fl = $this->getFilelib();
             
@@ -61,7 +61,7 @@ class CopyPublisher extends \Emerald\Filelib\Publisher\FilesystemPublisher imple
         }
     }
     
-    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         if(is_file($link)) {

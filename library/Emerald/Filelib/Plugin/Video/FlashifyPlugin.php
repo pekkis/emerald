@@ -1,4 +1,8 @@
 <?php
+
+namespace Emerald\Filelib\Plugin\Video;
+
+
 /**
  * Prototype proof-of-concept test plugin for video versioning
  *
@@ -7,12 +11,12 @@
  * @todo This is just a proof a concept
  *
  */
-class Emerald_Filelib_Plugin_Video_FlashifyPlugin
-extends Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider
+class FlashifyPlugin
+extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVersionProvider
 {
     protected $_providesFor = array('video', 'application');
 
-    public function createVersion(Emerald\Filelib\FileItem $file)
+    public function createVersion(\Emerald\Filelib\FileItem $file)
     {
 
         $path = $file->getPath() . '/' . $this->getIdentifier();

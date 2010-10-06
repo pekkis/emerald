@@ -75,7 +75,7 @@ class FileProfile
     /**
      * Returns linker
      *
-     * @return \\Emerald\Filelib\Linker\LinkerInterface
+     * @return \Emerald\Filelib\Linker\LinkerInterface
      */
     public function getLinker()
     {
@@ -89,7 +89,7 @@ class FileProfile
     /**
      * Sets linker
      *
-     * @param \\Emerald\Filelib\Linker\LinkerInterface|string $linker
+     * @param \Emerald\Filelib\Linker\LinkerInterface|string $linker
      * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setLinker($linker)
@@ -173,10 +173,10 @@ class FileProfile
     /**
      * Adds a plugin
      *
-     * @param \Emerald_Filelib_Plugin_PluginInterface Plugin $plugin
+     * @param \Emerald\Filelib\Plugin\PluginInterface Plugin $plugin
      * @return \Emerald\Filelib\FileProfile
      */
-    public function addPlugin(\Emerald_Filelib_Plugin_PluginInterface $plugin)
+    public function addPlugin(\Emerald\Filelib\Plugin\PluginInterface $plugin)
     {
         $this->_plugins[] = $plugin;
         return $this;
@@ -254,7 +254,7 @@ class FileProfile
      *
      * @param \Emerald\Filelib\FileItem $file File item
      * @param string $version Version
-     * @return \Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider Provider
+     * @return \Emerald\Filelib\Plugin\VersionProvider\AbstractVersionProvider Provider
      */
     public function getVersionProvider(\Emerald\Filelib\FileItem $file, $version)
     {

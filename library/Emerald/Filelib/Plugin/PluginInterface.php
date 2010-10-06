@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Plugin;
+
 /**
  * Emerald Filelib plugin interface
  *
@@ -6,20 +9,20 @@
  * @author pekkis
  *
  */
-interface Emerald_Filelib_Plugin_PluginInterface
+interface PluginInterface
 {
 
     /**
      * Sets filelib
      *
-     * @param Emerald_Filelib $filelib Filelib
+     * @param \Emerald_Filelib $filelib Filelib
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib);
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib);
 
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function getFilelib();
     
@@ -45,37 +48,37 @@ interface Emerald_Filelib_Plugin_PluginInterface
     /**
      * Runs before upload
      *
-     * @param Emerald\Filelib\FileUpload $upload
-     * @return Emerald\Filelib\FileUpload
+     * @param \Emerald\Filelib\FileUpload $upload
+     * @return \Emerald\Filelib\FileUpload
      */
-    public function beforeUpload(Emerald\Filelib\FileUpload $upload);
+    public function beforeUpload(\Emerald\Filelib\FileUpload $upload);
 
     /**
      * Runs after succesful upload.
      *
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      */
-    public function afterUpload(Emerald\Filelib\FileItem $file);
+    public function afterUpload(\Emerald\Filelib\FileItem $file);
 
     /**
      * Runs after successful delete.
      *
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      */
-    public function onDelete(Emerald\Filelib\FileItem $file);
+    public function onDelete(\Emerald\Filelib\FileItem $file);
 
     /**
      * Runs on publish
      *
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      */
-    public function onPublish(Emerald\Filelib\FileItem $file);
+    public function onPublish(\Emerald\Filelib\FileItem $file);
 
     /**
      * Runs on unpublish
      *
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      */
-    public function onUnpublish(Emerald\Filelib\FileItem $file);
+    public function onUnpublish(\Emerald\Filelib\FileItem $file);
 
 }

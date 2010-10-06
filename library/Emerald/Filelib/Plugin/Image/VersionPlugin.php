@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Plugin\Image;
+
 /**
  * Versions an image
  *
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Plugin_Image_VersionPlugin extends Emerald_Filelib_Plugin_VersionProvider_AbstractVersionProvider
+class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVersionProvider
 {
     protected $_providesFor = array('image');
 
@@ -58,9 +61,9 @@ class Emerald_Filelib_Plugin_Image_VersionPlugin extends Emerald_Filelib_Plugin_
     /**
      * Creates and stores version
      *
-     * @param Emerald_FileItem $file
+     * @param \Emerald_FileItem $file
      */
-    public function createVersion(Emerald\Filelib\FileItem $file)
+    public function createVersion(\Emerald\Filelib\FileItem $file)
     {
         if($file->getType() != 'image') {
             throw new Exception('File must be an image');

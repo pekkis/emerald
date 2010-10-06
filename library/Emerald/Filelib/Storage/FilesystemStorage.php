@@ -193,7 +193,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         }
     }
     
-    public function storeVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version, $tempFile)
+    public function storeVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier();
                  
@@ -215,7 +215,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         return new Emerald\Base\Spl\FileObject($path);
     }
     
-    public function retrieveVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function retrieveVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         
@@ -240,7 +240,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
     }
     
     
-    public function deleteVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function deleteVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         unlink($path);

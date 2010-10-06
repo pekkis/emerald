@@ -40,7 +40,7 @@ class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
 
 
 
-    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $link = $this->getLink($file);
         $pinfo = pathinfo($link);

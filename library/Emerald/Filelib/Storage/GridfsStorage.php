@@ -132,7 +132,7 @@ class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_Abst
         $this->getGridFS()->storeFile($upload->getPathname(), array('filename' => $filename, 'metadata' => array('id' => $file->id, 'version' => 'original', 'mimetype' => $file->mimetype) ));
     }
     
-    public function storeVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version, $tempFile)
+    public function storeVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
     {
         $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         $this->getGridFS()->storeFile($tempFile, array('filename' => $filename, 'metadata' => array('id' => $file->id, 'version' => $version->getIdentifier(), 'mimetype' => $file->mimetype) ));
@@ -145,7 +145,7 @@ class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_Abst
         return $this->_toTemp($file);
     }
     
-    public function retrieveVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function retrieveVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         $file = $this->getGridFS()->findOne(array('filename' => $filename));
@@ -158,7 +158,7 @@ class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_Abst
         $this->getGridFS()->remove(array('filename' => $filename));
     }
     
-    public function deleteVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function deleteVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         $this->getGridFS()->remove(array('filename' => $filename));

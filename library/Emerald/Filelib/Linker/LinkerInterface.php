@@ -33,10 +33,10 @@ interface LinkerInterface
      * Returns link for a version of a file
      *
      * @param \Emerald\Filelib\FileItem $file
-     * @param \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version Version plugin
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version Version plugin
      * @return string Versioned link
      */
-    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version);
+    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version);
 
     /**
      * Returns a link for a file

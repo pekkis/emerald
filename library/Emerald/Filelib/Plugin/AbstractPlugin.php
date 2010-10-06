@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Plugin;
+
 /**
  * Abstract plugin class provides convenience methods for all event hooks.
  *
@@ -6,11 +9,11 @@
  * @author pekkis
  *
  */
-abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_Plugin_PluginInterface
+abstract class AbstractPlugin implements \Emerald\Filelib\Plugin\PluginInterface
 {
 
     /**
-     * @var Emerald\Filelib\FileLibrary Filelib
+     * @var \Emerald\Filelib\FileLibrary Filelib
      */
     protected $_filelib;
 
@@ -21,7 +24,7 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
 
     public function __construct($options = array())
     {
-        Emerald\Base\Options::setConstructorOptions($this, $options);
+        \Emerald\Base\Options::setConstructorOptions($this, $options);
     }
 
     /** 
@@ -47,9 +50,9 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
     /**
      * Sets filelib
      *
-     * @param Emerald_Filelib $filelib
+     * @param \Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -57,7 +60,7 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -67,21 +70,21 @@ abstract class Emerald_Filelib_Plugin_AbstractPlugin implements Emerald_Filelib_
     public function init()
     { }
 
-    public function beforeUpload(Emerald\Filelib\FileUpload $upload)
+    public function beforeUpload(\Emerald\Filelib\FileUpload $upload)
     {
         return $upload;
     }
 
-    public function afterUpload(Emerald\Filelib\FileItem $file)
+    public function afterUpload(\Emerald\Filelib\FileItem $file)
     { }
 
-    public function onDelete(Emerald\Filelib\FileItem $file)
+    public function onDelete(\Emerald\Filelib\FileItem $file)
     { }
     
-    public function onPublish(Emerald\Filelib\FileItem $file)
+    public function onPublish(\Emerald\Filelib\FileItem $file)
     { }
     
-    public function onUnpublish(Emerald\Filelib\FileItem $file)
+    public function onUnpublish(\Emerald\Filelib\FileItem $file)
     { }
     
 
