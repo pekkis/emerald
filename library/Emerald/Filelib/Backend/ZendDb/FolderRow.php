@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Backend\ZendDb;
+
 /**
  * Folder row
  * 
@@ -6,19 +9,13 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Backend_ZendDb_Row_Folder extends Zend_Db_Table_Row_Abstract implements Zend_Acl_Resource_Interface
+class FolderRow extends \Zend_Db_Table_Row_Abstract
 {
-
-    public function getResourceId()
-    {
-        return 'Emerald_Filelib_Folder_' . $this->id;
-    }
-
 
     public function findParent()
     {
         if($this->parent_id) {
-            return $this->findParentRow('Emerald_Filelib_Backend_ZendDb_Table_Folder');
+            return $this->findParentRow('\Emerald\Filelib\Backend\ZendDb\FolderTable');
         }
         return false;
     }

@@ -13,16 +13,16 @@ class FolderItem extends AbstractItem
 {
 
     /**
-     * @var Emerald\Filelib\FileLibrary Filelib
+     * @var \Emerald\Filelib\FileLibrary Filelib
      */
     private $_filelib;
 
     /**
      * Sets filelib
      *
-     * @param Emerald_Filelib $filelib
+     * @param \Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -30,7 +30,7 @@ class FolderItem extends AbstractItem
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function getFilelib()
     {
@@ -41,7 +41,7 @@ class FolderItem extends AbstractItem
     /**
      * Returns files in folder
      *
-     * @return Emerald\Filelib\FileItemIterator
+     * @return \Emerald\Filelib\FileItemIterator
      */
     public function findFiles()
     {
@@ -51,7 +51,7 @@ class FolderItem extends AbstractItem
     /**
      * Returns parent folder
      *
-     * @return Emerald\Filelib\FolderItem|false
+     * @return \Emerald\Filelib\FolderItem|false
      */
     public function findParent()
     {
@@ -64,7 +64,7 @@ class FolderItem extends AbstractItem
     /**
      * Finds subfolders
      *
-     * @return Emerald\Filelib\FolderItemIterator
+     * @return \Emerald\Filelib\FolderItemIterator
      */
     public function findSubFolders()
     {

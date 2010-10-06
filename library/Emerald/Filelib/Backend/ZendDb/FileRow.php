@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Backend\ZendDb;
+
 /**
  * File row
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Backend_ZendDb_Row_File extends Zend_Db_Table_Row_Abstract
+class FileRow extends \Zend_Db_Table_Row_Abstract
 {
 
 }

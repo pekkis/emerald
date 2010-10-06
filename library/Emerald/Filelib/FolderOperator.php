@@ -12,7 +12,7 @@ namespace Emerald\Filelib;
 class FolderOperator
 {
     /**
-     * @var Zend_Cache_Core
+     * @var \Zend_Cache_Core
      */
     protected $_cache;
 
@@ -23,7 +23,7 @@ class FolderOperator
      */
     protected $_cachePrefix = 'emerald_filelib_folderoperator';
    
-    public function __construct(Emerald\Filelib\FileLibrary $filelib)
+    public function __construct(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
         $this->_backend = $filelib->getBackend();
@@ -33,7 +33,7 @@ class FolderOperator
     /**
      * Returns cache
      * 
-     * @return Zend_Cache_Core
+     * @return \Zend_Cache_Core
      */
     public function getCache()
     {
@@ -95,7 +95,7 @@ class FolderOperator
     /**
      * Returns backend
      *
-     * @return Emerald_Filelib_Backend_BackendInterface
+     * @return \Emerald\Filelib\Backend\BackendInterface
      */
     public function getBackend()
     {
@@ -105,7 +105,7 @@ class FolderOperator
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -115,10 +115,10 @@ class FolderOperator
     /**
      * Creates a folder
      *
-     * @param Emerald\Filelib\FolderItem $folder
+     * @param \Emerald\Filelib\FolderItem $folder
      * @return unknown_type
      */
-    public function create(Emerald\Filelib\FolderItem $folder)
+    public function create(\Emerald\Filelib\FolderItem $folder)
     {
         $folder = $this->getBackend()->createFolder($folder);
         $folder->setFilelib($this->getFilelib());
@@ -128,9 +128,9 @@ class FolderOperator
     /**
      * Deletes a folder
      *
-     * @param Emerald\Filelib\FolderItem $folder Folder
+     * @param \Emerald\Filelib\FolderItem $folder Folder
      */
-    public function delete(Emerald\Filelib\FolderItem $folder)
+    public function delete(\Emerald\Filelib\FolderItem $folder)
     {
         foreach($folder->findSubFolders() as $childFolder) {
             $this->delete($childFolder);
@@ -147,9 +147,9 @@ class FolderOperator
     /**
      * Updates a folder
      *
-     * @param Emerald\Filelib\FolderItem $folder Folder
+     * @param \Emerald\Filelib\FolderItem $folder Folder
      */
-    public function update(Emerald\Filelib\FolderItem $folder)
+    public function update(\Emerald\Filelib\FolderItem $folder)
     {
         $this->getBackend()->updateFolder($folder);
 
@@ -170,7 +170,7 @@ class FolderOperator
     /**
      * Finds the root folder
      *
-     * @return Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\FolderItem
      */
     public function findRoot()
     {
@@ -185,7 +185,7 @@ class FolderOperator
      * Finds a folder
      *
      * @param mixed $id Folder id
-     * @return Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\FolderItem
      */
     public function find($id)
     {
@@ -199,10 +199,10 @@ class FolderOperator
     /**
      * Finds subfolders
      *
-     * @param Emerald_Fildlib_FolderItem $folder Folder
-     * @return Emerald\Filelib\FolderItemIterator
+     * @param \Emerald_Fildlib_FolderItem $folder Folder
+     * @return \Emerald\Filelib\FolderItemIterator
      */
-    public function findSubFolders(Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
     {
         $folders = $this->getBackend()->findSubFolders($folder);
         foreach($folders as $folder) {
@@ -213,10 +213,10 @@ class FolderOperator
 
 
     /**
-     * @param Emerald\Filelib\FolderItem $folder Folder
-     * @return Emerald\Filelib\FileItemIterator Collection of file items
+     * @param \Emerald\Filelib\FolderItem $folder Folder
+     * @return \Emerald\Filelib\FileItemIterator Collection of file items
      */
-    public function findFiles(Emerald\Filelib\FolderItem $folder)
+    public function findFiles(\Emerald\Filelib\FolderItem $folder)
     {
         $items = $this->getBackend()->findFilesIn($folder);
         foreach($items as $item) {

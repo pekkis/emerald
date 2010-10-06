@@ -15,7 +15,7 @@ class ZendAcl implements AclInterface
 {
 
     /**
-     * @var Zend_Acl
+     * @var \Zend_Acl
      */
     private $_acl;
     
@@ -34,7 +34,7 @@ class ZendAcl implements AclInterface
      * 
      * @param \Zend_Acl $acl
      */
-    public function setAcl(Zend_Acl $acl)
+    public function setAcl(\Zend_Acl $acl)
     {
         $this->_acl = $acl;
     }

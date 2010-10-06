@@ -12,7 +12,7 @@ interface Emerald_Filelib_Linker_LinkerInterface
     /**
      * Constructor eats filelib as parameter.
      *
-     * @param Zend_Config|array $options
+     * @param \Zend_Config|array $options
      */
     public function __construct($options = array());
 

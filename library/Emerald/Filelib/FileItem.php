@@ -5,21 +5,20 @@ namespace Emerald\Filelib;
 /**
  * File item
  *
- * @package Emerald_Filelib
  * @author pekkis
  *
  */
-class FileItem extends Emerald\Filelib\AbstractItem
+class FileItem extends \Emerald\Filelib\AbstractItem
 {
     /**
-     * @var Emerald\Filelib\FileLibrary Filelib
+     * @var \Emerald\Filelib\FileLibrary Filelib
      */
     private $_filelib;
 
     private $_profileObj;
 
 
-    public function setProfileObject(Emerald\Filelib\FileProfile $profileObj)
+    public function setProfileObject(\Emerald\Filelib\FileProfile $profileObj)
     {
         $this->_profileObj = $profileObj;
     }
@@ -35,9 +34,9 @@ class FileItem extends Emerald\Filelib\AbstractItem
     /**
      * Sets filelib
      *
-     * @param Emerald_Filelib $filelib
+     * @param \Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -45,7 +44,7 @@ class FileItem extends Emerald\Filelib\AbstractItem
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -56,7 +55,7 @@ class FileItem extends Emerald\Filelib\AbstractItem
     /**
      * Finds and returns folder
      *
-     * @return Emerald\Filelib\FolderItem|false
+     * @return \Emerald\Filelib\FolderItem|false
      */
     public function findFolder()
     {
@@ -108,10 +107,10 @@ class FileItem extends Emerald\Filelib\AbstractItem
     /**
      * Renders file to HTTP response
      *
-     * @param Zend_Controller_Response_Http $response Response
+     * @param \Zend_Controller_Response_Http $response Response
      * @param array $opts Options
      */
-    public function render(Zend_Controller_Response_Http $response, $opts = array())
+    public function render(\Zend_Controller_Response_Http $response, $opts = array())
     {
         return $this->getFilelib()->file()->render($this, $response, $opts);
     }

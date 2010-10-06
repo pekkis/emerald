@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Backend\ZendDb;
+
 /**
  * Folder table
  * 
@@ -6,17 +9,17 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Backend_ZendDb_Table_Folder extends Zend_Db_Table_Abstract
+class FolderTable extends \Zend_Db_Table_Abstract
 {
     protected $_name = 'emerald_filelib_folder';
     protected $_id = array('id');
-    protected $_rowClass = 'Emerald_Filelib_Backend_ZendDb_Row_Folder';
+    protected $_rowClass = '\Emerald\Filelib\Backend\ZendDb\FolderRow';
 
 
     protected $_referenceMap    = array(
         'Folder' => array(
             'columns'           => 'parent_id',
-            'refTableClass'     => 'Emerald_Filelib_Backend_ZendDb_Table_Folder',
+            'refTableClass'     => '\Emerald\Filelib\Backend\ZendDb\FolderTable',
             'refColumns'        => 'id'
             ),
             );

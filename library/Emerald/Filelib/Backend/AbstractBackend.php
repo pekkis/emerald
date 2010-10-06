@@ -1,4 +1,9 @@
 <?php
+
+namespace Emerald\Filelib\Backend;
+
+use Emerald\Filelib\FileLibrary, Emerald\Base\Options;
+
 /**
  * Abstract backend implementing common methods
  * 
@@ -6,7 +11,7 @@
  * @package Emerald_Filelib
  *
  */
-abstract class Emerald_Filelib_Backend_AbstractBackend implements Emerald_Filelib_Backend_BackendInterface
+abstract class AbstractBackend implements BackendInterface
 {
     /**
      * @var Emerald\Filelib\FileLibrary Filelib
@@ -15,7 +20,7 @@ abstract class Emerald_Filelib_Backend_AbstractBackend implements Emerald_Fileli
     
     public function __construct($options)
     {
-        Emerald\Base\Options::setConstructorOptions($this, $options);
+        Options::setConstructorOptions($this, $options);
     }
         
     /**
@@ -23,7 +28,7 @@ abstract class Emerald_Filelib_Backend_AbstractBackend implements Emerald_Fileli
      *
      * @param Emerald_Filelib $filelib
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
+    public function setFilelib(FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }

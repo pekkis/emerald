@@ -13,7 +13,7 @@ class FileOperator
 {
 
     /**
-     * @var Zend_Cache_Core
+     * @var \Zend_Cache_Core
      */
     protected $_cache;
 
@@ -23,19 +23,19 @@ class FileOperator
     protected $_cachePrefix = 'emerald_filelib_fileoperator';
 
     /**
-     * @var Emerald\Filelib\Uploader
+     * @var \Emerald\Filelib\Uploader
      */
     protected $_uploader;    
         
     /**
      * Returns uploader
      * 
-     * @return Emerald\Filelib\Uploader
+     * @return \Emerald\Filelib\Uploader
      */
     public function getUploader()
     {
         if(!$this->_uploader) {
-        	$this->_uploader = new Emerald\Filelib\Uploader();
+        	$this->_uploader = new \Emerald\Filelib\Uploader();
         }
         return $this->_uploader;
     }
@@ -43,10 +43,10 @@ class FileOperator
     /**
      * Sets uploader
      * 
-     * @param Emerald\Filelib\Uploader $uploader
-     * @return Emerald\Filelib\FileOperator
+     * @param \Emerald\Filelib\Uploader $uploader
+     * @return \Emerald\Filelib\FileOperator
      */
-    public function setUploader(Emerald\Filelib\Uploader $uploader)
+    public function setUploader(\Emerald\Filelib\Uploader $uploader)
     {
     	$this->_uploader = $uploader;
     	return $this;
@@ -55,7 +55,7 @@ class FileOperator
     /**
      * Returns cache
      * 
-     * @return Zend_Cache_Core
+     * @return \Zend_Cache_Core
      */
     public function getCache()
     {
@@ -117,7 +117,7 @@ class FileOperator
     /**
      * Returns backend
      *
-     * @return Emerald_Filelib_Backend_BackendInterface
+     * @return \Emerald\Filelib\Backend\BackendInterface
      */
     public function getBackend()
     {
@@ -128,7 +128,7 @@ class FileOperator
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {
@@ -136,7 +136,7 @@ class FileOperator
     }
 
 
-    public function __construct(Emerald\Filelib\FileLibrary $filelib)
+    public function __construct(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
         $this->_backend = $filelib->getBackend();
@@ -147,10 +147,10 @@ class FileOperator
     /**
      * Updates a file
      *
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      * @return unknown_type
      */
-    public function update(Emerald\Filelib\FileItem $file)
+    public function update(\Emerald\Filelib\FileItem $file)
     {
         $this->unpublish($file);        
         // $file->getProfileObject()->getLinker()->deleteSymlink($file);
@@ -174,7 +174,7 @@ class FileOperator
      * Finds a file
      *
      * @param mixed $idFile File id
-     * @return Emerald\Filelib\FileItem
+     * @return \Emerald\Filelib\FileItem
      */
     public function find($id)
     {
@@ -198,7 +198,7 @@ class FileOperator
     /**
      * Finds and returns all files
      *
-     * @return Emerald\Filelib\FileItemIterator
+     * @return \Emerald\Filelib\FileItemIterator
      */
     public function findAll()
     {
@@ -217,10 +217,10 @@ class FileOperator
      * Returns whether a file is anonymous
      *
      * @todo This is still mock!
-     * @param Emerald\Filelib\FileItem $file File
+     * @param \Emerald\Filelib\FileItem $file File
      * @return boolean
      */
-    public function isAnonymous(Emerald\Filelib\FileItem $file)
+    public function isAnonymous(\Emerald\Filelib\FileItem $file)
     {
         return $this->getFilelib()->getAcl()->isAnonymousReadable($file);
 
@@ -231,11 +231,11 @@ class FileOperator
      * Gets a new upload
      *
      * @param string $path Path to upload file
-     * @return Emerald\Filelib\FileUpload
+     * @return \Emerald\Filelib\FileUpload
      */
     public function prepareUpload($path)
     {
-        $upload = new Emerald\Filelib\FileUpload($path);
+        $upload = new \Emerald\Filelib\FileUpload($path);
         $upload->setFilelib($this->getFilelib());
         return $upload;
     }
@@ -245,23 +245,23 @@ class FileOperator
      * Uploads file to filelib.
      *
      * @param mixed $upload Uploadable, path or object
-     * @param Emerald\Filelib\FolderItem $folder
-     * @return Emerald\Filelib\FileItem
-     * @throws Emerald\Filelib\FilelibException
+     * @param \Emerald\Filelib\FolderItem $folder
+     * @return \Emerald\Filelib\FileItem
+     * @throws \Emerald\Filelib\FilelibException
      */
     public function upload($upload, $folder, $profile = 'default')
     {
-        if(!$upload instanceof Emerald\Filelib\FileUpload) {
+        if(!$upload instanceof \Emerald\Filelib\FileUpload) {
             $upload = $this->prepareUpload($upload);
         }
 
         
         if(!$this->getFilelib()->getAcl()->isWriteable($folder)) {
-            throw new Emerald\Filelib\FilelibException("Folder '{$folder->id}'not writeable");
+            throw new \Emerald\Filelib\FilelibException("Folder '{$folder->id}'not writeable");
         }
 
         if(!$this->getUploader()->isAccepted($upload)) {
-            throw new Emerald\Filelib\FilelibException("Can not upload");
+            throw new \Emerald\Filelib\FilelibException("Can not upload");
         }
 
         $profile = $this->getFilelib()->getProfile($profile);
@@ -275,7 +275,7 @@ class FileOperator
         $file->setProfileObject($profile);
         	
         if(!$file) {
-            throw new Emerald\Filelib\FilelibException("Can not upload");
+            throw new \Emerald\Filelib\FilelibException("Can not upload");
         }
         
         try {
@@ -304,10 +304,10 @@ class FileOperator
     /**
      * Deletes a file
      *
-     * @param Emerald\Filelib\FileItem $file
-     * @throws Emerald\Filelib\FilelibException
+     * @param \Emerald\Filelib\FileItem $file
+     * @throws \Emerald\Filelib\FilelibException
      */
-    public function delete(Emerald\Filelib\FileItem $file)
+    public function delete(\Emerald\Filelib\FileItem $file)
     {
         try {
 
@@ -318,7 +318,7 @@ class FileOperator
             $this->getFilelib()->getStorage()->delete($file);
 
             foreach($file->getProfileObject()->getPlugins() as $plugin) {
-                if($plugin instanceof Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface && $plugin->providesFor($file)) {
+                if($plugin instanceof \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface && $plugin->providesFor($file)) {
                     $plugin->onDelete($file);
                 }
             }
@@ -326,7 +326,7 @@ class FileOperator
             return true;
             	
         } catch(Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
 
     }
@@ -335,10 +335,10 @@ class FileOperator
     /**
      * Returns file type of a file
      *
-     * @param Emerald\Filelib\FileItem File $file item
+     * @param \Emerald\Filelib\FileItem File $file item
      * @return string File type
      */
-    public function getType(Emerald\Filelib\FileItem $file)
+    public function getType(\Emerald\Filelib\FileItem $file)
     {
         // @todo Semi-mock until mimetype database is pooped in.
         $split = explode('/', $file->mimetype);
@@ -349,11 +349,11 @@ class FileOperator
     /**
      * Returns whether a file has a certain version
      *
-     * @param Emerald\Filelib\FileItem $file File item
+     * @param \Emerald\Filelib\FileItem $file File item
      * @param string $version Version
      * @return boolean
      */
-    public function hasVersion(Emerald\Filelib\FileItem $file, $version)
+    public function hasVersion(\Emerald\Filelib\FileItem $file, $version)
     {
         $filetype = $this->getType($file);
         $profile = $file->getProfileObject();
@@ -367,11 +367,11 @@ class FileOperator
     /**
      * Returns version provider for a file/version
      *
-     * @param Emerald\Filelib\FileItem $file File item
+     * @param \Emerald\Filelib\FileItem $file File item
      * @param string $version Version
      * @return object Provider
      */
-    public function getVersionProvider(Emerald\Filelib\FileItem $file, $version)
+    public function getVersionProvider(\Emerald\Filelib\FileItem $file, $version)
     {
         return $file->getProfileObject()->getVersionProvider($file, $version);
     }
@@ -380,11 +380,11 @@ class FileOperator
     /**
      * Renders a file's path
      *
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      * @param array $opts Options
      * @return string File path
      */
-    public function renderPath(Emerald\Filelib\FileItem $file, $opts = array())
+    public function renderPath(\Emerald\Filelib\FileItem $file, $opts = array())
     {
         if(isset($opts['version'])) {
 
@@ -394,7 +394,7 @@ class FileOperator
                 $provider = $this->getVersionProvider($file, $version);
                 $path = $provider->getRenderPath($file);
             } else {
-                throw new Emerald\Filelib\FilelibException("Version '{$version}' is not available");
+                throw new \Emerald\Filelib\FilelibException("Version '{$version}' is not available");
             }
         } else {
             $path = $file->getRenderPath();
@@ -409,11 +409,11 @@ class FileOperator
     /**
      * Renders a file to a response
      *
-     * @param Emerald_Filelib File $file item
-     * @param Zend_Controller_Response_Http $response Response
+     * @param \Emerald_Filelib File $file item
+     * @param \Zend_Controller_Response_Http $response Response
      * @param array $opts Options
      */
-    public function render(Emerald\Filelib\FileItem $file, Zend_Controller_Response_Http $response, $opts = array())
+    public function render(\Emerald\Filelib\FileItem $file, \Zend_Controller_Response_Http $response, $opts = array())
     {
         $path = $this->renderPath($file, $opts);
         if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
@@ -421,7 +421,7 @@ class FileOperator
         }
 
         if(!$this->getFilelib()->getAcl()->isReadable($file)) {
-            throw new Emerald\Filelib\FilelibException('Not readable', 404);
+            throw new \Emerald\Filelib\FilelibException('Not readable', 404);
         }
 
 
@@ -431,7 +431,7 @@ class FileOperator
         }
 
         if(!is_readable($path)) {
-            throw new Emerald\Filelib\FilelibException('File not readable');
+            throw new \Emerald\Filelib\FilelibException('File not readable');
         }
 
         $response->setHeader('Content-Type', $file->mimetype);
@@ -441,7 +441,7 @@ class FileOperator
     }
 
     
-    public function publish(Emerald\Filelib\FileItem $file)
+    public function publish(\Emerald\Filelib\FileItem $file)
     {
                         
         $this->getFilelib()->getPublisher()->publish($file);
@@ -450,7 +450,7 @@ class FileOperator
         }
     }
     
-    public function unpublish(Emerald\Filelib\FileItem $file)
+    public function unpublish(\Emerald\Filelib\FileItem $file)
     {
         $this->getFilelib()->getPublisher()->unpublish($file);
         foreach($file->getProfileObject()->getPlugins() as $plugin) {

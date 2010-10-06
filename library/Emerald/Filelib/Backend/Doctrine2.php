@@ -1,5 +1,7 @@
 <?php
 
+namespace Emerald\Filelib\Backend;
+
 /**
  * Doctrine 2 backend for filelib
  *
@@ -7,7 +9,7 @@
  * @package  Emerald_Filelib
  * @author   Mikko Hirvonen
  */
-class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backend_BackendInterface
+class Doctrine2Backend implements BackendInterface
 {
     /**
      * File entity name
@@ -46,10 +48,10 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
     /**
      * Sets filelib
      *
-     * @param  Emerald_Filelib                   $filelib
-     * @return Emerald_Filelib_Backend_Doctrine2Backend
+     * @param  \Emerald_Filelib                   $filelib
+     * @return \Emerald\Filelib\Backend\Doctrine2Backend
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
 
@@ -59,7 +61,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function getFilelib()
     {
@@ -70,7 +72,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * Finds a file
      *
      * @param  integer                        $id
-     * @return Emerald\Filelib\FileItem|false
+     * @return \Emerald\Filelib\FileItem|false
      */
     public function findFile($id)
     {
@@ -88,7 +90,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
     /**
      * Finds all files
      *
-     * @return Emerald\Filelib\FileItemIterator
+     * @return \Emerald\Filelib\FileItemIterator
      */
     public function findAllFiles()
     {
@@ -104,16 +106,16 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $files[] = $this->_fileToArray($file);
         }
 
-        return new Emerald\Filelib\FileItemIterator($files);
+        return new \Emerald\Filelib\FileItemIterator($files);
     }
 
     /**
      * Finds a file
      *
-     * @param  Emerald\Filelib\FolderItem       $folder
-     * @return Emerald\Filelib\FileItemIterator
+     * @param  \Emerald\Filelib\FolderItem       $folder
+     * @return \Emerald\Filelib\FileItemIterator
      */
-    public function findFilesIn(Emerald\Filelib\FolderItem $folder)
+    public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
     {
         $qb = $this->_em->createQueryBuilder();
 
@@ -129,16 +131,16 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $files[] = $this->_fileToArray($file);
         }
 
-        return new Emerald\Filelib\FileItemIterator($files);
+        return new \Emerald\Filelib\FileItemIterator($files);
     }
 
     /**
      * Updates a file
      *
-     * @param  Emerald\Filelib\FileItem  $file
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param  \Emerald\Filelib\FileItem  $file
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFile(Emerald\Filelib\FileItem $file)
+    public function updateFile(\Emerald\Filelib\FileItem $file)
     {
         try {
             $file->link = $file->getProfileObject()
@@ -158,17 +160,17 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
 
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     }
 
     /**
      * Deletes a file
      *
-     * @param  Emerald\Filelib\FileItem  $file
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param  \Emerald\Filelib\FileItem  $file
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFile(Emerald\Filelib\FileItem $file)
+    public function deleteFile(\Emerald\Filelib\FileItem $file)
     {
         try {
             $fileRow = $this->_em->getReference($this->_fileEntityName, $file->id);
@@ -176,7 +178,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $this->_em->remove($fileRow);
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     }
 
@@ -184,7 +186,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
      * Finds folder
      *
      * @param  integer                          $id
-     * @return Emerald\Filelib\FolderItem|false
+     * @return \Emerald\Filelib\FolderItem|false
      */
     public function findFolder($id)
     {
@@ -198,7 +200,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
     /**
      * Finds the root folder
      *
-     * @return Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\FolderItem
      */
     public function findRootFolder()
     {
@@ -218,10 +220,10 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
     /**
      * Finds subfolders of a folder
      *
-     * @param  Emerald\Filelib\FolderItem         $id
-     * @return Emerald\Filelib\FolderItemIterator
+     * @param  \Emerald\Filelib\FolderItem         $id
+     * @return \Emerald\Filelib\FolderItemIterator
      */
-    public function findSubFolders(Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
     {
         $qb = $this->_em->createQueryBuilder();
 
@@ -239,17 +241,17 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $folders[] = new $folderItemClass($this->_folderToArray($folderRow));
         }
 
-        return new Emerald\Filelib\FolderItemIterator($folders);
+        return new \Emerald\Filelib\FolderItemIterator($folders);
     }
 
     /**
      * Creates a folder
      *
-     * @param  Emerald\Filelib\FolderItem $folder
-     * @return Emerald\Filelib\FolderItem Created folder
-     * @throws Emerald\Filelib\FilelibException  When fails
+     * @param  \Emerald\Filelib\FolderItem $folder
+     * @return \Emerald\Filelib\FolderItem Created folder
+     * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function createFolder(Emerald\Filelib\FolderItem $folder)
+    public function createFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
             $folderRow = new $this->_folderEntityName();
@@ -269,17 +271,17 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
 
             return $folder;
         } catch (Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     }
 
     /**
      * Updates a folder
      *
-     * @param  Emerald\Filelib\FolderItem $folder
-     * @throws Emerald\Filelib\FilelibException  When fails
+     * @param  \Emerald\Filelib\FolderItem $folder
+     * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function updateFolder(Emerald\Filelib\FolderItem $folder)
+    public function updateFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
             $folderRow = $this->_em->getReference($this->_folderEntityName,
@@ -297,17 +299,17 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
 
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     }
 
     /**
      * Deletes a folder
      *
-     * @param  Emerald\Filelib\FolderItem $folder
-     * @throws Emerald\Filelib\FilelibException  When fails
+     * @param  \Emerald\Filelib\FolderItem $folder
+     * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function deleteFolder(Emerald\Filelib\FolderItem $folder)
+    public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
             $folder = $this->_em->getReference($this->_folderEntityName, $folder->id);
@@ -315,21 +317,21 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
             $this->_em->remove($folder);
             $this->_em->flush();
         } catch (Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     }
 
     /**
      * Uploads a file
      *
-     * @param  Emerald\Filelib\FileUpload $upload Fileobject to upload
-     * @param  Emerald\Filelib\FolderItem $folder Folder
-     * @return Emerald\Filelib\FileItem   File item
-     * @throws Emerald\Filelib\FilelibException  When fails
+     * @param  \Emerald\Filelib\FileUpload $upload Fileobject to upload
+     * @param  \Emerald\Filelib\FolderItem $folder Folder
+     * @return \Emerald\Filelib\FileItem   File item
+     * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function upload(Emerald\Filelib\FileUpload $upload,
-    Emerald\Filelib\FolderItem $folder,
-    Emerald\Filelib\FileProfile $profile
+    public function upload(\Emerald\Filelib\FileUpload $upload,
+    \Emerald\Filelib\FolderItem $folder,
+    \Emerald\Filelib\FileProfile $profile
     ){
         try {
             $conn = $this->_em->getConnection();
@@ -366,7 +368,7 @@ class Emerald_Filelib_Backend_Doctrine2Backend implements Emerald_Filelib_Backen
         } catch (Exception $e) {
             $conn->rollback();
 
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     }
 

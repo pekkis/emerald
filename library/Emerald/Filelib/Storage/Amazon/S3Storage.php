@@ -27,12 +27,12 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     }
     
     /**
-     * @return Zend_Service_Amazon_S3
+     * @return \Zend_Service_Amazon_S3
      */
     public function getStorage()
     {
         if(!$this->_storage) {
-            $this->_storage = new Zend_Service_Amazon_S3($this->getKey(), $this->getSecretKey());
+            $this->_storage = new \Zend_Service_Amazon_S3($this->getKey(), $this->getSecretKey());
         }
         
         if(!$this->_storage->isBucketAvailable($this->getBucket())) {

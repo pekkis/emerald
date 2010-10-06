@@ -1,4 +1,9 @@
 <?php
+
+namespace Emerald\Filelib\Backend;
+
+use Emerald\Filelib;
+
 /**
  * Zend Db backend for filelib.
  *
@@ -6,7 +11,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_AbstractBackend implements Emerald_Filelib_Backend_BackendInterface
+class ZendDbBackend extends AbstractBackend implements BackendInterface
 {
 
     /**
@@ -15,12 +20,12 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     private $_db;
 
     /**
-     * @var Emerald_Filelib_Backend_ZendDb_Table_File File table
+     * @var \Emerald\Filelib\Backend\ZendDb\FileTable File table
      */
     private $_fileTable;
 
     /**
-     * @var Emerald_Filelib_Backend_ZendDb_Table_Folder Folder table
+     * @var \Emerald\Filelib\Backend\ZendDb\FolderTable Folder table
      */
     private $_folderTable;
 
@@ -28,10 +33,10 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     /**
      * Sets db adapter
      *
-     * @param Zend_Db_Adapter_Abstract $db
+     * @param \Zend_Db_Adapter_Abstract $db
      * @return unknown_type
      */
-    public function setDb(Zend_Db_Adapter_Abstract $db)
+    public function setDb(\Zend_Db_Adapter_Abstract $db)
     {
         $this->_db = $db;
     }
@@ -45,7 +50,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     public function getDb()
     {
         if(!$this->_db) {
-            throw new Emerald\Filelib\FilelibException('Db handler has no db');
+            throw new FilelibException('Db handler has no db');
         }
 
         return $this->_db;
@@ -55,12 +60,12 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     /**
      * Returns file table
      *
-     * @return Emerald_Filelib_Backend_ZendDb_Table_Folder
+     * @return \Emerald\Filelib\Backend\ZendDb\FolderTable
      */
     public function getFileTable()
     {
         if(!$this->_fileTable) {
-            $this->_fileTable = new Emerald_Filelib_Backend_ZendDb_Table_File($this->getDb());
+            $this->_fileTable = new \Emerald\Filelib\Backend\ZendDb\FileTable($this->getDb());
         }
         return $this->_fileTable;
     }
@@ -68,12 +73,12 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     /**
      * Returns folder table
      *
-     * @return Emerald_Filelib_Backend_ZendDb_Table_Folder
+     * @return \Emerald\Filelib\Backend\ZendDb\FolderTable
      */
     public function getFolderTable()
     {
         if(!$this->_folderTable) {
-            $this->_folderTable = new Emerald_Filelib_Backend_ZendDb_Table_Folder($this->getDb());
+            $this->_folderTable = new \Emerald\Filelib\Backend\ZendDb\FolderTable($this->getDb());
         }
 
         return $this->_folderTable;
@@ -83,7 +88,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
 
 
 
-    public function createFolder(Emerald\Filelib\FolderItem $folder)
+    public function createFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
             $folderRow = $this->getFolderTable()->createRow($folder->toArray());
@@ -93,24 +98,24 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             return $folder;
             	
         } catch(Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
 
 
     }
 
 
-    public function deleteFolder(Emerald\Filelib\FolderItem $folder)
+    public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
             $this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->id));
         } catch(Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
 
     }
 
-    public function updateFolder(Emerald\Filelib\FolderItem $folder)
+    public function updateFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
             $this->getFolderTable()->update(
@@ -119,13 +124,13 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             );
             	
         } catch(Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
 
     }
 
 
-    public function updateFile(Emerald\Filelib\FileItem $file)
+    public function updateFile(\Emerald\Filelib\FileItem $file)
     {
         try {
 
@@ -140,13 +145,13 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             $file->link = $file->link;
             	
         } catch(Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
 
     }
 
 
-    public function deleteFile(Emerald\Filelib\FileItem $file)
+    public function deleteFile(\Emerald\Filelib\FileItem $file)
     {
         try {
             $this->getDb()->beginTransaction();
@@ -156,12 +161,12 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             return true;
         } catch(Exception $e) {
             $this->getDb()->rollBack();
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
 
     }
 
-    public function upload(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FolderItem $folder, Emerald\Filelib\FileProfile $profile)
+    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FolderItem $folder, \Emerald\Filelib\FileProfile $profile)
     {
         $fileItemClass = $this->getFilelib()->getFileItemClass();
 
@@ -193,7 +198,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
         } catch(Exception $e) {
             	
             $this->getDb()->rollBack();
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
         	
         	
@@ -219,7 +224,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
 
 
 
-    public function findSubFolders(Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
     {
         $folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->id));
 
@@ -231,7 +236,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
             $folders[] = new $className($folderRow->toArray());
         }
 
-        return new Emerald\Filelib\FolderItemIterator($folders);
+        return new \Emerald\Filelib\FolderItemIterator($folders);
     }
 
 
@@ -249,7 +254,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
     }
 
 
-    public function findFilesIn(Emerald\Filelib\FolderItem $folder)
+    public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
     {
         $fileItemClass = $this->getFilelib()->getFileItemClass();
         $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->id));
@@ -258,7 +263,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
         foreach($res as $row) {
             $files[] = new $fileItemClass($row->toArray());
         }
-        return new Emerald\Filelib\FileItemIterator($files);
+        return new \Emerald\Filelib\FileItemIterator($files);
     }
 
 
@@ -270,7 +275,7 @@ class Emerald_Filelib_Backend_ZendDbBackend extends Emerald_Filelib_Backend_Abst
         foreach($res as $row) {
             $files[] = new $fileItemClass($row->toArray());
         }
-        return new Emerald\Filelib\FileItemIterator($files);
+        return new \Emerald\Filelib\FileItemIterator($files);
     }
 
 

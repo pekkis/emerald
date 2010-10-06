@@ -15,7 +15,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
     protected $_filelib;
 
     /**
-     * @param array|Zend_Config $options
+     * @param array|\Zend_Config $options
      */
     public function __construct($options = array())
     {

@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Backend;
+
 /**
  * MongoDB backend for Filelib
  * 
@@ -7,7 +10,7 @@
  * @todo Prototype, to be error-proofed
  *
  */
-class Emerald_Filelib_Backend_MongoBackend extends Emerald_Filelib_Backend_AbstractBackend implements Emerald_Filelib_Backend_BackendInterface
+class MongoBackend extends AbstractBackend implements BackendInterface
 {
     
     private $_mongo;

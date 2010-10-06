@@ -37,7 +37,7 @@ abstract class AbstractItem
         }
 
         if(!is_array($data)) {
-            throw new Emerald\Filelib\FilelibException('Supplied data must be an array');
+            throw new \Emerald\Filelib\FilelibException('Supplied data must be an array');
         }
 
         foreach($data as $key => $value) {
@@ -106,7 +106,7 @@ abstract class AbstractItem
      *
      * @param string $key Key
      * @return mixed
-     * @throws Emerald\Filelib\FilelibException
+     * @throws \Emerald\Filelib\FilelibException
      */
     public function __get($key)
     {
@@ -115,7 +115,7 @@ abstract class AbstractItem
             if(!$this->_enforceFieldIntegrity) {
                 return null;
             }
-            throw new Emerald\Filelib\FilelibException("Field '{$key}' not set");
+            throw new \Emerald\Filelib\FilelibException("Field '{$key}' not set");
             	
         }
         return $this->_data[$key];
@@ -134,20 +134,20 @@ abstract class AbstractItem
     public function __call($func, $args)
     {
         if(preg_match('/^get/', $func)) {
-            $filter = new Zend_Filter_Word_CamelCaseToUnderscore();
+            $filter = new \Zend_Filter_Word_CamelCaseToUnderscore();
             $field = lcfirst(substr($func, 3));
             $field = $filter->filter($field);
             return $this->$field;
         }
 
         if(preg_match('/^set/', $func)) {
-            $filter = new Zend_Filter_Word_CamelCaseToUnderscore();
+            $filter = new \Zend_Filter_Word_CamelCaseToUnderscore();
             $field = lcfirst(substr($func, 3));
             $field = $filter->filter($field);
             $this->$field = $args[0];
         }
 
-        throw new Emerald\Filelib\FilelibException("Method '{$func}' does not exist");
+        throw new \Emerald\Filelib\FilelibException("Method '{$func}' does not exist");
     }
 
 
