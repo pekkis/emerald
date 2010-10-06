@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Publisher;
+
 /**
  * Abstract filesystem publisher base class
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-abstract class Emerald_Filelib_Publisher_FilesystemPublisher extends Emerald_Filelib_Publisher_AbstractPublisher
+abstract class FilesystemPublisher extends \Emerald\Filelib\Publisher\AbstractPublisher
 {
     /**
      * @var integer Octal representation for directory permissions
@@ -28,7 +31,7 @@ abstract class Emerald_Filelib_Publisher_FilesystemPublisher extends Emerald_Fil
      * Sets public root
      *
      * @param string $publicRoot
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setPublicRoot($publicRoot)
     {
@@ -51,7 +54,7 @@ abstract class Emerald_Filelib_Publisher_FilesystemPublisher extends Emerald_Fil
      * Sets directory permission
      *
      * @param integer $directoryPermission
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setDirectoryPermission($directoryPermission)
     {
@@ -74,7 +77,7 @@ abstract class Emerald_Filelib_Publisher_FilesystemPublisher extends Emerald_Fil
      * Sets file permission
      *
      * @param integer $filePermission
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setFilePermission($filePermission)
     {

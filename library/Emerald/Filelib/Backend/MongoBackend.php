@@ -31,7 +31,7 @@ class MongoBackend extends AbstractBackend implements BackendInterface
      * Finds folder
      *
      * @param integer $id
-     * @return Emerald\Filelib\FolderItem|false
+     * @return \Emerald\Filelib\FolderItem|false
      */
     public function findFolder($id)
     {
@@ -51,10 +51,10 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Finds subfolders of a folder
      *
-     * @param Emerald\Filelib\FolderItem $id
-     * @return Emerald\Filelib\FolderItemIterator
+     * @param \Emerald\Filelib\FolderItem $id
+     * @return \Emerald\Filelib\FolderItemIterator
      */
-    public function findSubFolders(Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
     {
         $mongo = $this->getMongo();
 
@@ -69,14 +69,14 @@ class MongoBackend extends AbstractBackend implements BackendInterface
             $folders[] = $folder;
         }
         
-        return new Emerald\Filelib\FolderItemIterator($folders);        
+        return new \Emerald\Filelib\FolderItemIterator($folders);        
     }
     
 
     /**
      * Finds all files
      *
-     * @return Emerald\Filelib\FileItemIterator
+     * @return \Emerald\Filelib\FileItemIterator
      */
     public function findAllFiles()
     {
@@ -101,7 +101,7 @@ class MongoBackend extends AbstractBackend implements BackendInterface
      * Finds a file
      *
      * @param integer $id
-     * @return Emerald\Filelib\FileItem|false
+     * @return \Emerald\Filelib\FileItem|false
      */
     public function findFile($id)
     {
@@ -121,10 +121,10 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Finds a file
      *
-     * @param Emerald\Filelib\FolderItem $folder
-     * @return Emerald\Filelib\FileItemIterator
+     * @param \Emerald\Filelib\FolderItem $folder
+     * @return \Emerald\Filelib\FileItemIterator
      */
-    public function findFilesIn(Emerald\Filelib\FolderItem $folder)
+    public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
     {
         $mongo = $this->getMongo();
 
@@ -145,12 +145,12 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Uploads a file
      *
-     * @param Emerald\Filelib\FileUpload $upload Fileobject to upload
-     * @param Emerald\Filelib\FolderItem $folder Folder
-     * @return Emerald\Filelib\FileItem File item
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param \Emerald\Filelib\FileUpload $upload Fileobject to upload
+     * @param \Emerald\Filelib\FolderItem $folder Folder
+     * @return \Emerald\Filelib\FileItem File item
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function upload(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FolderItem $folder, Emerald\Filelib\FileProfile $profile)
+    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FolderItem $folder, \Emerald\Filelib\FileProfile $profile)
     {
 
         $fileItemClass = $this->getFilelib()->getFileItemClass();
@@ -180,7 +180,7 @@ class MongoBackend extends AbstractBackend implements BackendInterface
             return $this->_addId($fileItem);
 
         } catch(Exception $e) {
-            throw new Emerald\Filelib\FilelibException($e->getMessage());
+            throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
     	
     	
@@ -189,11 +189,11 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Creates a folder
      *
-     * @param Emerald\Filelib\FolderItem $folder
-     * @return Emerald\Filelib\FolderItem Created folder
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param \Emerald\Filelib\FolderItem $folder
+     * @return \Emerald\Filelib\FolderItem Created folder
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function createFolder(Emerald\Filelib\FolderItem $folder)
+    public function createFolder(\Emerald\Filelib\FolderItem $folder)
     {
     	$arr = $folder->toArray();
     	$this->getMongo()->folders->insert($arr);
@@ -208,10 +208,10 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Deletes a folder
      *
-     * @param Emerald\Filelib\FolderItem $folder
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param \Emerald\Filelib\FolderItem $folder
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFolder(Emerald\Filelib\FolderItem $folder)
+    public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
     {
         $this->getMongo()->folders->remove(array('_id' => $folder->_id));
     
@@ -220,10 +220,10 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Deletes a file
      *
-     * @param Emerald\Filelib\FileItem $file
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param \Emerald\Filelib\FileItem $file
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFile(Emerald\Filelib\FileItem $file)
+    public function deleteFile(\Emerald\Filelib\FileItem $file)
     {
         $this->getMongo()->files->remove(array('_id' => $file->_id));
     }
@@ -231,10 +231,10 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Updates a folder
      *
-     * @param Emerald\Filelib\FolderItem $folder
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param \Emerald\Filelib\FolderItem $folder
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFolder(Emerald\Filelib\FolderItem $folder)
+    public function updateFolder(\Emerald\Filelib\FolderItem $folder)
     {
         $this->_stripId($folder);
     	
@@ -253,10 +253,10 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Updates a file
      *
-     * @param Emerald\Filelib\FileItem $file
-     * @throws Emerald\Filelib\FilelibException When fails
+     * @param \Emerald\Filelib\FileItem $file
+     * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFile(Emerald\Filelib\FileItem $file)
+    public function updateFile(\Emerald\Filelib\FileItem $file)
     {
         $this->_stripId($file);
         
@@ -275,7 +275,7 @@ class MongoBackend extends AbstractBackend implements BackendInterface
     /**
      * Finds the root folder
      *
-     * @return Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\FolderItem
      */
     public function findRootFolder()
     {

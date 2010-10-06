@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Publisher\Filesystem;
+
 /**
  * Publishes files in a filesystem by creating a symlink to the original file in the filesystem storage
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_Filelib_Publisher_FilesystemPublisher implements Emerald_Filelib_Publisher_PublisherInterface
+class SymlinkPublisher extends \Emerald\Filelib\Publisher\FilesystemPublisher implements \Emerald\Filelib\Publisher\PublisherInterface
 {
     
     /**
@@ -18,7 +21,7 @@ class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_File
      * Sets path from public to private root
      *
      * @param string $relativePathToRoot
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function setRelativePathToRoot($relativePathToRoot)
     {
@@ -39,16 +42,16 @@ class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_File
     /**
      * Returns relative path from link to file in storage
      *
-     * @param Emerald_Filelib_File $file File item
+     * @param \Emerald_Filelib_File $file File item
      * @param $levelsDown How many levels down from root
      * @return string
      */
-    public function getRelativePathTo(Emerald\Filelib\FileItem $file, $levelsDown = 0)
+    public function getRelativePathTo(\Emerald\Filelib\FileItem $file, $levelsDown = 0)
     {
         $sltr = $this->getRelativePathToRoot();
         
         if(!$sltr) {
-            throw new Emerald\Filelib\FilelibException('Relative path must be set!');
+            throw new \Emerald\Filelib\FilelibException('Relative path must be set!');
         }
         $sltr = str_repeat("../", $levelsDown) . $sltr;
                 
@@ -60,7 +63,7 @@ class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_File
         return $sltr;
     }
     
-    public function publish(Emerald\Filelib\FileItem $file)
+    public function publish(\Emerald\Filelib\FileItem $file)
     {
         
         $fl = $this->getFilelib();
@@ -98,7 +101,7 @@ class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_File
         
     }
     
-    public function publishVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $fl = $this->getFilelib();
             
@@ -142,7 +145,7 @@ class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_File
         
     }
     
-    public function unpublish(Emerald\Filelib\FileItem $file)
+    public function unpublish(\Emerald\Filelib\FileItem $file)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
         if(is_link($link)) {
@@ -150,7 +153,7 @@ class Emerald_Filelib_Publisher_Filesystem_SymlinkPublisher extends Emerald_File
         }
     }
     
-    public function unpublishVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         if(is_link($link)) {

@@ -23,7 +23,7 @@ class FileLibrary
     private $_storage;
 
     /**
-     * @var \Emerald_Filelib_Publisher_PublisherInterface Publisher
+     * @var \\Emerald\Filelib\Publisher\PublisherInterface Publisher
      */
     private $_publisher;
     
@@ -311,10 +311,10 @@ class FileLibrary
     /**
      * Sets publisher
      *
-     * @param \Emerald_Filelib_Publisher_Interface $publisher
+     * @param \\Emerald\Filelib\Publisher\Interface $publisher
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setPublisher(\Emerald_Filelib_Publisher_PublisherInterface $publisher)
+    public function setPublisher(\Emerald\Filelib\Publisher\PublisherInterface $publisher)
     {
         $publisher->setFilelib($this);
         $this->_publisher = $publisher;
@@ -325,7 +325,7 @@ class FileLibrary
     /**
      * Returns publisher
      *
-     * @return \Emerald_Filelib_Publisher_PublisherInterface
+     * @return \\Emerald\Filelib\Publisher\PublisherInterface
      */
     public function getPublisher()
     {
