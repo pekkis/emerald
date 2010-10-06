@@ -144,9 +144,12 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
         
     public function afterUpload(\Emerald\Filelib\FileItem $file)
     {
-        if($this->providesFor($file)) {
-            $this->createVersion($file);
+        if(!$this->providesFor($file)) {
+            return;
         }
+        
+        $tmp = $this->createVersion($file);
+        $this->getFilelib()->getStorage()->storeVersion($file, $this, $tmp);        
     }
 
 
@@ -176,6 +179,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
         if(!$this->providesFor($file)) {
             return;
         }
+        
         $this->deleteVersion($file);
 
     }

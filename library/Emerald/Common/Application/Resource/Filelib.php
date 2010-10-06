@@ -92,7 +92,13 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
             }
             	
             if($cache) {
-                $filelib->setCache($cache);
+                
+                $cacheAdapter = new \Emerald\Base\Cache\Adapter\DoctrineCacheAdapter();
+                
+                $cache = new \Doctrine\Common\Cache\ApcCache();
+                                
+                $cacheAdapter->setCache($cache);
+                $filelib->setCache($cacheAdapter);
             }
             	
             $this->_filelib = $filelib;

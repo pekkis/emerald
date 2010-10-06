@@ -86,8 +86,8 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $img->writeImage($tmp);
-        
-        $this->getFilelib()->getStorage()->storeVersion($file, $this, $tmp);        
+
+        return $tmp;
         
     }
 

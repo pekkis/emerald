@@ -9,14 +9,8 @@ namespace Emerald\Filelib;
  * @package Emerald_Filelib
  *
  */
-class FileOperator
+class FileOperator extends AbstractOperator
 {
-
-    /**
-     * @var \Zend_Cache_Core
-     */
-    protected $_cache;
-
     /**
      * @var string
      */
@@ -51,98 +45,6 @@ class FileOperator
     	$this->_uploader = $uploader;
     	return $this;
     }
-    
-    /**
-     * Returns cache
-     * 
-     * @return \Zend_Cache_Core
-     */
-    public function getCache()
-    {
-        if(!$this->_cache) {
-            $this->_cache = $this->getFilelib()->getCache();
-        }
-        return $this->_cache;
-    }
-
-
-    /**
-     * Returns cache identifier
-     * 
-     * @param mixed $id Id
-     * @return string
-     */
-    public function getCacheIdentifier($id)
-    {
-        if(is_array($id)) {
-            $id = implode('_', $id);
-        }
-        return $this->_cachePrefix . '_' . $id;
-    }
-
-
-    /**
-     * Tries to load file from cache, returns object on success.
-     * 
-     * @param mixed $id
-     * @return mixed 
-     */
-    public function findCached($id) {
-        return $this->getCache()->load($this->getCacheIdentifier($id));
-    }
-
-
-    /**
-     * Clears cache for id
-     * 
-     * @param mixed $id
-     */
-    public function clearCached($id)
-    {
-        $this->getCache()->remove($this->getCacheIdentifier($id));
-    }
-
-
-    /**
-     * Stores file to cache
-     * 
-     * @param mixed $id
-     * @param mixed $data
-     */
-    public function storeCached($id, $data)
-    {
-        $this->getCache()->save($data, $this->getCacheIdentifier($id));
-    }
-
-    /**
-     * Returns backend
-     *
-     * @return \Emerald\Filelib\Backend\Backend
-     */
-    public function getBackend()
-    {
-        return $this->_backend;
-    }
-
-
-    /**
-     * Returns filelib
-     *
-     * @return \Emerald\Filelib\FileLibrary
-     */
-    public function getFilelib()
-    {
-        return $this->_filelib;
-    }
-
-
-    public function __construct(\Emerald\Filelib\FileLibrary $filelib)
-    {
-        $this->_filelib = $filelib;
-        $this->_backend = $filelib->getBackend();
-    }
-
-
 
     /**
      * Updates a file
@@ -180,7 +82,7 @@ class FileOperator
     {
         if(!$file = $this->findCached($id)) {
             $file = $this->getBackend()->findFile($id);
-            	
+            
             if($file) {
                 $this->storeCached($file->id, $file);
             }

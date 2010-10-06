@@ -61,7 +61,7 @@ class FileLibrary
     
     /**
      * Cache
-     * @var \Zend_Cache_Core
+     * @var \Emerald\Base\Cache\Cache
      */
     private $_cache;
         
@@ -131,10 +131,10 @@ class FileLibrary
 
     /**
      * Sets cache
-     * @param \Zend_Cache_Core $cache
+     * @param \Emerald\Base\Cache\Cache $cache
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setCache(\Zend_Cache_Core $cache)
+    public function setCache(\Emerald\Base\Cache\Cache $cache)
     {
         $this->_cache = $cache;
         return $this;
@@ -146,14 +146,8 @@ class FileLibrary
      */
     public function getCache()
     {
-        if(!isset($this->_cache)) {
-            $frontendOptions = array(
-			'lifetime' => 7200, // cache lifetime of 2 hours
-			'automatic_serialization' => true
-            );
-            $backendOptions = array(
-            );
-            $this->_cache = \Zend_Cache::factory('core', 'black-hole', $frontendOptions, $backendOptions);
+        if(!$this->_cache) {
+            $this->_cache = new \Emerald\Base\Cache\MockCache();
         }
         return $this->_cache;
     }
