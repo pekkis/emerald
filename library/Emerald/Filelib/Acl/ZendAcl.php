@@ -11,7 +11,7 @@ use \Zend_Acl;
  * @package Emerald_Filelib
  *
  */
-class ZendAcl implements AclInterface
+class ZendAcl implements Acl
 {
 
     /**

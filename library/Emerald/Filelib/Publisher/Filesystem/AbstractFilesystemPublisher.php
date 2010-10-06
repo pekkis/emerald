@@ -1,6 +1,8 @@
 <?php
 
-namespace Emerald\Filelib\Publisher;
+namespace Emerald\Filelib\Publisher\Filesystem;
+
+use \Emerald\Filelib\Publisher\AbstractPublisher;
 
 /**
  * Abstract filesystem publisher base class
@@ -9,7 +11,7 @@ namespace Emerald\Filelib\Publisher;
  * @package Emerald_Filelib
  *
  */
-abstract class FilesystemPublisher extends \Emerald\Filelib\Publisher\AbstractPublisher
+abstract class AbstractFilesystemPublisher extends AbstractPublisher
 {
     /**
      * @var integer Octal representation for directory permissions

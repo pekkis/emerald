@@ -2,6 +2,8 @@
 
 namespace Emerald\Filelib\Plugin\Image;
 
+use \Imagick;
+
 /**
  * Versions an image
  *

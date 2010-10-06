@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Storage;
+
 /**
  * Stores files in a filesystem
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_AbstractStorage implements Emerald_Filelib_Storage_StorageInterface
+class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\StorageInterface
 {
     /**
      * @var string Physical root
@@ -37,7 +40,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
      * Sets files per directory
      *
      * @param integer $filesPerDirectory
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function setFilesPerDirectory($filesPerDirectory)
     {
@@ -59,7 +62,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
      * Sets levels per directory hierarchy
      *
      * @param integer $directoryLevels
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function setDirectoryLevels($directoryLevels)
     {
@@ -81,7 +84,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
      * Sets directory permission
      *
      * @param integer $directoryPermission
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setDirectoryPermission($directoryPermission)
     {
@@ -103,7 +106,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
      * Sets file permission
      *
      * @param integer $filePermission
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setFilePermission($filePermission)
     {
@@ -133,7 +136,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         $filesPerDirectory = $this->getFilesPerDirectory();
 
         if($directoryLevels < 1) {
-            throw new Emerald\Filelib\FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
+            throw new \Emerald\Filelib\FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
         }
 
         $arr = array();
@@ -153,7 +156,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
      * Sets root
      *
      * @param string $root
-     * @return Emerald\Filelib\FileLibrary Filelib
+     * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setRoot($root)
     {
@@ -170,7 +173,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         return $this->_root;
     }
     
-    public function store(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FileItem $file)
+    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FileItem $file)
     {
         $root = $this->getRoot();
         $dir = $root . '/' . $this->getDirectoryId($file->id);
@@ -180,7 +183,7 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         }
 
         if(!is_dir($dir) || !is_writable($dir)) {
-            throw new Emerald\Filelib\FilelibException('Could not write into directory', 500);
+            throw new \Emerald\Filelib\FilelibException('Could not write into directory', 500);
         }
             
         $fileTarget = $dir . '/' . $file->id;
@@ -189,11 +192,11 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         chmod($fileTarget, $this->getFilePermission());
             
         if(!is_readable($fileTarget)) {
-            throw new Emerald\Filelib\FilelibException('Could not copy file to folder');
+            throw new \Emerald\Filelib\FilelibException('Could not copy file to folder');
         }
     }
     
-    public function storeVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier();
                  
@@ -204,43 +207,43 @@ class Emerald_Filelib_Storage_FilesystemStorage extends Emerald_Filelib_Storage_
         copy($tempFile, $path . '/' . $file->id);
     }
     
-    public function retrieve(Emerald\Filelib\FileItem $file)
+    public function retrieve(\Emerald\Filelib\FileItem $file)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id;
         
         if(!is_file($path)) {
-            throw new Emerald\Filelib\FilelibException('Could not retrieve file');
+            throw new \Emerald\Filelib\FilelibException('Could not retrieve file');
         }
         
-        return new Emerald\Base\Spl\FileObject($path);
+        return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function retrieveVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         
         if(!is_file($path)) {
-            throw new Emerald\Filelib\FilelibException('Could not retrieve file');
+            throw new \Emerald\Filelib\FilelibException('Could not retrieve file');
         }
         
-        return new Emerald\Base\Spl\FileObject($path);
+        return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function delete(Emerald\Filelib\FileItem $file)
+    public function delete(\Emerald\Filelib\FileItem $file)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id;
             
-        $fileObj = new SplFileObject($path);
+        $fileObj = new \SplFileObject($path);
         if(!$fileObj->isFile() || !$fileObj->isWritable()) {
-            throw new Emerald\Filelib\FilelibException('Can not delete file');
+            throw new \Emerald\Filelib\FilelibException('Can not delete file');
         }
         if(!@unlink($fileObj->getPathname())) {
-            throw new Emerald\Filelib\FilelibException('Can not delete file');
+            throw new \Emerald\Filelib\FilelibException('Can not delete file');
         }
     }
     
     
-    public function deleteVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         unlink($path);

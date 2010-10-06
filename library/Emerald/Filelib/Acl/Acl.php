@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Acl;
  * @package Emerald_Filelib
  *
  */
-interface AclInterface
+interface Acl
 {
 
     /**

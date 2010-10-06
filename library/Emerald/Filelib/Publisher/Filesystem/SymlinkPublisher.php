@@ -2,6 +2,8 @@
 
 namespace Emerald\Filelib\Publisher\Filesystem;
 
+use Emerald\Filelib\Publisher\PublisherInterface;
+
 /**
  * Publishes files in a filesystem by creating a symlink to the original file in the filesystem storage
  * 
@@ -9,7 +11,7 @@ namespace Emerald\Filelib\Publisher\Filesystem;
  * @package Emerald_Filelib
  *
  */
-class SymlinkPublisher extends \Emerald\Filelib\Publisher\FilesystemPublisher implements \Emerald\Filelib\Publisher\PublisherInterface
+class SymlinkPublisher extends AbstractFilesystemPublisher implements PublisherInterface
 {
     
     /**

@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Acl;
  * @package Emerald_Filelib
  *
  */
-class SimpleAcl implements AclInterface
+class SimpleAcl implements Acl
 {
 
     public function isReadable($resource)

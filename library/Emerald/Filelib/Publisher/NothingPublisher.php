@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Publisher;
  * @package Emerald_Filelib
  *
  */
-class NothingPublisher extends \Emerald\Filelib\Publisher\AbstractPublisher implements \Emerald\Filelib\Publisher\PublisherInterface
+class NothingPublisher extends AbstractPublisher
 {
     
     public function publish(\Emerald\Filelib\FileItem $file)

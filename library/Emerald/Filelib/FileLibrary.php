@@ -18,7 +18,7 @@ class FileLibrary
     private $_backend;
 
     /**
-     * @var \Emerald_Filelib_Storage_StorageInterface Storage
+     * @var \Emerald\Filelib\Storage\StorageInterface Storage
      */
     private $_storage;
 
@@ -28,7 +28,7 @@ class FileLibrary
     private $_publisher;
     
     /**
-     * @var \Emerald\Filelib\Acl\AclInterface Acl handler
+     * @var \Emerald\Filelib\Acl\Acl Acl handler
      */
     private $_acl;
 
@@ -283,10 +283,10 @@ class FileLibrary
     /**
      * Sets storage
      *
-     * @param \Emerald_Filelib_Storage_StorageInterface $storage
+     * @param \Emerald\Filelib\Storage\StorageInterface $storage
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setStorage(\Emerald_Filelib_Storage_StorageInterface $storage)
+    public function setStorage(\Emerald\Filelib\Storage\StorageInterface $storage)
     {
         $storage->setFilelib($this);
         $this->_storage = $storage;
@@ -297,7 +297,7 @@ class FileLibrary
     /**
      * Returns storage
      *
-     * @return \Emerald_Filelib_Storage_StorageInterface
+     * @return \Emerald\Filelib\Storage\StorageInterface
      */
     public function getStorage()
     {
@@ -402,10 +402,10 @@ class FileLibrary
     /**
      * Sets acl handler
      *
-     * @param \Emerald\Filelib\Acl\AclInterface $acl
+     * @param \Emerald\Filelib\Acl\Acl $acl
      * @return \Emerald\Filelib\FileLibrary Filelib
      */
-    public function setAcl(\Emerald\Filelib\Acl\AclInterface $acl)
+    public function setAcl(\Emerald\Filelib\Acl\Acl $acl)
     {
         $this->_acl = $acl;
         return $this;
@@ -415,7 +415,7 @@ class FileLibrary
     /**
      * Returns acl handler
      *
-     * @return \Emerald\Filelib\Acl\AclInterface
+     * @return \Emerald\Filelib\Acl\Acl
      */
     public function getAcl()
     {

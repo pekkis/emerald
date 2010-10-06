@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Storage;
+
 /**
  * Stores files in MongoDB's GridFS filesystem
  * 
@@ -6,7 +9,7 @@
  * @package Emerald_Filelib
  *
  */
-class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_AbstractStorage implements Emerald_Filelib_Storage_StorageInterface
+class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\StorageInterface
 {
     /**
      * @var MongoDB Mongo reference
@@ -100,7 +103,7 @@ class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_Abst
      * Writes a mongo file to temporary file and registers it as an internal temp file
      * 
      * @param MongoGridFSFile $file
-     * @return Emerald\Base\Spl\Fileobject 
+     * @return \Emerald\Base\Spl\Fileobject 
      * 
      */
     private function _toTemp(MongoGridFSFile $file)
@@ -108,7 +111,7 @@ class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_Abst
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $file->write($tmp);
         
-        $fo = new Emerald\Base\Spl\FileObject($tmp);
+        $fo = new \Emerald\Base\Spl\FileObject($tmp);
         
         $this->_registerTempFile($fo);
         
@@ -119,46 +122,46 @@ class Emerald_Filelib_Storage_GridfsStorage extends Emerald_Filelib_Storage_Abst
     /**
      * Registers an internal temp file
      * 
-     * @param Emerald\Base\Spl\FileObject $fo
+     * @param \Emerald\Base\Spl\FileObject $fo
      */
-    private function _registerTempFile(Emerald\Base\Spl\FileObject $fo)
+    private function _registerTempFile(\Emerald\Base\Spl\FileObject $fo)
     {
         $this->_tempFiles[] = $fo;
     }
     
-    public function store(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FileItem $file)
+    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FileItem $file)
     {
         $filename = $file->getProfileObject()->getLinker()->getLink($file);
         $this->getGridFS()->storeFile($upload->getPathname(), array('filename' => $filename, 'metadata' => array('id' => $file->id, 'version' => 'original', 'mimetype' => $file->mimetype) ));
     }
     
-    public function storeVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
     {
         $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         $this->getGridFS()->storeFile($tempFile, array('filename' => $filename, 'metadata' => array('id' => $file->id, 'version' => $version->getIdentifier(), 'mimetype' => $file->mimetype) ));
     }
     
-    public function retrieve(Emerald\Filelib\FileItem $file)
+    public function retrieve(\Emerald\Filelib\FileItem $file)
     {
         $filename = $file->getProfileObject()->getLinker()->getLink($file);
         $file = $this->getGridFS()->findOne(array('filename' => $filename));
         return $this->_toTemp($file);
     }
     
-    public function retrieveVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         $file = $this->getGridFS()->findOne(array('filename' => $filename));
         return $this->_toTemp($file);
     }
     
-    public function delete(Emerald\Filelib\FileItem $file)
+    public function delete(\Emerald\Filelib\FileItem $file)
     {
         $filename = $file->getProfileObject()->getLinker()->getLink($file);
         $this->getGridFS()->remove(array('filename' => $filename));
     }
     
-    public function deleteVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         $this->getGridFS()->remove(array('filename' => $filename));

@@ -1,5 +1,8 @@
 <?php
-class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_AbstractStorage implements Emerald_Filelib_Storage_StorageInterface
+
+namespace Emerald\Filelib\Storage\Amazon;
+
+class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\StorageInterface
 {
     
     
@@ -88,10 +91,10 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Stores an uploaded file
      * 
-     * @param Emerald\Filelib\FileUpload $upload
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileUpload $upload
+     * @param \Emerald\Filelib\FileItem $file
      */
-    public function store(Emerald\Filelib\FileUpload $upload, Emerald\Filelib\FileItem $file)
+    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FileItem $file)
     {
         $object = $this->_getPath($file);
         $this->getStorage()->putFile($upload->getPathname(), $object);
@@ -100,11 +103,11 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Stores a version of a file
      * 
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
      * @param unknown_type $tempFile File to be stored
      */
-    public function storeVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->putFile($tempFile, $object);
@@ -113,10 +116,10 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Retrieves a file and temporarily stores it somewhere so it can be read.
      * 
-     * @param Emerald\Filelib\FileItem $file
-     * @return Emerald\Base\Spl\FileObject
+     * @param \Emerald\Filelib\FileItem $file
+     * @return \Emerald\Base\Spl\FileObject
      */
-    public function retrieve(Emerald\Filelib\FileItem $file)
+    public function retrieve(\Emerald\Filelib\FileItem $file)
     {
         $object = $this->_getPath($file);
         $ret = $this->getStorage()->getObject($object);
@@ -126,11 +129,11 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Retrieves a version of a file and temporarily stores it somewhere so it can be read.
      * 
-     * @param Emerald\Filelib\FileItem $file
-     * @param Emerald_Filelib_VersionProvider_Interface $version
-     * @return Emerald\Base\Spl\FileObject
+     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald_Filelib_VersionProvider_Interface $version
+     * @return \Emerald\Base\Spl\FileObject
      */
-    public function retrieveVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $ret = $this->getStorage()->getObject($object);
@@ -140,9 +143,9 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Deletes a file
      * 
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      */
-    public function delete(Emerald\Filelib\FileItem $file)
+    public function delete(\Emerald\Filelib\FileItem $file)
     {
         $object = $this->_getPath($file);
         $this->getStorage()->removeObject($object);
@@ -151,10 +154,10 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Deletes a version of a file
      * 
-     * @param Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\FileItem $file
      * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
      */
-    public function deleteVersion(Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->removeObject($object);
@@ -165,7 +168,7 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
      * Writes a mongo file to temporary file and registers it as an internal temp file
      * 
      * @param MongoGridFSFile $file
-     * @return Emerald\Base\Spl\FileObject
+     * @return \Emerald\Base\Spl\FileObject
      */
     private function _toTemp($file)
     {
@@ -173,7 +176,7 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
         
         file_put_contents($tmp, $file);
         
-        $fo = new Emerald\Base\Spl\FileObject($tmp);
+        $fo = new \Emerald\Base\Spl\FileObject($tmp);
         
         $this->_registerTempFile($fo);
         
@@ -184,9 +187,9 @@ class Emerald_Filelib_Storage_Amazon_S3Storage extends Emerald_Filelib_Storage_A
     /**
      * Registers an internal temp file
      * 
-     * @param Emerald\Base\Spl\FileObject $fo
+     * @param \Emerald\Base\Spl\FileObject $fo
      */
-    private function _registerTempFile(Emerald\Base\Spl\FileObject $fo)
+    private function _registerTempFile(\Emerald\Base\Spl\FileObject $fo)
     {
         $this->_tempFiles[] = $fo;
     }

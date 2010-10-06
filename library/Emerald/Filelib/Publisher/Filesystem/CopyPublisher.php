@@ -2,6 +2,8 @@
 
 namespace Emerald\Filelib\Publisher\Filesystem;
 
+use Emerald\Filelib\Publisher\PublisherInterface;
+
 /**
  * Publishes files in a filesystem by retrieving them from storage and creating a copy
  * 
@@ -9,7 +11,7 @@ namespace Emerald\Filelib\Publisher\Filesystem;
  * @package Emerald_Filelib
  *
  */
-class CopyPublisher extends \Emerald\Filelib\Publisher\FilesystemPublisher implements \Emerald\Filelib\Publisher\PublisherInterface
+class CopyPublisher extends AbstractFilesystemPublisher implements PublisherInterface
 {
     
     public function publish(\Emerald\Filelib\FileItem $file)

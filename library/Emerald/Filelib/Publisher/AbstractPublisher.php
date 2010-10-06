@@ -2,6 +2,8 @@
 
 namespace Emerald\Filelib\Publisher;
 
+use Emerald\Base\Options;
+
 /**
  * Abstract convenience publisher base class implementing common methods
  * 
@@ -9,7 +11,7 @@ namespace Emerald\Filelib\Publisher;
  * @package Emerald_Filelib
  *
  */
-abstract class AbstractPublisher implements \Emerald\Filelib\Publisher\PublisherInterface
+abstract class AbstractPublisher implements PublisherInterface
 {
     /**
      * @var \Emerald\Filelib\FileLibrary Filelib
@@ -18,7 +20,7 @@ abstract class AbstractPublisher implements \Emerald\Filelib\Publisher\Publisher
     
     public function __construct($options = array())
     {
-        \Emerald\Base\Options::setConstructorOptions($this, $options);
+        Options::setConstructorOptions($this, $options);
     }
     
     /**
