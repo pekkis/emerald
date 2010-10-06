@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Linker;
+
 /**
  * An abstract linker class with common methods implemented.
  *
@@ -6,11 +9,11 @@
  * @author pekkis
  *
  */
-abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_Linker_LinkerInterface
+abstract class AbstractLinker implements \Emerald\Filelib\Linker\LinkerInterface
 {
 
     /**
-     * @var Emerald\Filelib\FileLibrary Filelib
+     * @var \Emerald\Filelib\FileLibrary Filelib
      */
     protected $_filelib;
 
@@ -19,7 +22,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
      */
     public function __construct($options = array())
     {
-        Emerald\Base\Options::setConstructorOptions($this, $options);
+        \Emerald\Base\Options::setConstructorOptions($this, $options);
     }
 
 
@@ -27,7 +30,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
      * Sets filelib
      *
      */
-    public function setFilelib(Emerald\Filelib\FileLibrary $filelib)
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
     {
         $this->_filelib = $filelib;
     }
@@ -36,7 +39,7 @@ abstract class Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_
     /**
      * Returns filelib
      *
-     * @return Emerald\Filelib\FileLibrary
+     * @return \Emerald\Filelib\FileLibrary
      */
     public function getFilelib()
     {

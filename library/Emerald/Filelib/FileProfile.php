@@ -75,7 +75,7 @@ class FileProfile
     /**
      * Returns linker
      *
-     * @return \Emerald_Filelib_Linker_LinkerInterface
+     * @return \\Emerald\Filelib\Linker\LinkerInterface
      */
     public function getLinker()
     {
@@ -89,12 +89,12 @@ class FileProfile
     /**
      * Sets linker
      *
-     * @param \Emerald_Filelib_Linker_LinkerInterface|string $linker
+     * @param \\Emerald\Filelib\Linker\LinkerInterface|string $linker
      * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setLinker($linker)
     {
-        if(!$linker instanceof \Emerald_Filelib_Linker_LinkerInterface) {
+        if(!$linker instanceof \Emerald\Filelib\Linker\LinkerInterface) {
             $linker = new $linker($this);
 
         }

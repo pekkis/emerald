@@ -1,4 +1,7 @@
 <?php
+
+namespace Emerald\Filelib\Linker;
+
 /**
  * Creates beautifurls(tm) from the virtual directory structure and names.
  *
@@ -6,7 +9,7 @@
  * @author pekkis
  *
  */
-class Emerald_Filelib_Linker_BeautifurlLinker extends Emerald_Filelib_Linker_AbstractLinker implements Emerald_Filelib_Linker_LinkerInterface
+class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements \Emerald\Filelib\Linker\LinkerInterface
 {
 
     /**
@@ -37,7 +40,7 @@ class Emerald_Filelib_Linker_BeautifurlLinker extends Emerald_Filelib_Linker_Abs
 
 
 
-    public function getLinkVersion(Emerald\Filelib\FileItem $file, Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
+    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald_Filelib_Plugin_VersionProvider_VersionProviderInterface $version)
     {
         $link = $this->getLink($file);
         $pinfo = pathinfo($link);
@@ -48,7 +51,7 @@ class Emerald_Filelib_Linker_BeautifurlLinker extends Emerald_Filelib_Linker_Abs
     }
 
 
-    public function getLink(Emerald\Filelib\FileItem $file, $force = false)
+    public function getLink(\Emerald\Filelib\FileItem $file, $force = false)
     {
         if($force || !isset($file->link)) {
             	
