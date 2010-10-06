@@ -11,7 +11,7 @@ use Emerald\Filelib\FileLibrary, Emerald\Base\Options;
  * @package Emerald_Filelib
  *
  */
-abstract class AbstractBackend implements BackendInterface
+abstract class AbstractBackend implements Backend
 {
     /**
      * @var Emerald\Filelib\FileLibrary Filelib

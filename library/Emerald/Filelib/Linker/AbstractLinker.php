@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Linker;
  * @author pekkis
  *
  */
-abstract class AbstractLinker implements \Emerald\Filelib\Linker\LinkerInterface
+abstract class AbstractLinker implements \Emerald\Filelib\Linker\Linker
 {
 
     /**

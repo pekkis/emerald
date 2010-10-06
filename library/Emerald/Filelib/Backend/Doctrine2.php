@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Backend;
  * @package  Emerald_Filelib
  * @author   Mikko Hirvonen
  */
-class Doctrine2Backend implements BackendInterface
+class Doctrine2Backend implements Backend
 {
     /**
      * File entity name

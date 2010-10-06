@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Backend;
  * @author pekkis
  *
  */
-interface BackendInterface
+interface Backend
 {
 
     /**

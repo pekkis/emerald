@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Plugin;
  * @author pekkis
  *
  */
-abstract class AbstractPlugin implements \Emerald\Filelib\Plugin\PluginInterface
+abstract class AbstractPlugin implements \Emerald\Filelib\Plugin\Plugin
 {
 
     /**

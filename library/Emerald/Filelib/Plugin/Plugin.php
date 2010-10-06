@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Plugin;
  * @author pekkis
  *
  */
-interface PluginInterface
+interface Plugin
 {
 
     /**

@@ -11,7 +11,7 @@ use Emerald\Filelib;
  * @author pekkis
  *
  */
-class ZendDbBackend extends AbstractBackend implements BackendInterface
+class ZendDbBackend extends AbstractBackend implements Backend
 {
 
     /**

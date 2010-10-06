@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Plugin\VersionProvider;
  * @author pekkis
  *
  */
-abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractPlugin implements \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface
+abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractPlugin implements \Emerald\Filelib\Plugin\VersionProvider\VersionProvider
 {
     /**
      * @var string Version identifier

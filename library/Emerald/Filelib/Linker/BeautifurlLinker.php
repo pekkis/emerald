@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Linker;
  * @author pekkis
  *
  */
-class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements \Emerald\Filelib\Linker\LinkerInterface
+class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements \Emerald\Filelib\Linker\Linker
 {
 
     /**
@@ -40,7 +40,7 @@ class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
 
 
 
-    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getLink($file);
         $pinfo = pathinfo($link);

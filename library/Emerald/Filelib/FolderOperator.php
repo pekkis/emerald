@@ -95,7 +95,7 @@ class FolderOperator
     /**
      * Returns backend
      *
-     * @return \Emerald\Filelib\Backend\BackendInterface
+     * @return \Emerald\Filelib\Backend\Backend
      */
     public function getBackend()
     {

@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Plugin\VersionProvider;
  * @package Emerald_Filelib
  *
  */
-interface VersionProviderInterface extends \Emerald\Filelib\Plugin\PluginInterface
+interface VersionProvider extends \Emerald\Filelib\Plugin\Plugin
 {
     /**
      * Sets file extension

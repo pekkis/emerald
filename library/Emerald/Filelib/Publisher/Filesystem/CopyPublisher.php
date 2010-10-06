@@ -2,7 +2,7 @@
 
 namespace Emerald\Filelib\Publisher\Filesystem;
 
-use Emerald\Filelib\Publisher\PublisherInterface;
+use Emerald\Filelib\Publisher\Publisher;
 
 /**
  * Publishes files in a filesystem by retrieving them from storage and creating a copy
@@ -11,7 +11,7 @@ use Emerald\Filelib\Publisher\PublisherInterface;
  * @package Emerald_Filelib
  *
  */
-class CopyPublisher extends AbstractFilesystemPublisher implements PublisherInterface
+class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
 {
     
     public function publish(\Emerald\Filelib\FileItem $file)
@@ -36,7 +36,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements PublisherInte
         }
     }
     
-    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $fl = $this->getFilelib();
             
@@ -63,7 +63,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements PublisherInte
         }
     }
     
-    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         if(is_file($link)) {

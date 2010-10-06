@@ -117,7 +117,7 @@ class FileOperator
     /**
      * Returns backend
      *
-     * @return \Emerald\Filelib\Backend\BackendInterface
+     * @return \Emerald\Filelib\Backend\Backend
      */
     public function getBackend()
     {
@@ -318,7 +318,7 @@ class FileOperator
             $this->getFilelib()->getStorage()->delete($file);
 
             foreach($file->getProfileObject()->getPlugins() as $plugin) {
-                if($plugin instanceof \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface && $plugin->providesFor($file)) {
+                if($plugin instanceof \Emerald\Filelib\Plugin\VersionProvider\VersionProvider && $plugin->providesFor($file)) {
                     $plugin->onDelete($file);
                 }
             }

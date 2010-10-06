@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Storage;
  * @package Emerald_Filelib
  *
  */
-class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\StorageInterface
+class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\Storage
 {
     /**
      * @var string Physical root
@@ -196,7 +196,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         }
     }
     
-    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier();
                  
@@ -218,7 +218,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         
@@ -243,7 +243,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     }
     
     
-    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
         unlink($path);

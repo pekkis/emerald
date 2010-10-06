@@ -87,7 +87,7 @@ foreach($files as $file) {
 		
 	foreach($filelib->getPlugins() as $plugin) {
 
-		if($plugin instanceof \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface && $filelib->file()->hasVersion($file, $plugin->getIdentifier())) {
+		if($plugin instanceof \Emerald\Filelib\Plugin\VersionProvider\VersionProvider && $filelib->file()->hasVersion($file, $plugin->getIdentifier())) {
 
 			try {
 				echo "\tProcessing version '{$plugin->getIdentifier()}' => ";

@@ -10,7 +10,7 @@ namespace Emerald\Filelib\Linker;
  * @author Petri Mahanen
  *
  */
-class SequentialLinker extends \Emerald\Filelib\Linker\AbstractLinker implements \Emerald\Filelib\Linker\LinkerInterface
+class SequentialLinker extends \Emerald\Filelib\Linker\AbstractLinker implements \Emerald\Filelib\Linker\Linker
 {
 
     /**
@@ -100,7 +100,7 @@ class SequentialLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
     
     
     
-    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getLink($file);
 

@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Storage;
  * @package Emerald_Filelib
  *
  */
-abstract class AbstractStorage implements \Emerald\Filelib\Storage\StorageInterface
+abstract class AbstractStorage implements \Emerald\Filelib\Storage\Storage
 {
     /**
      * @var \Emerald\Filelib\FileLibrary Filelib

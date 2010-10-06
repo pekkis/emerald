@@ -13,17 +13,17 @@ use \Emerald\Base\Options;
 class FileLibrary
 {
     /**
-     * @var \Emerald\Filelib\Backend\BackendInterface Backend
+     * @var \Emerald\Filelib\Backend\Backend Backend
      */
     private $_backend;
 
     /**
-     * @var \Emerald\Filelib\Storage\StorageInterface Storage
+     * @var \Emerald\Filelib\Storage\Storage Storage
      */
     private $_storage;
 
     /**
-     * @var \Emerald\Filelib\Publisher\PublisherInterface Publisher
+     * @var \Emerald\Filelib\Publisher\Publisher Publisher
      */
     private $_publisher;
     
@@ -283,10 +283,10 @@ class FileLibrary
     /**
      * Sets storage
      *
-     * @param \Emerald\Filelib\Storage\StorageInterface $storage
+     * @param \Emerald\Filelib\Storage\Storage $storage
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setStorage(\Emerald\Filelib\Storage\StorageInterface $storage)
+    public function setStorage(\Emerald\Filelib\Storage\Storage $storage)
     {
         $storage->setFilelib($this);
         $this->_storage = $storage;
@@ -297,7 +297,7 @@ class FileLibrary
     /**
      * Returns storage
      *
-     * @return \Emerald\Filelib\Storage\StorageInterface
+     * @return \Emerald\Filelib\Storage\Storage
      */
     public function getStorage()
     {
@@ -314,7 +314,7 @@ class FileLibrary
      * @param \Emerald\Filelib\Publisher\Interface $publisher
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setPublisher(\Emerald\Filelib\Publisher\PublisherInterface $publisher)
+    public function setPublisher(\Emerald\Filelib\Publisher\Publisher $publisher)
     {
         $publisher->setFilelib($this);
         $this->_publisher = $publisher;
@@ -325,7 +325,7 @@ class FileLibrary
     /**
      * Returns publisher
      *
-     * @return \Emerald\Filelib\Publisher\PublisherInterface
+     * @return \Emerald\Filelib\Publisher\Publisher
      */
     public function getPublisher()
     {
@@ -340,10 +340,10 @@ class FileLibrary
     /**
      * Sets backend
      *
-     * @param \Emerald\Filelib\Backend\BackendInterface $backend
+     * @param \Emerald\Filelib\Backend\Backend $backend
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setBackend(\Emerald\Filelib\Backend\BackendInterface $backend)
+    public function setBackend(\Emerald\Filelib\Backend\Backend $backend)
     {
         $backend->setFilelib($this);
         $backend->init();
@@ -355,7 +355,7 @@ class FileLibrary
     /**
      * Returns backend
      *
-     * @return \Emerald\Filelib\Backend\BackendInterface
+     * @return \Emerald\Filelib\Backend\Backend
      */
     public function getBackend()
     {
@@ -369,10 +369,10 @@ class FileLibrary
     /**
      * Adds a plugin
      *
-     * @param \Emerald\Filelib\Plugin\PluginInterface Plugin $plugin
+     * @param \Emerald\Filelib\Plugin\Plugin Plugin $plugin
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function addPlugin(\Emerald\Filelib\Plugin\PluginInterface $plugin)
+    public function addPlugin(\Emerald\Filelib\Plugin\Plugin $plugin)
     {
         $plugin->setFilelib($this);
 

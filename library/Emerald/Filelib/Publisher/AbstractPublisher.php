@@ -11,7 +11,7 @@ use Emerald\Base\Options;
  * @package Emerald_Filelib
  *
  */
-abstract class AbstractPublisher implements PublisherInterface
+abstract class AbstractPublisher implements Publisher
 {
     /**
      * @var \Emerald\Filelib\FileLibrary Filelib

@@ -2,7 +2,7 @@
 
 namespace Emerald\Filelib\Storage\Amazon;
 
-class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\StorageInterface
+class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\Storage
 {
     
     
@@ -104,10 +104,10 @@ class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Eme
      * Stores a version of a file
      * 
      * @param \Emerald\Filelib\FileItem $file
-     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
      * @param unknown_type $tempFile File to be stored
      */
-    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->putFile($tempFile, $object);
@@ -133,7 +133,7 @@ class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Eme
      * @param \Emerald_Filelib_VersionProvider_Interface $version
      * @return \Emerald\Base\Spl\FileObject
      */
-    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $ret = $this->getStorage()->getObject($object);
@@ -155,9 +155,9 @@ class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Eme
      * Deletes a version of a file
      * 
      * @param \Emerald\Filelib\FileItem $file
-     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
      */
-    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version)
+    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $object = $this->_getPath($file) . '_' . $version->getIdentifier();
         $this->getStorage()->removeObject($object);

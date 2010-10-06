@@ -10,7 +10,7 @@ namespace Emerald\Filelib\Backend;
  * @todo Prototype, to be error-proofed
  *
  */
-class MongoBackend extends AbstractBackend implements BackendInterface
+class MongoBackend extends AbstractBackend implements Backend
 {
     
     private $_mongo;

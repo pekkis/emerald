@@ -9,7 +9,7 @@ namespace Emerald\Filelib\Publisher;
  * @package Emerald_Filelib
  *
  */
-interface PublisherInterface
+interface Publisher
 {
     /**
      * Publishes a file
@@ -22,9 +22,9 @@ interface PublisherInterface
      * Publishes a version of a file
      * 
      * @param \Emerald\Filelib\FileItem $file
-     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
      */
-    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version);
+    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
     
     /**
      * Unpublishes a file
@@ -37,8 +37,8 @@ interface PublisherInterface
      * Unpublishes a version of a file
      * 
      * @param \Emerald\Filelib\FileItem $file
-     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
      */
-    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProviderInterface $version);
+    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
     
 }

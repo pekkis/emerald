@@ -75,7 +75,7 @@ class FileProfile
     /**
      * Returns linker
      *
-     * @return \Emerald\Filelib\Linker\LinkerInterface
+     * @return \Emerald\Filelib\Linker\Linker
      */
     public function getLinker()
     {
@@ -89,12 +89,12 @@ class FileProfile
     /**
      * Sets linker
      *
-     * @param \Emerald\Filelib\Linker\LinkerInterface|string $linker
+     * @param \Emerald\Filelib\Linker\Linker|string $linker
      * @return \Emerald\Filelib\FileLibrary Filelib
      */
     public function setLinker($linker)
     {
-        if(!$linker instanceof \Emerald\Filelib\Linker\LinkerInterface) {
+        if(!$linker instanceof \Emerald\Filelib\Linker\Linker) {
             $linker = new $linker($this);
 
         }
@@ -173,10 +173,10 @@ class FileProfile
     /**
      * Adds a plugin
      *
-     * @param \Emerald\Filelib\Plugin\PluginInterface Plugin $plugin
+     * @param \Emerald\Filelib\Plugin\Plugin Plugin $plugin
      * @return \Emerald\Filelib\FileProfile
      */
-    public function addPlugin(\Emerald\Filelib\Plugin\PluginInterface $plugin)
+    public function addPlugin(\Emerald\Filelib\Plugin\Plugin $plugin)
     {
         $this->_plugins[] = $plugin;
         return $this;
