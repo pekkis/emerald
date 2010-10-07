@@ -418,12 +418,12 @@ Emerald.Messenger = {
 						if(msg.errors) {
 																					
 							$.each(msg.errors, function(key, value) {
-								
-								
+																
 								// Catch subforms too
 								$.each(value, function(key2, value2) {
 									if(typeof(value2) == 'object') {
 										$("label[for=" + key2 + "]", $that).addClass("error");
+										$("label[for=" + key + '-' + key2 + "]", $that).addClass("error");
 									}
 								});
 								$("label[for=" + key + "]", $that).addClass("error");
