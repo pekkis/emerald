@@ -12,7 +12,7 @@ namespace Emerald\Filelib\Storage;
 class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements \Emerald\Filelib\Storage\Storage
 {
     /**
-     * @var MongoDB Mongo reference
+     * @var \MongoDB Mongo reference
      */
     private $_mongo;
     
@@ -27,7 +27,7 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     private $_prefix;
     
     /**
-     * @var MongoGridFS GridFS reference
+     * @var \MongoGridFS GridFS reference
      */
     private $_gridFs;
     
@@ -49,9 +49,9 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     /**
      * Sets mongo
      * 
-     * @param MongoDB $mongo
+     * @param \MongoDB $mongo
      */
-    public function setMongo(MongoDB $mongo)
+    public function setMongo(\MongoDB $mongo)
     {
         $this->_mongo = $mongo;
     }
@@ -59,7 +59,7 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     /**
      * Returns mongo
      * 
-     * @return MongoDB
+     * @return \MongoDB
      */
     public function getMongo()
     {
@@ -69,7 +69,7 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     /**
      * Returns GridFS
      * 
-     * @return MongoGridFS
+     * @return \MongoGridFS
      */
     public function getGridFS()
     {
@@ -102,11 +102,11 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     /**
      * Writes a mongo file to temporary file and registers it as an internal temp file
      * 
-     * @param MongoGridFSFile $file
+     * @param \MongoGridFSFile $file
      * @return \Emerald\Base\Spl\Fileobject 
      * 
      */
-    private function _toTemp(MongoGridFSFile $file)
+    private function _toTemp(\MongoGridFSFile $file)
     {
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $file->write($tmp);
