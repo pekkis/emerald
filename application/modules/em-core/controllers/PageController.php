@@ -29,7 +29,7 @@ class EmCore_PageController extends Emerald_Cms_Controller_Action
             $input->setDefaultEscapeFilter(new Emerald_Common_Filter_HtmlSpecialChars());
 
             $pageModel = new EmCore_Model_Page();
-            	
+            
             // If beautifurl is available, it's always used.
             if($beautifurl = $input->beautifurl) {
                 $page = $pageModel->findByBeautifurl($beautifurl);

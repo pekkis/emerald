@@ -1,5 +1,5 @@
 <?php
-class EmCore_Bootstrap extends Zend_Application_Module_Bootstrap
+class EmCore_Bootstrap extends Emerald_Cms_Application_Module_Bootstrap
 {
 	
 	

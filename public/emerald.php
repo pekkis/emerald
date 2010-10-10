@@ -49,7 +49,6 @@ array(
 )
 );
 
-
 // $timer->time('application done');
 
 $options = $application->getOptions();
