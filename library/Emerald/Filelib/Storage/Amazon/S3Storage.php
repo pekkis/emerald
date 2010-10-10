@@ -85,7 +85,7 @@ class S3Storage extends \Emerald\Filelib\Storage\AbstractStorage implements \Eme
     
     private function _getPath($file)
     {
-        return $this->getBucket() . '/' . $file->id;
+        return $this->getBucket() . '/' . $file->getId();
     }
         
     /**

@@ -91,8 +91,6 @@ class FileOperator extends AbstractOperator
             $this->storeCached($file->getId(), $file);
         }
         
-        $file->setFilelib($this->getFilelib());
-        $file->setProfileObject($this->getFilelib()->getProfile($file->getProfile()));
         return $file;
 
     }
@@ -104,10 +102,12 @@ class FileOperator extends AbstractOperator
      */
     public function findAll()
     {
-        $items = $this->getBackend()->findAllFiles();
-        foreach($items as $item) {
-            $item->setFilelib($this->getFilelib());
-            $item->setProfileObject($this->getFilelib()->getProfile($item->profile));
+        $ritems = $this->getBackend()->findAllFiles();
+        
+        $items = array();
+        foreach($ritems as $ritem) {
+            $item = $this->_fileItemFromArray($ritem);
+            $items[] = $item;
         }
         return $items;
     }
@@ -179,17 +179,9 @@ class FileOperator extends AbstractOperator
         
         
         $file = $this->_fileItemFromArray($file);
-        
         $file->setLink($profile->getLinker()->getLink($fileItem, true));
         
         $this->getBackend()->updateFile($file);        
-
-        $file->setFilelib($this->getFilelib());
-        $file->setProfileObject($profile);
-        	
-        if(!$file) {
-            
-        }
         
         try {
             
@@ -202,7 +194,6 @@ class FileOperator extends AbstractOperator
             if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
                 $this->publish($file);
             }
-            
             
         } catch(Exception $e) {
             // Maybe log here?

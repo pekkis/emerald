@@ -176,7 +176,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FileItem $file)
     {
         $root = $this->getRoot();
-        $dir = $root . '/' . $this->getDirectoryId($file->id);
+        $dir = $root . '/' . $this->getDirectoryId($file->getId());
 
         if(!is_dir($dir)) {
             @mkdir($dir, $this->getDirectoryPermission(), true);
@@ -186,7 +186,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
             throw new \Emerald\Filelib\FilelibException('Could not write into directory', 500);
         }
             
-        $fileTarget = $dir . '/' . $file->id;
+        $fileTarget = $dir . '/' . $file->getId();
 
         copy($upload->getRealPath(), $fileTarget);
         chmod($fileTarget, $this->getFilePermission());
@@ -198,18 +198,18 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier();
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $version->getIdentifier();
                  
         if(!is_dir($path)) {
             mkdir($path, $this->getDirectoryPermission(), true);
         }
                  
-        copy($tempFile, $path . '/' . $file->id);
+        copy($tempFile, $path . '/' . $file->getId());
     }
     
     public function retrieve(\Emerald\Filelib\FileItem $file)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id;
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $file->getId();
         
         if(!is_file($path)) {
             throw new \Emerald\Filelib\FilelibException('Could not retrieve file');
@@ -220,7 +220,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $version->getIdentifier() . '/' . $file->getId();
         
         if(!is_file($path)) {
             throw new \Emerald\Filelib\FilelibException('Could not retrieve file');
@@ -231,7 +231,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function delete(\Emerald\Filelib\FileItem $file)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $file->id;
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $file->getId();
             
         $fileObj = new \SplFileObject($path);
         if(!$fileObj->isFile() || !$fileObj->isWritable()) {
@@ -245,7 +245,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->id) . '/' . $version->getIdentifier() . '/' . $file->id;
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $version->getIdentifier() . '/' . $file->getId();
         unlink($path);
     }
 }
