@@ -56,9 +56,9 @@ class EmAdmin_FilelibController extends Emerald_Cms_Controller_Action
             }
 
             $className = $fl->getFolderItemClass();
-
-            $folderItem = new $className($folderForm->getValues());
-            	
+            $folderItem = new $className();
+            $folderItem->fromArray($folderForm->getValues());
+                                    	
             $fl->folder()->create($folderItem);
 
             $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Folder creation ok.');
@@ -133,20 +133,21 @@ class EmAdmin_FilelibController extends Emerald_Cms_Controller_Action
 
 
                 $this->view->folder = $activeFolder;
-                $files = $activeFolder->findFiles();
+                $files = $fl->folder()->findFiles($activeFolder); 
+                                
                 $this->view->files = $files;
 
                 $folderForm = new EmAdmin_Form_CreateFolder();
-                $folderForm->parent_id->setValue($activeFolder->id);
+                $folderForm->parent_id->setValue($activeFolder->getId());
                 $this->view->folderForm = $folderForm;
 
                 $form = new EmAdmin_Form_FileUpload();
-                $form->folder_id->setValue($activeFolder->id);
+                $form->folder_id->setValue($activeFolder->getId());
                 $this->view->form = $form;
 
             } else {
 
-                $this->getHelper('redirector')->gotoRouteAndExit(array('id' => $folder->id));
+                $this->getHelper('redirector')->gotoRouteAndExit(array('id' => $folder->getId()));
 
             }
             	
@@ -203,7 +204,7 @@ class EmAdmin_FilelibController extends Emerald_Cms_Controller_Action
 
             } else {
 
-                $this->getHelper('redirector')->gotoRouteAndExit(array('id' => $folder->id));
+                $this->getHelper('redirector')->gotoRouteAndExit(array('id' => $folder->getId()));
 
             }
             	

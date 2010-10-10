@@ -5,7 +5,7 @@ class EmCore_Model_FileItem extends Emerald\Filelib\FileItem implements Emerald_
 
     public function getResourceId()
     {
-        return "Emerald_Filelib_File_{$this->id}";
+        return "Emerald_Filelib_File_{$this->getId()}";
     }
 
 
@@ -13,7 +13,7 @@ class EmCore_Model_FileItem extends Emerald\Filelib\FileItem implements Emerald_
     public function autoloadAclResource(Zend_Acl $acl)
     {
         if(!$acl->has($this)) {
-            $folder = $this->findFolder();
+            $folder = $this->getFilelib()->folder()->find($this->getFolderId());
             if(!$acl->has($folder)) {
                 $folder->autoloadAclResource($acl);
             }

@@ -29,25 +29,25 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/in
 		
 	<li>						
 	
-	<?php if($folder->visible && $this->emerald()->userIsAllowed($folder, 'read')): ?>
+	<?php if($this->emerald()->userIsAllowed($folder, 'read')): ?>
 	
-	<?php if($this->folder && $this->folder->id == $folder->id): ?>
-	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
+	<?php if($this->folder && $this->folder->getId() == $folder->getId()): ?>
+	<strong><?php echo $folder->getName() == 'root' ? '/' : $folder->getName(); ?></strong>
 	
-	<?php if($this->folder->parent_id != null): ?>
+	<?php if($this->folder->getParentId() != null): ?>
 	<?php if($this->emerald()->userIsAllowed($folder, 'write')): ?>
-	[<a class="emerald-confirm delete-folder" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'delete', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
+	[<a class="emerald-confirm delete-folder" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'delete', 'id' => $folder->getId()), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 	<?php endif;?>
 	<?php endif; ?>
 
 	<?php if($this->emerald()->userIsAllowed($folder, 'write')): ?>
-	[<a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'edit', 'id' => $folder->id), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>]
+	[<a href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'folder', 'action' => 'edit', 'id' => $folder->getId()), 'default', true); ?>"><?php echo $this->translate('Edit'); ?></a>]
 	<?php endif; ?>
 
 	
 	<?php else: ?>
-	<a href="<?php echo EMERALD_URL_BASE; ?>/em-admin/filelib/index/id/<?php echo $folder->id; ?>">
-	<?php echo $folder->name == 'root' ? '/' : $folder->name; ?>
+	<a href="<?php echo EMERALD_URL_BASE; ?>/em-admin/filelib/index/id/<?php echo $folder->getId(); ?>">
+	<?php echo $folder->getName() == 'root' ? '/' : $folder->getName(); ?>
 	</a>
 	<?php endif; ?>
 	
@@ -81,15 +81,15 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/in
 <ul>
 <?php foreach($this->files as $file): ?>
 <li>
-<a href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a> (<?php echo $file->getType(); ?>)
+<a href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->getId()), 'default', true); ?>"><?php echo $file->getName(); ?></a> (<?php echo $this->fl->file()->getType($file); ?>)
 
 <?php if($this->emerald()->userIsAllowed($folder, 'write')): ?>
-[<a class="emerald-confirm delete-file" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->id), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
+[<a class="emerald-confirm delete-file" href="<?php echo $this->url(array('module' => 'em-admin', 'controller' => 'file', 'action' => 'delete', 'id' => $file->getId()), 'default', true); ?>"><?php echo $this->translate('Delete'); ?></a>]
 <?php endif; ?>
 <br />
 Versions:
-<?php foreach($file->getProfileObject()->getFileVersions($file) as $fv): ?>
-<a href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id, 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
+<?php foreach($file->getFilelib()->getProfile($file->getProfile())->getFileVersions($file) as $fv): ?>
+<a href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->getId(), 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
 <?php endforeach; ?>
 
 </li>

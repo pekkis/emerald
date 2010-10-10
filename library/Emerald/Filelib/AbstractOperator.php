@@ -104,5 +104,37 @@ abstract class AbstractOperator
         $this->getCache()->save($this->getCacheIdentifier($id), $data);
     }
 
+    
+     /**
+     * Transforms raw array to folder item
+     * @param array $data
+     * @return \Emerald\Filelib\Folder
+     */
+    protected function _folderItemFromArray(array $data)
+    {
+        $className = $this->getFilelib()->getFolderItemClass();
+        $item = new $className($data);
+        $item->fromArray($data);
+        $item->setFilelib($this->getFilelib());
+        return $item;        
+    }
+    
+    
+        
+    /**
+     * Transforms raw array to file item
+     * @param array $data
+     * @return null
+     */
+    protected function _fileItemFromArray(array $data)
+    {
+        $fileItemClass = $this->getFilelib()->getFileItemClass();
+        $fileItem = new $fileItemClass();
+        $fileItem->fromArray($data);  
+        $fileItem->setFilelib($this->getFilelib());           
+        return $fileItem;
+    }
+    
+    
 
 }

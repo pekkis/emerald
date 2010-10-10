@@ -42,7 +42,7 @@ class Emerald_Cms_Filter_Beautifurl implements Zend_Filter_Interface
 
                 $file = $fl->file()->find($matches[1][$key]);
 
-                if($file && $file->isAnonymous()) {
+                if($file && $fl->file()->isAnonymousReadable($file)) {
                     	
                     $opts = array();
                     if(isset($matches[3][$key]) && $matches[3][$key]) {

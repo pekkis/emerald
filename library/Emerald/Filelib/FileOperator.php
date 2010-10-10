@@ -58,14 +58,14 @@ class FileOperator extends AbstractOperator
         // $file->getProfileObject()->getLinker()->deleteSymlink($file);
         
         $this->getBackend()->updateFile($file);
-        $this->storeCached($file->id, $file);
+        $this->storeCached($file->getId(), $file);
 
-        if($this->isAnonymous($file)) {
+        if($this->isAnonymousReadable($file)) {
             $this->publish($file);
             //$file->getProfileObject()->getLinker()->createSymlink($file);
         }
 
-        $this->storeCached($file->id, $file);
+        $this->storeCached($file->getId(), $file);
         
         return $this;
 
@@ -83,16 +83,16 @@ class FileOperator extends AbstractOperator
         if(!$file = $this->findCached($id)) {
             $file = $this->getBackend()->findFile($id);
             
-            if($file) {
-                $this->storeCached($file->id, $file);
+            if(!$file) {
+                return false;
             }
-        }
 
-        if(!$file) {
-            return false;
+            $file = $this->_fileItemFromArray($file);
+            $this->storeCached($file->getId(), $file);
         }
+        
         $file->setFilelib($this->getFilelib());
-        $file->setProfileObject($this->getFilelib()->getProfile($file->profile));
+        $file->setProfileObject($this->getFilelib()->getProfile($file->getProfile()));
         return $file;
 
     }
@@ -122,7 +122,7 @@ class FileOperator extends AbstractOperator
      * @param \Emerald\Filelib\FileItem $file File
      * @return boolean
      */
-    public function isAnonymous(\Emerald\Filelib\FileItem $file)
+    public function isAnonymousReadable(\Emerald\Filelib\FileItem $file)
     {
         return $this->getFilelib()->getAcl()->isAnonymousReadable($file);
 
@@ -159,7 +159,7 @@ class FileOperator extends AbstractOperator
 
         
         if(!$this->getFilelib()->getAcl()->isWriteable($folder)) {
-            throw new \Emerald\Filelib\FilelibException("Folder '{$folder->id}'not writeable");
+            throw new \Emerald\Filelib\FilelibException("Folder '{$folder->getId()}'not writeable");
         }
 
         if(!$this->getUploader()->isAccepted($upload)) {
@@ -172,12 +172,23 @@ class FileOperator extends AbstractOperator
         }
 
         $file = $this->getBackend()->upload($upload, $folder, $profile);
+        
+        if(!$file) {
+            throw new \Emerald\Filelib\FilelibException("Can not upload");
+        }
+        
+        
+        $file = $this->_fileItemFromArray($file);
+        
+        $file->setLink($profile->getLinker()->getLink($fileItem, true));
+        
+        $this->getBackend()->updateFile($file);        
 
         $file->setFilelib($this->getFilelib());
         $file->setProfileObject($profile);
         	
         if(!$file) {
-            throw new \Emerald\Filelib\FilelibException("Can not upload");
+            
         }
         
         try {
@@ -216,7 +227,7 @@ class FileOperator extends AbstractOperator
             $this->unpublish($file);
             
             $this->getBackend()->deleteFile($file);
-            $this->clearCached($file->id);
+            $this->clearCached($file->getId());
             $this->getFilelib()->getStorage()->delete($file);
 
             foreach($file->getProfileObject()->getPlugins() as $plugin) {
@@ -243,7 +254,7 @@ class FileOperator extends AbstractOperator
     public function getType(\Emerald\Filelib\FileItem $file)
     {
         // @todo Semi-mock until mimetype database is pooped in.
-        $split = explode('/', $file->mimetype);
+        $split = explode('/', $file->getMimetype());
         return $split[0];
     }
 
@@ -362,4 +373,6 @@ class FileOperator extends AbstractOperator
     }
     
 
+    
+    
 }

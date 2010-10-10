@@ -38,16 +38,16 @@ class FolderOperator extends AbstractOperator
      */
     public function delete(\Emerald\Filelib\FolderItem $folder)
     {
-        foreach($folder->findSubFolders() as $childFolder) {
+        foreach($this->findSubFolders($folder) as $childFolder) {
             $this->delete($childFolder);
         }
 
-        foreach($folder->findFiles() as $file) {
+        foreach($this->findFiles($folder) as $file) {
             $this->getFilelib()->file()->delete($file);
         }
 
         $this->getBackend()->deleteFolder($folder);
-        $this->clearCached($folder->id);
+        $this->clearCached($folder->getId());
     }
 
     /**
@@ -59,16 +59,14 @@ class FolderOperator extends AbstractOperator
     {
         $this->getBackend()->updateFolder($folder);
 
-        $files = $folder->findFiles();
-
-        foreach($folder->findFiles() as $file) {
+        foreach($this->findFiles($folder) as $file) {
             $this->getFilelib()->file()->update($file);
         }
 
-        foreach($folder->findSubFolders() as $subFolder) {
+        foreach($this->findSubFolders($folder) as $subFolder) {
             $this->update($subFolder);
         }
-        $this->storeCached($folder->id, $folder);
+        $this->storeCached($folder->getId(), $folder);
     }
 
 
@@ -81,7 +79,13 @@ class FolderOperator extends AbstractOperator
     public function findRoot()
     {
         $folder = $this->getBackend()->findRootFolder();
-        $folder->setFilelib($this->getFilelib());
+
+        if(!$folder) {
+            throw new FilelibException('Could not locate root folder', 500);
+        }
+
+        $folder = $this->_folderItemFromArray($folder);
+        
         return $folder;
     }
 
@@ -98,7 +102,12 @@ class FolderOperator extends AbstractOperator
         if(!$folder = $this->findCached($id)) {
             $folder = $this->getBackend()->findFolder($id);
         }
-        $folder->setFilelib($this->getFilelib());
+        
+        if(!$folder) {
+            return false;
+        }
+        
+        $folder = $this->_folderItemFromArray($folder);
         return $folder;
     }
 
@@ -110,11 +119,14 @@ class FolderOperator extends AbstractOperator
      */
     public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
     {
-        $folders = $this->getBackend()->findSubFolders($folder);
-        foreach($folders as $folder) {
-            $folder->setFilelib($this->getFilelib());
+        $rawFolders = $this->getBackend()->findSubFolders($folder);
+        
+        $folders = array();        
+        foreach($rawFolders as $rawFolder) {
+            $folder = $this->_folderItemFromArray($rawFolder);
+            $folders[] = $folder;
         }
-        return $folders;
+        return new \Emerald\Filelib\FolderItemIterator($folders);
     }
 
 
@@ -124,10 +136,13 @@ class FolderOperator extends AbstractOperator
      */
     public function findFiles(\Emerald\Filelib\FolderItem $folder)
     {
-        $items = $this->getBackend()->findFilesIn($folder);
-        foreach($items as $item) {
-            $item->setFilelib($this->getFilelib());
-            $item->setProfileObject($this->getFilelib()->getProfile($item->profile));
+        $ritems = $this->getBackend()->findFilesIn($folder);
+        
+        $items = array();
+        foreach($ritems as $ritem) {
+            $item = $this->_fileItemFromArray($ritem);
+            // $item->setProfileObject($this->getFilelib()->getProfile($item->profile));
+            $items[] = $item;
         }
 
         return $items;
@@ -135,5 +150,6 @@ class FolderOperator extends AbstractOperator
 
 
 
+    
 
 }

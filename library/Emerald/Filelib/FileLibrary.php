@@ -2,7 +2,7 @@
 
 namespace Emerald\Filelib;
 
-use \Emerald\Base\Options;
+use \Emerald\Base\Options, \Emerald\Base\Cache;
 
 /**
  * Emerald filelib
@@ -134,7 +134,7 @@ class FileLibrary
      * @param \Emerald\Base\Cache\Cache $cache
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setCache(\Emerald\Base\Cache\Cache $cache)
+    public function setCache(Cache\Cache $cache)
     {
         $this->_cache = $cache;
         return $this;
@@ -147,7 +147,7 @@ class FileLibrary
     public function getCache()
     {
         if(!$this->_cache) {
-            $this->_cache = new \Emerald\Base\Cache\MockCache();
+            $this->_cache = new Cache\MockCache();
         }
         return $this->_cache;
     }
@@ -158,7 +158,7 @@ class FileLibrary
      * @param \Emerald\Filelib\FileProfile $profile
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function addProfile(\Emerald\Filelib\FileProfile $profile)
+    public function addProfile(FileProfile $profile)
     {
         $profile->setFilelib($this);
 
@@ -183,7 +183,7 @@ class FileLibrary
         }
 
         if(!isset($this->_profiles[$identifier])) {
-            throw new \Emerald\Filelib\FilelibException("File profile '{$identifier}' not found");
+            throw new FilelibException("File profile '{$identifier}' not found");
         }
 
         return $this->_profiles[$identifier];
@@ -207,7 +207,7 @@ class FileLibrary
     public function file()
     {
         if(!$this->_fileOperator) {
-            $this->_fileOperator = new \Emerald\Filelib\FileOperator($this);
+            $this->_fileOperator = new FileOperator($this);
         }
         return $this->_fileOperator;
     }
@@ -220,7 +220,7 @@ class FileLibrary
     public function folder()
     {
         if(!$this->_folderOperator) {
-            $this->_folderOperator = new \Emerald\Filelib\FolderOperator($this);
+            $this->_folderOperator = new FolderOperator($this);
         }
 
         return $this->_folderOperator;
@@ -280,7 +280,7 @@ class FileLibrary
      * @param \Emerald\Filelib\Storage\Storage $storage
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setStorage(\Emerald\Filelib\Storage\Storage $storage)
+    public function setStorage(Storage\Storage $storage)
     {
         $storage->setFilelib($this);
         $this->_storage = $storage;
@@ -296,7 +296,7 @@ class FileLibrary
     public function getStorage()
     {
         if(!$this->_storage) {
-            throw new \Emerald\Filelib\FilelibException('Filelib storage not set');
+            throw new FilelibException('Filelib storage not set');
         }
 
         return $this->_storage;
@@ -308,7 +308,7 @@ class FileLibrary
      * @param \Emerald\Filelib\Publisher\Interface $publisher
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setPublisher(\Emerald\Filelib\Publisher\Publisher $publisher)
+    public function setPublisher(Publisher\Publisher $publisher)
     {
         $publisher->setFilelib($this);
         $this->_publisher = $publisher;
@@ -324,7 +324,7 @@ class FileLibrary
     public function getPublisher()
     {
         if(!$this->_publisher) {
-            throw new \Emerald\Filelib\FilelibException('Filelib Publisher not set');
+            throw new FilelibException('Filelib Publisher not set');
         }
 
         return $this->_publisher;
@@ -337,7 +337,7 @@ class FileLibrary
      * @param \Emerald\Filelib\Backend\Backend $backend
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function setBackend(\Emerald\Filelib\Backend\Backend $backend)
+    public function setBackend(Backend\Backend $backend)
     {
         $backend->setFilelib($this);
         $backend->init();
@@ -354,7 +354,7 @@ class FileLibrary
     public function getBackend()
     {
         if(!$this->_backend) {
-            throw new \Emerald\Filelib\FilelibException('Filelib backend not set');
+            throw new FilelibException('Filelib backend not set');
         }
 
         return $this->_backend;
@@ -366,7 +366,7 @@ class FileLibrary
      * @param \Emerald\Filelib\Plugin\Plugin Plugin $plugin
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function addPlugin(\Emerald\Filelib\Plugin\Plugin $plugin)
+    public function addPlugin(Plugin\Plugin $plugin)
     {
         $plugin->setFilelib($this);
 
@@ -399,7 +399,7 @@ class FileLibrary
      * @param \Emerald\Filelib\Acl\Acl $acl
      * @return \Emerald\Filelib\FileLibrary Filelib
      */
-    public function setAcl(\Emerald\Filelib\Acl\Acl $acl)
+    public function setAcl(Acl\Acl $acl)
     {
         $this->_acl = $acl;
         return $this;
@@ -414,7 +414,7 @@ class FileLibrary
     public function getAcl()
     {
         if(!$this->_acl) {
-            $this->_acl = new \Emerald\Filelib\Acl\SimpleAcl();
+            $this->_acl = new Acl\SimpleAcl();
         }
         return $this->_acl;
     }

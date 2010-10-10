@@ -122,40 +122,10 @@ abstract class AbstractItem
     }
 
 
-
-
-    /**
-     * Automagic caller proxies unknown getX and setX invocations to fields.
-     *
-     * @param string $func
-     * @param array $args
-     * @return mixed
-     */
-    public function __call($func, $args)
-    {
-        if(preg_match('/^get/', $func)) {
-            $filter = new \Zend_Filter_Word_CamelCaseToUnderscore();
-            $field = lcfirst(substr($func, 3));
-            $field = $filter->filter($field);
-            return $this->$field;
-        }
-
-        if(preg_match('/^set/', $func)) {
-            $filter = new \Zend_Filter_Word_CamelCaseToUnderscore();
-            $field = lcfirst(substr($func, 3));
-            $field = $filter->filter($field);
-            $this->$field = $args[0];
-        }
-
-        throw new \Emerald\Filelib\FilelibException("Method '{$func}' does not exist");
-    }
-
-
     
     public function __unset($key)
     {
     	if(isset($this->_data[$key])) {
-            
     		unset($this->_data[$key]);    		
     	}
     }

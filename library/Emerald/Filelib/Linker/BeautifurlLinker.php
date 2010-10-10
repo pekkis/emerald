@@ -56,19 +56,19 @@ class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
         if($force || !isset($file->link)) {
             	
             $folders = array();
-            $folders[] = $folder = $file->findFolder();
+            $folders[] = $folder = $file->getFilelib()->folder()->find($file->getFolderId());
             	
-            while($folder = $folder->findParent()) {
+            while($folder = $folder->getFilelib()->folder()->find($folder->getParentId())) {
                 array_unshift($folders, $folder);
             }
 
             $beautifurl = array();
             	
             foreach($folders as $folder) {
-                $beautifurl[] = $folder->name;
+                $beautifurl[] = $folder->getName();
             }
             	
-            $beautifurl[] = $file->name;
+            $beautifurl[] = $file->getName();
 
             if($this->getExcludeRoot()) {
                 array_shift($beautifurl);

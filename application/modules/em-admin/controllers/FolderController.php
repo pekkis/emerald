@@ -92,7 +92,7 @@ class EmAdmin_FolderController extends Emerald_Cms_Controller_Action
             // $this->getAcl()->cacheRemove();
             	
             $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok!');
-            $this->view->message->folder_id = $folder->id;
+            $this->view->message->folder_id = $folder->getId();
             	
         } else {
             $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');

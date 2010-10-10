@@ -35,12 +35,12 @@ class EmCore_Model_Folder extends Emerald_Cms_Model_AbstractModel
         $tbl = new EmCore_Model_DbTable_Permission_Folder_Ugroup();
         $tbl->getAdapter()->beginTransaction();
         try {
-            $tbl->delete($tbl->getAdapter()->quoteInto("folder_id = ?", $folder->id));
+            $tbl->delete($tbl->getAdapter()->quoteInto("folder_id = ?", $folder->getId()));
             if($permissions) {
                 foreach($permissions as $key => $data) {
                     if($data) {
                         $sum = array_sum($data);
-                        $tbl->insert(array('folder_id' => $folder->id, 'ugroup_id' => $key, 'permission' => $sum));
+                        $tbl->insert(array('folder_id' => $folder->getId(), 'ugroup_id' => $key, 'permission' => $sum));
                     }
                 }
             }

@@ -220,7 +220,7 @@ class FileProfile
      */
     public function getFileVersions(\Emerald\Filelib\FileItem $file)
     {
-        $fileType = $file->getType();
+        $fileType = $this->getFilelib()->file()->getType($file);
 
         if(!isset($this->_fileVersions[$fileType])) {
             $this->_fileVersions[$fileType] = array();

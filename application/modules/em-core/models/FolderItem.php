@@ -5,7 +5,7 @@ class EmCore_Model_FolderItem extends Emerald\Filelib\FolderItem implements Emer
 
     public function getResourceId()
     {
-        return "Emerald_Filelib_Folder_{$this->id}";
+        return "Emerald_Filelib_Folder_{$this->getId()}";
     }
 
 
@@ -16,7 +16,7 @@ class EmCore_Model_FolderItem extends Emerald\Filelib\FolderItem implements Emer
             $acl->addResource($this);
             $model = new EmCore_Model_DbTable_Permission_Folder_Ugroup();
             $sql = "SELECT ugroup_id, permission FROM emerald_permission_folder_ugroup WHERE folder_id = ?";
-            $res = $model->getAdapter()->fetchAll($sql, $this->id);
+            $res = $model->getAdapter()->fetchAll($sql, $this->getId());
              
             foreach($res as $row) {
                 foreach(Emerald_Cms_Permission::getAll() as $key => $name) {

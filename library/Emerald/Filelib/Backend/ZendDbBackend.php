@@ -92,9 +92,10 @@ class ZendDbBackend extends AbstractBackend implements Backend
     {
         try {
             $folderRow = $this->getFolderTable()->createRow($folder->toArray());
+            
             $folderRow->save();
             	
-            $folder->id = $folderRow->id;
+            $folder->setId($folderRow->id);
             return $folder;
             	
         } catch(Exception $e) {
@@ -108,7 +109,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
     {
         try {
-            $this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->id));
+            $this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->getId()));
         } catch(Exception $e) {
             throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
@@ -120,7 +121,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
         try {
             $this->getFolderTable()->update(
             $folder->toArray(),
-            $this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->id)
+            $this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->getId())
             );
             	
         } catch(Exception $e) {
@@ -134,15 +135,14 @@ class ZendDbBackend extends AbstractBackend implements Backend
     {
         try {
 
-            // $fileRow = $this->getFileTable()->find($file->id)->current();
-            $file->link = $file->getProfileObject()->getLinker()->getLink($file, true);
+            $file->setLink($file->getProfileObject()->getLinker()->getLink($file, true));
 
             $this->getFileTable()->update(
             $file->toArray(),
-            $this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->id)
+            $this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->getId())
             );
 
-            $file->link = $file->link;
+            // $file->link = $file->link;
             	
         } catch(Exception $e) {
             throw new \Emerald\Filelib\FilelibException($e->getMessage());
@@ -155,7 +155,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     {
         try {
             $this->getDb()->beginTransaction();
-            $fileRow = $this->getFileTable()->find($file->id)->current();
+            $fileRow = $this->getFileTable()->find($file->getId())->current();
             $fileRow->delete();
             $this->getDb()->commit();
             return true;
@@ -176,7 +176,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
             $file = $this->getFileTable()->createRow();
 
-            $file->folder_id = $folder->id;
+            $file->folder_id = $folder->getId();
             $file->mimetype = $upload->getMimeType();
             $file->size = $upload->getSize();
             $file->name = $upload->getOverrideFilename();
@@ -184,16 +184,9 @@ class ZendDbBackend extends AbstractBackend implements Backend
             	
             $file->save();
             	
-            $fileItem = new $fileItemClass($file->toArray());
-            $fileItem->setFilelib($this->getFilelib());
-            	
-            $fileItem->link = $file->link = $profile->getLinker()->getLink($fileItem, true);
-            	
-            $file->save();
-            	
             $this->getDb()->commit();
             	
-            return $fileItem;
+            return $file->toArray();
 
         } catch(Exception $e) {
             	
@@ -207,63 +200,55 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     public function findFolder($id)
     {
-        $folderRow = $this->getFolderTable()->find($id)->current();
-        $className = $this->getFilelib()->getFolderItemClass();
-        $item = new $className($folderRow->toArray());
-        return $item;
+        $row = $this->getFolderTable()->find($id)->current();
+
+        if(!$row) {
+            return false;
+        }
+
+        return $row->toArray();
+                
     }
 
 
     public function findRootFolder()
     {
-        $folderRow = $this->getFolderTable()->fetchRow(array('parent_id IS NULL'));
-        $className = $this->getFilelib()->getFolderItemClass();
-        $item = new $className($folderRow->toArray());
-        return $item;
+        $row = $this->getFolderTable()->fetchRow(array('parent_id IS NULL'));
+        
+        if(!$row) {
+            return false;
+        }
+        
+        return $row->toArray();
     }
 
 
 
     public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
     {
-        $folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->id));
-
-        $folders = array();
-
-        $className = $this->getFilelib()->getFolderItemClass();
-
-        foreach($folderRows as $folderRow) {
-            $folders[] = new $className($folderRow->toArray());
-        }
-
-        return new \Emerald\Filelib\FolderItemIterator($folders);
+        $folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->getId()));
+        return $folderRows->toArray();
     }
 
 
 
     public function findFile($id)
     {
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
         $fileRow = $this->getFileTable()->find($id)->current();
         if(!$fileRow) {
             return false;
         }
-
-        $item = new $fileItemClass($fileRow->toArray());
-        return $item;
+        return $fileRow->toArray();
     }
 
 
     public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
     {
         $fileItemClass = $this->getFilelib()->getFileItemClass();
-        $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->id));
-        $files = array();
-
-        foreach($res as $row) {
-            $files[] = new $fileItemClass($row->toArray());
-        }
-        return new \Emerald\Filelib\FileItemIterator($files);
+        $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->getId()));
+        
+        return $res->toArray();
+        
     }
 
 
