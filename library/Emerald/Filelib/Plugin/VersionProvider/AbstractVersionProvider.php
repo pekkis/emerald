@@ -47,21 +47,6 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
 
     }
     
-    /**
-     * Returns render path
-     * 
-     * @param \Emerald\Filelib\FileItem $file
-     * @todo This whole method is ambiguous. Rethinking required.
-     */
-    public function getRenderPath(\Emerald\Filelib\FileItem $file)
-    {
-        if($file->isAnonymous()) {
-            $link = $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $this);
-        } else {
-            $link = $this->getFilelib()->getStorage()->retrieveVersion($file, $this);
-        }
-        return $link;
-    }
 
     /**
      * Sets identifier

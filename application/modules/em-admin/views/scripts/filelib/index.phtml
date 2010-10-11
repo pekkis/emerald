@@ -95,14 +95,16 @@ Versions:
 </li>
 <?php endforeach; ?>
 </ul>
+<?php endif; ?>
 
-<?php if($this->emerald()->userIsAllowed($folder, 'write')): ?>
+<?php if($this->emerald()->userIsAllowed($this->folder, 'write')): ?>
 
 <h3><?php echo $this->translate('Upload file'); ?></h3>
 
+
 <?php echo $this->form; ?>
 
-<?php endif; ?>
+
 
 <?php endif; ?>
 

@@ -26,14 +26,6 @@ interface VersionProvider extends \Emerald\Filelib\Plugin\Plugin
     public function getExtension();
     
     /**
-     * Returns render path
-     * 
-     * @param \Emerald\Filelib\FileItem $file
-     * @todo This whole method is ambiguous. Rethinking required.
-     */
-    public function getRenderPath(\Emerald\Filelib\FileItem $file);
-    
-    /**
      * Sets file types for this version plugin.
      *
      * @param array $providesFor Array of file types

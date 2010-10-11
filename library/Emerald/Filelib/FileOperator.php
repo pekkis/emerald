@@ -179,7 +179,7 @@ class FileOperator extends AbstractOperator
         
         
         $file = $this->_fileItemFromArray($file);
-        $file->setLink($profile->getLinker()->getLink($fileItem, true));
+        $file->setLink($profile->getLinker()->getLink($file, true));
         
         $this->getBackend()->updateFile($file);        
         
@@ -280,6 +280,25 @@ class FileOperator extends AbstractOperator
         return $file->getProfileObject()->getVersionProvider($file, $version);
     }
 
+    
+    public function getUrl(\Emerald\Filelib\FileItem $file, $opts = array())
+    {
+        if(isset($opts['version'])) {
+            $version = $opts['version'];
+            
+            if(!$this->hasVersion($file, $version)) {
+                throw new \Emerald\Filelib\FilelibException("Version '{$version}' is not available");
+            }
+            
+            $provider = $this->getVersionProvider($file, $version);
+            $url = $this->getFilelib()->getPublisher()->getUrlVersion($file, $provider);
+                     
+        } else {
+            $url = $this->getFilelib()->getPublisher()->getUrl($file);
+        }
+        return $url;
+    }
+    
 
     /**
      * Renders a file's path
@@ -319,28 +338,43 @@ class FileOperator extends AbstractOperator
      */
     public function render(\Emerald\Filelib\FileItem $file, \Zend_Controller_Response_Http $response, $opts = array())
     {
-        $path = $this->renderPath($file, $opts);
+        // $path = $this->renderPath($file, $opts);
+        
         if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
-            return $response->setRedirect($path, 302);
+            
+            $url = $this->getUrl($file, $opts);
+                                    
+            return $response->setRedirect($url, 302);
         }
-
+        
         if(!$this->getFilelib()->getAcl()->isReadable($file)) {
             throw new \Emerald\Filelib\FilelibException('Not readable', 404);
         }
-
-
-
-        if(isset($opts['download'])) {
-            $response->setHeader('Content-disposition', "attachment; filename={$file->name}");
+        
+        if(isset($opts['version'])) {
+            $version = $opts['version'];
+            if(!$this->hasVersion($file, $version)) {
+                throw new \Emerald\Filelib\FilelibException("Version '{$version}' is not available");
+            }
+            $provider = $this->getVersionProvider($file, $version);
+            $res = $this->getFilelib()->getStorage()->retrieveVersion($file, $provider);
+        } else {
+            $res = $this->getFilelib()->getStorage()->retrieve($file);
         }
 
-        if(!is_readable($path)) {
+        
+        
+        if(isset($opts['download'])) {
+            $response->setHeader('Content-disposition', "attachment; filename={$file->getName()}");
+        }
+
+        if(!is_readable($res->getPathname())) {
             throw new \Emerald\Filelib\FilelibException('File not readable');
         }
 
-        $response->setHeader('Content-Type', $file->mimetype);
+        $response->setHeader('Content-Type', $file->getMimetype());
 
-        readfile($path);
+        readfile($res->getPathname());
 
     }
 

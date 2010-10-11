@@ -72,12 +72,6 @@ class FileLibrary
      */
     private $_tempDir;
     
-    /**
-     * Public prefix for accessing the files
-     * 
-     * @var unknown_type
-     */
-    private $_publicDirectoryPrefix = '/files';
     
     /**
      * @var array Profiles
@@ -87,28 +81,6 @@ class FileLibrary
     public function __construct($options = array())
     {
         Options::setConstructorOptions($this, $options);
-    }
-    
-    /**
-     * Sets public directory prefix
-     * 
-     * @param string $publicDirectoryPrefix
-     * @return \Emerald\Filelib\FileLibrary
-     */
-    public function setPublicDirectoryPrefix($publicDirectoryPrefix)
-    {
-        $this->_publicDirectoryPrefix = $publicDirectoryPrefix;
-        return $this;
-    }
-    
-    /**
-     * Returns public directory prefix
-     * 
-     * @return string
-     */
-    public function getPublicDirectoryPrefix()
-    {
-        return $this->_publicDirectoryPrefix;
     }
     
     /**

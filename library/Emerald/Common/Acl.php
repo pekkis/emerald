@@ -233,6 +233,18 @@ class Emerald_Common_Acl extends Zend_Acl
     public function isAllowed($role = null, $resource = null, $privilege = null)
     {
 
+        /*
+        Zend_Debug::dump($role->getRoleId());
+        
+        if(is_object($resource)) {
+            Zend_Debug::dump($resource->getResourceId());    
+        } else {
+            Zend_Debug::dump($resource);
+        }
+        
+        Zend_Debug::dump($privilege);
+        */
+        
         if(!$this->hasRole($role)) {
             $this->autoloadRole($role);
         }
@@ -241,8 +253,12 @@ class Emerald_Common_Acl extends Zend_Acl
             $resource = $this->autoloadResource($resource);
         }
 
-        return parent::isAllowed($role, $resource, $privilege);
+        $ret = parent::isAllowed($role, $resource, $privilege);
+        
+        // Zend_Debug::dump($ret, 'ret');
 
+        return $ret;
+        
     }
 
 

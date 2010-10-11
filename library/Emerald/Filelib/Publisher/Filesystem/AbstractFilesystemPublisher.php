@@ -28,6 +28,38 @@ abstract class AbstractFilesystemPublisher extends AbstractPublisher
      * @var string Physical public root
      */
     private $_publicRoot;
+
+    
+    /**
+     * Base url prepended to urls
+     * 
+     * @var string
+     */
+    private $_baseUrl = '';
+    
+    
+    /**
+     * Sets base url
+     * 
+     * @param string $baseUrl
+     */
+    public function setBaseUrl($baseUrl)
+    {
+        $this->_baseUrl = $baseUrl;
+    }
+    
+    
+    /**
+     * Returns base url
+     * 
+     * @return string
+     */
+    public function getBaseUrl()
+    {
+        return $this->_baseUrl;
+    }
+    
+    
     
     /**
      * Sets public root
@@ -96,6 +128,20 @@ abstract class AbstractFilesystemPublisher extends AbstractPublisher
     {
         return $this->_filePermission;
     }
+    
+    
+    public function getUrl(\Emerald\Filelib\FileItem $file)
+    {
+        $url = $this->getBaseUrl() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
+        return $url;
+    }
+    
+    public function getUrlVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    {
+        $url = $this->getBaseUrl() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
+        return $url;
+    }
+    
     
     
     

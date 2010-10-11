@@ -154,7 +154,9 @@ class FileItem implements File
     
     public function fromArray(array $data)
     {
-        $this->setId($data['id']);
+        if(isset($data['id'])) {
+            $this->setId($data['id']);    
+        }
         $this->setFolderId($data['folder_id']);
         $this->setMimetype($data['mimetype']);
         $this->setProfile($data['profile']);
@@ -164,25 +166,6 @@ class FileItem implements File
     }
     
     
-    
-
-    /**
-     * Returns file's render path. Url if anonymous, filesystem path otherwise.
-     *
-     * @return string
-     */
-    
-    
-    /*
-    public function getRenderPath()
-    {
-        if($this->isAnonymous()) {
-            return $this->getFilelib()->getPublicDirectoryPrefix() . '/' . $this->getProfileObject()->getLinker()->getLink($this); 
-        } else {
-            return $this->getFilelib()->getPublicDirectoryPrefix()->retrieve($this)->getPathname();
-        }
-    }
-    */
 
     /**
      * Renders file's path.
@@ -218,45 +201,6 @@ class FileItem implements File
      * @return boolean
      */
     
-    /*
-    public function isAnonymous()
-    {
-        return $this->getFilelib()->file()->isAnonymous($this);
-    }
-    */
 
-    /**
-     * Returns whether the file has a certain version
-     *
-     * @param string $version Version identifier
-     * @return boolean
-     */
-    
-    /*
-    public function hasVersion($version)
-    {
-        return $this->getFilelib()->file()->hasVersion($this, $version);
-    }
-    */
-    
-
-    /**
-     * Delete this file
-     *
-     * @return true
-     */
-    
-    /*
-    public function delete()
-    {
-        return $this->getFilelib()->file()->delete($this);
-    }
-    */
-
-
-    public function __sleep()
-    {
-        return array('_enforceFieldIntegrity', '_data');
-    }
 
 }

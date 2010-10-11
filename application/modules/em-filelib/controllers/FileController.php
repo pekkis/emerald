@@ -24,7 +24,7 @@ class EmFilelib_FileController extends Zend_Controller_Action
 
         // Convert all exceptions to 404's
         try {
-            $file->render($this->getResponse(), $opts);
+            $fl->file()->render($file, $this->getResponse(), $opts);
         } catch(Exception $e) {
             throw new Emerald_Common_Exception('File not found', 404);
         }
