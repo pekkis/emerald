@@ -21,10 +21,23 @@ class EmFilelib_FileController extends Zend_Controller_Action
         if($download) {
             $opts['download'] = true;
         }
-
+        
+        if($fl->file()->isAnonymousReadable($file)) {
+            $url = $fl->file()->getUrl($file, $opts);
+            return $this->getResponse()->setRedirect($url, 302);
+        }
+        
         // Convert all exceptions to 404's
         try {
-            $fl->file()->render($file, $this->getResponse(), $opts);
+            
+            $fl->file()->render($file, $opts);
+            
+            if(isset($opts['download'])) {
+                $this->getResponse()->setHeader('Content-disposition', "attachment; filename={$file->getName()}");
+            }
+        
+            $this->getResponse()->setHeader('Content-Type', $file->getMimetype());
+            
         } catch(Exception $e) {
             throw new Emerald_Common_Exception('File not found', 404);
         }

@@ -41,8 +41,21 @@ interface Publisher
      */
     public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
         
+    /**
+     * Returns url to a file
+     * 
+     * @param \Emerald\Filelib\FileItem $file
+     * @return string
+     */
     public function getUrl(\Emerald\Filelib\FileItem $file);
     
+    /**
+     * Returns url to a version of a file
+     * 
+     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
+     * @return string
+     */
     public function getUrlVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
     
 }

@@ -301,51 +301,14 @@ class FileOperator extends AbstractOperator
     
 
     /**
-     * Renders a file's path
-     *
-     * @param \Emerald\Filelib\FileItem $file
-     * @param array $opts Options
-     * @return string File path
-     */
-    public function renderPath(\Emerald\Filelib\FileItem $file, $opts = array())
-    {
-        if(isset($opts['version'])) {
-
-            $version = $opts['version'];
-            	
-            if($this->hasVersion($file, $version)) {
-                $provider = $this->getVersionProvider($file, $version);
-                $path = $provider->getRenderPath($file);
-            } else {
-                throw new \Emerald\Filelib\FilelibException("Version '{$version}' is not available");
-            }
-        } else {
-            $path = $file->getRenderPath();
-        }
-
-        return $path;
-
-    }
-
-
-
-    /**
      * Renders a file to a response
      *
      * @param \Emerald_Filelib File $file item
      * @param \Zend_Controller_Response_Http $response Response
      * @param array $opts Options
      */
-    public function render(\Emerald\Filelib\FileItem $file, \Zend_Controller_Response_Http $response, $opts = array())
+    public function render(\Emerald\Filelib\FileItem $file, $opts = array())
     {
-        // $path = $this->renderPath($file, $opts);
-        
-        if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
-            
-            $url = $this->getUrl($file, $opts);
-                                    
-            return $response->setRedirect($url, 302);
-        }
         
         if(!$this->getFilelib()->getAcl()->isReadable($file)) {
             throw new \Emerald\Filelib\FilelibException('Not readable', 404);
@@ -362,17 +325,9 @@ class FileOperator extends AbstractOperator
             $res = $this->getFilelib()->getStorage()->retrieve($file);
         }
 
-        
-        
-        if(isset($opts['download'])) {
-            $response->setHeader('Content-disposition', "attachment; filename={$file->getName()}");
-        }
-
         if(!is_readable($res->getPathname())) {
             throw new \Emerald\Filelib\FilelibException('File not readable');
         }
-
-        $response->setHeader('Content-Type', $file->getMimetype());
 
         readfile($res->getPathname());
 
