@@ -3,7 +3,7 @@
 namespace Emerald\Filelib;
 
 /**
- * Operates on folders
+ * Base class for operators
  * 
  * @package Emerald_Filelib
  * @author pekkis

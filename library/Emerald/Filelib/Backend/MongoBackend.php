@@ -40,8 +40,6 @@ class MongoBackend extends AbstractBackend implements Backend
         $folder = $mongo->folders->findOne(array('_id' => new MongoId($id)));
         
         if($folder) {
-            $className = $this->getFilelib()->getFolderItemClass();
-            $folder = new $className($folder);
             $this->_addId($folder);    
         }
         
@@ -60,13 +58,9 @@ class MongoBackend extends AbstractBackend implements Backend
 
         $folderItemClass = $this->getFilelib()->getFolderItemClass();
         $res = $mongo->folders->find(array('parent_id' => $folder->id));
-        
-        $folders = array();
 
         foreach($res as $row) {
-            $folder = new $folderItemClass($row->toArray());
-            $this->_addId($folder);
-            $folders[] = $folder;
+            $this->_addId($row);
         }
         
         return new \Emerald\Filelib\FolderItemIterator($folders);        

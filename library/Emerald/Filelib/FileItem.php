@@ -3,7 +3,7 @@
 namespace Emerald\Filelib;
 
 /**
- * File item
+ * Default file implementation
  *
  * @author pekkis
  *
@@ -16,7 +16,6 @@ class FileItem implements File
     private $_filelib;
 
     private $_profileObj;
-
     
     private $_id;
     
@@ -31,7 +30,27 @@ class FileItem implements File
     private $_name;
     
     private $_link;
-        
+
+    
+    /**
+     * Sets filelib
+     *
+     * @param \Emerald_Filelib $filelib
+     */
+    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
+    {
+        $this->_filelib = $filelib;
+    }
+
+    /**
+     * Returns filelib
+     *
+     * @return \Emerald\Filelib\FileLibrary
+     */
+    public function getFilelib()
+    {
+        return $this->_filelib;
+    }
     
     public function setId($id)
     {
@@ -102,41 +121,16 @@ class FileItem implements File
     {
         return $this->_link;
     }
-    
-    
 
     public function getProfileObject()
     {
         return $this->getFilelib()->getProfile($this->getProfile());
     }
-
     
     public function getType()
     {
         return $this->getFilelib()->file()->getType($this);
     }
-    
-    
-    /**
-     * Sets filelib
-     *
-     * @param \Emerald_Filelib $filelib
-     */
-    public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
-    {
-        $this->_filelib = $filelib;
-    }
-
-    /**
-     * Returns filelib
-     *
-     * @return \Emerald\Filelib\FileLibrary
-     */
-    public function getFilelib()
-    {
-        return $this->_filelib;
-    }
-
     
     public function toArray()
     {
@@ -151,7 +145,6 @@ class FileItem implements File
         );
     }
     
-    
     public function fromArray(array $data)
     {
         if(isset($data['id'])) {
@@ -164,43 +157,6 @@ class FileItem implements File
         $this->setName($data['name']);
         $this->setLink($data['link']);
     }
-    
-    
-
-    /**
-     * Renders file's path.
-     *
-     * @param $opts array Render options
-     * @return string Render path
-     */
-    
-    /*
-    public function renderPath($opts = array())
-    {
-        return $this->getFilelib()->file()->renderPath($this, $opts);
-    }
-    */
-
-    /**
-     * Renders file to HTTP response
-     *
-     * @param \Zend_Controller_Response_Http $response Response
-     * @param array $opts Options
-     */
-    
-    /*
-    public function render(\Zend_Controller_Response_Http $response, $opts = array())
-    {
-        return $this->getFilelib()->file()->render($this, $response, $opts);
-    }
-    */
-
-    /**
-     * Returns whether the file is readable by anonymous.
-     *
-     * @return boolean
-     */
-    
 
 
 }

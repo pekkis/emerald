@@ -30,13 +30,13 @@ class EmFilelib_FileController extends Zend_Controller_Action
         // Convert all exceptions to 404's
         try {
             
-            $fl->file()->render($file, $opts);
-            
             if(isset($opts['download'])) {
                 $this->getResponse()->setHeader('Content-disposition', "attachment; filename={$file->getName()}");
             }
         
             $this->getResponse()->setHeader('Content-Type', $file->getMimetype());
+            
+            $fl->file()->render($file, $opts);
             
         } catch(Exception $e) {
             throw new Emerald_Common_Exception('File not found', 404);

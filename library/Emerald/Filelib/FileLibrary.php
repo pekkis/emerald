@@ -244,7 +244,6 @@ class FileLibrary
     {
         return $this->_folderItemClass;
     }
-
     
     /**
      * Sets storage
@@ -258,7 +257,6 @@ class FileLibrary
         $this->_storage = $storage;
         return $this;
     }
-
 
     /**
      * Returns storage
@@ -287,7 +285,6 @@ class FileLibrary
         return $this;
     }
 
-
     /**
      * Returns publisher
      *
@@ -301,7 +298,6 @@ class FileLibrary
 
         return $this->_publisher;
     }
-    
 
     /**
      * Sets backend
@@ -316,7 +312,6 @@ class FileLibrary
         $this->_backend = $backend;
         return $this;
     }
-
 
     /**
      * Returns backend
@@ -364,7 +359,6 @@ class FileLibrary
         return $this->_plugins;
     }
 
-
     /**
      * Sets acl handler
      *
@@ -376,7 +370,6 @@ class FileLibrary
         $this->_acl = $acl;
         return $this;
     }
-
 
     /**
      * Returns acl handler

@@ -15,7 +15,6 @@ class FolderItemIterator extends AbstractItemIterator implements \RecursiveItera
     public function hasChildren()
     {
         $current = $this->current();
-        
         return $current->getFilelib()->folder()->findSubFolders($current)->count();
         
     }
@@ -24,7 +23,6 @@ class FolderItemIterator extends AbstractItemIterator implements \RecursiveItera
     {
         $current = $this->current();
         return $current->getFilelib()->folder()->findSubFolders($current);
-        
     }
 
 

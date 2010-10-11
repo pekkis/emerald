@@ -2,6 +2,12 @@
 
 namespace Emerald\Filelib;
 
+/**
+ * Folder interface
+ * 
+ * @author pekkis
+ *
+ */
 interface Folder
 {
 
@@ -34,10 +40,5 @@ interface Folder
     public function setName($name);
     
     public function getName();
-    
-    
-    
-    
-    
     
 }

@@ -3,9 +3,8 @@
 namespace Emerald\Filelib;
 
 /**
- * Folder item
+ * Default folder implementation
  *
- * @package Emerald_Filelib
  * @author pekkis
  *
  */
@@ -21,8 +20,7 @@ class FolderItem implements Folder
     private $_parentId;
     
     private $_name;
-    
-    
+        
     /**
      * Sets filelib
      *
@@ -72,8 +70,6 @@ class FolderItem implements Folder
     {
         return $this->_name;
     }
-       
-
     
     public function toArray()
     {

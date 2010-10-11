@@ -2,6 +2,12 @@
 
 namespace Emerald\Filelib;
 
+/**
+ * File interface
+ * 
+ * @author pekkis
+ *
+ */
 interface File
 {
         
