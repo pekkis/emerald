@@ -95,8 +95,10 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
 
         $files = array();
 
+        $fileItemClass = $this->getFilelib()->getFileItemClass();
+
         foreach ($qb->getQuery()->getResult() as $file) {
-            $files[] = $this->_fileToArray($file);
+            $files[] = new $fileItemClass($this->_fileToArray($file));
         }
 
         return new Emerald_Filelib_FileItemIterator($files);
@@ -120,8 +122,10 @@ class Emerald_Filelib_Backend_Doctrine2 implements Emerald_Filelib_Backend_Inter
 
         $files = array();
 
+        $fileItemClass = $this->getFilelib()->getFileItemClass();
+
         foreach ($qb->getQuery()->getResult() as $file) {
-            $files[] = $this->_fileToArray($file);
+            $files[] = new $fileItemClass($this->_fileToArray($file));
         }
 
         return new Emerald_Filelib_FileItemIterator($files);
