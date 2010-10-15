@@ -103,7 +103,7 @@ class FileOperator extends AbstractOperator
     public function findAll()
     {
         $ritems = $this->getBackend()->findAllFiles();
-        
+
         $items = array();
         foreach($ritems as $ritem) {
             $item = $this->_fileItemFromArray($ritem);
@@ -142,6 +142,39 @@ class FileOperator extends AbstractOperator
         return $upload;
     }
 
+    
+    /**
+     * Uploads many files at once
+     * 
+     * @param Iterator $batch Collection of \SplFileInfo objects
+     * @return ArrayIterator Collection of uploaded file items
+     */
+    public function uploadBatch(\Iterator $batch, $folder, $profile = 'default')
+    {
+        if(!($folder instanceof \Emerald\Filelib\Folder)) {
+            throw new \Emerald\Filelib\FilelibException('Invalid folder supplied for batch upload');
+        }
+        
+        foreach ($batch as $item) {
+            if (!($item instanceof \SplFileInfo)) {
+                throw new \Emerald\Filelib\FilelibException('Invalid upload detected in batch');
+            }
+        }
+        
+                
+        $ret = new \ArrayIterator(array());
+        foreach ($batch as $item) {
+            if($item->isFile()) {
+                $upload = $this->prepareUpload($item->getPathname());
+                $uploaded = $this->upload($upload, $folder, $profile);
+                $ret->append($uploaded);
+            }
+        }
+        
+        return $ret;
+    }
+    
+    
 
     /**
      * Uploads file to filelib.
@@ -153,6 +186,11 @@ class FileOperator extends AbstractOperator
      */
     public function upload($upload, $folder, $profile = 'default')
     {
+        if(!($folder instanceof \Emerald\Filelib\Folder)) {
+            throw new \Emerald\Filelib\FilelibException('Invalid folder supplied for upload');
+        }
+       
+        
         if(!$upload instanceof \Emerald\Filelib\FileUpload) {
             $upload = $this->prepareUpload($upload);
         }
@@ -181,7 +219,7 @@ class FileOperator extends AbstractOperator
         $file = $this->_fileItemFromArray($file);
         $file->setLink($profile->getLinker()->getLink($file, true));
         
-        $this->getBackend()->updateFile($file);        
+        $this->getBackend()->updateFile($file);
         
         try {
             

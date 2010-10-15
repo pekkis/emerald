@@ -168,8 +168,6 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FolderItem $folder, \Emerald\Filelib\FileProfile $profile)
     {
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
-
         try {
 
             $this->getDb()->beginTransaction();
@@ -216,7 +214,13 @@ class ZendDbBackend extends AbstractBackend implements Backend
         $row = $this->getFolderTable()->fetchRow(array('parent_id IS NULL'));
         
         if(!$row) {
-            return false;
+            
+            
+            $row = $this->getFolderTable()->createRow();
+            $row->name = 'root';
+            $row->parent_id = null;
+            $row->save();
+            
         }
         
         return $row->toArray();
@@ -244,7 +248,6 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
     {
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
         $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->getId()));
         
         return $res->toArray();
@@ -254,13 +257,8 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     public function findAllFiles()
     {
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
         $res = $this->getFileTable()->fetchAll(array(), "id ASC");
-        $files = array();
-        foreach($res as $row) {
-            $files[] = new $fileItemClass($row->toArray());
-        }
-        return new \Emerald\Filelib\FileItemIterator($files);
+        return $res->toArray();
     }
 
 

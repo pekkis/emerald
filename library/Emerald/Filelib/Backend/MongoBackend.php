@@ -2,6 +2,9 @@
 
 namespace Emerald\Filelib\Backend;
 
+use \MongoDb;
+use \MongoId;
+
 /**
  * MongoDB backend for Filelib
  * 
@@ -37,13 +40,15 @@ class MongoBackend extends AbstractBackend implements Backend
     {
         $mongo = $this->getMongo();
                 
-        $folder = $mongo->folders->findOne(array('_id' => new MongoId($id)));
+        $doc = $mongo->folders->findOne(array('_id' => new MongoId($id)));
         
-        if($folder) {
-            $this->_addId($folder);    
+        if(!$doc) {
+            return false;
         }
         
-        return $folder;
+        $this->_addId($doc);    
+                
+        return $doc;
     }
 
     /**
@@ -56,14 +61,17 @@ class MongoBackend extends AbstractBackend implements Backend
     {
         $mongo = $this->getMongo();
 
-        $folderItemClass = $this->getFilelib()->getFolderItemClass();
-        $res = $mongo->folders->find(array('parent_id' => $folder->id));
+        $res = $mongo->folders->find(array('parent_id' => $folder->getId()));
 
+        $ret = array();
+        
         foreach($res as $row) {
             $this->_addId($row);
+            $ret[] = $row;
         }
         
-        return new \Emerald\Filelib\FolderItemIterator($folders);        
+        return $ret;
+                
     }
     
 
@@ -76,13 +84,13 @@ class MongoBackend extends AbstractBackend implements Backend
     {
         $mongo = $this->getMongo();
 
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
         $res = $mongo->files->find();
         
         $files = array();
-
+        
         foreach($res as $row) {
-            $file = new $fileItemClass($row);
+
+            $file = $row;
             $this->_addId($file);
             $files[] = $file;
         }
@@ -102,13 +110,12 @@ class MongoBackend extends AbstractBackend implements Backend
         $mongo = $this->getMongo();
                 
         $file = $mongo->files->findOne(array('_id' => new MongoId($id)));
-        
-        if($file) {
-            $className = $this->getFilelib()->getFileItemClass();
-            $file = new $className($file);
-            $this->_addId($file);    
+
+        if(!$file) {
+            return false;
         }
-        
+                
+        $this->_addId($file);    
         return $file;
     }
     
@@ -122,13 +129,13 @@ class MongoBackend extends AbstractBackend implements Backend
     {
         $mongo = $this->getMongo();
 
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
-        $res = $mongo->files->find(array('folder_id' => $folder->id));
+        $res = $mongo->files->find(array('folder_id' => $folder->getId()));
         
         $files = array();
 
         foreach($res as $row) {
-            $file = new $fileItemClass($row);
+
+            $file = $row;
             $this->_addId($file);
             $files[] = $file;
         }
@@ -153,7 +160,7 @@ class MongoBackend extends AbstractBackend implements Backend
 
             $file = array();
 
-            $file['folder_id'] = $folder->id;
+            $file['folder_id'] = $folder->getId();
             $file['mimetype'] = $upload->getMimeType();
             $file['size'] = $upload->getSize();
             $file['name'] = $upload->getOverrideFilename();
@@ -162,16 +169,11 @@ class MongoBackend extends AbstractBackend implements Backend
             $this->getMongo()->files->insert($file);
             
             $this->getMongo()->files->ensureIndex(array('folder_id' => 1, 'name' => 1), array('unique' => true));
-                            
-            $fileItem = new $fileItemClass($file);
-            
-            // @todo: Why here?
-            $fileItem->setFilelib($this->getFilelib());
-            $fileItem->link = $file['link'] = $profile->getLinker()->getLink($fileItem, true);
-            
-            $this->getMongo()->files->update(array('_id' => $fileItem->_id), $file);
                        
-            return $this->_addId($fileItem);
+            $this->_addId($file);
+            
+            return $file;
+            
 
         } catch(Exception $e) {
             throw new \Emerald\Filelib\FilelibException($e->getMessage());
@@ -192,9 +194,10 @@ class MongoBackend extends AbstractBackend implements Backend
     	$arr = $folder->toArray();
     	$this->getMongo()->folders->insert($arr);
     	$this->getMongo()->folders->ensureIndex(array('name' => 1), array('unique' => true));
-    	$folder->setFromArray($arr);
     	
-    	return $this->_addId($folder);
+    	$folder->setId($arr['_id']);
+    	    	
+    	return $folder;
     	
     }
     
@@ -207,7 +210,7 @@ class MongoBackend extends AbstractBackend implements Backend
      */
     public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
     {
-        $this->getMongo()->folders->remove(array('_id' => $folder->_id));
+        $this->getMongo()->folders->remove(array('_id' => new MongoId($folder->getId())));
     
     }
     
@@ -219,7 +222,7 @@ class MongoBackend extends AbstractBackend implements Backend
      */
     public function deleteFile(\Emerald\Filelib\FileItem $file)
     {
-        $this->getMongo()->files->remove(array('_id' => $file->_id));
+        $this->getMongo()->files->remove(array('_id' => new MongoId($file->getId())));
     }
     
     /**
@@ -230,16 +233,14 @@ class MongoBackend extends AbstractBackend implements Backend
      */
     public function updateFolder(\Emerald\Filelib\FolderItem $folder)
     {
-        $this->_stripId($folder);
-    	
     	$arr = $folder->toArray();
-        
-        $this->getMongo()->folders->update(array('_id' => $arr['_id']), $arr);
+        $this->_stripId($arr);
+    	
+        $this->getMongo()->folders->update(array('_id' => new MongoId($folder->getId())), $arr);
                         
-        $folder->setFromArray($arr);
+        $folder->setId($arr['_id']);
         
-        return $this->_addId($folder);
-        
+        return $folder;
         
         
     }
@@ -252,15 +253,9 @@ class MongoBackend extends AbstractBackend implements Backend
      */
     public function updateFile(\Emerald\Filelib\FileItem $file)
     {
-        $this->_stripId($file);
-        
         $arr = $file->toArray();
-        
-        $this->getMongo()->files->update(array('_id' => $arr['_id']), $arr);
-                        
-        $file->setFromArray($arr);
-        
-        return $this->_addId($file);
+        $this->getMongo()->files->update(array('_id' => new MongoId($file->getId())), $arr);
+        return $file;
         
     }
     
@@ -289,26 +284,23 @@ class MongoBackend extends AbstractBackend implements Backend
                         
         }
         
-        $className = $this->getFilelib()->getFolderItemClass();
-        
-        $item = new $className($root);
-        
-        return $this->_addId($item);
+                            
+       $this->_addId($root);
+       return $root;
     }
     
     
     
     
-    private function _addId($item)
+    private function _addId(&$data)
     {
-        $item->id = $item->_id->__toString();
-        return $item;
+        $data['id'] = $data['_id']->__toString();
     }
     
     
-    private function _stripId($item)
+    private function _stripId(&$data)
     {
-        unset($item->id);
+        unset($data['id']);
     }
     
     

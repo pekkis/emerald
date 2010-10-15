@@ -155,7 +155,11 @@ class FileItem implements File
         $this->setProfile($data['profile']);
         $this->setSize($data['size']);
         $this->setName($data['name']);
-        $this->setLink($data['link']);
+        
+        if(isset($data['link'])) {
+            $this->setLink($data['link']);    
+        }
+        
     }
 
 
