@@ -2,7 +2,7 @@
 
 namespace Emerald\Filelib\Backend;
 
-use Emerald\Filelib;
+use Emerald\Filelib, \DateTime;
 
 /**
  * Zend Db backend for filelib.
@@ -88,7 +88,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
 
 
-    public function createFolder(\Emerald\Filelib\FolderItem $folder)
+    public function createFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
             $folderRow = $this->getFolderTable()->createRow($folder->toArray());
@@ -106,7 +106,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
+    public function deleteFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
             $this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->getId()));
@@ -116,7 +116,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     }
 
-    public function updateFolder(\Emerald\Filelib\FolderItem $folder)
+    public function updateFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
             $this->getFolderTable()->update(
@@ -131,14 +131,17 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function updateFile(\Emerald\Filelib\FileItem $file)
+    public function updateFile(\Emerald\Filelib\File $file)
     {
         try {
 
             $file->setLink($file->getProfileObject()->getLinker()->getLink($file, true));
+            
+            $data = $file->toArray();
+            $data['date_uploaded'] = $data['date_uploaded']->format('Y-m-d H:i:s');
 
             $this->getFileTable()->update(
-            $file->toArray(),
+            $data,
             $this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->getId())
             );
 
@@ -151,7 +154,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function deleteFile(\Emerald\Filelib\FileItem $file)
+    public function deleteFile(\Emerald\Filelib\File $file)
     {
         try {
             $this->getDb()->beginTransaction();
@@ -166,25 +169,30 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     }
 
-    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FolderItem $folder, \Emerald\Filelib\FileProfile $profile)
+    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\Folder $folder, \Emerald\Filelib\FileProfile $profile)
     {
         try {
-
+                        
+            
             $this->getDb()->beginTransaction();
 
             $file = $this->getFileTable()->createRow();
-
+            
             $file->folder_id = $folder->getId();
             $file->mimetype = $upload->getMimeType();
             $file->size = $upload->getSize();
             $file->name = $upload->getOverrideFilename();
             $file->profile = $profile->getIdentifier();
+            $file->date_uploaded = $upload->getDateUploaded()->format('Y-m-d H:i:s');
             	
             $file->save();
             	
             $this->getDb()->commit();
             	
-            return $file->toArray();
+            $ret = $file->toArray();
+            $ret['date_uploaded'] = new \DateTime($ret['date_uploaded']);
+            
+            return $ret;
 
         } catch(Exception $e) {
             	
@@ -228,7 +236,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
 
 
-    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\Folder $folder)
     {
         $folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->getId()));
         return $folderRows->toArray();
@@ -242,23 +250,35 @@ class ZendDbBackend extends AbstractBackend implements Backend
         if(!$fileRow) {
             return false;
         }
-        return $fileRow->toArray();
+
+        $ret = $fileRow->toArray();
+        $ret['date_uploaded'] = new \DateTime($ret['date_uploaded']);
+        return $ret;
+        
     }
 
 
-    public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
+    public function findFilesIn(\Emerald\Filelib\Folder $folder)
     {
         $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->getId()));
-        
-        return $res->toArray();
-        
+        $ret = $res->toArray();
+        array_walk($ret, function(&$ret) {
+            $ret['date_uploaded'] = new DateTime($ret['date_uploaded']); 
+        });      
+        return $ret;
     }
 
 
     public function findAllFiles()
     {
         $res = $this->getFileTable()->fetchAll(array(), "id ASC");
-        return $res->toArray();
+        
+        $ret = $res->toArray();
+        array_walk($ret, function(&$ret) {
+            $ret['date_uploaded'] = new DateTime($ret['date_uploaded']); 
+        });      
+        return $ret;
+        
     }
 
 

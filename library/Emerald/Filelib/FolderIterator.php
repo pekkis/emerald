@@ -9,7 +9,7 @@ namespace Emerald\Filelib;
  * @package Emerald_Filelib
  *
  */
-class FolderItemIterator extends AbstractItemIterator implements \RecursiveIterator
+class FolderIterator extends AbstractIterator implements \RecursiveIterator
 {
 
     public function hasChildren()

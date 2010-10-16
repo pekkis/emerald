@@ -2,8 +2,7 @@
 
 namespace Emerald\Filelib\Backend;
 
-use \MongoDb;
-use \MongoId;
+use \MongoDb, \MongoId, \MongoDate, \DateTime;
 
 /**
  * MongoDB backend for Filelib
@@ -34,7 +33,7 @@ class MongoBackend extends AbstractBackend implements Backend
      * Finds folder
      *
      * @param integer $id
-     * @return \Emerald\Filelib\FolderItem|false
+     * @return \Emerald\Filelib\Folder|false
      */
     public function findFolder($id)
     {
@@ -54,10 +53,10 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Finds subfolders of a folder
      *
-     * @param \Emerald\Filelib\FolderItem $id
-     * @return \Emerald\Filelib\FolderItemIterator
+     * @param \Emerald\Filelib\Folder $id
+     * @return \Emerald\Filelib\FolderIterator
      */
-    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\Folder $folder)
     {
         $mongo = $this->getMongo();
 
@@ -78,7 +77,7 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Finds all files
      *
-     * @return \Emerald\Filelib\FileItemIterator
+     * @return \Emerald\Filelib\FileIterator
      */
     public function findAllFiles()
     {
@@ -103,7 +102,7 @@ class MongoBackend extends AbstractBackend implements Backend
      * Finds a file
      *
      * @param integer $id
-     * @return \Emerald\Filelib\FileItem|false
+     * @return \Emerald\Filelib\File|false
      */
     public function findFile($id)
     {
@@ -122,10 +121,10 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Finds a file
      *
-     * @param \Emerald\Filelib\FolderItem $folder
-     * @return \Emerald\Filelib\FileItemIterator
+     * @param \Emerald\Filelib\Folder $folder
+     * @return \Emerald\Filelib\FileIterator
      */
-    public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
+    public function findFilesIn(\Emerald\Filelib\Folder $folder)
     {
         $mongo = $this->getMongo();
 
@@ -147,11 +146,11 @@ class MongoBackend extends AbstractBackend implements Backend
      * Uploads a file
      *
      * @param \Emerald\Filelib\FileUpload $upload Fileobject to upload
-     * @param \Emerald\Filelib\FolderItem $folder Folder
-     * @return \Emerald\Filelib\FileItem File item
+     * @param \Emerald\Filelib\Folder $folder Folder
+     * @return \Emerald\Filelib\File File item
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FolderItem $folder, \Emerald\Filelib\FileProfile $profile)
+    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\Folder $folder, \Emerald\Filelib\FileProfile $profile)
     {
 
         $fileItemClass = $this->getFilelib()->getFileItemClass();
@@ -165,13 +164,14 @@ class MongoBackend extends AbstractBackend implements Backend
             $file['size'] = $upload->getSize();
             $file['name'] = $upload->getOverrideFilename();
             $file['profile'] = $profile->getIdentifier();
+            $file['date_uploaded'] = new MongoDate($upload->getDateUploaded()->getTimestamp()); 
                 
             $this->getMongo()->files->insert($file);
             
             $this->getMongo()->files->ensureIndex(array('folder_id' => 1, 'name' => 1), array('unique' => true));
                        
             $this->_addId($file);
-            
+                        
             return $file;
             
 
@@ -185,11 +185,11 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Creates a folder
      *
-     * @param \Emerald\Filelib\FolderItem $folder
-     * @return \Emerald\Filelib\FolderItem Created folder
+     * @param \Emerald\Filelib\Folder $folder
+     * @return \Emerald\Filelib\Folder Created folder
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function createFolder(\Emerald\Filelib\FolderItem $folder)
+    public function createFolder(\Emerald\Filelib\Folder $folder)
     {
     	$arr = $folder->toArray();
     	$this->getMongo()->folders->insert($arr);
@@ -205,10 +205,10 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Deletes a folder
      *
-     * @param \Emerald\Filelib\FolderItem $folder
+     * @param \Emerald\Filelib\Folder $folder
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
+    public function deleteFolder(\Emerald\Filelib\Folder $folder)
     {
         $this->getMongo()->folders->remove(array('_id' => new MongoId($folder->getId())));
     
@@ -217,10 +217,10 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Deletes a file
      *
-     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\File $file
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFile(\Emerald\Filelib\FileItem $file)
+    public function deleteFile(\Emerald\Filelib\File $file)
     {
         $this->getMongo()->files->remove(array('_id' => new MongoId($file->getId())));
     }
@@ -228,10 +228,10 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Updates a folder
      *
-     * @param \Emerald\Filelib\FolderItem $folder
+     * @param \Emerald\Filelib\Folder $folder
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFolder(\Emerald\Filelib\FolderItem $folder)
+    public function updateFolder(\Emerald\Filelib\Folder $folder)
     {
     	$arr = $folder->toArray();
         $this->_stripId($arr);
@@ -246,12 +246,14 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Updates a file
      *
-     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\File $file
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFile(\Emerald\Filelib\FileItem $file)
+    public function updateFile(\Emerald\Filelib\File $file)
     {
         $arr = $file->toArray();
+        $this->_stripId($arr);
+                
         $this->getMongo()->files->update(array('_id' => new MongoId($file->getId())), $arr);
         return $file;
         
@@ -262,7 +264,7 @@ class MongoBackend extends AbstractBackend implements Backend
     /**
      * Finds the root folder
      *
-     * @return \Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\Folder
      */
     public function findRootFolder()
     {
@@ -293,12 +295,20 @@ class MongoBackend extends AbstractBackend implements Backend
     private function _addId(&$data)
     {
         $data['id'] = $data['_id']->__toString();
+        
+        if(isset($data['date_uploaded'])) {
+            $data['date_uploaded'] = DateTime::createFromFormat('U', $data['date_uploaded']->sec);    
+        }
+        
     }
     
     
     private function _stripId(&$data)
     {
         unset($data['id']);
+        if(isset($data['date_uploaded'])) {
+            $data['date_uploaded'] = new MongoDate($data['date_uploaded']->getTimestamp());    
+        }
     }
     
     

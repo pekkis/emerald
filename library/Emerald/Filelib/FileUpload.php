@@ -22,6 +22,12 @@ class FileUpload extends \Emerald\Base\Spl\FileObject
     private $_filelib;
 
     /**
+     * @var \DateTime
+     */
+    private $_dateUploaded;
+        
+    
+    /**
      * Sets filelib
      *
      * @param \Emerald_Filelib $filelib
@@ -60,6 +66,29 @@ class FileUpload extends \Emerald\Base\Spl\FileObject
     public function getOverrideFilename()
     {
         return ($this->_overrideFilename) ? $this->_overrideFilename : $this->getFilename();
+    }
+    
+    /**
+     * Returns upload date
+     * 
+     * @return \DateTime
+     */
+    public function getDateUploaded()
+    {
+        if(!$this->_dateUploaded) {
+            $this->_dateUploaded = new \DateTime();
+        }
+        return $this->_dateUploaded;
+    }
+    
+    /**
+     * Sets upload date
+     * 
+     * @param \DateTime $dateUploaded
+     */
+    public function setDateUploaded(\DateTime $dateUploaded)
+    {
+        $this->_dateUploaded = $dateUploaded;
     }
 
 

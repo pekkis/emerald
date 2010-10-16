@@ -16,7 +16,7 @@ extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVersionProvider
 {
     protected $_providesFor = array('video', 'application');
 
-    public function createVersion(\Emerald\Filelib\FileItem $file)
+    public function createVersion(\Emerald\Filelib\File $file)
     {
 
         $path = $file->getPath() . '/' . $this->getIdentifier();

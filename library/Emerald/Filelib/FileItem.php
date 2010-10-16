@@ -132,6 +132,18 @@ class FileItem implements File
         return $this->getFilelib()->file()->getType($this);
     }
     
+    
+    public function getDateUploaded()
+    {
+        return $this->_dateUploaded;
+    }
+    
+    public function setDateUploaded(\DateTime $dateUploaded)
+    {
+        $this->_dateUploaded = $dateUploaded;
+    }
+    
+    
     public function toArray()
     {
         return array(
@@ -142,6 +154,7 @@ class FileItem implements File
             'size' => $this->getSize(),
             'name' => $this->getName(),
             'link' => $this->getLink(),
+            'date_uploaded' => $this->getDateUploaded(),
         );
     }
     
@@ -150,15 +163,21 @@ class FileItem implements File
         if(isset($data['id'])) {
             $this->setId($data['id']);    
         }
+
+        if(isset($data['date_uploaded'])) {
+            $this->setDateUploaded($data['date_uploaded']);    
+        }
+                
+        if(isset($data['link'])) {
+            $this->setLink($data['link']);    
+        }
+        
         $this->setFolderId($data['folder_id']);
         $this->setMimetype($data['mimetype']);
         $this->setProfile($data['profile']);
         $this->setSize($data['size']);
         $this->setName($data['name']);
         
-        if(isset($data['link'])) {
-            $this->setLink($data['link']);    
-        }
         
     }
 

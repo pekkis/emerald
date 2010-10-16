@@ -2,6 +2,12 @@
 
 namespace Emerald\Filelib\Storage\Filesystem\DirectoryIdCalculator;
 
+/**
+ * Creates directories in a leveled hierarchy based on a numeric file id
+ * 
+ * @author pekkis
+ *
+ */
 class LeveledDirectoryIdCalculator extends AbstractDirectoryIdCalculator
 {
 

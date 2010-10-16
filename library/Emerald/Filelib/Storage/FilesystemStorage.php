@@ -141,7 +141,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return $this->_root;
     }
     
-    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FileItem $file)
+    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\File $file)
     {
         $root = $this->getRoot();
         $dir = $root . '/' . $this->getDirectoryId($file);
@@ -164,7 +164,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         }
     }
     
-    public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier();
                  
@@ -175,7 +175,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         copy($tempFile, $path . '/' . $file->getId());
     }
     
-    public function retrieve(\Emerald\Filelib\FileItem $file)
+    public function retrieve(\Emerald\Filelib\File $file)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $file->getId();
         
@@ -186,7 +186,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function retrieveVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier() . '/' . $file->getId();
         
@@ -197,7 +197,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function delete(\Emerald\Filelib\FileItem $file)
+    public function delete(\Emerald\Filelib\File $file)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $file->getId();
             
@@ -211,7 +211,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     }
     
     
-    public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function deleteVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier() . '/' . $file->getId();
         unlink($path);

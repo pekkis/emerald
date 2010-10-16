@@ -75,16 +75,16 @@ abstract class AbstractPlugin implements \Emerald\Filelib\Plugin\Plugin
         return $upload;
     }
 
-    public function afterUpload(\Emerald\Filelib\FileItem $file)
+    public function afterUpload(\Emerald\Filelib\File $file)
     { }
 
-    public function onDelete(\Emerald\Filelib\FileItem $file)
+    public function onDelete(\Emerald\Filelib\File $file)
     { }
     
-    public function onPublish(\Emerald\Filelib\FileItem $file)
+    public function onPublish(\Emerald\Filelib\File $file)
     { }
     
-    public function onUnpublish(\Emerald\Filelib\FileItem $file)
+    public function onUnpublish(\Emerald\Filelib\File $file)
     { }
     
 

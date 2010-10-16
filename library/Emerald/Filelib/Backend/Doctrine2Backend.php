@@ -72,7 +72,7 @@ class Doctrine2Backend implements Backend
      * Finds a file
      *
      * @param  integer                        $id
-     * @return \Emerald\Filelib\FileItem|false
+     * @return \Emerald\Filelib\File|false
      */
     public function findFile($id)
     {
@@ -90,7 +90,7 @@ class Doctrine2Backend implements Backend
     /**
      * Finds all files
      *
-     * @return \Emerald\Filelib\FileItemIterator
+     * @return \Emerald\Filelib\FileIterator
      */
     public function findAllFiles()
     {
@@ -106,16 +106,16 @@ class Doctrine2Backend implements Backend
             $files[] = $this->_fileToArray($file);
         }
 
-        return new \Emerald\Filelib\FileItemIterator($files);
+        return new \Emerald\Filelib\FileIterator($files);
     }
 
     /**
      * Finds a file
      *
-     * @param  \Emerald\Filelib\FolderItem       $folder
-     * @return \Emerald\Filelib\FileItemIterator
+     * @param  \Emerald\Filelib\Folder       $folder
+     * @return \Emerald\Filelib\FileIterator
      */
-    public function findFilesIn(\Emerald\Filelib\FolderItem $folder)
+    public function findFilesIn(\Emerald\Filelib\Folder $folder)
     {
         $qb = $this->_em->createQueryBuilder();
 
@@ -131,16 +131,16 @@ class Doctrine2Backend implements Backend
             $files[] = $this->_fileToArray($file);
         }
 
-        return new \Emerald\Filelib\FileItemIterator($files);
+        return new \Emerald\Filelib\FileIterator($files);
     }
 
     /**
      * Updates a file
      *
-     * @param  \Emerald\Filelib\FileItem  $file
+     * @param  \Emerald\Filelib\File  $file
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFile(\Emerald\Filelib\FileItem $file)
+    public function updateFile(\Emerald\Filelib\File $file)
     {
         try {
             $file->link = $file->getProfileObject()
@@ -167,10 +167,10 @@ class Doctrine2Backend implements Backend
     /**
      * Deletes a file
      *
-     * @param  \Emerald\Filelib\FileItem  $file
+     * @param  \Emerald\Filelib\File  $file
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFile(\Emerald\Filelib\FileItem $file)
+    public function deleteFile(\Emerald\Filelib\File $file)
     {
         try {
             $fileRow = $this->_em->getReference($this->_fileEntityName, $file->id);
@@ -186,7 +186,7 @@ class Doctrine2Backend implements Backend
      * Finds folder
      *
      * @param  integer                          $id
-     * @return \Emerald\Filelib\FolderItem|false
+     * @return \Emerald\Filelib\Folder|false
      */
     public function findFolder($id)
     {
@@ -200,7 +200,7 @@ class Doctrine2Backend implements Backend
     /**
      * Finds the root folder
      *
-     * @return \Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\Folder
      */
     public function findRootFolder()
     {
@@ -220,10 +220,10 @@ class Doctrine2Backend implements Backend
     /**
      * Finds subfolders of a folder
      *
-     * @param  \Emerald\Filelib\FolderItem         $id
-     * @return \Emerald\Filelib\FolderItemIterator
+     * @param  \Emerald\Filelib\Folder         $id
+     * @return \Emerald\Filelib\FolderIterator
      */
-    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\Folder $folder)
     {
         $qb = $this->_em->createQueryBuilder();
 
@@ -241,17 +241,17 @@ class Doctrine2Backend implements Backend
             $folders[] = new $folderItemClass($this->_folderToArray($folderRow));
         }
 
-        return new \Emerald\Filelib\FolderItemIterator($folders);
+        return new \Emerald\Filelib\FolderIterator($folders);
     }
 
     /**
      * Creates a folder
      *
-     * @param  \Emerald\Filelib\FolderItem $folder
-     * @return \Emerald\Filelib\FolderItem Created folder
+     * @param  \Emerald\Filelib\Folder $folder
+     * @return \Emerald\Filelib\Folder Created folder
      * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function createFolder(\Emerald\Filelib\FolderItem $folder)
+    public function createFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
             $folderRow = new $this->_folderEntityName();
@@ -278,10 +278,10 @@ class Doctrine2Backend implements Backend
     /**
      * Updates a folder
      *
-     * @param  \Emerald\Filelib\FolderItem $folder
+     * @param  \Emerald\Filelib\Folder $folder
      * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function updateFolder(\Emerald\Filelib\FolderItem $folder)
+    public function updateFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
             $folderRow = $this->_em->getReference($this->_folderEntityName,
@@ -306,10 +306,10 @@ class Doctrine2Backend implements Backend
     /**
      * Deletes a folder
      *
-     * @param  \Emerald\Filelib\FolderItem $folder
+     * @param  \Emerald\Filelib\Folder $folder
      * @throws \Emerald\Filelib\FilelibException  When fails
      */
-    public function deleteFolder(\Emerald\Filelib\FolderItem $folder)
+    public function deleteFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
             $folder = $this->_em->getReference($this->_folderEntityName, $folder->id);
@@ -325,12 +325,12 @@ class Doctrine2Backend implements Backend
      * Uploads a file
      *
      * @param  \Emerald\Filelib\FileUpload $upload Fileobject to upload
-     * @param  \Emerald\Filelib\FolderItem $folder Folder
-     * @return \Emerald\Filelib\FileItem   File item
+     * @param  \Emerald\Filelib\Folder $folder Folder
+     * @return \Emerald\Filelib\File   File item
      * @throws \Emerald\Filelib\FilelibException  When fails
      */
     public function upload(\Emerald\Filelib\FileUpload $upload,
-    \Emerald\Filelib\FolderItem $folder,
+    \Emerald\Filelib\Folder $folder,
     \Emerald\Filelib\FileProfile $profile
     ){
         try {

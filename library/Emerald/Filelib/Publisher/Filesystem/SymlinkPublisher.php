@@ -48,7 +48,7 @@ class SymlinkPublisher extends AbstractFilesystemPublisher implements Publisher
      * @param $levelsDown How many levels down from root
      * @return string
      */
-    public function getRelativePathTo(\Emerald\Filelib\FileItem $file, $levelsDown = 0)
+    public function getRelativePathTo(\Emerald\Filelib\File $file, $levelsDown = 0)
     {
         $sltr = $this->getRelativePathToRoot();
         
@@ -65,7 +65,7 @@ class SymlinkPublisher extends AbstractFilesystemPublisher implements Publisher
         return $sltr;
     }
     
-    public function publish(\Emerald\Filelib\FileItem $file)
+    public function publish(\Emerald\Filelib\File $file)
     {
         
         $fl = $this->getFilelib();
@@ -103,7 +103,7 @@ class SymlinkPublisher extends AbstractFilesystemPublisher implements Publisher
         
     }
     
-    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function publishVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $fl = $this->getFilelib();
             
@@ -147,7 +147,7 @@ class SymlinkPublisher extends AbstractFilesystemPublisher implements Publisher
         
     }
     
-    public function unpublish(\Emerald\Filelib\FileItem $file)
+    public function unpublish(\Emerald\Filelib\File $file)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
         if(is_link($link)) {
@@ -155,7 +155,7 @@ class SymlinkPublisher extends AbstractFilesystemPublisher implements Publisher
         }
     }
     
-    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function unpublishVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         if(is_link($link)) {

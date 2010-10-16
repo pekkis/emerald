@@ -215,10 +215,10 @@ class FileProfile
     /**
      * Returns all defined versions of a file
      *
-     * @param \Emerald\Filelib\FileItem $fileType File item
+     * @param \Emerald\Filelib\File $fileType File item
      * @return array Array of provided versions
      */
-    public function getFileVersions(\Emerald\Filelib\FileItem $file)
+    public function getFileVersions(\Emerald\Filelib\File $file)
     {
         $fileType = $this->getFilelib()->file()->getType($file);
 
@@ -235,11 +235,11 @@ class FileProfile
     /**
      * Returns whether a file has a certain version
      *
-     * @param \Emerald\Filelib\FileItem $file File item
+     * @param \Emerald\Filelib\File $file File item
      * @param string $version Version
      * @return boolean
      */
-    public function fileHasVersion(\Emerald\Filelib\FileItem $file, $version)
+    public function fileHasVersion(\Emerald\Filelib\File $file, $version)
     {
         $filetype = $this->getFilelib()->file()->getType($file);
 
@@ -252,11 +252,11 @@ class FileProfile
     /**
      * Returns version provider for a file/version
      *
-     * @param \Emerald\Filelib\FileItem $file File item
+     * @param \Emerald\Filelib\File $file File item
      * @param string $version Version
      * @return \Emerald\Filelib\Plugin\VersionProvider\AbstractVersionProvider Provider
      */
-    public function getVersionProvider(\Emerald\Filelib\FileItem $file, $version)
+    public function getVersionProvider(\Emerald\Filelib\File $file, $version)
     {
         $filetype = $this->getFilelib()->file()->getType($file);
         return $this->_fileVersions[$filetype][$version];

@@ -91,10 +91,10 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     /**
      * Returns whether the plugin provides a version for a file.
      *
-     * @param \Emerald\Filelib\FileItem $file File item
+     * @param \Emerald\Filelib\File $file File item
      * @return boolean
      */
-    public function providesFor(\Emerald\Filelib\FileItem $file)
+    public function providesFor(\Emerald\Filelib\File $file)
     {
         if(in_array($file->getType(), $this->getProvidesFor())) {
             if(in_array($file->getProfile(), $this->getProfiles())) {
@@ -127,7 +127,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     }
 
         
-    public function afterUpload(\Emerald\Filelib\FileItem $file)
+    public function afterUpload(\Emerald\Filelib\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -138,7 +138,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     }
 
 
-    public function onPublish(\Emerald\Filelib\FileItem $file)
+    public function onPublish(\Emerald\Filelib\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -149,7 +149,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     }
 
     
-    public function onUnpublish(\Emerald\Filelib\FileItem $file)
+    public function onUnpublish(\Emerald\Filelib\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -159,7 +159,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
         
     }
     
-    public function onDelete(\Emerald\Filelib\FileItem $file)
+    public function onDelete(\Emerald\Filelib\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -172,10 +172,10 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     /**
      * Deletes a version
      * 
-     * @param $file \Emerald\Filelib\FileItem
+     * @param $file \Emerald\Filelib\File
      * 
      */
-    public function deleteVersion(\Emerald\Filelib\FileItem $file)
+    public function deleteVersion(\Emerald\Filelib\File $file)
     {
         $this->getFilelib()->getStorage()->deleteVersion($file, $this);
     }

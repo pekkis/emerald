@@ -38,7 +38,11 @@ interface File
     public function setLink($link);
     
     public function getLink();
-
+    
+    public function getDateUploaded();
+    
+    public function setDateUploaded(\DateTime $uploadDate);
+    
     /**
      * Sets filelib
      *

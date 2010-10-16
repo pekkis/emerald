@@ -150,7 +150,7 @@ class FileLibrary
      */
     public function getProfile($identifier)
     {
-        if($identifier instanceof \Emerald\Filelib\FileItem) {
+        if($identifier instanceof \Emerald\Filelib\File) {
             $identifier = $identifier->profile;
         }
 

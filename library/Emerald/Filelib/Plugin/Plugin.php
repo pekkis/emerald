@@ -56,29 +56,29 @@ interface Plugin
     /**
      * Runs after succesful upload.
      *
-     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\File $file
      */
-    public function afterUpload(\Emerald\Filelib\FileItem $file);
+    public function afterUpload(\Emerald\Filelib\File $file);
 
     /**
      * Runs after successful delete.
      *
-     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\File $file
      */
-    public function onDelete(\Emerald\Filelib\FileItem $file);
+    public function onDelete(\Emerald\Filelib\File $file);
 
     /**
      * Runs on publish
      *
-     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\File $file
      */
-    public function onPublish(\Emerald\Filelib\FileItem $file);
+    public function onPublish(\Emerald\Filelib\File $file);
 
     /**
      * Runs on unpublish
      *
-     * @param \Emerald\Filelib\FileItem $file
+     * @param \Emerald\Filelib\File $file
      */
-    public function onUnpublish(\Emerald\Filelib\FileItem $file);
+    public function onUnpublish(\Emerald\Filelib\File $file);
 
 }

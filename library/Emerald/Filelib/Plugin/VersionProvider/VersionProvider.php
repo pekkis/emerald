@@ -42,10 +42,10 @@ interface VersionProvider extends \Emerald\Filelib\Plugin\Plugin
     /**
      * Returns whether the plugin provides a version for a file.
      *
-     * @param \Emerald\Filelib\FileItem $file File item
+     * @param \Emerald\Filelib\File $file File item
      * @return boolean
      */
-    public function providesFor(\Emerald\Filelib\FileItem $file);
+    public function providesFor(\Emerald\Filelib\File $file);
 
     /**
      * Sets version identifier

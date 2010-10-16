@@ -14,7 +14,7 @@ use Emerald\Filelib\Publisher\Publisher;
 class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
 {
     
-    public function publish(\Emerald\Filelib\FileItem $file)
+    public function publish(\Emerald\Filelib\File $file)
     {
         $fl = $this->getFilelib();
         $linker = $file->getProfileObject()->getLinker();
@@ -36,7 +36,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
         }
     }
     
-    public function publishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function publishVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $fl = $this->getFilelib();
             
@@ -55,7 +55,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
         }
     }
     
-    public function unpublish(\Emerald\Filelib\FileItem $file)
+    public function unpublish(\Emerald\Filelib\File $file)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
         if(is_file($link)) {
@@ -63,7 +63,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
         }
     }
     
-    public function unpublishVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function unpublishVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         if(is_file($link)) {

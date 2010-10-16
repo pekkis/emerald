@@ -21,10 +21,10 @@ class FolderOperator extends AbstractOperator
     /**
      * Creates a folder
      *
-     * @param \Emerald\Filelib\FolderItem $folder
+     * @param \Emerald\Filelib\Folder $folder
      * @return unknown_type
      */
-    public function create(\Emerald\Filelib\FolderItem $folder)
+    public function create(\Emerald\Filelib\Folder $folder)
     {
         $folder = $this->getBackend()->createFolder($folder);
         $folder->setFilelib($this->getFilelib());
@@ -34,9 +34,9 @@ class FolderOperator extends AbstractOperator
     /**
      * Deletes a folder
      *
-     * @param \Emerald\Filelib\FolderItem $folder Folder
+     * @param \Emerald\Filelib\Folder $folder Folder
      */
-    public function delete(\Emerald\Filelib\FolderItem $folder)
+    public function delete(\Emerald\Filelib\Folder $folder)
     {
         foreach($this->findSubFolders($folder) as $childFolder) {
             $this->delete($childFolder);
@@ -53,9 +53,9 @@ class FolderOperator extends AbstractOperator
     /**
      * Updates a folder
      *
-     * @param \Emerald\Filelib\FolderItem $folder Folder
+     * @param \Emerald\Filelib\Folder $folder Folder
      */
-    public function update(\Emerald\Filelib\FolderItem $folder)
+    public function update(\Emerald\Filelib\Folder $folder)
     {
         $this->getBackend()->updateFolder($folder);
 
@@ -74,7 +74,7 @@ class FolderOperator extends AbstractOperator
     /**
      * Finds the root folder
      *
-     * @return \Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\Folder
      */
     public function findRoot()
     {
@@ -95,7 +95,7 @@ class FolderOperator extends AbstractOperator
      * Finds a folder
      *
      * @param mixed $id Folder id
-     * @return \Emerald\Filelib\FolderItem
+     * @return \Emerald\Filelib\Folder
      */
     public function find($id)
     {
@@ -115,9 +115,9 @@ class FolderOperator extends AbstractOperator
      * Finds subfolders
      *
      * @param \Emerald_Fildlib_FolderItem $folder Folder
-     * @return \Emerald\Filelib\FolderItemIterator
+     * @return \Emerald\Filelib\FolderIterator
      */
-    public function findSubFolders(\Emerald\Filelib\FolderItem $folder)
+    public function findSubFolders(\Emerald\Filelib\Folder $folder)
     {
         $rawFolders = $this->getBackend()->findSubFolders($folder);
         
@@ -126,15 +126,15 @@ class FolderOperator extends AbstractOperator
             $folder = $this->_folderItemFromArray($rawFolder);
             $folders[] = $folder;
         }
-        return new \Emerald\Filelib\FolderItemIterator($folders);
+        return new \Emerald\Filelib\FolderIterator($folders);
     }
 
 
     /**
-     * @param \Emerald\Filelib\FolderItem $folder Folder
-     * @return \Emerald\Filelib\FileItemIterator Collection of file items
+     * @param \Emerald\Filelib\Folder $folder Folder
+     * @return \Emerald\Filelib\FileIterator Collection of file items
      */
-    public function findFiles(\Emerald\Filelib\FolderItem $folder)
+    public function findFiles(\Emerald\Filelib\Folder $folder)
     {
         $ritems = $this->getBackend()->findFilesIn($folder);
         

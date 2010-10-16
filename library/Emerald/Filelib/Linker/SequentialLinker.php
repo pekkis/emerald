@@ -100,7 +100,7 @@ class SequentialLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
     
     
     
-    public function getLinkVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function getLinkVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getLink($file);
 
@@ -112,7 +112,7 @@ class SequentialLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
     }
 
 
-    public function getLink(\Emerald\Filelib\FileItem $file)
+    public function getLink(\Emerald\Filelib\File $file)
     {
         $url = array();
         $url[] = $this->getDirectoryId($file->id);

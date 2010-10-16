@@ -9,5 +9,5 @@ namespace Emerald\Filelib;
  * @package Emerald_Filelib
  *
  */
-class FileItemIterator extends AbstractItemIterator
+class FileIterator extends AbstractIterator
 { }
