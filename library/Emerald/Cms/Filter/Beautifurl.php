@@ -49,7 +49,7 @@ class Emerald_Cms_Filter_Beautifurl implements Zend_Filter_Interface
                         $opts['version'] = $matches[3][$key];
                     }
                     	
-                    $value = str_ireplace(EMERALD_URL_BASE . $toReplace, $file->renderPath($opts), $value);
+                    $value = str_ireplace(EMERALD_URL_BASE . $toReplace, $fl->file()->getUrl($file, $opts), $value);
                 }
 
             }

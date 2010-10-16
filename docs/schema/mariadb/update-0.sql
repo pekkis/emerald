@@ -104,4 +104,6 @@ INSERT INTO emerald_shard (id, name, module, controller, action, status) VALUES 
 
 ALTER TABLE emerald_page ADD COLUMN class_css varchar(255) DEFAULT NULL;
 
+ALTER TABLE emerald_filelib_file ADD COLUMN date_uploaded datetime NOT NULL;
+
 

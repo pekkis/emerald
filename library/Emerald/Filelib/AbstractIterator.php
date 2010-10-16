@@ -9,7 +9,7 @@ namespace Emerald\Filelib;
  * @author pekkis
  *
  */
-abstract class AbstractItemIterator extends \ArrayIterator
+abstract class AbstractIterator extends \ArrayIterator
 {
 
     public function __construct($array)

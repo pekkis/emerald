@@ -107,6 +107,7 @@ CREATE TABLE "emerald_filelib_file" (
   "size" int DEFAULT NULL,
   "name" varchar(255) NOT NULL,
   "link" varchar(1000) DEFAULT NULL,
+  "date_uploaded" timestamp NOT NULL,
   PRIMARY KEY ("id"),
   UNIQUE ("name","folder_id"),
       FOREIGN KEY ("folder_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE

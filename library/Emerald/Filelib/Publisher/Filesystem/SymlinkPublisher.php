@@ -57,7 +57,7 @@ class SymlinkPublisher extends AbstractFilesystemPublisher implements Publisher
         }
         $sltr = str_repeat("../", $levelsDown) . $sltr;
                 
-        $path = $this->getFilelib()->getStorage()->getRoot() . '/' . $this->getFilelib()->getStorage()->getDirectoryId($file->getId()) . '/' . $file->getId();
+        $path = $this->getFilelib()->getStorage()->getRoot() . '/' . $this->getFilelib()->getStorage()->getDirectoryId($file) . '/' . $file->getId();
         
         $path = substr($path, strlen($this->getFilelib()->getStorage()->getRoot()));
         $sltr = $sltr . $path;

@@ -22,8 +22,6 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/se
 
 <?php foreach($this->iter as $folder): ?>
 
-	<?php if(!$folder->visible) continue; ?>
-
 	<?php if($first): ?>
 	<?php $first = false; ?>
 	<?php else: ?>
@@ -35,12 +33,12 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/se
 	<?php endif; ?>
 		
 	<li>						
-	<?php if($this->folder && $this->folder->id == $folder->id): ?>
-	<strong><?php echo $folder->name == 'root' ? '/' : $folder->name; ?></strong>
+	<?php if($this->folder && $this->folder->getId() == $folder->getId()): ?>
+	<strong><?php echo $folder->getName() == 'root' ? '/' : $folder->getName(); ?></strong>
 		
 	<?php else: ?>
-	<a href="<?php echo EMERALD_URL_BASE; ?>/em-admin/filelib/select/id/<?php echo $folder->id; ?>">
-	<?php echo $folder->name == 'root' ? '/' : $folder->name; ?>
+	<a href="<?php echo EMERALD_URL_BASE; ?>/em-admin/filelib/select/id/<?php echo $folder->getId(); ?>">
+	<?php echo $folder->getName() == 'root' ? '/' : $folder->getName(); ?>
 	</a>
 	<?php endif; ?>
 	
@@ -63,11 +61,11 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/se
 <ul>
 <?php foreach($this->files as $file): ?>
 <li>
-<a class="file" href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id), 'default', true); ?>"><?php echo $file->name; ?></a>
+<a class="file" href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->getId()), 'default', true); ?>"><?php echo $file->getName(); ?></a>
 <br />
 Versions:
 <?php foreach($file->getProfileObject()->getFileVersions($file) as $fv): ?>
-<a class="file" href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->id, 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
+<a class="file" href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->getId(), 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
 <?php endforeach; ?>
 
 </li>

@@ -29,6 +29,7 @@ CREATE TABLE emerald_filelib_file (
   `name` varchar(255) NOT NULL,
   link varchar(1000) DEFAULT NULL,
   path varchar(255) NOT NULL,
+  date_uploade datetime NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY `name` (`name`,folder_id),
   KEY folder_id (folder_id),
