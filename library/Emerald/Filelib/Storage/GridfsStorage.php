@@ -131,40 +131,69 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     
     public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\File $file)
     {
-        $filename = $file->getProfileObject()->getLinker()->getLink($file);
+        $filename = $this->_getFilename($file);
+        
         $this->getGridFS()->storeFile($upload->getPathname(), array('filename' => $filename, 'metadata' => array('id' => $file->getId(), 'version' => 'original', 'mimetype' => $file->getMimetype()) ));
     }
     
     public function storeVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
-        $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
+        $filename = $this->_getFilenameVersion($file, $version);
+        
         $this->getGridFS()->storeFile($tempFile, array('filename' => $filename, 'metadata' => array('id' => $file->getId(), 'version' => $version->getIdentifier(), 'mimetype' => $file->getMimetype()) ));
     }
     
     public function retrieve(\Emerald\Filelib\File $file)
     {
-        $filename = $file->getProfileObject()->getLinker()->getLink($file);
+        $filename = $this->_getFilename($file);
+        
         $file = $this->getGridFS()->findOne(array('filename' => $filename));
+
+        if(!$file) {
+            throw new \Emerald\Filelib\FilelibException("Filename '{$filename}' not retrievable");
+        }
+        
+        
         return $this->_toTemp($file);
     }
     
     public function retrieveVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
-        $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
+        $filename = $this->_getFilenameVersion($file, $version);
+        
         $file = $this->getGridFS()->findOne(array('filename' => $filename));
+        
+        if(!$file) {
+            throw new \Emerald\Filelib\FilelibException("Filename '{$filename}' not retrievable");
+        }
+        
+        
         return $this->_toTemp($file);
     }
     
     public function delete(\Emerald\Filelib\File $file)
     {
-        $filename = $file->getProfileObject()->getLinker()->getLink($file);
+        $filename = $this->_getFilename($file);
+        
         $this->getGridFS()->remove(array('filename' => $filename));
     }
     
     public function deleteVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
-        $filename = $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
+        $filename = $this->_getFilenameVersion($file, $version);
+        
         $this->getGridFS()->remove(array('filename' => $filename));
+    }
+    
+    
+    private function _getFilename(\Emerald\Filelib\File $file)
+    {
+        return $file->getFolderId() . '/' . $file->getId();
+    }
+    
+    private function _getFilenameVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    {
+        return $file->getFolderId() . '/' . $file->getId() . '/' . $version->getIdentifier();
     }
     
     

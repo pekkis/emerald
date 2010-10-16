@@ -21,6 +21,9 @@ class Emerald_Cms_Application_Resource_Doctrine extends Zend_Application_Resourc
             $dirs[] = APPLICATION_PATH . '/modules/' . $key . '/entities';
         }        
         
+        // kludger for filelib
+        
+        $dirs[] = realpath(APPLICATION_PATH . '/../library/Emerald/Filelib/Backend/Doctrine2/Entity');
         
         if (APPLICATION_ENV == "development") {
             $cache = new \Doctrine\Common\Cache\ArrayCache;

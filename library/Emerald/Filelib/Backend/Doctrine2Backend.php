@@ -8,38 +8,69 @@ namespace Emerald\Filelib\Backend;
  * @category Emerald
  * @package  Emerald_Filelib
  * @author   Mikko Hirvonen
+ * @author   pekkis
  */
-class Doctrine2Backend implements Backend
+class Doctrine2Backend extends AbstractBackend
 {
     /**
      * File entity name
      *
      * @var string
      */
-    private $_fileEntityName;
+    private $_fileEntityName = '\Emerald\Filelib\Backend\Doctrine2\Entity\File';
 
     /**
      * Folder entity name
      *
      * @var string
      */
-    private $_folderEntityName;
+    private $_folderEntityName = '\Emerald\Filelib\Backend\Doctrine2\Entity\File';
 
     /**
      * Entity manager
      *
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     private $_em;
 
-    public function __construct(Doctrine\ORM\EntityManager $em, $fileEntityName,
-    $folderEntityName
-    ) {
-        $this->_em               = $em;
-        $this->_fileEntityName   = $fileEntityName;
+    
+    public function setFileEntityName($fileEntityName)
+    {
+        $this->_fileEntityName = $fileEntityName;
+    }
+    
+    
+    public function getFileEntityName()
+    {
+        return $this->_fileEntityName;
+    }
+    
+    
+    
+    public function setEntityManager(\Doctrine\Orm\EntityManager $em)
+    {
+        $this->_em = $em;
+    }
+    
+    
+    public function getEntityManager()
+    {
+        return $this->_em;
+    }
+    
+    
+    
+    public function setFolderEntityName($folderEntityName)
+    {
         $this->_folderEntityName = $folderEntityName;
     }
-
+    
+    
+    public function getFolderEntityName()
+    {
+        return $this->_folderEntityName;
+    }
+    
     
     public function init()
     { }
@@ -82,9 +113,7 @@ class Doctrine2Backend implements Backend
             return false;
         }
 
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
-
-        return new $fileItemClass($this->_fileToArray($file));
+        return $this->_fileToArray($file);
     }
 
     /**
@@ -106,7 +135,7 @@ class Doctrine2Backend implements Backend
             $files[] = $this->_fileToArray($file);
         }
 
-        return new \Emerald\Filelib\FileIterator($files);
+        return $files;
     }
 
     /**
@@ -123,15 +152,15 @@ class Doctrine2Backend implements Backend
         ->from($this->_fileEntityName, 'f')
         ->where('f.folder = :folder');
 
-        $qb->setParameter('folder', $folder->id);
+        $qb->setParameter('folder', $folder->getId());
 
         $files = array();
-
+        
         foreach ($qb->getQuery()->getResult() as $file) {
             $files[] = $this->_fileToArray($file);
         }
 
-        return new \Emerald\Filelib\FileIterator($files);
+        return $files;
     }
 
     /**
@@ -143,20 +172,20 @@ class Doctrine2Backend implements Backend
     public function updateFile(\Emerald\Filelib\File $file)
     {
         try {
-            $file->link = $file->getProfileObject()
-            ->getLinker()->getLink($file, true);
+            $file->setLink($file->getProfileObject()->getLinker()->getLink($file, true));
 
             $fileRow = $this->_em->getReference($this->_fileEntityName,
-            $file->id);
+            $file->getId());
 
             $fileRow->setFolder($this->_em->getReference($this->_folderEntityName,
-            $file->folder_id));
+            $file->getFolderId()));
 
-            $fileRow->setMimetype($file->mimetype);
-            $fileRow->setProfile($file->profile);
-            $fileRow->setSize($file->size);
-            $fileRow->setName($file->name);
-            $fileRow->setLink($file->link);
+            $fileRow->setMimetype($file->getMimetype());
+            $fileRow->setProfile($file->getProfile());
+            $fileRow->setSize($file->getSize());
+            $fileRow->setName($file->getName());
+            $fileRow->setLink($file->getLink());
+            $fileRow->setDateUploaded($file->getDateUploaded());
 
             $this->_em->flush();
         } catch (Exception $e) {
@@ -173,8 +202,7 @@ class Doctrine2Backend implements Backend
     public function deleteFile(\Emerald\Filelib\File $file)
     {
         try {
-            $fileRow = $this->_em->getReference($this->_fileEntityName, $file->id);
-
+            $fileRow = $this->_em->getReference($this->_fileEntityName, $file->getId());
             $this->_em->remove($fileRow);
             $this->_em->flush();
         } catch (Exception $e) {
@@ -192,9 +220,11 @@ class Doctrine2Backend implements Backend
     {
         $folder = $this->_em->find($this->_folderEntityName, $id);
 
-        $folderItemClass = $this->getFilelib()->getFolderItemClass();
-
-        return new $folderItemClass($this->_folderToArray($folder));
+        if(!$folder) {
+            return false;
+        }
+                
+        return $this->_folderToArray($folder);
     }
 
     /**
@@ -210,11 +240,19 @@ class Doctrine2Backend implements Backend
         ->from($this->_folderEntityName, 'f')
         ->where('f.parent IS NULL');
 
-        $folder = $qb->getQuery()->getSingleResult();
-
-        $folderItemClass = $this->getFilelib()->getFolderItemClass();
-
-        return new $folderItemClass($this->_folderToArray($folder));
+        try {
+            $folder = $qb->getQuery()->getSingleResult();    
+        } catch(\Doctrine\ORM\NoResultException $e) {
+            $folder = new \Emerald\Filelib\Backend\Doctrine2\Entity\Folder();
+            $folder->setName('root');
+            $folder->removeParent();
+            $folder->setVisible(1);
+            $this->_em->persist($folder);
+            $this->_em->flush();        
+        }
+        
+        return $this->_folderToArray($folder);       
+        
     }
 
     /**
@@ -231,17 +269,15 @@ class Doctrine2Backend implements Backend
         ->from($this->_folderEntityName, 'f')
         ->where('f.parent = :folder');
 
-        $qb->setParameter('folder', $folder->id);
-
-        $folderItemClass = $this->getFilelib()->getFolderItemClass();
+        $qb->setParameter('folder', $folder->getId());
 
         $folders = array();
 
         foreach ($qb->getQuery()->getResult() as $folderRow) {
-            $folders[] = new $folderItemClass($this->_folderToArray($folderRow));
+            $folders[] = $this->_folderToArray($folderRow);
         }
 
-        return new \Emerald\Filelib\FolderIterator($folders);
+        return $folders;
     }
 
     /**
@@ -256,18 +292,19 @@ class Doctrine2Backend implements Backend
         try {
             $folderRow = new $this->_folderEntityName();
 
-            if ($folder->parent_id) {
+            if ($folder->getParentId()) {
                 $folderRow->setParent($this->_em->getReference($this->_folderEntityName,
-                $folder->parent_id));
+                $folder->getParentId()));
             }
 
-            $folderRow->setName($folder->name);
-            $folderRow->setVisible($folder->visible);
+            $folderRow->setName($folder->getName());
+            
+            $folderRow->setVisible(1);
 
             $this->_em->persist($folderRow);
             $this->_em->flush();
 
-            $folder->id = $folderRow->getId();
+            $folder->setId($folderRow->getId());
 
             return $folder;
         } catch (Exception $e) {
@@ -285,19 +322,20 @@ class Doctrine2Backend implements Backend
     {
         try {
             $folderRow = $this->_em->getReference($this->_folderEntityName,
-            $folder->id);
+            $folder->getId());
 
-            if ($folder->parent_id) {
+            if ($folder->getParentId()) {
                 $folderRow->setParent($this->_em->getReference($this->_folderEntityName,
-                $folder->parent_id));
+                $folder->getParentId()));
             } else {
                 $folderRow->removeParent();
             }
 
-            $folderRow->setName($folder->name);
-            $folderRow->setVisible($folder->visible);
+            $folderRow->setName($folder->getName());
+            $folderRow->setVisible(1);
 
             $this->_em->flush();
+            
         } catch (Exception $e) {
             throw new \Emerald\Filelib\FilelibException($e->getMessage());
         }
@@ -312,7 +350,7 @@ class Doctrine2Backend implements Backend
     public function deleteFolder(\Emerald\Filelib\Folder $folder)
     {
         try {
-            $folder = $this->_em->getReference($this->_folderEntityName, $folder->id);
+            $folder = $this->_em->getReference($this->_folderEntityName, $folder->getId());
 
             $this->_em->remove($folder);
             $this->_em->flush();
@@ -334,37 +372,27 @@ class Doctrine2Backend implements Backend
     \Emerald\Filelib\FileProfile $profile
     ){
         try {
+            
             $conn = $this->_em->getConnection();
             $conn->beginTransaction();
 
             $file = new $this->_fileEntityName();
 
             $file->setFolder($this->_em->getReference($this->_folderEntityName,
-            $folder->id));
+            $folder->getId()));
             $file->setMimetype($upload->getMimeType());
             $file->setSize($upload->getSize());
             $file->setName($upload->getOverrideFilename());
             $file->setProfile($profile->getIdentifier());
-
+            $file->setDateUploaded($upload->getDateUploaded());
+            
             $this->_em->persist($file);
             $this->_em->flush();
 
-
-            $fileItemClass = $this->getFilelib()->getFileItemClass();
-
-            $fileItem = new $fileItemClass($this->_fileToArray($file));
-            $fileItem->setFilelib($this->getFilelib());
-
-            $fileItem->link = $profile->getLinker()->getLink($fileItem, true);
-
-            $file->setLink($fileItem->link);
-
-
-            $this->_em->flush();
-
             $conn->commit();
-
-            return $fileItem;
+                                    
+            return $this->_fileToArray($file);
+            
         } catch (Exception $e) {
             $conn->rollback();
 
@@ -388,6 +416,7 @@ class Doctrine2Backend implements Backend
             'size'      => $file->getSize(),
             'name'      => $file->getName(),
             'link'      => $file->getLink(),
+            'date_uploaded' => $file->getDateUploaded(),
         );
     }
 

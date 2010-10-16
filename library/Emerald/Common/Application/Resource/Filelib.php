@@ -136,13 +136,16 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
         if ($backendOptions['type'] == 'Emerald\Filelib\Backend\ZendDbBackend') {
             if (isset($backendOptions['options']['resource'])) {
                 $backendOptions['options']['db'] = $this->getBootstrap()->bootstrap($backendOptions['options']['resource'])->getResource($backendOptions['options']['resource']);
-                unset($backendOptions['resource']);
+                unset($backendOptions['options']['resource']);
             }
         } elseif ($backendOptions['type'] == 'Emerald\Filelib\Backend\MongoBackend') {
             if (isset($backendOptions['options']['resource'])) {
                 $backendOptions['options']['mongo'] = $this->getBootstrap()->bootstrap($backendOptions['options']['resource'])->getResource($backendOptions['options']['resource']);
-                unset($backendOptions['resource']);
+                unset($backendOptions['options']['resource']);
             }
+        } elseif ($backendOptions['type'] == 'Emerald\Filelib\Backend\Doctrine2Backend') {
+            $backendOptions['options']['entityManager'] = $this->getBootstrap()->bootstrap($backendOptions['options']['resource'])->getResource($backendOptions['options']['resource']);
+            unset($backendOptions['options']['resource']);
         }
         
         return $backendOptions;
