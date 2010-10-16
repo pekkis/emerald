@@ -195,7 +195,7 @@ class MongoBackend extends AbstractBackend implements Backend
     	$this->getMongo()->folders->insert($arr);
     	$this->getMongo()->folders->ensureIndex(array('name' => 1), array('unique' => true));
     	
-    	$folder->setId($arr['_id']);
+    	$folder->setId($arr['_id']->__toString());
     	    	
     	return $folder;
     	
@@ -237,8 +237,6 @@ class MongoBackend extends AbstractBackend implements Backend
         $this->_stripId($arr);
     	
         $this->getMongo()->folders->update(array('_id' => new MongoId($folder->getId())), $arr);
-                        
-        $folder->setId($arr['_id']);
         
         return $folder;
         

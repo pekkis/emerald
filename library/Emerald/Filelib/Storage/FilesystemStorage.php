@@ -17,16 +17,6 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     private $_root;
 
     /**
-     * @var integer Files per directory
-     */
-    private $_filesPerDirectory = 500;
-
-    /**
-     * @var integer Levels in directory structure
-     */
-    private $_directoryLevels = 1;
-
-    /**
      * @var integer Octal representation for directory permissions
      */
     private $_directoryPermission = 0700;
@@ -35,50 +25,56 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
      * @var integer Octal representation for file permissions
      */
     private $_filePermission = 0600;
-
+    
     /**
-     * Sets files per directory
-     *
-     * @param integer $filesPerDirectory
-     * @return \Emerald\Filelib\FileLibrary
+     * @var \Emerald\Filelib\Storage\Filesystem\DirectoryIdCalculator\DirectoryIdCalculator
      */
-    public function setFilesPerDirectory($filesPerDirectory)
+    private $_directoryIdCalculator;
+    
+    
+    public function __construct($options = array())
     {
-        $this->_filesPerDirectory = $filesPerDirectory;
-        return $this;
-    }
+        if(isset($options['directoryIdCalculator'])) {
+            $d = $options['directoryIdCalculator'];
+            unset($options['directoryIdCalculator']);
 
-    /**
-     * Returns files per directory
-     *
-     * @return integer
-     */
-    public function getFilesPerDirectory()
-    {
-        return $this->_filesPerDirectory;
-    }
+            $calculator = new $d['type']($d['options']);
 
-    /**
-     * Sets levels per directory hierarchy
-     *
-     * @param integer $directoryLevels
-     * @return \Emerald\Filelib\FileLibrary
-     */
-    public function setDirectoryLevels($directoryLevels)
-    {
-        $this->_directoryLevels = $directoryLevels;
-        return $this;
+            $this->setDirectoryIdCalculator($calculator);
+        }
+        
+        \Emerald\Base\Options::setConstructorOptions($this, $options);
     }
-
+    
+    
     /**
-     * Returns levels in directory hierarchy
-     *
-     * @return integer
+     * Sets directory id calculator
+     * 
+     * @param Filesystem\DirectoryIdCalculator\DirectoryIdCalculator $directoryIdCalculator
      */
-    public function getDirectoryLevels()
+    public function setDirectoryIdCalculator(Filesystem\DirectoryIdCalculator\DirectoryIdCalculator $directoryIdCalculator)
     {
-        return $this->_directoryLevels;
+        $this->_directoryIdCalculator = $directoryIdCalculator;
     }
+    
+    
+    /**
+     * Returns directory id calculator
+     * 
+     * @return \Emerald\Filelib\Storage\Filesystem\DirectoryIdCalculator\DirectoryIdCalculator
+     */
+    public function getDirectoryIdCalculator()
+    {
+        return $this->_directoryIdCalculator;
+    }
+    
+    
+    public function getDirectoryId(\Emerald\Filelib\File $file)
+    {
+        return $this->getDirectoryIdCalculator()->calculateDirectoryId($file);
+    }
+    
+    
 
     /**
      * Sets directory permission
@@ -125,34 +121,6 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     }
 
     /**
-     * Returns directory identifier (path) for specified file id
-     *
-     * @param integer $fileId File id
-     * @return string
-     */
-    public function getDirectoryId($fileId)
-    {
-        $directoryLevels = $this->getDirectoryLevels() + 1;
-        $filesPerDirectory = $this->getFilesPerDirectory();
-
-        if($directoryLevels < 1) {
-            throw new \Emerald\Filelib\FilelibException("Invalid number of directory levels ('{$directoryLevels}')");
-        }
-
-        $arr = array();
-        $tmpfileid = $fileId - 1;
-
-        for($count = 1; $count <= $directoryLevels; ++$count) {
-            $lus = $tmpfileid / pow($filesPerDirectory, $directoryLevels - $count);
-            $tmpfileid = $tmpfileid % pow($filesPerDirectory, $directoryLevels - $count);
-            $arr[] = floor($lus) + 1;
-        }
-
-        $puuppa = array_pop($arr);
-        return implode(DIRECTORY_SEPARATOR, $arr);
-    }
-
-    /**
      * Sets root
      *
      * @param string $root
@@ -176,7 +144,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\FileItem $file)
     {
         $root = $this->getRoot();
-        $dir = $root . '/' . $this->getDirectoryId($file->getId());
+        $dir = $root . '/' . $this->getDirectoryId($file);
 
         if(!is_dir($dir)) {
             @mkdir($dir, $this->getDirectoryPermission(), true);
@@ -198,7 +166,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function storeVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $version->getIdentifier();
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier();
                  
         if(!is_dir($path)) {
             mkdir($path, $this->getDirectoryPermission(), true);
@@ -209,7 +177,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function retrieve(\Emerald\Filelib\FileItem $file)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $file->getId();
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $file->getId();
         
         if(!is_file($path)) {
             throw new \Emerald\Filelib\FilelibException('Could not retrieve file');
@@ -220,7 +188,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function retrieveVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $version->getIdentifier() . '/' . $file->getId();
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier() . '/' . $file->getId();
         
         if(!is_file($path)) {
             throw new \Emerald\Filelib\FilelibException('Could not retrieve file');
@@ -231,7 +199,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function delete(\Emerald\Filelib\FileItem $file)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $file->getId();
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $file->getId();
             
         $fileObj = new \SplFileObject($path);
         if(!$fileObj->isFile() || !$fileObj->isWritable()) {
@@ -245,7 +213,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     
     public function deleteVersion(\Emerald\Filelib\FileItem $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
-        $path = $this->getRoot() . '/' . $this->getDirectoryId($file->getId()) . '/' . $version->getIdentifier() . '/' . $file->getId();
+        $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier() . '/' . $file->getId();
         unlink($path);
     }
 }
