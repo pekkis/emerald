@@ -61,29 +61,6 @@ class Folder
     {
         return $this->name;
     }
-
-    /**
-     * Set visible
-     *
-     * @param  boolean              $value
-     * @return Folder
-     */
-    public function setVisible($value)
-    {
-        $this->visible = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get visible
-     *
-     * @return boolean
-     */
-    public function getVisible()
-    {
-        return $this->visible;
-    }
     
     
     /**
