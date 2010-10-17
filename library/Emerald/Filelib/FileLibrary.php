@@ -37,15 +37,6 @@ class FileLibrary
      */
     private $_plugins = array();
 
-    /**
-     * @var string Fileitem class
-     */
-    private $_fileItemClass = '\Emerald\Filelib\File\FileItem';
-
-    /**
-     * @var string Folderitem class
-     */
-    private $_folderItemClass = '\Emerald\Filelib\Folder\FolderItem';
 
     /**
      * File operator
@@ -155,21 +146,9 @@ class FileLibrary
      */
     public function setFileItemClass($fileItemClass)
     {
-        $this->_fileItemClass = $fileItemClass;
+        $this->file()->setClass($fileItemClass);
         return $this;
     }
-
-
-    /**
-     * Returns fileitem class
-     *
-     * @return string
-     */
-    public function getFileItemClass()
-    {
-        return $this->_fileItemClass;
-    }
-
 
     /**
      * Sets folderitem class
@@ -179,19 +158,8 @@ class FileLibrary
      */
     public function setFolderItemClass($folderItemClass)
     {
-        $this->_folderItemClass = $folderItemClass;
+        $this->folder()->setClass($folderItemClass);
         return $this;
-    }
-
-
-    /**
-     * Returns folderitem class
-     *
-     * @return string
-     */
-    public function getFolderItemClass()
-    {
-        return $this->_folderItemClass;
     }
     
     /**

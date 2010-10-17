@@ -152,9 +152,6 @@ class MongoBackend extends AbstractBackend implements Backend
      */
     public function upload(\Emerald\Filelib\File\FileUpload $upload, \Emerald\Filelib\Folder\Folder $folder, \Emerald\Filelib\File\FileProfile $profile)
     {
-
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
-
         try {
 
             $file = array();

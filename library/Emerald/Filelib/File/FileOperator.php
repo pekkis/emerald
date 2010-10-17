@@ -25,6 +25,52 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
      */
     private $_profiles = array();
     
+    /**
+     * @var string Fileitem class
+     */
+    private $_className = '\Emerald\Filelib\File\FileItem';
+    
+    
+    /**
+     * Sets fileitem class
+     *
+     * @param string $className Class name
+     * @return \Emerald\Filelib\FileLibrary
+     */
+    public function setClass($className)
+    {
+        $this->_className = $className;
+        return $this;
+    }
+
+
+    /**
+     * Returns fileitem class
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->_className;
+    }
+    
+    
+    /**
+     * Returns an instance of the currently set folder class
+     * 
+     * @param array $data Data as array
+     */
+    public function getInstance($data = array())
+    {
+        $className = $this->getClass();
+        $file = new $className();
+        $file->setFilelib($this->getFilelib());
+        
+        if($data) {
+            $file->fromArray($data);   
+        }
+        return $file;        
+    }
     
     /**
      * Adds a file profile

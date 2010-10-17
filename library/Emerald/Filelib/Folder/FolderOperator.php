@@ -19,6 +19,54 @@ class FolderOperator extends \Emerald\Filelib\AbstractOperator
     protected $_cachePrefix = 'emerald_filelib_folderoperator';
 
     /**
+     * @var string Folderitem class
+     */
+    private $_className = '\Emerald\Filelib\Folder\FolderItem';
+
+    /**
+     * Sets folderitem class
+     *
+     * @param string $className Class name
+     * @return \Emerald\Filelib\FileLibrary\Folder\FolderOperator
+     */
+    public function setClass($className)
+    {
+        $this->className = $className;
+        return $this;
+    }
+
+
+    /**
+     * Returns folderitem class
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->_className;
+    }
+    
+    
+    /**
+     * Returns an instance of the currently set folder class
+     * 
+     * @param array $data Data as array
+     */
+    public function getInstance($data = array())
+    {
+        $className = $this->getClass();
+        $folder = new $className();
+        $folder->setFilelib($this->getFilelib());
+        
+        if($data) {
+            $folder->fromArray($data);    
+        }
+               
+        
+        return $folder;        
+    }
+    
+    /**
      * Creates a folder
      *
      * @param \Emerald\Filelib\Folder\Folder $folder

@@ -112,11 +112,7 @@ abstract class AbstractOperator
      */
     protected function _folderItemFromArray(array $data)
     {
-        $className = $this->getFilelib()->getFolderItemClass();
-        $item = new $className($data);
-        $item->fromArray($data);
-        $item->setFilelib($this->getFilelib());
-        return $item;        
+        return $this->getFilelib()->folder()->getInstance($data);
     }
     
     
@@ -128,7 +124,9 @@ abstract class AbstractOperator
      */
     protected function _fileItemFromArray(array $data)
     {
-        $fileItemClass = $this->getFilelib()->getFileItemClass();
+        return $this->getFilelib()->file()->getInstance($data);
+        
+        $fileItemClass = $this->getFilelib()->file()->getClass();
         $fileItem = new $fileItemClass();
         $fileItem->fromArray($data);  
         $fileItem->setFilelib($this->getFilelib());           
