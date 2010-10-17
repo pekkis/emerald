@@ -129,21 +129,21 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
         $this->_tempFiles[] = $fo;
     }
     
-    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\File $file)
+    public function store(\Emerald\Filelib\File\FileUpload $upload, \Emerald\Filelib\File\File $file)
     {
         $filename = $this->_getFilename($file);
         
         $this->getGridFS()->storeFile($upload->getPathname(), array('filename' => $filename, 'metadata' => array('id' => $file->getId(), 'version' => 'original', 'mimetype' => $file->getMimetype()) ));
     }
     
-    public function storeVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
         $filename = $this->_getFilenameVersion($file, $version);
         
         $this->getGridFS()->storeFile($tempFile, array('filename' => $filename, 'metadata' => array('id' => $file->getId(), 'version' => $version->getIdentifier(), 'mimetype' => $file->getMimetype()) ));
     }
     
-    public function retrieve(\Emerald\Filelib\File $file)
+    public function retrieve(\Emerald\Filelib\File\File $file)
     {
         $filename = $this->_getFilename($file);
         
@@ -157,7 +157,7 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
         return $this->_toTemp($file);
     }
     
-    public function retrieveVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function retrieveVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $filename = $this->_getFilenameVersion($file, $version);
         
@@ -171,14 +171,14 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
         return $this->_toTemp($file);
     }
     
-    public function delete(\Emerald\Filelib\File $file)
+    public function delete(\Emerald\Filelib\File\File $file)
     {
         $filename = $this->_getFilename($file);
         
         $this->getGridFS()->remove(array('filename' => $filename));
     }
     
-    public function deleteVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function deleteVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $filename = $this->_getFilenameVersion($file, $version);
         
@@ -186,12 +186,12 @@ class GridfsStorage extends \Emerald\Filelib\Storage\AbstractStorage implements 
     }
     
     
-    private function _getFilename(\Emerald\Filelib\File $file)
+    private function _getFilename(\Emerald\Filelib\File\File $file)
     {
         return $file->getFolderId() . '/' . $file->getId();
     }
     
-    private function _getFilenameVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    private function _getFilenameVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         return $file->getFolderId() . '/' . $file->getId() . '/' . $version->getIdentifier();
     }

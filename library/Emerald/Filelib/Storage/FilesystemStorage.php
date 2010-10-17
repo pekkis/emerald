@@ -69,7 +69,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     }
     
     
-    public function getDirectoryId(\Emerald\Filelib\File $file)
+    public function getDirectoryId(\Emerald\Filelib\File\File $file)
     {
         return $this->getDirectoryIdCalculator()->calculateDirectoryId($file);
     }
@@ -141,7 +141,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return $this->_root;
     }
     
-    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\File $file)
+    public function store(\Emerald\Filelib\File\FileUpload $upload, \Emerald\Filelib\File\File $file)
     {
         $root = $this->getRoot();
         $dir = $root . '/' . $this->getDirectoryId($file);
@@ -164,7 +164,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         }
     }
     
-    public function storeVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
+    public function storeVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier();
                  
@@ -175,7 +175,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         copy($tempFile, $path . '/' . $file->getId());
     }
     
-    public function retrieve(\Emerald\Filelib\File $file)
+    public function retrieve(\Emerald\Filelib\File\File $file)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $file->getId();
         
@@ -186,7 +186,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function retrieveVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function retrieveVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier() . '/' . $file->getId();
         
@@ -197,7 +197,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
         return new \Emerald\Base\Spl\FileObject($path);
     }
     
-    public function delete(\Emerald\Filelib\File $file)
+    public function delete(\Emerald\Filelib\File\File $file)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $file->getId();
             
@@ -211,7 +211,7 @@ class FilesystemStorage extends \Emerald\Filelib\Storage\AbstractStorage impleme
     }
     
     
-    public function deleteVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function deleteVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $path = $this->getRoot() . '/' . $this->getDirectoryId($file) . '/' . $version->getIdentifier() . '/' . $file->getId();
         unlink($path);

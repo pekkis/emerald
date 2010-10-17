@@ -40,22 +40,22 @@ class FileLibrary
     /**
      * @var string Fileitem class
      */
-    private $_fileItemClass = '\Emerald\Filelib\FileItem';
+    private $_fileItemClass = '\Emerald\Filelib\File\FileItem';
 
     /**
      * @var string Folderitem class
      */
-    private $_folderItemClass = '\Emerald\Filelib\FolderItem';
+    private $_folderItemClass = '\Emerald\Filelib\Folder\FolderItem';
 
     /**
      * File operator
-     * @var \Emerald\Filelib\FileOperator
+     * @var \Emerald\Filelib\File\FileOperator
      */
     private $_fileOperator;
 
     /**
      * Folder operator
-     * @var \Emerald\Filelib\FolderOperator
+     * @var \Emerald\Filelib\Folder\FolderOperator
      */
     private $_folderOperator;
     
@@ -73,10 +73,6 @@ class FileLibrary
     private $_tempDir;
     
     
-    /**
-     * @var array Profiles
-     */
-    private $_profiles = array();
 
     public function __construct($options = array())
     {
@@ -125,61 +121,14 @@ class FileLibrary
     }
 
     /**
-     * Adds a file profile
-     * 
-     * @param \Emerald\Filelib\FileProfile $profile
-     * @return \Emerald\Filelib\FileLibrary
-     */
-    public function addProfile(FileProfile $profile)
-    {
-        $profile->setFilelib($this);
-
-        if(!isset($this->_profiles[$profile->getIdentifier()])) {
-            $this->_profiles[$profile->getIdentifier()] = $profile;
-        }
-        
-        return $this;
-    }
-
-    /**
-     * Returns a file profile
-     * 
-     * @param string $identifier File profile identifier
-     * @throws \Emerald\Filelib\FilelibException
-     * @return \Emerald\Filelib\FileProfile
-     */
-    public function getProfile($identifier)
-    {
-        if($identifier instanceof \Emerald\Filelib\File) {
-            $identifier = $identifier->profile;
-        }
-
-        if(!isset($this->_profiles[$identifier])) {
-            throw new FilelibException("File profile '{$identifier}' not found");
-        }
-
-        return $this->_profiles[$identifier];
-    }
-
-    /**
-     * Returns all file profiles
-     * 
-     * @return array Array of file profiles
-     */
-    public function getProfiles()
-    {
-        return $this->_profiles;
-    }
-
-    /**
      * Returns the file operator
      * 
-     * @return \Emerald\Filelib\FileOperator
+     * @return \Emerald\Filelib\File\FileOperator
      */
     public function file()
     {
         if(!$this->_fileOperator) {
-            $this->_fileOperator = new FileOperator($this);
+            $this->_fileOperator = new File\FileOperator($this);
         }
         return $this->_fileOperator;
     }
@@ -187,12 +136,12 @@ class FileLibrary
     /**
      * Returns the folder operator
      * 
-     * @return \Emerald\Filelib\FolderOperator
+     * @return \Emerald\Filelib\Folder\FolderOperator
      */
     public function folder()
     {
         if(!$this->_folderOperator) {
-            $this->_folderOperator = new FolderOperator($this);
+            $this->_folderOperator = new Folder\FolderOperator($this);
         }
 
         return $this->_folderOperator;
@@ -338,7 +287,7 @@ class FileLibrary
         $plugin->setFilelib($this);
 
         foreach($plugin->getProfiles() as $profileIdentifier) {
-            $profile = $this->getProfile($profileIdentifier);
+            $profile = $this->file()->getProfile($profileIdentifier);
             $profile->addPlugin($plugin);
         }
 

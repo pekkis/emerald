@@ -41,7 +41,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
 
         foreach($this->getProvidesFor() as $fileType) {
             foreach($this->getProfiles() as $profile) {
-                $this->getFilelib()->getProfile($profile)->addFileVersion($fileType, $this->getIdentifier(), $this);
+                $this->getFilelib()->file()->getProfile($profile)->addFileVersion($fileType, $this->getIdentifier(), $this);
             }
         }
 
@@ -91,10 +91,10 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     /**
      * Returns whether the plugin provides a version for a file.
      *
-     * @param \Emerald\Filelib\File $file File item
+     * @param \Emerald\Filelib\File\File $file File item
      * @return boolean
      */
-    public function providesFor(\Emerald\Filelib\File $file)
+    public function providesFor(\Emerald\Filelib\File\File $file)
     {
         if(in_array($file->getType(), $this->getProvidesFor())) {
             if(in_array($file->getProfile(), $this->getProfiles())) {
@@ -127,7 +127,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     }
 
         
-    public function afterUpload(\Emerald\Filelib\File $file)
+    public function afterUpload(\Emerald\Filelib\File\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -138,7 +138,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     }
 
 
-    public function onPublish(\Emerald\Filelib\File $file)
+    public function onPublish(\Emerald\Filelib\File\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -149,7 +149,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     }
 
     
-    public function onUnpublish(\Emerald\Filelib\File $file)
+    public function onUnpublish(\Emerald\Filelib\File\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -159,7 +159,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
         
     }
     
-    public function onDelete(\Emerald\Filelib\File $file)
+    public function onDelete(\Emerald\Filelib\File\File $file)
     {
         if(!$this->providesFor($file)) {
             return;
@@ -172,10 +172,10 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
     /**
      * Deletes a version
      * 
-     * @param $file \Emerald\Filelib\File
+     * @param $file \Emerald\Filelib\File\File
      * 
      */
-    public function deleteVersion(\Emerald\Filelib\File $file)
+    public function deleteVersion(\Emerald\Filelib\File\File $file)
     {
         $this->getFilelib()->getStorage()->deleteVersion($file, $this);
     }

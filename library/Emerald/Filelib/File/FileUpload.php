@@ -1,7 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
-
+namespace Emerald\Filelib\File;
 /**
  * Uploadable file
  *

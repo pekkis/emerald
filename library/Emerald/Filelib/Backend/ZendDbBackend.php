@@ -88,7 +88,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
 
 
-    public function createFolder(\Emerald\Filelib\Folder $folder)
+    public function createFolder(\Emerald\Filelib\Folder\Folder $folder)
     {
         try {
             $folderRow = $this->getFolderTable()->createRow($folder->toArray());
@@ -106,7 +106,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function deleteFolder(\Emerald\Filelib\Folder $folder)
+    public function deleteFolder(\Emerald\Filelib\Folder\Folder $folder)
     {
         try {
             $this->getFolderTable()->delete($this->getFolderTable()->getAdapter()->quoteInto("id = ?", $folder->getId()));
@@ -116,7 +116,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     }
 
-    public function updateFolder(\Emerald\Filelib\Folder $folder)
+    public function updateFolder(\Emerald\Filelib\Folder\Folder $folder)
     {
         try {
             $this->getFolderTable()->update(
@@ -131,7 +131,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function updateFile(\Emerald\Filelib\File $file)
+    public function updateFile(\Emerald\Filelib\File\File $file)
     {
         try {
 
@@ -154,7 +154,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function deleteFile(\Emerald\Filelib\File $file)
+    public function deleteFile(\Emerald\Filelib\File\File $file)
     {
         try {
             $this->getDb()->beginTransaction();
@@ -169,7 +169,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     }
 
-    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\Folder $folder, \Emerald\Filelib\FileProfile $profile)
+    public function upload(\Emerald\Filelib\File\FileUpload $upload, \Emerald\Filelib\Folder\Folder $folder, \Emerald\Filelib\File\FileProfile $profile)
     {
         try {
                         
@@ -236,7 +236,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
 
 
-    public function findSubFolders(\Emerald\Filelib\Folder $folder)
+    public function findSubFolders(\Emerald\Filelib\Folder\Folder $folder)
     {
         $folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->getId()));
         return $folderRows->toArray();
@@ -258,7 +258,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
     }
 
 
-    public function findFilesIn(\Emerald\Filelib\Folder $folder)
+    public function findFilesIn(\Emerald\Filelib\Folder\Folder $folder)
     {
         $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->getId()));
         $ret = $res->toArray();

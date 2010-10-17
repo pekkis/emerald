@@ -32,19 +32,19 @@ interface Linker
     /**
      * Returns link for a version of a file
      *
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version Version plugin
      * @return string Versioned link
      */
-    public function getLinkVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
+    public function getLinkVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
 
     /**
      * Returns a link for a file
      *
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @return string Link
      */
-    public function getLink(\Emerald\Filelib\File $file);
+    public function getLink(\Emerald\Filelib\File\File $file);
 
     
     /**

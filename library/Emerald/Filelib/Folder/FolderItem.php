@@ -1,6 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
+namespace Emerald\Filelib\Folder;
 
 /**
  * Default folder implementation

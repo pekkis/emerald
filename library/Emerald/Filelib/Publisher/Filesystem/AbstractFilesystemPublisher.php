@@ -130,13 +130,13 @@ abstract class AbstractFilesystemPublisher extends AbstractPublisher
     }
     
     
-    public function getUrl(\Emerald\Filelib\File $file)
+    public function getUrl(\Emerald\Filelib\File\File $file)
     {
         $url = $this->getBaseUrl() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
         return $url;
     }
     
-    public function getUrlVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function getUrlVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $url = $this->getBaseUrl() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
         return $url;

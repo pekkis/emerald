@@ -1,7 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
-
+namespace Emerald\Filelib\File;
 /**
  * Operates on files
  * 
@@ -9,7 +8,7 @@ namespace Emerald\Filelib;
  * @package Emerald_Filelib
  *
  */
-class FileOperator extends AbstractOperator
+class FileOperator extends \Emerald\Filelib\AbstractOperator
 {
     /**
      * @var string
@@ -17,19 +16,69 @@ class FileOperator extends AbstractOperator
     protected $_cachePrefix = 'emerald_filelib_fileoperator';
 
     /**
-     * @var \Emerald\Filelib\Uploader
+     * @var \Emerald\Filelib\File\Uploader
      */
     protected $_uploader;    
+    
+    /**
+     * @var array Profiles
+     */
+    private $_profiles = array();
+    
+    
+    /**
+     * Adds a file profile
+     * 
+     * @param \Emerald\Filelib\File\FileProfile $profile
+     * @return \Emerald\Filelib\FileLibrary
+     */
+    public function addProfile(FileProfile $profile)
+    {
+        $profile->setFilelib($this->getFilelib());
+
+        if(!isset($this->_profiles[$profile->getIdentifier()])) {
+            $this->_profiles[$profile->getIdentifier()] = $profile;
+        }
         
+        return $this;
+    }
+
+    /**
+     * Returns a file profile
+     * 
+     * @param string $identifier File profile identifier
+     * @throws \Emerald\Filelib\FilelibException
+     * @return \Emerald\Filelib\File\FileProfile
+     */
+    public function getProfile($identifier)
+    {
+        if(!isset($this->_profiles[$identifier])) {
+            throw new FilelibException("File profile '{$identifier}' not found");
+        }
+
+        return $this->_profiles[$identifier];
+    }
+
+    /**
+     * Returns all file profiles
+     * 
+     * @return array Array of file profiles
+     */
+    public function getProfiles()
+    {
+        return $this->_profiles;
+    }
+    
+    
     /**
      * Returns uploader
      * 
-     * @return \Emerald\Filelib\Uploader
+     * @return \Emerald\Filelib\File\Uploader
      */
     public function getUploader()
     {
         if(!$this->_uploader) {
-        	$this->_uploader = new \Emerald\Filelib\Uploader();
+        	$this->_uploader = new \Emerald\Filelib\File\Uploader();
         }
         return $this->_uploader;
     }
@@ -37,10 +86,10 @@ class FileOperator extends AbstractOperator
     /**
      * Sets uploader
      * 
-     * @param \Emerald\Filelib\Uploader $uploader
-     * @return \Emerald\Filelib\FileOperator
+     * @param \Emerald\Filelib\File\Uploader $uploader
+     * @return \Emerald\Filelib\File\FileOperator
      */
-    public function setUploader(\Emerald\Filelib\Uploader $uploader)
+    public function setUploader(\Emerald\Filelib\File\Uploader $uploader)
     {
     	$this->_uploader = $uploader;
     	return $this;
@@ -49,20 +98,18 @@ class FileOperator extends AbstractOperator
     /**
      * Updates a file
      *
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @return unknown_type
      */
-    public function update(\Emerald\Filelib\File $file)
+    public function update(\Emerald\Filelib\File\File $file)
     {
         $this->unpublish($file);        
-        // $file->getProfileObject()->getLinker()->deleteSymlink($file);
         
         $this->getBackend()->updateFile($file);
         $this->storeCached($file->getId(), $file);
 
         if($this->isAnonymousReadable($file)) {
             $this->publish($file);
-            //$file->getProfileObject()->getLinker()->createSymlink($file);
         }
 
         $this->storeCached($file->getId(), $file);
@@ -76,7 +123,7 @@ class FileOperator extends AbstractOperator
      * Finds a file
      *
      * @param mixed $idFile File id
-     * @return \Emerald\Filelib\File
+     * @return \Emerald\Filelib\File\File
      */
     public function find($id)
     {
@@ -98,7 +145,7 @@ class FileOperator extends AbstractOperator
     /**
      * Finds and returns all files
      *
-     * @return \Emerald\Filelib\FileIterator
+     * @return \Emerald\Filelib\File\FileIterator
      */
     public function findAll()
     {
@@ -119,10 +166,10 @@ class FileOperator extends AbstractOperator
      * Returns whether a file is anonymous
      *
      * @todo This is still mock!
-     * @param \Emerald\Filelib\File $file File
+     * @param \Emerald\Filelib\File\File $file File
      * @return boolean
      */
-    public function isAnonymousReadable(\Emerald\Filelib\File $file)
+    public function isAnonymousReadable(\Emerald\Filelib\File\File $file)
     {
         return $this->getFilelib()->getAcl()->isAnonymousReadable($file);
 
@@ -133,11 +180,11 @@ class FileOperator extends AbstractOperator
      * Gets a new upload
      *
      * @param string $path Path to upload file
-     * @return \Emerald\Filelib\FileUpload
+     * @return \Emerald\Filelib\File\FileUpload
      */
     public function prepareUpload($path)
     {
-        $upload = new \Emerald\Filelib\FileUpload($path);
+        $upload = new \Emerald\Filelib\File\FileUpload($path);
         $upload->setFilelib($this->getFilelib());
         return $upload;
     }
@@ -151,7 +198,7 @@ class FileOperator extends AbstractOperator
      */
     public function uploadBatch(\Iterator $batch, $folder, $profile = 'default')
     {
-        if(!($folder instanceof \Emerald\Filelib\Folder)) {
+        if(!($folder instanceof \Emerald\Filelib\Folder\Folder)) {
             throw new \Emerald\Filelib\FilelibException('Invalid folder supplied for batch upload');
         }
         
@@ -180,18 +227,18 @@ class FileOperator extends AbstractOperator
      * Uploads file to filelib.
      *
      * @param mixed $upload Uploadable, path or object
-     * @param \Emerald\Filelib\Folder $folder
-     * @return \Emerald\Filelib\File
+     * @param \Emerald\Filelib\Folder\Folder $folder
+     * @return \Emerald\Filelib\File\File
      * @throws \Emerald\Filelib\FilelibException
      */
     public function upload($upload, $folder, $profile = 'default')
     {
-        if(!($folder instanceof \Emerald\Filelib\Folder)) {
+        if(!($folder instanceof \Emerald\Filelib\Folder\Folder)) {
             throw new \Emerald\Filelib\FilelibException('Invalid folder supplied for upload');
         }
        
         
-        if(!$upload instanceof \Emerald\Filelib\FileUpload) {
+        if(!$upload instanceof \Emerald\Filelib\File\FileUpload) {
             $upload = $this->prepareUpload($upload);
         }
 
@@ -204,7 +251,7 @@ class FileOperator extends AbstractOperator
             throw new \Emerald\Filelib\FilelibException("Can not upload");
         }
 
-        $profile = $this->getFilelib()->getProfile($profile);
+        $profile = $this->getFilelib()->file()->getProfile($profile);
         foreach($profile->getPlugins() as $plugin) {
             $upload = $plugin->beforeUpload($upload);
         }
@@ -246,10 +293,10 @@ class FileOperator extends AbstractOperator
     /**
      * Deletes a file
      *
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @throws \Emerald\Filelib\FilelibException
      */
-    public function delete(\Emerald\Filelib\File $file)
+    public function delete(\Emerald\Filelib\File\File $file)
     {
         try {
 
@@ -277,10 +324,10 @@ class FileOperator extends AbstractOperator
     /**
      * Returns file type of a file
      *
-     * @param \Emerald\Filelib\File File $file item
+     * @param \Emerald\Filelib\File\File File $file item
      * @return string File type
      */
-    public function getType(\Emerald\Filelib\File $file)
+    public function getType(\Emerald\Filelib\File\File $file)
     {
         // @todo Semi-mock until mimetype database is pooped in.
         $split = explode('/', $file->getMimetype());
@@ -291,11 +338,11 @@ class FileOperator extends AbstractOperator
     /**
      * Returns whether a file has a certain version
      *
-     * @param \Emerald\Filelib\File $file File item
+     * @param \Emerald\Filelib\File\File $file File item
      * @param string $version Version
      * @return boolean
      */
-    public function hasVersion(\Emerald\Filelib\File $file, $version)
+    public function hasVersion(\Emerald\Filelib\File\File $file, $version)
     {
         $filetype = $this->getType($file);
         $profile = $file->getProfileObject();
@@ -309,17 +356,17 @@ class FileOperator extends AbstractOperator
     /**
      * Returns version provider for a file/version
      *
-     * @param \Emerald\Filelib\File $file File item
+     * @param \Emerald\Filelib\File\File $file File item
      * @param string $version Version
      * @return object Provider
      */
-    public function getVersionProvider(\Emerald\Filelib\File $file, $version)
+    public function getVersionProvider(\Emerald\Filelib\File\File $file, $version)
     {
         return $file->getProfileObject()->getVersionProvider($file, $version);
     }
 
     
-    public function getUrl(\Emerald\Filelib\File $file, $opts = array())
+    public function getUrl(\Emerald\Filelib\File\File $file, $opts = array())
     {
         if(isset($opts['version'])) {
             $version = $opts['version'];
@@ -345,7 +392,7 @@ class FileOperator extends AbstractOperator
      * @param \Zend_Controller_Response_Http $response Response
      * @param array $opts Options
      */
-    public function render(\Emerald\Filelib\File $file, $opts = array())
+    public function render(\Emerald\Filelib\File\File $file, $opts = array())
     {
         
         if(!$this->getFilelib()->getAcl()->isReadable($file)) {
@@ -372,7 +419,7 @@ class FileOperator extends AbstractOperator
     }
 
     
-    public function publish(\Emerald\Filelib\File $file)
+    public function publish(\Emerald\Filelib\File\File $file)
     {
                         
         $this->getFilelib()->getPublisher()->publish($file);
@@ -381,7 +428,7 @@ class FileOperator extends AbstractOperator
         }
     }
     
-    public function unpublish(\Emerald\Filelib\File $file)
+    public function unpublish(\Emerald\Filelib\File\File $file)
     {
         $this->getFilelib()->getPublisher()->unpublish($file);
         foreach($file->getProfileObject()->getPlugins() as $plugin) {

@@ -61,7 +61,7 @@ class ChangeFormatPlugin extends \Emerald\Filelib\Plugin\AbstractPlugin
         return $this->_targetExtension;
     }
 
-    public function beforeUpload(\Emerald\Filelib\FileUpload $upload)
+    public function beforeUpload(\Emerald\Filelib\File\FileUpload $upload)
     {
         $oldUpload = $upload;
 

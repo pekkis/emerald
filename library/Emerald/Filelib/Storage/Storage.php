@@ -29,50 +29,50 @@ interface Storage
     /**
      * Stores an uploaded file
      * 
-     * @param \Emerald\Filelib\FileUpload $upload
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\FileUpload $upload
+     * @param \Emerald\Filelib\File\File $file
      */
-    public function store(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\File $file);
+    public function store(\Emerald\Filelib\File\FileUpload $upload, \Emerald\Filelib\File\File $file);
     
     /**
      * Stores a version of a file
      * 
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
      * @param unknown_type $tempFile File to be stored
      */
-    public function storeVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile);
+    public function storeVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version, $tempFile);
     
     /**
      * Retrieves a file and temporarily stores it somewhere so it can be read.
      * 
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @return \Emerald\Base\Spl\FileObject
      */
-    public function retrieve(\Emerald\Filelib\File $file);
+    public function retrieve(\Emerald\Filelib\File\File $file);
     
     /**
      * Retrieves a version of a file and temporarily stores it somewhere so it can be read.
      * 
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @param \Emerald_Filelib_VersionProvider_Interface $version
      * @return \Emerald\Base\Spl\FileObject
      */
-    public function retrieveVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
+    public function retrieveVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
     
     /**
      * Deletes a file
      * 
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      */
-    public function delete(\Emerald\Filelib\File $file);
+    public function delete(\Emerald\Filelib\File\File $file);
     
     /**
      * Deletes a version of a file
      * 
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @param \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version
      */
-    public function deleteVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
+    public function deleteVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version);
     
 }

@@ -21,22 +21,22 @@ interface Backend
      * Finds folder
      *
      * @param integer $id
-     * @return Emerald\Filelib\Folder|false
+     * @return Emerald\Filelib\Folder\Folder|false
      */
     public function findFolder($id);
 
     /**
      * Finds subfolders of a folder
      *
-     * @param \Emerald\Filelib\Folder $id
-     * @return \Emerald\Filelib\FolderIterator
+     * @param \Emerald\Filelib\Folder\Folder $id
+     * @return \Emerald\Filelib\Folder\FolderIterator
      */
-    public function findSubFolders(\Emerald\Filelib\Folder $folder);
+    public function findSubFolders(\Emerald\Filelib\Folder\Folder $folder);
 
     /**
      * Finds all files
      *
-     * @return \Emerald\Filelib\FileIterator
+     * @return \Emerald\Filelib\File\FileIterator
      */
     public function findAllFiles();
 
@@ -44,76 +44,76 @@ interface Backend
      * Finds a file
      *
      * @param integer $id
-     * @return \Emerald\Filelib\File|false
+     * @return \Emerald\Filelib\File\File|false
      */
     public function findFile($id);
 
     /**
      * Finds a file
      *
-     * @param \Emerald\Filelib\Folder $folder
-     * @return \Emerald\Filelib\FileIterator
+     * @param \Emerald\Filelib\Folder\Folder $folder
+     * @return \Emerald\Filelib\File\FileIterator
      */
-    public function findFilesIn(\Emerald\Filelib\Folder $folder);
+    public function findFilesIn(\Emerald\Filelib\Folder\Folder $folder);
 
     /**
      * Uploads a file
      *
-     * @param \Emerald\Filelib\FileUpload $upload Fileobject to upload
-     * @param \Emerald\Filelib\Folder $folder Folder
-     * @return \Emerald\Filelib\File File item
+     * @param \Emerald\Filelib\File\FileUpload $upload Fileobject to upload
+     * @param \Emerald\Filelib\Folder\Folder $folder Folder
+     * @return \Emerald\Filelib\File\File File item
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function upload(\Emerald\Filelib\FileUpload $upload, \Emerald\Filelib\Folder $folder, \Emerald\Filelib\FileProfile $profile);
+    public function upload(\Emerald\Filelib\File\FileUpload $upload, \Emerald\Filelib\Folder\Folder $folder, \Emerald\Filelib\File\FileProfile $profile);
 
     /**
      * Creates a folder
      *
-     * @param Emerald\Filelib\Folder $folder
-     * @return Emerald\Filelib\Folder Created folder
+     * @param Emerald\Filelib\Folder\Folder $folder
+     * @return Emerald\Filelib\Folder\Folder Created folder
      * @throws Emerald\Filelib\FilelibException When fails
      */
-    public function createFolder(\Emerald\Filelib\Folder $folder);
+    public function createFolder(\Emerald\Filelib\Folder\Folder $folder);
 
 
     /**
      * Deletes a folder
      *
-     * @param \Emerald\Filelib\Folder $folder
+     * @param \Emerald\Filelib\Folder\Folder $folder
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFolder(\Emerald\Filelib\Folder $folder);
+    public function deleteFolder(\Emerald\Filelib\Folder\Folder $folder);
 
     /**
      * Deletes a file
      *
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function deleteFile(\Emerald\Filelib\File $file);
+    public function deleteFile(\Emerald\Filelib\File\File $file);
 
     /**
      * Updates a folder
      *
-     * @param \Emerald\Filelib\Folder $folder
+     * @param \Emerald\Filelib\Folder\Folder $folder
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFolder(\Emerald\Filelib\Folder $folder);
+    public function updateFolder(\Emerald\Filelib\Folder\Folder $folder);
 
     /**
      * Updates a file
      *
-     * @param \Emerald\Filelib\File $file
+     * @param \Emerald\Filelib\File\File $file
      * @throws \Emerald\Filelib\FilelibException When fails
      */
-    public function updateFile(\Emerald\Filelib\File $file);
+    public function updateFile(\Emerald\Filelib\File\File $file);
 
 
     	
     /**
      * Finds the root folder
      *
-     * @return \Emerald\Filelib\Folder
+     * @return \Emerald\Filelib\Folder\Folder
      */
     public function findRootFolder();
 

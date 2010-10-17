@@ -1,6 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
+namespace Emerald\Filelib\Folder;
 
 /**
  * Folder item iterator
@@ -9,7 +9,7 @@ namespace Emerald\Filelib;
  * @package Emerald_Filelib
  *
  */
-class FolderIterator extends AbstractIterator implements \RecursiveIterator
+class FolderIterator extends \Emerald\Filelib\AbstractIterator implements \RecursiveIterator
 {
 
     public function hasChildren()

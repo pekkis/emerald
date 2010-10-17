@@ -1,7 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
-
+namespace Emerald\Filelib\File;
 /**
  * Fileitem iterator
  * 
@@ -9,5 +8,5 @@ namespace Emerald\Filelib;
  * @package Emerald_Filelib
  *
  */
-class FileIterator extends AbstractIterator
+class FileIterator extends \Emerald\Filelib\AbstractIterator
 { }

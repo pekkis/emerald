@@ -75,16 +75,16 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
                 $linker = new $linkerOptions['class']($linkerOptions['options']);
                 $linker->setFilelib($filelib);
 
-                $profile = new Emerald\Filelib\FileProfile($poptions);
+                $profile = new Emerald\Filelib\File\FileProfile($poptions);
                 $profile->setLinker($linker);
-                $filelib->addProfile($profile);
+                $filelib->file()->addProfile($profile);
             }
             	
             if (isset($options['plugins'])) {
                 foreach ($options['plugins'] as $plugin) {
                     // If no profiles are defined, use in all profiles.
                     if (!isset($plugin['profiles'])) {
-                        $plugin['profiles'] = array_keys($filelib->getProfiles());
+                        $plugin['profiles'] = array_keys($filelib->file()->getProfiles());
                     }
                     $plugin = new $plugin['type']($plugin);
                     $filelib->addPlugin($plugin);

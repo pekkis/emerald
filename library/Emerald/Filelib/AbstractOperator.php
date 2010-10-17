@@ -108,7 +108,7 @@ abstract class AbstractOperator
      /**
      * Transforms raw array to folder item
      * @param array $data
-     * @return \Emerald\Filelib\Folder
+     * @return \Emerald\Filelib\Folder\Folder
      */
     protected function _folderItemFromArray(array $data)
     {

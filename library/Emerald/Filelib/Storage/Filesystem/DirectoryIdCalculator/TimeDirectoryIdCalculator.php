@@ -30,7 +30,7 @@ class TimeDirectoryIdCalculator extends AbstractDirectoryIdCalculator
         return $this->_format;
     }
     
-    public function calculateDirectoryId(\Emerald\Filelib\File $file)
+    public function calculateDirectoryId(\Emerald\Filelib\File\File $file)
     {
 
         $dt = $file->getDateUploaded();

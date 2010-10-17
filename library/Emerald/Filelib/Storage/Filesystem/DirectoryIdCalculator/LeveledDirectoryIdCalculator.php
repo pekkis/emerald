@@ -65,7 +65,7 @@ class LeveledDirectoryIdCalculator extends AbstractDirectoryIdCalculator
         return $this->_directoryLevels;
     }
     
-    public function calculateDirectoryId(\Emerald\Filelib\File $file)
+    public function calculateDirectoryId(\Emerald\Filelib\File\File $file)
     {
         if(!is_numeric($file->getId())) {
             throw new \Emerald\Filelib\FilelibException("Leveled directory id calculator requires numeric file ids ('{$file->getId()}' was provided)");

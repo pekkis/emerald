@@ -1,6 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
+namespace Emerald\Filelib\File;
 
 /**
  * Default file implementation
@@ -124,7 +124,7 @@ class FileItem implements File
 
     public function getProfileObject()
     {
-        return $this->getFilelib()->getProfile($this->getProfile());
+        return $this->getFilelib()->file()->getProfile($this->getProfile());
     }
     
     public function getType()

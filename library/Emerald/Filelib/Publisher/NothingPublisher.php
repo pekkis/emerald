@@ -12,33 +12,33 @@ namespace Emerald\Filelib\Publisher;
 class NothingPublisher extends AbstractPublisher
 {
     
-    public function publish(\Emerald\Filelib\File $file)
+    public function publish(\Emerald\Filelib\File\File $file)
     {
         
     }
         
-    public function publishVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function publishVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         
     }
     
-    public function unpublish(\Emerald\Filelib\File $file)
+    public function unpublish(\Emerald\Filelib\File\File $file)
     {
         
     }
     
-    public function unpublishVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
+    public function unpublishVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         
     }
     
     
-    public function getUrl(\Emerald\Filelib\File $file)
+    public function getUrl(\Emerald\Filelib\File\File $file)
     {
         return false;    
     }
     
-    public function getUrlVersion(\Emerald\Filelib\File $file, \Emerald\Filelib\Plugin\VersionProvider $version)
+    public function getUrlVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider $version)
     {
         return false;
     }

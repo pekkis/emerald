@@ -1,7 +1,6 @@
 <?php
 
-namespace Emerald\Filelib;
-
+namespace Emerald\Filelib\File;
 /**
  * Defines the file types that are allowed / denied to be uploaded
  *
@@ -30,7 +29,7 @@ class Uploader
     /**
      * Sets filelib
      *
-     * @param \Emerald_Filelib $filelib
+     * @param \Emerald\Filelib\FileLibrary $filelib
      */
     public function setFilelib(\Emerald\Filelib\FileLibrary $filelib)
     {
@@ -51,7 +50,7 @@ class Uploader
      * Accept a file type. A regex or an array of regexes to accept.
      * 
      * @param mixed $what 
-     * @return \Emerald\Filelib\Uploader
+     * @return \Emerald\Filelib\File\Uploader
      */
     public function accept($what)
     {
@@ -78,7 +77,7 @@ class Uploader
      * Deny a file type. A regex or an array of regexes to deny.
      * 
      * @param mixed $what 
-     * @return \Emerald\Filelib\Uploader
+     * @return \Emerald\Filelib\File\Uploader
      */
     public function deny($what)
     {
@@ -123,10 +122,10 @@ class Uploader
     /**
      * Returns whether a file upload may be uploaded
      * 
-     * @param \Emerald\Filelib\FileUpload $upload
+     * @param \Emerald\Filelib\File\FileUpload $upload
      * @return boolean
      */
-    public function isAccepted(\Emerald\Filelib\FileUpload $upload)
+    public function isAccepted(\Emerald\Filelib\File\FileUpload $upload)
     {
         $mimeType = $upload->getMimeType();
 
