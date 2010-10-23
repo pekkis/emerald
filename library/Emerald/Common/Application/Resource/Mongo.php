@@ -31,7 +31,14 @@ class Emerald_Common_Application_Resource_Mongo extends Zend_Application_Resourc
         }
         try {
             $mongo = new Mongo($dns, array('connect' => $options['connect']));
-            $mongo = $mongo->$options['databasename'];
+
+            // @todo: refuctor this kludgering
+            if(isset($options['databasename'])) {
+                $mongo = $mongo->{$options['databasename']};    
+            }
+            
+            return $mongo;
+            
         } catch (MongoConnectionException $e) {
             throw new Zend_Exception($e->getMessage());
         }
