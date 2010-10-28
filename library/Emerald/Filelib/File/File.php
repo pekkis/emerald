@@ -61,6 +61,9 @@ interface File
     
     public function fromArray(array $data);
 
+    /**
+     * @return \Emerald\Filelib\File\FileProfile
+     */
     public function getProfileObject();
     
     public function getType();

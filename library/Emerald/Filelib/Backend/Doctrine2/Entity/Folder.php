@@ -20,10 +20,6 @@ class Folder
      */
     protected $name;
 
-    /**
-     * @Column(name="visible", type="integer")
-     */
-    protected $visible;
 
     /**
      * @OneToOne(targetEntity="Folder")

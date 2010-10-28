@@ -46,6 +46,17 @@ class FileProfile
      */
     private $_plugins = array();
 
+
+    /**
+     * @var boolean Allow access to original file
+     */
+    private $_accessToOriginal = true;
+    
+    /**
+     * @var boolean Publish original file
+     */
+    private $_publishOriginal = true;
+    
     
     public function __construct($options = array())
     {
@@ -262,8 +273,50 @@ class FileProfile
         return $this->_fileVersions[$filetype][$version];
     }
 
-
-
+    
+    /**
+     * Sets whether access to the original file is allowed
+     * 
+     * @param boolean $accessToOriginal
+     */
+    public function setAccessToOriginal($accessToOriginal)
+    {
+        $this->_accessToOriginal = $accessToOriginal;
+    }
+        
+    /**
+     * Returns whether access to the original file is allowed
+     * 
+     * @return boolean
+     */
+    public function getAccessToOriginal()
+    {
+        return $this->_accessToOriginal;
+    }
+    
+    
+    /**
+     * Sets whether the original file is published
+     * 
+     * @param boolean $publishOriginal
+     */
+    public function setPublishOriginal($publishOriginal)
+    {
+        $this->_publishOriginal = $publishOriginal;
+    }
+    
+    
+    /**
+     * Returns whether the original file is published
+     * 
+     * @return boolean
+     */
+    public function getPublishOriginal()
+    {
+        return $this->_publishOriginal;
+    }
+    
+    
 
     public function __toString()
     {

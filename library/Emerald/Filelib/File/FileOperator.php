@@ -418,13 +418,18 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
             $version = $opts['version'];
             
             if(!$this->hasVersion($file, $version)) {
-                throw new \Emerald\Filelib\FilelibException("Version '{$version}' is not available");
+                throw new \Emerald\Filelib\FilelibException("Version '{$version}' is not available", 404);
             }
             
             $provider = $this->getVersionProvider($file, $version);
             $url = $this->getFilelib()->getPublisher()->getUrlVersion($file, $provider);
                      
         } else {
+                        
+            if(!$file->getProfileObject()->getAccessToOriginal()) {
+                throw new \Emerald\Filelib\FilelibException("Access to the original file is not allowed", 403);
+            }
+            
             $url = $this->getFilelib()->getPublisher()->getUrl($file);
         }
         return $url;
@@ -453,11 +458,16 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
             $provider = $this->getVersionProvider($file, $version);
             $res = $this->getFilelib()->getStorage()->retrieveVersion($file, $provider);
         } else {
+
+            if(!$file->getProfileObject()->getAccessToOriginal()) {
+                throw new \Emerald\Filelib\FilelibException("Access to the original file is not allowed", 403);
+            }
+            
             $res = $this->getFilelib()->getStorage()->retrieve($file);
         }
 
         if(!is_readable($res->getPathname())) {
-            throw new \Emerald\Filelib\FilelibException('File not readable');
+            throw new \Emerald\Filelib\FilelibException('File not readable', 404);
         }
 
         readfile($res->getPathname());
@@ -467,8 +477,10 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
     
     public function publish(\Emerald\Filelib\File\File $file)
     {
-                        
-        $this->getFilelib()->getPublisher()->publish($file);
+        if($file->getProfileObject()->getPublishOriginal()) {
+            $this->getFilelib()->getPublisher()->publish($file);    
+        }                
+        
         foreach($file->getProfileObject()->getPlugins() as $plugin) {
             $plugin->onPublish($file);
         }
@@ -477,6 +489,7 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
     public function unpublish(\Emerald\Filelib\File\File $file)
     {
         $this->getFilelib()->getPublisher()->unpublish($file);
+        
         foreach($file->getProfileObject()->getPlugins() as $plugin) {
             $plugin->onUnpublish($file);
         }

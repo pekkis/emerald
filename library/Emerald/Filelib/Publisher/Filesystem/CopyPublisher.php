@@ -58,6 +58,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
     public function unpublish(\Emerald\Filelib\File\File $file)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLink($file);
+        
         if(is_file($link)) {
             unlink($link);
         }
@@ -66,6 +67,7 @@ class CopyPublisher extends AbstractFilesystemPublisher implements Publisher
     public function unpublishVersion(\Emerald\Filelib\File\File $file, \Emerald\Filelib\Plugin\VersionProvider\VersionProvider $version)
     {
         $link = $this->getPublicRoot() . '/' . $file->getProfileObject()->getLinker()->getLinkVersion($file, $version);
+        
         if(is_file($link)) {
             unlink($link);
         }

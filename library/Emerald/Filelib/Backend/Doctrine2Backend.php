@@ -432,7 +432,6 @@ class Doctrine2Backend extends AbstractBackend
             'id'        => $folder->getId(),
             'parent_id' => $folder->getParent() ? $folder->getParent()->getId() : null,
             'name'      => $folder->getName(),
-            'visible'   => $folder->getVisible(),
         );
     }
 }
