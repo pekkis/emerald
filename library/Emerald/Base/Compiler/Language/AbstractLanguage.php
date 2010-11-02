@@ -24,8 +24,9 @@ abstract class AbstractLanguage implements Language
         $pinfo = pathinfo($file);
         
         $target = $pinfo['dirname'] . '/' . $pinfo['filename'] . '.' . $this->getTargetFileExtension(); 
-        
-        if(filemtime($target) >= filemtime($file)) {
+
+                
+        if(file_exists($target) && filemtime($target) >= filemtime($file)) {
             return true;
         }
         

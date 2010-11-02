@@ -6,9 +6,9 @@ class Compiler
 {
 
     private $_extensions = array(
-        'scss' => 'Sass',
+        // 'scss' => 'Sass',
         'less' => 'Less',
-        'coffee' => 'CoffeeScript',
+        // 'coffee' => 'CoffeeScript',
     );
     
     private $_compilers = array();
@@ -17,6 +17,10 @@ class Compiler
     public function isCompilable($file)
     {
         $pinfo = pathinfo($file);
+        
+        if(!isset($pinfo['extension'])) {
+            return false;
+        }
         
         if(!isset($this->_extensions[$pinfo['extension']])) {
             return false;
@@ -40,6 +44,24 @@ class Compiler
                 
     }
 
+    
+    public function compileRecursive(\RecursiveDirectoryIterator $directoryIterator)
+    {
+        $iter = new \RecursiveIteratorIterator($directoryIterator);
+
+        foreach($iter as $item) {
+            if($item->isFile()) {
+                if($this->isCompilable($item->getPathname())) {
+                    $this->compile($item->getPathname());                   
+                }
+            }
+        }
+
+        
+        
+    }
+    
+    
     
     
     public function getCompilerForLanguage($language)
