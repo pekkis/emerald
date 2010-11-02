@@ -1,21 +1,34 @@
+CREATE SEQUENCE emerald_filelib_folder_id_seq;
+
+CREATE TABLE "emerald_filelib_folder" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_filelib_folder_id_seq'),
+  "parent_id" int  DEFAULT NULL,
+  "foldername" varchar(255) NOT NULL,
+  PRIMARY KEY ("id"),
+  UNIQUE ("parent_id","foldername"),
+  FOREIGN KEY ("parent_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
+);
+
+CREATE SEQUENCE emerald_filelib_file_id_seq;
+
+CREATE TABLE "emerald_filelib_file" (
+  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_filelib_file_id_seq'),
+  "folder_id" int  NOT NULL,
+  "mimetype" varchar(255) NOT NULL,
+  "fileprofile" varchar(255) NOT NULL DEFAULT 'default',
+  "filesize" int DEFAULT NULL,
+  "filename" varchar(255) NOT NULL,
+  "filelink" varchar(1000) DEFAULT NULL,
+  "date_uploaded" timestamp NOT NULL,
+  PRIMARY KEY ("id"),
+  UNIQUE ("filename","folder_id"),
+  FOREIGN KEY ("folder_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
+);
 
 CREATE TABLE "emerald_application_option" (
   "identifier" varchar(255) NOT NULL DEFAULT '',
   "strvalue" varchar(255) DEFAULT NULL,
   PRIMARY KEY ("identifier")
-);
-
-CREATE SEQUENCE emerald_filelib_folder_id_seq;
-
-
-CREATE TABLE "emerald_filelib_folder" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_filelib_folder_id_seq'),
-  "parent_id" int  DEFAULT NULL,
-  "name" varchar(255) NOT NULL,
-  "visible" smallint NOT NULL default 1,
-  PRIMARY KEY ("id"),
-  UNIQUE ("parent_id","name"),
-    FOREIGN KEY ("parent_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 CREATE SEQUENCE emerald_form_id_seq;
@@ -96,23 +109,6 @@ CREATE TABLE "emerald_user_ugroup" (
     FOREIGN KEY ("user_id") REFERENCES "emerald_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY ("ugroup_id") REFERENCES "emerald_ugroup" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE SEQUENCE emerald_filelib_file_id_seq;
-
-CREATE TABLE "emerald_filelib_file" (
-  "id" int  NOT NULL DEFAULT NEXTVAL('emerald_filelib_file_id_seq'),
-  "folder_id" int  NOT NULL,
-  "mimetype" varchar(255) NOT NULL,
-  "profile" varchar(255) NOT NULL DEFAULT 'default',
-  "size" int DEFAULT NULL,
-  "name" varchar(255) NOT NULL,
-  "link" varchar(1000) DEFAULT NULL,
-  "date_uploaded" timestamp NOT NULL,
-  PRIMARY KEY ("id"),
-  UNIQUE ("name","folder_id"),
-      FOREIGN KEY ("folder_id") REFERENCES "emerald_filelib_folder" ("id") ON DELETE NO ACTION ON UPDATE CASCADE
-);
-
 
 CREATE TABLE "emerald_permission_folder_ugroup" (
   "folder_id" int  NOT NULL,

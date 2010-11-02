@@ -10,6 +10,32 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+CREATE TABLE emerald_filelib_folder (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  parent_id int(10) unsigned DEFAULT NULL,
+  foldername varchar(255) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY parent_id_name (parent_id, foldername),
+  KEY parent_id (parent_id),
+  CONSTRAINT filelib_folder_ibfk_1 FOREIGN KEY (parent_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=XtraDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE emerald_filelib_file (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  folder_id int(10) unsigned NOT NULL,
+  mimetype varchar(255) NOT NULL,
+  fileprofile varchar(255) NOT NULL DEFAULT 'default',
+  filesize int(11) DEFAULT NULL,
+  filename varchar(255) NOT NULL,
+  filelink varchar(1000) DEFAULT NULL,
+  date_uploaded datetime NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY (filename,folder_id),
+  KEY folder_id (folder_id),
+  KEY mimetype (mimetype),
+  CONSTRAINT filelib_file_ibfk_1 FOREIGN KEY (folder_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=XtraDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS emerald_application_option;
 
@@ -17,36 +43,6 @@ CREATE TABLE emerald_application_option (
   identifier varchar(255) NOT NULL DEFAULT '',
   strvalue varchar(255) DEFAULT NULL,
   PRIMARY KEY (identifier)
-) ENGINE=XtraDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE emerald_filelib_file (
-  id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  folder_id int(10) unsigned NOT NULL,
-  mimetype varchar(255) NOT NULL,
-  profile varchar(255) NOT NULL DEFAULT 'default',
-  size int(11) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  link varchar(1000) DEFAULT NULL,
-  path varchar(255) NOT NULL,
-  date_uploade datetime NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY `name` (`name`,folder_id),
-  KEY folder_id (folder_id),
-  KEY mimetype (mimetype),
-  CONSTRAINT filelib_file_ibfk_1 FOREIGN KEY (folder_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=XtraDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE emerald_filelib_folder (
-  id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  parent_id int(10) unsigned DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  visible tinyint unsigned NOT NULL default 1,
-  PRIMARY KEY (id),
-  UNIQUE KEY parent_id_name (parent_id,`name`),
-  KEY parent_id (parent_id),
-  CONSTRAINT filelib_folder_ibfk_1 FOREIGN KEY (parent_id) REFERENCES emerald_filelib_folder (id) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=XtraDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS emerald_form;
