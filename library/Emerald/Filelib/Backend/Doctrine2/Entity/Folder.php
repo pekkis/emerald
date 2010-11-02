@@ -20,7 +20,6 @@ class Folder
      */
     protected $name;
 
-
     /**
      * @OneToOne(targetEntity="Folder")
      * @JoinColumn(name="parent_id", referencedColumnName="id")

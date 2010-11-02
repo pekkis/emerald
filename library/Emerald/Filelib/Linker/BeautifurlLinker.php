@@ -53,12 +53,14 @@ class BeautifurlLinker extends \Emerald\Filelib\Linker\AbstractLinker implements
 
     public function getLink(\Emerald\Filelib\File\File $file, $force = false)
     {
+        
         if($force || !isset($file->link)) {
             	
             $folders = array();
             $folders[] = $folder = $file->getFilelib()->folder()->find($file->getFolderId());
-            	
-            while($folder = $folder->getFilelib()->folder()->find($folder->getParentId())) {
+                                    
+            while($folder->getParentId()) {
+                $folder = $folder->getFilelib()->folder()->find($folder->getParentId());
                 array_unshift($folders, $folder);
             }
 

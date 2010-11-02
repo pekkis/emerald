@@ -304,12 +304,17 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
 
         $file = $this->getBackend()->upload($upload, $folder, $profile);
         
+        
+        // \Zend_Debug::dump($file);
+        
+        
         if(!$file) {
             throw new \Emerald\Filelib\FilelibException("Can not upload");
         }
         
         
         $file = $this->_fileItemFromArray($file);
+        
         $file->setLink($profile->getLinker()->getLink($file, true));
         
         $this->getBackend()->updateFile($file);

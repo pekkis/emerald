@@ -246,7 +246,6 @@ class Doctrine2Backend extends AbstractBackend
             $folder = new \Emerald\Filelib\Backend\Doctrine2\Entity\Folder();
             $folder->setName('root');
             $folder->removeParent();
-            $folder->setVisible(1);
             $this->_em->persist($folder);
             $this->_em->flush();        
         }
@@ -298,8 +297,7 @@ class Doctrine2Backend extends AbstractBackend
             }
 
             $folderRow->setName($folder->getName());
-            
-            $folderRow->setVisible(1);
+                        
 
             $this->_em->persist($folderRow);
             $this->_em->flush();
@@ -332,7 +330,7 @@ class Doctrine2Backend extends AbstractBackend
             }
 
             $folderRow->setName($folder->getName());
-            $folderRow->setVisible(1);
+            
 
             $this->_em->flush();
             

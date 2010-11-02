@@ -147,6 +147,7 @@ class FolderOperator extends \Emerald\Filelib\AbstractOperator
      */
     public function find($id)
     {
+        
         if(!$folder = $this->findCached($id)) {
             $folder = $this->getBackend()->findFolder($id);
         }
