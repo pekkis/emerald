@@ -28,22 +28,22 @@ class File
     protected $mimetype;
 
     /**
-     * @Column(name="profile", type="string", length=255)
+     * @Column(name="fileprofile", type="string", length=255)
      */
     protected $profile;
 
     /**
-     * @Column(name="size", type="integer", nullable=true)
+     * @Column(name="filesize", type="integer", nullable=true)
      */
     protected $size;
 
     /**
-     * @Column(name="name", type="string", length=255)
+     * @Column(name="filename", type="string", length=255)
      */
     protected $name;
 
     /**
-     * @Column(name="link", type="string", length=1000, nullable=true)
+     * @Column(name="filelink", type="string", length=1000, nullable=true)
      */
     protected $link;
     

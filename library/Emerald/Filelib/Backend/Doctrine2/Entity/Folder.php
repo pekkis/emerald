@@ -16,7 +16,7 @@ class Folder
     protected $id;
 
     /**
-     * @Column(name="name", type="string", length=255)
+     * @Column(name="foldername", type="string", length=255)
      */
     protected $name;
 

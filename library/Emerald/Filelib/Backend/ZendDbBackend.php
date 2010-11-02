@@ -91,8 +91,10 @@ class ZendDbBackend extends AbstractBackend implements Backend
     public function createFolder(\Emerald\Filelib\Folder\Folder $folder)
     {
         try {
-            $folderRow = $this->getFolderTable()->createRow($folder->toArray());
-            
+            $folderRow = $this->getFolderTable()->createRow();
+            $folderRow->foldername = $folder->getName();
+            $folderRow->parent_id = $folder->getParentId();            
+                        
             $folderRow->save();
             	
             $folder->setId($folderRow->id);
@@ -118,10 +120,16 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
     public function updateFolder(\Emerald\Filelib\Folder\Folder $folder)
     {
+        $data = array(
+            'id' => $folder->getId(),
+            'parent_id' => $folder->getParentId(),
+            'foldername' => $folder->getName(),
+        );
+        
         try {
             $this->getFolderTable()->update(
-            $folder->toArray(),
-            $this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->getId())
+                $data,
+                $this->getFolderTable()->getAdapter()->quoteInto('id = ?', $folder->getId())
             );
             	
         } catch(Exception $e) {
@@ -137,12 +145,20 @@ class ZendDbBackend extends AbstractBackend implements Backend
 
             $file->setLink($file->getProfileObject()->getLinker()->getLink($file, true));
             
-            $data = $file->toArray();
-            $data['date_uploaded'] = $data['date_uploaded']->format('Y-m-d H:i:s');
-
+            $data = array(
+                'id' => $file->getId(),
+                'folder_id' => $file->getFolderId(),
+                'mimetype' => $file->getMimetype(),
+                'filesize' => $file->getSize(),
+                'filename' => $file->getName(),
+                'fileprofile' => $file->getProfile(),
+                'date_uploaded' => $file->getDateUploaded()->format('Y-m-d H:i:s')
+            ); 
+            
+            
             $this->getFileTable()->update(
-            $data,
-            $this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->getId())
+                $data,
+                $this->getFileTable()->getAdapter()->quoteInto('id = ?', $file->getId())
             );
 
             // $file->link = $file->link;
@@ -173,23 +189,22 @@ class ZendDbBackend extends AbstractBackend implements Backend
     {
         try {
                         
-            
             $this->getDb()->beginTransaction();
 
             $file = $this->getFileTable()->createRow();
             
             $file->folder_id = $folder->getId();
             $file->mimetype = $upload->getMimeType();
-            $file->size = $upload->getSize();
-            $file->name = $upload->getOverrideFilename();
-            $file->profile = $profile->getIdentifier();
+            $file->filesize = $upload->getSize();
+            $file->filename = $upload->getOverrideFilename();
+            $file->fileprofile = $profile->getIdentifier();
             $file->date_uploaded = $upload->getDateUploaded()->format('Y-m-d H:i:s');
             	
             $file->save();
             	
             $this->getDb()->commit();
             	
-            $ret = $file->toArray();
+            $ret = $this->_fileRowToArray($file);
             $ret['date_uploaded'] = new \DateTime($ret['date_uploaded']);
             
             return $ret;
@@ -212,7 +227,7 @@ class ZendDbBackend extends AbstractBackend implements Backend
             return false;
         }
 
-        return $row->toArray();
+        return $this->_folderRowToArray($row);
                 
     }
 
@@ -223,15 +238,14 @@ class ZendDbBackend extends AbstractBackend implements Backend
         
         if(!$row) {
             
-            
             $row = $this->getFolderTable()->createRow();
-            $row->name = 'root';
+            $row->foldername = 'root';
             $row->parent_id = null;
             $row->save();
             
         }
         
-        return $row->toArray();
+        return $this->_folderRowToArray($row);
     }
 
 
@@ -239,7 +253,13 @@ class ZendDbBackend extends AbstractBackend implements Backend
     public function findSubFolders(\Emerald\Filelib\Folder\Folder $folder)
     {
         $folderRows = $this->getFolderTable()->fetchAll(array('parent_id = ?' => $folder->getId()));
-        return $folderRows->toArray();
+        
+        $ret = array();
+        foreach($folderRows as $folderRow) {
+            $ret[] = $this->_folderRowToArray($folderRow);
+        }
+        
+        return $ret;
     }
 
 
@@ -250,8 +270,8 @@ class ZendDbBackend extends AbstractBackend implements Backend
         if(!$fileRow) {
             return false;
         }
-
-        $ret = $fileRow->toArray();
+        
+        $ret = $this->_fileRowToArray($fileRow);
         $ret['date_uploaded'] = new \DateTime($ret['date_uploaded']);
         return $ret;
         
@@ -261,7 +281,12 @@ class ZendDbBackend extends AbstractBackend implements Backend
     public function findFilesIn(\Emerald\Filelib\Folder\Folder $folder)
     {
         $res = $this->getFileTable()->fetchAll(array('folder_id = ?' => $folder->getId()));
-        $ret = $res->toArray();
+       
+        $ret = array();
+        foreach($res as $awww) {
+            $ret[] = $this->_fileRowToArray($awww);
+        }
+                
         array_walk($ret, function(&$ret) {
             $ret['date_uploaded'] = new DateTime($ret['date_uploaded']); 
         });      
@@ -273,14 +298,43 @@ class ZendDbBackend extends AbstractBackend implements Backend
     {
         $res = $this->getFileTable()->fetchAll(array(), "id ASC");
         
-        $ret = $res->toArray();
+        $ret = array();
+        foreach($res as $awww) {
+            $ret[] = $this->_fileRowToArray($awww);
+        }
+                
         array_walk($ret, function(&$ret) {
             $ret['date_uploaded'] = new DateTime($ret['date_uploaded']); 
         });      
         return $ret;
         
     }
-
+    
+    private function _fileRowToArray($row) 
+    {
+        return array(
+            'id' => $row->id,
+            'folder_id' => $row->folder_id,
+            'mimetype' => $row->mimetype,
+            'size' => $row->filesize,
+            'name' => $row->filename,
+            'profile' => $row->fileprofile,
+            'date_uploaded' => $row->date_uploaded,
+        );
+        
+    }
+    
+    
+    private function _folderRowToArray($row)
+    {
+        return array(
+            'id' => $row->id,
+            'parent_id' => $row->parent_id,
+            'name' => $row->foldername,
+        
+        );
+        
+    }
 
 
 
