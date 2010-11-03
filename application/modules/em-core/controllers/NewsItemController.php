@@ -102,10 +102,10 @@ class EmCore_NewsItemController extends Emerald_Cms_Controller_Action
 
             $newsItemModel->delete($item);
 
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Delete ok');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Delete ok');
             	
         } catch(Exception $e) {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Delete failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Delete failed');
         }
 
         $this->view->message = $msg;
@@ -153,11 +153,11 @@ class EmCore_NewsItemController extends Emerald_Cms_Controller_Action
             	
             $model->save($item);
             	
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
             $msg->saved_item_id = $item->id;
             	
         } else {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
             $msg->errors = $form->getMessages();
         }
 

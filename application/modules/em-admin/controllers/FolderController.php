@@ -26,9 +26,9 @@ class EmAdmin_FolderController extends Emerald_Cms_Controller_Action
 
         try {
             $fl->folder()->delete($folder);
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Folder was deleted.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Folder was deleted.');
         } catch(Exception $e) {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Folder delete failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Folder delete failed.');
         }
 
         $this->view->message = $msg;
@@ -91,11 +91,11 @@ class EmAdmin_FolderController extends Emerald_Cms_Controller_Action
             	
             // $this->getAcl()->cacheRemove();
             	
-            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok!');
+            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok!');
             $this->view->message->folder_id = $folder->getId();
             	
         } else {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }

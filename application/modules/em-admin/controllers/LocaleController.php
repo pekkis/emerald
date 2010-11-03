@@ -37,7 +37,7 @@ class EmAdmin_LocaleController extends Emerald_Cms_Controller_Action
 
         $form = new EmAdmin_Form_LocaleAdd();
         if(!$form->isValid($this->_getAllParams())) {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
         } else {
             	
             $formLocales = array();
@@ -52,9 +52,9 @@ class EmAdmin_LocaleController extends Emerald_Cms_Controller_Action
             $success = $localeModel->updateSiteLocales($formLocales);
             	
             if($success) {
-                $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
+                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
             } else {
-                $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
+                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
             }
         }
         	
@@ -97,9 +97,9 @@ class EmAdmin_LocaleController extends Emerald_Cms_Controller_Action
 
         try {
             $localeModel->delete($locale);
-            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Delete ok');
+            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Delete ok');
         } catch(Exception $e) {
-            $this->view->message = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Delete failed');
+            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Delete failed');
         }
 
     }
@@ -123,12 +123,12 @@ class EmAdmin_LocaleController extends Emerald_Cms_Controller_Action
         }
 
         if(!$form->isValid($this->_getAllParams())) {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed.');
             $msg->errors = $form->getMessages();
         } else {
             $locale->setFromArray($form->getValues());
             $localeModel->save($locale, $form->getSubForm('locale-permissions')->getValues());
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok.');
             $msg->locale_id = $locale->id;
         }
 

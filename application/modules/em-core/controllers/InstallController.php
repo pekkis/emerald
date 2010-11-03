@@ -36,6 +36,10 @@ class EmCore_InstallController extends Emerald_Cms_Controller_Action
 
             }
         } catch(Exception $e) {
+            
+            echo $e;
+            die();
+            
             $this->view->form = $form;
             $this->getHelper('viewRenderer')->setScriptAction('index');
         }

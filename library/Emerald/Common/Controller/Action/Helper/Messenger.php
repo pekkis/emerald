@@ -18,22 +18,22 @@ class Emerald_Common_Controller_Action_Helper_Messenger extends Zend_Controller_
         }
     }
 
-    private function _addMessage(Emerald_Common_Messaging_Message $message)
+    private function _addMessage(Emerald\Base\Messaging\Message $message)
     {
         $this->_messenger->messages[] = $message;
     }
 
     public function addMessage($message)
     {
-        $this->_addMessage(new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS,$message));
+        $this->_addMessage(new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS,$message));
     }
     public function addNotification($message)
     {
-        $this->_addMessage(new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::INFO,$message));
+        $this->_addMessage(new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::INFO,$message));
     }
     public function addError($message,$errors = false)
     {
-        $tmp = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR,$message);
+        $tmp = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR,$message);
         if(!empty($errors)) $tmp->errors = $errors;
         $this->_addMessage($tmp);
     }

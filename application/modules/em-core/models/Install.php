@@ -32,9 +32,7 @@ class EmCore_Model_Install
             $userId = $userTbl->insert(array('email' => $form->email->getValue(), 'passwd' => $userModel->hash($form->email->getValue(), $form->password->getValue()), 'status' => 1));
 
             $ugTbl->insert(array('user_id' => $userId, 'ugroup_id' => $groupId));
-
-            $folderTbl->insert(array('name' => 'root', 'parent_id' => null));
-
+            
             $customer->setOption('installed', '1');
 
             $db->commit();

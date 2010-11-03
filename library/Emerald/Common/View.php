@@ -14,7 +14,7 @@ class Emerald_Common_View extends Zend_View
      * @var string Customer script path
      */
     protected $_customerPath;
-
+    
     /**
      * Returns customer script path
      * 

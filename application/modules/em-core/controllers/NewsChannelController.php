@@ -70,10 +70,10 @@ class EmCore_NewsChannelController extends Emerald_Cms_Controller_Action
             	
             $model->save($item);
 
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
             	
         } else {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
             $msg->errors = $form->getMessages();
 
         }

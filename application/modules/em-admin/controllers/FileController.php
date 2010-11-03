@@ -20,9 +20,9 @@ class EmAdmin_FileController extends Emerald_Cms_Controller_Action
 
         try {
             $fl->file()->delete($file);
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Delete ok.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Delete ok.');
         } catch(Exception $e) {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Delete failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Delete failed.');
         }
         $this->view->message = $msg;
     }

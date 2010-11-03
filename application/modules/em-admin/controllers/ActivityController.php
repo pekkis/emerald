@@ -40,15 +40,15 @@ class EmAdmin_ActivityController extends Emerald_Cms_Controller_Action
                 $activityModel = new EmAdmin_Model_Activity();
                 $activityModel->updatePermissions($form->getValues());
 
-                $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::SUCCESS, 'Save ok.');
+                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok.');
             } catch(Exception $e) {
-                $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed.');
+                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed.');
             }
             	
             	
             	
         } else {
-            $msg = new Emerald_Common_Messaging_Message(Emerald_Common_Messaging_Message::ERROR, 'Save failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed.');
         }
 
 

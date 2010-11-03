@@ -8,7 +8,7 @@
  */
 class Emerald_Common_Application_Resource_View extends Zend_Application_Resource_View
 {
-
+    
     /**
      * Retrieve view object
      *
@@ -16,6 +16,7 @@ class Emerald_Common_Application_Resource_View extends Zend_Application_Resource
      */
     public function getView()
     {
+                
         if (null === $this->_view) {
             $options = $this->getOptions();
 
@@ -31,6 +32,11 @@ class Emerald_Common_Application_Resource_View extends Zend_Application_Resource
             // output caching
             if(isset($options['cache'])) {
                 $cache = $this->getBootstrap()->bootstrap('cache')->getResource('cache')->getCache($options['cache']);
+                
+                if(!$cache) {
+                    throw new Zend_Application_Exception("Cache '{$options['cache']}' not found", 500);
+                }
+                
                 $this->_view->cache = $cache;
             }
 
