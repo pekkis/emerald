@@ -12,7 +12,7 @@ class Message
 {
     const SUCCESS = 1;
     const INFO = 2;
-    const ERROR = 4;
+    const FAILURE = 4;
 
     /**
      * Type(s)
