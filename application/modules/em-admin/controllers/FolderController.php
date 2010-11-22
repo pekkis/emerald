@@ -28,7 +28,7 @@ class EmAdmin_FolderController extends Emerald_Cms_Controller_Action
             $fl->folder()->delete($folder);
             $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Folder was deleted.');
         } catch(Exception $e) {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Folder delete failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Folder delete failed.');
         }
 
         $this->view->message = $msg;
@@ -95,7 +95,7 @@ class EmAdmin_FolderController extends Emerald_Cms_Controller_Action
             $this->view->message->folder_id = $folder->getId();
             	
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }

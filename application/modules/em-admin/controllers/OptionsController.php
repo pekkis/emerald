@@ -93,7 +93,7 @@ class EmAdmin_OptionsController extends Emerald_Cms_Controller_Action
             	
             	
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }
@@ -124,7 +124,7 @@ class EmAdmin_OptionsController extends Emerald_Cms_Controller_Action
             $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
             	
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }

@@ -33,7 +33,7 @@ class Emerald_Common_Controller_Action_Helper_Messenger extends Zend_Controller_
     }
     public function addError($message,$errors = false)
     {
-        $tmp = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR,$message);
+        $tmp = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE,$message);
         if(!empty($errors)) $tmp->errors = $errors;
         $this->_addMessage($tmp);
     }

@@ -40,7 +40,7 @@ class EmAdmin_FormController extends Emerald_Cms_Controller_Action
             $model->delete($item);
             $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Delete ok');
         } catch(Emerald_Common_Exception $e) {
-            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Delete failed');
+            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Delete failed');
         }
 
     }
@@ -75,7 +75,7 @@ class EmAdmin_FormController extends Emerald_Cms_Controller_Action
             $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Form was created.');
             $msg->form_id = $item->id;
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Form creation failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Form creation failed.');
             $msg->errors = $form->getMessages();
         }
 
@@ -98,7 +98,7 @@ class EmAdmin_FormController extends Emerald_Cms_Controller_Action
             $model->delete($item);
             $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Field was deleted.');
         } catch(Exception $e) {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Field delete failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Field delete failed.');
         }
         $this->view->message = $msg;
     }
@@ -128,7 +128,7 @@ class EmAdmin_FormController extends Emerald_Cms_Controller_Action
             	
             $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'A field was created.');
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Field creation failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Field creation failed.');
         }
 
         $this->view->message = $msg;
@@ -193,7 +193,7 @@ class EmAdmin_FormController extends Emerald_Cms_Controller_Action
             	
             $db->rollBack();
 
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed.');
             $msg->errors = array_keys($input->getMessages());
             	
         }

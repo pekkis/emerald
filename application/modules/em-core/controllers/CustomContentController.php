@@ -127,7 +127,7 @@ class EmCore_CustomContentController extends Emerald_Cms_Controller_Action
             	
             	
         } else {
-            $message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
             $message->errors = array_keys($form->getMessages());
         }
 

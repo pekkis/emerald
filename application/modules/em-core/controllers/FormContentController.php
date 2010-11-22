@@ -118,7 +118,7 @@ class EmCore_FormContentController extends Emerald_Cms_Controller_Action
             $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
             	
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
             $msg->errors = $form->getMessages();
         }
 
@@ -187,7 +187,7 @@ class EmCore_FormContentController extends Emerald_Cms_Controller_Action
 
             } else {
 
-                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Form posting failed.');
+                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Form posting failed.');
                 $msg->errors = $zform->getMessages();
 
                 $this->view->page = $page;
@@ -199,7 +199,7 @@ class EmCore_FormContentController extends Emerald_Cms_Controller_Action
             	
 
         } catch(Exception $e) {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Mail send failure.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Mail send failure.');
             $msg->exception = $e->getMessage();
         }
 

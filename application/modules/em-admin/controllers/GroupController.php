@@ -55,7 +55,7 @@ class EmAdmin_GroupController extends Emerald_Cms_Controller_Action
             $groupModel->delete($group);
             $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
         } catch(Emerald_Common_Exception $e) {
-            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
         }
 
 
@@ -109,7 +109,7 @@ class EmAdmin_GroupController extends Emerald_Cms_Controller_Action
             $this->view->message->group_id = $group->id;
             	
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
             $msg->errors = $form->getMessages();
             $this->view->message = $msg;
         }

@@ -25,7 +25,7 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
             $pageModel->delete($page);
             $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Save ok');
         } catch(Emerald_Common_Exception $e) {
-            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed');
+            $this->view->message = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed');
         }
 
     }
@@ -131,12 +131,12 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
                 $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, 'Ok');
 
             } else {
-                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Failed');
+                $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Failed');
                 $msg->errors = $form->getMessages();
             }
 
         } else {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Failed');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Failed');
         }
         $this->view->message = $msg;
     }
@@ -192,7 +192,7 @@ class EmAdmin_PageController extends Emerald_Cms_Controller_Action
 
         if(!$form->isValid($this->_getAllParams())) {
             	
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, 'Save failed.');
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, 'Save failed.');
             $msg->errors = $form->getMessages();
             	
         } else {

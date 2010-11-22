@@ -27,7 +27,7 @@ class EmAdmin_CacheController extends Emerald_Cms_Controller_Action
             $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::SUCCESS, "All caches were cleared.");
             	
         } catch(Exception $e) {
-            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::ERROR, "Cleaning the caches failed.");
+            $msg = new Emerald\Base\Messaging\Message(Emerald\Base\Messaging\Message::FAILURE, "Cleaning the caches failed.");
         }
 
         $this->view->message = $msg;
