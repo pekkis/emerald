@@ -13,6 +13,8 @@ use \Imagick;
  */
 class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVersionProvider
 {
+    const IMAGEMAGICK_LIFETIME = 5;
+    
     protected $_providesFor = array('image');
 
     /**
@@ -71,7 +73,8 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
             throw new Exception('File must be an image');
         }
    
-        $img = new Imagick($this->getFilelib()->getStorage()->retrieve($file)->getPathname());
+        // $img = new Imagick($this->getFilelib()->getStorage()->retrieve($file)->getPathname());
+        $img = $this->_getImageMagick($file);
         
         $scaleOptions = $this->getScaleOptions();
         $scaleMethod = $scaleOptions['method'];
@@ -90,5 +93,39 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         return $tmp;
         
     }
+    
+    
+    private function _getImageMagick(\Emerald\Filelib\File\File $file)
+    {
+        static $imageMagicks = array();
+
+        $unixNow = time();
+        
+        $deletions = array();
+        foreach($imageMagicks as $key => $im) {
+            if($im['last_access'] < ($unixNow - self::IMAGEMAGICK_LIFETIME)) {
+                $deletions[] = $key;
+            }
+        }
+        
+        foreach($deletions as $deletion) {
+            // \Zend_Debug::dump('deleting poo poo');
+            unset($imageMagicks[$key]);
+        }
+        
+        
+        if(!isset($imageMagicks[$file->getId()])) {
+            $imageMagicks[$file->getId()] = array(
+                'obj' => new Imagick($this->getFilelib()->getStorage()->retrieve($file)->getPathname()),
+                'last_access' => 0,
+            );
+        }
+
+        $imageMagicks[$file->getId()]['last_access'] = $unixNow;
+        
+        
+        return $imageMagicks[$file->getId()]['obj']->clone();
+    }
+    
 
 }
