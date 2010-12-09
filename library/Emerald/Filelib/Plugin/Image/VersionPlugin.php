@@ -79,13 +79,19 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         $scaleOptions = $this->getScaleOptions();
         $scaleMethod = $scaleOptions['method'];
         unset($scaleOptions['method']);
-
+        
+        $this->beforeSetOptions($img);
+        
         foreach($this->getImageMagickOptions() as $key => $value) {
             $method = "set" . $key;
             $img->$method($value);
         }
 
+        $this->beforeScale($img);
+        
         call_user_func_array(array($img, $scaleMethod), $scaleOptions);
+
+        $this->afterScale($img);
         
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $img->writeImage($tmp);
@@ -126,6 +132,14 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         
         return $imageMagicks[$file->getId()]['obj']->clone();
     }
-    
+
+    public function beforeSetOptions(Imagick $img)
+    { }
+        
+    public function beforeScale(Imagick $img)
+    { }
+        
+    public function afterScale(Imagick $img)
+    { }
 
 }

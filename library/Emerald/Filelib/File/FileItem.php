@@ -181,5 +181,12 @@ class FileItem implements File
         
     }
 
+    
+    
+    public function __call($method, $args)
+    {
+        array_unshift($args, $this);
+        return call_user_func_array(array($this->getFilelib()->file(), $method), $args);
+    }
 
 }
