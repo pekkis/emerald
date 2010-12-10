@@ -250,30 +250,18 @@ class FileLibrary
      * @param \Emerald\Filelib\Plugin\Plugin Plugin $plugin
      * @return \Emerald\Filelib\FileLibrary
      */
-    public function addPlugin(Plugin\Plugin $plugin)
+    public function addPlugin(Plugin\Plugin $plugin, $priority = 1000)
     {
         $plugin->setFilelib($this);
 
         foreach($plugin->getProfiles() as $profileIdentifier) {
             $profile = $this->file()->getProfile($profileIdentifier);
-            $profile->addPlugin($plugin);
+            $profile->addPlugin($plugin, $priority);
         }
-
-        $this->_plugins[] = $plugin;
 
         $plugin->init();
 
         return $this;
-    }
-
-    /**
-     * Returns all plugins
-     *
-     * @return array Array of plugins
-     */
-    public function getPlugins()
-    {
-        return $this->_plugins;
     }
 
     /**

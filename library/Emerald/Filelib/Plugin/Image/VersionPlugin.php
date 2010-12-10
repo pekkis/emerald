@@ -17,11 +17,40 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
     
     protected $_providesFor = array('image');
 
+    protected $_plugins = array();
+    
     /**
      * @var array Scale options
      */
     protected $_scaleOptions = array();
 
+    
+    public function addPlugin(VersionPlugin\Plugin $plugin)
+    {
+        $this->_plugins[] = $plugin;
+    }
+    
+    
+    public function getPlugins()
+    {
+        return $this->_plugins;
+    }
+    
+    
+    public function setPlugins(array $plugins = array())
+    {
+        foreach($plugins as $plugin)
+        {
+            $plugin = new $plugin['type']($plugin);
+            $this->addPlugin($plugin);
+        }
+
+    }
+    
+    
+    
+    
+    
     /**
      * Sets ImageMagick options
      *
@@ -80,18 +109,24 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         $scaleMethod = $scaleOptions['method'];
         unset($scaleOptions['method']);
         
-        $this->beforeSetOptions($img);
+        foreach($this->getPlugins() as $plugin) {
+            $plugin->beforeSetOptions($img);    
+        }
         
         foreach($this->getImageMagickOptions() as $key => $value) {
             $method = "set" . $key;
             $img->$method($value);
         }
 
-        $this->beforeScale($img);
-        
+        foreach($this->getPlugins() as $plugin) {
+            $plugin->beforeScale($img);    
+        }
+                
         call_user_func_array(array($img, $scaleMethod), $scaleOptions);
 
-        $this->afterScale($img);
+        foreach($this->getPlugins() as $plugin) {
+            $plugin->afterScale($img);    
+        }
         
         $tmp = $this->getFilelib()->getTempDir() . '/' . tmpfile();
         $img->writeImage($tmp);
@@ -133,13 +168,5 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         return $imageMagicks[$file->getId()]['obj']->clone();
     }
 
-    public function beforeSetOptions(Imagick $img)
-    { }
-        
-    public function beforeScale(Imagick $img)
-    { }
-        
-    public function afterScale(Imagick $img)
-    { }
 
 }

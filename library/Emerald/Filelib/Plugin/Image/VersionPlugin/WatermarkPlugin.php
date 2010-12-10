@@ -1,46 +1,89 @@
 <?php
 
-namespace Emerald\Filelib\Plugin\Image;
+namespace Emerald\Filelib\Plugin\Image\VersionPlugin;
 
 use \Imagick;
 
-class WatermarkedVersionPlugin extends VersionPlugin
+/**
+ * Watermarks an image version
+ * 
+ * @author pekkis
+ *
+ */
+class WatermarkPlugin extends AbstractPlugin
 {
-    
+    /**
+     * @var string Watermark image
+     */
     protected $_watermarkImage = null;
     
+    /**
+     * @var string Watermark position
+     */
     protected $_watermarkPosition = 'sw';
     
+    /**
+     * @var integer Watermark padding
+     */
     protected $_watermarkPadding = 0;
-    
-    
+        
+    /**
+     * Sets watermark image
+     * 
+     * @param string $image
+     */
     public function setWatermarkImage($image)
     {
         $this->_watermarkImage = $image;
     }
     
+    /**
+     * Returns watermark image
+     * 
+     * @return string
+     */
     public function getWatermarkImage()
     {
         return $this->_watermarkImage;
     }
         
+    /**
+     * Sets watermark position (nw, ne, se or sw)
+     * 
+     * @param string $position
+     */
     public function setWatermarkPosition($position)
     {
         $this->_watermarkPosition = $position;
     }
     
     
+    /**
+     * Returns watermark position
+     * 
+     * @return string
+     */
     public function getWatermarkPosition()
     {
         return $this->_watermarkPosition;
     }
     
     
+    /**
+     * Sets padding for watermark image (in pixels)
+     * 
+     * @param int $padding
+     */
     public function setWatermarkPadding($padding)
     {
         $this->_watermarkPadding = $padding;
     }
     
+    /**
+     * Returns padding for watermark image (in pixels)
+     * 
+     * @return integer
+     */
     public function getWatermarkPadding()
     {
         return $this->_watermarkPadding;
@@ -97,7 +140,5 @@ class WatermarkedVersionPlugin extends VersionPlugin
 		return;
     }
     
-    
-    
-    
+  
 }

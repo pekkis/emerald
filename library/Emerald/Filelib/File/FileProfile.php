@@ -2,6 +2,8 @@
 
 namespace Emerald\Filelib\File;
 
+use \Emerald\Filelib\Plugin\PriorityQueue;
+
 /**
  * File profile
  * 
@@ -187,7 +189,7 @@ class FileProfile
      * @param \Emerald\Filelib\Plugin\Plugin Plugin $plugin
      * @return \Emerald\Filelib\File\FileProfile
      */
-    public function addPlugin(\Emerald\Filelib\Plugin\Plugin $plugin)
+    public function addPlugin(\Emerald\Filelib\Plugin\Plugin $plugin, $priority = 1000)
     {
         $this->_plugins[] = $plugin;
         return $this;
