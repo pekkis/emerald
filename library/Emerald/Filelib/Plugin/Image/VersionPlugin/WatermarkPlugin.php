@@ -26,6 +26,9 @@ class WatermarkPlugin extends AbstractPlugin
      * @var integer Watermark padding
      */
     protected $_watermarkPadding = 0;
+    
+    protected $_watermark;
+    
         
     /**
      * Sets watermark image
@@ -96,7 +99,7 @@ class WatermarkPlugin extends AbstractPlugin
             return;
         }
         
-        $watermark = new Imagick($this->getWatermarkImage());
+        $watermark = $this->_getWatermark(); 
         
         $imageWidth 		= $img->getImageWidth();
 	    $imageHeight 		= $img->getImageHeight();
@@ -140,5 +143,13 @@ class WatermarkPlugin extends AbstractPlugin
 		return;
     }
     
+    
+    protected function _getWatermark()
+    {
+        if(!$this->_watermark) {
+            $this->_watermark = new Imagick($this->getWatermarkImage());    
+        }
+        return $this->_watermark;
+    }
   
 }

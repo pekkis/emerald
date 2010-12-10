@@ -156,10 +156,15 @@ class VersionPlugin extends \Emerald\Filelib\Plugin\VersionProvider\AbstractVers
         
         
         if(!isset($imageMagicks[$file->getId()])) {
+
+            $img = new Imagick($this->getFilelib()->getStorage()->retrieve($file)->getPathname());
+            
             $imageMagicks[$file->getId()] = array(
-                'obj' => new Imagick($this->getFilelib()->getStorage()->retrieve($file)->getPathname()),
+                'obj' => $img,
                 'last_access' => 0,
             );
+            
+            
         }
 
         $imageMagicks[$file->getId()]['last_access'] = $unixNow;

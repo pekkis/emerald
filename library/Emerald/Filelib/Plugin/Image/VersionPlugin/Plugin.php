@@ -12,6 +12,8 @@ use \Imagick;
  */
 interface Plugin
 {
+    
+    
     /**
      * Pre-scale processing
      * 
