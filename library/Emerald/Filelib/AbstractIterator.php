@@ -7,6 +7,7 @@ namespace Emerald\Filelib;
  *
  * @package Emerald_Filelib
  * @author pekkis
+ * @todo Maybe use Doctrine's collections or some other ready-made stuff
  *
  */
 abstract class AbstractIterator extends \ArrayIterator
@@ -17,7 +18,6 @@ abstract class AbstractIterator extends \ArrayIterator
         if(!is_array($array)) {
             $array = array($array);
         }
-
         parent::__construct($array);
     }
 

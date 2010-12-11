@@ -154,7 +154,7 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
         $this->getBackend()->updateFile($file);
         $this->storeCached($file->getId(), $file);
 
-        if($this->isAnonymousReadable($file)) {
+        if($this->isReadableByAnonymous($file)) {
             $this->publish($file);
         }
 
@@ -215,9 +215,9 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
      * @param \Emerald\Filelib\File\File $file File
      * @return boolean
      */
-    public function isAnonymousReadable(\Emerald\Filelib\File\File $file)
+    public function isReadableByAnonymous(\Emerald\Filelib\File\File $file)
     {
-        return $this->getFilelib()->getAcl()->isAnonymousReadable($file);
+        return $this->getFilelib()->getAcl()->isReadableByAnonymous($file);
 
     }
 
@@ -327,7 +327,7 @@ class FileOperator extends \Emerald\Filelib\AbstractOperator
                 $upload = $plugin->afterUpload($file);
             }
 
-            if($this->getFilelib()->getAcl()->isAnonymousReadable($file)) {
+            if($this->isReadableByAnonymous($file)) {
                 $this->publish($file);
             }
             

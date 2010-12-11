@@ -1,6 +1,6 @@
 <?php
 /**
- * Stores the version identifiers of different Emerald components
+ * Stores the version identifiers of Emerald CMS components
  *
  * @package Emerald_Cms_Version
  * @author pekkis
@@ -9,23 +9,35 @@
  */
 final class Emerald_Cms_Version
 {
-    const VERSION = '3.0.0-milestone1';
+    /**
+     * Current Emerald CMS version
+     */
+    const VERSION = '3.0.0-alpha1-dev';
 
+    /**
+     * Current jQuery version
+     */
     const JQUERY_VERSION = '1.4.2';
 
+    /**
+     * Current jQuery UI version
+     */
     const JQUERY_UI_VERSION = '1.8.5';
 
     /**
-     * Compare the specified Emerald version string $version
-     * with the current version of Emerald.
+     * Compares a Emerald CMS version with the current one.
      *
-     * @param string $version Version string
-     * @return integer
-     *
+     * @param string $version Emerald CMS version to compare.
+     * @return int Returns -1 if older, 0 if it is the same, 1 if version 
+     *             passed as argument is newer.
      */
-    public static function compareVersion($version)
+    public static function compare($version)
     {
-        return version_compare($version, strtolower(self::VERSION));
+        $currentVersion = str_replace(' ', '', strtolower(self::VERSION));
+        $version = str_replace(' ', '', $version);
+        return version_compare($version, $currentVersion);
     }
-
+        
 }
+
+

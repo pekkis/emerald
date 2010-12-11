@@ -121,17 +121,11 @@ class FileItem implements File
     {
         return $this->_link;
     }
-
+    
     public function getProfileObject()
     {
         return $this->getFilelib()->file()->getProfile($this->getProfile());
     }
-    
-    public function getType()
-    {
-        return $this->getFilelib()->file()->getType($this);
-    }
-    
     
     public function getDateUploaded()
     {
@@ -183,6 +177,14 @@ class FileItem implements File
 
     
     
+    
+    /**
+     * Delegate all unknown calls to fileoperator for a more fluent interface
+     * 
+     * @param string $method
+     * @param array $args
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         array_unshift($args, $this);

@@ -96,7 +96,7 @@ abstract class AbstractVersionProvider extends \Emerald\Filelib\Plugin\AbstractP
      */
     public function providesFor(\Emerald\Filelib\File\File $file)
     {
-        if(in_array($file->getType(), $this->getProvidesFor())) {
+        if(in_array($this->getFilelib()->file()->getType($file), $this->getProvidesFor())) {
             if(in_array($file->getProfile(), $this->getProfiles())) {
                 return true;
             }

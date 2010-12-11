@@ -24,7 +24,7 @@ class SimpleAcl implements Acl
     }
 
 
-    public function isAnonymousReadable($resource)
+    public function isReadableByAnonymous($resource)
     {
         return true;
     }

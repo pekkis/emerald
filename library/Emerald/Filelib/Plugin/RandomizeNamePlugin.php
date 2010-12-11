@@ -4,7 +4,7 @@ namespace Emerald\Filelib\Plugin;
 
 /**
  * Randomizes all uploads' file names before uploading. Ensures that same file may be uploaded
- * to the same directory many times.
+ * to the same directory time and again
  *
  * @package Emerald_Filelib
  * @author pekkis
@@ -14,7 +14,7 @@ class RandomizeNamePlugin extends \Emerald\Filelib\Plugin\AbstractPlugin
 {
 
     /**
-     * @var string Prefix for uniqid()
+     * @var string Prefix (for uniqid)
      */
     protected $_prefix = '';
 

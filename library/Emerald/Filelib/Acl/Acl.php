@@ -13,25 +13,25 @@ interface Acl
 {
 
     /**
-     * Returns whether a resource is readable
+     * Returns whether a folderitem or fileitem is readable
      * 
      * @param mixed $resource
      */
     public function isReadable($resource);
 
     /**
-     * Returns whether a resource is writeable
+     * Returns whether a folderitem or fileitem is writeable
      * 
      * @param mixed $resource
      */
     public function isWriteable($resource);
 
     /**
-     * Returns whether a resource is readable by anonymous users
+     * Returns whether a folderitem or fileitem is readable by anonymous user
      * 
      * @param mixed $resource
      */
-    public function isAnonymousReadable($resource);
+    public function isReadableByAnonymous($resource);
 
 
 }

@@ -18,6 +18,11 @@ abstract class AbstractOperator
      */
     protected $_cachePrefix = '';
     
+    /**
+     * Filelib reference
+     * 
+     * @var \Emerald\Filelib\FileLibrary
+     */
     protected $_filelib;
     
     public function __construct(\Emerald\Filelib\FileLibrary $filelib)
@@ -45,7 +50,6 @@ abstract class AbstractOperator
         return $this->_filelib;
     }
     
-    
     /**
      * Returns cache
      * 
@@ -69,7 +73,6 @@ abstract class AbstractOperator
         }
         return $this->_cachePrefix . '_' . $id;
     }
-
 
     /**
      * Tries to load folder from cache, returns object on success.
@@ -114,8 +117,6 @@ abstract class AbstractOperator
     {
         return $this->getFilelib()->folder()->getInstance($data);
     }
-    
-    
         
     /**
      * Transforms raw array to file item

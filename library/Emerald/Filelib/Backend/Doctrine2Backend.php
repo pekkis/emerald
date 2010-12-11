@@ -34,12 +34,22 @@ class Doctrine2Backend extends AbstractBackend
     private $_em;
 
     
+    /**
+     * Sets the fully qualified file entity classname
+     * 
+     * @param string $fileEntityName
+     */
     public function setFileEntityName($fileEntityName)
     {
         $this->_fileEntityName = $fileEntityName;
     }
     
     
+    /**
+     * Returns the fully qualified file entity classname
+     * 
+     * @return string
+     */
     public function getFileEntityName()
     {
         return $this->_fileEntityName;
@@ -47,12 +57,22 @@ class Doctrine2Backend extends AbstractBackend
     
     
     
+    /**
+     * Sets the entity manager
+     * 
+     * @param \Doctrine\Orm\EntityManager $em
+     */
     public function setEntityManager(\Doctrine\Orm\EntityManager $em)
     {
         $this->_em = $em;
     }
     
     
+    /**
+     * Returns the entity manager
+     * 
+     * @return null
+     */
     public function getEntityManager()
     {
         return $this->_em;
@@ -60,20 +80,26 @@ class Doctrine2Backend extends AbstractBackend
     
     
     
+    /**
+     * Sets the fully qualified folder entity classname
+     * 
+     * @param string $folderEntityName
+     */
     public function setFolderEntityName($folderEntityName)
     {
         $this->_folderEntityName = $folderEntityName;
     }
     
     
+    /**
+     * Returns the fully qualified folder entity classname
+     * 
+     * @return string
+     */
     public function getFolderEntityName()
     {
         return $this->_folderEntityName;
     }
-    
-    
-    public function init()
-    { }
     
     
     /**

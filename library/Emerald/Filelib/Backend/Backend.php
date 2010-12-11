@@ -107,11 +107,9 @@ interface Backend
      * @throws \Emerald\Filelib\FilelibException When fails
      */
     public function updateFile(\Emerald\Filelib\File\File $file);
-
-
     	
     /**
-     * Finds the root folder
+     * Returns the root folder. Creates it if it does not exist.
      *
      * @return \Emerald\Filelib\Folder\Folder
      */

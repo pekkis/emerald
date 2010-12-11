@@ -15,14 +15,29 @@ use \MongoDb, \MongoId, \MongoDate, \DateTime;
 class MongoBackend extends AbstractBackend implements Backend
 {
     
+    /**
+     * MongoDB reference
+     * 
+     * @var \MongoDB
+     */
     private $_mongo;
     
+    /**
+     * Sets MongoDB
+     * 
+     * @param \MongoDB $mongo
+     */
     public function setMongo(\MongoDB $mongo)
     {
         $this->_mongo = $mongo;
     }
     
     
+    /**
+     * Returns MongoDB
+     * 
+     * @return \MongoDB
+     */
     public function getMongo()
     {
         return $this->_mongo;
@@ -45,7 +60,7 @@ class MongoBackend extends AbstractBackend implements Backend
             return false;
         }
         
-        $this->_addId($doc);    
+        $this->_mongoToFilelib($doc);    
                 
         return $doc;
     }
@@ -65,7 +80,7 @@ class MongoBackend extends AbstractBackend implements Backend
         $ret = array();
         
         foreach($res as $row) {
-            $this->_addId($row);
+            $this->_mongoToFilelib($row);
             $ret[] = $row;
         }
         
@@ -90,7 +105,7 @@ class MongoBackend extends AbstractBackend implements Backend
         foreach($res as $row) {
 
             $file = $row;
-            $this->_addId($file);
+            $this->_mongoToFilelib($file);
             $files[] = $file;
         }
                 
@@ -114,7 +129,7 @@ class MongoBackend extends AbstractBackend implements Backend
             return false;
         }
                 
-        $this->_addId($file);    
+        $this->_mongoToFilelib($file);    
         return $file;
     }
     
@@ -135,7 +150,7 @@ class MongoBackend extends AbstractBackend implements Backend
         foreach($res as $row) {
 
             $file = $row;
-            $this->_addId($file);
+            $this->_mongoToFilelib($file);
             $files[] = $file;
         }
                 
@@ -167,7 +182,7 @@ class MongoBackend extends AbstractBackend implements Backend
             
             $this->getMongo()->files->ensureIndex(array('folder_id' => 1, 'name' => 1), array('unique' => true));
                        
-            $this->_addId($file);
+            $this->_mongoToFilelib($file);
                         
             return $file;
             
@@ -231,7 +246,7 @@ class MongoBackend extends AbstractBackend implements Backend
     public function updateFolder(\Emerald\Filelib\Folder\Folder $folder)
     {
     	$arr = $folder->toArray();
-        $this->_stripId($arr);
+        $this->_filelibToMongo($arr);
     	
         $this->getMongo()->folders->update(array('_id' => new MongoId($folder->getId())), $arr);
         
@@ -249,7 +264,7 @@ class MongoBackend extends AbstractBackend implements Backend
     public function updateFile(\Emerald\Filelib\File\File $file)
     {
         $arr = $file->toArray();
-        $this->_stripId($arr);
+        $this->_filelibToMongo($arr);
                 
         $this->getMongo()->files->update(array('_id' => new MongoId($file->getId())), $arr);
         return $file;
@@ -282,14 +297,19 @@ class MongoBackend extends AbstractBackend implements Backend
         }
         
                             
-       $this->_addId($root);
+       $this->_mongoToFilelib($root);
        return $root;
     }
     
     
     
     
-    private function _addId(&$data)
+    /**
+     * Processes mongo data to fit Filelib requirements
+     * 
+     * @param array $data
+     */
+    private function _mongoToFilelib(array &$data)
     {
         $data['id'] = $data['_id']->__toString();
         
@@ -300,7 +320,12 @@ class MongoBackend extends AbstractBackend implements Backend
     }
     
     
-    private function _stripId(&$data)
+    /**
+     * Processes Filelib data to fit Mongo requirements
+     * 
+     * @param array $data
+     */
+    private function _filelibToMongo(array &$data)
     {
         unset($data['id']);
         if(isset($data['date_uploaded'])) {

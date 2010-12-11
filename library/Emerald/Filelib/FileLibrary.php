@@ -62,16 +62,17 @@ class FileLibrary
      * @var string
      */
     private $_tempDir;
-    
-    
 
     public function __construct($options = array())
     {
         Options::setConstructorOptions($this, $options);
+        $this->_folderOperator = new Folder\FolderOperator($this);
+        $this->_fileOperator = new File\FileOperator($this);
     }
     
     /**
-     * Returns temp dir for filelib
+     * Returns temporary directory
+     * 
      * @return string
      */
     public function getTempDir()
@@ -80,7 +81,8 @@ class FileLibrary
     }
     
     /**
-     * Sets temp dir for filelib
+     * Sets temporary directory
+     * 
      * @param string $tempDir
      */
     public function setTempDir($tempDir)
@@ -90,6 +92,7 @@ class FileLibrary
 
     /**
      * Sets cache
+     * 
      * @param \Emerald\Base\Cache\Cache $cache
      * @return \Emerald\Filelib\FileLibrary
      */
@@ -100,7 +103,8 @@ class FileLibrary
     }
 
     /**
-     * Returns cache. If cache does not exist, init a black hole cache
+     * Returns cache. If cache does not exist, init a mock cache
+     * 
      * @return \Zend_Cache_Core
      */
     public function getCache()
@@ -112,29 +116,22 @@ class FileLibrary
     }
 
     /**
-     * Returns the file operator
+     * Returns file operator
      * 
      * @return \Emerald\Filelib\File\FileOperator
      */
     public function file()
     {
-        if(!$this->_fileOperator) {
-            $this->_fileOperator = new File\FileOperator($this);
-        }
         return $this->_fileOperator;
     }
 
     /**
-     * Returns the folder operator
+     * Returns folder operator
      * 
      * @return \Emerald\Filelib\Folder\FolderOperator
      */
     public function folder()
     {
-        if(!$this->_folderOperator) {
-            $this->_folderOperator = new Folder\FolderOperator($this);
-        }
-
         return $this->_folderOperator;
     }
 
@@ -253,14 +250,11 @@ class FileLibrary
     public function addPlugin(Plugin\Plugin $plugin, $priority = 1000)
     {
         $plugin->setFilelib($this);
-
         foreach($plugin->getProfiles() as $profileIdentifier) {
             $profile = $this->file()->getProfile($profileIdentifier);
             $profile->addPlugin($plugin, $priority);
         }
-
         $plugin->init();
-
         return $this;
     }
 
