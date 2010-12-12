@@ -52,17 +52,20 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
 
             $backendOptions = $this->_handleBackendOptions($backendOptions);
 
-            $filelib = new Emerald\Filelib\FileLibrary($options);
+            $config = new Emerald\Filelib\Configuration($options);
+            if(isset($options['tempDir'])) {
+                $config->setTempDir($options['tempDir']);
+            }
             
             $backend = new $backendOptions['type']($backendOptions['options']);
-            $filelib->setBackend($backend);
+            $config->setBackend($backend);
             
             $storageOptions = $this->_handleStorageOptions($storageOptions);
             $storage = new $storageOptions['type']($storageOptions['options']);
-            $filelib->setStorage($storage);
+            $config->setStorage($storage);
             
             $publisher = new $publisherOptions['type']($publisherOptions['options']);
-            $filelib->setPublisher($publisher);                
+            $config->setPublisher($publisher);                
                         
             if (!isset($options['profiles'])) {
                 $options['profiles'] = array('default' => 'Default profile');
@@ -73,21 +76,21 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
                 unset($poptions['linker']);
 
                 $linker = new $linkerOptions['class']($linkerOptions['options']);
-                $linker->setFilelib($filelib);
 
                 $profile = new Emerald\Filelib\File\FileProfile($poptions);
                 $profile->setLinker($linker);
-                $filelib->file()->addProfile($profile);
+
+                $config->addProfile($profile);
             }
             	
             if (isset($options['plugins'])) {
                 foreach ($options['plugins'] as $plugin) {
                     // If no profiles are defined, use in all profiles.
                     if (!isset($plugin['profiles'])) {
-                        $plugin['profiles'] = array_keys($filelib->file()->getProfiles());
+                        $plugin['profiles'] = array_keys($config->file()->getProfiles());
                     }
                     $plugin = new $plugin['type']($plugin);
-                    $filelib->addPlugin($plugin);
+                    $config->addPlugin($plugin);
                 }
             }
             	
@@ -95,10 +98,13 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
                 
                 $cacheAdapter = new \Emerald\Base\Cache\Adapter\ZendCacheAdapter();
                 $cacheAdapter->setCache($cache);
-                $filelib->setCache($cacheAdapter);
+                $config->setCache($cacheAdapter);
             }
-            	
-            $this->_filelib = $filelib;
+
+            
+            
+            $this->_filelib = new \Emerald\Filelib\FileLibrary($config);
+            
         }
 
         return $this->_filelib;
