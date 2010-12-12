@@ -60,9 +60,14 @@ class Emerald_Cms_Application_Resource_Emacl extends Zend_Application_Resource_R
             	
             $aclHandler->setRole($user);
             	
+            
+                        
             $filelib->setAcl($aclHandler);
-            $filelib->setFileItemClass("EmCore_Model_FileItem");
-            $filelib->setFolderItemClass("EmCore_Model_FolderItem");
+            $filelib->setFileItemClass("\EmCore_Model_FileItem");
+            $filelib->setFolderItemClass("\EmCore_Model_FolderItem");
+            
+            
+            
         }
         
         Zend_Registry::set('Emerald_Acl', $acl);

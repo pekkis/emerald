@@ -88,7 +88,7 @@ $this->headScript()->appendFile(EMERALD_URL_BASE_LIB . '/lib/em-admin/filelib/in
 <?php endif; ?>
 <br />
 Versions:
-<?php foreach($file->getFilelib()->getProfile($file->getProfile())->getFileVersions($file) as $fv): ?>
+<?php foreach($file->getFilelib()->file()->getProfile($file->getProfile())->getFileVersions($file) as $fv): ?>
 <a href="<?php echo $this->url(array('module' => 'em-filelib', 'controller' => 'file', 'action' => 'render', 'id' => $file->getId(), 'version' => $fv), 'default', true); ?>"><?php echo $fv; ?></a> 
 <?php endforeach; ?>
 

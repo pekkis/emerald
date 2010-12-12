@@ -22,7 +22,7 @@ class EmFilelib_FileController extends Zend_Controller_Action
             $opts['download'] = true;
         }
         
-        if($fl->file()->isAnonymousReadable($file)) {
+        if($fl->file()->isReadableByAnonymous($file)) {
             $url = $fl->file()->getUrl($file, $opts);
             return $this->getResponse()->setRedirect($url, 302);
         }

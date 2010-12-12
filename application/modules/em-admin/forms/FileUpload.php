@@ -17,7 +17,7 @@ class EmAdmin_Form_FileUpload extends Zend_Form
 
         $profileElm = new Zend_Form_Element_Select('profile', array('label' => 'File profile'));
 
-        foreach($fl->getProfiles() as $profile) {
+        foreach($fl->file()->getProfiles() as $profile) {
             if($profile->getSelectable()) {
                 $profileElm->addMultiOption($profile->getIdentifier(), $profile->getDescription());
             }
