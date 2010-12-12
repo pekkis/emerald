@@ -1,4 +1,7 @@
 <?php
+
+die('does not work atm');
+
 ob_start();
 
 set_include_path(realpath(dirname(__FILE__) . '/../../../../../library'));
