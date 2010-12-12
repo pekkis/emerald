@@ -103,3 +103,5 @@ ALTER TABLE emerald_page ADD COLUMN class_css varchar(255) DEFAULT NULL;
 
 ALTER TABLE emerald_filelib_file ADD COLUMN date_uploaded timestamp NOT NULL;
 
+ALTER TABLE emerald_filelib_folder DROP COLUMN visible;
+
