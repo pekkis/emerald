@@ -1,13 +1,12 @@
 <?php
 /**
- * Stores the version identifiers of Emerald CMS components
+ * Stores the version identifiers of Emerald Common components
  *
- * @package Emerald_Cms_Version
+ * @package Emerald_Common_Version
  * @author pekkis
- * @id $Id$
  *
  */
-final class Emerald_Cms_Version
+final class Emerald_Common_Version
 {
     /**
      * Current Emerald CMS version
@@ -15,19 +14,9 @@ final class Emerald_Cms_Version
     const VERSION = '3.0.0-dev';
 
     /**
-     * Current jQuery version
-     */
-    const JQUERY_VERSION = '1.4.2';
-
-    /**
-     * Current jQuery UI version
-     */
-    const JQUERY_UI_VERSION = '1.8.5';
-
-    /**
-     * Compares a Emerald CMS version with the current one.
+     * Compares a Emerald Common version with the current one.
      *
-     * @param string $version Emerald CMS version to compare.
+     * @param string $version Emerald Common version to compare.
      * @return int Returns -1 if older, 0 if it is the same, 1 if version 
      *             passed as argument is newer.
      */
