@@ -37,6 +37,9 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
                 $cache = false;
             }
            
+            // $aclOptions = $options['acl'];
+            // unset($options['acl']);
+            
             $storageOptions = $options['storage'];
             unset($options['storage']);
 
@@ -50,6 +53,8 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
             $backendOptions = $options['backend'];
             unset($options['backend']);
 
+            
+            
             $backendOptions = $this->_handleBackendOptions($backendOptions);
 
             $config = new Emerald\Filelib\Configuration($options);
@@ -101,6 +106,8 @@ class Emerald_Common_Application_Resource_Filelib extends Zend_Application_Resou
                 $config->setCache($cacheAdapter);
             }
 
+            
+            $config->setAcl(new \Emerald\Filelib\Acl\SimpleAcl());
             
             
             $this->_filelib = new \Emerald\Filelib\FileLibrary($config);
