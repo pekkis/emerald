@@ -1,0 +1,16 @@
+{
+    "hash": "14803e8402be1b31bae7a6f563fe05b7",
+    "packages": [
+        {
+            "package": "xi-project/zend-framework",
+            "version": "dev-composer",
+            "source-reference": "835430c16e37957f54424a12b25cc90aef8421d6"
+        },
+        {
+            "package": "xi-project/zend-framework-extensions",
+            "version": "dev-composer",
+            "source-reference": "8a7e3ed2627aa80e872e718d5a071253de6db422"
+        }
+    ],
+    "aliases": []
+}

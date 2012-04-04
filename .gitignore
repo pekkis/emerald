@@ -1,0 +1,6 @@
+vendor
+application/configs/emerald.ini
+data/session/*
+customers/*
+library/Zend
+library/ZendX
