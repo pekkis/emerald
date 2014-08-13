@@ -6,14 +6,14 @@
 $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
 $this->headLink(array('href' => EMERALD_URL_BASE_LIB . '/lib/em-core/emerald-icon.png', 'rel' => 'icon', 'type' => 'image/png'));
 $this->headTitle()->setSeparator(' - ')->append("Emerald Admin");
-$this->jQuery()->setCdnVersion(Emerald_Cms_Version::JQUERY_VERSION)->setUiCdnVersion(Emerald_Cms_Version::JQUERY_UI_VERSION)->enable()->uiEnable();
+$this->jQuery()->setCdnSsl(true)->setCdnVersion(Emerald_Cms_Version::JQUERY_VERSION)->setUiCdnVersion(Emerald_Cms_Version::JQUERY_UI_VERSION)->enable()->uiEnable();
 
 $this->jQuery()
 ->addJavascriptFile(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.js')
 ->addJavascriptFile(EMERALD_URL_BASE_LIB . "/lib/em-core/emerald.js");
 
 $this->jQuery()
-->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/' . Emerald_Cms_Version::JQUERY_UI_VERSION . '/themes/smoothness/jquery-ui.css')
+->addStylesheet('https://ajax.googleapis.com/ajax/libs/jqueryui/' . Emerald_Cms_Version::JQUERY_UI_VERSION . '/themes/smoothness/jquery-ui.css')
 ->addStylesheet(EMERALD_URL_BASE_LIB . '/lib/ext/jquery.jgrowl.css');
 
 $this->headLink()->prependStylesheet(EMERALD_URL_BASE_LIB . '/lib/em-admin/main.css');
